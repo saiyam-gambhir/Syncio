@@ -1,7 +1,5 @@
 <template>
-  <article>
-    <main class="main">
-      <RouterView />
-    </main>
-  </article>
+  <div class="min-h-screen flex relative lg:static surface-ground">
+    <RouterView />
+  </div>
 </template>

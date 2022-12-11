@@ -1,9 +1,7 @@
-<script setup></script>
-
 <template>
-  <article>
-    <main class="main">
+  <main class="main">
+    <div class="min-h-screen flex relative lg:static surface-ground">
       <RouterView />
-    </main>
-  </article>
+    </div>
+  </main>
 </template>

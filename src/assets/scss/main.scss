@@ -1,7 +1,7 @@
 :root {
   --primary-color :#0E3B4D;
   --primary-color-text: #ffffff;
-  --font-family: 'Inter Tight', sans-serif;
+  --font-family: 'Inter Tight', sans-serif !important;
   --content-padding: 1rem;
   --inline-spacing: 0.5rem;
   --border-radius:4px;
@@ -29,4 +29,31 @@
 
 body {
   font-weight: 400;
+  font-family: 'Inter Tight', sans-serif;
+}
+
+/* ===== BUTTONS ===== */
+.p-button {
+  background: #0E3B4D;
+  border-color: #0E3B4D;
+
+  &:enabled:hover {
+    background: #1C4E62;
+    border-color: #1C4E62;
+  }
+}
+
+.hover-primary {
+  &.active {
+    background: #1C4E62;
+  }
+
+  &:hover {
+    background: #1C4E62;
+  }
+}
+
+.p-tooltip .p-tooltip-text {
+  font-size: 14px;
+  padding: .5rem;
 }

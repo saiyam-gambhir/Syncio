@@ -1,11 +1,16 @@
 import { createApp } from 'vue'
-import { createPinia } from 'pinia'
 import App from './App.vue'
+import { createPinia } from 'pinia'
+import { useAuthStore } from '@/stores/auth'
 import PrimeVue from 'primevue/config'
+import Button from 'primevue/button'
+import InputText from 'primevue/inputText'
+import Tooltip from 'primevue/tooltip'
 import router from './router'
 import axios from 'axios'
 import { DateTime } from 'luxon'
-import { useAuthStore } from '@/stores/auth'
+
+/* ==== STYLES ===== */
 import 'primevue/resources/themes/lara-light-blue/theme.css'
 import 'primevue/resources/primevue.min.css'
 import 'primeicons/primeicons.css'
@@ -21,8 +26,19 @@ $https.defaults.headers.common['x-syncio-app-id'] = import.meta.env.VITE_APP_ID
 
 /* ===== CREATE APP AND USE DEPENDENCIES ===== */
 const app = createApp(App)
-app.use(createPinia()).use(router).use(PrimeVue, { ripple: true }, { inputStyle: 'filled' }).mount('#app')
+app
+.use(createPinia())
+.use(router)
+.use(PrimeVue, { ripple: true })
+.mount('#app')
 
+/* ===== PRIME VUE COMPONENTS ===== */
+app
+.component('Button', Button)
+.component('InputText', InputText)
+.directive('tooltip', Tooltip)
+
+/* ==== BINDING TO VUE INSTANCE ===== */
 const auth = useAuthStore()
 app.config.globalProperties.DateTime = DateTime
 auth.$https = $https
