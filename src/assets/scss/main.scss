@@ -1,5 +1,5 @@
 :root {
-  --primary-color :#0E3B4D;
+  --primary-color :#0E3B4D !important;
   --primary-color-text: #ffffff;
   --font-family: 'Inter Tight', sans-serif !important;
   --content-padding: 1rem;
@@ -30,6 +30,12 @@
 body {
   font-weight: 400;
   font-family: 'Inter Tight', sans-serif;
+  letter-spacing: 1px;
+}
+
+h1, h2, h3 {
+  font-weight: 600;
+  margin-top: 0;
 }
 
 /* ===== BUTTONS ===== */
@@ -38,8 +44,8 @@ body {
   border-color: #0E3B4D;
 
   &:enabled:hover {
-    background: #1C4E62;
-    border-color: #1C4E62;
+    background: rgba(14, 59, 77, .75);
+    border-color: rgba(14, 59, 77, .75);
   }
 }
 
@@ -53,7 +59,32 @@ body {
   }
 }
 
-.p-tooltip .p-tooltip-text {
-  font-size: 14px;
-  padding: .5rem;
+.router-link-active {
+  background: var(--primary-color-text);
+  color: var(--primary-color) !important;
+  font-weight: 600 !important;
+
+  &:hover {
+    background: var(--primary-color-text) !important;
+    color: var(--primary-color) !important;
+  }
+}
+
+.p-tooltip {
+  .p-tooltip-text {
+    font-size: 12px;
+    padding: .5rem;
+    background: #1C4E62;
+    font-weight: 600;
+  }
+
+  .p-tooltip-arrow {
+    border-right-color: #1C4E62 !important;
+  }
+}
+
+.page-header {
+  .p-card-content {
+    padding: 0;
+  }
 }

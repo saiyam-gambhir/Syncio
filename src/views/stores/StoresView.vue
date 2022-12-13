@@ -4,7 +4,7 @@ import PageHeader from '@/components/shared/PageHeader.vue'
 
 <template>
 	<PageHeader
-		content="Get the most out of Syncio so you can focus on growing your business."
-		title="Welcome">
+		content="Connect and manage your stores."
+		title="Stores">
 	</PageHeader>
 </template>

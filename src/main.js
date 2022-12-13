@@ -2,10 +2,14 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import { createPinia } from 'pinia'
 import { useAuthStore } from '@/stores/auth'
+
 import PrimeVue from 'primevue/config'
 import Button from 'primevue/button'
+import Card from 'primevue/card'
 import InputText from 'primevue/inputText'
+import Ripple from 'primevue/ripple'
 import Tooltip from 'primevue/tooltip'
+
 import router from './router'
 import axios from 'axios'
 import { DateTime } from 'luxon'
@@ -35,8 +39,10 @@ app
 /* ===== PRIME VUE COMPONENTS ===== */
 app
 .component('Button', Button)
+.component('Card', Card)
 .component('InputText', InputText)
 .directive('tooltip', Tooltip)
+.directive('ripple', Ripple)
 
 /* ==== BINDING TO VUE INSTANCE ===== */
 const auth = useAuthStore()
