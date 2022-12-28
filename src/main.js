@@ -15,7 +15,8 @@ import axios from 'axios'
 import { DateTime } from 'luxon'
 
 /* ==== STYLES ===== */
-import 'primevue/resources/themes/lara-light-blue/theme.css'
+//import 'primevue/resources/themes/lara-light-blue/theme.css'
+import './theme/theme-light.css'
 import 'primevue/resources/primevue.min.css'
 import 'primeicons/primeicons.css'
 import '/node_modules/primeflex/primeflex.css'

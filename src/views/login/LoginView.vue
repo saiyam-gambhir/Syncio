@@ -3,11 +3,10 @@ import { useAuthStore } from '@/stores/auth'
 import Logo from '@/icons/Logo.vue'
 
 /* ===== DATA ===== */
-const auth = useAuthStore();
+const auth = useAuthStore()
 
 /* ===== METHODS ===== */
 const loginHandler = () => {
-  debugger
   auth.login({
     email: auth.email,
     password: auth.password
