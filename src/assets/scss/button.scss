@@ -1,12 +1,11 @@
 .btn-link {
   @extend .position-relative;
-  color: $primaryLink;
   font-size: 13px;
   text-decoration: none;
 
   &:before {
     @extend .content-before;
-    background: $primaryLink;
+    background: $cardBackground;
     bottom: -3px;
     height: 1px;
     left: 0;
@@ -17,6 +16,16 @@
   &:hover {
     &:before {
       @extend .w-100;
+    }
+  }
+}
+
+.theme-light {
+  .btn-link {
+    color: $primaryLink;
+
+    &:before {
+      background: $primaryLink !important;
     }
   }
 }

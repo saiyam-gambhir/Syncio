@@ -18,6 +18,7 @@ import { DateTime } from 'luxon'
 
 /* ==== STYLES ===== */
 import './theme/theme-light.css'
+//import 'primevue/resources/themes/lara-dark-indigo/theme.css'
 import 'primevue/resources/primevue.min.css'
 import 'primeicons/primeicons.css'
 import '/node_modules/primeflex/primeflex.css'
@@ -80,3 +81,7 @@ router.beforeEach(async (to, from, next) => {
     next()
   }
 })
+
+/* ===== THEME ===== */
+sessionStorage.setItem('theme', 'theme-light')
+document.querySelector('html').classList.add(sessionStorage.getItem('theme'))

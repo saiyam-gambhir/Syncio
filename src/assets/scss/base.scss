@@ -1,9 +1,12 @@
 html {
-  color: $primary;
   font-family: 'Inter Tight', sans-serif;
   font-size: 13px;
   font-weight: $fontNormal;
   letter-spacing: .05rem;
+
+  &.theme-light {
+    color: $primary;
+  }
 }
 
 h1, h2, h3 {
@@ -34,16 +37,16 @@ p {
   }
 }
 
-.surface-card {
+.theme-light .surface-card {
   background: $cardBackground;
 }
 
-.surface-ground {
+.theme-light .surface-ground {
   background: $secondaryHoverBg;
 }
 /* ===== OVERRIDES ===== */
 
-.router-link-active {
+.theme-light .router-link-active {
   background: $secondaryHoverBg;
   color: $primary !important;
   font-weight: $fontMedium;
