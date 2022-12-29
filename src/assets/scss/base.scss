@@ -1,0 +1,59 @@
+html {
+  color: $primary;
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 14px;
+  font-weight: $fontNormal;
+  letter-spacing: .05rem;
+}
+
+h1, h2, h3 {
+  font-weight: 600;
+  margin-top: 0;
+}
+
+p {
+  line-height: 20px;
+}
+
+/* ===== OVERRIDES ===== */
+.grid {
+  margin: {
+    left: -$gutter;
+    right: -$gutter;
+  };
+
+  [class*="col-"] {
+    padding: {
+      left: $gutter;
+      right: $gutter;
+    };
+  }
+}
+
+.surface-card {
+  background: $cardBackground;
+}
+/* ===== OVERRIDES ===== */
+
+.router-link-active {
+  background: $secondaryHoverBg;
+  color: $primary !important;
+  font-weight: $fontMedium;
+
+  &:hover {
+    background: rgba(233, 236, 239, 1);
+  }
+}
+
+.primary-navigation {
+  font-size: 16px;
+
+  i {
+    font-size: 16px;
+  }
+}
+
+.router-view {
+  height: calc(100vh - 60px);
+  overflow-y: auto;
+}

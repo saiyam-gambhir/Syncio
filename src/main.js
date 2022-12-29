@@ -3,20 +3,17 @@ import App from './App.vue'
 import { createPinia } from 'pinia'
 import { useAuthStore } from '@/stores/auth'
 import { useConnectionsStore } from '@/stores/connections'
-
 import PrimeVue from 'primevue/config'
 import Button from 'primevue/button'
 import Card from 'primevue/card'
 import InputText from 'primevue/inputText'
 import Ripple from 'primevue/ripple'
 import Tooltip from 'primevue/tooltip'
-
 import router from './router'
 import axios from 'axios'
 import { DateTime } from 'luxon'
 
 /* ==== STYLES ===== */
-//import 'primevue/resources/themes/lara-light-blue/theme.css'
 import './theme/theme-light.css'
 import 'primevue/resources/primevue.min.css'
 import 'primeicons/primeicons.css'

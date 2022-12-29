@@ -14,8 +14,16 @@ export const useConnectionsStore = defineStore('connections', {
   },
 
   getters: {
-    currentStoreId(state) {
+    storeId(state) {
       return state.currentStore?.id
+    },
+
+    storeKey(state) {
+      return state.currentStore?.identifier
+    },
+
+    storeType(state) {
+      return state.currentStore?.type
     }
   },
 

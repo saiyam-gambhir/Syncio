@@ -1,23 +1,4 @@
-html {
-  font-family: 'Inter Tight', sans-serif;
-  font-size: 13px;
-  font-weight: 400;
-  letter-spacing: .08rem;
-}
-
-h1, h2, h3 {
-  font-weight: 600;
-  margin-top: 0;
-}
-
-p {
-  font-size: 1.1rem;
-}
-
-.primary-navigation {
-  font-size: 16px;
-
-  i {
-    font-size: 16px;
-  }
-}
+@import './variables.scss';
+@import './utilities.scss';
+@import './base.scss';
+@import './button.scss';

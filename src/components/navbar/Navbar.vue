@@ -11,26 +11,26 @@ import NavLink from '@/components/navbar/NavLink.vue'
       </div>
 
       <div class="select-none">
-        <ul class="primary-navigation list-none p-3 m-0">
+        <ul class="primary-navigation list-none px-3 py-4 m-0">
           <li>
             <NavLink linkText="Dashboard" />
           </li>
-          <li>
+          <li class="mt-1">
             <NavLink href="/stores" iconClass="pi-link" linkText="Stores" />
           </li>
-          <li>
+          <li class="mt-1">
             <NavLink href="/products" iconClass="pi-list" linkText="Products" />
           </li>
-          <li>
+          <li class="mt-1">
             <NavLink href="/product-settings" iconClass="pi-cog" linkText="Product Settings" />
           </li>
-          <li>
+          <li class="mt-1">
             <NavLink href="/orders" iconClass="pi-file" linkText="Orders" />
           </li>
-          <li>
+          <li class="mt-1">
             <NavLink href="/payouts" iconClass="pi-dollar" linkText="Payouts (Beta)" />
           </li>
-          <li>
+          <li class="mt-1">
             <NavLink href="/activity-center" iconClass="pi-bell" linkText="Activity Center" />
           </li>
         </ul>
