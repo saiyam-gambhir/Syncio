@@ -1,5 +1,4 @@
 <script setup>
-import Card from '@/views/dashboard/components/Card.vue'
 import DashboardLeft from '@/views/dashboard/components/DashboardLeft.vue'
 import DashboardRight from '@/views/dashboard/components/DashboardRight.vue'
 import PageHeader from '@/components/shared/PageHeader.vue'

@@ -1,10 +1,13 @@
 <script setup>
+import { useDashboardStore } from '@/stores/dashboard'
 import Card from '@/views/dashboard/components/Card.vue'
+
+const { $state } = useDashboardStore()
 </script>
 
 <template>
   <section class="col-12 md:col-7 lg:col-9">
-    <Card title="Learn the basics">
+    <Card v-if="$state.learn_the_basics" title="Learn the basics" class="mb-5">
       <template #links>
         <ul class="list-none p-0 mb-0 mt-4">
           <li class="py-3 border-bottom-1 border-top-1 border-300">
@@ -23,7 +26,7 @@ import Card from '@/views/dashboard/components/Card.vue'
       </template>
     </Card>
 
-    <Card title="Helpful articles" class="mt-5">
+    <Card v-if="$state.helpful_articles" title="Helpful articles" class="mb-5">
       <template #links>
         <ul class="list-none p-0 mb-0 mt-4">
           <li class="py-3 border-bottom-1 border-top-1 border-300">
@@ -45,7 +48,7 @@ import Card from '@/views/dashboard/components/Card.vue'
       </template>
     </Card>
 
-    <Card title="Add-ons" class="mt-5">
+    <Card v-if="$state.add_ons" title="Add-ons">
       <template #links>
         <ul class="list-none p-0 mb-0 mt-4">
           <li class="py-3 border-bottom-1 border-top-1 border-300">

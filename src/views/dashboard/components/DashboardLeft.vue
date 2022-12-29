@@ -1,9 +1,19 @@
 <script setup>
+import { onMounted } from 'vue'
 import { useConnectionsStore } from '@/stores/connections'
+import { useDashboardStore } from '@/stores/dashboard'
+
+/* ===== COMPONENTS ===== */
 import Card from '@/views/dashboard/components/Card.vue'
 
 /* ===== DATA ===== */
 const connections = useConnectionsStore()
+const dashboard = useDashboardStore()
+
+/* ===== MOUNTED ===== */
+onMounted(async () => {
+	await dashboard.fetchDashboard(connections.storeId)
+})
 </script>
 
 <template>

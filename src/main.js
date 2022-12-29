@@ -3,12 +3,15 @@ import App from './App.vue'
 import { createPinia } from 'pinia'
 import { useAuthStore } from '@/stores/auth'
 import { useConnectionsStore } from '@/stores/connections'
+import { useDashboardStore } from '@/stores/dashboard'
+
 import PrimeVue from 'primevue/config'
 import Button from 'primevue/button'
 import Card from 'primevue/card'
 import InputText from 'primevue/inputText'
 import Ripple from 'primevue/ripple'
 import Tooltip from 'primevue/tooltip'
+
 import router from './router'
 import axios from 'axios'
 import { DateTime } from 'luxon'
@@ -46,8 +49,9 @@ app
 /* ==== BINDING TO VUE INSTANCE ===== */
 const auth = useAuthStore()
 const connections = useConnectionsStore()
+const dashboard = useDashboardStore()
 app.config.globalProperties.DateTime = DateTime
-auth.$https = connections.$https = $https
+auth.$https = connections.$https = dashboard.$https = $https
 
 /* ===== ACTIONS BEFORE EACH ROUTE ===== */
 router.beforeEach(async (to, from, next) => {
