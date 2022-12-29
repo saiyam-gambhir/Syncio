@@ -1,7 +1,7 @@
 html {
   color: $primary;
   font-family: 'Inter Tight', sans-serif;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: $fontNormal;
   letter-spacing: .05rem;
 }
@@ -13,6 +13,10 @@ h1, h2, h3 {
 
 p {
   line-height: 20px;
+
+  &.text-xs {
+    line-height: 18px;
+  }
 }
 
 /* ===== OVERRIDES ===== */
@@ -33,6 +37,10 @@ p {
 .surface-card {
   background: $cardBackground;
 }
+
+.surface-ground {
+  background: $secondaryHoverBg;
+}
 /* ===== OVERRIDES ===== */
 
 .router-link-active {
@@ -46,14 +54,20 @@ p {
 }
 
 .primary-navigation {
-  font-size: 16px;
+  font-size: 15px;
 
   i {
-    font-size: 16px;
+    font-size: 15px;
   }
 }
 
 .router-view {
-  height: calc(100vh - 60px);
+  @extend .w-100;
+  height: calc(100vh - $headerHeight);
+  max-width: 1600px;
   overflow-y: auto;
+}
+
+.header-height {
+  height: $headerHeight;
 }

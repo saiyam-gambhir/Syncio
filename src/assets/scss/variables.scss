@@ -2,11 +2,14 @@
 $fontBold: 700;
 $fontMedium: 600;
 $fontNormal: 400;
-$gutter: .75rem;
+$gutter: 1rem;
+$headerHeight: 60px;
 $transitionFast: 250ms;
 
 /* ===== COLORS ===== */
-$cardBackground: rgba(252, 252, 252, 1) !important;
+$cardBackground: rgba(251, 251, 251, 1) !important;
 $primary: rgba(14, 59, 77, 1);
 $primaryLink: rgba(59, 129, 245);
 $secondaryHoverBg: rgba(233, 236, 239, 1);
+$destinationIndicator: #FA757B;
+$sourceIndicator: #fcb057;

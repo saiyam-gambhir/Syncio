@@ -10,8 +10,9 @@ import Navbar from '@/components/navbar/Navbar.vue'
 
       <div class="min-h-screen flex flex-column relative flex-auto">
         <Header />
-        <div class="flex flex-auto flex-column router-view p-4">
-          <div class="border-round flex-auto surface-section p-4">
+
+        <div class="flex flex-auto flex-column router-view mx-auto">
+          <div class="flex-auto surface-section p-5">
             <RouterView />
           </div>
         </div>
