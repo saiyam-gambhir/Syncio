@@ -7,11 +7,11 @@ import NavLink from '@/components/navbar/NavLink.vue'
   <div class="surface-section h-screen hidden lg:block flex-shrink-0 absolute lg:static left-0 top-0 z-1 border-right-1 surface-border select-none" style="width: 260px;">
     <div class="flex flex-column h-full">
       <div class="flex align-items-center px-4 flex-shrink-0" style="height:60px">
-        <Logo tabindex="0" />
+        <Logo tabindex="0" class="pt-1" />
       </div>
 
       <div class="select-none">
-        <ul class="list-none p-3 m-0" style="font-size: 16px;">
+        <ul class="primary-navigation list-none p-3 m-0">
           <li>
             <NavLink linkText="Dashboard" />
           </li>

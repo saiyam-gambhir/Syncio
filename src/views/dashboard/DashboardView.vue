@@ -1,5 +1,8 @@
 <script setup>
+import { useConnectionsStore } from '@/stores/connections'
 import PageHeader from '@/components/shared/PageHeader.vue'
+
+const connections = useConnectionsStore()
 </script>
 
 <template>
@@ -9,5 +12,6 @@ import PageHeader from '@/components/shared/PageHeader.vue'
 	</PageHeader>
 
 	<div class="flex mt-4">
+		{{ connections.currentStoreId }}
 	</div>
 </template>

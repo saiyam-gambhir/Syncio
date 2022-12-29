@@ -28,7 +28,7 @@ const router = createRouter({
     {
       path: '/stores',
       name: 'stores',
-      component: () => import('@/views/stores/StoresView.vue'),
+      component: () => import('@/views/connections/ConnectionsView.vue'),
       meta: { ...meta },
     },
     {

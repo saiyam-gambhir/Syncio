@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import { createPinia } from 'pinia'
 import { useAuthStore } from '@/stores/auth'
+import { useConnectionsStore } from '@/stores/connections'
 
 import PrimeVue from 'primevue/config'
 import Button from 'primevue/button'
@@ -47,11 +48,12 @@ app
 
 /* ==== BINDING TO VUE INSTANCE ===== */
 const auth = useAuthStore()
+const connections = useConnectionsStore()
 app.config.globalProperties.DateTime = DateTime
-auth.$https = $https
+auth.$https = connections.$https = $https
 
 /* ===== ACTIONS BEFORE EACH ROUTE ===== */
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   const isAuthenticated = auth.isAuthenticated
   if(to.meta.requireAuth) {
     if(!isAuthenticated && !sessionStorage.getItem('ID_TOKEN_KEY')) {
@@ -63,8 +65,11 @@ router.beforeEach((to, from, next) => {
       // TODO: Create methods for session storage or use vueuse library
       if(sessionStorage.getItem('ID_TOKEN_KEY') && sessionStorage.getItem('USER_ID')) {
         $https.defaults.headers.common['Authorization'] = `Bearer ${sessionStorage.getItem('ID_TOKEN_KEY')}`
-        $httpsServers.defaults.headers.common['Authorization'] = `Bearer ${sessionStorage.getItem('ID_TOKEN_KEY')}`
-        if(!auth.user) auth.fetchUser(sessionStorage.getItem('USER_ID'))
+        if(!auth.user) {
+          await auth.fetchUser(sessionStorage.getItem('USER_ID'))
+          await connections.fetchCurrentStore()
+          await auth.fetchCurrentPlan(sessionStorage.getItem('USER_ID'))
+        }
       }
       next()
     }
