@@ -24,7 +24,43 @@ const router = createRouter({
       meta: {
         layout: LoggedOut
       }
-    }
+    },
+    {
+      path: '/stores',
+      name: 'stores',
+      component: () => import('@/views/connections/ConnectionsView.vue'),
+      meta: { ...meta },
+    },
+    {
+      path: '/products',
+      name: 'products',
+      component: () => import('@/views/products/ProductsView.vue'),
+      meta: { ...meta },
+    },
+    {
+      path: '/product-settings',
+      name: 'productSettings',
+      component: () => import('@/views/productSettings/ProductSettingsView.vue'),
+      meta: { ...meta },
+    },
+    {
+      path: '/orders',
+      name: 'orders',
+      component: () => import('@/views/orders/OrdersView.vue'),
+      meta: { ...meta },
+    },
+    {
+      path: '/payouts',
+      name: 'payouts',
+      component: () => import('@/views/payouts/PayoutsView.vue'),
+      meta: { ...meta },
+    },
+    {
+      path: '/activity-center',
+      name: 'activityCenter',
+      component: () => import('@/views/activityCenter/ActivityCenterView.vue'),
+      meta: { ...meta },
+    },
   ]
 })
 
