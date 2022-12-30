@@ -12,6 +12,7 @@ const dashboard = useDashboardStore()
 
 /* ===== MOUNTED ===== */
 onMounted(async () => {
+  if(dashboard.$state.success) return
 	await dashboard.fetchDashboard(connections.storeId)
 })
 </script>

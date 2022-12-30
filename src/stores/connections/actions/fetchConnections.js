@@ -5,5 +5,6 @@ export const fetchConnections = {
         ...payload
       }
     })
+    this.connections = response.data?.stores
   }
 }

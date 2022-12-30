@@ -8,7 +8,7 @@ import { fetchCurrentStore } from './actions/fetchCurrentStore'
 export const useConnectionsStore = defineStore('connections', {
   state: () => {
     return {
-      connections: null,
+      connections: [],
       currentStore: null,
     }
   },

@@ -5,10 +5,14 @@ import { useAuthStore } from '@/stores/auth'
 import { useConnectionsStore } from '@/stores/connections'
 import { useDashboardStore } from '@/stores/dashboard'
 
-import PrimeVue from 'primevue/config'
 import Button from 'primevue/button'
 import Card from 'primevue/card'
+import Column from 'primevue/column'
+import DataTable from 'primevue/dataTable'
 import InputText from 'primevue/inputText'
+import PrimeVue from 'primevue/config'
+import SpeedDial from 'primevue/speeddial'
+import Tag from 'primevue/tag'
 import Ripple from 'primevue/ripple'
 import Tooltip from 'primevue/tooltip'
 
@@ -43,9 +47,13 @@ app
 app
 .component('Button', Button)
 .component('Card', Card)
+.component('Column', Column)
+.component('DataTable', DataTable)
 .component('InputText', InputText)
-.directive('tooltip', Tooltip)
+.component('SpeedDial', SpeedDial)
+.component('Tag', Tag)
 .directive('ripple', Ripple)
+.directive('tooltip', Tooltip)
 
 /* ==== BINDING TO VUE INSTANCE ===== */
 const auth = useAuthStore()

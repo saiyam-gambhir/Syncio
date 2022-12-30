@@ -9,6 +9,10 @@ html {
   }
 }
 
+a {
+  text-decoration: none;
+}
+
 h1, h2, h3 {
   font-weight: 600;
   margin-top: 0;
@@ -44,10 +48,46 @@ p {
 .theme-light .surface-ground {
   background: $secondaryHoverBg;
 }
+
+.p-tag {
+  font-size: 11px;
+  font-weight: $fontMedium;
+  padding: .5rem 1rem;
+  text-transform: capitalize;
+}
+
+.p-speeddial {
+  .p-speeddial-button {
+    width: 3rem !important;
+    height: 3rem !important;
+  }
+
+  .p-speeddial-list {
+    @extend .position-absolute;
+    left: -100px;
+  }
+}
+
+th {
+  &.text-right {
+    .p-column-header-content {
+      justify-content: flex-end;
+    }
+  }
+}
+
+td {
+  &.text-right {
+    .p-speeddial {
+      display: inline-flex;
+    }
+  }
+}
 /* ===== OVERRIDES ===== */
 
 .theme-light .router-link-active {
   background: $secondaryHoverBg;
+  border: 1px solid $primary;
   color: $primary !important;
   font-weight: $fontMedium;
 
