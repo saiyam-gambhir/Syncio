@@ -5,6 +5,7 @@ import deepmerge from 'deepmerge'
 import { fetchCurrentPlan } from './actions/fetchCurrentPlan'
 import { fetchUser } from './actions/fetchUser'
 import { login } from './actions/login'
+import { shopifyLogin } from './actions/shopifyLogin'
 
 export const useAuthStore = defineStore('auth', {
   state: () => {
@@ -21,5 +22,6 @@ export const useAuthStore = defineStore('auth', {
     fetchCurrentPlan,
     fetchUser,
     login,
+    shopifyLogin,
   ]),
 })

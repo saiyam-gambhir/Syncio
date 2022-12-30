@@ -1,6 +1,11 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import { useConnectionsStore } from '@/stores/connections'
+
+/* ===== COMPONENTS ===== */
+import DestinationLocationSelector from '@/views/connections/components/DestinationLocationSelector.vue'
+import IconShopifyVue from '@/icons/IconShopify.vue'
+import IconWoo from '@/icons/IconWoo.vue'
 import PageHeader from '@/components/shared/PageHeader.vue'
 
 /* ===== DATA ===== */
@@ -18,10 +23,7 @@ const storeActions = ref([
 
 /* ===== MOUNTED ===== */
 onMounted(async () => {
-	await connectionsStore.fetchConnections({
-		current_store_id: connectionsStore.storeId,
-		search_str: null
-	})
+	await connectionsStore.fetchConnections()
 })
 
 /* ===== METHODS ===== */
@@ -37,10 +39,14 @@ const getStoreStatus = (status) => {
 	</PageHeader>
 
 	<article class="mt-4">
-    <DataTable :value="connectionsStore.connections">
-      <Column header="Store" style="width: 30%;">
+    <DataTable :value="connectionsStore.connections" responsiveLayout="scroll" class="shadow-2">
+      <Column header="Store" style="width: 30%;" :sortable="true">
         <template #body="{ data }">
-          {{ data.store_domain }}
+          <div class="flex align-items-center">
+            <IconShopifyVue v-if="data.platform === 'shopify'" class="mr-3" />
+            <IconWoo v-if="data.platform === 'woocommerce'" class="mr-3" />
+            {{ data.store_domain }}
+          </div>
         </template>
       </Column>
       <Column header="Status" style="width: 15%;">
@@ -50,15 +56,18 @@ const getStoreStatus = (status) => {
       </Column>
       <Column header="Commission" style="width: 15%;">
         <template #body>
-          None
+          <div class="flex align-items-center">
+            None
+            <Button icon="pi pi-pencil" class="p-button-rounded p-button-text p-button-outlined ml-2" />
+          </div>
         </template>
       </Column>
-      <Column header="Assigned Locations" style="width: 30%;">
-        <template #body>
-          All Locations
+      <Column header="Assigned Locations" style="width: 25%;">
+        <template #body="{ data }">
+          <DestinationLocationSelector :connection="data" />
         </template>
       </Column>
-      <Column header="Actions" style="width: 10%;" class="text-right">
+      <Column header="Actions" style="width: 15%;" class="text-right">
         <template #body>
           <SpeedDial class="position-relative" aria-label="Options" :model="storeActions" direction="left" showIcon="pi pi-ellipsis-h" buttonClass="p-button-icon-only p-button-rounded p-button-text" :rotateAnimation="false" style="width: max-content;" />
         </template>

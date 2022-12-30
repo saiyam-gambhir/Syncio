@@ -12,7 +12,7 @@ const props = defineProps({
 
 <template>
   <section class="border-round-md page-header">
-    <h1 class="mb-0 text-5xl">{{ title }}</h1>
-    <p v-if="content" class="mb-0 mt-2">{{ content }}</p>
+    <h1 class="text-5xl mb-0 ">{{ title }}</h1>
+    <p v-if="content" class="mb-0 mt-1">{{ content }}</p>
   </section>
 </template>

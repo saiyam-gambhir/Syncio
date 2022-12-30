@@ -4,12 +4,14 @@ import deepmerge from 'deepmerge'
 /* ===== ACTIONS ===== */
 import { fetchConnections } from './actions/fetchConnections'
 import { fetchCurrentStore } from './actions/fetchCurrentStore'
+import { fetchDestinationLocations } from './actions/fetchDestinationLocations'
 
 export const useConnectionsStore = defineStore('connections', {
   state: () => {
     return {
       connections: [],
       currentStore: null,
+      destinationLocations: null,
     }
   },
 
@@ -29,6 +31,7 @@ export const useConnectionsStore = defineStore('connections', {
 
   actions: deepmerge.all([
     fetchConnections,
-    fetchCurrentStore
+    fetchCurrentStore,
+    fetchDestinationLocations,
   ]),
 })

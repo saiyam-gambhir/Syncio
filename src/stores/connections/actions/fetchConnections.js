@@ -2,9 +2,11 @@ export const fetchConnections = {
   async fetchConnections(payload) {
     const response = await this.$https('stores/connections', {
       params: {
-        ...payload
+        current_store_id: this.storeId
       }
     })
-    this.connections = response.data?.stores
+
+    this.connections = await response.data?.stores
+    await this.fetchDestinationLocations()
   }
 }

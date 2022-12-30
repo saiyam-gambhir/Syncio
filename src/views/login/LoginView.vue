@@ -12,6 +12,10 @@ const loginHandler = () => {
     password: auth.password
   })
 }
+
+const shopifyLoginHandler = async () => {
+  await auth.shopifyLogin('shopify', 'test-destination-0.myshopify.com')
+}
 </script>
 
 <template>
@@ -29,6 +33,7 @@ const loginHandler = () => {
       <InputText id="password" type="password" class="w-full mb-3" v-model="auth.password" />
 
       <Button label="Log In" icon="pi pi-user" class="w-full mt-2" @click="loginHandler" />
+      <Button label="Shopify Login" @click="shopifyLoginHandler" class="w-full mt-4"></Button>
     </div>
   </div>
 </template>

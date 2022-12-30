@@ -1,14 +1,3 @@
-html {
-  font-family: 'Inter Tight', sans-serif;
-  font-size: 13px;
-  font-weight: $fontNormal;
-  letter-spacing: .05rem;
-
-  &.theme-light {
-    color: $primary;
-  }
-}
-
 a {
   text-decoration: none;
 }
@@ -42,18 +31,18 @@ p {
 }
 
 .theme-light .surface-card {
-  background: $cardBackground;
+  background: $cardBackground !important;
 }
 
 .theme-light .surface-ground {
-  background: $secondaryHoverBg;
+  background: $secondaryHoverBg !important;
 }
 
 .p-tag {
-  font-size: 11px;
-  font-weight: $fontMedium;
-  padding: .5rem 1rem;
-  text-transform: capitalize;
+  font-size: 11px !important;
+  font-weight: $fontMedium !important;
+  padding: .5rem 1rem !important;
+  text-transform: capitalize !important;
 }
 
 .p-speeddial {
@@ -83,6 +72,18 @@ td {
     }
   }
 }
+
+.p-datatable {
+  .p-datatable-thead>tr>th {
+    font-size: 12px !important;
+    padding: 1rem .75rem !important;
+    text-transform: uppercase !important;
+  }
+
+  .p-datatable-tbody>tr>td {
+    padding: .5rem .75rem !important;
+  }
+}
 /* ===== OVERRIDES ===== */
 
 .theme-light .router-link-active {
@@ -90,10 +91,7 @@ td {
   border: 1px solid $primary;
   color: $primary !important;
   font-weight: $fontMedium;
-
-  &:hover {
-    background: rgba(233, 236, 239, 1);
-  }
+  pointer-events: none;
 }
 
 .primary-navigation {
