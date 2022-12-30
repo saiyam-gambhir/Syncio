@@ -1,0 +1,81 @@
+/* ===== POSITION ===== */
+.position {
+  &-absolute {
+    position: absolute
+  }
+
+  &-fixed {
+    position: fixed
+  }
+
+  &-relative {
+    position: relative
+  }
+
+  &-static {
+    position: static
+  }
+
+  &-sticky {
+    position: sticky
+  }
+}
+
+.content-before {
+  @extend .position-absolute;
+  content: ''
+}
+
+/*===== WIDTH ===== */
+.w {
+  &-100 {
+    width: 100% !important
+  }
+
+  &-75 {
+    width: 75%
+  }
+
+  &-66 {
+    width: 66%
+  }
+
+  &-50 {
+    width: 50%
+  }
+
+  &-33 {
+    width: 33%
+  }
+
+  &-25 {
+    width: 25%
+  }
+}
+
+/*===== HEIGHT ===== */
+.h {
+  &-100 {
+    height: 100%
+  }
+
+  &-75 {
+    height: 75%
+  }
+
+  &-66 {
+    height: 66%
+  }
+
+  &-50 {
+    height: 50%
+  }
+
+  &-33 {
+    height: 33%
+  }
+
+  &-25 {
+    height: 25%
+  }
+}

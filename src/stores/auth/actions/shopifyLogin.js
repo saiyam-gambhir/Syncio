@@ -1,10 +1,13 @@
 import router from '@/router'
 import { useConnectionsStore } from '@/stores/connections'
 
-export const login = {
-  async login(payload) {
+export const shopifyLogin = {
+  async shopifyLogin(platform, storeName) {
     const connections = useConnectionsStore()
-    const response = await this.$https.post('user/login', { ...payload })
+    const response = await this.$https.post('user/platforms/login', {
+      platform: platform,
+      store_name: storeName,
+    })
     if(response.data.success) {
       this.user = await response.data.user
     }

@@ -1,8 +1,7 @@
 <script setup>
-import { useConnectionsStore } from '@/stores/connections'
+import DashboardLeft from '@/views/dashboard/components/DashboardLeft.vue'
+import DashboardRight from '@/views/dashboard/components/DashboardRight.vue'
 import PageHeader from '@/components/shared/PageHeader.vue'
-
-const connections = useConnectionsStore()
 </script>
 
 <template>
@@ -11,7 +10,8 @@ const connections = useConnectionsStore()
 		title="Welcome">
 	</PageHeader>
 
-	<div class="flex mt-4">
-		{{ connections.currentStoreId }}
-	</div>
+	<article class="grid mt-4">
+    <DashboardLeft />
+    <DashboardRight />
+	</article>
 </template>

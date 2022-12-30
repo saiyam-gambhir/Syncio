@@ -1,0 +1,114 @@
+a {
+  text-decoration: none;
+}
+
+h1, h2, h3 {
+  font-weight: 600;
+  margin-top: 0;
+}
+
+p {
+  line-height: 20px;
+
+  &.text-xs {
+    line-height: 18px;
+  }
+}
+
+/* ===== OVERRIDES ===== */
+.grid {
+  margin: {
+    left: -$gutter;
+    right: -$gutter;
+  };
+
+  [class*="col-"] {
+    padding: {
+      left: $gutter;
+      right: $gutter;
+    };
+  }
+}
+
+.theme-light .surface-card {
+  background: $cardBackground !important;
+}
+
+.theme-light .surface-ground {
+  background: $secondaryHoverBg !important;
+}
+
+.p-tag {
+  font-size: 11px !important;
+  font-weight: $fontMedium !important;
+  padding: .5rem 1rem !important;
+  text-transform: capitalize !important;
+}
+
+.p-speeddial {
+  .p-speeddial-button {
+    width: 3rem !important;
+    height: 3rem !important;
+  }
+
+  .p-speeddial-list {
+    @extend .position-absolute;
+    left: -100px;
+  }
+}
+
+th {
+  &.text-right {
+    .p-column-header-content {
+      justify-content: flex-end;
+    }
+  }
+}
+
+td {
+  &.text-right {
+    .p-speeddial {
+      display: inline-flex;
+    }
+  }
+}
+
+.p-datatable {
+  .p-datatable-thead>tr>th {
+    font-size: 12px !important;
+    padding: 1rem .75rem !important;
+    text-transform: uppercase !important;
+  }
+
+  .p-datatable-tbody>tr>td {
+    padding: .5rem .75rem !important;
+  }
+}
+/* ===== OVERRIDES ===== */
+
+.theme-light .router-link-active {
+  background: $secondaryHoverBg;
+  border: 1px solid $primary;
+  color: $primary !important;
+  font-weight: $fontMedium;
+  pointer-events: none;
+}
+
+.primary-navigation {
+  font-size: 15px;
+
+  i {
+    font-size: 15px;
+  }
+}
+
+.router-view {
+  @extend .w-100;
+  height: calc(100vh - $headerHeight);
+  max-width: 1600px;
+  overflow-y: auto;
+}
+
+.header-height {
+  height: $headerHeight;
+}

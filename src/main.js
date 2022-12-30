@@ -3,11 +3,17 @@ import App from './App.vue'
 import { createPinia } from 'pinia'
 import { useAuthStore } from '@/stores/auth'
 import { useConnectionsStore } from '@/stores/connections'
+import { useDashboardStore } from '@/stores/dashboard'
 
-import PrimeVue from 'primevue/config'
 import Button from 'primevue/button'
 import Card from 'primevue/card'
+import Column from 'primevue/column'
+import DataTable from 'primevue/dataTable'
+import Dropdown from 'primevue/dropdown'
 import InputText from 'primevue/inputText'
+import PrimeVue from 'primevue/config'
+import SpeedDial from 'primevue/speeddial'
+import Tag from 'primevue/tag'
 import Ripple from 'primevue/ripple'
 import Tooltip from 'primevue/tooltip'
 
@@ -16,8 +22,8 @@ import axios from 'axios'
 import { DateTime } from 'luxon'
 
 /* ==== STYLES ===== */
-//import 'primevue/resources/themes/lara-light-blue/theme.css'
-import './theme/theme-light.css'
+//import './theme/theme-light.css'
+//import 'primevue/resources/themes/lara-dark-blue/theme.css'
 import 'primevue/resources/primevue.min.css'
 import 'primeicons/primeicons.css'
 import '/node_modules/primeflex/primeflex.css'
@@ -42,15 +48,21 @@ app
 app
 .component('Button', Button)
 .component('Card', Card)
+.component('Column', Column)
+.component('DataTable', DataTable)
+.component('Dropdown', Dropdown)
 .component('InputText', InputText)
-.directive('tooltip', Tooltip)
+.component('SpeedDial', SpeedDial)
+.component('Tag', Tag)
 .directive('ripple', Ripple)
+.directive('tooltip', Tooltip)
 
 /* ==== BINDING TO VUE INSTANCE ===== */
 const auth = useAuthStore()
 const connections = useConnectionsStore()
+const dashboard = useDashboardStore()
 app.config.globalProperties.DateTime = DateTime
-auth.$https = connections.$https = $https
+auth.$https = connections.$https = dashboard.$https = $https
 
 /* ===== ACTIONS BEFORE EACH ROUTE ===== */
 router.beforeEach(async (to, from, next) => {
@@ -79,3 +91,7 @@ router.beforeEach(async (to, from, next) => {
     next()
   }
 })
+
+/* ===== THEME ===== */
+sessionStorage.setItem('theme', 'theme-light')
+document.querySelector('html').classList.add(sessionStorage.getItem('theme'))
