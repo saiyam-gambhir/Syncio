@@ -1,13 +1,13 @@
 <script setup>
-import { onMounted, ref } from 'vue'
+import { defineAsyncComponent, onMounted, ref } from 'vue'
 import { useConnectionsStore } from '@/stores/connections'
 
 /* ===== COMPONENTS ===== */
-import DestinationLocationSelector from '@/views/connections/components/DestinationLocationSelector.vue'
-import DisconnectDialog from '@/views/connections/components/DisconnectDialog.vue'
+import DestinationLocationSelector from '@/views/connections/components/multiLocation/DestinationLocationSelector.vue'
 import IconShopifyVue from '@/icons/IconShopify.vue'
 import IconWoo from '@/icons/IconWoo.vue'
 import PageHeader from '@/components/shared/PageHeader.vue'
+const DisconnectDialog = defineAsyncComponent(() => import('@/views/connections/components/disconnect/DisconnectDialog.vue'))
 
 /* ===== DATA ===== */
 const connectionsStore = useConnectionsStore()
@@ -100,6 +100,6 @@ const showDisconnectStoreDialog = (connection) => {
 
     </DataTable>
 
-    <DisconnectDialog />
+    <DisconnectDialog v-if="connectionsStore.isConnectionDisconnectRequested" />
 	</article>
 </template>
