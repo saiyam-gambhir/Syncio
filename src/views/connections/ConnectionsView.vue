@@ -26,6 +26,7 @@ const connectionActions = ref([
 
 /* ===== MOUNTED ===== */
 onMounted(async () => {
+  if(connectionsStore.connections.length > 0) return
 	await connectionsStore.fetchConnections()
 })
 

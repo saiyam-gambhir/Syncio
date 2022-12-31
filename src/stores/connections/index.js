@@ -13,6 +13,8 @@ export const useConnectionsStore = defineStore('connections', {
       currentStore: null,
       destinationLocations: null,
       isConnectionDisconnectRequested: false,
+      isDisconnectAndDeleteRequested: false,
+      isDisconnectAndKeepRequested: false,
       selectedConnection: null,
     }
   },

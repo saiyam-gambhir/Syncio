@@ -43,10 +43,6 @@ p {
   }
 }
 
-.theme-light .surface-card {
-  background: $cardBackground !important;
-}
-
 .theme-light .surface-ground {
   background: $secondaryHoverBg !important;
 }
@@ -99,11 +95,19 @@ td {
 }
 
 .theme-light {
+  .surface-card {
+    background: rgba(251, 251, 251, 1) !important;
+  }
   .p-dialog {
     .p-dialog-header {
-      background: $cardBackground;
-      color: $primary;
-      padding: 1.25rem;
+      background: $primary;
+      color: $cardBackground;
+      padding: 1rem 2rem;
+    }
+
+    .p-dialog-content {
+      background: rgba(255, 255, 255, 1) !important;
+      padding: 2rem;
     }
 
     &-header-icon {
@@ -112,9 +116,22 @@ td {
 
       .pi {
         font-size: 16px;
-        color: $primary;
+        color: $cardBackground;
         font-weight: $fontMedium;
       }
+
+      &:hover {
+        .pi {
+          color: $primary !important;
+        }
+      }
+    }
+  }
+
+  .p-button-primary {
+    &:hover {
+      background: $primaryButtonHover;
+      border-color: $primaryButtonHover;
     }
   }
 }
