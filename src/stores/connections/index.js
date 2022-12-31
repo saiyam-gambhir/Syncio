@@ -12,6 +12,8 @@ export const useConnectionsStore = defineStore('connections', {
       connections: [],
       currentStore: null,
       destinationLocations: null,
+      isConnectionDisconnectRequested: false,
+      selectedConnection: null,
     }
   },
 

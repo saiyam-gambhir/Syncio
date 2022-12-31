@@ -9,6 +9,7 @@ import Button from 'primevue/button'
 import Card from 'primevue/card'
 import Column from 'primevue/column'
 import DataTable from 'primevue/dataTable'
+import Dialog from 'primevue/dialog'
 import Dropdown from 'primevue/dropdown'
 import InputText from 'primevue/inputText'
 import PrimeVue from 'primevue/config'
@@ -22,7 +23,7 @@ import axios from 'axios'
 import { DateTime } from 'luxon'
 
 /* ==== STYLES ===== */
-//import './theme/theme-light.css'
+import './theme/theme-light.scss'
 //import 'primevue/resources/themes/lara-dark-blue/theme.css'
 import 'primevue/resources/primevue.min.css'
 import 'primeicons/primeicons.css'
@@ -50,6 +51,7 @@ app
 .component('Card', Card)
 .component('Column', Column)
 .component('DataTable', DataTable)
+.component('Dialog', Dialog)
 .component('Dropdown', Dropdown)
 .component('InputText', InputText)
 .component('SpeedDial', SpeedDial)

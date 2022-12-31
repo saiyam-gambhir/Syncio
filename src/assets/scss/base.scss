@@ -1,3 +1,16 @@
+html {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 13px;
+  font-weight: $fontNormal;
+  letter-spacing: .05rem;
+
+  &:not(.theme-light) {
+    .logo-path {
+      fill: $cardBackground;
+    }
+  }
+}
+
 a {
   text-decoration: none;
 }
@@ -82,6 +95,27 @@ td {
 
   .p-datatable-tbody>tr>td {
     padding: .5rem .75rem !important;
+  }
+}
+
+.theme-light {
+  .p-dialog {
+    .p-dialog-header {
+      background: $cardBackground;
+      color: $primary;
+      padding: 1.25rem;
+    }
+
+    &-header-icon {
+      width: 2.5rem !important;
+      height: 2.5rem !important;
+
+      .pi {
+        font-size: 16px;
+        color: $primary;
+        font-weight: $fontMedium;
+      }
+    }
   }
 }
 /* ===== OVERRIDES ===== */
