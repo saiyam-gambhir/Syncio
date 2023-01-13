@@ -11,11 +11,13 @@ import Column from 'primevue/column'
 import DataTable from 'primevue/dataTable'
 import Dialog from 'primevue/dialog'
 import Dropdown from 'primevue/dropdown'
+import InputNumber from 'primevue/inputnumber'
+import InputSwitch from 'primevue/inputswitch'
 import InputText from 'primevue/inputText'
 import PrimeVue from 'primevue/config'
+import Ripple from 'primevue/ripple'
 import SpeedDial from 'primevue/speeddial'
 import Tag from 'primevue/tag'
-import Ripple from 'primevue/ripple'
 import Tooltip from 'primevue/tooltip'
 
 import router from './router'
@@ -33,7 +35,7 @@ import './assets/scss/main.scss'
 /* ===== AXIOS INSTANCES ===== */
 const $https = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
-  timeout: 10000,
+  timeout: 100000,
 })
 $https.defaults.headers.common['x-syncio-app-id'] = import.meta.env.VITE_APP_ID
 
@@ -53,6 +55,8 @@ app
 .component('DataTable', DataTable)
 .component('Dialog', Dialog)
 .component('Dropdown', Dropdown)
+.component('InputNumber', InputNumber)
+.component('InputSwitch', InputSwitch)
 .component('InputText', InputText)
 .component('SpeedDial', SpeedDial)
 .component('Tag', Tag)

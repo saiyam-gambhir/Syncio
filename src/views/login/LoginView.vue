@@ -19,10 +19,9 @@ const shopifyLoginHandler = async () => {
 </script>
 
 <template>
-  <div class="surface-card p-4 shadow-2 border-round w-full lg:w-5 md:w-8 mx-auto align-self-center">
-    <div class="text-center mb-5">
+  <div class="surface-card p-4 shadow-2 border-round w-full lg:w-4 md:w-8 mx-auto align-self-center">
+    <div class="text-center mb-6">
       <Logo />
-      <h3 class="p-text text-3xl font-semibold my-2">Login</h3>
     </div>
 
     <div>

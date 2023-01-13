@@ -128,10 +128,19 @@ td {
     }
   }
 
-  .p-button-primary {
+  .p-button {
     &:hover {
       background: $primaryButtonHover;
       border-color: $primaryButtonHover;
+    }
+  }
+
+  .p-button.p-button-secondary:enabled:hover,
+  .p-buttonset.p-button-secondary>.p-button:enabled:hover,
+  .p-splitbutton.p-button-secondary>.p-button:enabled:hover {
+    &:hover {
+      background: $secondaryHoverBg;
+      border-color: $primary;
     }
   }
 }

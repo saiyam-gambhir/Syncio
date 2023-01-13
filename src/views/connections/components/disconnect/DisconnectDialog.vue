@@ -35,7 +35,7 @@ const showDisconnectAndKeepDialog = () => {
             <IconLinkOff />
             <h2 class="mb-3 mt-4">Disconnect &amp; Keep</h2>
             <p class="mt-0">Unsync without deleting the product from your destination store.</p>
-            <Button class="p-button-primary block w-100 font-semibold mt-6" @click="showDisconnectAndKeepDialog">Disconnect &amp; Keep</Button>
+            <Button class="block w-100 font-semibold mt-6" @click="showDisconnectAndKeepDialog">Disconnect &amp; Keep</Button>
           </div>
         </div>
 
