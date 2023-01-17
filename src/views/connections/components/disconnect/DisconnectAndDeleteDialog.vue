@@ -1,20 +1,43 @@
 <script setup>
+import { ref } from 'vue'
 import { useConnectionsStore } from '@/stores/connections'
 import DialogWrapper from '@/components/shared/DialogWrapper.vue'
 
 /* ===== DATA ===== */
 const connectionsStore = useConnectionsStore()
+const isChecked = ref(false)
 
 /* ===== METHODS ===== */
 const closeDialogHandler = () => {
   connectionsStore.isDisconnectAndDeleteRequested = false
 }
+
+const closeOnDisconnectHandler = () => {
+  closeDialogHandler()
+  connectionsStore.isConnectionDisconnectRequested = false
+}
+
+const disconnectHandler = async () => {
+  await connectionsStore.deleteConnection(connectionsStore.selectedConnection.connection_id, false)
+  closeOnDisconnectHandler()
+}
 </script>
 
 <template>
-  <DialogWrapper :isVisible="connectionsStore.isDisconnectAndDeleteRequested" title="Disconnect & Delete?" width="550px" @closeDialog="closeDialogHandler">
+  <DialogWrapper :isVisible="connectionsStore.isDisconnectAndDeleteRequested" title="Disconnect & Delete?" width="500px" @closeDialog="closeDialogHandler">
     <template #body>
-      <section class="grid mt-2">
+      <section class="grid mt-1 px-3">
+        <p class="mt-0">You are about to disconnect with <span class="text-danger font-semibold">{{ connectionsStore.selectedConnection.store_domain }}</span></p>
+        <p class="mt-0">Any products currently in sync with this store will be unsynced, and will be <strong>DELETED</strong>.</p>
+        <p class="m-0">This action cannot be undone.</p>
+        <div class="field-checkbox mt-4">
+          <Checkbox inputId="action-confirmation" v-model="isChecked" :binary="true" />
+          <label for="action-confirmation">I Understand this action cannot be undone.</label>
+        </div>
+        <div class="flex justify-content-end mt-6 w-full">
+          <Button label="Delete all Products" class="p-button-danger mr-2" @click="disconnectHandler" :disabled="!isChecked"></Button>
+          <Button label="Cancel" class="p-button-secondary" @click="closeDialogHandler"></Button>
+        </div>
       </section>
     </template>
   </DialogWrapper>

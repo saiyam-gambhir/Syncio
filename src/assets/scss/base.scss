@@ -2,7 +2,7 @@ html {
   font-family: 'Inter Tight', sans-serif;
   font-size: 13px;
   font-weight: $fontNormal;
-  letter-spacing: .05rem;
+  letter-spacing: .025rem;
 
   &:not(.theme-light) {
     .logo-path {
@@ -102,6 +102,7 @@ td {
     .p-dialog-header {
       background: $primary;
       color: $cardBackground;
+      cursor: grab;
       padding: 1rem 2rem;
     }
 

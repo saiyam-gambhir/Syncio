@@ -7,6 +7,7 @@ import { useDashboardStore } from '@/stores/dashboard'
 
 import Button from 'primevue/button'
 import Card from 'primevue/card'
+import Checkbox from 'primevue/checkbox'
 import Column from 'primevue/column'
 import DataTable from 'primevue/dataTable'
 import Dialog from 'primevue/dialog'
@@ -51,6 +52,7 @@ app
 app
 .component('Button', Button)
 .component('Card', Card)
+.component('Checkbox', Checkbox)
 .component('Column', Column)
 .component('DataTable', DataTable)
 .component('Dialog', Dialog)
