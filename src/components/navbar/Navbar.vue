@@ -1,6 +1,12 @@
 <script setup>
+import { useConnectionsStore } from '@/stores/connections'
+
+/* ===== COMPONENTS ===== */
 import Logo from '@/icons/Logo.vue'
 import NavLink from '@/components/navbar/NavLink.vue'
+
+/* ===== DATA ===== */
+const connectionsStore = useConnectionsStore()
 </script>
 
 <template>
@@ -16,7 +22,7 @@ import NavLink from '@/components/navbar/NavLink.vue'
             <NavLink linkText="Dashboard" />
           </li>
           <li class="mt-1">
-            <NavLink href="/stores" iconClass="pi-link" linkText="Stores" />
+            <NavLink href="/stores" iconClass="pi-link" linkText="Stores" :isLocationPending="connectionsStore.isConnectionStatusPending" />
           </li>
           <li class="mt-1">
             <NavLink href="/products" iconClass="pi-list" linkText="Products" />

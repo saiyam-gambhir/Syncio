@@ -6,6 +6,7 @@ import { deleteConnection } from './actions/deleteConnection'
 import { fetchConnections } from './actions/fetchConnections'
 import { fetchCurrentStore } from './actions/fetchCurrentStore'
 import { fetchDestinationLocations } from './actions/fetchDestinationLocations'
+import { toggleMultilocation } from './actions/toggleMultilocation'
 
 export const useConnectionsStore = defineStore('connections', {
   state: () => {
@@ -14,9 +15,13 @@ export const useConnectionsStore = defineStore('connections', {
       currentStore: null,
       destinationLocations: null,
       isConnectionDisconnectRequested: false,
+      isDisableMultilocationRequested: false,
       isDisconnectAndDeleteRequested: false,
       isDisconnectAndKeepRequested: false,
+      isLocationChangeRequested: false,
+      isMultilocationEnabled: 'Off',
       isSetCommissionRequested: false,
+      loadingConnections: false,
       selectedConnection: null,
     }
   },
@@ -26,12 +31,26 @@ export const useConnectionsStore = defineStore('connections', {
       return state.currentStore?.id
     },
 
+    storeName(state) {
+      return state.currentStore?.store_domain
+    },
+
     storeKey(state) {
       return state.currentStore?.identifier
     },
 
     storeType(state) {
       return state.currentStore?.type
+    },
+
+    isConnectionStatusPending(state) {
+      return state.connections.some(connection => {
+        return connection.status === 'pending'
+      })
+    },
+
+    isMultilocation(state) {
+      return state.isMultilocationEnabled === 'On'
     }
   },
 
@@ -40,5 +59,6 @@ export const useConnectionsStore = defineStore('connections', {
     fetchConnections,
     fetchCurrentStore,
     fetchDestinationLocations,
+    toggleMultilocation,
   ]),
 })

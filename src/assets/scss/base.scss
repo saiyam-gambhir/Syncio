@@ -145,6 +145,30 @@ td {
     }
   }
 }
+
+.p-dropdown {
+  .p-dropdown-label {
+    text-transform: capitalize;
+  }
+}
+
+.p-button {
+  &.p-button-lg .p-button-icon {
+    font-size: 1.3rem;
+    font-weight: 600;
+    transform: translateY(1px);
+  }
+}
+
+.p-selectbutton {
+  .p-highlight {
+    pointer-events: none;
+  }
+}
+
+.p-component-overlay {
+  z-index: 1;
+}
 /* ===== OVERRIDES ===== */
 
 .theme-light .router-link-active {
@@ -156,17 +180,29 @@ td {
 }
 
 .primary-navigation {
-  font-size: 15px;
+  font-size: 1.15rem;
 
   i {
-    font-size: 15px;
+    font-size: 1.25rem;
+    transform: translateY(1.2px);
+  }
+
+  .error {
+    border-color: $danger;
+    border-width: 1.5px;
+  }
+
+  .pending-icon {
+    color: $danger;
+    font-size: 1.25rem;
+    rotate: 180deg;
   }
 }
 
 .router-view {
   @extend .w-100;
   height: calc(100vh - $headerHeight);
-  max-width: 1600px;
+  max-width: 1920px;
   overflow-y: auto;
 }
 

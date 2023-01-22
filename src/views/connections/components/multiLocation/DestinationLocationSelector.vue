@@ -13,11 +13,19 @@ const props = defineProps({
 /* ===== DATA ===== */
 const connectionsStore = useConnectionsStore()
 const selectedLocation = ref(null)
+const selectedLocationId = ref(null)
 
 /* ===== MOUNTED ===== */
 onMounted(() => {
-  selectedLocation.value = props.connection?.destination_default_inventory_location
+  selectedLocation.value = props.connection?.destination_default_inventory_location?.name
 })
+
+/* ===== METHODS ===== */
+const onChangeHandler = (event) => {
+  let selectedLocation = connectionsStore.destinationLocations.filter(location => location.name.toLowerCase() === event.value.toLowerCase())
+  selectedLocationId.value = selectedLocation[0].id
+  connectionsStore.isLocationChangeRequested = true
+}
 </script>
 
 <template>
@@ -26,13 +34,11 @@ onMounted(() => {
     class="w-100"
     :options="connectionsStore.destinationLocations"
     optionLabel="name"
+    optionValue="name"
     placeholder="Select a Location"
     v-model="selectedLocation"
-    modelValue="name">
-
-    <template #value>
-      {{ selectedLocation?.name }}
-    </template>
-
+    @change="onChangeHandler($event)">
   </Dropdown>
+
+  <span v-else class="ml-3">{{ selectedLocation }}</span>
 </template>

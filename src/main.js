@@ -4,7 +4,6 @@ import { createPinia } from 'pinia'
 import { useAuthStore } from '@/stores/auth'
 import { useConnectionsStore } from '@/stores/connections'
 import { useDashboardStore } from '@/stores/dashboard'
-
 import Button from 'primevue/button'
 import Card from 'primevue/card'
 import Checkbox from 'primevue/checkbox'
@@ -17,10 +16,12 @@ import InputSwitch from 'primevue/inputswitch'
 import InputText from 'primevue/inputText'
 import PrimeVue from 'primevue/config'
 import Ripple from 'primevue/ripple'
+import SelectButton from 'primevue/selectbutton'
+import Skeleton from 'primevue/skeleton'
 import SpeedDial from 'primevue/speeddial'
 import Tag from 'primevue/tag'
+import ToastService from 'primevue/toastservice'
 import Tooltip from 'primevue/tooltip'
-
 import router from './router'
 import axios from 'axios'
 import { DateTime } from 'luxon'
@@ -36,7 +37,7 @@ import './assets/scss/main.scss'
 /* ===== AXIOS INSTANCES ===== */
 const $https = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
-  timeout: 100000,
+  timeout: 20000,
 })
 $https.defaults.headers.common['x-syncio-app-id'] = import.meta.env.VITE_APP_ID
 
@@ -46,6 +47,7 @@ app
 .use(createPinia())
 .use(router)
 .use(PrimeVue, { ripple: true })
+.use(ToastService)
 .mount('#app')
 
 /* ===== PRIME VUE COMPONENTS ===== */
@@ -61,6 +63,8 @@ app
 .component('InputSwitch', InputSwitch)
 .component('InputText', InputText)
 .component('SpeedDial', SpeedDial)
+.component('Skeleton', Skeleton)
+.component('SelectButton', SelectButton)
 .component('Tag', Tag)
 .directive('ripple', Ripple)
 .directive('tooltip', Tooltip)
@@ -69,8 +73,28 @@ app
 const auth = useAuthStore()
 const connections = useConnectionsStore()
 const dashboard = useDashboardStore()
-app.config.globalProperties.DateTime = DateTime
+app.config.globalProperties.$dateTime = DateTime
 auth.$https = connections.$https = dashboard.$https = $https
+
+/* ===== LOGOUT HANDLER ===== */
+const logout = () => {
+  auth.$reset()
+  connections.$reset()
+  dashboard.$reset()
+  sessionStorage.removeItem('ID_TOKEN_KEY')
+  sessionStorage.removeItem('USER_ID')
+  router.push('/login')
+}
+
+/* ===== INTERCEPTERS ===== */
+$https.interceptors.response.use(
+  response => response,
+  error => {
+  if(error.response?.status === 403) {
+    logout()
+    return Promise.reject(error)
+  }
+})
 
 /* ===== ACTIONS BEFORE EACH ROUTE ===== */
 router.beforeEach(async (to, from, next) => {
@@ -87,8 +111,8 @@ router.beforeEach(async (to, from, next) => {
         $https.defaults.headers.common['Authorization'] = `Bearer ${sessionStorage.getItem('ID_TOKEN_KEY')}`
         if(!auth.user) {
           await auth.fetchUser(sessionStorage.getItem('USER_ID'))
-          await connections.fetchCurrentStore()
           await auth.fetchCurrentPlan(sessionStorage.getItem('USER_ID'))
+          await connections.fetchCurrentStore()
         }
       }
       next()

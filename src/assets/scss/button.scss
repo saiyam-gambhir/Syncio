@@ -6,7 +6,7 @@
   &:before {
     @extend .content-before;
     background: $cardBackground;
-    bottom: -3px;
+    bottom: -2px;
     height: 1px;
     left: 0;
     transition: width $transitionFast;
