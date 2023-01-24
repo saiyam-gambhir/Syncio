@@ -7,7 +7,7 @@ const props = defineProps({
 
   showFooter: {
     type: Boolean,
-    default: false,
+    default: true,
   },
 
   title: {
@@ -29,15 +29,15 @@ const closeDialogHandler = () => {
 </script>
 
 <template>
-  <Dialog v-model:visible="isVisible" :modal="true" :style="{ width: width }" :dismissableMask="false" @after-hide="closeDialogHandler">
-    <template #header>
-      <h2 class="text-2xl m-0">{{ title }}</h2>
-    </template>
-
-    <slot name="body"></slot>
+  <Dialog v-model:visible="isVisible" :modal="true" :style="{ width: width }" :dismissableMask="false" @after-hide="closeDialogHandler" :header="title">
+    <div class="border-top-1 surface-border pt-4">
+      <slot name="body"></slot>
+    </div>
 
     <template #footer v-if="showFooter">
-      <slot name="footer"></slot>
+      <div class="border-top-1 surface-border pt-4">
+        <slot name="footer"></slot>
+      </div>
     </template>
   </Dialog>
 </template>

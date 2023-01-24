@@ -31,8 +31,8 @@ const shopifyLoginHandler = async () => {
       <label for="password" class="block text-900 font-semibold mb-2">Password</label>
       <InputText id="password" type="password" class="w-full mb-3" v-model="auth.password" />
 
-      <Button label="Log In" icon="pi pi-user" class="w-full mt-2" @click="loginHandler" />
-      <Button label="Shopify Login" @click="shopifyLoginHandler" class="w-full mt-4"></Button>
+      <Button label="Log In" icon="pi pi-user" class="w-full mt-2" @click="loginHandler" :loading="auth.loading" iconPos="right"></Button>
+      <Button label="Shopify Login" icon="pi pi-user" @click="shopifyLoginHandler" class="w-full mt-4" :loading="auth.loading" iconPos="right"></Button>
     </div>
   </div>
 </template>

@@ -15,6 +15,7 @@ export const useConnectionsStore = defineStore('connections', {
       currentStore: null,
       destinationLocations: null,
       isConnectionDisconnectRequested: false,
+      isConnectNewStoreRequested: false,
       isDisableMultilocationRequested: false,
       isDisconnectAndDeleteRequested: false,
       isDisconnectAndKeepRequested: false,
@@ -31,12 +32,12 @@ export const useConnectionsStore = defineStore('connections', {
       return state.currentStore?.id
     },
 
-    storeName(state) {
-      return state.currentStore?.store_domain
-    },
-
     storeKey(state) {
       return state.currentStore?.identifier
+    },
+
+    storeName(state) {
+      return state.currentStore?.store_domain
     },
 
     storeType(state) {
@@ -51,6 +52,10 @@ export const useConnectionsStore = defineStore('connections', {
 
     isMultilocation(state) {
       return state.isMultilocationEnabled === 'On'
+    },
+
+    isStoreMultilocation(state) {
+      return Boolean(+state.currentStore?.is_multi_locations)
     }
   },
 

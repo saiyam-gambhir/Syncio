@@ -21,6 +21,7 @@ const options = ref(['Off', 'On'])
 onMounted(async () => {
   if(connectionsStore.connections.length > 0) return
 	await connectionsStore.fetchConnections()
+  if(connectionsStore.isStoreMultilocation) await connectionsStore.fetchDestinationLocations()
 })
 
 /* ===== METHODS ===== */
@@ -29,24 +30,25 @@ const closeDialogHandler = () => {
 }
 
 const toggleMultilocationHandler = async (event) => {
-  if(event.value === 'Off') {
+  if(event.value === 'Off' && !connectionsStore.isDisableMultilocationRequested) {
     connectionsStore.isDisableMultilocationRequested = true
     return
   }
   await connectionsStore.toggleMultilocation()
+  await connectionsStore.fetchDestinationLocations()
 }
 </script>
 
 <template>
   <PageHeader
-    content="Connect and manage your stores."
+    content="Connect and manage your stores"
     title="Stores"
     withActions>
 
     <template #actions>
       <div class="flex align-items-center justify-content-between">
         <h4 class="my-0 mr-4">
-          Multi-Location (Beta)
+          Multi-Location (BETA)
           <br />
           <AppLink link="https://help.syncio.co/en/articles/5842693-multilocations-for-destination-stores" label="Read More" class="mt-1" />
         </h4>
@@ -60,11 +62,9 @@ const toggleMultilocationHandler = async (event) => {
     <ConnectionsViewSkeleton v-if="connectionsStore.loadingConnections" />
     <Connections v-else />
 
-    <template>
-      <DisableMultilocationDialog v-if="connectionsStore.isDisableMultilocationRequested" />
-      <DisconnectDialog v-if="connectionsStore.isConnectionDisconnectRequested" />
-      <LocationChangeDialog v-if="connectionsStore.isLocationChangeRequested" />
-      <SetCommissionDialog v-if="connectionsStore.isSetCommissionRequested" />
-    </template>
+    <DisconnectDialog v-if="connectionsStore.isConnectionDisconnectRequested" />
+    <LocationChangeDialog v-if="connectionsStore.isLocationChangeRequested" />
+    <SetCommissionDialog v-if="connectionsStore.isSetCommissionRequested" />
+    <DisableMultilocationDialog v-if="connectionsStore.isDisableMultilocationRequested" />
 	</article>
 </template>

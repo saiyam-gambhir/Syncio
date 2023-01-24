@@ -4,7 +4,7 @@ import PageHeader from '@/components/shared/PageHeader.vue'
 
 <template>
 	<PageHeader
-		content="Push your orders with synced products to connected source stores."
+		content="Push your orders with synced products to connected source stores"
 		title="Orders">
 	</PageHeader>
 </template>

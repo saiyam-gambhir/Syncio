@@ -2,6 +2,10 @@
 import { useDashboardStore } from '@/stores/dashboard'
 import Card from '@/views/dashboard/components/Card.vue'
 
+/* ===== COMPONENTS ===== */
+import AppLink from '@/components/shared/AppLink.vue'
+
+/* ===== DATA ===== */
 const { $state } = useDashboardStore()
 </script>
 
@@ -11,16 +15,16 @@ const { $state } = useDashboardStore()
       <template #links>
         <ul class="list-none p-0 mb-0 mt-4">
           <li class="py-3 border-bottom-1 border-top-1 surface-border">
-            <a href="https://help.syncio.co/en/articles/6116999-quick-start" class="btn-link" target="_blank">Quick start guide</a>
+            <AppLink link="https://help.syncio.co/en/articles/6116999-quick-start" label="Quick start guide" />
           </li>
           <li class="py-3 border-bottom-1 surface-border">
-            <a href="https://help.syncio.co/en/articles/5596700-connecting-to-a-store" class="btn-link" target="_blank">Connecting to a store</a>
+            <AppLink link="https://help.syncio.co/en/articles/5596700-connecting-to-a-store" label="Connecting to a store" />
           </li>
           <li class="py-3 border-bottom-1 surface-border">
-            <a href="https://help.syncio.co/en/collections/1906212-syncing-products" class="btn-link" target="_blank">Syncing products</a>
+            <AppLink link="https://help.syncio.co/en/collections/1906212-syncing-products" label="Syncing products" />
           </li>
           <li class="py-3 border-bottom-1 surface-border">
-            <a href="https://help.syncio.co/en/articles/3284137-best-practices-healthy-syncing" class="btn-link" target="_blank">Best practices and healthy syncing</a>
+            <AppLink link="https://help.syncio.co/en/articles/3284137-best-practices-healthy-syncing" label="Best practices and healthy syncing" />
           </li>
         </ul>
       </template>
@@ -30,19 +34,19 @@ const { $state } = useDashboardStore()
       <template #links>
         <ul class="list-none p-0 mb-0 mt-4">
           <li class="py-3 border-bottom-1 border-top-1 surface-border">
-            <a href="https://help.syncio.co/en/articles/4813676-syncio-overview" class="btn-link" target="_blank">Syncio overview</a>
+            <AppLink link="https://help.syncio.co/en/articles/4813676-syncio-overview" label="Syncio overview" />
           </li>
           <li class="py-3 border-bottom-1 surface-border">
-            <a href="https://help.syncio.co/en/articles/3837270-common-use-cases" class="btn-link" target="_blank">Common use cases</a>
+            <AppLink link="https://help.syncio.co/en/articles/3837270-common-use-cases" label="Common use cases" />
           </li>
           <li class="py-3 border-bottom-1 surface-border">
-            <a href="https://help.syncio.co/en/articles/4641975-my-products-are-not-syncing" class="btn-link" target="_blank">My products aren't syncing</a>
+            <AppLink link="https://help.syncio.co/en/articles/4641975-my-products-are-not-syncing" label="My products aren't syncing" />
           </li>
           <li class="py-3">
-            <a href="https://help.syncio.co/en/articles/3330115-troubleshooting" class="btn-link" target="_blank">Other issues and how to fix them</a>
+            <AppLink link="https://help.syncio.co/en/articles/3330115-troubleshooting" label="Other issues and how to fix them" />
           </li>
           <li class="pt-3 text-center">
-            <a href="https://help.syncio.co/en/" class="btn-link" target="_blank">More articles</a>
+            <AppLink link="https://help.syncio.co/en/" label="More articles" />
           </li>
         </ul>
       </template>
@@ -52,13 +56,13 @@ const { $state } = useDashboardStore()
       <template #links>
         <ul class="list-none p-0 mb-0 mt-4">
           <li class="py-3 border-bottom-1 border-top-1 surface-border">
-            <a href="https://help.syncio.co/en/articles/4163480-orders-add-on" class="btn-link" target="_blank">Orders Add-on</a>
+            <AppLink link="https://help.syncio.co/en/articles/4163480-orders-add-on" label="Orders Add-on" />
           </li>
           <li class="py-3">
-            <a href="https://help.syncio.co/en/articles/3704617-product-settings-add-on" class="btn-link" target="_blank">Product Settings Add-on</a>
+            <AppLink link="https://help.syncio.co/en/articles/3704617-product-settings-add-on" label="Product Settings Add-on" />
           </li>
           <li class="pt-3 text-center">
-            <a href="https://help.syncio.co/en/collections/1906329-orders-product-settings-add-ons-shopify-only" class="btn-link" target="_blank">More about Add-ons</a>
+            <AppLink link="https://help.syncio.co/en/collections/1906329-orders-product-settings-add-ons-shopify-only" label="More about Add-ons" />
           </li>
         </ul>
       </template>

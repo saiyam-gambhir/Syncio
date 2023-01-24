@@ -4,7 +4,7 @@ import PageHeader from '@/components/shared/PageHeader.vue'
 
 <template>
 	<PageHeader
-		content="Sync and manage your inventory."
+		content="Sync and manage your inventory"
 		title="Products">
 	</PageHeader>
 </template>

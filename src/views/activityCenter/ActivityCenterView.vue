@@ -4,7 +4,7 @@ import PageHeader from '@/components/shared/PageHeader.vue'
 
 <template>
 	<PageHeader
-		content="See what's happening with your syncs, find and fix issues."
+		content="See what's happening with your syncs, find and fix issues"
 		title="Activity Center">
 	</PageHeader>
 </template>

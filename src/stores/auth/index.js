@@ -10,8 +10,11 @@ import { shopifyLogin } from './actions/shopifyLogin'
 export const useAuthStore = defineStore('auth', {
   state: () => {
     return {
+      currency: 'USD',
       email: 'fei-test-store@syncio.co',
       isAuthenticated: false,
+      loading: false,
+      locales: 'en-US',
       password: 'syncio1234',
       plan: null,
       user: null,

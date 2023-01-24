@@ -24,7 +24,7 @@ const disconnectHandler = async () => {
 </script>
 
 <template>
-  <DialogWrapper :isVisible="connectionsStore.isDisconnectAndDeleteRequested" title="Disconnect & Delete?" width="500px" @closeDialog="closeDialogHandler">
+  <DialogWrapper :isVisible="connectionsStore.isDisconnectAndDeleteRequested" title="Disconnect and Delete?" width="500px" @closeDialog="closeDialogHandler">
     <template #body>
       <section class="grid mt-1 px-3">
         <p class="mt-0">You are about to disconnect with <span class="text-danger font-semibold">{{ connectionsStore.selectedConnection.store_domain }}</span></p>
@@ -34,11 +34,12 @@ const disconnectHandler = async () => {
           <Checkbox inputId="action-confirmation" v-model="isChecked" :binary="true" />
           <label for="action-confirmation">I Understand this action cannot be undone.</label>
         </div>
-        <div class="flex justify-content-end mt-6 w-full">
-          <Button label="Delete all Products" class="p-button-danger mr-2" @click="disconnectHandler" :disabled="!isChecked"></Button>
-          <Button label="Cancel" class="p-button-secondary" @click="closeDialogHandler"></Button>
-        </div>
       </section>
+    </template>
+
+    <template #footer>
+      <Button icon="pi pi-times" label="Cancel" class="p-button-secondary" @click="closeDialogHandler"></Button>
+      <Button icon="pi pi-check" label="Delete all Products" class="p-button-danger mr-0" @click="disconnectHandler" :disabled="!isChecked"></Button>
     </template>
   </DialogWrapper>
 </template>

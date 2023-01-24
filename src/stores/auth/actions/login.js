@@ -3,6 +3,7 @@ import { useConnectionsStore } from '@/stores/connections'
 
 export const login = {
   async login(payload) {
+    this.loading = true
     const connections = useConnectionsStore()
     const response = await this.$https.post('user/login', { ...payload })
     if(response.data.success) {
@@ -16,6 +17,7 @@ export const login = {
       await connections.fetchCurrentStore()
       await this.fetchCurrentPlan(sessionStorage.getItem('USER_ID'))
       router.replace('/')
+      this.loading = false
     }
   }
 }

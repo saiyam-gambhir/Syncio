@@ -1,6 +1,6 @@
 <script setup>
-import { ref } from 'vue'
 import { useConnectionsStore } from '@/stores/connections'
+import { useFilters } from '../../composables/filters'
 
 /* ===== COMPONENTS ===== */
 import IconShopifyVue from '@/icons/IconShopify.vue'
@@ -9,10 +9,7 @@ import DestinationLocationSelector from '@/views/connections/components/multiLoc
 
 /* ===== DATA ===== */
 const connectionsStore = useConnectionsStore()
-const connectionActions = ref([
-  { icon: 'pi pi-list', key: 'view_products', label: 'View Products' },
-  { icon: 'pi pi-trash', key: 'disconnect', label: 'Disconnect' }
-])
+const { formatCurrency } = useFilters()
 
 /* ===== METHODS ===== */
 const showSetCommissionDialog = (connection) => {
@@ -23,7 +20,7 @@ const showSetCommissionDialog = (connection) => {
 const getStoreCommission = (commission) => {
   if(!commission) return 'None'
   if(commission.type === 'percentage') return `${commission.value}%`
-  if(commission.type === 'flat_rate') return `$${commission.value}`
+  if(commission.type === 'flat_rate') return formatCurrency(commission.value)
 }
 
 const getStoreStatus = (status) => {
@@ -64,7 +61,7 @@ const showDisconnectStoreDialog = (connection) => {
       </template>
     </Column>
 
-    <Column header="Assigned Locations" style="width: 30%;">
+    <Column header="Assigned Location" style="width: 30%;">
       <template #body="{ data: connection }" v-if="connectionsStore.isMultilocation">
         <DestinationLocationSelector :connection="connection" />
       </template>
@@ -72,12 +69,8 @@ const showDisconnectStoreDialog = (connection) => {
 
     <Column header="Actions" style="width: 15%;" class="text-right">
       <template #body="{ data: connection }">
-        <SpeedDial class="position-relative" aria-label="Options" :model="connectionActions" direction="left" showIcon="pi pi-ellipsis-h" buttonClass="p-button-icon-only p-button-rounded p-button-text" :rotateAnimation="false" style="width: max-content;">
-          <template #item="{ item }">
-            <Button v-if="item.key === 'view_products'" :icon="item.icon" class="p-button-rounded p-button-outlined p-button-info" />
-            <Button v-if="item.key === 'disconnect'" :icon="item.icon" class="p-button-rounded p-button-outlined p-button-danger" @click="showDisconnectStoreDialog(connection)" />
-          </template>
-        </SpeedDial>
+        <Button icon="pi pi-list" class="p-button-rounded p-button-outlined p-button-info" v-tooltip.top="'Products'" />
+        <Button icon="pi pi-trash" class="p-button-rounded p-button-outlined p-button-danger ml-3" v-tooltip.top="'Disconnect'" @click="showDisconnectStoreDialog(connection)" />
       </template>
     </Column>
 

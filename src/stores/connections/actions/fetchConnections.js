@@ -8,7 +8,6 @@ export const fetchConnections = {
     })
 
     this.connections = await response.data?.stores
-    await this.fetchDestinationLocations()
     this.loadingConnections = false
   }
 }

@@ -4,6 +4,7 @@ import { useConnectionsStore } from '@/stores/connections'
 import { useDashboardStore } from '@/stores/dashboard'
 
 /* ===== COMPONENTS ===== */
+import AppLink from '@/components/shared/AppLink.vue'
 import Card from '@/views/dashboard/components/Card.vue'
 
 /* ===== DATA ===== */
@@ -51,17 +52,17 @@ onMounted(async () => {
       title="Other resources">
       <template #links>
         <div class="pt-3">
-          <a href="#" class="btn-link">Help centre</a>
+          <AppLink link="https://help.syncio.co/en/" label="Help center" />
           <p class="text-sm mt-1 mb-0">Get answers and advice from Syncio</p>
         </div>
 
         <div class="pt-3">
-          <a href="#" class="btn-link">Roadmap and feature requests</a>
+          <AppLink link="https://syncio.canny.io/" label="Roadmap and feature requests" />
           <p class="text-sm mt-1 mb-0">See improvements and request features</p>
         </div>
 
         <div class="pt-3">
-          <a href="#" class="btn-link">Let us know what you think</a>
+          <AppLink link="https://docs.google.com/forms/d/e/1FAIpQLSego6l-ceEo02LZyAfGH78U_C8hzN7mNTWCr4u4yzS4AlB07Q/viewform" label="Let us know what you think" />
           <p class="text-sm mt-1 mb-0">Answer a short 3 minute survey to help us improve Syncio for you</p>
         </div>
       </template>

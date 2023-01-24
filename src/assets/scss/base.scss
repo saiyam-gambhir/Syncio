@@ -98,34 +98,23 @@ td {
   .surface-card {
     background: rgba(251, 251, 251, 1) !important;
   }
+
   .p-dialog {
     .p-dialog-header {
-      background: $primary;
-      color: $cardBackground;
-      cursor: grab;
-      padding: 1rem 2rem;
+      padding: 1rem 1.5rem;
+
+      .p-dialog-title {
+        font-size: 1.5rem;
+      }
+
+      .p-dialog-header-icon {
+        height: 2.5rem;
+        width: 2.5rem;
+      }
     }
 
     .p-dialog-content {
-      background: rgba(255, 255, 255, 1) !important;
-      padding: 2rem;
-    }
-
-    &-header-icon {
-      width: 2.5rem !important;
-      height: 2.5rem !important;
-
-      .pi {
-        font-size: 16px;
-        color: $cardBackground;
-        font-weight: $fontMedium;
-      }
-
-      &:hover {
-        .pi {
-          color: $primary !important;
-        }
-      }
+      padding: 0 1.5rem 1.5rem 1.5rem;
     }
   }
 
@@ -184,7 +173,7 @@ td {
 
   i {
     font-size: 1.25rem;
-    transform: translateY(1.2px);
+    transform: translateY(1.5px);
   }
 
   .error {

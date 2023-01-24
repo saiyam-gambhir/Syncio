@@ -30,7 +30,7 @@ const closeDialogHandler = () => {
 </script>
 
 <template>
-  <DialogWrapper :isVisible="connectionsStore.isSetCommissionRequested" title="Set commission" width="750px" @closeDialog="closeDialogHandler">
+  <DialogWrapper :isVisible="connectionsStore.isSetCommissionRequested" title="Set commission" width="750px" @closeDialog="closeDialogHandler" :showFooter="false">
     <template #body>
       <section class="grid">
         <div class="col-12 md:col-12 lg:col-6">

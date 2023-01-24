@@ -4,7 +4,7 @@ import PageHeader from '@/components/shared/PageHeader.vue'
 
 <template>
 	<PageHeader
-		content="Manage Payouts for fulfilled orders."
+		content="Manage Payouts for fulfilled orders"
 		title="Payouts">
 	</PageHeader>
 </template>

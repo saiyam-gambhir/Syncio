@@ -88,7 +88,10 @@ const logout = () => {
 
 /* ===== INTERCEPTERS ===== */
 $https.interceptors.response.use(
-  response => response,
+  response => {
+    const auth = useAuthStore()
+    return response
+  },
   error => {
   if(error.response?.status === 403) {
     logout()

@@ -26,25 +26,25 @@ const showDisconnectAndKeepDialog = () => {
 </script>
 
 <template>
-  <DialogWrapper :isVisible="connectionsStore.isConnectionDisconnectRequested" title="Select a disconnect option" width="725px" @closeDialog="closeDialogHandler">
+  <DialogWrapper :isVisible="connectionsStore.isConnectionDisconnectRequested" title="Select a disconnect option" width="725px" @closeDialog="closeDialogHandler" :showFooter="false">
     <template #body>
       <section class="grid">
 
         <div class="col-12 md:col-12 lg:col-6">
           <div class="surface-card shadow-2 border-round text-center p-4 pt-7">
             <IconLinkOff />
-            <h2 class="mb-3 mt-4">Disconnect &amp; Keep</h2>
+            <h2 class="mb-3 mt-4">Disconnect and Keep</h2>
             <p class="mt-0">Unsync without deleting the product from your destination store.</p>
-            <Button class="block w-100 font-semibold mt-6" @click="showDisconnectAndKeepDialog">Disconnect &amp; Keep</Button>
+            <Button class="block w-100 font-semibold mt-6" @click="showDisconnectAndKeepDialog">Disconnect and Keep</Button>
           </div>
         </div>
 
         <div class="col-12 md:col-12 lg:col-6">
           <div class="surface-card shadow-2 border-round text-center p-4 pt-7">
             <i class="pi pi-trash icon-trash"></i>
-            <h2 class="mb-3 mt-4">Disconnect & Delete</h2>
+            <h2 class="mb-3 mt-4">Disconnect and Delete</h2>
             <p class="mt-0">Unsync and delete the product from your destination store.</p>
-            <Button class="p-button-danger block w-100 font-semibold mt-6" @click="showDisconnectAndDeleteDialog">Disconnect &amp; Delete</Button>
+            <Button class="p-button-danger block w-100 font-semibold mt-6" @click="showDisconnectAndDeleteDialog">Disconnect and Delete</Button>
           </div>
         </div>
 

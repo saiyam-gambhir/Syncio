@@ -3,6 +3,7 @@ import { useConnectionsStore } from '@/stores/connections'
 
 export const shopifyLogin = {
   async shopifyLogin(platform, storeName) {
+    this.loading = true
     const connections = useConnectionsStore()
     const response = await this.$https.post('user/platforms/login', {
       platform: platform,
@@ -19,6 +20,7 @@ export const shopifyLogin = {
       await connections.fetchCurrentStore()
       await this.fetchCurrentPlan(sessionStorage.getItem('USER_ID'))
       router.replace('/')
+      this.loading = false
     }
   }
 }
