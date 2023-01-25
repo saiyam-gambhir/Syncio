@@ -14,6 +14,7 @@ import Dropdown from 'primevue/dropdown'
 import InputNumber from 'primevue/inputnumber'
 import InputSwitch from 'primevue/inputswitch'
 import InputText from 'primevue/inputText'
+import MultiSelect from 'primevue/multiselect'
 import PrimeVue from 'primevue/config'
 import Ripple from 'primevue/ripple'
 import SelectButton from 'primevue/selectbutton'
@@ -62,6 +63,7 @@ app
 .component('InputNumber', InputNumber)
 .component('InputSwitch', InputSwitch)
 .component('InputText', InputText)
+.component('MultiSelect', MultiSelect)
 .component('SpeedDial', SpeedDial)
 .component('Skeleton', Skeleton)
 .component('SelectButton', SelectButton)

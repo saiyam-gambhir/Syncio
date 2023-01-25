@@ -10,7 +10,7 @@ const props = defineProps({
   },
   title: {
     type: String,
-    required: true
+    required: false
   }
 })
 </script>
@@ -18,7 +18,7 @@ const props = defineProps({
 <template>
   <div class="surface-card p-4 shadow-2 border-round">
     <i v-if="icon" :class="`pi pi-${icon} text-2xl font-semibold mb-3`"></i>
-    <div class="text-xl font-semibold mb-2">{{ title }}</div>
+    <div v-if="title" class="text-xl font-semibold mb-2">{{ title }}</div>
     <p v-if="description" class="mt-0 mb-4">{{ description }}</p>
     <slot name="links"></slot>
 	</div>

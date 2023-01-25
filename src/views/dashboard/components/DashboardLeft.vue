@@ -9,13 +9,6 @@ import Card from '@/views/dashboard/components/Card.vue'
 
 /* ===== DATA ===== */
 const connections = useConnectionsStore()
-const dashboard = useDashboardStore()
-
-/* ===== MOUNTED ===== */
-onMounted(async () => {
-  if(dashboard.$state.success) return
-	await dashboard.fetchDashboard(connections.storeId)
-})
 </script>
 
 <template>
