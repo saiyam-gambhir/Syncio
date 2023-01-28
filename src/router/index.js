@@ -40,7 +40,7 @@ const router = createRouter({
     },
     {
       path: '/product-settings',
-      name: 'productSettings',
+      name: 'product settings',
       component: () => import('@/views/productSettings/ProductSettingsView.vue'),
       meta: { ...meta },
     },
@@ -58,8 +58,20 @@ const router = createRouter({
     },
     {
       path: '/activity-center',
-      name: 'activityCenter',
+      name: 'activity center',
       component: () => import('@/views/activityCenter/ActivityCenterView.vue'),
+      meta: { ...meta },
+    },
+    {
+      path: '/account-settings',
+      name: 'account settings',
+      component: () => import('@/views/accountSettings/AccountSettingsView.vue'),
+      meta: { ...meta },
+    },
+    {
+      path: '/plan-and-billings',
+      name: 'plan and billings',
+      component: () => import('@/views/planAndBillings/PlanAndBillingsView.vue'),
       meta: { ...meta },
     },
   ]

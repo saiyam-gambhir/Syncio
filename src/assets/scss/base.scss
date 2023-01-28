@@ -155,17 +155,38 @@ td {
   }
 }
 
-.p-component-overlay {
+.p-component-overlay,
+.p-tooltip {
   z-index: 1;
 }
-/* ===== OVERRIDES ===== */
 
-.theme-light .router-link-active {
+.pi.pi-copy {
+  &:before {
+    font-size: 1.25rem;
+  }
+}
+
+.p-knob-text {
+  transform: translateY(-4px);
+}
+
+.p-tooltip {
+  .p-tooltip-text {
+    text-align: center;
+  }
+}
+/* ===== OVERRIDES ===== */
+.theme-light .primary-navigation .router-link-active {
   background: $secondaryHoverBg;
   border: 1px solid $primary;
   color: $primary !important;
   font-weight: $fontMedium;
   pointer-events: none;
+}
+
+.nav-wrapper {
+  height: calc(100% - 60px);
+  overflow-y: auto;
 }
 
 .primary-navigation {
@@ -177,8 +198,8 @@ td {
   }
 
   .error {
-    border-color: $danger;
-    border-width: 1.5px;
+    border-color: $danger !important;
+    border-width: 1.5px !important;
   }
 
   .pending-icon {

@@ -14,7 +14,7 @@ const loginHandler = () => {
 }
 
 const shopifyLoginHandler = async () => {
-  await auth.shopifyLogin('shopify', 'test-destination-store-deep.myshopify.com')
+  await auth.shopifyLogin('shopify', 'test-destination-0.myshopify.com')
 }
 </script>
 

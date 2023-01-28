@@ -14,6 +14,7 @@ import Dropdown from 'primevue/dropdown'
 import InputNumber from 'primevue/inputnumber'
 import InputSwitch from 'primevue/inputswitch'
 import InputText from 'primevue/inputText'
+import Knob from 'primevue/knob'
 import MultiSelect from 'primevue/multiselect'
 import PrimeVue from 'primevue/config'
 import Ripple from 'primevue/ripple'
@@ -21,11 +22,12 @@ import SelectButton from 'primevue/selectbutton'
 import Skeleton from 'primevue/skeleton'
 import SpeedDial from 'primevue/speeddial'
 import Tag from 'primevue/tag'
-import ToastService from 'primevue/toastservice'
 import Tooltip from 'primevue/tooltip'
 import router from './router'
 import axios from 'axios'
 import { DateTime } from 'luxon'
+import { useToast } from 'vue-toastification'
+import Toast from 'vue-toastification'
 
 /* ==== STYLES ===== */
 import './theme/theme-light.css'
@@ -33,6 +35,7 @@ import './theme/theme-light.css'
 import 'primevue/resources/primevue.min.css'
 import 'primeicons/primeicons.css'
 import '/node_modules/primeflex/primeflex.css'
+import 'vue-toastification/dist/index.css'
 import './assets/scss/main.scss'
 
 /* ===== AXIOS INSTANCES ===== */
@@ -42,13 +45,19 @@ const $https = axios.create({
 })
 $https.defaults.headers.common['x-syncio-app-id'] = import.meta.env.VITE_APP_ID
 
+const toastOptions = {
+  hideProgressBar: true,
+  timeout: 3000,
+  transition: 'Vue-Toastification__fade',
+}
+
 /* ===== CREATE APP AND USE DEPENDENCIES ===== */
 const app = createApp(App)
 app
 .use(createPinia())
 .use(router)
 .use(PrimeVue, { ripple: true })
-.use(ToastService)
+.use(Toast, toastOptions)
 .mount('#app')
 
 /* ===== PRIME VUE COMPONENTS ===== */
@@ -63,10 +72,11 @@ app
 .component('InputNumber', InputNumber)
 .component('InputSwitch', InputSwitch)
 .component('InputText', InputText)
+.component('Knob', Knob)
 .component('MultiSelect', MultiSelect)
-.component('SpeedDial', SpeedDial)
-.component('Skeleton', Skeleton)
 .component('SelectButton', SelectButton)
+.component('Skeleton', Skeleton)
+.component('SpeedDial', SpeedDial)
 .component('Tag', Tag)
 .directive('ripple', Ripple)
 .directive('tooltip', Tooltip)
@@ -75,8 +85,10 @@ app
 const auth = useAuthStore()
 const connections = useConnectionsStore()
 const dashboard = useDashboardStore()
+const toast = useToast()
 app.config.globalProperties.$dateTime = DateTime
 auth.$https = connections.$https = dashboard.$https = $https
+app.provide('$toast', toast)
 
 /* ===== LOGOUT HANDLER ===== */
 const logout = () => {

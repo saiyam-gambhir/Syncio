@@ -11,7 +11,12 @@ export function useFilters() {
     }).format(val)
   }
 
+  const copyToClipBoard = (val = '') => {
+    return navigator.clipboard.writeText(val)
+  }
+
   return {
-    formatCurrency
+    copyToClipBoard,
+    formatCurrency,
   }
 }

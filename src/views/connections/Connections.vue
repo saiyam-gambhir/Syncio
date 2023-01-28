@@ -34,7 +34,7 @@ const showDisconnectStoreDialog = (connection) => {
 </script>
 
 <template>
-  <DataTable :value="connectionsStore.connections" responsiveLayout="scroll" class="shadow-2" showGridlines>
+  <DataTable :value="connectionsStore.connections" responsiveLayout="scroll" showGridlines>
 
     <Column header="Store" style="width: 35%;" :sortable="true">
       <template #body="{ data: connection }">

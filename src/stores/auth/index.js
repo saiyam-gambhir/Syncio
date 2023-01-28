@@ -21,6 +21,16 @@ export const useAuthStore = defineStore('auth', {
     }
   },
 
+  getters: {
+    productsSynced(state) {
+      return +state.plan?.product_mappers_count
+    },
+
+    productsSyncedLimit(state) {
+      return +state.plan?.syncio_plan?.sync_product_limit
+    }
+  },
+
   actions: deepmerge.all([
     fetchCurrentPlan,
     fetchUser,

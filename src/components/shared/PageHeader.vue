@@ -15,7 +15,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="flex align-items-end justify-content-between border-bottom-1 surface-border pb-3">
+  <div class="flex align-items-end justify-content-between border-bottom-1 surface-border pb-4">
     <section class="border-round-md page-header">
       <h1 class="text-5xl mb-0 ">{{ title }}</h1>
       <p v-if="content" class="mb-0 mt-1">{{ content }}</p>

@@ -5,6 +5,7 @@ import DashboardRight from '@/views/dashboard/components/DashboardRight.vue'
 import PageHeader from '@/components/shared/PageHeader.vue'
 import { useDashboardStore } from '@/stores/dashboard'
 import { useConnectionsStore } from '@/stores/connections'
+import { fetchDashboard } from '../../stores/dashboard/actions/fetchDashboard'
 
 const connections = useConnectionsStore()
 const dashboard = useDashboardStore()
@@ -15,13 +16,8 @@ const dashboardSections = ref([
 ])
 
 /* ===== MOUNTED ===== */
-onMounted(async () => {
-  if(dashboard.$state.success) return
-	await dashboard.fetchDashboard(connections.storeId)
-  const { learn_the_basics, helpful_articles, add_ons } = dashboard.$state
-  if(learn_the_basics) populateCustomizeDropDown('Learn the basics', 'learn_the_basics', learn_the_basics)
-  if(helpful_articles) populateCustomizeDropDown('Helpful articles', 'helpful_articles', helpful_articles)
-  if(add_ons) populateCustomizeDropDown('Add-ons', 'add_ons', add_ons)
+onMounted(() => {
+  fetchDashboardHandler()
 })
 
 /* ===== METHODS ===== */
@@ -31,6 +27,15 @@ const populateCustomizeDropDown = (label, value, isVisible) => {
     value,
     isVisible
   })
+}
+
+const fetchDashboardHandler = async () => {
+  if(dashboard.$state.success) return
+	await dashboard.fetchDashboard(connections.storeId)
+  const { learn_the_basics, helpful_articles, add_ons } = dashboard.$state
+  if(learn_the_basics) populateCustomizeDropDown('Learn the basics', 'learn_the_basics', learn_the_basics)
+  if(helpful_articles) populateCustomizeDropDown('Helpful articles', 'helpful_articles', helpful_articles)
+  if(add_ons) populateCustomizeDropDown('Add-ons', 'add_ons', add_ons)
 }
 
 const updateDashboardHandler = async (event) => {

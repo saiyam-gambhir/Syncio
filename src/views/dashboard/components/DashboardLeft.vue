@@ -1,7 +1,7 @@
 <script setup>
-import { onMounted } from 'vue'
+import { inject } from 'vue'
 import { useConnectionsStore } from '@/stores/connections'
-import { useDashboardStore } from '@/stores/dashboard'
+import { useFilters } from '@/composables/filters'
 
 /* ===== COMPONENTS ===== */
 import AppLink from '@/components/shared/AppLink.vue'
@@ -9,6 +9,13 @@ import Card from '@/views/dashboard/components/Card.vue'
 
 /* ===== DATA ===== */
 const connections = useConnectionsStore()
+const { copyToClipBoard } = useFilters()
+const $toast = inject('$toast')
+
+const copy = (val) => {
+  copyToClipBoard(val)
+  $toast.success('Store key copied')
+}
 </script>
 
 <template>
@@ -18,7 +25,10 @@ const connections = useConnectionsStore()
       icon="key"
       title="Unique store key">
       <template #links>
-        <h3 class="mb-0">{{ connections.storeKey }}</h3>
+        <h3 class="mb-0 flex align-items-center">
+          {{ connections.storeKey }}
+          <Button icon="pi pi-copy" class="p-button-rounded p-button-text ml-2" @click="copy(connections.storeKey)" />
+        </h3>
       </template>
     </Card>
 
