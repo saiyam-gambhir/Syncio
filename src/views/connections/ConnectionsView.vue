@@ -14,28 +14,28 @@ const LocationChangeDialog = defineAsyncComponent(() => import('@/views/connecti
 const SetCommissionDialog = defineAsyncComponent(() => import('@/views/connections/components/SetCommissionDialog.vue'))
 
 /* ===== DATA ===== */
-const connectionsStore = useConnectionsStore()
+const connections = useConnectionsStore()
 const options = ref(['Off', 'On'])
 
 /* ===== MOUNTED ===== */
 onMounted(async () => {
-  if(connectionsStore.connections.length > 0) return
-	await connectionsStore.fetchConnections()
-  if(connectionsStore.isStoreMultilocation) await connectionsStore.fetchDestinationLocations()
+  if(connections.connections.length > 0) return
+	await connections.fetchConnections()
+  if(connections.isStoreMultilocation) await connections.fetchDestinationLocations()
 })
 
 /* ===== METHODS ===== */
 const closeDialogHandler = () => {
-  connectionsStore.isSetCommissionRequested = false
+  connections.isSetCommissionRequested = false
 }
 
 const toggleMultilocationHandler = async (event) => {
-  if(event.value === 'Off' && !connectionsStore.isDisableMultilocationRequested) {
-    connectionsStore.isDisableMultilocationRequested = true
+  if(event.value === 'Off' && !connections.isDisableMultilocationRequested) {
+    connections.isDisableMultilocationRequested = true
     return
   }
-  await connectionsStore.toggleMultilocation()
-  await connectionsStore.fetchDestinationLocations()
+  await connections.toggleMultilocation()
+  await connections.fetchDestinationLocations()
 }
 </script>
 
@@ -52,19 +52,19 @@ const toggleMultilocationHandler = async (event) => {
           <br />
           <AppLink link="https://help.syncio.co/en/articles/5842693-multilocations-for-destination-stores" label="Read More" class="mt-1" />
         </h4>
-        <SelectButton v-model="connectionsStore.isMultilocationEnabled" :options="options" aria-labelledby="single" @change="toggleMultilocationHandler($event)" />
+        <SelectButton v-model="connections.isMultilocationEnabled" :options="options" aria-labelledby="single" @change="toggleMultilocationHandler($event)" />
       </div>
       <Button label="Connect New Store" class="ml-5" icon="pi pi-plus-circle" iconPos="right" />
     </template>
   </PageHeader>
 
 	<article class="mt-4">
-    <ConnectionsViewSkeleton v-if="connectionsStore.loadingConnections" />
+    <ConnectionsViewSkeleton v-if="connections.loadingConnections" />
     <Connections v-else />
 
-    <DisconnectDialog v-if="connectionsStore.isConnectionDisconnectRequested" />
-    <LocationChangeDialog v-if="connectionsStore.isLocationChangeRequested" />
-    <SetCommissionDialog v-if="connectionsStore.isSetCommissionRequested" />
-    <DisableMultilocationDialog v-if="connectionsStore.isDisableMultilocationRequested" />
+    <DisconnectDialog v-if="connections.isConnectionDisconnectRequested" />
+    <LocationChangeDialog v-if="connections.isLocationChangeRequested" />
+    <SetCommissionDialog v-if="connections.isSetCommissionRequested" />
+    <DisableMultilocationDialog v-if="connections.isDisableMultilocationRequested" />
 	</article>
 </template>

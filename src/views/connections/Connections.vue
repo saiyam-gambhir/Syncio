@@ -3,18 +3,18 @@ import { useConnectionsStore } from '@/stores/connections'
 import { useFilters } from '../../composables/filters'
 
 /* ===== COMPONENTS ===== */
+import DestinationLocationSelector from '@/views/connections/components/multiLocation/DestinationLocationSelector.vue'
 import IconShopifyVue from '@/icons/IconShopify.vue'
 import IconWoo from '@/icons/IconWoo.vue'
-import DestinationLocationSelector from '@/views/connections/components/multiLocation/DestinationLocationSelector.vue'
 
 /* ===== DATA ===== */
-const connectionsStore = useConnectionsStore()
+const connections = useConnectionsStore()
 const { formatCurrency } = useFilters()
 
 /* ===== METHODS ===== */
 const showSetCommissionDialog = (connection) => {
-  connectionsStore.selectedConnection = connection
-  connectionsStore.isSetCommissionRequested = true
+  connections.selectedConnection = connection
+  connections.isSetCommissionRequested = true
 }
 
 const getStoreCommission = (commission) => {
@@ -28,13 +28,33 @@ const getStoreStatus = (status) => {
 }
 
 const showDisconnectStoreDialog = (connection) => {
-  connectionsStore.selectedConnection = connection
-  connectionsStore.isConnectionDisconnectRequested = true
+  connections.selectedConnection = connection
+  connections.isConnectionDisconnectRequested = true
+}
+
+const fetchConnectionsHandler = async () => {
+  await connections.fetchConnections()
+  document.querySelector('#searchInput').focus()
 }
 </script>
 
 <template>
-  <DataTable :value="connectionsStore.connections" responsiveLayout="scroll" showGridlines>
+  <DataTable :value="connections.connections" responsiveLayout="scroll" showGridlines>
+
+    <template #header>
+      <div class="flex align-items-center justify-content-between">
+        <div class="p-inputgroup w-35">
+          <InputText id="searchInput" v-model="connections.filters.searchString" placeholder="Search by store URL" @keyup.enter="fetchConnectionsHandler" />
+          <Button icon="pi pi-search" @click="fetchConnectionsHandler" />
+        </div>
+      </div>
+    </template>
+
+    <template #empty>
+      <div class="px-4 py-8 text-center">
+        <h2 class="m-0">No stores found</h2>
+      </div>
+    </template>
 
     <Column header="Store" style="width: 35%;" :sortable="true">
       <template #body="{ data: connection }">
@@ -61,13 +81,13 @@ const showDisconnectStoreDialog = (connection) => {
       </template>
     </Column>
 
-    <Column header="Assigned Location" style="width: 30%;">
-      <template #body="{ data: connection }" v-if="connectionsStore.isMultilocation">
+    <Column header="Assigned Location" style="width: 27.5%;">
+      <template #body="{ data: connection }" v-if="connections.isMultilocation">
         <DestinationLocationSelector :connection="connection" />
       </template>
     </Column>
 
-    <Column header="Actions" style="width: 15%;" class="text-right">
+    <Column header="Actions" style="width: 17.5%;" class="text-right">
       <template #body="{ data: connection }">
         <Button icon="pi pi-list" class="p-button-rounded p-button-outlined p-button-info" v-tooltip.top="'Products'" />
         <Button icon="pi pi-trash" class="p-button-rounded p-button-outlined p-button-danger ml-3" v-tooltip.top="'Disconnect'" @click="showDisconnectStoreDialog(connection)" />

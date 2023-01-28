@@ -14,6 +14,11 @@ export const useConnectionsStore = defineStore('connections', {
       connections: [],
       currentStore: null,
       destinationLocations: null,
+      filters: {
+        searchString: null,
+        sortBy: null,
+        sortByDesc: false
+      },
       isConnectionDisconnectRequested: false,
       isConnectNewStoreRequested: false,
       isDisableMultilocationRequested: false,
@@ -23,7 +28,7 @@ export const useConnectionsStore = defineStore('connections', {
       isMultilocationEnabled: 'Off',
       isSetCommissionRequested: false,
       loadingConnections: false,
-      selectedConnection: null,
+      searchString: null,
     }
   },
 

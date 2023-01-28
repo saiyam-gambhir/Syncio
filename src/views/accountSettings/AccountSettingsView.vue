@@ -4,7 +4,7 @@ import PageHeader from '@/components/shared/PageHeader.vue'
 
 <template>
 	<PageHeader
-		content="Manage your account settings"
+		content="Manage your account"
 		title="Account Settings">
 	</PageHeader>
 </template>
