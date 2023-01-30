@@ -17,7 +17,7 @@ export const useConnectionsStore = defineStore('connections', {
       filters: {
         searchString: null,
         sortBy: null,
-        sortByDesc: false
+        sortByDesc: null
       },
       isConnectionDisconnectRequested: false,
       isConnectNewStoreRequested: false,

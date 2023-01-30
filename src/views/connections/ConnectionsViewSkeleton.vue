@@ -1,6 +1,13 @@
 <script setup>
 import { useConnectionsStore } from '@/stores/connections'
 
+const getSortIcon = () => {
+  const { sortByDesc } = connections.filters
+  if(sortByDesc === null) return 'pi-sort-alt'
+  else if(sortByDesc === false) return 'pi-sort-amount-up-alt'
+  else if(sortByDesc === true) return 'pi-sort-amount-down-alt'
+}
+
 /* ===== DATA ===== */
 const connections = useConnectionsStore()
 </script>
@@ -16,7 +23,12 @@ const connections = useConnectionsStore()
       </div>
     </template>
 
-    <Column header="Store" :sortable="true" style="width: 35%;">
+    <Column style="width: 35%;">
+      <template #header>
+        <div class="custom-sort">
+          Store Url <i class="pi ml-2" :class="getSortIcon()"></i>
+        </div>
+      </template>
       <template #body>
         <Skeleton height="26px" />
       </template>

@@ -167,12 +167,24 @@ td {
 }
 
 .p-knob-text {
-  transform: translateY(-4px);
+  transform: translateY(-2px);
 }
 
 .p-tooltip {
   .p-tooltip-text {
     text-align: center;
+  }
+}
+
+.p-datatable {
+  .p-datatable-thead > tr > th:has(.custom-sort) {
+    padding: 0 !important;
+  }
+
+  .custom-sort {
+    cursor: pointer;
+    padding: 1rem .85rem;
+    width: 100%;
   }
 }
 /* ===== OVERRIDES ===== */
