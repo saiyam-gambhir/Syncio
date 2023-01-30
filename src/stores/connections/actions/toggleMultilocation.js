@@ -5,6 +5,6 @@ export const toggleMultilocation = {
     const response = await this.$https.post(`stores/${this.storeId}/multi-locations/toggle`, {
       value: toggleValue
     })
-    await this.fetchConnections(this.storeId)
+    await this.fetchConnections()
   }
 }

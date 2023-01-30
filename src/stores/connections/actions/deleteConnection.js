@@ -5,6 +5,6 @@ export const deleteConnection = {
       keeping_products: keepingProducts
     })
 
-    await this.fetchConnections(this.storeId)
+    await this.fetchConnections()
   }
 }

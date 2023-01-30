@@ -20,7 +20,7 @@ const value = ref(10)
       </div>
 
       <div class="nav-wrapper select-none">
-        <ul class="primary-navigation list-none px-3 py-5 m-0">
+        <ul class="primary-navigation list-none pb-5 pt-4 px-3  m-0">
           <li>
             <NavLink linkText="Dashboard" />
           </li>

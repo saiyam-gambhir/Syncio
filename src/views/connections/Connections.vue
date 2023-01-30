@@ -34,20 +34,6 @@ const showDisconnectStoreDialog = (connection) => {
 
 const fetchConnectionsHandler = async () => {
   await connections.fetchConnections()
-  document.querySelector('#searchInput').focus()
-}
-
-const sortConnectionsHandler = async (sortField) => {
-  connections.filters.sortByDesc = !connections.filters.sortByDesc
-  connections.filters.sortBy = sortField
-  await connections.fetchConnections()
-}
-
-const getSortIcon = () => {
-  const { sortByDesc } = connections.filters
-  if(sortByDesc === null) return 'pi-sort-alt'
-  else if(sortByDesc === false) return 'pi-sort-amount-up-alt'
-  else if(sortByDesc === true) return 'pi-sort-amount-down-alt'
 }
 </script>
 
@@ -57,9 +43,21 @@ const getSortIcon = () => {
     <template #header>
       <div class="flex align-items-center justify-content-between">
         <div class="p-inputgroup w-35">
-          <InputText id="searchInput" v-model="connections.filters.searchString" placeholder="Search by store URL" @keyup.enter="fetchConnectionsHandler" autocomplete="off" />
-          <Button icon="pi pi-search" @click="fetchConnectionsHandler" />
+          <InputText v-model="connections.filters.searchString" placeholder="Search by store URL" @keyup.enter="fetchConnectionsHandler" autocomplete="off" />
+          <Button icon="pi pi-search" @click="fetchConnectionsHandler" :loading="connections.loadingConnections" :disabled="!connections.filters.searchString" />
         </div>
+
+        <Dropdown v-model="connections.filters.sortBy" :options="connections.sortOptions" optionLabel="label" placeholder="Sort by Store" @change="fetchConnectionsHandler" :loading="connections.loadingConnections">
+          <template #value>
+            Sort by Store
+					</template>
+          <template #option="{ option }">
+            <div class="flex align-items-center justify-content-between">
+              {{ option.label }}
+              <i :class="option.icon"></i>
+            </div>
+          </template>
+        </Dropdown>
       </div>
     </template>
 
@@ -69,12 +67,7 @@ const getSortIcon = () => {
       </div>
     </template>
 
-    <Column style="width: 35%;">
-      <template #header>
-        <div class="custom-sort" @click="sortConnectionsHandler('store_domain')">
-          Store Url <i class="pi ml-2" :class="getSortIcon()"></i>
-        </div>
-      </template>
+    <Column header="Store" style="width: 35%;">
       <template #body="{ data: connection }">
         <div class="flex align-items-center">
           <IconShopifyVue v-if="connection.platform === 'shopify'" class="mr-3" />

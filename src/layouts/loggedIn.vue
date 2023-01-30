@@ -12,7 +12,7 @@ import Navbar from '@/components/navbar/Navbar.vue'
         <Header />
 
         <div class="flex flex-auto flex-column router-view mx-auto">
-          <div class="flex-auto surface-section p-5">
+          <div class="flex-auto surface-section p-5 pt-4">
             <RouterView />
           </div>
         </div>
