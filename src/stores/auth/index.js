@@ -22,12 +22,16 @@ export const useAuthStore = defineStore('auth', {
   },
 
   getters: {
-    productsSynced(state) {
-      return +state.plan?.product_mappers_count
+    productsSynced({ plan }) {
+      return +plan?.product_mappers_count
     },
 
-    productsSyncedLimit(state) {
-      return +state.plan?.syncio_plan?.sync_product_limit
+    productsSyncedLimit({ plan }) {
+      return +plan?.syncio_plan?.sync_product_limit
+    },
+
+    userId({ user }) {
+      return user?.id
     }
   },
 

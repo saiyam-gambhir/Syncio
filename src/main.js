@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import { createPinia } from 'pinia'
+import { useActivityCenterStore } from '@/stores/activityCenter'
 import { useAuthStore } from '@/stores/auth'
 import { useConnectionsStore } from '@/stores/connections'
 import { useDashboardStore } from '@/stores/dashboard'
@@ -21,6 +22,8 @@ import Ripple from 'primevue/ripple'
 import SelectButton from 'primevue/selectbutton'
 import Skeleton from 'primevue/skeleton'
 import SpeedDial from 'primevue/speeddial'
+import TabPanel from 'primevue/tabpanel'
+import TabView from 'primevue/tabview'
 import Tag from 'primevue/tag'
 import Tooltip from 'primevue/tooltip'
 import router from './router'
@@ -77,17 +80,20 @@ app
 .component('SelectButton', SelectButton)
 .component('Skeleton', Skeleton)
 .component('SpeedDial', SpeedDial)
+.component('TabPanel', TabPanel)
+.component('TabView', TabView)
 .component('Tag', Tag)
 .directive('ripple', Ripple)
 .directive('tooltip', Tooltip)
 
 /* ==== BINDING TO VUE INSTANCE ===== */
+const activityCenter = useActivityCenterStore()
 const auth = useAuthStore()
 const connections = useConnectionsStore()
 const dashboard = useDashboardStore()
 const toast = useToast()
 app.config.globalProperties.$dateTime = DateTime
-auth.$https = connections.$https = dashboard.$https = $https
+auth.$https = activityCenter.$https = connections.$https = dashboard.$https = $https
 app.provide('$toast', toast)
 
 /* ===== LOGOUT HANDLER ===== */
