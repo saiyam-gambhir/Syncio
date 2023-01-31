@@ -231,3 +231,9 @@ td {
 .header-height {
   height: $headerHeight;
 }
+
+.login-screen {
+  background: url('../images/signin.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+}

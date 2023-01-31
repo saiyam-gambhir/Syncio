@@ -6,11 +6,11 @@ const activityCenter = useActivityCenterStore()
 </script>
 
 <template>
-  <DataTable :value="activityCenter.productIssues?.notifications" responsiveLayout="scroll" showGridlines>
+  <DataTable :value="activityCenter.orderIssues?.notifications" responsiveLayout="scroll" showGridlines>
     <template #empty v-if="!activityCenter.loadingActivities">
-      <div class="px-4 py-8 text-center">
+      <div class="px-4 py-4 text-center">
         <h2 class="m-0">Hurray 🎉</h2>
-        <p>You have no Product issues at this time.<br> If you notice something isn't right with your sync,<br> check back here to see if there are any issues and how to fix them.</p>
+        <p>You have no Order issues at this time.<br> If you notice something isn't right with your sync,<br> check back here to see if there are any issues and how to fix them.</p>
       </div>
     </template>
 
@@ -32,7 +32,7 @@ const activityCenter = useActivityCenterStore()
       </template>
     </Column>
 
-    <Column header="Product" style="width: 25%;">
+    <Column header="Order" style="width: 25%;">
       <template #body="{ data }">
         <div class="flex">
           <figure class="m-0">
