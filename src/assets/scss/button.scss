@@ -20,9 +20,17 @@
   }
 }
 
+.btn-link {
+  color: #57a8ff !important;
+
+  &:before {
+    background: #57a8ff !important;
+  }
+}
+
 .theme-light {
   .btn-link {
-    color: $primaryLink;
+    color: $primaryLink !important;
 
     &:before {
       background: $primaryLink !important;

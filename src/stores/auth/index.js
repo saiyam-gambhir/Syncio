@@ -11,11 +11,11 @@ export const useAuthStore = defineStore('auth', {
   state: () => {
     return {
       currency: 'USD',
-      email: 'fei-test-store@syncio.co',
+      email: '',
       isAuthenticated: false,
       loading: false,
       locales: 'en-US',
-      password: 'syncio1234',
+      password: '',
       plan: null,
       user: null,
     }

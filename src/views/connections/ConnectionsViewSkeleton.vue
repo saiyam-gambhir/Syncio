@@ -5,7 +5,7 @@ import { useConnectionsStore } from '@/stores/connections'
 const connections = useConnectionsStore()
 </script>
 <template>
-  <DataTable :value="[{},{},{},{},{}]" responsiveLayout="scroll" class="shadow-2" showGridlines>
+  <DataTable :value="[{},{},{},{},{}]" responsiveLayout="scroll" showGridlines>
 
     <template #header>
       <div class="flex align-items-center justify-content-between">

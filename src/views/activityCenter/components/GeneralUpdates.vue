@@ -1,17 +1,20 @@
 <script setup>
 import { useActivityCenterStore } from '@/stores/activityCenter'
+import GeneralUpdatesSkeleton from './GeneralUpdatesSkeleton.vue'
 
 /* ===== DATA ===== */
 const activityCenter = useActivityCenterStore()
 </script>
 
 <template>
-  <DataTable :value="activityCenter.generalUpdates?.notifications" responsiveLayout="scroll" showGridlines>
+  <GeneralUpdatesSkeleton v-if="activityCenter.loadingActivities" />
+
+  <DataTable v-else :value="activityCenter.generalUpdates?.notifications" responsiveLayout="scroll" showGridlines>
     <Column header="Date(AEST)" style="width: 7.5%;">
       <template #body="{ data }">
         <div class="flex flex-column">
           <span class="text-sm font-semibold">{{ data.date }}</span>
-          <span class="text-xs mt-1">{{ data.time }}</span>
+          <span class="text-xs mt-2">{{ data.time }}</span>
         </div>
       </template>
     </Column>
@@ -41,9 +44,10 @@ const activityCenter = useActivityCenterStore()
       </template>
     </Column>
 
-    <Column header="" style="width: 12.5%;">
+    <Column header="Help" style="width: 12.5%;">
       <template #body="{ data }">
         <a v-if="data.link" :href="data.link" class="btn-link text-sm">How to fix this</a>
+        <span v-else>-</span>
       </template>
     </Column>
   </DataTable>

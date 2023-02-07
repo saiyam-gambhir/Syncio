@@ -1,10 +1,12 @@
 <script setup>
 import { defineAsyncComponent, onMounted } from 'vue'
 import { useActivityCenterStore } from '@/stores/activityCenter'
+
+/* ===== COMPONENTS ==== */
 import PageHeader from '@/components/shared/PageHeader.vue'
 import ProductIssues from '@/views/activityCenter/components/ProductIssues.vue'
-const OrderIssues = defineAsyncComponent(() => import('@/views/activityCenter/components/OrderIssues.vue'))
 const GeneralUpdates = defineAsyncComponent(() => import('@/views/activityCenter/components/GeneralUpdates.vue'))
+const OrderIssues = defineAsyncComponent(() => import('@/views/activityCenter/components/OrderIssues.vue'))
 
 /* ===== DATA ===== */
 const activityCenter = useActivityCenterStore()
@@ -52,13 +54,13 @@ const fetchActivitiesHandler = async (activeTabIndex) => {
       </li>
     </ul>
 
-    <div v-if="activityCenter.activeTabIndex === 0" class="mt-4">
+    <div v-if="activityCenter.activeTabIndex === 0">
       <ProductIssues />
     </div>
-    <div v-if="activityCenter.activeTabIndex === 1" class="mt-4">
+    <div v-if="activityCenter.activeTabIndex === 1">
       <OrderIssues />
     </div>
-    <div v-if="activityCenter.activeTabIndex === 2" class="mt-4">
+    <div v-if="activityCenter.activeTabIndex === 2">
       <GeneralUpdates />
     </div>
 	</section>
