@@ -1,26 +1,20 @@
 <script setup>
 import { defineAsyncComponent, onMounted } from 'vue'
-import { useActivityCenterStore } from '@/stores/activityCenter'
+import { useActivities } from './composables/activities'
 
 /* ===== COMPONENTS ==== */
 import PageHeader from '@/components/shared/PageHeader.vue'
-import ProductIssues from '@/views/activityCenter/components/ProductIssues.vue'
-const GeneralUpdates = defineAsyncComponent(() => import('@/views/activityCenter/components/GeneralUpdates.vue'))
-const OrderIssues = defineAsyncComponent(() => import('@/views/activityCenter/components/OrderIssues.vue'))
+const GeneralUpdates = defineAsyncComponent(() => import('@/views/activityCenter/components/GeneralUpdates/GeneralUpdates.vue'))
+const OrderIssues = defineAsyncComponent(() => import('@/views/activityCenter/components/OrderIssues/OrderIssues.vue'))
+const ProductIssues = defineAsyncComponent(() => import('@/views/activityCenter/components/ProductIssues/ProductIssues.vue'))
 
 /* ===== DATA ===== */
-const activityCenter = useActivityCenterStore()
+const { activityCenter, fetchActivitiesHandler } = useActivities()
 
 /* ===== MOUNTED ===== */
 onMounted(() => {
   fetchActivitiesHandler(0)
 })
-
-/* ===== METHODS ===== */
-const fetchActivitiesHandler = async (activeTabIndex) => {
-  activityCenter.activeTabIndex = activeTabIndex
-  await activityCenter.fetchActvities()
-}
 </script>
 
 <template>

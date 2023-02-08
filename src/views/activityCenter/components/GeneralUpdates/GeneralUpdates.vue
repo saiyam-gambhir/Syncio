@@ -1,9 +1,9 @@
 <script setup>
-import { useActivityCenterStore } from '@/stores/activityCenter'
+import { useActivities } from '../../composables/activities'
 import GeneralUpdatesSkeleton from './GeneralUpdatesSkeleton.vue'
 
 /* ===== DATA ===== */
-const activityCenter = useActivityCenterStore()
+const { activityCenter } = useActivities()
 </script>
 
 <template>
@@ -46,7 +46,7 @@ const activityCenter = useActivityCenterStore()
 
     <Column header="Help" style="width: 12.5%;">
       <template #body="{ data }">
-        <a v-if="data.link" :href="data.link" class="btn-link text-sm">How to fix this</a>
+        <a v-if="data.link" :href="data.link" target="_blank" class="btn-link text-sm">How to fix this</a>
         <span v-else>-</span>
       </template>
     </Column>

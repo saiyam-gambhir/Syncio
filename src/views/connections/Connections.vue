@@ -1,6 +1,6 @@
 <script setup>
 import { useConnectionsStore } from '@/stores/connections'
-import { useFilters } from '../../composables/filters'
+import { useFilters } from '@/composables/filters'
 
 /* ===== COMPONENTS ===== */
 import DestinationLocationSelector from '@/views/connections/components/multiLocation/DestinationLocationSelector.vue'

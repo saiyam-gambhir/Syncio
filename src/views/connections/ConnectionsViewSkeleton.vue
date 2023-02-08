@@ -14,7 +14,7 @@ const connections = useConnectionsStore()
           <Button icon="pi pi-search" @click="connections.fetchConnections" :loading="connections.loadingConnections" :disabled="!connections.filters.searchString" />
         </div>
 
-        <Dropdown v-model="connections.filters.sortBy" :options="connections.sortOptions" optionLabel="label" placeholder="Sort by Store" @change="fetchConnectionsHandler" :loading="connections.loadingConnections">
+        <Dropdown v-model="connections.filters.sortBy" :options="connections.sortOptions" optionLabel="label" placeholder="Sort by Store" :loading="connections.loadingConnections">
           <template #value>
             Sort by Store
 					</template>

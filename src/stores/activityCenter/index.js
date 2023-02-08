@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import deepmerge from 'deepmerge'
 
 /* ===== ACTIONS ===== */
+import { deleteActivity } from './actions/deleteActivity'
 import { fetchActvities } from './actions/fetchActivities'
 
 export const useActivityCenterStore = defineStore('activityCenter', {
@@ -24,6 +25,7 @@ export const useActivityCenterStore = defineStore('activityCenter', {
   },
 
   actions: deepmerge.all([
+    deleteActivity,
     fetchActvities
   ]),
 })

@@ -1,9 +1,9 @@
 <script setup>
-import { useActivityCenterStore } from '@/stores/activityCenter'
+import { useActivities } from '../../composables/activities'
 import { useFilters } from '@/composables/filters'
 
 /* ===== DATA ===== */
-const activityCenter = useActivityCenterStore()
+const { activityCenter } = useActivities()
 const { randomInteger } = useFilters()
 </script>
 

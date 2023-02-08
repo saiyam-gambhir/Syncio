@@ -1,8 +1,8 @@
 <script setup>
-import { useActivityCenterStore } from '@/stores/activityCenter'
+import { useActivities } from '../../composables/activities'
 
 /* ===== DATA ===== */
-const activityCenter = useActivityCenterStore()
+const { activityCenter, deleteActivityHandler } = useActivities()
 </script>
 
 <template>
@@ -62,8 +62,8 @@ const activityCenter = useActivityCenterStore()
     </Column>
 
     <Column header="Actions" style="width: 10%;" class="text-right">
-      <template #body="{}">
-        <Button icon="pi pi-trash" class="p-button-rounded p-button-outlined p-button-danger" v-tooltip.top="'Dismiss'" />
+      <template #body="{ data: { id } }">
+        <Button icon="pi pi-trash" class="p-button-rounded p-button-outlined p-button-danger" v-tooltip.top="'Dismiss'" @click="deleteActivityHandler(id)" />
       </template>
     </Column>
   </DataTable>
