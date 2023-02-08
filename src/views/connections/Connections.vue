@@ -1,6 +1,5 @@
 <script setup>
-import { useConnectionsStore } from '@/stores/connections'
-import { useFilters } from '@/composables/filters'
+import { useConnections } from './composables/connections'
 
 /* ===== COMPONENTS ===== */
 import DestinationLocationSelector from '@/views/connections/components/multiLocation/DestinationLocationSelector.vue'
@@ -8,33 +7,7 @@ import IconShopifyVue from '@/icons/IconShopify.vue'
 import IconWoo from '@/icons/IconWoo.vue'
 
 /* ===== DATA ===== */
-const connections = useConnectionsStore()
-const { formatCurrency } = useFilters()
-
-/* ===== METHODS ===== */
-const showSetCommissionDialog = (connection) => {
-  connections.selectedConnection = connection
-  connections.isSetCommissionRequested = true
-}
-
-const getStoreCommission = (commission) => {
-  if(!commission) return 'None'
-  if(commission.type === 'percentage') return `${commission.value}%`
-  if(commission.type === 'flat_rate') return formatCurrency(commission.value)
-}
-
-const getStoreStatus = (status) => {
-  return status === 'active' ? 'success' : 'danger'
-}
-
-const showDisconnectStoreDialog = (connection) => {
-  connections.selectedConnection = connection
-  connections.isConnectionDisconnectRequested = true
-}
-
-const fetchConnectionsHandler = async () => {
-  await connections.fetchConnections()
-}
+const { connections, fetchConnectionsHandler, getStoreCommission, getStoreStatus, showDisconnectStoreDialog, showSetCommissionDialog } = useConnections()
 </script>
 
 <template>
