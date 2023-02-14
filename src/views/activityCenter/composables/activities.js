@@ -3,11 +3,11 @@ import { useActivityCenterStore } from '@/stores/activityCenter'
 export function useActivities() {
   const activityCenter = useActivityCenterStore()
 
-  const deleteActivityHandler = (activityId) => {
+  const deleteActivityHandler = activityId => {
     activityCenter.deleteActivity(activityId)
   }
 
-  const fetchActivitiesHandler = async (activeTabIndex) => {
+  const fetchActivitiesHandler = async activeTabIndex => {
     activityCenter.activeTabIndex = activeTabIndex
     await activityCenter.fetchActvities()
   }
@@ -15,6 +15,6 @@ export function useActivities() {
   return {
     activityCenter,
     deleteActivityHandler,
-    fetchActivitiesHandler
+    fetchActivitiesHandler,
   }
 }

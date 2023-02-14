@@ -8,7 +8,8 @@ const connections = useConnectionsStore()
     <div class="header-left">
     </div>
     <div class="header-right">
-      <Tag :value="`${connections.storeType} store`" :class="connections.storeType" rounded />
+      <Tag :value="`${connections.storeType} store`" :class="connections.storeType" />
+      <Tag :value="connections.storeName" :class="connections.storeType" class="store-name ml-3" />
     </div>
   </header>
 </template>

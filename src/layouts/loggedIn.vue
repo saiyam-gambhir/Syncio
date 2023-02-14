@@ -5,7 +5,7 @@ import Navbar from '@/components/navbar/Navbar.vue'
 
 <template>
   <main class="main">
-    <div class="min-h-screen flex relative lg:static surface-ground">
+    <div class="min-h-screen flex relative lg:static">
       <Navbar />
 
       <div class="min-h-screen flex flex-column relative flex-auto">

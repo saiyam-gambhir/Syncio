@@ -96,7 +96,7 @@ td {
 
 .theme-light {
   .surface-card {
-    background: rgba(251, 251, 251, 1) !important;
+    background: rgba(14, 59, 77, 2.5%) !important;
   }
 
   .p-dialog {
@@ -187,7 +187,12 @@ td {
     width: 100%;
   }
 }
+
+.p-skeleton {
+  background: $skeletonBackground;
+}
 /* ===== OVERRIDES ===== */
+
 .theme-light .primary-navigation .router-link-active {
   background: $secondaryHoverBg;
   border: 1px solid $primary;

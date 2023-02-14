@@ -9,7 +9,7 @@ export function useConnections() {
     await connections.fetchConnections()
   }
 
-  const getStoreCommission = (commission) => {
+  const getStoreCommission = commission => {
     if(!commission) return 'None'
     if(commission.type === 'percentage') return `${commission.value}%`
     if(commission.type === 'flat_rate') return formatCurrency(commission.value)
@@ -19,12 +19,12 @@ export function useConnections() {
     return status === 'active' ? 'success' : 'danger'
   }
 
-  const showDisconnectStoreDialog = (connection) => {
+  const showDisconnectStoreDialog = connection => {
     connections.selectedConnection = connection
     connections.isConnectionDisconnectRequested = true
   }
 
-  const showSetCommissionDialog = (connection) => {
+  const showSetCommissionDialog = connection => {
     connections.selectedConnection = connection
     connections.isSetCommissionRequested = true
   }

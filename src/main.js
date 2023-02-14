@@ -1,10 +1,16 @@
+/* ===== Vue ===== */
 import { createApp } from 'vue'
 import App from './App.vue'
+
+/* ===== Pinia ===== */
 import { createPinia } from 'pinia'
 import { useActivityCenterStore } from '@/stores/activityCenter'
 import { useAuthStore } from '@/stores/auth'
 import { useConnectionsStore } from '@/stores/connections'
 import { useDashboardStore } from '@/stores/dashboard'
+import { useOrdersStore } from '@/stores/orders'
+
+/* ===== Prime Vue ===== */
 import Button from 'primevue/button'
 import Card from 'primevue/card'
 import Checkbox from 'primevue/checkbox'
@@ -48,6 +54,7 @@ const $https = axios.create({
 })
 $https.defaults.headers.common['x-syncio-app-id'] = import.meta.env.VITE_APP_ID
 
+/* ===== TOAST ===== */
 const toastOptions = {
   hideProgressBar: true,
   timeout: 3000,
@@ -91,16 +98,19 @@ const activityCenter = useActivityCenterStore()
 const auth = useAuthStore()
 const connections = useConnectionsStore()
 const dashboard = useDashboardStore()
+const orders = useOrdersStore()
 const toast = useToast()
 app.config.globalProperties.$dateTime = DateTime
-auth.$https = activityCenter.$https = connections.$https = dashboard.$https = $https
+auth.$https = activityCenter.$https = connections.$https = dashboard.$https = orders.$https = $https
 app.provide('$toast', toast)
 
 /* ===== LOGOUT HANDLER ===== */
 const logout = () => {
   auth.$reset()
+  activityCenter.$reset()
   connections.$reset()
   dashboard.$reset()
+  orders.$reset()
   sessionStorage.removeItem('ID_TOKEN_KEY')
   sessionStorage.removeItem('USER_ID')
   router.push('/login')
