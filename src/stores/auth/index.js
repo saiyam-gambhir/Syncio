@@ -17,6 +17,7 @@ export const useAuthStore = defineStore('auth', {
       locales: 'en-US',
       password: '',
       plan: null,
+      timeZone: 'Australia/Melbourne',
       user: null,
     }
   },

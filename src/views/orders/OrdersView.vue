@@ -1,14 +1,16 @@
 <script setup>
 import { onMounted, ref } from 'vue'
+import { useFilters } from '@/composables/filters'
 import { useOrders } from './composables/orders'
-import AppLink from '@/components/shared/AppLink.vue'
-import OrdersViewSkeleton from './OrdersViewSkeleton.vue'
 
 /* ===== COMPONENTS ===== */
+import AppLink from '@/components/shared/AppLink.vue'
+import OrdersViewSkeleton from './OrdersViewSkeleton.vue'
 import PageHeader from '@/components/shared/PageHeader.vue'
 
 /* ===== DATA ===== */
 const { fetchOrdersHandler, getOrderStatus, orders } = useOrders()
+const { formatDate } = useFilters()
 const isAutomaticPushActive = ref('Off')
 const options = ref(['Off', 'On'])
 
@@ -52,9 +54,9 @@ onMounted(() => {
       </template>
     </Column>
 
-    <Column header="Date (AEST)" style="width: 20%;">
+    <Column header="Date" style="width: 20%;">
       <template #body="{ data: { created_at } }">
-        {{ created_at }}
+        {{ formatDate(created_at) }}
       </template>
     </Column>
 
@@ -78,7 +80,7 @@ onMounted(() => {
 
     <Column header="Actions" style="width: 10%;" class="text-right">
       <template #body="{ data: {} }">
-        <Button icon="pi pi-window-maximize" class="p-button-rounded p-button-outlined p-button-info" v-tooltip.top="'Details'" />
+        <Button icon="pi pi-window-maximize" class="p-button-rounded p-button-outlined p-button-info" v-tooltip.top="'View Details'" />
       </template>
     </Column>
 

@@ -1,9 +1,12 @@
 export const fetchOrders = {
   async fetchOrders(storeId) {
     this.loadingOrders = true
+    const { page, searchString, sortBy } = this.params
     const response = await this.$https(`stores/${storeId}/orders`, {
       params: {
-        page: 1
+        page: page,
+        searchStr: searchString,
+        sortBy: sortBy,
       }
     })
 

@@ -1,4 +1,5 @@
 import { useAuthStore } from '@/stores/auth'
+import { DateTime } from 'luxon'
 
 export function useFilters() {
   const auth = useAuthStore()
@@ -15,6 +16,11 @@ export function useFilters() {
     }).format(val)
   }
 
+  const formatDate = (val, timeZone = auth.timeZone) => {
+    if(!val) return 'Invalid Date'
+    return DateTime.fromISO(val).setZone(timeZone).toFormat('EEE, dd-MM-yyyy, hh:mm a')
+  }
+
   const randomInteger = (min = 25, max = 100) => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
@@ -22,6 +28,7 @@ export function useFilters() {
   return {
     copyToClipBoard,
     formatCurrency,
+    formatDate,
     randomInteger,
   }
 }

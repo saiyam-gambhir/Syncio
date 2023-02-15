@@ -9,8 +9,8 @@ export const useOrdersStore = defineStore('orders', {
     return {
       loadingOrders: false,
       orders: [],
+      params: { page: '1', searchString: null, sortBy: 'DESC' },
       pushSettings: [],
-      searchString: null,
       sortOptions: [
         { icon: 'pi pi-sort-alpha-up', key: 'store_domain', label: 'Date: New to Old', sortByDesc: false },
         { icon: 'pi pi-sort-alpha-up-alt', key: 'store_domain', label: 'Date: Old to New', sortByDesc: true }
