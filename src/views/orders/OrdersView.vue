@@ -2,6 +2,7 @@
 import { onMounted, ref } from 'vue'
 import { useOrders } from './composables/orders'
 import AppLink from '@/components/shared/AppLink.vue'
+import OrdersViewSkeleton from './OrdersViewSkeleton.vue'
 
 /* ===== COMPONENTS ===== */
 import PageHeader from '@/components/shared/PageHeader.vue'
@@ -36,7 +37,8 @@ onMounted(() => {
     </template>
   </PageHeader>
 
-  <DataTable :value="orders.orders" responsiveLayout="scroll" showGridlines class="mt-4">
+  <OrdersViewSkeleton v-if="orders.loadingOrders" />
+  <DataTable v-else :value="orders.orders" responsiveLayout="scroll" showGridlines class="mt-4">
 
     <template #empty>
       <div class="px-4 py-8 text-center">

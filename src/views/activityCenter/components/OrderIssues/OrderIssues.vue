@@ -1,6 +1,9 @@
 <script setup>
 import { useActivities } from '../../composables/activities'
 
+/* ===== COMPONENTS ===== */
+import AppLink from '@/components/shared/AppLink.vue'
+
 /* ===== DATA ===== */
 const { activityCenter, deleteActivityHandler } = useActivities()
 </script>
@@ -56,8 +59,9 @@ const { activityCenter, deleteActivityHandler } = useActivities()
     </Column>
 
     <Column header="Help" style="width: 12.5%;">
-      <template #body="{ data }">
-        <a v-if="data.link" :href="data.link" class="btn-link text-sm">How to fix this</a>
+      <template #body="{ data: { link } }">
+        <AppLink v-if="link" label="How to fix this" :link="link" class="text-sm" />
+        <span v-else>-</span>
       </template>
     </Column>
 

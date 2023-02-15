@@ -1,10 +1,8 @@
 <script setup>
 import { useActivityCenterStore } from '@/stores/activityCenter'
-import { useFilters } from '@/composables/filters'
 
 /* ===== DATA ===== */
 const activityCenter = useActivityCenterStore()
-const { randomInteger } = useFilters()
 </script>
 
 <template>

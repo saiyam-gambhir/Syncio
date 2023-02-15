@@ -1,11 +1,12 @@
 .btn-link {
   @extend .position-relative;
+  color: #57a8ff !important;
   font-size: 13px;
   text-decoration: none;
 
   &:before {
     @extend .content-before;
-    background: $cardBackground;
+    background: #57a8ff;
     bottom: -2px;
     height: 1px;
     left: 0;
@@ -17,14 +18,19 @@
     &:before {
       @extend .w-100;
     }
+
+    .pi {
+      margin-left: 2px;
+      opacity: 1;
+    }
   }
-}
 
-.btn-link {
-  color: #57a8ff !important;
-
-  &:before {
-    background: #57a8ff !important;
+  .pi {
+    font-size: .9rem;
+    margin-left: 0;
+    opacity: 0;
+    transition: .25s;
+    transition-delay: .15s;
   }
 }
 

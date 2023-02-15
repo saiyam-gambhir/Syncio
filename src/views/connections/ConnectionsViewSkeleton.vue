@@ -6,7 +6,6 @@ const connections = useConnectionsStore()
 </script>
 <template>
   <DataTable :value="[{},{},{},{},{}]" responsiveLayout="scroll" showGridlines>
-
     <template #header>
       <div class="flex align-items-center justify-content-between">
         <div class="p-inputgroup w-35">
@@ -33,21 +32,25 @@ const connections = useConnectionsStore()
         <Skeleton height="26px" />
       </template>
     </Column>
+
     <Column  header="Commission" style="width: 10%;">
       <template #body>
         <Skeleton height="26px" />
       </template>
     </Column>
+
     <Column  header="Status" style="width: 10%;">
       <template #body>
         <Skeleton width="62px" height="26px" borderRadius="20px" />
       </template>
     </Column>
+
     <Column header="Assigned Location" style="width: 27.5%;">
       <template #body>
         <Skeleton height="39px" />
       </template>
     </Column>
+
     <Column header="Actions" style="width: 17.5%;" class="text-right">
       <template #body>
         <Skeleton size="40px" shape="circle" style="float: right;" class="ml-3" />
