@@ -15,7 +15,7 @@ export function useConnections() {
     if(commission.type === 'flat_rate') return formatCurrency(commission.value)
   }
 
-  const getStoreStatus = (status) => {
+  const getStoreStatus = status => {
     return status === 'active' ? 'success' : 'danger'
   }
 

@@ -5,16 +5,21 @@ export function useOrders() {
   const connections = useConnectionsStore()
   const orders = useOrdersStore()
 
-  const fetchOrdersHandler = async () => {
+  const fetchOrder = async orderId => {
+    await orders.fetchOrder(connections.storeId, orderId)
+  }
+
+  const fetchOrders = async () => {
     await orders.fetchOrders(connections.storeId)
   }
 
-  const getOrderStatus = (status) => {
+  const getOrderStatus = status => {
     return status === 'pushed' ? 'success' : 'danger'
   }
 
   return {
-    fetchOrdersHandler,
+    fetchOrder,
+    fetchOrders,
     getOrderStatus,
     orders,
   }

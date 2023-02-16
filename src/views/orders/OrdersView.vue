@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from 'vue'
+import { defineAsyncComponent, onMounted, ref, toRaw } from 'vue'
 import { useFilters } from '@/composables/filters'
 import { useOrders } from './composables/orders'
 
@@ -7,17 +7,30 @@ import { useOrders } from './composables/orders'
 import AppLink from '@/components/shared/AppLink.vue'
 import OrdersViewSkeleton from './OrdersViewSkeleton.vue'
 import PageHeader from '@/components/shared/PageHeader.vue'
+const OrderDetails = defineAsyncComponent(() => import('./components/OrderDetails.vue'))
 
 /* ===== DATA ===== */
-const { fetchOrdersHandler, getOrderStatus, orders } = useOrders()
+const { fetchOrder, fetchOrders, getOrderStatus, orders } = useOrders()
 const { formatDate } = useFilters()
 const isAutomaticPushActive = ref('Off')
 const options = ref(['Off', 'On'])
+let currentOrder = ref({})
 
 /* ===== MOUNTED ===== */
 onMounted(() => {
   fetchOrdersHandler()
 })
+
+/* ===== METHODS ===== */
+const fetchOrdersHandler = async () => {
+  fetchOrders()
+}
+
+const fetchOrderHandler = async orderId => {
+  orders.isViewOrderDetailsRequested = true
+  await fetchOrder(orderId)
+  currentOrder.value = structuredClone(toRaw(orders.order))
+}
 </script>
 
 <template>
@@ -79,11 +92,12 @@ onMounted(() => {
     </Column>
 
     <Column header="Actions" style="width: 10%;" class="text-right">
-      <template #body="{ data: {} }">
-        <Button icon="pi pi-window-maximize" class="p-button-rounded p-button-outlined p-button-info" v-tooltip.top="'View Details'" />
+      <template #body="{ data: { id } }">
+        <Button icon="pi pi-window-maximize" class="p-button-rounded p-button-outlined p-button-info" v-tooltip.top="'View Details'" @click="fetchOrderHandler(id)" />
       </template>
     </Column>
 
   </DataTable>
 
+  <OrderDetails v-if="orders.isViewOrderDetailsRequested" :order="currentOrder" />
 </template>

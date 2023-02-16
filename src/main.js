@@ -22,10 +22,13 @@ import InputNumber from 'primevue/inputnumber'
 import InputSwitch from 'primevue/inputswitch'
 import InputText from 'primevue/inputText'
 import Knob from 'primevue/knob'
+import Message from 'primevue/message'
 import MultiSelect from 'primevue/multiselect'
 import PrimeVue from 'primevue/config'
+import ProgressSpinner from 'primevue/progressspinner'
 import Ripple from 'primevue/ripple'
 import SelectButton from 'primevue/selectbutton'
+import Sidebar from 'primevue/sidebar'
 import Skeleton from 'primevue/skeleton'
 import SpeedDial from 'primevue/speeddial'
 import TabPanel from 'primevue/tabpanel'
@@ -34,7 +37,6 @@ import Tag from 'primevue/tag'
 import Tooltip from 'primevue/tooltip'
 import router from './router'
 import axios from 'axios'
-import { DateTime } from 'luxon'
 import { useToast } from 'vue-toastification'
 import Toast from 'vue-toastification'
 
@@ -83,8 +85,11 @@ app
 .component('InputSwitch', InputSwitch)
 .component('InputText', InputText)
 .component('Knob', Knob)
+.component('Message', Message)
 .component('MultiSelect', MultiSelect)
+.component('ProgressSpinner', ProgressSpinner)
 .component('SelectButton', SelectButton)
+.component('Sidebar', Sidebar)
 .component('Skeleton', Skeleton)
 .component('SpeedDial', SpeedDial)
 .component('TabPanel', TabPanel)
@@ -100,7 +105,6 @@ const connections = useConnectionsStore()
 const dashboard = useDashboardStore()
 const orders = useOrdersStore()
 const toast = useToast()
-app.config.globalProperties.$dateTime = DateTime
 auth.$https = activityCenter.$https = connections.$https = dashboard.$https = orders.$https = $https
 app.provide('$toast', toast)
 

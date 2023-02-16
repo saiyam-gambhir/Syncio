@@ -9,8 +9,8 @@ const { activityCenter, deleteActivityHandler } = useActivities()
 </script>
 
 <template>
-  <DataTable :value="activityCenter.orderIssues?.notifications" responsiveLayout="scroll" showGridlines>
-    <template #empty v-if="!activityCenter.loadingActivities">
+  <DataTable v-if="!activityCenter.loadingActivities" :value="activityCenter.orderIssues?.notifications" responsiveLayout="scroll" showGridlines>
+    <template #empty>
       <div class="px-4 py-4 text-center">
         <h2 class="m-0">Hurray 🎉</h2>
         <p>You have no Order issues at this time.<br> If you notice something isn't right with your sync,<br> check back here to see if there are any issues and how to fix them.</p>

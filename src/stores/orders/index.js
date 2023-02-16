@@ -2,12 +2,16 @@ import { defineStore } from 'pinia'
 import deepmerge from 'deepmerge'
 
 /* ===== ACTIONS ===== */
+import { fetchOrder } from './actions/fetchOrder'
 import { fetchOrders } from './actions/fetchOrders'
 
 export const useOrdersStore = defineStore('orders', {
   state: () => {
     return {
+      isViewOrderDetailsRequested: false,
+      loadingOrder: false,
       loadingOrders: false,
+      order: null,
       orders: [],
       params: { page: '1', searchString: null, sortBy: 'DESC' },
       pushSettings: [],
@@ -18,10 +22,8 @@ export const useOrdersStore = defineStore('orders', {
     }
   },
 
-  getters: {
-  },
-
   actions: deepmerge.all([
-    fetchOrders
+    fetchOrder,
+    fetchOrders,
   ]),
 })

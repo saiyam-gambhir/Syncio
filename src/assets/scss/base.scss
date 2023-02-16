@@ -1,4 +1,5 @@
 html {
+  color: $textPrimary;
   font-family: 'Inter Tight', sans-serif;
   font-size: 13px;
   font-weight: $fontNormal;
@@ -160,6 +161,36 @@ td {
   z-index: 1;
 }
 
+.p-sidebar {
+  min-width: 750px;
+  width: 50%;
+  z-index: 2;
+
+  &-header {
+    justify-content: space-between;
+    padding: 0 1.25rem !important;
+  }
+
+  &-close {
+    position: absolute;
+    right: 1.25rem;
+  }
+
+  &-header-content {
+    border-bottom: solid 1px var(--surface-border);
+    padding: 1.25rem 0;
+    width: 100%;
+  }
+
+  &-content {
+    height: 100%;
+  }
+
+  h1 {
+    color: #000000;
+  }
+}
+
 .pi.pi-copy {
   &:before {
     font-size: 1.25rem;
@@ -190,6 +221,45 @@ td {
 
 .p-skeleton {
   background: $skeletonBackground;
+}
+
+.p-message {
+  border-width: 1.5px 1.5px 1.5px 8px !important;
+  color: $textPrimary !important;
+  padding: 0 .5rem !important;
+  background: rgba(204, 137, 37, 7.5%) !important;
+
+  &-wrapper {
+    padding: 1rem !important;
+  }
+
+  &-icon {
+    margin-right: 1.25rem !important;
+  }
+}
+
+.p-progress-spinner {
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+@keyframes p-progress-spinner-color {
+  100%,
+  0% {
+    stroke: $destinationIndicator;
+  }
+  40% {
+    stroke: $sourceIndicator;
+  }
+  66% {
+    stroke: $destinationIndicator;
+  }
+  80%,
+  90% {
+    stroke: $sourceIndicator;
+  }
 }
 /* ===== OVERRIDES ===== */
 

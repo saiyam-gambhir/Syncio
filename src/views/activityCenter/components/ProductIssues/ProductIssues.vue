@@ -13,7 +13,7 @@ const { activityCenter, deleteActivityHandler } = useActivities()
   <ProductIssuesSkeleton v-if="activityCenter.loadingActivities" />
 
   <DataTable v-else :value="activityCenter.productIssues?.notifications" responsiveLayout="scroll" showGridlines>
-    <template #empty v-if="!activityCenter.loadingActivities">
+    <template #empty>
       <div class="px-4 py-4 text-center">
         <h2 class="m-0">Hurray 🎉</h2>
         <p>You have no Product issues at this time.<br> If you notice something isn't right with your sync,<br> check back here to see if there are any issues and how to fix them.</p>
