@@ -4,7 +4,7 @@ import PageHeader from '@/components/shared/PageHeader.vue'
 
 <template>
 	<PageHeader
-		content="Manage your account"
-		title="Account Settings">
+		content="Manage your settings to make Syncio work better for you"
+		title="Settings">
 	</PageHeader>
 </template>

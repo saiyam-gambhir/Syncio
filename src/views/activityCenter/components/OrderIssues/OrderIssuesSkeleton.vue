@@ -1,6 +1,5 @@
 <template>
   <DataTable :value="[{},{},{},{},{}]" responsiveLayout="scroll" showGridlines>
-
     <Column header="Date(AEST)" style="width: 7.5%;">
       <template #body>
         <Skeleton height="12.5px" width="40px" />
@@ -15,17 +14,10 @@
       </template>
     </Column>
 
-    <Column header="Product" style="width: 25%;">
+    <Column header="Order" style="width: 25%;">
       <template #body>
-        <div class="flex">
-          <figure class="m-0">
-            <Skeleton height="32px" width="32px" />
-          </figure>
-          <div class="flex flex-column ml-2 w-full">
-            <Skeleton height="12.5px" width="50%" />
-            <Skeleton height="12.5px" width="75%" class="mt-2" />
-          </div>
-        </div>
+        <Skeleton height="12.5px" width="25%" />
+        <Skeleton height="12.5px" width="60%" class="mt-2" />
       </template>
     </Column>
 

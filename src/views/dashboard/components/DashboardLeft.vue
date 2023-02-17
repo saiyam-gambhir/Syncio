@@ -21,6 +21,7 @@ const copy = (val) => {
 <template>
   <section class="col-12 md:col-5 lg:col-3">
     <Card
+      class="pb-3"
       description="Share this with Source stores so you can import products to your store."
       icon="key"
       title="Unique store key">

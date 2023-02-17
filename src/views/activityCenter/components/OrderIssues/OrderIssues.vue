@@ -3,13 +3,16 @@ import { useActivities } from '../../composables/activities'
 
 /* ===== COMPONENTS ===== */
 import AppLink from '@/components/shared/AppLink.vue'
+import OrderIssuesSkeleton from './OrderIssuesSkeleton.vue'
 
 /* ===== DATA ===== */
 const { activityCenter, deleteActivityHandler } = useActivities()
 </script>
 
 <template>
-  <DataTable v-if="!activityCenter.loadingActivities" :value="activityCenter.orderIssues?.notifications" responsiveLayout="scroll" showGridlines>
+  <OrderIssuesSkeleton v-if="activityCenter.loadingActivities" />
+
+  <DataTable v-else :value="activityCenter.orderIssues?.notifications" responsiveLayout="scroll" showGridlines>
     <template #empty>
       <div class="px-4 py-4 text-center">
         <h2 class="m-0">Hurray 🎉</h2>
@@ -37,14 +40,9 @@ const { activityCenter, deleteActivityHandler } = useActivities()
 
     <Column header="Order" style="width: 25%;">
       <template #body="{ data }">
-        <div class="flex">
-          <figure class="m-0">
-            <img :src="data.data.image" :alt="data.data.name" style="width: 32px; padding: 2px; border: 1px solid rgb(231, 231, 231);">
-          </figure>
-          <div class="flex flex-column ml-2">
-            <span class="font-semibold text-sm text-blue-500">{{ data.data.name }}</span>
-            <span class="text-xs mt-1">{{ data.data.store_name }}</span>
-          </div>
+        <div class="flex flex-column ml-2">
+          <span class="font-semibold text-sm text-blue-500">{{ data.data.name }}</span>
+          <span class="text-xs mt-1">{{ data.data.store_name }}</span>
         </div>
       </template>
     </Column>

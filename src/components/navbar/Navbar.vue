@@ -31,9 +31,6 @@ const value = ref(10)
             <NavLink href="/products" iconClass="pi-list" linkText="Products" />
           </li>
           <li class="mt-2">
-            <NavLink href="/product-settings" iconClass="pi-cog" linkText="Product Settings" />
-          </li>
-          <li class="mt-2">
             <NavLink href="/orders" iconClass="pi-file" linkText="Orders" />
           </li>
           <li class="mt-2">
@@ -43,10 +40,7 @@ const value = ref(10)
             <NavLink href="/activity-center" iconClass="pi-bell" linkText="Activity Center" />
           </li>
           <li class="mt-2">
-            <NavLink href="/plan-and-billings" iconClass="pi-shopping-bag" linkText="Plan and Billings" />
-          </li>
-          <li class="mt-2">
-            <NavLink href="/account-settings" iconClass="pi-wrench" linkText="Account Settings" />
+            <NavLink href="/account-settings" iconClass="pi-cog" linkText="Settings" />
           </li>
           <li class="mt-2">
             <a aria-current="page" href="javascript:void(0)" class="flex align-items-center justify-content-between cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors no-underline">
