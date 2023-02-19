@@ -25,6 +25,7 @@ import Knob from 'primevue/knob'
 import Message from 'primevue/message'
 import MultiSelect from 'primevue/multiselect'
 import PrimeVue from 'primevue/config'
+import Panel from 'primevue/panel'
 import ProgressSpinner from 'primevue/progressspinner'
 import Ripple from 'primevue/ripple'
 import SelectButton from 'primevue/selectbutton'
@@ -34,11 +35,11 @@ import SpeedDial from 'primevue/speeddial'
 import TabPanel from 'primevue/tabpanel'
 import TabView from 'primevue/tabview'
 import Tag from 'primevue/tag'
+import Toast from 'primevue/toast'
+import ToastService from 'primevue/toastservice'
 import Tooltip from 'primevue/tooltip'
 import router from './router'
 import axios from 'axios'
-import { useToast } from 'vue-toastification'
-import Toast from 'vue-toastification'
 
 /* ==== STYLES ===== */
 import './theme/theme-light.css'
@@ -56,20 +57,13 @@ const $https = axios.create({
 })
 $https.defaults.headers.common['x-syncio-app-id'] = import.meta.env.VITE_APP_ID
 
-/* ===== TOAST ===== */
-const toastOptions = {
-  hideProgressBar: true,
-  timeout: 3000,
-  transition: 'Vue-Toastification__fade',
-}
-
 /* ===== CREATE APP AND USE DEPENDENCIES ===== */
 const app = createApp(App)
 app
 .use(createPinia())
 .use(router)
 .use(PrimeVue, { ripple: true })
-.use(Toast, toastOptions)
+.use(ToastService)
 .mount('#app')
 
 /* ===== PRIME VUE COMPONENTS ===== */
@@ -87,6 +81,7 @@ app
 .component('Knob', Knob)
 .component('Message', Message)
 .component('MultiSelect', MultiSelect)
+.component('Panel', Panel)
 .component('ProgressSpinner', ProgressSpinner)
 .component('SelectButton', SelectButton)
 .component('Sidebar', Sidebar)
@@ -95,6 +90,7 @@ app
 .component('TabPanel', TabPanel)
 .component('TabView', TabView)
 .component('Tag', Tag)
+.component('Toast', Toast)
 .directive('ripple', Ripple)
 .directive('tooltip', Tooltip)
 
@@ -104,9 +100,7 @@ const auth = useAuthStore()
 const connections = useConnectionsStore()
 const dashboard = useDashboardStore()
 const orders = useOrdersStore()
-const toast = useToast()
 auth.$https = activityCenter.$https = connections.$https = dashboard.$https = orders.$https = $https
-app.provide('$toast', toast)
 
 /* ===== LOGOUT HANDLER ===== */
 const logout = () => {

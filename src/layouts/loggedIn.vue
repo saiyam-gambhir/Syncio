@@ -5,6 +5,7 @@ import Navbar from '@/components/navbar/Navbar.vue'
 
 <template>
   <main class="main">
+    <Toast position="top-center" successIcon="pi pi-check-circle" />
     <div class="min-h-screen flex relative lg:static">
       <Navbar />
 

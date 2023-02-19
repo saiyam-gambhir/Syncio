@@ -1,20 +1,22 @@
 <script setup>
-import { inject } from 'vue'
 import { useConnectionsStore } from '@/stores/connections'
 import { useFilters } from '@/composables/filters'
+import { useToasts } from '@/composables/toasts'
 
 /* ===== COMPONENTS ===== */
 import AppLink from '@/components/shared/AppLink.vue'
 import Card from '@/views/dashboard/components/Card.vue'
 
 /* ===== DATA ===== */
-const connections = useConnectionsStore()
 const { copyToClipBoard } = useFilters()
-const $toast = inject('$toast')
+const { showToast } = useToasts()
+const connections = useConnectionsStore()
 
-const copy = (val) => {
-  copyToClipBoard(val)
-  $toast.success('Store key copied')
+const copyStoreKeyHandler = async (val) => {
+  await copyToClipBoard(val)
+  showToast({
+    detail: 'Store key copied successfully.'
+  })
 }
 </script>
 
@@ -28,7 +30,7 @@ const copy = (val) => {
       <template #links>
         <h3 class="mb-0 flex align-items-center">
           {{ connections.storeKey }}
-          <Button icon="pi pi-copy" class="p-button-rounded p-button-text ml-2" @click="copy(connections.storeKey)" />
+          <Button icon="pi pi-copy" class="p-button-rounded p-button-text ml-2" @click="copyStoreKeyHandler(connections.storeKey)" />
         </h3>
       </template>
     </Card>

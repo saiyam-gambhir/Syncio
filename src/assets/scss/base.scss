@@ -250,6 +250,43 @@ td {
   }
 }
 
+.p-toast {
+  max-width: 50rem;
+  width: auto;
+}
+
+.p-toast-message {
+  border-width: 1.5px 1.5px 1.5px 6px !important;
+  font-size: 1rem !important;
+  font-weight: 700;
+  letter-spacing: .4px;
+
+  .p-toast-detail {
+    margin-top: .4rem !important;
+  }
+
+  .p-toast-message-content {
+    padding: .5rem 1rem !important;
+  }
+
+  &-error {
+    background: rgba(255, 87, 87, 7.5%) !important;
+  }
+
+  &-success {
+    background: #f2f9f6 !important;
+    border-color: #1ea97c !important;
+  }
+
+  &-warn {
+    background: rgba(204, 137, 37, 7.5%) !important;
+  }
+}
+
+.p-toast-top-center {
+  top: 7.5px !important;
+}
+
 .p-progress-spinner {
   left: 50%;
   position: absolute;

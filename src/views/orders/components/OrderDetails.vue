@@ -3,8 +3,8 @@ import { useFilters } from '@/composables/filters'
 import { useOrders } from '../composables/orders'
 
 /* ===== DATA ===== */
+const { formatCurrency, formatDate } = useFilters()
 const { orders } = useOrders()
-const { formatDate } = useFilters()
 
 /* ===== PROPS ===== */
 const props = defineProps({
@@ -35,6 +35,41 @@ const props = defineProps({
         <div class="surface-card border-round border-1 surface-border p-4">
           <h2 class="text-xl font-bold">My order details: #{{ order.syncio_order_id }}</h2>
 	      </div>
+
+        <Panel class="mt-4" v-for="(store, key) in order.source_stores" :key="key" :toggleable="true">
+          <template #header>
+            <h3 class="text-bold m-0">
+              {{ key }}
+            </h3>
+          </template>
+          <DataTable :value="store.line_items" responsiveLayout="scroll">
+            <Column header="Image" style="width: 5%;" class="text-center">
+              <template #body="{ data: { image } }">
+                <img :src="image" alt="Product image" style="height: 2rem; width: auto">
+              </template>
+            </Column>
+            <Column header="Title" style="width: 50%;">
+              <template #body="{ data: { title } }">
+                {{ title }}
+              </template>
+            </Column>
+            <Column header="Price" style="width: 15%;" class="text-right">
+              <template #body="{ data: { unit_price } }">
+                {{ formatCurrency(unit_price) }}
+              </template>
+            </Column>
+            <Column header="Quantity" style="width: 12.5%;" class="text-right">
+              <template #body="{ data: { quantity } }">
+                {{ quantity }}
+              </template>
+            </Column>
+            <Column header="Total" style="width: 17.5%;" class="text-right">
+              <template #body="{ data: { total_price } }">
+                {{ formatCurrency(total_price) }}
+              </template>
+            </Column>
+          </DataTable>
+        </Panel>
       </div>
       <div class="col-5">
         <div class="surface-card border-round border-1 surface-border p-4">

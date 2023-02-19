@@ -1,8 +1,10 @@
 <script setup>
 import { useConnectionsStore } from '@/stores/connections'
+import { useToasts } from '@/composables/toasts'
 import DialogWrapper from '@/components/shared/DialogWrapper.vue'
 
 /* ===== DATA ===== */
+const { showToast } = useToasts()
 const connectionsStore = useConnectionsStore()
 
 /* ===== METHODS ===== */
@@ -12,7 +14,8 @@ const closeDialogHandler = () => {
 }
 
 const disableMultilocationHandler = async () => {
-  await connectionsStore.toggleMultilocation()
+  const message = await connectionsStore.toggleMultilocation()
+  showToast({ detail: message })
   connectionsStore.isDisableMultilocationRequested = false
 }
 </script>

@@ -1,6 +1,7 @@
 <script setup>
 import { defineAsyncComponent, onMounted, ref } from 'vue'
 import { useConnectionsStore } from '@/stores/connections'
+import { useToasts } from '@/composables/toasts'
 
 /* ===== COMPONENTS ===== */
 import AppLink from '@/components/shared/AppLink.vue'
@@ -16,6 +17,7 @@ const SetCommissionDialog = defineAsyncComponent(() => import('@/views/connectio
 /* ===== DATA ===== */
 const connections = useConnectionsStore()
 const options = ref(['Off', 'On'])
+const { showToast } = useToasts()
 
 /* ===== MOUNTED ===== */
 onMounted(async () => {
@@ -34,8 +36,10 @@ const toggleMultilocationHandler = async (event) => {
     connections.isDisableMultilocationRequested = true
     return
   }
-  await connections.toggleMultilocation()
+  const message = await connections.toggleMultilocation()
+  showToast({ detail: message })
   await connections.fetchDestinationLocations()
+
 }
 </script>
 
