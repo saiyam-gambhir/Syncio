@@ -10,7 +10,7 @@ const connectionsStore = useConnectionsStore()
 /* ===== METHODS ===== */
 const closeDialogHandler = () => {
   connectionsStore.isDisableMultilocationRequested = false
-  connectionsStore.isMultilocationEnabled =  'On'
+  connectionsStore.isMultilocationEnabled = 'On'
 }
 
 const disableMultilocationHandler = async () => {

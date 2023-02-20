@@ -6,5 +6,6 @@ export const deleteActivity = {
     const auth = useAuthStore()
     const response = await this.$https.delete(`user/${auth.userId}/sync-events/${activityId}`)
     await this.fetchActvities()
+    return response.data?.message
   }
 }

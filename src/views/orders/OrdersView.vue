@@ -10,15 +10,16 @@ import PageHeader from '@/components/shared/PageHeader.vue'
 const OrderDetails = defineAsyncComponent(() => import('./components/OrderDetails.vue'))
 
 /* ===== DATA ===== */
-const { fetchOrder, fetchOrders, getOrderStatus, orders } = useOrders()
+const { fetchOrder, fetchOrders, fetchPushSettings, getOrderStatus, orders, setAutoPushStatus, toggleAutoPush } = useOrders()
 const { formatDate } = useFilters()
-const isAutomaticPushActive = ref('Off')
 const options = ref(['Off', 'On'])
 let currentOrder = ref({})
 
 /* ===== MOUNTED ===== */
-onMounted(() => {
+onMounted(async () => {
   fetchOrdersHandler()
+  await fetchPushSettings()
+  setAutoPushStatus()
 })
 
 /* ===== METHODS ===== */
@@ -30,6 +31,10 @@ const fetchOrderHandler = async orderId => {
   orders.isViewOrderDetailsRequested = true
   await fetchOrder(orderId)
   currentOrder.value = structuredClone(toRaw(orders.order))
+}
+
+const toggleAutoPushHandler = async () => {
+  toggleAutoPush()
 }
 </script>
 
@@ -46,7 +51,7 @@ const fetchOrderHandler = async orderId => {
           <br />
           <AppLink link="https://help.syncio.co/en/articles/5842693-multilocations-for-destination-stores" label="Read More" class="mt-1" />
         </h4>
-        <SelectButton v-model="isAutomaticPushActive" :options="options" aria-labelledby="single" />
+        <SelectButton v-model="orders.isAutoPushEnabled" :options="options" aria-labelledby="single" @click="toggleAutoPushHandler" />
       </div>
       <Button label="Push Settings" class="ml-5" icon="pi pi-cog" iconPos="right" />
     </template>

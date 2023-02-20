@@ -4,10 +4,13 @@ import deepmerge from 'deepmerge'
 /* ===== ACTIONS ===== */
 import { fetchOrder } from './actions/fetchOrder'
 import { fetchOrders } from './actions/fetchOrders'
+import { fetchPushSettings } from './actions/fetchPushSettings'
+import { toggleAutoPush } from './actions/toggleAutoPush'
 
 export const useOrdersStore = defineStore('orders', {
   state: () => {
     return {
+      isAutoPushEnabled: 'Off',
       isViewOrderDetailsRequested: false,
       loadingOrder: false,
       loadingOrders: false,
@@ -22,8 +25,17 @@ export const useOrdersStore = defineStore('orders', {
     }
   },
 
+  getters: {
+    autoPushStatus(state) {
+      const autoPushSetting = state.pushSettings.find(setting => setting.key === 'auto_push_order')
+      return autoPushSetting?.value
+    }
+  },
+
   actions: deepmerge.all([
     fetchOrder,
     fetchOrders,
+    fetchPushSettings,
+    toggleAutoPush,
   ]),
 })
