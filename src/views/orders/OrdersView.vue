@@ -14,6 +14,7 @@ const { fetchOrder, fetchOrders, fetchPushSettings, getOrderStatus, orders, setA
 const { formatDate } = useFilters()
 const options = ref(['Off', 'On'])
 let currentOrder = ref({})
+const isRequestedOrderSettings = ref(false)
 
 /* ===== MOUNTED ===== */
 onMounted(async () => {
@@ -53,7 +54,9 @@ const toggleAutoPushHandler = async () => {
         </h4>
         <SelectButton v-model="orders.isAutoPushEnabled" :options="options" aria-labelledby="single" @click="toggleAutoPushHandler" />
       </div>
-      <Button label="Push Settings" class="ml-5" icon="pi pi-cog" iconPos="right" />
+      <router-link to="/orders/push-settings">
+        <Button label="Push Settings" class="ml-5" icon="pi pi-cog" iconPos="right" />
+      </router-link>
     </template>
   </PageHeader>
 

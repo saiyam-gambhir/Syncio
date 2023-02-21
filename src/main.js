@@ -47,7 +47,6 @@ import './theme/theme-light.css'
 import 'primevue/resources/primevue.min.css'
 import 'primeicons/primeicons.css'
 import '/node_modules/primeflex/primeflex.css'
-import 'vue-toastification/dist/index.css'
 import './assets/scss/main.scss'
 
 /* ===== AXIOS INSTANCES ===== */
@@ -130,6 +129,9 @@ $https.interceptors.response.use(
 /* ===== ACTIONS BEFORE EACH ROUTE ===== */
 router.beforeEach(async (to, from, next) => {
   const isAuthenticated = auth.isAuthenticated
+  const ID_TOKEN_KEY = sessionStorage.getItem('ID_TOKEN_KEY')
+  const USER_ID = sessionStorage.getItem('USER_ID')
+
   if(to.meta.requireAuth) {
     if(!isAuthenticated && !sessionStorage.getItem('ID_TOKEN_KEY')) {
       next({
@@ -138,17 +140,17 @@ router.beforeEach(async (to, from, next) => {
     } else {
       auth.isAuthenticated = true
       // TODO: Create methods for session storage or use vueuse library
-      if(sessionStorage.getItem('ID_TOKEN_KEY') && sessionStorage.getItem('USER_ID')) {
-        $https.defaults.headers.common['Authorization'] = `Bearer ${sessionStorage.getItem('ID_TOKEN_KEY')}`
+      if(ID_TOKEN_KEY && USER_ID) {
+        $https.defaults.headers.common['Authorization'] = `Bearer ${ID_TOKEN_KEY}`
         if(!auth.user) {
-          await auth.fetchUser(sessionStorage.getItem('USER_ID'))
-          await auth.fetchCurrentPlan(sessionStorage.getItem('USER_ID'))
+          await auth.fetchUser(USER_ID)
+          await auth.fetchCurrentPlan(USER_ID)
           await connections.fetchCurrentStore()
         }
       }
       next()
     }
-  } else if (to.name === 'login' && (isAuthenticated || sessionStorage.getItem('ID_TOKEN_KEY'))) {
+  } else if (to.name === 'login' && (isAuthenticated || ID_TOKEN_KEY)) {
     next({ path: from.fullPath })
   } else {
     next()

@@ -1,19 +1,33 @@
 <script setup>
+import { computed } from 'vue'
 import { useDashboardStore } from '@/stores/dashboard'
-import Card from '@/views/dashboard/components/Card.vue'
-import DashboardRightSkeleton from '@/views/dashboard/components/DashboardRightSkeleton.vue'
 
 /* ===== COMPONENTS ===== */
 import AppLink from '@/components/shared/AppLink.vue'
+import Card from '@/views/dashboard/components/Card.vue'
+import DashboardRightSkeleton from '@/views/dashboard/components/DashboardRightSkeleton.vue'
+import IconDashboardEmpty from '@/icons/IconDashboardEmpty.vue'
 
 /* ===== DATA ===== */
 const { $state } = useDashboardStore()
+
+/* ===== COMPUTED ===== */
+const showEmptyDashboardIcon = computed(() => {
+  const { loading, learn_the_basics, helpful_articles, add_ons } = $state
+  return !loading && (!learn_the_basics && !helpful_articles && !add_ons)
+})
 </script>
 
 <template>
   <section class="col-12 md:col-7 lg:col-9">
-    <DashboardRightSkeleton v-if="$state.loading" />
 
+    <div v-if="showEmptyDashboardIcon" class="text-center">
+      <IconDashboardEmpty />
+      <h2 class="mt-5">No content selected</h2>
+      <p>Customise your Homepage to add <br> content to this section</p>
+    </div>
+
+    <DashboardRightSkeleton v-if="$state.loading" />
     <template v-else>
       <Card v-if="$state.learn_the_basics" title="Learn the basics" class="mb-5">
         <template #links>

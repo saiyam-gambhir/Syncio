@@ -52,7 +52,7 @@ const toggleMultilocationHandler = async (event) => {
     <template #actions>
       <div class="flex align-items-center justify-content-between">
         <h4 class="my-0 mr-4">
-          Multi-Location (BETA)
+          Multi-Location
           <br />
           <AppLink link="https://help.syncio.co/en/articles/5842693-multilocations-for-destination-stores" label="Read More" class="mt-1" />
         </h4>

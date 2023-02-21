@@ -27,7 +27,7 @@ onMounted(() => {
     <ul class="surface-card p-0 m-0 list-none flex overflow-x-auto select-none">
       <li class="pr-3">
         <a class="cursor-pointer px-4 py-3 flex align-items-center border-bottom-2 hover:border-500 transition-colors transition-duration-150" :class="{ 'border-blue-500 text-blue-500 hover:border-blue-500': activityCenter.activeTabIndex === 0, 'text-700 border-transparent': activityCenter.activeTabIndex !== 0 }" @click="fetchActivitiesHandler(0)">
-          <span class="font-semibold">Product Issues</span>
+          <span class="font-semibold capitalize">Product issues</span>
         </a>
       </li>
       <li class="flex align-items-center">
@@ -35,7 +35,7 @@ onMounted(() => {
       </li>
       <li class="px-3">
         <a class="cursor-pointer px-4 py-3 flex align-items-center border-bottom-2 hover:border-500 transition-colors transition-duration-150" :class="{ 'border-blue-500 text-blue-500 hover:border-blue-500': activityCenter.activeTabIndex === 1, 'text-700 border-transparent': activityCenter.activeTabIndex !== 1 }" @click="fetchActivitiesHandler(1)">
-          <span class="font-semibold">Order Issues</span>
+          <span class="font-semibold capitalize">Order issues</span>
         </a>
       </li>
       <li class="flex align-items-center">
@@ -43,7 +43,7 @@ onMounted(() => {
       </li>
       <li class="pl-3">
         <a class="cursor-pointer px-4 py-3 flex align-items-center border-bottom-2 hover:border-500 transition-colors transition-duration-150" :class="{ 'border-blue-500 text-blue-500 hover:border-blue-500': activityCenter.activeTabIndex === 2, 'text-700 border-transparent': activityCenter.activeTabIndex !== 2 }" @click="fetchActivitiesHandler(2)">
-          <span class="font-semibold">General Updates</span>
+          <span class="font-semibold capitalize">General updates</span>
         </a>
       </li>
     </ul>

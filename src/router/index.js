@@ -51,6 +51,12 @@ const router = createRouter({
       meta: { ...meta },
     },
     {
+      path: '/orders/push-settings',
+      name: 'pushSettings',
+      meta: { ...meta },
+      component: () => import('@/views/orders/pushSettings/PushSettings.vue')
+    },
+    {
       path: '/payouts',
       name: 'payouts',
       component: () => import('@/views/payouts/PayoutsView.vue'),

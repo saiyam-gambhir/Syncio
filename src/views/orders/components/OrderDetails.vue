@@ -16,7 +16,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <Sidebar v-model:visible="orders.isViewOrderDetailsRequested" position="right">
+  <Sidebar v-model:visible="orders.isViewOrderDetailsRequested" position="full">
     <template #header>
       <h1 class="text-4xl font-bold mb-0">Order Summary</h1>
     </template>
@@ -26,8 +26,8 @@ const props = defineProps({
 
       <div v-if="order.edited" class="col-12 mb-2 py-0">
         <Message severity="warn" class="col-12 mt-0" :closable="false">
-          <p class="my-0">This order has been edited. Last edited <span class="font-semibold">{{ formatDate(order.edited_at) }}</span></p>
-          <p class="my-0">The line item / quantity edits have been pushed to the source store. Please verify if the Source Store has received the right items and quantities.</p>
+          <p class="my-0">This order has been edited. Last edited: <span class="font-semibold">{{ formatDate(order.edited_at) }}</span></p>
+          <p class="my-0">The line item / quantity edits have been pushed to the source store. Please verify if the source store has received the right items and quantities.</p>
         </Message>
       </div>
 

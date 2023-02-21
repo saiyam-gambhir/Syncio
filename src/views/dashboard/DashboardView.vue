@@ -5,8 +5,8 @@ import DashboardRight from '@/views/dashboard/components/DashboardRight.vue'
 import PageHeader from '@/components/shared/PageHeader.vue'
 import { useDashboardStore } from '@/stores/dashboard'
 import { useConnectionsStore } from '@/stores/connections'
-import { fetchDashboard } from '../../stores/dashboard/actions/fetchDashboard'
 
+/* ===== DATA ===== */
 const connections = useConnectionsStore()
 const dashboard = useDashboardStore()
 const dashboardSections = ref([

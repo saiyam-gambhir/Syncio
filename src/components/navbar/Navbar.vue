@@ -34,7 +34,7 @@ const value = ref(10)
             <NavLink href="/orders" iconClass="pi-file" linkText="Orders" />
           </li>
           <li class="mt-2">
-            <NavLink href="/payouts" iconClass="pi-dollar" linkText="Payouts (Beta)" />
+            <NavLink href="/payouts" iconClass="pi-dollar" linkText="Payouts" />
           </li>
           <li class="mt-2">
             <NavLink href="/activity-center" iconClass="pi-bell" linkText="Activity Center" />
