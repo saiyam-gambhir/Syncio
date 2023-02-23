@@ -19,7 +19,10 @@ export function useFilters() {
   const formatDate = (val, timeZone = auth.timeZone) => {
     if(!val) return 'Invalid Date'
     const date = DateTime.fromISO(val).setZone(timeZone)
-    return `${date.toFormat('EEE dd MMM yyyy')} at ${date.toFormat('hh:mm a')}`
+    return {
+      date: `${date.toFormat('dd MMM, yyyy')}`,
+      time: `${date.toFormat('hh:mm a')}`
+    }
   }
 
   const randomInteger = (min = 25, max = 100) => {

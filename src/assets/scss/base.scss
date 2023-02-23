@@ -313,6 +313,12 @@ td {
     stroke: $sourceIndicator;
   }
 }
+
+.p-datatable {
+  &-header {
+    padding: 1rem .7rem !important;
+  }
+}
 /* ===== OVERRIDES ===== */
 
 .theme-light .primary-navigation .router-link-active {
@@ -320,7 +326,6 @@ td {
   border: 1px solid $primary;
   color: $primary !important;
   font-weight: $fontMedium;
-  //pointer-events: none;
 }
 
 .nav-wrapper {

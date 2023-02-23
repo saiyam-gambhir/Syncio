@@ -12,7 +12,7 @@ import IconDashboardEmpty from '@/icons/IconDashboardEmpty.vue'
 const { $state } = useDashboardStore()
 
 /* ===== COMPUTED ===== */
-const showEmptyDashboardIcon = computed(() => {
+const isDashboardEmpty = computed(() => {
   const { loading, learn_the_basics, helpful_articles, add_ons } = $state
   return !loading && (!learn_the_basics && !helpful_articles && !add_ons)
 })
@@ -21,7 +21,7 @@ const showEmptyDashboardIcon = computed(() => {
 <template>
   <section class="col-12 md:col-7 lg:col-9">
 
-    <div v-if="showEmptyDashboardIcon" class="text-center">
+    <div v-if="isDashboardEmpty" class="text-center">
       <IconDashboardEmpty />
       <h2 class="mt-5">No content selected</h2>
       <p>Customise your Homepage to add <br> content to this section</p>

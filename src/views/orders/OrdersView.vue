@@ -1,17 +1,16 @@
 <script setup>
 import { defineAsyncComponent, onMounted, ref, toRaw } from 'vue'
-import { useFilters } from '@/composables/filters'
 import { useOrders } from './composables/orders'
 
 /* ===== COMPONENTS ===== */
 import AppLink from '@/components/shared/AppLink.vue'
+import Date from '@/components/shared/Date.vue'
 import OrdersViewSkeleton from './OrdersViewSkeleton.vue'
 import PageHeader from '@/components/shared/PageHeader.vue'
 const OrderDetails = defineAsyncComponent(() => import('./components/OrderDetails.vue'))
 
 /* ===== DATA ===== */
 const { fetchOrder, fetchOrders, fetchPushSettings, getOrderStatus, orders, setAutoPushStatus, toggleAutoPush } = useOrders()
-const { formatDate } = useFilters()
 const options = ref(['Off', 'On'])
 let currentOrder = ref({})
 const isRequestedOrderSettings = ref(false)
@@ -77,7 +76,7 @@ const toggleAutoPushHandler = async () => {
 
     <Column header="Date" style="width: 20%;">
       <template #body="{ data: { created_at } }">
-        {{ formatDate(created_at) }}
+        <Date :date="created_at" />
       </template>
     </Column>
 
