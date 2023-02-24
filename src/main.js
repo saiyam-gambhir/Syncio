@@ -17,6 +17,7 @@ import Checkbox from 'primevue/checkbox'
 import Column from 'primevue/column'
 import DataTable from 'primevue/dataTable'
 import Dialog from 'primevue/dialog'
+import Divider from 'primevue/divider'
 import Dropdown from 'primevue/dropdown'
 import InputNumber from 'primevue/inputnumber'
 import InputSwitch from 'primevue/inputswitch'
@@ -24,8 +25,9 @@ import InputText from 'primevue/inputText'
 import Knob from 'primevue/knob'
 import Message from 'primevue/message'
 import MultiSelect from 'primevue/multiselect'
-import PrimeVue from 'primevue/config'
 import Panel from 'primevue/panel'
+import Password from 'primevue/password'
+import PrimeVue from 'primevue/config'
 import ProgressSpinner from 'primevue/progressspinner'
 import Ripple from 'primevue/ripple'
 import SelectButton from 'primevue/selectbutton'
@@ -38,6 +40,8 @@ import Tag from 'primevue/tag'
 import Toast from 'primevue/toast'
 import ToastService from 'primevue/toastservice'
 import Tooltip from 'primevue/tooltip'
+
+/* ===== ROUTER ===== */
 import router from './router'
 import axios from 'axios'
 
@@ -73,6 +77,7 @@ app
 .component('Column', Column)
 .component('DataTable', DataTable)
 .component('Dialog', Dialog)
+.component('Divider', Divider)
 .component('Dropdown', Dropdown)
 .component('InputNumber', InputNumber)
 .component('InputSwitch', InputSwitch)
@@ -81,6 +86,7 @@ app
 .component('Message', Message)
 .component('MultiSelect', MultiSelect)
 .component('Panel', Panel)
+.component('Password', Password)
 .component('ProgressSpinner', ProgressSpinner)
 .component('SelectButton', SelectButton)
 .component('Sidebar', Sidebar)

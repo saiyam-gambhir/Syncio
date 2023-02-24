@@ -1,9 +1,7 @@
 <script setup>
-import { useActivities } from '../../composables/activities'
 import { useFilters } from '@/composables/filters'
 
 /* ===== DATA ===== */
-const { activityCenter } = useActivities()
 const { randomInteger } = useFilters()
 </script>
 

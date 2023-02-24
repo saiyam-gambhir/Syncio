@@ -36,3 +36,57 @@ header {
     }
   }
 }
+
+.auth {
+  &-container {
+    position: relative;
+    width: 1300px;
+    z-index: 2;
+  }
+
+  .grid {
+    margin-left: -2rem;
+    margin-right: -2rem;
+  }
+
+  &-left {
+    background: rgba(255, 255, 255, .85);
+    padding: 3rem 2rem !important;
+  }
+
+  &-right {
+    background: rgba(255, 255, 255, 1);
+    padding: 3rem 2rem !important;
+  }
+
+  .active-btn {
+    border: 2px solid $primaryLink !important;
+  }
+
+  .p-password {
+    .p-inputtext {
+      @extend .w-100;
+    }
+  }
+
+  .login-platforms {
+    img {
+      width: 30px;
+    }
+  }
+}
+
+/* Change Autocomplete styles in Chrome*/
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px #fff inset;
+  transition: background-color 5000s ease-in-out 0s;
+  font-size: 1.25rem !important;
+}
