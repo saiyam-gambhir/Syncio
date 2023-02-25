@@ -126,7 +126,9 @@ td {
       box-shadow: 0px 0px 0px 0px #00000040;
     }
 
-    box-shadow: 0px 2px 2px 0px #00000040;
+    &.shadow {
+      box-shadow: 0px 2px 2px 0px #00000040;
+    }
   }
 
   .p-button.p-button-secondary:enabled:hover,
@@ -248,6 +250,14 @@ td {
   &-warn {
     background: rgba(204, 137, 37, 7.5%) !important;
   }
+
+  &.p-message-lg {
+    .p-message-text {
+      font-size: 1.25rem !important;
+      font-weight: 600;
+      line-height: 1.75rem;
+    }
+  }
 }
 
 .p-toast {
@@ -322,6 +332,15 @@ td {
     padding: 1rem .7rem !important;
   }
 }
+
+.p-button-lg,
+.p-inputtext-lg .p-inputtext,
+input.p-inputtext-lg {
+  padding: {
+    bottom: 1.25rem !important;
+    top: 1.25rem !important;
+  }
+}
 /* ===== OVERRIDES ===== */
 
 .theme-light .primary-navigation .router-link-active {
@@ -373,7 +392,7 @@ td {
   position: relative;
 
   &:before {
-    background: rgba(0,0,0,.4);
+    background: rgba(255,255,255,.5);
     content: '';
     height: 100%;
     left: 0;

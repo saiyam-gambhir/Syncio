@@ -37,10 +37,18 @@ header {
   }
 }
 
+.logo {
+  left: 3rem;
+  position: absolute;
+  top: 2rem;
+  z-index: 2;
+}
+
 .auth {
   &-container {
+    max-width: 700px;
     position: relative;
-    width: 1300px;
+    width: 100%;
     z-index: 2;
   }
 
@@ -49,14 +57,21 @@ header {
     margin-right: -2rem;
   }
 
+  &-left,
+  &-right {
+    margin: {
+      left: auto;
+      right: auto;
+    };
+    padding: 3rem !important;
+  }
+
   &-left {
-    background: rgba(255, 255, 255, .85);
-    padding: 3rem 2rem !important;
+    background: rgba(255, 255, 255, .8);
   }
 
   &-right {
     background: rgba(255, 255, 255, 1);
-    padding: 3rem 2rem !important;
   }
 
   .active-btn {

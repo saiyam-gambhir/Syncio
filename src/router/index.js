@@ -13,18 +13,34 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
-      name: 'dashboard',
-      component: DashboardView,
-      meta: { ...meta },
-    },
-    {
       path: '/login',
       name: 'login',
       component: () => import('@/views/login/LoginView.vue'),
       meta: {
         layout: LoggedOut
       }
+    },
+    {
+      path: '/forgot-password',
+      name: 'ForgotPassword',
+      component: () => import('@/views/registration/woocommerce/ForgotPassword.vue'),
+      meta: {
+        layout: LoggedOut
+      }
+    },
+    {
+      path: '/reset-password',
+      name: 'ResetPassword',
+      component: () => import('@/views/registration/woocommerce/ResetPassword.vue'),
+      meta: {
+        layout: LoggedOut
+      }
+    },
+    {
+      path: '/',
+      name: 'dashboard',
+      component: DashboardView,
+      meta: { ...meta },
     },
     {
       path: '/stores',
