@@ -8,6 +8,8 @@ const { randomInteger } = useFilters()
 <template>
   <DataTable :value="[{},{},{},{},{}]" responsiveLayout="scroll" showGridlines class="mt-4">
 
+    <Column selectionMode="multiple"></Column>
+
     <Column header="Order #" style="width: 10%;">
       <template #body>
         <Skeleton height="26px" width="75px" />

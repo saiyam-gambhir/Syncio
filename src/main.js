@@ -4,6 +4,7 @@ import App from './App.vue'
 
 /* ===== Pinia ===== */
 import { createPinia } from 'pinia'
+import piniaPersist from 'pinia-plugin-persist'
 import { useActivityCenterStore } from '@/stores/activityCenter'
 import { useAuthStore } from '@/stores/auth'
 import { useConnectionsStore } from '@/stores/connections'
@@ -61,9 +62,11 @@ const $https = axios.create({
 $https.defaults.headers.common['x-syncio-app-id'] = import.meta.env.VITE_APP_ID
 
 /* ===== CREATE APP AND USE DEPENDENCIES ===== */
+const pinia = createPinia()
+pinia.use(piniaPersist)
 const app = createApp(App)
 app
-.use(createPinia())
+.use(pinia)
 .use(router)
 .use(PrimeVue, { ripple: true })
 .use(ToastService)

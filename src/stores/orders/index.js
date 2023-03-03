@@ -10,6 +10,7 @@ import { toggleAutoPush } from './actions/toggleAutoPush'
 export const useOrdersStore = defineStore('orders', {
   state: () => {
     return {
+      currentOrder: {},
       isAutoPushEnabled: 'Off',
       isViewOrderDetailsRequested: false,
       loadingOrder: false,
@@ -18,6 +19,7 @@ export const useOrdersStore = defineStore('orders', {
       orders: [],
       params: { page: '1', searchString: null, sortBy: 'DESC' },
       pushSettings: [],
+      selectedOrders: new Set(),
       sortOptions: [
         { icon: 'pi pi-sort-alpha-up', key: 'store_domain', label: 'Date: New to Old', sortByDesc: false },
         { icon: 'pi pi-sort-alpha-up-alt', key: 'store_domain', label: 'Date: Old to New', sortByDesc: true }
@@ -38,4 +40,14 @@ export const useOrdersStore = defineStore('orders', {
     fetchPushSettings,
     toggleAutoPush,
   ]),
+
+  persist: {
+    enabled: true,
+    strategies: [
+      {
+        key: 'orders',
+        storage: sessionStorage, paths: ['currentOrder', 'isViewOrderDetailsRequested']
+      }
+    ]
+  }
 })

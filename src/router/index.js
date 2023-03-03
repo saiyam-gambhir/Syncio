@@ -37,6 +37,14 @@ const router = createRouter({
       }
     },
     {
+      path: '/registration',
+      name: 'SelectStoreType',
+      component: () => import('@/views/registration/woocommerce/SelectStoreType.vue'),
+      meta: {
+        layout: LoggedOut
+      }
+    },
+    {
       path: '/',
       name: 'dashboard',
       component: DashboardView,

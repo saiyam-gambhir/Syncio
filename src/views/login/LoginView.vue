@@ -6,15 +6,12 @@ const auth = useAuthStore()
 
 /* ===== METHODS ===== */
 const loginHandler = () => {
-  const { email, password } = auth
-  auth.login({
-    email,
-    password
-  })
+  const { email, password } = auth.loginForm
+  auth.login({ email, password })
 }
 
 const shopifyLoginHandler = async () => {
-  await auth.shopifyLogin('shopify', 'test-destination-20.myshopify.com')
+  await auth.shopifyLogin('shopify', 'test-nainesh-destination.myshopify.com')
 }
 </script>
 
@@ -35,19 +32,20 @@ const shopifyLoginHandler = async () => {
     </Button>
   </div>
 
-  <form class="mt-6" autocomplete="off">
+  <form class="mt-6" autocomplete="current-password">
     <div class="field">
-      <InputText id="email" type="text" class="p-inputtext-lg mb-3 w-full" placeholder="Email address" v-model="auth.email" />
+      <InputText id="email" type="text" class="p-inputtext-lg mb-3 w-full" placeholder="Email address" v-model="auth.loginForm.email" autocomplete="email" />
     </div>
+
     <div class="field">
-      <Password id="password" v-model="auth.password" class="p-inputtext-lg mb-3 w-full" placeholder="Password" :feedback="false" toggleMask />
+      <Password id="password" class="p-inputtext-lg mb-3 w-full" placeholder="Password" v-model="auth.loginForm.password" autocomplete="new-password" :feedback="false" toggleMask />
     </div>
 
     <div class="flex align-items-center mt-5 mb-4">
       <router-link to="/forgot-password" class="btn-link hovered text-xl">Forgot password?</router-link>
     </div>
 
-    <Button label="Login" icon="pi pi-user" class="w-full p-button-lg" @click="loginHandler" :loading="auth.loading" iconPos="right"></Button>
-    <!-- <Button label="Shopify Login" icon="pi pi-user" class="w-full p-button-lg mt-4" @click="shopifyLoginHandler" :loading="auth.loading" iconPos="right"></Button> -->
+    <Button label="Login" class="w-full p-button-lg" @click="loginHandler" :loading="auth.loginForm.loading" iconPos="right"></Button>
+    <Button label="Shopify Login" icon="pi pi-user" class="w-full p-button-lg mt-4" @click="shopifyLoginHandler" :loading="auth.loading" iconPos="right"></Button>
   </form>
 </template>

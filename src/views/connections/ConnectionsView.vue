@@ -7,12 +7,11 @@ import { useToasts } from '@/composables/toasts'
 import AppLink from '@/components/shared/AppLink.vue'
 import Connections from '@/views/connections/Connections.vue'
 import ConnectionsViewSkeleton from '@/views/connections/ConnectionsViewSkeleton.vue'
-import DialogWrapper from '@/components/shared/DialogWrapper.vue'
 import PageHeader from '@/components/shared/PageHeader.vue'
-const DisableMultilocationDialog = defineAsyncComponent(() => import('@/views/connections/components/multiLocation/DisableMultilocationDialog.vue'))
-const DisconnectDialog = defineAsyncComponent(() => import('@/views/connections/components/disconnect/DisconnectDialog.vue'))
-const LocationChangeDialog = defineAsyncComponent(() => import('@/views/connections/components/multiLocation/LocationChangeDialog.vue'))
-const SetCommissionDialog = defineAsyncComponent(() => import('@/views/connections/components/SetCommissionDialog.vue'))
+const DisableMultilocationDialog = defineAsyncComponent(() => import('./components/multiLocation/DisableMultilocationDialog.vue'))
+const DisconnectDialog = defineAsyncComponent(() => import('./components/disconnect/DisconnectDialog.vue'))
+const LocationChangeDialog = defineAsyncComponent(() => import('./components/multiLocation/LocationChangeDialog.vue'))
+const SetCommissionDialog = defineAsyncComponent(() => import('./components/SetCommissionDialog.vue'))
 
 /* ===== DATA ===== */
 const connections = useConnectionsStore()

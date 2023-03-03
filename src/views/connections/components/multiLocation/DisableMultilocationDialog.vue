@@ -1,6 +1,8 @@
 <script setup>
 import { useConnectionsStore } from '@/stores/connections'
 import { useToasts } from '@/composables/toasts'
+
+/* ===== COMPONENTS ===== */
 import DialogWrapper from '@/components/shared/DialogWrapper.vue'
 
 /* ===== DATA ===== */

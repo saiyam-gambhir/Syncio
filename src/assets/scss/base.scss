@@ -402,3 +402,18 @@ input.p-inputtext-lg {
     z-index: 1;
   }
 }
+
+.p-inputtext:enabled:focus {
+  box-shadow: none;
+  border-color: $primary;
+}
+
+.p-invalid:enabled:focus {
+  box-shadow: none;
+  border-color: #ef4444;
+}
+
+.p-error {
+  font-size: .9rem;
+  font-weight: 600;
+}

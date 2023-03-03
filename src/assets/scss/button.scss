@@ -35,13 +35,7 @@
 
   &.hovered {
     transition: color;
-
-    &:hover {
-      color: darken(#3b82f6, 10%) !important;
-      &:before {
-        background: darken(#3b82f6, 10%) !important;
-      }
-    }
+    color: $primary !important;
 
     &:before {
       @extend .w-100;
@@ -55,6 +49,15 @@
 
     &:before {
       background: $primaryLink !important;
+    }
+
+    &.hovered {
+      color: $primary !important;
+      font-weight: 600;
+
+      &:before {
+        background: $primary !important;
+      }
     }
   }
 }

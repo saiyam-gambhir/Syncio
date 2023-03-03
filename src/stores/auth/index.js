@@ -12,14 +12,15 @@ export const useAuthStore = defineStore('auth', {
   state: () => {
     return {
       currency: 'USD',
-      email: '',
       isAuthenticated: false,
-      loading: false,
       locales: 'en-US',
-      password: '',
       plan: null,
       timeZone: 'Australia/Melbourne',
       user: null,
+      loginForm: { email: '', loading: false, password: '', submitted: false },
+      forgotPasswordForm: { email: 'saiyam+111@syncio.co', emailNotFound: false, emailSent: false, loading: false, submitted: false },
+      resetPasswordForm: { email: '', loading: false, password: '', passwordConfirmation: '', submitted: false, token: '' },
+      registrationForm: { email: '', loading: false, name: '', password: '', passwordConfirmation: '', submitted: false },
     }
   },
 

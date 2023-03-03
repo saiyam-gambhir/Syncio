@@ -1,9 +1,11 @@
 <script setup>
-import { defineAsyncComponent, onMounted, ref, toRaw } from 'vue'
+import { computed, defineAsyncComponent, onMounted, ref, toRaw } from 'vue'
+import { set } from '@vueuse/core'
 import { useOrders } from './composables/orders'
 
 /* ===== COMPONENTS ===== */
 import AppLink from '@/components/shared/AppLink.vue'
+import CheckboxWrapper from '@/components/shared/CheckboxWrapper.vue'
 import Date from '@/components/shared/Date.vue'
 import OrdersViewSkeleton from './OrdersViewSkeleton.vue'
 import PageHeader from '@/components/shared/PageHeader.vue'
@@ -11,9 +13,8 @@ const OrderDetails = defineAsyncComponent(() => import('./components/OrderDetail
 
 /* ===== DATA ===== */
 const { fetchOrder, fetchOrders, fetchPushSettings, getOrderStatus, orders, setAutoPushStatus, toggleAutoPush } = useOrders()
+const isOrderSettingsRequested = ref(false)
 const options = ref(['Off', 'On'])
-let currentOrder = ref({})
-const isRequestedOrderSettings = ref(false)
 
 /* ===== MOUNTED ===== */
 onMounted(async () => {
@@ -30,11 +31,24 @@ const fetchOrdersHandler = async () => {
 const fetchOrderHandler = async orderId => {
   orders.isViewOrderDetailsRequested = true
   await fetchOrder(orderId)
-  currentOrder.value = structuredClone(toRaw(orders.order))
+  set(orders.currentOrder, structuredClone(toRaw(orders.order)))
 }
 
 const toggleAutoPushHandler = async () => {
   toggleAutoPush()
+}
+
+const onInputHandler = ({ id }) => {
+  if (orders.selectedOrders.has(id)) {
+    orders.selectedOrders.delete(id)
+    return
+  }
+
+  orders.selectedOrders.add(id)
+}
+
+const isChecked = (data) => {
+  return true
 }
 </script>
 
@@ -60,13 +74,19 @@ const toggleAutoPushHandler = async () => {
   </PageHeader>
 
   <OrdersViewSkeleton v-if="orders.loadingOrders" />
-  <DataTable v-else :value="orders.orders" responsiveLayout="scroll" showGridlines class="mt-4">
+  <DataTable v-else :value="orders.orders" :rowHover="true" responsiveLayout="scroll" showGridlines class="mt-4">
 
     <template #empty>
       <div class="px-4 py-8 text-center">
         <h2 class="m-0">No orders found</h2>
       </div>
     </template>
+
+    <Column header="" style="width: 3rem;">
+      <template #body="{ data }">
+        <CheckboxWrapper :isChecked="isChecked(data)" :disabled="data.push_status === 'pushed'" @onInput="onInputHandler(data)" />
+      </template>
+    </Column>
 
     <Column header="Order #" style="width: 10%;">
       <template #body="{ data: { name } }">
@@ -82,13 +102,13 @@ const toggleAutoPushHandler = async () => {
 
     <Column header="Customer" style="width: 35%;">
       <template #body="{ data: { customer_name } }">
-        {{ customer_name }}
+        {{ customer_name ?? 'Customer name not available' }}
       </template>
     </Column>
 
     <Column header="Push Status" style="width: 15%;">
       <template #body="{ data: { push_status } }">
-        <Tag :severity="getOrderStatus(push_status)" rounded>{{ push_status }}</Tag>
+        <Tag :severity="getOrderStatus(push_status)" rounded>{{ push_status.replace('_', ' ') }}</Tag>
       </template>
     </Column>
 
@@ -106,5 +126,5 @@ const toggleAutoPushHandler = async () => {
 
   </DataTable>
 
-  <OrderDetails v-if="orders.isViewOrderDetailsRequested" :order="currentOrder" />
+  <OrderDetails v-if="orders.isViewOrderDetailsRequested" :order="orders.currentOrder.value" />
 </template>
