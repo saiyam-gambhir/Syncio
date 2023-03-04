@@ -19,7 +19,7 @@ export const useOrdersStore = defineStore('orders', {
       orders: [],
       params: { page: '1', searchString: null, sortBy: 'DESC' },
       pushSettings: [],
-      selectedOrders: new Set(),
+      selectedOrders: [],
       sortOptions: [
         { icon: 'pi pi-sort-alpha-up', key: 'store_domain', label: 'Date: New to Old', sortByDesc: false },
         { icon: 'pi pi-sort-alpha-up-alt', key: 'store_domain', label: 'Date: Old to New', sortByDesc: true }
@@ -46,7 +46,12 @@ export const useOrdersStore = defineStore('orders', {
     strategies: [
       {
         key: 'orders',
-        storage: sessionStorage, paths: ['currentOrder', 'isViewOrderDetailsRequested']
+        storage: sessionStorage,
+        paths: [
+          'currentOrder',
+          'isViewOrderDetailsRequested',
+          'selectedOrders',
+        ]
       }
     ]
   }

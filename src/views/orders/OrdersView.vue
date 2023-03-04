@@ -1,5 +1,5 @@
 <script setup>
-import { computed, defineAsyncComponent, onMounted, ref, toRaw } from 'vue'
+import { defineAsyncComponent, onMounted, ref, toRaw } from 'vue'
 import { set } from '@vueuse/core'
 import { useOrders } from './composables/orders'
 
@@ -39,16 +39,18 @@ const toggleAutoPushHandler = async () => {
 }
 
 const onInputHandler = ({ id }) => {
-  if (orders.selectedOrders.has(id)) {
-    orders.selectedOrders.delete(id)
+
+  if (orders.selectedOrders.includes(id)) {
+    const index = orders.selectedOrders.indexOf(id)
+    orders.selectedOrders.splice(index, 1)
     return
   }
 
-  orders.selectedOrders.add(id)
+  orders.selectedOrders.push(id)
 }
 
-const isChecked = (data) => {
-  return true
+const isChecked = ({ id }) => {
+  return orders.selectedOrders.length > 0 && orders.selectedOrders.includes(id)
 }
 </script>
 
@@ -72,6 +74,12 @@ const isChecked = (data) => {
       </router-link>
     </template>
   </PageHeader>
+
+  <!-- Bulk Push -->
+  <section v-if="orders.selectedOrders.length > 0" class="flex align-items-center mt-4">
+    <h3 class="m-0 mr-4">{{ orders.selectedOrders.length }} order(s) selected</h3>
+    <Button label="Push Selected Orders" />
+  </section>
 
   <OrdersViewSkeleton v-if="orders.loadingOrders" />
   <DataTable v-else :value="orders.orders" :rowHover="true" responsiveLayout="scroll" showGridlines class="mt-4">
