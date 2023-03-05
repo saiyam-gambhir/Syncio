@@ -2,8 +2,8 @@ import { useConnectionsStore } from '@/stores/connections'
 import { useFilters } from '@/composables/filters'
 
 export function useConnections() {
-  const connections = useConnectionsStore()
   const { formatCurrency } = useFilters()
+  const connections = useConnectionsStore()
 
   const fetchConnectionsHandler = async () => {
     await connections.fetchConnections()

@@ -6,6 +6,11 @@ export function useOrders() {
   const { showToast } = useToasts()
   const connections = useConnectionsStore()
   const orders = useOrdersStore()
+  const statusOptions = {
+    invalid: 'danger',
+    not_pushed: 'warning',
+    pushed: 'success',
+  }
 
   const fetchOrder = async orderId => {
     await orders.fetchOrder(connections.storeId, orderId)
@@ -20,7 +25,7 @@ export function useOrders() {
   }
 
   const getOrderStatus = status => {
-    return status === 'pushed' ? 'success' : 'danger'
+    return statusOptions[status]
   }
 
   const toggleAutoPush = async () => {

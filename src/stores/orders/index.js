@@ -10,12 +10,12 @@ import { toggleAutoPush } from './actions/toggleAutoPush'
 export const useOrdersStore = defineStore('orders', {
   state: () => {
     return {
-      currentOrder: {},
+      ordersCollection: [],
       isAutoPushEnabled: 'Off',
       isViewOrderDetailsRequested: false,
       loadingOrder: false,
       loadingOrders: false,
-      order: null,
+      order: {},
       orders: [],
       params: { page: '1', searchString: null, sortBy: 'DESC' },
       pushSettings: [],
@@ -48,8 +48,8 @@ export const useOrdersStore = defineStore('orders', {
         key: 'orders',
         storage: sessionStorage,
         paths: [
-          'currentOrder',
           'isViewOrderDetailsRequested',
+          'order',
           'selectedOrders',
         ]
       }

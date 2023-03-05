@@ -31,7 +31,7 @@ const fetchOrdersHandler = async () => {
 const fetchOrderHandler = async orderId => {
   orders.isViewOrderDetailsRequested = true
   await fetchOrder(orderId)
-  set(orders.currentOrder, structuredClone(toRaw(orders.order)))
+  //set(orders.currentOrder, structuredClone(toRaw(orders.order)))
 }
 
 const toggleAutoPushHandler = async () => {
@@ -115,8 +115,11 @@ const isChecked = ({ id }) => {
     </Column>
 
     <Column header="Push Status" style="width: 15%;">
-      <template #body="{ data: { push_status } }">
-        <Tag :severity="getOrderStatus(push_status)" rounded>{{ push_status.replace('_', ' ') }}</Tag>
+      <template #body="{ data: { order_fail_reason, push_status } }">
+        <div class="flex align-items-center">
+          <Tag :severity="getOrderStatus(push_status)" rounded>{{ push_status.replace('_', ' ') }}</Tag>
+          <i v-if="order_fail_reason" class="pi pi-question-circle ml-3 text-xl" v-tooltip.right="order_fail_reason"></i>
+        </div>
       </template>
     </Column>
 
@@ -134,5 +137,5 @@ const isChecked = ({ id }) => {
 
   </DataTable>
 
-  <OrderDetails v-if="orders.isViewOrderDetailsRequested" :order="orders.currentOrder.value" />
+  <OrderDetails v-if="orders.isViewOrderDetailsRequested" :order="orders.order" />
 </template>

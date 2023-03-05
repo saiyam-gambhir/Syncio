@@ -24,7 +24,7 @@ export const useConnectionsStore = defineStore('connections', {
       isMultilocationEnabled: 'Off',
       isSetCommissionRequested: false,
       loadingConnections: false,
-      searchString: null,
+      selectedConnection: {},
       sortOptions: [
         { icon: 'pi pi-sort-alpha-up', key: 'store_domain', label: 'A-Z', sortByDesc: false },
         { icon: 'pi pi-sort-alpha-up-alt', key: 'store_domain', label: 'Z-A', sortByDesc: true }
@@ -71,4 +71,20 @@ export const useConnectionsStore = defineStore('connections', {
     fetchDestinationLocations,
     toggleMultilocation,
   ]),
+
+  persist: {
+    enabled: true,
+    strategies: [
+      {
+        key: 'connections',
+        storage: sessionStorage,
+        paths: [
+          'currentStore',
+          'filters',
+          'isConnectionDisconnectRequested',
+          'selectedConnection',
+        ]
+      }
+    ]
+  }
 })

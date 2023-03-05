@@ -12,5 +12,6 @@ export const fetchOrders = {
 
     this.orders = await response.data?.orders?.orders
     this.loadingOrders = false
+    this.ordersCollection = this.orders.map(order => order.id)
   }
 }

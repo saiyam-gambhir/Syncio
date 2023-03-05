@@ -4,7 +4,7 @@ import { useOrders } from '../composables/orders'
 
 /* ===== DATA ===== */
 const { formatCurrency, formatDate } = useFilters()
-const { orders } = useOrders()
+const { fetchOrder, orders } = useOrders()
 
 /* ===== PROPS ===== */
 const props = defineProps({
@@ -13,12 +13,28 @@ const props = defineProps({
     default: {}
   }
 })
+
+const fetchOrderSummary = async index => {
+  const { order, ordersCollection } = orders
+  let currentOrderId = order.syncio_order_id
+  let currentOrderIndex = ordersCollection.indexOf(currentOrderId)
+  let nextOrderIndex = currentOrderIndex - index
+  await fetchOrder(ordersCollection[nextOrderIndex])
+}
+
+const fetchPreviousOrderSummary = () => fetchOrderSummary(1)
+
+const fetchNextOrderSummary = () => fetchOrderSummary(-1)
 </script>
 
 <template>
   <Sidebar v-model:visible="orders.isViewOrderDetailsRequested" position="full">
     <template #header>
-      <h1 class="text-4xl font-bold mb-0">Order Summary</h1>
+      <h1 class="text-4xl font-bold mb-0 flex align-items-center">
+        Order Summary
+        <Button icon="pi pi-arrow-left" class="p-button-rounded p-button-outlined p-button-info ml-3" v-tooltip.left="'Previous order'" @click="fetchPreviousOrderSummary" />
+        <Button icon="pi pi-arrow-right" class="p-button-rounded p-button-outlined p-button-info ml-3" v-tooltip="'Next order'" @click="fetchNextOrderSummary" />
+      </h1>
     </template>
 
     <ProgressSpinner v-if="orders.loadingOrder" strokeWidth="1.5" animationDuration="1" />
@@ -33,7 +49,7 @@ const props = defineProps({
 
       <div class="col-7">
         <div class="surface-card border-round border-1 surface-border p-4">
-          <h2 class="text-xl font-bold">My order details: #{{ order.syncio_order_id }}</h2>
+          <h2 class="text-xl font-bold">My order details: {{ order.name }}</h2>
 	      </div>
 
         <Panel class="mt-4" v-for="(store, key) in order.source_stores" :key="key" :toggleable="true">
