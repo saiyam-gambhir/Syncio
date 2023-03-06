@@ -371,10 +371,20 @@ input.p-inputtext-lg {
     border: 1.5px solid $danger !important;
   }
 
+  .disabled {
+    opacity: .5;
+  }
+
   .pending-icon {
     color: $danger;
     font-size: 1.25rem;
     rotate: 180deg;
+
+    &-reverse {
+      color: var(--surface-700);
+      font-size: 1.25rem;
+      rotate: 0;
+    }
   }
 }
 

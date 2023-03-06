@@ -29,6 +29,7 @@ import MultiSelect from 'primevue/multiselect'
 import Panel from 'primevue/panel'
 import Password from 'primevue/password'
 import PrimeVue from 'primevue/config'
+import ProgressBar from 'primevue/progressbar'
 import ProgressSpinner from 'primevue/progressspinner'
 import Ripple from 'primevue/ripple'
 import SelectButton from 'primevue/selectbutton'
@@ -90,6 +91,7 @@ app
 .component('MultiSelect', MultiSelect)
 .component('Panel', Panel)
 .component('Password', Password)
+.component('ProgressBar', ProgressBar)
 .component('ProgressSpinner', ProgressSpinner)
 .component('SelectButton', SelectButton)
 .component('Sidebar', Sidebar)

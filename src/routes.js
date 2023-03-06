@@ -1,0 +1,11 @@
+export const DASHBOARD = 'dashboard'
+export const NOTES = 'notes'
+export const STORE_DETAILS = 'store-details'
+export const STORES = 'stores'
+export const SYNC_SETTINGS = 'sync-settings'
+export const TASKS = 'tasks'
+export const WEBHOOKS = 'webhooks'
+
+const LOGIN = 'login'
+const FORGOT_PASSWORD = 'forgot-password'
+const RESET_PASSWORD = 'reset-password'

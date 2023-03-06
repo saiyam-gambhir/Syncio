@@ -1,5 +1,6 @@
 <script setup>
 import { computed } from 'vue'
+import { useAuthStore } from '@/stores/auth'
 import { useConnectionsStore } from '@/stores/connections'
 
 /* ===== COMPONENTS ===== */
@@ -7,13 +8,14 @@ import Logo from '@/icons/Logo.vue'
 import NavLink from '@/components/navbar/NavLink.vue'
 import SyncIndicator from '@/components/navbar/SyncIndicator.vue'
 
+/* ===== DATA ===== */
+const auth = useAuthStore()
+const connectionsStore = useConnectionsStore()
+
 /* ===== COMPUTED ===== */
 const isDestinationStore = computed(() => {
   return connectionsStore.storeType === 'destination'
 })
-
-/* ===== DATA ===== */
-const connectionsStore = useConnectionsStore()
 </script>
 
 <template>
@@ -35,18 +37,19 @@ const connectionsStore = useConnectionsStore()
             <NavLink href="/products" iconClass="pi-list" linkText="Products" />
           </li>
           <li class="mt-2">
-            <NavLink href="/orders" iconClass="pi-file" linkText="Orders" />
+            <NavLink href="/orders" iconClass="pi-file" linkText="Orders" :disabled="!auth.isOrderModuleAvailable" />
           </li>
           <li class="mt-2">
-            <NavLink href="/payouts" iconClass="pi-dollar" linkText="Payouts" />
+            <NavLink href="/payouts" iconClass="pi-dollar" linkText="Payouts" :disabled="!auth.isOrderModuleAvailable" />
           </li>
           <li class="mt-2">
             <NavLink href="/activity-center" iconClass="pi-bell" linkText="Activity Center" />
           </li>
           <li class="mt-2">
-            <NavLink href="/account-settings" iconClass="pi-cog" linkText="Settings" />
+            <NavLink href="/settings" iconClass="pi-cog" linkText="Settings" />
           </li>
         </ul>
+
         <ul v-else class="primary-navigation list-none pb-5 pt-4 px-3  m-0">
           <li>
             <NavLink linkText="Dashboard" />
@@ -64,7 +67,7 @@ const connectionsStore = useConnectionsStore()
             <NavLink href="/activity-center" iconClass="pi-bell" linkText="Activity Center" />
           </li>
           <li class="mt-2">
-            <NavLink href="/account-settings" iconClass="pi-cog" linkText="Settings" />
+            <NavLink href="/settings" iconClass="pi-cog" linkText="Settings" />
           </li>
         </ul>
       </div>

@@ -22,7 +22,7 @@ const router = createRouter({
     },
     {
       path: '/forgot-password',
-      name: 'ForgotPassword',
+      name: 'forgot-password',
       component: () => import('@/views/registration/woocommerce/ForgotPassword.vue'),
       meta: {
         layout: LoggedOut
@@ -30,7 +30,7 @@ const router = createRouter({
     },
     {
       path: '/reset-password',
-      name: 'ResetPassword',
+      name: 'reset-password',
       component: () => import('@/views/registration/woocommerce/ResetPassword.vue'),
       meta: {
         layout: LoggedOut
@@ -38,7 +38,7 @@ const router = createRouter({
     },
     {
       path: '/registration',
-      name: 'SelectStoreType',
+      name: 'select-store-type',
       component: () => import('@/views/registration/woocommerce/SelectStoreType.vue'),
       meta: {
         layout: LoggedOut
@@ -64,7 +64,7 @@ const router = createRouter({
     },
     {
       path: '/product-settings',
-      name: 'product settings',
+      name: 'product-settings',
       component: () => import('@/views/productSettings/ProductSettingsView.vue'),
       meta: { ...meta },
     },
@@ -76,7 +76,7 @@ const router = createRouter({
     },
     {
       path: '/orders/push-settings',
-      name: 'pushSettings',
+      name: 'push-settings',
       meta: { ...meta },
       component: () => import('@/views/orders/pushSettings/PushSettings.vue')
     },
@@ -88,20 +88,26 @@ const router = createRouter({
     },
     {
       path: '/activity-center',
-      name: 'activity center',
+      name: 'activity-center',
       component: () => import('@/views/activityCenter/ActivityCenterView.vue'),
       meta: { ...meta },
     },
     {
       path: '/account-settings',
-      name: 'account settings',
+      name: 'account-settings',
       component: () => import('@/views/accountSettings/AccountSettingsView.vue'),
       meta: { ...meta },
     },
     {
       path: '/plan-and-billings',
-      name: 'plan and billings',
+      name: 'plan-and-billings',
       component: () => import('@/views/planAndBillings/PlanAndBillingsView.vue'),
+      meta: { ...meta },
+    },
+    {
+      path: '/settings',
+      name: 'settings',
+      component: () => import('@/views/settings/SettingsView.vue'),
       meta: { ...meta },
     },
   ]
