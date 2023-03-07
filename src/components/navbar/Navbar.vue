@@ -110,13 +110,13 @@ const goToPlanSelectionPage = () => {
             <i v-else-if="upgradeDialogType === 'payouts'" class="pi pi-dollar text-primary text-6xl mb-4"></i>
             <h1 class="text-primary">Sync more than just inventory</h1>
             <p class="text-xl line-height-3">Order module allow you to push your destination order to source store, <br> ongoing sync the order's updates and sync back the source store <br> fulfilment for the push orders.</p>
-            <AppLink label="Learn more" link="https://help.syncio.co/en/articles/4163480-orders-add-on" class="text-xl" />
+            <AppLink label="Learn more" link="https://help.syncio.co/en/articles/4163480-orders-add-on" class="text-xl my-1" />
           </div>
         </template>
         <template #footer>
           <div class="flex align-items-center justify-content-between">
             <Button icon="pi pi-times" label="Cancel" class="p-button-secondary" @click="closeDialogHandler"></Button>
-            <Button icon="pi pi-check" label="Upgrade Plan" class="p-button-lg mr-0" @click="goToPlanSelectionPage"></Button>
+            <Button icon="pi pi-arrow-right" iconPos="right" label="Upgrade Plan" class="p-button-lg mr-0" @click="goToPlanSelectionPage"></Button>
           </div>
         </template>
       </DialogWrapper>

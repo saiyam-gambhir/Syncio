@@ -1,21 +1,34 @@
 <script setup>
-/* ===== IMPORTS ===== */
-import { onMounted, ref } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import PageNotFound from '@/PageNotFound.vue'
+import { ref, watch } from 'vue'
+import { useOnline } from '@vueuse/core'
+
+/* ===== COMPONENTS ===== */
+import DialogWrapper from '@/components/shared/DialogWrapper.vue'
 
 /* ===== DATA ===== */
-const route = useRoute()
-const router = useRouter()
-const currentRoute = ref(null)
+const isNetworkDialogVisible = ref(false)
+const online = useOnline()
 
-/* ===== MOUNTED ===== */
-onMounted(async () => {
-  await router.isReady()
-  currentRoute.value = route.name
+watch(online, () => {
+  if(!online.value) {
+    isNetworkDialogVisible.value = true
+  }
 })
+
+const closeDialogHandler = () => {
+  isNetworkDialogVisible.value = false
+}
 </script>
 
 <template>
-  <component :is="$route.meta.layout || PageNotFound"></component>
+  <component :is="$route.meta.layout"></component>
+  <DialogWrapper :isVisible="!online && isNetworkDialogVisible" title="OOPS!" width="600px" @closeDialog="closeDialogHandler" :showFooter="false">
+    <template #body>
+      <div class="text-center">
+        <i class="pi pi-exclamation-triangle text-primary text-6xl mb-4"></i>
+        <h1 class="text-primary mt-2">You are not connected to the internet</h1>
+        <p class="text-xl line-height-3">Reload to check your connection status <br> or check back after sometime.</p>
+      </div>
+    </template>
+  </DialogWrapper>
 </template>
