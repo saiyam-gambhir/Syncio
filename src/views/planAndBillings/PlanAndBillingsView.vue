@@ -4,7 +4,7 @@ import PageHeader from '@/components/shared/PageHeader.vue'
 
 <template>
 	<PageHeader
-		content="Upgrade or downgrade anytime. Contact us for help"
+		content="Upgrade or downgrade anytime. <a href='#' class='btn-link'>Contact us</a> for help"
 		title="Plan and Billings">
 	</PageHeader>
 </template>
