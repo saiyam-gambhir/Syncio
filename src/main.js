@@ -156,6 +156,7 @@ router.beforeEach(async (to, from, next) => {
         if(!auth.user) {
           await auth.fetchUser(USER_ID)
           await auth.fetchCurrentPlan(USER_ID)
+          await auth.fetchPlans()
           await connections.fetchCurrentStore()
         }
       }

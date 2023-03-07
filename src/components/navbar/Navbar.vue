@@ -16,6 +16,15 @@ const connectionsStore = useConnectionsStore()
 const isDestinationStore = computed(() => {
   return connectionsStore.storeType === 'destination'
 })
+
+/* ===== METHODS ===== */
+const showUpgradeOrderModuleDialog = () => {
+  alert('Orders')
+}
+
+const showUpgradePayoutsModuleDialog = () => {
+  alert('Payouts')
+}
 </script>
 
 <template>
@@ -37,10 +46,12 @@ const isDestinationStore = computed(() => {
             <NavLink href="/products" iconClass="pi-list" linkText="Products" />
           </li>
           <li class="mt-2">
-            <NavLink href="/orders" iconClass="pi-file" linkText="Orders" :disabled="!auth.isOrderModuleAvailable" />
+            <NavLink v-if="auth.isOrderModuleAvailable" href="/orders" iconClass="pi-file" linkText="Orders" />
+            <NavLink v-else :href="$route.path" iconClass="pi-file" linkText="Orders" disabled @click="showUpgradeOrderModuleDialog" />
           </li>
           <li class="mt-2">
-            <NavLink href="/payouts" iconClass="pi-dollar" linkText="Payouts" :disabled="!auth.isOrderModuleAvailable" />
+            <NavLink v-if="auth.isOrderModuleAvailable" href="/payouts" iconClass="pi-dollar" linkText="Payouts" />
+            <NavLink v-else :href="$route.path" iconClass="pi-dollar" linkText="Payouts" disabled @click="showUpgradePayoutsModuleDialog" />
           </li>
           <li class="mt-2">
             <NavLink href="/activity-center" iconClass="pi-bell" linkText="Activity Center" />

@@ -347,7 +347,7 @@ input.p-inputtext-lg {
 }
 /* ===== OVERRIDES ===== */
 
-.theme-light .primary-navigation .router-link-active {
+.theme-light .primary-navigation .router-link-active:not(.disabled) {
   background: $secondaryHoverBg;
   border: 1px solid $primary;
   color: $primary !important;
