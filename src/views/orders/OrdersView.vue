@@ -1,7 +1,8 @@
 <script setup>
 import { defineAsyncComponent, onMounted, ref, toRaw } from 'vue'
-import { set } from '@vueuse/core'
+import { useAuthStore } from '@/stores/auth'
 import { useOrders } from './composables/orders'
+import { useRouter } from 'vue-router'
 
 /* ===== COMPONENTS ===== */
 import AppLink from '@/components/shared/AppLink.vue'
@@ -13,11 +14,16 @@ const OrderDetails = defineAsyncComponent(() => import('./components/OrderDetail
 
 /* ===== DATA ===== */
 const { fetchOrder, fetchOrders, fetchPushSettings, getOrderStatus, orders, setAutoPushStatus, toggleAutoPush } = useOrders()
-const isOrderSettingsRequested = ref(false)
+const auth = useAuthStore()
 const options = ref(['Off', 'On'])
+const router = useRouter()
 
 /* ===== MOUNTED ===== */
 onMounted(async () => {
+  if(!auth.isOrderModuleAvailable) {
+    router.push({ path: '/', query: { showUpgrade: 'true', type: 'orders' }})
+    return
+  }
   fetchOrdersHandler()
   await fetchPushSettings()
   setAutoPushStatus()

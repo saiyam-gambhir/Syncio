@@ -1,8 +1,9 @@
 <script setup>
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 import { useConnectionsStore } from '@/stores/connections'
-import { useRoute, useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
+import { useUpgradeDialog } from '@/composables/upgradeDialog'
 
 /* ===== COMPONENTS ===== */
 import AppLink from '@/components/shared/AppLink.vue'
@@ -12,37 +13,15 @@ import NavLink from '@/components/navbar/NavLink.vue'
 import SyncIndicator from '@/components/navbar/SyncIndicator.vue'
 
 /* ===== DATA ===== */
+const { closeDialogHandler, goToPlanSelectionPage, showUpgradeDialogHandler } = useUpgradeDialog()
 const auth = useAuthStore()
 const connectionsStore = useConnectionsStore()
-const isUpgradeDialogRequested = ref(false)
 const route = useRoute()
-const router = useRouter()
-const upgradeDialogType = ref('')
 
 /* ===== COMPUTED ===== */
 const isDestinationStore = computed(() => {
   return connectionsStore.storeType === 'destination'
 })
-
-/* ===== METHODS ===== */
-const showUpgradeOrderModuleDialog = (type) => {
-  isUpgradeDialogRequested.value = true
-  upgradeDialogType.value = type
-}
-
-const showUpgradePayoutsModuleDialog = (type) => {
-  isUpgradeDialogRequested.value = true
-  upgradeDialogType.value = type
-}
-
-const closeDialogHandler = () => {
-  isUpgradeDialogRequested.value = false
-}
-
-const goToPlanSelectionPage = () => {
-  router.push({ name: 'plan-and-billings' })
-  closeDialogHandler()
-}
 </script>
 
 <template>
@@ -65,11 +44,11 @@ const goToPlanSelectionPage = () => {
           </li>
           <li class="mt-2">
             <NavLink v-if="auth.isOrderModuleAvailable" href="/orders" iconClass="pi-file" linkText="Orders" />
-            <NavLink v-else :href="$route.path" iconClass="pi-file" linkText="Orders" disabled @click="showUpgradeOrderModuleDialog('orders')" />
+            <NavLink v-else :href="$route.path" iconClass="pi-file" linkText="Orders" disabled @click="showUpgradeDialogHandler('orders')" />
           </li>
           <li class="mt-2">
             <NavLink v-if="auth.isOrderModuleAvailable" href="/payouts" iconClass="pi-dollar" linkText="Payouts" />
-            <NavLink v-else :href="$route.path" iconClass="pi-dollar" linkText="Payouts" disabled @click="showUpgradePayoutsModuleDialog('payouts')" />
+            <NavLink v-else :href="$route.path" iconClass="pi-dollar" linkText="Payouts" disabled @click="showUpgradeDialogHandler('payouts')" />
           </li>
           <li class="mt-2">
             <NavLink href="/activity-center" iconClass="pi-bell" linkText="Activity Center" />
@@ -103,11 +82,11 @@ const goToPlanSelectionPage = () => {
 
       <SyncIndicator />
 
-      <DialogWrapper :isVisible="isUpgradeDialogRequested" title="This is an add-on feature" width="600px" @closeDialog="closeDialogHandler">
+      <DialogWrapper :isVisible="auth.isUpgradeDialogRequested" title="This is an add-on feature" width="600px" @closeDialog="closeDialogHandler">
         <template #body>
           <div class="text-center">
-            <i v-if="upgradeDialogType === 'orders'" class="pi pi-file text-primary text-6xl mb-4"></i>
-            <i v-else-if="upgradeDialogType === 'payouts'" class="pi pi-dollar text-primary text-6xl mb-4"></i>
+            <i v-if="auth.upgradeDialogType === 'orders'" class="pi pi-file text-primary text-6xl mb-4"></i>
+            <i v-else-if="auth.upgradeDialogType === 'payouts'" class="pi pi-dollar text-primary text-6xl mb-4"></i>
             <h1 class="text-primary">Sync more than just inventory</h1>
             <p class="text-xl line-height-3">Order module allow you to push your destination order to source store, <br> ongoing sync the order's updates and sync back the source store <br> fulfilment for the push orders.</p>
             <AppLink label="Learn more" link="https://help.syncio.co/en/articles/4163480-orders-add-on" class="text-xl my-1" />

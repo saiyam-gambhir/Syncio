@@ -1,12 +1,17 @@
 <script setup>
 import { onMounted, ref } from 'vue'
+import { useConnectionsStore } from '@/stores/connections'
+import { useDashboardStore } from '@/stores/dashboard'
+import { useUpgradeDialog } from '@/composables/upgradeDialog'
+import { useUrlSearchParams } from '@vueuse/core'
+
+/* ===== COMPONENTS ===== */
 import DashboardLeft from '@/views/dashboard/components/DashboardLeft.vue'
 import DashboardRight from '@/views/dashboard/components/DashboardRight.vue'
 import PageHeader from '@/components/shared/PageHeader.vue'
-import { useDashboardStore } from '@/stores/dashboard'
-import { useConnectionsStore } from '@/stores/connections'
 
 /* ===== DATA ===== */
+const { showUpgradeDialogHandler } = useUpgradeDialog()
 const connections = useConnectionsStore()
 const dashboard = useDashboardStore()
 const dashboardSections = ref([
@@ -14,10 +19,14 @@ const dashboardSections = ref([
 	{ label: 'Helpful articles', value: 'helpful_articles', isVisible: true },
 	{ label: 'Add-ons', value: 'add_ons', isVisible: true },
 ])
+const { showUpgrade, type } = useUrlSearchParams()
 
 /* ===== MOUNTED ===== */
 onMounted(() => {
   fetchDashboardHandler()
+	if(Boolean(showUpgrade)) {
+  	showUpgradeDialogHandler(type)
+  }
 })
 
 /* ===== METHODS ===== */

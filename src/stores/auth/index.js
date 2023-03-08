@@ -13,16 +13,20 @@ export const useAuthStore = defineStore('auth', {
   state: () => {
     return {
       currency: 'USD',
+      forgotPasswordForm: { email: 'saiyam+111@syncio.co', emailNotFound: false, emailSent: false, loading: false, submitted: false },
       isAuthenticated: false,
+      isBatteryLowDialogVisible: false,
+      isNetworkDialogVisible: false,
+      isUpgradeDialogRequested: false,
       locales: 'en-US',
+      loginForm: { email: '', loading: false, password: '', submitted: false },
       plan: null,
       plans: [],
-      timeZone: 'Australia/Melbourne',
-      user: null,
-      loginForm: { email: '', loading: false, password: '', submitted: false },
-      forgotPasswordForm: { email: 'saiyam+111@syncio.co', emailNotFound: false, emailSent: false, loading: false, submitted: false },
-      resetPasswordForm: { email: '', loading: false, password: '', passwordConfirmation: '', submitted: false, token: '' },
       registrationForm: { email: '', loading: false, name: '', password: '', passwordConfirmation: '', submitted: false },
+      resetPasswordForm: { email: '', loading: false, password: '', passwordConfirmation: '', submitted: false, token: '' },
+      timeZone: 'Australia/Melbourne',
+      upgradeDialogType: '',
+      user: null,
     }
   },
 
