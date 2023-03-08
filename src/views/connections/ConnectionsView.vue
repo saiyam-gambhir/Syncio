@@ -26,19 +26,14 @@ onMounted(async () => {
 })
 
 /* ===== METHODS ===== */
-const closeDialogHandler = () => {
-  connections.isSetCommissionRequested = false
-}
-
 const toggleMultilocationHandler = async (event) => {
   if(event.value === 'Off' && !connections.isDisableMultilocationRequested) {
     connections.isDisableMultilocationRequested = true
     return
   }
   const message = await connections.toggleMultilocation()
-  showToast({ detail: message })
   await connections.fetchDestinationLocations()
-
+  showToast({ detail: message })
 }
 </script>
 

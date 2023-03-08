@@ -22,7 +22,7 @@ watch(online, () => {
 })
 
 watch(level, () => {
-  if(level.value < .24) {
+  if(level.value < .85) {
     auth.isBatteryLowDialogVisible = true
   }
 })

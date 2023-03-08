@@ -10,6 +10,7 @@ import { useAuthStore } from '@/stores/auth'
 import { useConnectionsStore } from '@/stores/connections'
 import { useDashboardStore } from '@/stores/dashboard'
 import { useOrdersStore } from '@/stores/orders'
+import { useProductsStore } from '@/stores/products'
 
 /* ===== Prime Vue ===== */
 import Button from 'primevue/button'
@@ -110,7 +111,8 @@ const auth = useAuthStore()
 const connections = useConnectionsStore()
 const dashboard = useDashboardStore()
 const orders = useOrdersStore()
-auth.$https = activityCenter.$https = connections.$https = dashboard.$https = orders.$https = $https
+const products = useProductsStore()
+auth.$https = activityCenter.$https = connections.$https = dashboard.$https = orders.$https = products.$https = $https
 
 /* ===== LOGOUT HANDLER ===== */
 const logout = () => {
@@ -156,8 +158,8 @@ router.beforeEach(async (to, from, next) => {
         if(!auth.user) {
           await auth.fetchUser(USER_ID)
           await auth.fetchCurrentPlan(USER_ID)
-          await auth.fetchPlans()
           await connections.fetchCurrentStore()
+          await auth.fetchPlans()
         }
       }
       next()

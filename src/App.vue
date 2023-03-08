@@ -1,5 +1,7 @@
-<script setup></script>
+<script setup>
+import Loading from '@/Loading.vue'
+</script>
 
 <template>
-  <component :is="$route.meta.layout"></component>
+  <component :is="$route.meta.layout ?? Loading"></component>
 </template>
