@@ -4,9 +4,10 @@ import deepmerge from 'deepmerge'
 /* ===== ACTIONS ===== */
 import { fetchSettings } from './actions/fetchSettings'
 
-export const useProductsStore = defineStore('products', {
+export const useProductSettingsStore = defineStore('productSettings', {
   state: () => {
     return {
+      activeTabIndex: 0,
       configrations: []
     }
   },
@@ -21,7 +22,7 @@ export const useProductsStore = defineStore('products', {
     enabled: true,
     strategies: [
       {
-        key: 'products',
+        key: 'productSettings',
         storage: sessionStorage,
         paths: []
       }

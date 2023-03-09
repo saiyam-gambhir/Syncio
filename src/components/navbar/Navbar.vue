@@ -22,6 +22,10 @@ const route = useRoute()
 const isDestinationStore = computed(() => {
   return connectionsStore.storeType === 'destination'
 })
+
+const isPathSettings = computed(() => {
+  return route.name === 'product-settings'
+})
 </script>
 
 <template>
@@ -54,7 +58,7 @@ const isDestinationStore = computed(() => {
             <NavLink href="/activity-center" iconClass="pi-bell" linkText="Activity Center" />
           </li>
           <li class="mt-2">
-            <NavLink href="/settings" iconClass="pi-cog" linkText="Settings" />
+            <NavLink href="/settings" iconClass="pi-cog" :class="{ 'router-link-active': isPathSettings }" linkText="Settings" />
           </li>
         </ul>
 

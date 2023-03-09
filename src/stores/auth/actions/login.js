@@ -6,9 +6,9 @@ export const login = {
     this.loginForm.loading = true
     const connections = useConnectionsStore()
     const response = await this.$https.post('user/login', { ...payload })
-    if(response.data.success) {
-      this.user = await response.data.user
-    }
+    const { success, user } = response.data
+    if(success) { this.user = await user }
+
     window.sessionStorage.setItem('ID_TOKEN_KEY', response.headers['x-syncio-app-token']);
     if (window.sessionStorage.getItem('ID_TOKEN_KEY')) {
       this.isAuthenticated = true

@@ -10,7 +10,7 @@ import { useAuthStore } from '@/stores/auth'
 import { useConnectionsStore } from '@/stores/connections'
 import { useDashboardStore } from '@/stores/dashboard'
 import { useOrdersStore } from '@/stores/orders'
-import { useProductsStore } from '@/stores/products'
+import { useProductSettingsStore } from '@/stores/productSettings'
 
 /* ===== Prime Vue ===== */
 import Button from 'primevue/button'
@@ -111,8 +111,8 @@ const auth = useAuthStore()
 const connections = useConnectionsStore()
 const dashboard = useDashboardStore()
 const orders = useOrdersStore()
-const products = useProductsStore()
-auth.$https = activityCenter.$https = connections.$https = dashboard.$https = orders.$https = products.$https = $https
+const productSettings = useProductSettingsStore()
+auth.$https = activityCenter.$https = connections.$https = dashboard.$https = orders.$https = productSettings.$https = $https
 
 /* ===== LOGOUT HANDLER ===== */
 const logout = () => {

@@ -45,12 +45,12 @@ export const useAuthStore = defineStore('auth', {
 
     isOrderModuleAvailable({ plan }) {
       let ordersPlan = plan.active_addons.filter(plan => plan.name === 'Orders')
-      return plan.active_addons.length > 0 && ordersPlan.length === 1
+      return (plan.active_addons.length > 0 && ordersPlan.length === 1)
     },
 
     isProductModuleAvailable({ plan }) {
       let settingsPlan = plan.active_addons.filter(plan => plan.name === 'Product Settings')
-      return plan.active_addons.length > 0 && settingsPlan.length === 1
+      return (plan.active_addons.length > 0 && settingsPlan.length === 1)
     }
   },
 
