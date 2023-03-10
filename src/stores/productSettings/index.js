@@ -8,11 +8,15 @@ export const useProductSettingsStore = defineStore('productSettings', {
   state: () => {
     return {
       activeTabIndex: 0,
-      configrations: []
+      destinationProductSettings: [],
+      destinationVariantSettings: [],
+      loading: false,
+      sourceProductSettings: [],
+      stringifyDestinationProductSettings: null,
+      stringifyDestinationVariantSettings: null,
+      stringifySourceProductSettings: null,
     }
   },
-
-  getters: {},
 
   actions: deepmerge.all([
     fetchSettings
@@ -24,7 +28,15 @@ export const useProductSettingsStore = defineStore('productSettings', {
       {
         key: 'productSettings',
         storage: sessionStorage,
-        paths: []
+        paths: [
+          'activeTabIndex',
+          'destinationProductSettings',
+          'destinationVariantSettings',
+          'sourceProductSettings',
+          'stringifyDestinationProductSettings',
+          'stringifyDestinationVariantSettings',
+          'stringifySourceProductSettings',
+        ]
       }
     ]
   }

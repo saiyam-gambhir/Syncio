@@ -89,11 +89,17 @@ const isPathSettings = computed(() => {
       <DialogWrapper :isVisible="auth.isUpgradeDialogRequested" title="This is an add-on feature" width="600px" @closeDialog="closeDialogHandler">
         <template #body>
           <div class="text-center">
-            <i v-if="auth.upgradeDialogType === 'orders'" class="pi pi-file text-primary text-6xl mb-4"></i>
-            <i v-else-if="auth.upgradeDialogType === 'payouts'" class="pi pi-dollar text-primary text-6xl mb-4"></i>
+            <i v-if="auth.showOrdersUpgradeDialog" class="pi pi-file text-primary text-6xl mb-4"></i>
+            <i v-else-if="auth.showPayoutsUpgradeDialog" class="pi pi-dollar text-primary text-6xl mb-4"></i>
+            <i v-else-if="auth.showProductSettingsUpgradeDialog" class="pi pi-list text-primary text-6xl mb-4"></i>
+
             <h1 class="text-primary">Sync more than just inventory</h1>
-            <p class="text-xl line-height-3">Order module allow you to push your destination order to source store, <br> ongoing sync the order's updates and sync back the source store <br> fulfilment for the push orders.</p>
-            <AppLink label="Learn more" link="https://help.syncio.co/en/articles/4163480-orders-add-on" class="text-xl my-1" />
+
+            <p v-if="auth.showOrdersUpgradeDialog || auth.showPayoutsUpgradeDialog" class="text-xl line-height-3">Order module allow you to push your destination order to source store, <br> ongoing sync the order's updates and sync back the source store <br> fulfilment for the push orders.</p>
+            <p v-else-if="auth.showProductSettingsUpgradeDialog" class="text-xl line-height-3">Our product sync add-on allows you to sync product and variant attributes such as title, description, images, <br> and much more.</p>
+
+            <AppLink v-if="auth.showOrdersUpgradeDialog || auth.showPayoutsUpgradeDialog" label="Learn more" link="https://help.syncio.co/en/articles/4163480-orders-add-on" class="text-xl my-2" />
+            <AppLink v-else-if="auth.showProductSettingsUpgradeDialog" label="Learn more" link="https://help.syncio.co/en/articles/3704617-product-settings-add-on" class="text-xl my-2" />
           </div>
         </template>
         <template #footer>

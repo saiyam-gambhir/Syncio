@@ -1,15 +1,25 @@
 <script setup>
-import { onMounted } from 'vue'
+import { defineAsyncComponent, onMounted } from 'vue'
+import { useAuthStore } from '@/stores/auth'
 import { useProductSettingsStore } from '@/stores/productSettings'
+import { useRouter } from 'vue-router'
 
 /* ===== COMPONENTS ===== */
 import PageHeader from '@/components/shared/PageHeader.vue'
+const Product = defineAsyncComponent(() => import('./components/Product.vue'))
+const Variant = defineAsyncComponent(() => import('./components/Variant.vue'))
 
 /* ===== DATA ===== */
+const auth = useAuthStore()
 const productSettings = useProductSettingsStore()
+const router = useRouter()
 
 /* ===== MOUNTED ===== */
-onMounted(async  () => {
+onMounted(async () => {
+  if(!auth.isProductModuleAvailable) {
+    router.push({ path: '/', query: { showUpgrade: 'true', type: 'product-settings' }})
+    return
+  }
 	await productSettings.fetchSettings()
 })
 
@@ -46,6 +56,11 @@ const changeTabHandler = activeTabIndex => {
 	</section>
 
 	<section class="mt-4">
-		{{ productSettings.configrations }}
+		<div v-if="productSettings.activeTabIndex === 0">
+      <Product />
+    </div>
+    <div v-if="productSettings.activeTabIndex === 1">
+      <Variant />
+    </div>
 	</section>
 </template>

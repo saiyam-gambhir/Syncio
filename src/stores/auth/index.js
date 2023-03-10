@@ -51,7 +51,19 @@ export const useAuthStore = defineStore('auth', {
     isProductModuleAvailable({ plan }) {
       let settingsPlan = plan.active_addons.filter(plan => plan.name === 'Product Settings')
       return (plan.active_addons.length > 0 && settingsPlan.length === 1)
-    }
+    },
+
+    showOrdersUpgradeDialog({ upgradeDialogType }) {
+      return upgradeDialogType === 'orders'
+    },
+
+    showPayoutsUpgradeDialog({ upgradeDialogType }) {
+      return upgradeDialogType === 'payouts'
+    },
+
+    showProductSettingsUpgradeDialog({ upgradeDialogType }) {
+      return upgradeDialogType === 'product-settings'
+    },
   },
 
   actions: deepmerge.all([

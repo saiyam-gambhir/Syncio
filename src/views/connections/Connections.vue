@@ -50,11 +50,11 @@ const { connections, fetchConnectionsHandler, getStoreCommission, getStoreStatus
       </template>
     </Column>
 
-    <Column header="Commission" style="width: 10%;">
+    <Column header="Commission" style="width: 10%;" class="text-right">
       <template #body="{ data: connection }">
-        <div class="flex align-items-center justify-content-between">
+        <div class="flex align-items-center justify-content-end">
           {{ getStoreCommission(connection.store_commission) }}
-          <Button icon="pi pi-pencil" class="p-button-rounded p-button-text p-button-outlined ml-2" @click="showSetCommissionDialog(connection)" v-tooltip.left="'Edit'" />
+          <!-- <Button icon="pi pi-pencil" class="p-button-rounded p-button-text p-button-outlined ml-2" @click="showSetCommissionDialog(connection)" v-tooltip.left="'Edit'" /> -->
         </div>
       </template>
     </Column>

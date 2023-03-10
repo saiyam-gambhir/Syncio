@@ -9,7 +9,7 @@ import NetworkDialog from './components/NetworkDialog.vue'
 const BatteryLowDialog = defineAsyncComponent(() => import('./components/BatteryLowDialog.vue'))
 
 /* ===== DATA ===== */
-const { level } = useBattery()
+const { charging, level } = useBattery()
 const auth = useAuthStore()
 const connections = useConnectionsStore()
 const online = useOnline()
@@ -22,7 +22,7 @@ watch(online, () => {
 })
 
 watch(level, () => {
-  if(level.value < .21) {
+  if(level.value < .21 && !charging.value) {
     auth.isBatteryLowDialogVisible = true
   }
 })
