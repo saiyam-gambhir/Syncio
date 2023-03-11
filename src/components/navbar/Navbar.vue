@@ -41,6 +41,9 @@ const isPathSettings = computed(() => {
             <NavLink linkText="Dashboard" />
           </li>
           <li class="mt-2">
+            <NavLink href="/marketplace" iconClass="pi-shopping-bag" linkText="Syncio Marketplace" />
+          </li>
+          <li class="mt-2">
             <NavLink href="/stores" iconClass="pi-link" linkText="Stores" :isLocationPending="connectionsStore.isConnectionStatusPending" />
           </li>
           <li class="mt-2">
@@ -65,6 +68,9 @@ const isPathSettings = computed(() => {
         <ul v-else class="primary-navigation list-none pb-5 pt-4 px-3  m-0">
           <li>
             <NavLink linkText="Dashboard" />
+          </li>
+          <li class="mt-2">
+            <NavLink href="/marketplace" iconClass="pi-shopping-bag" linkText="Syncio Marketplace" />
           </li>
           <li class="mt-2">
             <NavLink href="/stores" iconClass="pi-link" linkText="Stores" :isLocationPending="connectionsStore.isConnectionStatusPending" />

@@ -42,7 +42,7 @@ const copyStoreKeyHandler = async (val) => {
       <template #links>
         <div class="pt-3">
           <router-link to="/account-settings" class="btn-link">Account settings</router-link>
-          <p class="text-sm mt-1 mb-0">Manage your account</p>
+          <p class="text-sm mt-1 mb-0">Manage account and notification settings</p>
         </div>
 
         <div class="pt-3">
@@ -54,17 +54,12 @@ const copyStoreKeyHandler = async (val) => {
 
     <Card
       class="mt-5"
-      icon="link"
-      title="Other resources">
+      icon="volume-up"
+      title="Have your say">
       <template #links>
         <div class="pt-3">
-          <AppLink link="https://help.syncio.co/en/" label="Help center" />
-          <p class="text-sm mt-1 mb-0">Get answers and advice from Syncio</p>
-        </div>
-
-        <div class="pt-3">
-          <AppLink link="https://syncio.canny.io/" label="Roadmap and feature requests" />
-          <p class="text-sm mt-1 mb-0">See improvements and request features</p>
+          <AppLink link="https://syncio.canny.io/" label="Feature requests" />
+          <p class="text-sm mt-1 mb-0">Got an idea? Submit here</p>
         </div>
 
         <div class="pt-3">

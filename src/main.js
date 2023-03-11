@@ -8,7 +8,6 @@ import piniaPersist from 'pinia-plugin-persist'
 import { useActivityCenterStore } from '@/stores/activityCenter'
 import { useAuthStore } from '@/stores/auth'
 import { useConnectionsStore } from '@/stores/connections'
-import { useDashboardStore } from '@/stores/dashboard'
 import { useOrdersStore } from '@/stores/orders'
 import { useProductSettingsStore } from '@/stores/productSettings'
 
@@ -109,17 +108,15 @@ app
 const activityCenter = useActivityCenterStore()
 const auth = useAuthStore()
 const connections = useConnectionsStore()
-const dashboard = useDashboardStore()
 const orders = useOrdersStore()
 const productSettings = useProductSettingsStore()
-auth.$https = activityCenter.$https = connections.$https = dashboard.$https = orders.$https = productSettings.$https = $https
+auth.$https = activityCenter.$https = connections.$https = orders.$https = productSettings.$https = $https
 
 /* ===== LOGOUT HANDLER ===== */
 const logout = () => {
   auth.$reset()
   activityCenter.$reset()
   connections.$reset()
-  dashboard.$reset()
   orders.$reset()
   sessionStorage.removeItem('ID_TOKEN_KEY')
   sessionStorage.removeItem('USER_ID')
