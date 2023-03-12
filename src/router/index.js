@@ -2,7 +2,6 @@ import { createRouter, createWebHistory } from 'vue-router'
 import DashboardView from '@/views/dashboard/DashboardView.vue'
 import LoggedIn from '@/layouts/loggedIn.vue'
 import LoggedOut from '@/layouts/loggedOut.vue'
-import { useAuthStore } from '@/stores/auth'
 
 const meta = {
   layout: LoggedIn,

@@ -345,6 +345,46 @@ input.p-inputtext-lg {
     top: 1.25rem !important;
   }
 }
+
+.p-carousel {
+  .p-card-title {
+    color: $primary;
+    font-size: 2.25rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+
+  .p-card-body,
+  .p-card-content {
+    padding: 0 !important;
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    font-size: 1.25rem;
+    line-height: 2rem;
+    margin-bottom: 0;
+    margin-top: 1.25rem;
+  }
+
+  .p-card {
+    box-shadow: none !important;
+  }
+
+  .a-marketplace,
+  .a-multilocation {
+    img {
+      margin-top: -3rem;
+      max-width: 100%;
+      transform: translateX(-5rem);
+    }
+  }
+}
 /* ===== OVERRIDES ===== */
 
 .theme-light .primary-navigation .router-link-active:not(.disabled) {

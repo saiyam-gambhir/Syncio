@@ -14,6 +14,7 @@ import { useProductSettingsStore } from '@/stores/productSettings'
 /* ===== Prime Vue ===== */
 import Button from 'primevue/button'
 import Card from 'primevue/card'
+import Carousel from 'primevue/carousel'
 import Checkbox from 'primevue/checkbox'
 import Column from 'primevue/column'
 import DataTable from 'primevue/dataTable'
@@ -78,6 +79,7 @@ app
 .component('Button', Button)
 .component('Card', Card)
 .component('Checkbox', Checkbox)
+.component('Carousel', Carousel)
 .component('Column', Column)
 .component('DataTable', DataTable)
 .component('Dialog', Dialog)

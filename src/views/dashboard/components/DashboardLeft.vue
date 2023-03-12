@@ -5,7 +5,7 @@ import { useToasts } from '@/composables/toasts'
 
 /* ===== COMPONENTS ===== */
 import AppLink from '@/components/shared/AppLink.vue'
-import Card from '@/views/dashboard/components/Card.vue'
+import CardWrapper from '@/views/dashboard/components/CardWrapper.vue'
 
 /* ===== DATA ===== */
 const { copyToClipBoard } = useFilters()
@@ -22,7 +22,9 @@ const copyStoreKeyHandler = async (val) => {
 
 <template>
   <section class="col-12 md:col-5 lg:col-3">
-    <Card
+    <h2 class="pb-2">The essentials</h2>
+
+    <CardWrapper
       class="pb-3"
       description="Share this with Source stores so you can import products to your store."
       icon="key"
@@ -33,15 +35,15 @@ const copyStoreKeyHandler = async (val) => {
           <Button icon="pi pi-copy" class="p-button-rounded p-button-text ml-2" @click="copyStoreKeyHandler(connections.storeKey)" />
         </h3>
       </template>
-    </Card>
+    </CardWrapper>
 
-    <Card
+    <CardWrapper
       class="mt-5"
       icon="user"
       title="Your account">
       <template #links>
         <div class="pt-3">
-          <router-link to="/account-settings" class="btn-link">Account settings</router-link>
+          <router-link to="/settings" class="btn-link">Account settings</router-link>
           <p class="text-sm mt-1 mb-0">Manage account and notification settings</p>
         </div>
 
@@ -50,9 +52,9 @@ const copyStoreKeyHandler = async (val) => {
           <p class="text-sm mt-1 mb-0">Manage your plan and billing details</p>
         </div>
       </template>
-    </Card>
+    </CardWrapper>
 
-    <Card
+    <CardWrapper
       class="mt-5"
       icon="volume-up"
       title="Have your say">
@@ -67,6 +69,6 @@ const copyStoreKeyHandler = async (val) => {
           <p class="text-sm mt-1 mb-0">Answer a short 3 minute survey to help us improve Syncio for you</p>
         </div>
       </template>
-    </Card>
+    </CardWrapper>
   </section>
 </template>
