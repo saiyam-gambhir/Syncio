@@ -440,9 +440,7 @@ input.p-inputtext-lg {
 }
 
 .login-screen {
-  background: url('../images/cool-background.png');
-  background-size: cover;
-  background-repeat: no-repeat;
+  background: linear-gradient(90deg,rgba(252,176,87,.5) 33.33%,rgba(250,117,123,.5) 66.66%);
   position: relative;
 
   &:before {

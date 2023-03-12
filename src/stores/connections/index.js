@@ -33,20 +33,20 @@ export const useConnectionsStore = defineStore('connections', {
   },
 
   getters: {
-    storeId(state) {
-      return state.currentStore?.id
+    storeId({ currentStore }) {
+      return currentStore?.id
     },
 
-    storeKey(state) {
-      return state.currentStore?.identifier
+    storeKey({ currentStore }) {
+      return currentStore?.identifier
     },
 
-    storeName(state) {
-      return state.currentStore?.store_domain
+    storeName({ currentStore }) {
+      return currentStore?.store_domain
     },
 
-    storeType(state) {
-      return state.currentStore?.type
+    storeType({ currentStore }) {
+      return currentStore?.type
     },
 
     isConnectionStatusPending(state) {
@@ -55,12 +55,20 @@ export const useConnectionsStore = defineStore('connections', {
       })
     },
 
-    isMultilocation(state) {
-      return state.isMultilocationEnabled === 'On'
+    isMultilocation({ isMultilocationEnabled }) {
+      return isMultilocationEnabled === 'On'
     },
 
-    isStoreMultilocation(state) {
-      return Boolean(+state.currentStore?.is_multi_locations)
+    isStoreMultilocation({ currentStore }) {
+      return Boolean(+currentStore?.is_multi_locations)
+    },
+
+    isDestinationStore() {
+      return this.storeType === 'destination'
+    },
+
+    isSourceStore() {
+      return this.storeType === 'source'
     }
   },
 

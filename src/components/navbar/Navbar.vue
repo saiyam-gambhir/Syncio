@@ -18,11 +18,6 @@ const auth = useAuthStore()
 const connectionsStore = useConnectionsStore()
 const route = useRoute()
 
-/* ===== COMPUTED ===== */
-const isDestinationStore = computed(() => {
-  return connectionsStore.storeType === 'destination'
-})
-
 const isPathSettings = computed(() => {
   return route.name === 'product-settings'
 })
@@ -36,7 +31,7 @@ const isPathSettings = computed(() => {
       </div>
 
       <div class="nav-wrapper select-none">
-        <ul v-if="isDestinationStore" class="primary-navigation list-none pb-5 pt-4 px-3  m-0">
+        <ul v-if="connectionsStore.isDestinationStore" class="primary-navigation list-none pb-5 pt-4 px-3  m-0">
           <li>
             <NavLink linkText="Dashboard" />
           </li>
