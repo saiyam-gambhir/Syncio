@@ -96,7 +96,7 @@ const isChecked = ({ id }) => {
       </div>
     </template>
 
-    <Column header="" style="width: 3rem;">
+    <Column header="" style="width: 3rem; min-width: 42.5px;">
       <template #body="{ data }">
         <CheckboxWrapper :isChecked="isChecked(data)" :disabled="data.push_status === 'pushed'" @onInput="onInputHandler(data)" />
       </template>

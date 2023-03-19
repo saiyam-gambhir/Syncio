@@ -9,6 +9,7 @@ import { useActivityCenterStore } from '@/stores/activityCenter'
 import { useAuthStore } from '@/stores/auth'
 import { useConnectionsStore } from '@/stores/connections'
 import { useOrdersStore } from '@/stores/orders'
+import { usePayoutsStore } from '@/stores/payouts'
 import { useProductSettingsStore } from '@/stores/productSettings'
 
 /* ===== Prime Vue ===== */
@@ -112,15 +113,18 @@ const activityCenter = useActivityCenterStore()
 const auth = useAuthStore()
 const connections = useConnectionsStore()
 const orders = useOrdersStore()
+const payouts = usePayoutsStore()
 const productSettings = useProductSettingsStore()
-auth.$https = activityCenter.$https = connections.$https = orders.$https = productSettings.$https = $https
+activityCenter.$https = auth.$https  = connections.$https = orders.$https = payouts.$https = productSettings.$https = $https
 
 /* ===== LOGOUT HANDLER ===== */
 const logout = () => {
-  auth.$reset()
   activityCenter.$reset()
+  auth.$reset()
   connections.$reset()
   orders.$reset()
+  payouts.$reset()
+  productSettings.$reset()
   sessionStorage.removeItem('ID_TOKEN_KEY')
   sessionStorage.removeItem('USER_ID')
   router.push({ name: routes.LOGIN })
