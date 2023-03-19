@@ -1,5 +1,6 @@
 import { useAuthStore } from '@/stores/auth'
 import { useRoute, useRouter } from 'vue-router'
+import * as routes from '@/routes'
 
 export function useUpgradeDialog() {
   const auth = useAuthStore()
@@ -16,7 +17,7 @@ export function useUpgradeDialog() {
   }
 
   const goToPlanSelectionPage = () => {
-    router.push({ name: 'plan-and-billings' })
+    router.push({ name: routes.PLAN_AND_BILLINGS })
     closeDialogHandler()
   }
 

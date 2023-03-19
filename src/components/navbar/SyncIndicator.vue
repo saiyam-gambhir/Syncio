@@ -26,7 +26,10 @@ const knobStroke = ref(15)
       valueColor="rgba(250, 117, 123, 1)" />
 
       <router-link to="/plan-and-billings" v-if="route.name !== 'planAndBillings'">
-        <Button label="Upgrade" class="mt-2 p-button-lg" />
+        <Button class="mt-2 p-button-lg btn-shine font-bold">
+          Upgrade
+          <div class="shine"></div>
+        </Button>
       </router-link>
   </div>
 </template>

@@ -469,3 +469,29 @@ input.p-inputtext-lg {
   font-size: .9rem;
   font-weight: 600;
 }
+
+// .btn-shine {
+//   position: relative;
+
+//   .shine {
+//     top: 0;
+//     right: 125px;
+//     height: 100%;
+//     width: 10px;
+//     background: #ebebf5;
+//     animation: shineAnimation 5s infinite;
+//     position: absolute;
+//   }
+// }
+
+// @keyframes shineAnimation {
+//   0% {
+//     transform: skewX(22deg) translateX(0);
+//   }
+//   10% {
+//     transform: skewX(22deg) translateX(175px);
+//   }
+//   100% {
+//     transform: skewX(22deg) translateX(175px);
+//   }
+// }

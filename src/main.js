@@ -45,8 +45,9 @@ import ToastService from 'primevue/toastservice'
 import Tooltip from 'primevue/tooltip'
 
 /* ===== ROUTER ===== */
-import router from './router'
+import * as routes from '@/routes'
 import axios from 'axios'
+import router from './router'
 
 /* ==== STYLES ===== */
 import './theme/theme-light.css'
@@ -122,7 +123,7 @@ const logout = () => {
   orders.$reset()
   sessionStorage.removeItem('ID_TOKEN_KEY')
   sessionStorage.removeItem('USER_ID')
-  router.push('/login')
+  router.push({ name: routes.LOGIN })
 }
 
 /* ===== INTERCEPTERS ===== */
