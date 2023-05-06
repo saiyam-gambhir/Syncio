@@ -1,7 +1,7 @@
 <script setup>
 import { useFilters } from '@/composables/filters'
 
-/* ===== DATA ===== */
+/* ----- DATA ----- */
 const { randomInteger } = useFilters()
 </script>
 

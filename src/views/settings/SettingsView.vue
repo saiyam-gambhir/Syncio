@@ -3,7 +3,7 @@ import { useAuthStore } from '@/stores/auth'
 import PageHeader from '@/components/shared/PageHeader.vue'
 import Setting from './components/Setting.vue'
 
-/* ===== DATA ===== */
+/* ----- DATA ----- */
 const auth = useAuthStore()
 </script>
 

@@ -4,10 +4,10 @@ import { useConnectionsStore } from '@/stores/connections'
 import { useVuelidate } from "@vuelidate/core";
 import { required } from '@vuelidate/validators'
 
-/* ===== COMPONENTS ===== */
+/* ----- COMPONENTS ----- */
 import DialogWrapper from '@/components/shared/DialogWrapper.vue'
 
-/* ===== DATA ===== */
+/* ----- DATA ----- */
 const connectionsStore = useConnectionsStore()
 const fixedRate = ref(0)
 const isFixedRateSelected = ref(false)
@@ -23,7 +23,7 @@ const rules = computed(() => ({
 }))
 const v$ = useVuelidate(rules, { fixedRate, percentageRate })
 
-/* ===== METHODS ===== */
+/* ----- METHODS ----- */
 const closeDialogHandler = () => {
   connectionsStore.isSetCommissionRequested = false
 }

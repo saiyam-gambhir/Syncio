@@ -5,14 +5,14 @@ import { useConnectionsStore } from '@/stores/connections'
 import { useRoute } from 'vue-router'
 import { useUpgradeDialog } from '@/composables/upgradeDialog'
 
-/* ===== COMPONENTS ===== */
+/* ----- COMPONENTS ----- */
 import AppLink from '@/components/shared/AppLink.vue'
 import DialogWrapper from '@/components/shared/DialogWrapper.vue'
 import Logo from '@/icons/Logo.vue'
 import NavLink from '@/components/navbar/NavLink.vue'
 import SyncIndicator from '@/components/navbar/SyncIndicator.vue'
 
-/* ===== DATA ===== */
+/* ----- DATA ----- */
 const { closeDialogHandler, goToPlanSelectionPage, showUpgradeDialogHandler } = useUpgradeDialog()
 const auth = useAuthStore()
 const connectionsStore = useConnectionsStore()
@@ -24,7 +24,7 @@ const isPathSettings = computed(() => {
 </script>
 
 <template>
-  <div class="surface-card h-screen hidden lg:block flex-shrink-0 absolute lg:static left-0 top-0 z-1 border-right-1 surface-border select-none" style="width: 19rem">
+  <div class="surface-0 h-screen hidden lg:block flex-shrink-0 absolute lg:static left-0 top-0 z-1 border-right-1 surface-border select-none" style="width: 19rem">
     <div class="flex flex-column h-full">
       <div class="flex align-items-center flex-shrink-0 justify-content-center header-height px-4">
         <Logo tabindex="0" class="pt-2" />
@@ -49,7 +49,7 @@ const isPathSettings = computed(() => {
             <NavLink v-else :href="$route.path" iconClass="pi-file" linkText="Orders" disabled @click="showUpgradeDialogHandler('orders')" />
           </li>
           <li class="mt-2">
-            <NavLink v-if="auth.isOrderModuleAvailable" href="/payouts" iconClass="pi-dollar" linkText="Payouts" />
+            <NavLink v-if="auth.isPayoutsModuleAvailable" href="/payouts" iconClass="pi-dollar" linkText="Payouts" />
             <NavLink v-else :href="$route.path" iconClass="pi-dollar" linkText="Payouts" disabled @click="showUpgradeDialogHandler('payouts')" />
           </li>
           <li class="mt-2">
@@ -90,19 +90,29 @@ const isPathSettings = computed(() => {
       <DialogWrapper :isVisible="auth.isUpgradeDialogRequested" title="This is an add-on feature" width="600px" @closeDialog="closeDialogHandler">
         <template #body>
           <div class="text-center">
-            <i v-if="auth.showOrdersUpgradeDialog" class="pi pi-file text-primary text-6xl mb-4"></i>
-            <i v-else-if="auth.showPayoutsUpgradeDialog" class="pi pi-dollar text-primary text-6xl mb-4"></i>
-            <i v-else-if="auth.showProductSettingsUpgradeDialog" class="pi pi-list text-primary text-6xl mb-4"></i>
+            <template v-if="auth.showOrdersUpgradeDialog">
+              <i class="pi pi-file text-primary text-6xl mb-4"></i>
+              <h1 class="text-primary">Sync more than just inventory</h1>
+              <p class="text-xl line-height-3">Order module allow you to push your destination order to source store, <br> ongoing sync the order's updates and sync back the source store <br> fulfilment for the push orders.</p>
+              <AppLink label="Learn more" link="https://help.syncio.co/en/articles/4163480-orders-add-on" class="text-xl my-2" />
+            </template>
 
-            <h1 class="text-primary">Sync more than just inventory</h1>
+            <template v-else-if="auth.showPayoutsUpgradeDialog">
+              <i class="pi pi-dollar text-primary text-6xl mb-4"></i>
+              <h1 class="text-primary">Easily keep track of sales and commissions <br> from synced orders</h1>
+              <p class="text-xl line-height-3">Payouts allows you to create, manage and share payment information with Source stores for simpler earnings settlements (Shopify only).</p>
+              <AppLink label="Learn more" link="https://help.syncio.co/en/articles/6398970-payouts-add-on-destination-store-side" class="text-xl my-2" />
+            </template>
 
-            <p v-if="auth.showOrdersUpgradeDialog || auth.showPayoutsUpgradeDialog" class="text-xl line-height-3">Order module allow you to push your destination order to source store, <br> ongoing sync the order's updates and sync back the source store <br> fulfilment for the push orders.</p>
-            <p v-else-if="auth.showProductSettingsUpgradeDialog" class="text-xl line-height-3">Our product sync add-on allows you to sync product and variant attributes such as title, description, images, <br> and much more.</p>
-
-            <AppLink v-if="auth.showOrdersUpgradeDialog || auth.showPayoutsUpgradeDialog" label="Learn more" link="https://help.syncio.co/en/articles/4163480-orders-add-on" class="text-xl my-2" />
-            <AppLink v-else-if="auth.showProductSettingsUpgradeDialog" label="Learn more" link="https://help.syncio.co/en/articles/3704617-product-settings-add-on" class="text-xl my-2" />
+            <template v-else-if="auth.showProductSettingsUpgradeDialog">
+              <i class="pi pi-list text-primary text-6xl mb-4"></i>
+              <h1 class="text-primary">Sync more than just inventory</h1>
+              <p class="text-xl line-height-3">Our product sync add-on allows you to sync product and variant attributes such as title, description, images, <br> and much more.</p>
+              <AppLink label="Learn more" link="https://help.syncio.co/en/articles/3704617-product-settings-add-on" class="text-xl my-2" />
+            </template>
           </div>
         </template>
+
         <template #footer>
           <div class="flex align-items-center justify-content-between">
             <Button icon="pi pi-times" label="Cancel" class="p-button-secondary" @click="closeDialogHandler"></Button>

@@ -1,7 +1,7 @@
 <script setup>
 import { useConnectionsStore } from '@/stores/connections'
 
-/* ===== DATA ===== */
+/* ----- DATA ----- */
 const connections = useConnectionsStore()
 </script>
 <template>
@@ -10,7 +10,7 @@ const connections = useConnectionsStore()
       <div class="flex align-items-center justify-content-between">
         <div class="p-inputgroup w-35">
           <InputText v-model="connections.filters.searchString" placeholder="Search by store URL"/>
-          <Button icon="pi pi-search" @click="connections.fetchConnections" :loading="connections.loadingConnections" :disabled="!connections.filters.searchString" />
+          <Button icon="pi pi-search" @click="connections.fetchConnections" :loading="connections.loadingConnections" :disabled="!connections.filters.searchString"></Button>
         </div>
 
         <Dropdown v-model="connections.filters.sortBy" :options="connections.sortOptions" optionLabel="label" placeholder="Sort by Store" :loading="connections.loadingConnections">

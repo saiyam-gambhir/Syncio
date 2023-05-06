@@ -1,7 +1,7 @@
 <script setup>
 import { useProductSettingsStore } from '@/stores/productSettings'
 
-/* ===== DATA ===== */
+/* ----- DATA ----- */
 const productSettings = useProductSettingsStore()
 </script>
 

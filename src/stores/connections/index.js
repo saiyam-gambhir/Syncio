@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import deepmerge from 'deepmerge'
 
-/* ===== ACTIONS ===== */
+/* ----- ACTIONS ----- */
 import { deleteConnection } from './actions/deleteConnection'
 import { fetchConnections } from './actions/fetchConnections'
 import { fetchCurrentStore } from './actions/fetchCurrentStore'

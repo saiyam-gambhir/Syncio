@@ -11,8 +11,13 @@ export function usePayouts() {
     await payouts.fetchDashboardStats(storeId)
   }
 
+  const fetchPayableOrders = async () => {
+    await payouts.fetchPayableOrders(storeId)
+  }
+
   return {
     fetchDashboardStats,
+    fetchPayableOrders,
     payouts,
   }
 }

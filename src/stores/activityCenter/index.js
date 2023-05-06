@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import deepmerge from 'deepmerge'
 
-/* ===== ACTIONS ===== */
+/* ----- ACTIONS ----- */
 import { deleteActivity } from './actions/deleteActivity'
 import { fetchActvities } from './actions/fetchActivities'
 

@@ -2,10 +2,10 @@
 import { useAuthStore } from '@/stores/auth'
 import { computed } from 'vue'
 
-/* ===== DATA ===== */
+/* ----- DATA ----- */
 const auth = useAuthStore()
 
-/* ===== COMPUTED ===== */
+/* ----- COMPUTED ----- */
 const isFormDisabled = computed(() => {
   return auth.forgotPasswordForm.email.length === 0
 })
@@ -27,7 +27,7 @@ const isFormDisabled = computed(() => {
       <InputText id="email" type="text" class="p-inputtext-lg mb-2 w-full" placeholder="Email address" v-model="auth.forgotPasswordForm.email" />
     </div>
 
-    <Button label="Reset Password" class="w-full p-button-lg mt-2" :loading="auth.forgotPasswordForm.loading" iconPos="right" :disabled="isFormDisabled" @click="auth.forgotPassword()" />
+    <Button label="Reset Password" class="w-full p-button-lg mt-2" :loading="auth.forgotPasswordForm.loading" iconPos="right" :disabled="isFormDisabled" @click="auth.forgotPassword()"></Button>
   </form>
 
   <div class="text-center mt-6">

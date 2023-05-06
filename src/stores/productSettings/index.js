@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import deepmerge from 'deepmerge'
 
-/* ===== ACTIONS ===== */
+/* ----- ACTIONS ----- */
 import { fetchSettings } from './actions/fetchSettings'
 
 export const useProductSettingsStore = defineStore('productSettings', {

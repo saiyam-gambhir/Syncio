@@ -2,10 +2,10 @@
 import { useConnectionsStore } from '@/stores/connections'
 import DialogWrapper from '@/components/shared/DialogWrapper.vue'
 
-/* ===== DATA ===== */
+/* ----- DATA ----- */
 const connectionsStore = useConnectionsStore()
 
-/* ===== METHODS ===== */
+/* ----- METHODS ----- */
 const closeDialogHandler = () => {
   connectionsStore.isDisconnectAndKeepRequested = false
 }

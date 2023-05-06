@@ -1,12 +1,12 @@
 <script setup>
 import { useConnections } from './composables/connections'
 
-/* ===== COMPONENTS ===== */
+/* ----- COMPONENTS ----- */
 import DestinationLocationSelector from '@/views/connections/components/multiLocation/DestinationLocationSelector.vue'
 import IconShopifyVue from '@/icons/IconShopify.vue'
 import IconWoo from '@/icons/IconWoo.vue'
 
-/* ===== DATA ===== */
+/* ----- DATA ----- */
 const { connections, fetchConnectionsHandler, getStoreCommission, getStoreStatus, showDisconnectStoreDialog, showSetCommissionDialog } = useConnections()
 </script>
 
@@ -17,7 +17,7 @@ const { connections, fetchConnectionsHandler, getStoreCommission, getStoreStatus
       <div class="flex align-items-center justify-content-between">
         <div class="p-inputgroup w-35">
           <InputText v-model="connections.filters.searchString" placeholder="Search by store URL" @keyup.enter="fetchConnectionsHandler" autocomplete="off" />
-          <Button icon="pi pi-search" @click="fetchConnectionsHandler" :loading="connections.loadingConnections" :disabled="!connections.filters.searchString" />
+          <Button icon="pi pi-search" @click="fetchConnectionsHandler" :loading="connections.loadingConnections" :disabled="!connections.filters.searchString"></Button>
         </div>
 
         <Dropdown v-model="connections.filters.sortBy" :options="connections.sortOptions" optionLabel="label" placeholder="Sort by Store" @change="fetchConnectionsHandler" :loading="connections.loadingConnections">
@@ -73,8 +73,8 @@ const { connections, fetchConnectionsHandler, getStoreCommission, getStoreStatus
 
     <Column header="Actions" style="width: 17.5%;" class="text-right">
       <template #body="{ data: connection }">
-        <Button icon="pi pi-list" class="p-button-rounded p-button-outlined p-button-info" v-tooltip.top="'Products'" />
-        <Button icon="pi pi-trash" class="p-button-rounded p-button-outlined p-button-danger ml-3" v-tooltip.top="'Disconnect'" @click="showDisconnectStoreDialog(connection)" />
+        <Button icon="pi pi-list" class="p-button-rounded p-button-outlined p-button-info" v-tooltip.top="'Products'"></Button>
+        <Button icon="pi pi-trash" class="p-button-rounded p-button-outlined p-button-danger ml-3" v-tooltip.top="'Disconnect'" @click="showDisconnectStoreDialog(connection)"></Button>
       </template>
     </Column>
 

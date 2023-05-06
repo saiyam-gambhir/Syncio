@@ -2,11 +2,11 @@
 import { ref } from 'vue'
 import { useConnectionsStore } from '@/stores/connections'
 
-/* ===== COMPONENTS ===== */
+/* ----- COMPONENTS ----- */
 import AppLink from '@/components/shared/AppLink.vue'
 import CardWarapper from '@/views/dashboard/components/CardWrapper.vue'
 
-/* ===== DATA ===== */
+/* ----- DATA ----- */
 const connectionsStore = useConnectionsStore()
 const destinationAnnouncements = ref([
   {

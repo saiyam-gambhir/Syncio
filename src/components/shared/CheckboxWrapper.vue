@@ -1,12 +1,10 @@
 <script setup>
 import { ref } from 'vue'
 
-/* ===== EMITS ===== */
+/* ----- EMITS ----- */
 const emits = defineEmits(['onInput'])
 
-/* ===== DATA ===== */
-
-/* ===== PROPS ===== */
+/* ----- PROPS ----- */
 const props = defineProps({
   disabled: {
     type: Boolean,
@@ -19,7 +17,7 @@ const props = defineProps({
   }
 })
 
-/* ===== METHODS ===== */
+/* ----- METHODS ----- */
 const onInputHandler = () => {
   emits('onInput', props.isChecked)
 }
@@ -31,5 +29,5 @@ const onInputHandler = () => {
     :class="{ 'hidden': disabled }"
     :disabled="disabled"
     @change="onInputHandler(isChecked)"
-    v-model="isChecked" />
+    v-model="props.isChecked" />
 </template>

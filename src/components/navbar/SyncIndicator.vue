@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 import { useRoute } from 'vue-router'
 
-/* ===== DATA ===== */
+/* ----- DATA ----- */
 const auth = useAuthStore()
 const route = useRoute()
 const knobSize = ref(125)
@@ -11,7 +11,7 @@ const knobStroke = ref(15)
 </script>
 
 <template>
-  <div class="mt-auto text-center pt-4 surface-border border-top-1 surface-section" :class="{ 'pb-4' : route.name !== 'planAndBillings' }">
+  <div class="mt-auto text-center pt-4 surface-border border-top-1 surface-card" :class="{ 'pb-4' : route.name !== 'planAndBillings' }">
     <h2>Products Synced</h2>
 
     <Knob
@@ -29,6 +29,7 @@ const knobStroke = ref(15)
         <Button class="mt-2 p-button-lg btn-shine font-bold">
           Upgrade
           <div class="shine"></div>
+          <div class="shine-1"></div>
         </Button>
       </router-link>
   </div>

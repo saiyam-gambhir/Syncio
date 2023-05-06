@@ -4,7 +4,7 @@ import { useBattery, useOnline } from '@vueuse/core'
 import { useAuthStore } from '@/stores/auth'
 
 /* ===== COMPONENTS ===== */
-import Loading from '@/Loading.vue'
+import Loading from './Loading.vue'
 const BatteryLowDialog = defineAsyncComponent(() => import('./components/shared/BatteryLowDialog.vue'))
 const NetworkDialog = defineAsyncComponent(() => import('./components/shared/NetworkDialog.vue'))
 

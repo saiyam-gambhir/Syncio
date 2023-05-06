@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import deepmerge from 'deepmerge'
 
-/* ===== ACTIONS ===== */
+/* ----- ACTIONS ----- */
 import { fetchOrder } from './actions/fetchOrder'
 import { fetchOrders } from './actions/fetchOrders'
 import { fetchPushSettings } from './actions/fetchPushSettings'

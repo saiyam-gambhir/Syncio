@@ -4,21 +4,22 @@ import { useAuthStore } from '@/stores/auth'
 import { useOrders } from './composables/orders'
 import { useRouter } from 'vue-router'
 
-/* ===== COMPONENTS ===== */
+/* ----- COMPONENTS ----- */
 import AppLink from '@/components/shared/AppLink.vue'
+import BulkSelectedCount from '@/components/shared/BulkSelectedCount.vue'
 import CheckboxWrapper from '@/components/shared/CheckboxWrapper.vue'
 import Date from '@/components/shared/Date.vue'
 import OrdersViewSkeleton from './OrdersViewSkeleton.vue'
 import PageHeader from '@/components/shared/PageHeader.vue'
 const OrderDetails = defineAsyncComponent(() => import('./components/OrderDetails.vue'))
 
-/* ===== DATA ===== */
+/* ----- DATA ----- */
 const { fetchOrder, fetchOrders, fetchPushSettings, getOrderStatus, orders, setAutoPushStatus, toggleAutoPush } = useOrders()
 const auth = useAuthStore()
 const options = ref(['Off', 'On'])
 const router = useRouter()
 
-/* ===== MOUNTED ===== */
+/* ----- MOUNTED ----- */
 onMounted(async () => {
   if(!auth.isOrderModuleAvailable) {
     router.push({ path: '/', query: { showUpgrade: 'true', type: 'orders' }})
@@ -29,7 +30,7 @@ onMounted(async () => {
   setAutoPushStatus()
 })
 
-/* ===== METHODS ===== */
+/* ----- METHODS ----- */
 const fetchOrdersHandler = async () => {
   fetchOrders()
 }
@@ -76,16 +77,15 @@ const isChecked = ({ id }) => {
         <SelectButton v-model="orders.isAutoPushEnabled" :options="options" aria-labelledby="single" @click="toggleAutoPushHandler" />
       </div>
       <router-link to="/orders/push-settings">
-        <Button label="Push Settings" class="ml-5" icon="pi pi-cog" iconPos="right" />
+        <Button label="Push Settings" class="ml-5" icon="pi pi-cog" iconPos="right"></Button>
       </router-link>
     </template>
   </PageHeader>
 
   <!-- Bulk Push -->
-  <section v-if="orders.selectedOrders.length > 0" class="flex align-items-center mt-4">
-    <h3 class="m-0 mr-4">{{ orders.selectedOrders.length }} order(s) selected</h3>
-    <Button label="Push Selected Orders" />
-  </section>
+  <BulkSelectedCount :items="orders.selectedOrders" itemType="order">
+    <Button label="Push Selected Orders"></Button>
+  </BulkSelectedCount>
 
   <OrdersViewSkeleton v-if="orders.loadingOrders" />
   <DataTable v-else :value="orders.orders" :rowHover="true" responsiveLayout="scroll" showGridlines class="mt-4">
@@ -137,7 +137,7 @@ const isChecked = ({ id }) => {
 
     <Column header="Actions" style="width: 10%;" class="text-right">
       <template #body="{ data: { id } }">
-        <Button icon="pi pi-window-maximize" class="p-button-rounded p-button-outlined p-button-info" v-tooltip.top="'View Details'" @click="fetchOrderHandler(id)" />
+        <Button icon="pi pi-window-maximize" class="p-button-rounded p-button-outlined p-button-info" v-tooltip.top="'View Details'" @click="fetchOrderHandler(id)"></Button>
       </template>
     </Column>
 

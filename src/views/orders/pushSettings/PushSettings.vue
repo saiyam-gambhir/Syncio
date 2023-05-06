@@ -2,14 +2,14 @@
 import { onMounted, ref } from 'vue'
 import { useOrders } from '../composables/orders'
 
-/* ===== COMPONENTS ===== */
+/* ----- COMPONENTS ----- */
 import PageHeader from '@/components/shared/PageHeader.vue'
 
-/* ===== DATA ===== */
+/* ----- DATA ----- */
 const { fetchPushSettings } = useOrders()
 const activeTabIndex = ref(0)
 
-/* ===== MOUNTED ===== */
+/* ----- MOUNTED ----- */
 onMounted(async () => {
   await fetchPushSettings()
 })

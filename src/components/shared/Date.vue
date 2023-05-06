@@ -1,10 +1,10 @@
 <script setup>
 import { useFilters } from '@/composables/filters'
 
-/* ===== DATA ===== */
+/* ----- DATA ----- */
 const { formatDate } = useFilters()
 
-/* ===== PROPS ===== */
+/* ----- PROPS ----- */
 const props = defineProps({
   date: {
     type: String,

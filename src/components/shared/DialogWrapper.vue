@@ -1,5 +1,5 @@
 <script setup>
-/* ===== PROPS ===== */
+/* ----- PROPS ----- */
 const props = defineProps({
   isVisible: {
     type: Boolean,
@@ -22,17 +22,17 @@ const props = defineProps({
   }
 })
 
-/* ===== EMITS ===== */
+/* ----- EMITS ----- */
 const emits = defineEmits(['closeDialog'])
 
-/* ===== METHODS ===== */
+/* ----- METHODS ----- */
 const closeDialogHandler = () => {
   emits('closeDialog')
 }
 </script>
 
 <template>
-  <Dialog v-model:visible="isVisible" :modal="true" :style="{ width: width }" :dismissableMask="false" @after-hide="closeDialogHandler" :header="title">
+  <Dialog :visible="isVisible" :modal="true" :style="{ width: width }" :dismissableMask="false" @after-hide="closeDialogHandler" :header="title">
     <div class="border-top-1 surface-border pt-4">
       <slot name="body"></slot>
     </div>

@@ -1,8 +1,8 @@
-/* ===== Vue ===== */
+/* ----- Vue ----- */
 import { createApp } from 'vue'
 import App from './App.vue'
 
-/* ===== Pinia ===== */
+/* ----- Pinia ----- */
 import { createPinia } from 'pinia'
 import piniaPersist from 'pinia-plugin-persist'
 import { useActivityCenterStore } from '@/stores/activityCenter'
@@ -12,8 +12,9 @@ import { useOrdersStore } from '@/stores/orders'
 import { usePayoutsStore } from '@/stores/payouts'
 import { useProductSettingsStore } from '@/stores/productSettings'
 
-/* ===== Prime Vue ===== */
+/* ----- Prime Vue ----- */
 import Button from 'primevue/button'
+import Calendar from 'primevue/calendar'
 import Card from 'primevue/card'
 import Carousel from 'primevue/carousel'
 import Checkbox from 'primevue/checkbox'
@@ -45,27 +46,31 @@ import Toast from 'primevue/toast'
 import ToastService from 'primevue/toastservice'
 import Tooltip from 'primevue/tooltip'
 
-/* ===== ROUTER ===== */
+/* ----- ROUTER ----- */
 import * as routes from '@/routes'
 import axios from 'axios'
 import router from './router'
 
-/* ==== STYLES ===== */
+/* ----- THIRD PARTY ----- */
+import VueDatePicker from '@vuepic/vue-datepicker'
+
+/* ----- STYLES ----- */
 import './theme/theme-light.css'
 //import './theme/theme-dark.css'
+import '@vuepic/vue-datepicker/dist/main.css'
 import 'primevue/resources/primevue.min.css'
 import 'primeicons/primeicons.css'
 import '/node_modules/primeflex/primeflex.css'
 import './assets/scss/main.scss'
 
-/* ===== AXIOS INSTANCES ===== */
+/* ----- AXIOS INSTANCES ----- */
 const $https = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
   timeout: 20000,
 })
 $https.defaults.headers.common['x-syncio-app-id'] = import.meta.env.VITE_APP_ID
 
-/* ===== CREATE APP AND USE DEPENDENCIES ===== */
+/* ----- CREATE APP AND USE DEPENDENCIES ----- */
 const pinia = createPinia()
 pinia.use(piniaPersist)
 const app = createApp(App)
@@ -76,9 +81,10 @@ app
 .use(ToastService)
 .mount('#app')
 
-/* ===== PRIME VUE COMPONENTS ===== */
+/* ----- PRIME VUE COMPONENTS ----- */
 app
 .component('Button', Button)
+.component('Calendar', Calendar)
 .component('Card', Card)
 .component('Checkbox', Checkbox)
 .component('Carousel', Carousel)
@@ -105,10 +111,11 @@ app
 .component('TabView', TabView)
 .component('Tag', Tag)
 .component('Toast', Toast)
+.component('VueDatePicker', VueDatePicker)
 .directive('ripple', Ripple)
 .directive('tooltip', Tooltip)
 
-/* ==== BINDING TO VUE INSTANCE ===== */
+/* ----- BINDING TO VUE INSTANCE ----- */
 const activityCenter = useActivityCenterStore()
 const auth = useAuthStore()
 const connections = useConnectionsStore()
@@ -117,7 +124,7 @@ const payouts = usePayoutsStore()
 const productSettings = useProductSettingsStore()
 activityCenter.$https = auth.$https  = connections.$https = orders.$https = payouts.$https = productSettings.$https = $https
 
-/* ===== LOGOUT HANDLER ===== */
+/* ----- LOGOUT HANDLER ----- */
 const logout = () => {
   activityCenter.$reset()
   auth.$reset()
@@ -130,7 +137,7 @@ const logout = () => {
   router.push({ name: routes.LOGIN })
 }
 
-/* ===== INTERCEPTERS ===== */
+/* ----- INTERCEPTERS ----- */
 $https.interceptors.response.use(
   response => {
     const auth = useAuthStore()
@@ -143,7 +150,7 @@ $https.interceptors.response.use(
   }
 })
 
-/* ===== ACTIONS BEFORE EACH ROUTE ===== */
+/* ----- ACTIONS BEFORE EACH ROUTE ----- */
 router.beforeEach(async (to, from, next) => {
   const isAuthenticated = auth.isAuthenticated
   const ID_TOKEN_KEY = sessionStorage.getItem('ID_TOKEN_KEY')
@@ -175,6 +182,6 @@ router.beforeEach(async (to, from, next) => {
   }
 })
 
-/* ===== THEME ===== */
+/* ----- THEME ----- */
 sessionStorage.setItem('theme', 'theme-light')
 document.querySelector('html').classList.add(sessionStorage.getItem('theme'))

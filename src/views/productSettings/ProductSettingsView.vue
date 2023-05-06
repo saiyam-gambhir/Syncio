@@ -4,17 +4,17 @@ import { useAuthStore } from '@/stores/auth'
 import { useProductSettingsStore } from '@/stores/productSettings'
 import { useRouter } from 'vue-router'
 
-/* ===== COMPONENTS ===== */
+/* ----- COMPONENTS ----- */
 import PageHeader from '@/components/shared/PageHeader.vue'
 const Product = defineAsyncComponent(() => import('./components/Product.vue'))
 const Variant = defineAsyncComponent(() => import('./components/Variant.vue'))
 
-/* ===== DATA ===== */
+/* ----- DATA ----- */
 const auth = useAuthStore()
 const productSettings = useProductSettingsStore()
 const router = useRouter()
 
-/* ===== MOUNTED ===== */
+/* ----- MOUNTED ----- */
 onMounted(async () => {
   if(!auth.isProductModuleAvailable) {
     router.push({ path: '/', query: { showUpgrade: 'true', type: 'product-settings' }})
@@ -23,7 +23,7 @@ onMounted(async () => {
 	await productSettings.fetchSettings()
 })
 
-/* ===== METHODS ===== */
+/* ----- METHODS ----- */
 const changeTabHandler = activeTabIndex => {
 	productSettings.activeTabIndex = activeTabIndex
 }

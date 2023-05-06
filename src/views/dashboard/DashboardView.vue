@@ -3,16 +3,16 @@ import { onMounted } from 'vue'
 import { useUpgradeDialog } from '@/composables/upgradeDialog'
 import { useUrlSearchParams } from '@vueuse/core'
 
-/* ===== COMPONENTS ===== */
+/* ----- COMPONENTS ----- */
 import DashboardLeft from '@/views/dashboard/components/DashboardLeft.vue'
 import DashboardRight from '@/views/dashboard/components/DashboardRight.vue'
 import PageHeader from '@/components/shared/PageHeader.vue'
 
-/* ===== DATA ===== */
+/* ----- DATA ----- */
 const { showUpgradeDialogHandler } = useUpgradeDialog()
 const { showUpgrade, type } = useUrlSearchParams()
 
-/* ===== MOUNTED ===== */
+/* ----- MOUNTED ----- */
 onMounted(() => {
 	if(Boolean(showUpgrade)) {
   	showUpgradeDialogHandler(type)

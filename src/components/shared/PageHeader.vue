@@ -1,10 +1,10 @@
 <script setup>
 import { useRouter } from 'vue-router'
 
-/* ===== DATA ===== */
+/* ----- DATA ----- */
 const router = useRouter()
 
-/* ===== PROPS ===== */
+/* ----- PROPS ----- */
 const props = defineProps({
   content: {
     type: String
@@ -28,7 +28,7 @@ const props = defineProps({
   },
 })
 
-/* ===== METHODS ===== */
+/* ----- METHODS ----- */
 const backButtonHandler = () => {
   router.replace({ name: props.href })
 }
@@ -37,7 +37,7 @@ const backButtonHandler = () => {
 <template>
   <div class="flex align-items-end justify-content-between border-bottom-1 surface-border pb-4">
     <section class="flex">
-      <Button v-if="withBackButton" icon="pi pi-arrow-left" class="p-button-rounded p-button-secondary p-button-lg mr-3" @click="backButtonHandler" />
+      <Button v-if="withBackButton" icon="pi pi-arrow-left" class="p-button-rounded p-button-secondary p-button-lg mr-3" @click="backButtonHandler"></Button>
       <div class="border-round-md page-header">
         <h1 class="text-5xl mb-0 ">{{ title }}</h1>
         <p v-if="content" class="mb-0 mt-1" v-html="content"></p>

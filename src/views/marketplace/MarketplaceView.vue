@@ -1,5 +1,5 @@
 <script setup>
-/* ===== COMPONENTS ===== */
+/* ----- COMPONENTS ----- */
 import PageHeader from '@/components/shared/PageHeader.vue'
 </script>
 

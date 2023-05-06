@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import deepmerge from 'deepmerge'
 
-/* ===== ACTIONS ===== */
+/* ----- ACTIONS ----- */
 import { fetchCurrentPlan } from './actions/fetchCurrentPlan'
 import { fetchPlans } from './actions/fetchPlans'
 import { fetchUser } from './actions/fetchUser'
@@ -24,7 +24,7 @@ export const useAuthStore = defineStore('auth', {
       plans: [],
       registrationForm: { email: '', loading: false, name: '', password: '', passwordConfirmation: '', submitted: false },
       resetPasswordForm: { email: '', loading: false, password: '', passwordConfirmation: '', submitted: false, token: '' },
-      timeZone: 'Australia/Melbourne',
+      timeZone: 'America/New_York',
       upgradeDialogType: '',
       user: null,
     }
@@ -45,12 +45,17 @@ export const useAuthStore = defineStore('auth', {
 
     isOrderModuleAvailable({ plan }) {
       let ordersPlan = plan.active_addons.filter(plan => plan.name === 'Orders')
-      return (plan.active_addons.length > 0 && ordersPlan.length === 1)
+      return ordersPlan.length === 1
+    },
+
+    isPayoutsModuleAvailable({ plan }) {
+      let payoutsPlan = plan.active_addons.filter(plan => plan.name === 'Payouts')
+      return payoutsPlan.length === 1
     },
 
     isProductModuleAvailable({ plan }) {
       let settingsPlan = plan.active_addons.filter(plan => plan.name === 'Product Settings')
-      return (plan.active_addons.length > 0 && settingsPlan.length === 1)
+      return settingsPlan.length === 1
     },
 
     showOrdersUpgradeDialog({ upgradeDialogType }) {

@@ -3,7 +3,7 @@ import { defineAsyncComponent, onMounted, ref } from 'vue'
 import { useConnectionsStore } from '@/stores/connections'
 import { useToasts } from '@/composables/toasts'
 
-/* ===== COMPONENTS ===== */
+/* ----- COMPONENTS ----- */
 import AppLink from '@/components/shared/AppLink.vue'
 import Connections from '@/views/connections/Connections.vue'
 import ConnectionsViewSkeleton from '@/views/connections/ConnectionsViewSkeleton.vue'
@@ -13,19 +13,19 @@ const DisconnectDialog = defineAsyncComponent(() => import('./components/disconn
 const LocationChangeDialog = defineAsyncComponent(() => import('./components/multiLocation/LocationChangeDialog.vue'))
 const SetCommissionDialog = defineAsyncComponent(() => import('./components/SetCommissionDialog.vue'))
 
-/* ===== DATA ===== */
+/* ----- DATA ----- */
 const connections = useConnectionsStore()
 const options = ref(['Off', 'On'])
 const { showToast } = useToasts()
 
-/* ===== MOUNTED ===== */
+/* ----- MOUNTED ----- */
 onMounted(async () => {
   if(connections.connections.length > 0) return
 	await connections.fetchConnections()
   if(connections.isStoreMultilocation) await connections.fetchDestinationLocations()
 })
 
-/* ===== METHODS ===== */
+/* ----- METHODS ----- */
 const toggleMultilocationHandler = async (event) => {
   if(event.value === 'Off' && !connections.isDisableMultilocationRequested) {
     connections.isDisableMultilocationRequested = true
@@ -52,7 +52,7 @@ const toggleMultilocationHandler = async (event) => {
         </h4>
         <SelectButton v-model="connections.isMultilocationEnabled" :options="options" aria-labelledby="single" @change="toggleMultilocationHandler($event)" />
       </div>
-      <Button label="Connect New Store" class="ml-5" icon="pi pi-plus-circle" iconPos="right" />
+      <Button label="Connect New Store" class="ml-5" icon="pi pi-plus-circle" iconPos="right"></Button>
     </template>
   </PageHeader>
 

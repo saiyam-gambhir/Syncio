@@ -2,7 +2,7 @@
 import { computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 
-/* ===== COMPONENTS ===== */
+/* ----- COMPONENTS ----- */
 import Logo from '@/icons/Logo.vue'
 </script>
 

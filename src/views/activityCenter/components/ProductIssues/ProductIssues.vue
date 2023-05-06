@@ -1,11 +1,11 @@
 <script setup>
 import { useActivities } from '../../composables/activities'
 
-/* ===== COMPONENTS ===== */
+/* ----- COMPONENTS ----- */
 import AppLink from '@/components/shared/AppLink.vue'
 import ProductIssuesSkeleton from './ProductIssuesSkeleton.vue'
 
-/* ===== DATA ===== */
+/* ----- DATA ----- */
 const { activityCenter, deleteActivityHandler } = useActivities()
 </script>
 
@@ -70,7 +70,7 @@ const { activityCenter, deleteActivityHandler } = useActivities()
 
     <Column header="Actions" style="width: 10%;" class="text-right">
       <template #body="{ data: { id } }">
-        <Button icon="pi pi-trash" class="p-button-rounded p-button-outlined p-button-danger" v-tooltip.top="'Dismiss'" @click="deleteActivityHandler(id)" />
+        <Button icon="pi pi-trash" class="p-button-rounded p-button-outlined p-button-danger" v-tooltip.top="'Dismiss'" @click="deleteActivityHandler(id)"></Button>
       </template>
     </Column>
   </DataTable>

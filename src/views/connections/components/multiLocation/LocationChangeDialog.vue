@@ -1,14 +1,14 @@
 <script setup>
 import { useConnectionsStore } from '@/stores/connections'
 
-/* ===== COMPONENTS ===== */
+/* ----- COMPONENTS ----- */
 import AppLink from '@/components/shared/AppLink.vue'
 import DialogWrapper from '@/components/shared/DialogWrapper.vue'
 
-/* ===== DATA ===== */
+/* ----- DATA ----- */
 const connectionsStore = useConnectionsStore()
 
-/* ===== METHODS ===== */
+/* ----- METHODS ----- */
 const closeDialogHandler = () => {
   connectionsStore.isLocationChangeRequested = false
 }

@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import * as routes from '@/routes'
 import DashboardView from '@/views/dashboard/DashboardView.vue'
-import LoggedIn from '@/layouts/loggedIn.vue'
-import LoggedOut from '@/layouts/loggedOut.vue'
+import LoggedIn from '@/layouts/LoggedIn.vue'
+import LoggedOut from '@/layouts/LoggedOut.vue'
 
 const meta = {
   layout: LoggedIn,

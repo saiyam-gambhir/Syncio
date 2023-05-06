@@ -1,13 +1,13 @@
 <script setup>
 import { useAuthStore } from '@/stores/auth'
 
-/* ===== COMPONENTS ===== */
+/* ----- COMPONENTS ----- */
 import DialogWrapper from '@/components/shared/DialogWrapper.vue'
 
-/* ===== DATA ===== */
+/* ----- DATA ----- */
 const auth = useAuthStore()
 
-/* ===== PROPS ===== */
+/* ----- PROPS ----- */
 const props = defineProps({
   level: {
     type: [Number, String],
@@ -15,7 +15,7 @@ const props = defineProps({
   }
 })
 
-/* ===== METHODS ===== */
+/* ----- METHODS ----- */
 const closeDialogHandler = () => {
   auth.isBatteryLowDialogVisible = false
 }

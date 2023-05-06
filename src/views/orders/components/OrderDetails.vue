@@ -2,11 +2,11 @@
 import { useFilters } from '@/composables/filters'
 import { useOrders } from '../composables/orders'
 
-/* ===== DATA ===== */
+/* ----- DATA ----- */
 const { formatCurrency, formatDate } = useFilters()
 const { fetchOrder, orders } = useOrders()
 
-/* ===== PROPS ===== */
+/* ----- PROPS ----- */
 const props = defineProps({
   order: {
     type: Object,
@@ -32,8 +32,8 @@ const fetchNextOrderSummary = () => fetchOrderSummary(-1)
     <template #header>
       <h1 class="text-4xl font-bold mb-0 flex align-items-center">
         Order Summary
-        <Button icon="pi pi-arrow-left" class="p-button-rounded p-button-outlined p-button-info ml-3" v-tooltip.left="'Previous order'" @click="fetchPreviousOrderSummary" />
-        <Button icon="pi pi-arrow-right" class="p-button-rounded p-button-outlined p-button-info ml-3" v-tooltip="'Next order'" @click="fetchNextOrderSummary" />
+        <Button icon="pi pi-arrow-left" class="p-button-rounded p-button-outlined p-button-info ml-3" v-tooltip.left="'Previous order'" @click="fetchPreviousOrderSummary"></Button>
+        <Button icon="pi pi-arrow-right" class="p-button-rounded p-button-outlined p-button-info ml-3" v-tooltip="'Next order'" @click="fetchNextOrderSummary"></Button>
       </h1>
     </template>
 

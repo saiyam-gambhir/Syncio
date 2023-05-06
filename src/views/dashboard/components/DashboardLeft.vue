@@ -3,11 +3,11 @@ import { useConnectionsStore } from '@/stores/connections'
 import { useFilters } from '@/composables/filters'
 import { useToasts } from '@/composables/toasts'
 
-/* ===== COMPONENTS ===== */
+/* ----- COMPONENTS ----- */
 import AppLink from '@/components/shared/AppLink.vue'
 import CardWrapper from '@/views/dashboard/components/CardWrapper.vue'
 
-/* ===== DATA ===== */
+/* ----- DATA ----- */
 const { copyToClipBoard } = useFilters()
 const { showToast } = useToasts()
 const connections = useConnectionsStore()
@@ -15,7 +15,7 @@ const connections = useConnectionsStore()
 const copyStoreKeyHandler = async (val) => {
   await copyToClipBoard(val)
   showToast({
-    detail: 'Store key copied successfully.'
+    detail: 'Store key copied successfully'
   })
 }
 </script>
@@ -32,7 +32,7 @@ const copyStoreKeyHandler = async (val) => {
       <template #links>
         <h3 class="mb-0 flex align-items-center">
           {{ connections.storeKey }}
-          <Button icon="pi pi-copy" class="p-button-rounded p-button-text ml-2" @click="copyStoreKeyHandler(connections.storeKey)" />
+          <Button icon="pi pi-copy" class="p-button-rounded p-button-text ml-2" @click="copyStoreKeyHandler(connections.storeKey)"></Button>
         </h3>
       </template>
     </CardWrapper>
