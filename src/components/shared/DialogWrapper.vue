@@ -32,12 +32,12 @@ const closeDialogHandler = () => {
 </script>
 
 <template>
-  <Dialog :visible="isVisible" :modal="true" :style="{ width: width }" :dismissableMask="false" @after-hide="closeDialogHandler" :header="title">
+  <Dialog :visible="props.isVisible" :modal="true" :style="{ width: props.width }" @update:visible="closeDialogHandler" :dismissableMask="false"  :header="props.title">
     <div class="border-top-1 surface-border pt-4">
       <slot name="body"></slot>
     </div>
 
-    <template #footer v-if="showFooter">
+    <template #footer v-if="props.showFooter">
       <div class="border-top-1 surface-border pt-4">
         <slot name="footer"></slot>
       </div>

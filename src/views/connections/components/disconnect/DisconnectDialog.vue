@@ -10,6 +10,7 @@ const DisconnectAndKeepDialog = defineAsyncComponent(() => import('@/views/conne
 
 /* ----- DATA ----- */
 const connectionsStore = useConnectionsStore()
+const { isConnectionDisconnectRequested } = useConnectionsStore()
 
 /* ----- METHODS ----- */
 const closeDialogHandler = () => {
@@ -26,7 +27,7 @@ const showDisconnectAndKeepDialog = () => {
 </script>
 
 <template>
-  <DialogWrapper :isVisible="connectionsStore.isConnectionDisconnectRequested" title="Select a disconnect option" width="725px" @closeDialog="closeDialogHandler" :showFooter="false">
+  <DialogWrapper :isVisible="isConnectionDisconnectRequested" title="Select a disconnect option" width="725px" @closeDialog="closeDialogHandler" :showFooter="false">
     <template #body>
       <section class="grid">
 
