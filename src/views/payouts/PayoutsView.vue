@@ -10,7 +10,7 @@ import PageHeader from '@/components/shared/PageHeader.vue'
 const PayableOrders = defineAsyncComponent(() => import('./components/destinationPayouts/PayableOrders.vue'))
 
 /* ----- DATA ----- */
-const { fetchDashboardStats, fetchPayableOrders, payouts } = usePayouts()
+const { fetchPayableOrders, payouts } = usePayouts()
 const auth = useAuthStore()
 const { isDestinationStore, isSourceStore } = useConnectionsStore()
 const router = useRouter()
@@ -22,8 +22,7 @@ onMounted(async () => {
     return
   }
 
-  fetchDashboardStats()
-  fetchPayableOrders()
+  await fetchPayableOrders()
 })
 </script>
 

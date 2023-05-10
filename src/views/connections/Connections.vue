@@ -7,7 +7,13 @@ import IconShopifyVue from '@/icons/IconShopify.vue'
 import IconWoo from '@/icons/IconWoo.vue'
 
 /* ----- DATA ----- */
-const { connections, fetchConnectionsHandler, getStoreCommission, getStoreStatus, showDisconnectStoreDialog, showSetCommissionDialog } = useConnections()
+const {
+  connections,
+  fetchConnectionsHandler,
+  getStoreCommission,
+  getStoreStatus,
+  showDisconnectStoreDialog,
+} = useConnections()
 </script>
 
 <template>
@@ -40,21 +46,17 @@ const { connections, fetchConnectionsHandler, getStoreCommission, getStoreStatus
       </div>
     </template>
 
-    <Column header="Store" style="width: 35%;">
+    <Column header="Platform" style="width: 5%;" class="text-center">
       <template #body="{ data: connection }">
-        <div class="flex align-items-center">
-          <IconShopifyVue v-if="connection.platform === 'shopify'" class="mr-3" />
-          <IconWoo v-if="connection.platform === 'woocommerce'" class="mr-3" />
-          {{ connection.store_domain }}
-        </div>
+        <IconShopifyVue v-if="connection.platform === 'shopify'" />
+        <IconWoo v-if="connection.platform === 'woocommerce'" />
       </template>
     </Column>
 
-    <Column header="Commission" style="width: 10%;" class="text-right">
+    <Column header="Store" style="width: 37.5%;">
       <template #body="{ data: connection }">
-        <div class="flex align-items-center justify-content-end">
-          {{ getStoreCommission(connection.store_commission) }}
-          <!-- <Button icon="pi pi-pencil" class="p-button-rounded p-button-text p-button-outlined ml-2" @click="showSetCommissionDialog(connection)" v-tooltip.left="'Edit'" /> -->
+        <div class="flex align-items-center">
+          {{ connection.store_domain }}
         </div>
       </template>
     </Column>
@@ -65,7 +67,7 @@ const { connections, fetchConnectionsHandler, getStoreCommission, getStoreStatus
       </template>
     </Column>
 
-    <Column header="Assigned Location" style="width: 27.5%;">
+    <Column header="Assigned Location" style="width: 30%;">
       <template #body="{ data: connection }" v-if="connections.isMultilocation">
         <DestinationLocationSelector :connection="connection" />
       </template>

@@ -22,7 +22,6 @@ export const useConnectionsStore = defineStore('connections', {
       isDisconnectAndKeepRequested: false,
       isLocationChangeRequested: false,
       isMultilocationEnabled: 'Off',
-      isSetCommissionRequested: false,
       loadingConnections: false,
       selectedConnection: {},
       sortOptions: [

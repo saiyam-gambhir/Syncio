@@ -2,14 +2,12 @@ import { defineStore } from 'pinia'
 import deepmerge from 'deepmerge'
 
 /* ----- ACTIONS ----- */
-import { fetchDashboardStats } from './actions/fetchDashboardStats'
-import { fetchPayableOrders } from './actions/fetchPayableOrders'
+import { fetchPayableOrders } from './actions/api/fetchPayableOrders'
 
 export const usePayoutsStore = defineStore('payouts', {
   state: () => {
     return {
       activeTabIndex: 0,
-      dashboardStats: null,
       payableOrders: {
         filters: {},
         orders: [],
@@ -19,7 +17,6 @@ export const usePayoutsStore = defineStore('payouts', {
   },
 
   actions: deepmerge.all([
-    fetchDashboardStats,
     fetchPayableOrders,
   ]),
 

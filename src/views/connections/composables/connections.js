@@ -24,17 +24,11 @@ export function useConnections() {
     connections.isConnectionDisconnectRequested = true
   }
 
-  const showSetCommissionDialog = connection => {
-    connections.selectedConnection = connection
-    connections.isSetCommissionRequested = true
-  }
-
   return {
     connections,
     fetchConnectionsHandler,
     getStoreCommission,
     getStoreStatus,
     showDisconnectStoreDialog,
-    showSetCommissionDialog,
   }
 }

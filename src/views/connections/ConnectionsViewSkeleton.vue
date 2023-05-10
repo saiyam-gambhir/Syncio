@@ -10,7 +10,7 @@ const connections = useConnectionsStore()
       <div class="flex align-items-center justify-content-between">
         <div class="p-inputgroup w-35">
           <InputText v-model="connections.filters.searchString" placeholder="Search by store URL"/>
-          <Button icon="pi pi-search" @click="connections.fetchConnections" :loading="connections.loadingConnections" :disabled="!connections.filters.searchString"></Button>
+          <Button icon="pi pi-search" :loading="connections.loadingConnections" :disabled="!connections.filters.searchString"></Button>
         </div>
 
         <Dropdown v-model="connections.filters.sortBy" :options="connections.sortOptions" optionLabel="label" placeholder="Sort by Store" :loading="connections.loadingConnections">
@@ -27,13 +27,13 @@ const connections = useConnectionsStore()
       </div>
     </template>
 
-    <Column header="Store" style="width: 35%;">
+    <Column header="Platform" style="width: 5%;" class="text-center">
       <template #body>
-        <Skeleton height="26px" />
+        <Skeleton size="40px" shape="circle" />
       </template>
     </Column>
 
-    <Column  header="Commission" style="width: 10%;">
+    <Column header="Store" style="width: 37.5%;">
       <template #body>
         <Skeleton height="26px" />
       </template>
@@ -45,7 +45,7 @@ const connections = useConnectionsStore()
       </template>
     </Column>
 
-    <Column header="Assigned Location" style="width: 27.5%;">
+    <Column header="Assigned Location" style="width: 30%;">
       <template #body>
         <Skeleton height="39px" />
       </template>

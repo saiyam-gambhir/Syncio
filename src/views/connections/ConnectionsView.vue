@@ -11,7 +11,6 @@ import PageHeader from '@/components/shared/PageHeader.vue'
 const DisableMultilocationDialog = defineAsyncComponent(() => import('./components/multiLocation/DisableMultilocationDialog.vue'))
 const DisconnectDialog = defineAsyncComponent(() => import('./components/disconnect/DisconnectDialog.vue'))
 const LocationChangeDialog = defineAsyncComponent(() => import('./components/multiLocation/LocationChangeDialog.vue'))
-const SetCommissionDialog = defineAsyncComponent(() => import('./components/SetCommissionDialog.vue'))
 
 /* ----- DATA ----- */
 const connections = useConnectionsStore()
@@ -62,7 +61,6 @@ const toggleMultilocationHandler = async (event) => {
 
     <DisconnectDialog v-if="connections.isConnectionDisconnectRequested" />
     <LocationChangeDialog v-if="connections.isLocationChangeRequested" />
-    <SetCommissionDialog v-if="connections.isSetCommissionRequested" />
     <DisableMultilocationDialog v-if="connections.isDisableMultilocationRequested" />
 	</article>
 </template>

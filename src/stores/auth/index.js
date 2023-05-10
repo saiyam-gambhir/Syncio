@@ -13,7 +13,7 @@ export const useAuthStore = defineStore('auth', {
   state: () => {
     return {
       currency: 'USD',
-      forgotPasswordForm: { email: 'saiyam+111@syncio.co', emailNotFound: false, emailSent: false, loading: false, submitted: false },
+      forgotPasswordForm: { email: '', emailNotFound: false, emailSent: false, loading: false, submitted: false },
       isAuthenticated: false,
       isBatteryLowDialogVisible: false,
       isNetworkDialogVisible: false,
@@ -24,7 +24,7 @@ export const useAuthStore = defineStore('auth', {
       plans: [],
       registrationForm: { email: '', loading: false, name: '', password: '', passwordConfirmation: '', submitted: false },
       resetPasswordForm: { email: '', loading: false, password: '', passwordConfirmation: '', submitted: false, token: '' },
-      timeZone: 'America/New_York',
+      timeZone: 'Australia/Melbourne',
       upgradeDialogType: '',
       user: null,
     }
@@ -32,11 +32,11 @@ export const useAuthStore = defineStore('auth', {
 
   getters: {
     productsSynced({ plan }) {
-      return +plan?.product_mappers_count
+      return +plan?.product_mappers_count || 0
     },
 
     productsSyncedLimit({ plan }) {
-      return +plan?.syncio_plan?.sync_product_limit
+      return +plan?.syncio_plan?.sync_product_limit || 0
     },
 
     userId({ user }) {
@@ -44,18 +44,18 @@ export const useAuthStore = defineStore('auth', {
     },
 
     isOrderModuleAvailable({ plan }) {
-      let ordersPlan = plan.active_addons.filter(plan => plan.name === 'Orders')
-      return ordersPlan.length === 1
+      let ordersPlan = plan?.active_addons.filter(plan => plan.name === 'Orders')
+      return ordersPlan?.length === 1
     },
 
     isPayoutsModuleAvailable({ plan }) {
-      let payoutsPlan = plan.active_addons.filter(plan => plan.name === 'Payouts')
-      return payoutsPlan.length === 1
+      let payoutsPlan = plan?.active_addons.filter(plan => plan.name === 'Payouts')
+      return payoutsPlan?.length === 1
     },
 
     isProductModuleAvailable({ plan }) {
-      let settingsPlan = plan.active_addons.filter(plan => plan.name === 'Product Settings')
-      return settingsPlan.length === 1
+      let settingsPlan = plan?.active_addons.filter(plan => plan.name === 'Product Settings')
+      return settingsPlan?.length === 1
     },
 
     showOrdersUpgradeDialog({ upgradeDialogType }) {

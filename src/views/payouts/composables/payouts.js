@@ -7,16 +7,11 @@ export function usePayouts() {
   const payouts = usePayoutsStore()
   const { showToast } = useToasts()
 
-  const fetchDashboardStats = async () => {
-    await payouts.fetchDashboardStats(storeId)
-  }
-
   const fetchPayableOrders = async () => {
     await payouts.fetchPayableOrders(storeId)
   }
 
   return {
-    fetchDashboardStats,
     fetchPayableOrders,
     payouts,
   }

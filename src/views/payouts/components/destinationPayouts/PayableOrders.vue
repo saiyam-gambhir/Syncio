@@ -2,19 +2,12 @@
 import { useFilters } from '@/composables/filters'
 import { usePayouts } from '../../composables/payouts'
 
-/* ----- COMPONENTS ----- */
-import DateRangeFilter from '@/components/shared/DateRangeFilter.vue'
-
 /* ----- DATA ----- */
 const { payouts } = usePayouts()
 const { formatCommission, formatCurrency } = useFilters()
 </script>
 
 <template>
-  <section class="filters surface-card p-3 flex justify-content-between">
-    <DateRangeFilter style="width: 40%" />
-  </section>
-
   <DataTable :value="payouts.payableOrders?.orders" responsiveLayout="scroll" showGridlines>
     <Column header="Source store" style="width: 32.5%;">
       <template #body="{ data: { store_name } }">
@@ -35,7 +28,7 @@ const { formatCommission, formatCurrency } = useFilters()
     </Column>
 
     <Column header="Total commissions" style="width: 14.5%;">
-      <template #body="{ data: { commission_type, commission_value,  } }">
+      <template #body="{ data: { commission_type, commission_value } }">
         {{ formatCommission(commission_type, commission_value) }}
       </template>
     </Column>

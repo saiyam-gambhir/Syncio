@@ -30,7 +30,7 @@ const { activityCenter, deleteActivityHandler } = useActivities()
     </Column>
 
     <Column header="Issue And Suggested Action" style="width: 25%;">
-      <template #body="{ data: { title, subtitle } }">
+      <template #body="{ data: { subtitle, title } }">
         <div class="flex flex-column">
           <span class="font-semibold text-sm">{{ title }}</span>
           <span class="text-xs mt-2">{{ subtitle }}</span>
@@ -39,14 +39,14 @@ const { activityCenter, deleteActivityHandler } = useActivities()
     </Column>
 
     <Column header="Product" style="width: 25%;">
-      <template #body="{ data: { data } }">
+      <template #body="{ data: { data: { image, name, store_name } } }">
         <div class="flex">
           <figure class="m-0">
-            <img :src="data.image" :alt="data.name" style="width: 32px; padding: 2px; border: 1px solid rgb(231, 231, 231);">
+            <img :src="image" :alt="name" style="width: 32px; padding: 2px; border: 1px solid rgb(231, 231, 231);">
           </figure>
           <div class="flex flex-column ml-2">
-            <span class="font-semibold text-sm text-blue-500">{{ data.name }}</span>
-            <span class="text-xs mt-2">{{ data.store_name }}</span>
+            <span class="font-semibold text-sm text-blue-500">{{ name }}</span>
+            <span class="text-xs mt-2">{{ store_name }}</span>
           </div>
         </div>
       </template>

@@ -87,6 +87,23 @@ td {
   }
 }
 
+.p-datatable-gridlines {
+  th {
+    border-bottom: 0 !important;
+  }
+
+  td + td,
+  th + th {
+    border-left: 0 !important;
+  }
+
+  tr + tr {
+    td {
+      border-top: 0 !important;
+    }
+  }
+}
+
 .p-datatable {
   .p-datatable-thead>tr>th {
     font-size: 1rem !important;
@@ -544,13 +561,33 @@ input.p-inputtext-lg {
   }
 }
 
-.path-enter-active,
-.path-leave-active {
+.fade-enter-active,
+.fade-leave-active {
   transition: all .35s;
 }
-.path-enter-from,
-.path-leave-to {
-  filter: blur(2px);
+.fade-enter-from,
+.fade-leave-to {
   opacity: 0;
-  transform: translateX(-10px);
+}
+
+.bluk-selection-widget {
+  background: $primary;
+  color: #fff;
+  border-radius: 0 0 12px 12px;
+  left: 50%;
+  padding: .6rem 1rem;
+  position: fixed;
+  top: -0;
+  transform: translateX(-50%);
+  z-index: 1;
+
+  button {
+    background: #fff;
+    color: $primary;
+
+    &:hover {
+      color: $primary !important;
+      background: darken($color: #fff, $amount: 5%) !important;
+    }
+  }
 }
