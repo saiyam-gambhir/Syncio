@@ -46,7 +46,7 @@ const copyStoreKeyHandler = async (val) => {
         </div>
 
         <div class="pt-3">
-          <router-link to="/plan-and-billings" class="btn-link">Plan and billing</router-link>
+          <router-link to="/settings/plan-and-billings" class="btn-link">Plan and billing</router-link>
           <p class="text-sm mt-1 mb-0">Manage your plan and billing details</p>
         </div>
       </template>
