@@ -26,7 +26,7 @@ const disconnectHandler = async () => {
 <template>
   <DialogWrapper :isVisible="connectionsStore.isDisconnectAndDeleteRequested" title="Disconnect and Delete?" width="500px" @closeDialog="closeDialogHandler">
     <template #body>
-      <section class="grid mt-1 px-3">
+      <section class="grid flex-column mt-1 px-3">
         <p class="mt-0">You are about to disconnect with <span class="text-danger font-semibold">{{ connectionsStore.selectedConnection.store_domain }}</span></p>
         <p class="mt-0">Any products currently in sync with this store will be unsynced, and will be <strong>DELETED</strong>.</p>
         <p class="m-0">This action cannot be undone.</p>

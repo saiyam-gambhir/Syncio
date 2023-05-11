@@ -18,14 +18,14 @@ const auth = useAuthStore()
       <div class="grid">
         <Setting
           description="Find specific information about your account with Syncio, including how to store type, your Syncio key and how to uninstall Syncio"
-          href="/account-details"
+          href="/settings/account-details"
           icon="pi-user"
           title="Account details">
         </Setting>
 
         <Setting
           description="Manage and upgrade your base plan and add ons"
-          href="/plan-and-billings"
+          href="/settings/plan-and-billings"
           icon="pi-file"
           title="Plan and billing">
         </Setting>
@@ -35,7 +35,7 @@ const auth = useAuthStore()
           :disabled="!auth.isProductModuleAvailable"
           href="/product-settings"
           icon="pi-list"
-          title="Products">
+          title="Product settings">
         </Setting>
 
         <Setting
@@ -43,7 +43,14 @@ const auth = useAuthStore()
           :disabled="!auth.isOrderModuleAvailable"
           href="/payouts-settings"
           icon="pi-dollar"
-          title="Payouts">
+          title="Payouts settings">
+        </Setting>
+
+        <Setting
+          description="Manage your Marketplace profile and settings"
+          href="/payouts-settings"
+          icon="pi-shopping-bag"
+          title="Marketplace settings">
         </Setting>
 
         <Setting

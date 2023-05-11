@@ -30,7 +30,7 @@ export function useOrders() {
 
   const toggleAutoPush = async () => {
     const message = await orders.toggleAutoPush(connections.storeId)
-    showToast({ detail: message })
+    showToast({ message })
   }
 
   const setAutoPushStatus = () => {

@@ -21,15 +21,16 @@ const { formatCommission, formatCurrency } = useFilters()
       </template>
     </Column>
 
-    <Column header="Total sales (excl. tax)" style="width: 15.5%;">
+    <Column header="Total sales" style="width: 15.5%;">
       <template #body="{ data: { total_sales } }">
         {{ formatCurrency(total_sales) }}
       </template>
     </Column>
 
     <Column header="Total commissions" style="width: 14.5%;">
-      <template #body="{ data: { commission_type, commission_value } }">
-        {{ formatCommission(commission_type, commission_value) }}
+      <template #body="{ data: { commission_type, total_commissions } }">
+        {{ formatCommission(commission_type, total_commissions) }}
+        {{ data }}
       </template>
     </Column>
 

@@ -17,7 +17,7 @@ const closeDialogHandler = () => {
 
 const disableMultilocationHandler = async () => {
   const message = await connectionsStore.toggleMultilocation()
-  showToast({ detail: message })
+  showToast({ message })
   connectionsStore.isDisableMultilocationRequested = false
 }
 </script>

@@ -7,7 +7,7 @@ export function useActivities() {
 
   const deleteActivityHandler = async activityId => {
     const message = await activityCenter.deleteActivity(activityId)
-    showToast({ detail: message })
+    showToast({ message })
   }
 
   const fetchActivitiesHandler = async activeTabIndex => {

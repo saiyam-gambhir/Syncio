@@ -409,7 +409,7 @@ input.p-inputtext-lg {
 /* ----- OVERRIDES ----- */
 
 .theme-light .primary-navigation .router-link-active:not(.disabled) {
-  background: linear-gradient(90deg, rgba(252, 176, 87, 0.35) 33.33%, rgba(250, 117, 123, 0.35) 66.66%);
+  background: linear-gradient(90deg, rgba(252, 176, 87, 0.5) 33.33%, rgba(250, 117, 123, 0.5) 66.66%);
   color: $primary !important;
   font-weight: $fontMedium;
 }

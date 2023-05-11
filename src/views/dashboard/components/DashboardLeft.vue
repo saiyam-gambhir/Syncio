@@ -14,9 +14,7 @@ const connections = useConnectionsStore()
 
 const copyStoreKeyHandler = async (val) => {
   await copyToClipBoard(val)
-  showToast({
-    detail: 'Store key copied successfully'
-  })
+  showToast({ message: 'Store key copied successfully' })
 }
 </script>
 

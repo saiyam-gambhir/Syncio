@@ -32,7 +32,7 @@ const toggleMultilocationHandler = async (event) => {
   }
   const message = await connections.toggleMultilocation()
   await connections.fetchDestinationLocations()
-  showToast({ detail: message })
+  showToast({ message })
 }
 </script>
 

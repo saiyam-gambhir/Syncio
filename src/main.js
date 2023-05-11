@@ -68,7 +68,8 @@ const $https = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
   timeout: 20000,
 })
-$https.defaults.headers.common['x-syncio-app-id'] = import.meta.env.VITE_APP_ID
+
+Object.assign($https.defaults.headers.common, { 'x-syncio-app-id': import.meta.env.VITE_APP_ID })
 
 /* ----- CREATE APP AND USE DEPENDENCIES ----- */
 const pinia = createPinia()
@@ -122,7 +123,7 @@ const connections = useConnectionsStore()
 const orders = useOrdersStore()
 const payouts = usePayoutsStore()
 const productSettings = useProductSettingsStore()
-activityCenter.$https = auth.$https  = connections.$https = orders.$https = payouts.$https = productSettings.$https = $https
+activityCenter.$https = auth.$https = connections.$https = orders.$https = payouts.$https = productSettings.$https = $https
 
 /* ----- LOGOUT HANDLER ----- */
 const logout = () => {
@@ -154,32 +155,26 @@ $https.interceptors.response.use(
 router.beforeEach(async (to, from, next) => {
   const isAuthenticated = auth.isAuthenticated
   const ID_TOKEN_KEY = sessionStorage.getItem('ID_TOKEN_KEY')
-  const USER_ID = sessionStorage.getItem('USER_ID')
 
-  if(to.meta.requireAuth) {
-    if(!isAuthenticated && !sessionStorage.getItem('ID_TOKEN_KEY')) {
-      next({
-        path: '/login'
-      })
-    } else {
-      auth.isAuthenticated = true
-      // TODO: Create methods for session storage or use vueuse library
-      if(ID_TOKEN_KEY && USER_ID) {
-        $https.defaults.headers.common['Authorization'] = `Bearer ${ID_TOKEN_KEY}`
-        if(!auth.user) {
-          await auth.fetchUser(USER_ID)
-          await auth.fetchCurrentPlan(USER_ID)
-          await connections.fetchCurrentStore()
-          await auth.fetchPlans()
-        }
-      }
-      next()
+  if (to.meta.requireAuth) {
+    if (!isAuthenticated && !ID_TOKEN_KEY) {
+      return next({ name: routes.LOGIN })
     }
-  } else if (to.name === 'login' && (isAuthenticated || ID_TOKEN_KEY)) {
-    next({ path: from.fullPath })
-  } else {
-    next()
+
+    auth.isAuthenticated = true
+
+    if (!auth.user) {
+      Object.assign($https.defaults.headers.common, { Authorization: `Bearer ${ID_TOKEN_KEY}` })
+      const userId = sessionStorage.getItem('USER_ID');
+      await auth.fetchUser(userId)
+      await auth.fetchCurrentPlan(userId)
+      await connections.fetchCurrentStore()
+    }
+  } else if (to.name === 'login' && ID_TOKEN_KEY) {
+    return next({ path: from.fullPath })
   }
+
+  next()
 })
 
 /* ----- THEME ----- */
