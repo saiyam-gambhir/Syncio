@@ -27,11 +27,6 @@ const publshedProducts = computed(() => {
 })
 
 /* ----- METHODS ----- */
-const showSignUpDialog = () => {
-  marketPlace.$patch({
-    isConnectDialogVisible: true
-  })
-}
 </script>
 
 <template>
@@ -60,10 +55,10 @@ const showSignUpDialog = () => {
       </template>
     </Carousel>
     <div class="profile__details">
-      <h5>{{ profile.brand_name }}</h5>
+      <h3>{{ profile.brand_name }}</h3>
       <p class="text-light">{{ profile.location?.country }}</p>
       <p>{{ publshedProducts }}</p>
-      <Button label="Connect" class="p-button-sm absolute" @click="showSignUpDialog"></Button>
+      <Button label="Message" class="absolute"></Button>
     </div>
   </div>
 </template>

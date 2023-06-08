@@ -26,6 +26,8 @@ onMounted(async () => {
 		title="Marketplace">
 	</PageHeader>
 
-	<Search />
-	<Profiles :loading="loading" />
+	<section class="marketplace">
+		<Search />
+		<Profiles :loading="loading" />
+	</section>
 </template>
