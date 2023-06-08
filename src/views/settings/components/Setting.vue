@@ -41,7 +41,7 @@ const props = defineProps({
       </div>
 
       <div class="px-4 py-3 surface-card text-right border-top-1 surface-border">
-        <router-link v-if="disabled" to="/plan-and-billings">
+        <router-link v-if="disabled" to="/settings/plan-and-billings">
           <Button icon="pi pi-lock-open" iconPos="right" iconClass="ml-3" label="Unlock this add-on"></Button>
         </router-link>
         <router-link v-else :to="href" >

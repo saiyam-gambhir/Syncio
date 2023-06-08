@@ -38,7 +38,7 @@ const { activityCenter, deleteActivityHandler } = useActivities()
       </template>
     </Column>
 
-    <Column header="Product" style="width: 25%;">
+    <!-- <Column header="Product" style="width: 25%;">
       <template #body="{ data: { data: { image, name, store_name } } }">
         <div class="flex">
           <figure class="m-0">
@@ -47,6 +47,21 @@ const { activityCenter, deleteActivityHandler } = useActivities()
           <div class="flex flex-column ml-2">
             <span class="font-semibold text-sm text-blue-500">{{ name }}</span>
             <span class="text-xs mt-2">{{ store_name }}</span>
+          </div>
+        </div>
+      </template>
+    </Column> -->
+
+    <!-- If Data is null -->
+    <Column header="Product" style="width: 25%;">
+      <template #body="{ data }">
+        <div class="flex">
+          <figure class="m-0">
+            <img v-if="data.data?.image" :src="data.data.image" :alt="data.data.name" style="width: 32px; padding: 2px; border: 1px solid rgb(231, 231, 231);">
+          </figure>
+          <div class="flex flex-column ml-2">
+            <span v-if="data.data?.name" class="font-semibold text-sm text-blue-500">{{ data.data.name }}</span>
+            <span v-if="data.data?.store_name" class="text-xs mt-2">{{ data.data.store_name }}</span>
           </div>
         </div>
       </template>

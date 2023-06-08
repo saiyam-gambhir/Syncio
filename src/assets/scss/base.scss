@@ -1,3 +1,30 @@
+:root {
+  /* ----- Dimensions ----- */
+  --banner-height: 536px;
+  --border-radius: 6px;
+  --font-size: 16px;
+  --image-placeholder-height: 224px;
+  --container-width: 1240px;
+
+  /* ----- Colors ----- */
+  --background-light-yellow: #FFFCF5;
+  --banner-background: #F3FAFF;
+  --border-color: #EEEEEE;
+  --border: #ced4da;
+  --box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.15);
+  --disabled-button: #BBBBBB;
+  --heading-light: #495057;
+  --image-placeholder-background: #F4F4F4;
+  --indicator-background: #C7C7C7;
+  --input-background: #FAFAFA;
+  --link: #0D99FF;
+  --primary-color: #0E3B4D;
+  --text-dark: #212121;
+  --text-light: #757575;
+  --text-medium: #616161;
+  --white: #FFFFFF;
+}
+
 html {
   color: $textPrimary;
   font-family: 'Inter Tight', sans-serif;

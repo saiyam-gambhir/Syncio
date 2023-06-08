@@ -8,7 +8,7 @@ const { formatCommission, formatCurrency } = useFilters()
 </script>
 
 <template>
-  <DataTable :value="payouts.payableOrders?.orders" responsiveLayout="scroll" showGridlines>
+  <DataTable :value="payouts.payableOrders?.items" responsiveLayout="scroll" showGridlines>
     <Column header="Source store" style="width: 32.5%;">
       <template #body="{ data: { store_name } }">
         {{ store_name }}
@@ -30,7 +30,6 @@ const { formatCommission, formatCurrency } = useFilters()
     <Column header="Total commissions" style="width: 14.5%;">
       <template #body="{ data: { commission_type, total_commissions } }">
         {{ formatCommission(commission_type, total_commissions) }}
-        {{ data }}
       </template>
     </Column>
 

@@ -1,9 +1,12 @@
 export const fetchPayableOrders = {
   async fetchPayableOrders(storeId) {
     try {
-      const response = await this.$https(`stores/payout/all-store-data/${storeId}`)
-      const { payableOrders, success } = response.data
-      if(success) this.payableOrders.orders = payableOrders
+      const { data: { payableOrders, success } } = await this.$https(`stores/payout/all-store-data/${storeId}`)
+      if(success) {
+        this.payableOrders.items = Object.keys(payableOrders).map(key => {
+          return { ...payableOrders[key], id: +key }
+        })
+      }
     } catch (error) {
       throw new Error(error)
     }
