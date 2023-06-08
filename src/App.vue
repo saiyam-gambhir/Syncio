@@ -5,8 +5,8 @@ import { useAuthStore } from '@/stores/auth'
 
 /* ===== COMPONENTS ===== */
 import Loading from './Loading.vue'
+import NetworkDialog from './components/shared/NetworkDialog.vue'
 const BatteryLowDialog = defineAsyncComponent(() => import('./components/shared/BatteryLowDialog.vue'))
-const NetworkDialog = defineAsyncComponent(() => import('./components/shared/NetworkDialog.vue'))
 
 /* ===== DATA ===== */
 const { charging, level } = useBattery()

@@ -11,6 +11,7 @@ export function usePayouts() {
     fetchPayableOrders,
     fetchPayablePayouts,
     fetchUnpaidPayouts,
+    SET_DATE_RANGE_FILTER,
     SET_STATUS_FILTER,
     updatePayout,
   } = usePayoutsStore()
@@ -30,7 +31,7 @@ export function usePayouts() {
 
   const fetchPaidPayoutsHandler = async () => {
     SET_STATUS_FILTER('paid_received')
-    await fetchPaidPayouts()
+    await fetchPaidPayouts(storeId)
   }
 
   const updatePayoutHandler = async ({ payout_id, status, activeTabIndex }) => {

@@ -1,0 +1,86 @@
+.profiles {
+  .profile {
+    background: var(--white);
+    border-radius: var(--border-radius);
+    border: 0.0625rem solid transparent;
+    margin: 0 0 1.875rem 0;
+    padding: 0.625rem 0.625rem 0.3125rem 0.625rem;
+    transition: .25s;
+
+    &:hover {
+      border-color: var(--primary-color);
+      box-shadow: var(--box-shadow);
+      scale: 1.01;
+      z-index: 1;
+    }
+
+    &__image {
+      background-color: var(--image-placeholder-background);
+      border-radius: var(--border-radius);
+      height: var(--image-placeholder-height);
+    }
+
+    &__details {
+      padding: 1rem 0 3rem 0;
+
+      .p-button-sm {
+        bottom: .65rem;
+      }
+    }
+  }
+
+  .image {
+    height: var(--image-placeholder-height);
+  }
+
+  .profile-image {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+}
+
+.p-carousel {
+  position: relative;
+
+  .p-carousel-prev,
+  .p-carousel-next,
+  .p-carousel-indicators {
+    position: absolute;
+    z-index: 2;
+  }
+
+  .p-carousel-prev {
+    left: 0;
+  }
+
+  .p-carousel-next {
+    right: 0;
+  }
+
+  .p-carousel-indicators {
+    align-items: center;
+    bottom: 0;
+    display: flex;
+    padding: .5rem;
+    width: 100%;
+  }
+
+  .p-carousel-indicator {
+    margin: 0 !important;
+
+    button {
+      border-radius: 50% !important;
+      height: 8px !important;
+      width: 8px !important;
+      margin: 0 3px !important;
+      background: var(--indicator-background) !important;
+    }
+
+    &.p-highlight {
+      button {
+        background: var(--primary-color) !important;
+      }
+    }
+  }
+}

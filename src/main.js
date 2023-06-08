@@ -8,6 +8,7 @@ import piniaPersist from 'pinia-plugin-persist'
 import { useActivityCenterStore } from '@/stores/activityCenter'
 import { useAuthStore } from '@/stores/auth'
 import { useConnectionsStore } from '@/stores/connections'
+import { useMarketPlaceStore } from '@/stores/marketPlace'
 import { useOrdersStore } from '@/stores/orders'
 import { usePayoutsStore } from '@/stores/payouts'
 import { useProductSettingsStore } from '@/stores/productSettings'
@@ -120,16 +121,18 @@ app
 const activityCenter = useActivityCenterStore()
 const auth = useAuthStore()
 const connections = useConnectionsStore()
+const marketPlace = useMarketPlaceStore()
 const orders = useOrdersStore()
 const payouts = usePayoutsStore()
 const productSettings = useProductSettingsStore()
-activityCenter.$https = auth.$https = connections.$https = orders.$https = payouts.$https = productSettings.$https = $https
+activityCenter.$https = auth.$https = connections.$https = marketPlace.$https = orders.$https = payouts.$https = productSettings.$https = $https
 
 /* ----- LOGOUT HANDLER ----- */
 const logout = () => {
   activityCenter.$reset()
   auth.$reset()
   connections.$reset()
+  marketPlace.$reset()
   orders.$reset()
   payouts.$reset()
   productSettings.$reset()

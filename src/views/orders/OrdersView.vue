@@ -83,7 +83,7 @@ const isChecked = ({ id }) => {
   </PageHeader>
 
   <!-- Bulk Push -->
-  <BulkSelectedCount :items="orders.selectedOrders" itemType="order">
+  <BulkSelectedCount v-if="!orders.loadingOrders" :items="orders.selectedOrders" itemType="order">
     <Button label="Push Selected Orders"></Button>
   </BulkSelectedCount>
 
