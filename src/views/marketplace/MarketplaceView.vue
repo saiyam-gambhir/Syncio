@@ -3,7 +3,6 @@ import { onMounted, ref } from 'vue'
 import { useMarketPlaceStore } from '@/stores/marketPlace'
 
 /* ----- Components ----- */
-import PageHeader from '@/components/shared/PageHeader.vue'
 import Profiles from './components/Profiles.vue'
 import Search from './components/Search.vue'
 
@@ -27,11 +26,6 @@ const fetchProfilesHandler = async () => {
 </script>
 
 <template>
-  <PageHeader
-		content="Awesome products and long lasting partnerships, all in one place"
-		title="Marketplace">
-	</PageHeader>
-
 	<section class="marketplace">
 		<Search />
 		<Profiles :loading="loading" />

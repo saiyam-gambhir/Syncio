@@ -22,9 +22,9 @@ watch(searchString, async (newValue, oldValue) => {
 </script>
 
 <template>
-  <section class="search mt-3 mb-5">
+  <section class="search mb-5">
     <div class="container">
-      <div class="search text-center mt-8 mb-6 pt-1">
+      <div class="search text-center mt-6 mb-6 pt-1">
         <h2 class="lg">Find your perfect match</h2>
         <div class="p-input-icon-left w-50">
           <i class="pi pi-search" />
