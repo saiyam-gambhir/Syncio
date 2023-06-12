@@ -4,12 +4,12 @@ import { useAuthStore } from '@/stores/auth'
 import { useProductSettingsStore } from '@/stores/productSettings'
 import { useRouter } from 'vue-router'
 
-/* ----- COMPONENTS ----- */
+/* ----- Components ----- */
 import PageHeader from '@/components/shared/PageHeader.vue'
 const Product = defineAsyncComponent(() => import('./components/Product.vue'))
 const Variant = defineAsyncComponent(() => import('./components/Variant.vue'))
 
-/* ----- DATA ----- */
+/* ----- Data ----- */
 const auth = useAuthStore()
 const productSettings = useProductSettingsStore()
 const router = useRouter()

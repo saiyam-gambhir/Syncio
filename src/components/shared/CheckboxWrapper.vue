@@ -4,7 +4,7 @@ import { ref } from 'vue'
 /* ----- EMITS ----- */
 const emits = defineEmits(['onInput'])
 
-/* ----- PROPS ----- */
+/* ----- Props ----- */
 const props = defineProps({
   disabled: {
     type: Boolean,

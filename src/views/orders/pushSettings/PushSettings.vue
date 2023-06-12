@@ -2,10 +2,10 @@
 import { onMounted, ref } from 'vue'
 import { useOrders } from '../composables/orders'
 
-/* ----- COMPONENTS ----- */
+/* ----- Components ----- */
 import PageHeader from '@/components/shared/PageHeader.vue'
 
-/* ----- DATA ----- */
+/* ----- Data ----- */
 const { fetchPushSettings } = useOrders()
 const activeTabIndex = ref(0)
 

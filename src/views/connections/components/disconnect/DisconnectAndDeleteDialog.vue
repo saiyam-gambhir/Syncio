@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import { useConnectionsStore } from '@/stores/connections'
 import DialogWrapper from '@/components/shared/DialogWrapper.vue'
 
-/* ----- DATA ----- */
+/* ----- Data ----- */
 const connectionsStore = useConnectionsStore()
 const isChecked = ref(false)
 

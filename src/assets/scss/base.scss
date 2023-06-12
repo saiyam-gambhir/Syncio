@@ -2,7 +2,7 @@
   /* ----- Dimensions ----- */
   --banner-height: 536px;
   --border-radius: 6px;
-  --font-size: 16px;
+  --font-size: 13px;
   --image-placeholder-height: 224px;
   --container-width: 1240px;
 
@@ -28,7 +28,7 @@
 html {
   color: $textPrimary;
   font-family: 'Inter Tight', sans-serif;
-  font-size: 12.5px;
+  font-size: var(--font-size);
   font-weight: $fontNormal;
   letter-spacing: .025rem;
 
@@ -617,4 +617,8 @@ input.p-inputtext-lg {
       background: darken($color: #fff, $amount: 5%) !important;
     }
   }
+}
+
+.p-input-icon-right>svg {
+  right: 1rem;
 }

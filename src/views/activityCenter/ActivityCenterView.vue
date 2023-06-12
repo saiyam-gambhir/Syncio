@@ -2,14 +2,14 @@
 import { defineAsyncComponent, onMounted } from 'vue'
 import { useActivities } from './composables/activities'
 
-/* ----- COMPONENTS ----- */
+/* ----- Components ----- */
 import PageHeader from '@/components/shared/PageHeader.vue'
 const GeneralUpdates = defineAsyncComponent(() => import('@/views/activityCenter/components/GeneralUpdates/GeneralUpdates.vue'))
 const OrderIssues = defineAsyncComponent(() => import('@/views/activityCenter/components/OrderIssues/OrderIssues.vue'))
 const ProductIssues = defineAsyncComponent(() => import('@/views/activityCenter/components/ProductIssues/ProductIssues.vue'))
 
 
-/* ----- DATA ----- */
+/* ----- Data ----- */
 const { activityCenter, fetchActivitiesHandler } = useActivities()
 
 /* ----- MOUNTED ----- */

@@ -5,14 +5,14 @@ import { useConnectionsStore } from '@/stores/connections'
 import { useRoute } from 'vue-router'
 import { useUpgradeDialog } from '@/composables/upgradeDialog'
 
-/* ----- COMPONENTS ----- */
+/* ----- Components ----- */
 import AppLink from '@/components/shared/AppLink.vue'
 import DialogWrapper from '@/components/shared/DialogWrapper.vue'
 import Logo from '@/icons/Logo.vue'
 import NavLink from '@/components/navbar/NavLink.vue'
 import SyncIndicator from '@/components/navbar/SyncIndicator.vue'
 
-/* ----- DATA ----- */
+/* ----- Data ----- */
 const { closeDialogHandler, goToPlanSelectionPage, showUpgradeDialogHandler } = useUpgradeDialog()
 const auth = useAuthStore()
 const connectionsStore = useConnectionsStore()

@@ -1,13 +1,15 @@
 <script setup>
+import { useConnectionsStore } from '@/stores/connections'
 import { useMarketPlaceStore } from '@/stores/marketPlace'
 
-/* ----- COMPONENTS ----- */
+/* ----- Components ----- */
 import Pagination from '@/components/shared/Pagination.vue'
 
-/* ----- DATA ----- */
+/* ----- Data ----- */
+const connections = useConnectionsStore()
 const marketPlace = useMarketPlaceStore()
 
-/* ----- METHODS ----- */
+/* ----- Methods ----- */
 const updateCurrentPageHandler = page => {
   marketPlace.fetchProfiles(page)
 }
@@ -15,7 +17,7 @@ const updateCurrentPageHandler = page => {
 
 <template>
   <div class="filters-wrapper mb-6">
-    <h2 class="pt-4 mt-0 mb-4 pb-4 border-bottom">All potential partners ({{ marketPlace.pagination?.total_count }})</h2>
+    <h2 class="pt-4 mt-0 mb-4 border-bottom">All {{ connections.storeType }} stores ({{ marketPlace.pagination?.total_count }})</h2>
 
     <div class="grid filters">
       <div class="col-3">

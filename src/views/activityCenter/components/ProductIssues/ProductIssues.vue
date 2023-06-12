@@ -1,11 +1,11 @@
 <script setup>
 import { useActivities } from '../../composables/activities'
 
-/* ----- COMPONENTS ----- */
+/* ----- Components ----- */
 import AppLink from '@/components/shared/AppLink.vue'
 import ProductIssuesSkeleton from './ProductIssuesSkeleton.vue'
 
-/* ----- DATA ----- */
+/* ----- Data ----- */
 const { activityCenter, deleteActivityHandler } = useActivities()
 </script>
 

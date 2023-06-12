@@ -2,11 +2,11 @@
 import { useFilters } from '@/composables/filters'
 import { useOrders } from '../composables/orders'
 
-/* ----- DATA ----- */
+/* ----- Data ----- */
 const { formatCurrency, formatDate } = useFilters()
 const { fetchOrder, orders } = useOrders()
 
-/* ----- PROPS ----- */
+/* ----- Props ----- */
 const props = defineProps({
   order: {
     type: Object,

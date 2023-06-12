@@ -5,12 +5,10 @@
       border-radius: var(--border-radius);
       border: 0.0625rem solid transparent;
       margin: 0 0 1.875rem 0;
-      padding: 0.625rem 0.625rem 0.3125rem 0.625rem;
+      padding: 0.625rem 1rem 0.3125rem 1rem;
       transition: .25s;
 
       &:hover {
-        border-color: var(--primary-color);
-        box-shadow: var(--box-shadow);
         scale: 1.01;
         z-index: 1;
       }

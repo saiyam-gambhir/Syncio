@@ -1,12 +1,12 @@
 <script setup>
 import { useConnections } from './composables/connections'
 
-/* ----- COMPONENTS ----- */
+/* ----- Components ----- */
 import DestinationLocationSelector from '@/views/connections/components/multiLocation/DestinationLocationSelector.vue'
 import IconShopifyVue from '@/icons/IconShopify.vue'
 import IconWoo from '@/icons/IconWoo.vue'
 
-/* ----- DATA ----- */
+/* ----- Data ----- */
 const {
   connections,
   fetchConnectionsHandler,

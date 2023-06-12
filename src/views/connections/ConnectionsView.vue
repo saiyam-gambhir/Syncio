@@ -3,7 +3,7 @@ import { defineAsyncComponent, onMounted, ref } from 'vue'
 import { useConnectionsStore } from '@/stores/connections'
 import { useToasts } from '@/composables/toasts'
 
-/* ----- COMPONENTS ----- */
+/* ----- Components ----- */
 import AppLink from '@/components/shared/AppLink.vue'
 import Connections from '@/views/connections/Connections.vue'
 import ConnectionsViewSkeleton from '@/views/connections/ConnectionsViewSkeleton.vue'
@@ -12,7 +12,7 @@ const DisableMultilocationDialog = defineAsyncComponent(() => import('./componen
 const DisconnectDialog = defineAsyncComponent(() => import('./components/disconnect/DisconnectDialog.vue'))
 const LocationChangeDialog = defineAsyncComponent(() => import('./components/multiLocation/LocationChangeDialog.vue'))
 
-/* ----- DATA ----- */
+/* ----- Data ----- */
 const connections = useConnectionsStore()
 const options = ref(['Off', 'On'])
 const { showToast } = useToasts()

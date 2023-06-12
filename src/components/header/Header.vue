@@ -2,7 +2,7 @@
 import { useConnectionsStore } from '@/stores/connections'
 import { useRouter } from 'vue-router'
 
-/* ----- DATA ----- */
+/* ----- Data ----- */
 const connections = useConnectionsStore()
 const router = useRouter()
 

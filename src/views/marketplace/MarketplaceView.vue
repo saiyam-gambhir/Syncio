@@ -2,22 +2,28 @@
 import { onMounted, ref } from 'vue'
 import { useMarketPlaceStore } from '@/stores/marketPlace'
 
-/* ----- COMPONENTS ----- */
+/* ----- Components ----- */
 import PageHeader from '@/components/shared/PageHeader.vue'
 import Profiles from './components/Profiles.vue'
 import Search from './components/Search.vue'
 
-/* ----- DATA ----- */
+/* ----- Data ----- */
 const marketPlace = useMarketPlaceStore()
 const loading = ref(false)
 
+/* ----- Mounted ----- */
 onMounted(async () => {
+	await fetchProfilesHandler()
+})
+
+/* ----- Methods ----- */
+const fetchProfilesHandler = async () => {
+	if(marketPlace.profiles) return
+
 	loading.value = true
 	await marketPlace.fetchProfiles()
-	setTimeout(() => {
-    loading.value = false
-  }, 500)
-})
+	loading.value = false
+}
 </script>
 
 <template>

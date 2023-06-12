@@ -1,5 +1,5 @@
 <script setup>
-/* ----- PROPS ----- */
+/* ----- Props ----- */
 const props = defineProps({
   isVisible: {
     type: Boolean,

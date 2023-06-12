@@ -1,7 +1,7 @@
 <script setup>
 import { useAuthStore } from '@/stores/auth'
 
-/* ----- DATA ----- */
+/* ----- Data ----- */
 const auth = useAuthStore()
 
 /* ----- METHODS ----- */

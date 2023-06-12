@@ -1,15 +1,15 @@
 <script setup>
 import { useMarketPlaceStore } from '@/stores/marketPlace'
 
-/* ----- COMPONENTS ----- */
+/* ----- Components ----- */
 import Filters from './Filters.vue'
 import Profile from './Profile.vue'
 import ProfilesSkeleton from './ProfileSkeleton.vue'
 
-/* ----- DATA ----- */
+/* ----- Data ----- */
 const marketPlace = useMarketPlaceStore()
 
-/* ----- PROPS ----- */
+/* ----- Props ----- */
 const props = defineProps({
   loading: {
     type: Boolean,

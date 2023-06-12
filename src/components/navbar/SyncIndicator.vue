@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 import { useRoute } from 'vue-router'
 
-/* ----- DATA ----- */
+/* ----- Data ----- */
 const auth = useAuthStore()
 const route = useRoute()
 const knobSize = ref(125)
