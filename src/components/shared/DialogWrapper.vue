@@ -19,21 +19,34 @@ const props = defineProps({
   width: {
     type: String,
     default: '600px',
+  },
+
+  withoutTitle: {
+    type: Boolean,
+    required: false,
+    default: false,
   }
 })
 
-/* ----- EMITS ----- */
+/* ----- Emits ----- */
 const emits = defineEmits(['closeDialog'])
 
-/* ----- METHODS ----- */
+/* ----- Methods ----- */
 const closeDialogHandler = () => {
   emits('closeDialog')
 }
 </script>
 
 <template>
-  <Dialog :visible="props.isVisible" :modal="true" :style="{ width: props.width }" @update:visible="closeDialogHandler" :dismissableMask="false"  :header="props.title">
-    <div class="border-top-1 surface-border pt-4">
+  <Dialog
+    :class="{ 'without-title': withoutTitle }"
+    :dismissableMask="false"
+    :header="props.title"
+    :modal="true"
+    :style="{ width: props.width }"
+    :visible="props.isVisible"
+    @update:visible="closeDialogHandler">
+    <div :class="{ 'border-top-1 surface-border pt-4': !withoutTitle }">
       <slot name="body"></slot>
     </div>
 

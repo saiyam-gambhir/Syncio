@@ -12,7 +12,7 @@ const DisconnectAndKeepDialog = defineAsyncComponent(() => import('@/views/conne
 const connectionsStore = useConnectionsStore()
 const { isConnectionDisconnectRequested } = useConnectionsStore()
 
-/* ----- METHODS ----- */
+/* ----- Methods ----- */
 const closeDialogHandler = () => {
   connectionsStore.isConnectionDisconnectRequested = false
 }

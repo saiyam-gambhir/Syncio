@@ -4,7 +4,7 @@ import { useAuthStore } from '@/stores/auth'
 /* ----- Data ----- */
 const auth = useAuthStore()
 
-/* ----- METHODS ----- */
+/* ----- Methods ----- */
 const loginHandler = () => {
   const { email, password } = auth.loginForm
   auth.login({ email, password })

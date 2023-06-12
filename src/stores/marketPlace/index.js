@@ -1,8 +1,9 @@
 import { defineStore } from 'pinia'
 import deepmerge from 'deepmerge'
 
-/* ----- ACTIONS ----- */
+/* ----- Actions ----- */
 import { fetchProfiles } from './actions/fetchProfiles'
+import { sendMessage } from './actions/sendMessage'
 
 export const useMarketPlaceStore = defineStore('marketPlace', {
   state: () => {
@@ -233,6 +234,9 @@ export const useMarketPlaceStore = defineStore('marketPlace', {
       ],
       currentPage: '',
       isConnectDialogVisible: false,
+      isMessageDialogVisible: false,
+      loading: false,
+      message: null,
       pagination: {},
       profiles: null,
       productsRange: [
@@ -250,10 +254,12 @@ export const useMarketPlaceStore = defineStore('marketPlace', {
         'search_str': null,
       },
       searchQuery: null,
+      selectedProfile: null,
     }
   },
 
   actions: deepmerge.all([
     fetchProfiles,
+    sendMessage,
   ]),
 })

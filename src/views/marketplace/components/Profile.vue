@@ -31,6 +31,14 @@ const publshedProducts = computed(() => {
 const instagramHandle = computed(() => {
   return props.profile.coco_social_media[0]?.url
 })
+
+/* ----- Methods ----- */
+const showMessageDialogHandler = (profile) => {
+  marketPlace.$patch({
+    isMessageDialogVisible: true,
+    selectedProfile: profile
+  })
+}
 </script>
 
 <template>
@@ -74,7 +82,7 @@ const instagramHandle = computed(() => {
           <AppLink label="Website" :link="profile.website" />
         </div>
         <Divider />
-        <Button label="Message" class="absolute"></Button>
+        <Button label="Message" class="absolute" @click="showMessageDialogHandler(profile)"></Button>
       </div>
     </div>
   </div>

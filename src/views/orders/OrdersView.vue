@@ -30,7 +30,7 @@ onMounted(async () => {
   setAutoPushStatus()
 })
 
-/* ----- METHODS ----- */
+/* ----- Methods ----- */
 const fetchOrdersHandler = async () => {
   fetchOrders()
 }

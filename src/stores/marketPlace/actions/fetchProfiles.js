@@ -2,6 +2,7 @@ import { useConnectionsStore } from '@/stores/connections'
 
 export const fetchProfiles = {
   async fetchProfiles(page = 1) {
+    this.loading = true
     const connections = useConnectionsStore()
     let storeType = connections.storeType === 'destination' ? 'source' : 'destination'
 
@@ -32,5 +33,7 @@ export const fetchProfiles = {
       this.profiles = data
       this.pagination = pagination
     }
+
+    this.loading = false
   }
 }

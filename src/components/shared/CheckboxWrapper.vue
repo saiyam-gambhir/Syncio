@@ -17,7 +17,7 @@ const props = defineProps({
   }
 })
 
-/* ----- METHODS ----- */
+/* ----- Methods ----- */
 const onInputHandler = () => {
   emits('onInput', props.isChecked)
 }

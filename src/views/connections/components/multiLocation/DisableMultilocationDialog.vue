@@ -9,7 +9,7 @@ import DialogWrapper from '@/components/shared/DialogWrapper.vue'
 const { showToast } = useToasts()
 const connectionsStore = useConnectionsStore()
 
-/* ----- METHODS ----- */
+/* ----- Methods ----- */
 const closeDialogHandler = () => {
   connectionsStore.isDisableMultilocationRequested = false
   connectionsStore.isMultilocationEnabled = 'On'

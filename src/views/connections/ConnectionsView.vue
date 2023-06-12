@@ -17,14 +17,14 @@ const connections = useConnectionsStore()
 const options = ref(['Off', 'On'])
 const { showToast } = useToasts()
 
-/* ----- MOUNTED ----- */
+/* ----- Mounted ----- */
 onMounted(async () => {
   if(connections.connections.length > 0) return
 	await connections.fetchConnections()
   if(connections.isStoreMultilocation) await connections.fetchDestinationLocations()
 })
 
-/* ----- METHODS ----- */
+/* ----- Methods ----- */
 const toggleMultilocationHandler = async (event) => {
   if(event.value === 'Off' && !connections.isDisableMultilocationRequested) {
     connections.isDisableMultilocationRequested = true

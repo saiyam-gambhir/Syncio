@@ -7,7 +7,7 @@ import DialogWrapper from '@/components/shared/DialogWrapper.vue'
 const connectionsStore = useConnectionsStore()
 const isChecked = ref(false)
 
-/* ----- METHODS ----- */
+/* ----- Methods ----- */
 const closeDialogHandler = () => {
   connectionsStore.isDisconnectAndDeleteRequested = false
 }

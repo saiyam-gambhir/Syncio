@@ -12,7 +12,7 @@ import PageHeader from '@/components/shared/PageHeader.vue'
 const { showUpgradeDialogHandler } = useUpgradeDialog()
 const { showUpgrade, type } = useUrlSearchParams()
 
-/* ----- MOUNTED ----- */
+/* ----- Mounted ----- */
 onMounted(() => {
 	if(Boolean(showUpgrade)) {
   	showUpgradeDialogHandler(type)

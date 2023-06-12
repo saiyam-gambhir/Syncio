@@ -8,7 +8,7 @@ import DialogWrapper from '@/components/shared/DialogWrapper.vue'
 /* ----- Data ----- */
 const connectionsStore = useConnectionsStore()
 
-/* ----- METHODS ----- */
+/* ----- Methods ----- */
 const closeDialogHandler = () => {
   connectionsStore.isLocationChangeRequested = false
 }

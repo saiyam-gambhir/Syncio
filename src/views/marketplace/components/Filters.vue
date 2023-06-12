@@ -17,8 +17,8 @@ const updateCurrentPageHandler = page => {
 
 <template>
   <div class="filters-wrapper mb-6">
-    <h2 class="pt-4 mt-0 mb-4 border-bottom">All {{ connections.storeType === 'destination' ? 'source' : 'destination' }} stores ({{ marketPlace.pagination?.total_count }})</h2>
-
+    <h2 class="pt-4 mt-0 border-bottom">All {{ connections.storeType === 'destination' ? 'source' : 'destination' }} stores ({{ marketPlace.pagination?.total_count }})</h2>
+    <Divider />
     <div class="grid filters">
       <div class="col-3">
         <Dropdown

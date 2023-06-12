@@ -23,7 +23,7 @@ onMounted(async () => {
 	await productSettings.fetchSettings()
 })
 
-/* ----- METHODS ----- */
+/* ----- Methods ----- */
 const changeTabHandler = activeTabIndex => {
 	productSettings.activeTabIndex = activeTabIndex
 }

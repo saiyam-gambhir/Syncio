@@ -6,7 +6,7 @@ import { useRouter } from 'vue-router'
 const connections = useConnectionsStore()
 const router = useRouter()
 
-/* ----- METHODS ----- */
+/* ----- Methods ----- */
 const goBackHandler = () => {
   const { history } = window
   if(!history.state.back) return

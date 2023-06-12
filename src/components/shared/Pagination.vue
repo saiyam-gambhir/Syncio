@@ -30,7 +30,7 @@ watch(() => props.pagination, (newValue, oldValue) => {
   setEntries()
 })
 
-/* ----- METHODS ----- */
+/* ----- Methods ----- */
 const goToFirstPage = () => {
   emits('updateCurrentPage', 1)
 }

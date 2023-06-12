@@ -15,7 +15,7 @@ const props = defineProps({
   }
 })
 
-/* ----- METHODS ----- */
+/* ----- Methods ----- */
 const closeDialogHandler = () => {
   auth.isNetworkDialogVisible = false
 }

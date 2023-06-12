@@ -20,7 +20,7 @@ onMounted(() => {
   selectedLocation.value = props.connection?.destination_default_inventory_location?.name
 })
 
-/* ----- METHODS ----- */
+/* ----- Methods ----- */
 const onChangeHandler = (event) => {
   let selectedLocation = connectionsStore.destinationLocations.filter(location => location.name.toLowerCase() === event.value.toLowerCase())
   selectedLocationId.value = selectedLocation[0].id

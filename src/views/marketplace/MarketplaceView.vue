@@ -5,10 +5,10 @@ import { useMarketPlaceStore } from '@/stores/marketPlace'
 /* ----- Components ----- */
 import Profiles from './components/Profiles.vue'
 import Search from './components/Search.vue'
+import MessageDialogs from './components/MessageDialogs.vue'
 
 /* ----- Data ----- */
 const marketPlace = useMarketPlaceStore()
-const loading = ref(false)
 
 /* ----- Mounted ----- */
 onMounted(async () => {
@@ -19,15 +19,16 @@ onMounted(async () => {
 const fetchProfilesHandler = async () => {
 	if(marketPlace.profiles) return
 
-	loading.value = true
+	marketPlace.loading = true
 	await marketPlace.fetchProfiles()
-	loading.value = false
+	marketPlace.loading = false
 }
 </script>
 
 <template>
 	<section class="marketplace">
 		<Search />
-		<Profiles :loading="loading" />
+		<Profiles />
+		<MessageDialogs />
 	</section>
 </template>
