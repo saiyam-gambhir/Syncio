@@ -23,6 +23,7 @@ const updateCurrentPageHandler = page => {
       <div class="col-3">
         <Dropdown
           :autoOptionFocus="false"
+          :loading="marketPlace.loading"
           :options="marketPlace.countries"
           @hide="marketPlace.fetchProfiles"
           class="w-full"
@@ -35,6 +36,7 @@ const updateCurrentPageHandler = page => {
       <div class="col-3">
         <Dropdown
           :autoOptionFocus="false"
+          :loading="marketPlace.loading"
           :options="marketPlace.productsRange"
           @hide="marketPlace.fetchProfiles"
           class="w-full"
@@ -46,6 +48,7 @@ const updateCurrentPageHandler = page => {
       <div class="col-3">
         <Dropdown
           :autoOptionFocus="false"
+          :loading="marketPlace.loading"
           :options="marketPlace.categories"
           @hide="marketPlace.fetchProfiles"
           class="w-full"

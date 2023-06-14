@@ -9,7 +9,6 @@ export const useMarketPlaceStore = defineStore('marketPlace', {
   state: () => {
     return {
       categories: [
-        'All',
         'Animals & Pet Supplies',
         'Apparel & Accessories',
         'Arts & Entertainment',
@@ -35,7 +34,6 @@ export const useMarketPlaceStore = defineStore('marketPlace', {
         'Wedding Supplies',
       ],
       countries: [
-        "All",
         "Afghanistan",
         "Albania",
         "Algeria",
@@ -240,7 +238,6 @@ export const useMarketPlaceStore = defineStore('marketPlace', {
       pagination: {},
       profiles: null,
       productsRange: [
-        'All',
         '0-20',
         '21-50',
         '51-150',

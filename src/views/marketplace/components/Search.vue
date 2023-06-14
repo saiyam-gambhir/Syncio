@@ -25,10 +25,13 @@ watch(searchString, async (newValue, oldValue) => {
   <section class="search mb-5">
     <div class="container">
       <div class="search text-center mt-6 mb-6 pt-1">
-        <h2 class="lg">Find your perfect match</h2>
+        <h2 class="text-3xl mb-6">Find your perfect match</h2>
         <div class="p-input-icon-left w-50">
           <i class="pi pi-search" />
-          <InputText v-model="searchString" placeholder="Search for categories or brands" class="w-full" />
+          <InputText
+            class="w-full"
+            placeholder="Search for categories or brands"
+            v-model="searchString" />
         </div>
       </div>
     </div>

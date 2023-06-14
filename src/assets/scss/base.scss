@@ -2,7 +2,7 @@
   /* ----- Dimensions ----- */
   --banner-height: 536px;
   --border-radius: 6px;
-  --font-size: 13px;
+  --font-size: 12.5px;
   --image-placeholder-height: 224px;
   --container-width: 1240px;
 
@@ -404,6 +404,11 @@ input.p-inputtext-lg {
   }
 }
 
+.p-inputtext {
+  height: 3rem;
+  line-height: 1.6rem;
+}
+
 .p-carousel {
   .p-card-title {
     color: $primary;
@@ -454,6 +459,7 @@ input.p-inputtext-lg {
 .nav-wrapper {
   height: calc(100% - 60px);
   overflow-y: auto;
+  background: var(--background-light-yellow);
 }
 
 .primary-navigation {
@@ -494,6 +500,7 @@ input.p-inputtext-lg {
 
 .header-height {
   height: $headerHeight;
+  background: var(--background-light-yellow);
 }
 
 .login-screen {

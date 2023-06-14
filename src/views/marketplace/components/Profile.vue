@@ -29,7 +29,7 @@ const publshedProducts = computed(() => {
 })
 
 const instagramHandle = computed(() => {
-  return props.profile.coco_social_media[0]?.url
+  return props.profile?.coco_social_media[0]?.url
 })
 
 /* ----- Methods ----- */
