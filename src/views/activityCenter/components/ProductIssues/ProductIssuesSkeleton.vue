@@ -1,5 +1,25 @@
+<script setup>
+import { useActivities } from '../../composables/activities'
+
+/* ----- Components ----- */
+import SearchFilter from '@/components/shared/SearchFilter.vue'
+
+const { activityCenter } = useActivities()
+</script>
+
 <template>
   <DataTable :value="[{},{},{},{},{}]" responsiveLayout="scroll" showGridlines>
+
+    <template #header>
+      <div class="flex align-items-center justify-content-between">
+        <div class="p-inputgroup w-35">
+          <SearchFilter
+            placeholder="Search by product name or SKU"
+            v-model="activityCenter.productQueries.search_str">
+          </SearchFilter>
+        </div>
+      </div>
+    </template>
 
     <Column header="Date(AEST)" style="width: 7.5%;">
       <template #body>

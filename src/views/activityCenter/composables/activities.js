@@ -10,8 +10,7 @@ export function useActivities() {
     showToast({ message })
   }
 
-  const fetchActivitiesHandler = async activeTabIndex => {
-    activityCenter.activeTabIndex = activeTabIndex
+  const fetchActivitiesHandler = async () => {
     await activityCenter.fetchActvities()
   }
 

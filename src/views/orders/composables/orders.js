@@ -7,6 +7,7 @@ export function useOrders() {
   const connections = useConnectionsStore()
   const orders = useOrdersStore()
   const statusOptions = {
+    failed: 'danger',
     invalid: 'danger',
     not_pushed: 'warning',
     pushed: 'success',

@@ -3,18 +3,23 @@ import { useAuthStore } from '@/stores/auth'
 export const fetchActvities = {
   async fetchActvities() {
     this.loadingActivities = true
-    const auth = useAuthStore()
+    const { userId } = useAuthStore()
     const { activeTab } = this
-    const response = await this.$https(`user/${auth.userId}/sync-events`, {
+    const tabDataMap = {
+      product: { tab: 'productIssues', queries: { ...this.productQueries } },
+      order: { tab: 'orderIssues', queries: { ...this.orderQueries } },
+      general: { tab: 'generalUpdates', queries: { ...this.generalQueries } },
+    }
+    const { tab, queries } = tabDataMap[activeTab]
+    const response = await this.$https(`user/${userId}/sync-events`, {
       params: {
+        ...queries,
         group: activeTab,
-        limiter: 25
-      }
+        limiter: 25,
+      },
     })
 
-    if(activeTab === 'product') this.productIssues = await response.data.data
-    else if(activeTab === 'order') this.orderIssues = await response.data.data
-    else if(activeTab === 'general') this.generalUpdates = await response.data.data
+    this[tab] = await response.data.data
     this.loadingActivities = false
   }
 }

@@ -4,9 +4,14 @@ import { useActivities } from '../../composables/activities'
 /* ----- Components ----- */
 import AppLink from '@/components/shared/AppLink.vue'
 import ProductIssuesSkeleton from './ProductIssuesSkeleton.vue'
+import SearchFilter from '@/components/shared/SearchFilter.vue'
 
 /* ----- Data ----- */
-const { activityCenter, deleteActivityHandler } = useActivities()
+const { activityCenter, deleteActivityHandler, fetchActivitiesHandler } = useActivities()
+const handleSearch = (val) => {
+  activityCenter.productQueries.search_str = val
+  fetchActivitiesHandler()
+}
 </script>
 
 <template>
@@ -17,6 +22,18 @@ const { activityCenter, deleteActivityHandler } = useActivities()
       <div class="px-4 py-4 text-center">
         <h2 class="m-0">Hurray 🎉</h2>
         <p>You have no Product issues at this time.<br> If you notice something isn't right with your sync,<br> check back here to see if there are any issues and how to fix them.</p>
+      </div>
+    </template>
+
+    <template #header>
+      <div class="flex align-items-center justify-content-between">
+        <div class="p-inputgroup w-35">
+          <SearchFilter
+            @update:modelValue="handleSearch"
+            placeholder="Search by product name or SKU"
+            v-model="activityCenter.productQueries.search_str">
+          </SearchFilter>
+        </div>
       </div>
     </template>
 
@@ -33,24 +50,10 @@ const { activityCenter, deleteActivityHandler } = useActivities()
       <template #body="{ data: { subtitle, title } }">
         <div class="flex flex-column">
           <span class="font-semibold text-sm">{{ title }}</span>
-          <span class="text-xs mt-2">{{ subtitle }}</span>
+          <span class="text-sm mt-2">{{ subtitle }}</span>
         </div>
       </template>
     </Column>
-
-    <!-- <Column header="Product" style="width: 25%;">
-      <template #body="{ data: { data: { image, name, store_name } } }">
-        <div class="flex">
-          <figure class="m-0">
-            <img :src="image" :alt="name" style="width: 32px; padding: 2px; border: 1px solid rgb(231, 231, 231);">
-          </figure>
-          <div class="flex flex-column ml-2">
-            <span class="font-semibold text-sm text-blue-500">{{ name }}</span>
-            <span class="text-xs mt-2">{{ store_name }}</span>
-          </div>
-        </div>
-      </template>
-    </Column> -->
 
     <!-- If Data is null -->
     <Column header="Product" style="width: 25%;">
@@ -61,7 +64,7 @@ const { activityCenter, deleteActivityHandler } = useActivities()
           </figure>
           <div class="flex flex-column ml-2">
             <span v-if="data.data?.name" class="font-semibold text-sm text-blue-500">{{ data.data.name }}</span>
-            <span v-if="data.data?.store_name" class="text-xs mt-2">{{ data.data.store_name }}</span>
+            <span v-if="data.data?.store_name" class="text-sm mt-2">{{ data.data.store_name }}</span>
           </div>
         </div>
       </template>
@@ -71,7 +74,7 @@ const { activityCenter, deleteActivityHandler } = useActivities()
       <template #body="{ data: { details } }">
         <div class="flex flex-column">
           <span class="font-semibold text-sm">{{ details.line_1 }}</span>
-          <span class="text-xs mt-2">{{ details.line_2 }}</span>
+          <span class="text-sm mt-2">{{ details.line_2 }}</span>
         </div>
       </template>
     </Column>

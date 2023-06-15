@@ -5,12 +5,12 @@ import { useConnections } from './composables/connections'
 import DestinationLocationSelector from '@/views/connections/components/multiLocation/DestinationLocationSelector.vue'
 import IconShopifyVue from '@/icons/IconShopify.vue'
 import IconWoo from '@/icons/IconWoo.vue'
+import SearchFilter from '@/components/shared/SearchFilter.vue'
 
 /* ----- Data ----- */
 const {
   connections,
   fetchConnectionsHandler,
-  getStoreCommission,
   getStoreStatus,
   showDisconnectStoreDialog,
 } = useConnections()
@@ -22,8 +22,11 @@ const {
     <template #header>
       <div class="flex align-items-center justify-content-between">
         <div class="p-inputgroup w-35">
-          <InputText v-model="connections.filters.searchString" placeholder="Search by store URL" @keyup.enter="fetchConnectionsHandler" autocomplete="off" />
-          <Button icon="pi pi-search" @click="fetchConnectionsHandler" :loading="connections.loadingConnections" :disabled="!connections.filters.searchString"></Button>
+          <SearchFilter
+            @update:modelValue="fetchConnectionsHandler"
+            placeholder="Search by store URL"
+            v-model="connections.filters.searchString">
+          </SearchFilter>
         </div>
 
         <Dropdown v-model="connections.filters.sortBy" :options="connections.sortOptions" optionLabel="label" placeholder="Sort by Store" @change="fetchConnectionsHandler" :loading="connections.loadingConnections">

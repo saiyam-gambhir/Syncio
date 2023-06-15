@@ -13,6 +13,13 @@ export const useActivityCenterStore = defineStore('activityCenter', {
       loadingActivities: false,
       orderIssues: null,
       productIssues: null,
+      generalQueries: {},
+      productQueries: {
+        search_str: ''
+      },
+      orderQueries: {
+        search_str: ''
+      }
     }
   },
 
@@ -28,4 +35,17 @@ export const useActivityCenterStore = defineStore('activityCenter', {
     deleteActivity,
     fetchActvities
   ]),
+
+  persist: {
+    enabled: true,
+    strategies: [
+      {
+        key: 'activityCenter',
+        storage: sessionStorage,
+        paths: [
+          'productQueries',
+        ]
+      }
+    ]
+  }
 })
