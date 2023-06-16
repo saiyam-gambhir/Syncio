@@ -41,6 +41,7 @@ const updateCurrentPageHandler = page => {
           @hide="marketPlace.fetchProfiles"
           class="w-full"
           placeholder="Number of products"
+          showClear
           v-model="marketPlace.queries['filters[product_count]']">
         </Dropdown>
       </div>
@@ -53,6 +54,7 @@ const updateCurrentPageHandler = page => {
           @hide="marketPlace.fetchProfiles"
           class="w-full"
           placeholder="Category"
+          showClear
           v-model="marketPlace.queries['filters[category]']">
         </Dropdown>
       </div>

@@ -5,11 +5,19 @@ import { useActivities } from '../../composables/activities'
 import AppLink from '@/components/shared/AppLink.vue'
 import ProductIssuesSkeleton from './ProductIssuesSkeleton.vue'
 import SearchFilter from '@/components/shared/SearchFilter.vue'
+import StoresFilter from '@/components/shared/StoresFilter.vue'
 
 /* ----- Data ----- */
 const { activityCenter, deleteActivityHandler, fetchActivitiesHandler } = useActivities()
-const handleSearch = (val) => {
-  activityCenter.productQueries.search_str = val
+
+/* ----- Methods ----- */
+const searchHandler = searchText => {
+  activityCenter.productQueries.search_str = searchText
+  fetchActivitiesHandler()
+}
+
+const storeFilterHandler = storeId => {
+  activityCenter.productQueries.partner_store_id = storeId
   fetchActivitiesHandler()
 }
 </script>
@@ -27,12 +35,33 @@ const handleSearch = (val) => {
 
     <template #header>
       <div class="flex align-items-center justify-content-between">
-        <div class="p-inputgroup w-35">
+        <div class="p-inputgroup w-50">
           <SearchFilter
-            @update:modelValue="handleSearch"
+            @update:modelValue="searchHandler"
             placeholder="Search by product name or SKU"
             v-model="activityCenter.productQueries.search_str">
           </SearchFilter>
+        </div>
+
+        <div class="flex w-50 align-items-center justify-content-end">
+          <div class="p-inputgroup w-35">
+            <StoresFilter
+              @update:modelValue="storeFilterHandler"
+              v-model="activityCenter.productQueries.partner_store_id">
+            </StoresFilter>
+          </div>
+
+          <div class="p-inputgroup w-35 ml-4">
+            <Dropdown
+              :autoOptionFocus="false"
+              :options="activityCenter.productEvents"
+              @change="fetchActivitiesHandler"
+              optionLabel="label"
+              optionValue="value"
+              placeholder="All Events"
+              v-model="activityCenter.productQueries['filters[event]']">
+            </Dropdown>
+          </div>
         </div>
       </div>
     </template>
@@ -55,10 +84,9 @@ const handleSearch = (val) => {
       </template>
     </Column>
 
-    <!-- If Data is null -->
     <Column header="Product" style="width: 25%;">
       <template #body="{ data }">
-        <div class="flex">
+        <div class="flex pointer" @click="searchHandler(data.data?.name)">
           <figure class="m-0">
             <img v-if="data.data?.image" :src="data.data.image" :alt="data.data.name" style="width: 32px; padding: 2px; border: 1px solid rgb(231, 231, 231);">
           </figure>

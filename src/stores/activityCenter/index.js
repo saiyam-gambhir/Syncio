@@ -3,23 +3,26 @@ import deepmerge from 'deepmerge'
 
 /* ----- ACTIONS ----- */
 import { deleteActivity } from './actions/deleteActivity'
-import { fetchActvities } from './actions/fetchActivities'
+import { fetchActivities } from './actions/fetchActivities'
 
 export const useActivityCenterStore = defineStore('activityCenter', {
   state: () => {
     return {
       activeTabIndex: 0,
+      generalQueries: { 'filters[event]': '', partner_store_id: '' },
       generalUpdates: null,
       loadingActivities: false,
       orderIssues: null,
+      orderQueries: { 'filters[event]': '', partner_store_id: '', search_str: '' },
+      productEvents: [
+        { value: 'all_events', label: 'All Events (Default)' },
+        { value: 'sku', label: 'SKU' },
+        { value: 'mapping', label: 'Mapping' },
+        { value: 'update', label: 'Update' },
+        { value: 'product_import', label: 'Product Import' }
+      ],
       productIssues: null,
-      generalQueries: {},
-      productQueries: {
-        search_str: ''
-      },
-      orderQueries: {
-        search_str: ''
-      }
+      productQueries: { 'filters[event]': 'all_events', partner_store_id: '', search_str: '' },
     }
   },
 
@@ -33,19 +36,19 @@ export const useActivityCenterStore = defineStore('activityCenter', {
 
   actions: deepmerge.all([
     deleteActivity,
-    fetchActvities
+    fetchActivities
   ]),
 
-  persist: {
-    enabled: true,
-    strategies: [
-      {
-        key: 'activityCenter',
-        storage: sessionStorage,
-        paths: [
-          'productQueries',
-        ]
-      }
-    ]
-  }
+  // persist: {
+  //   enabled: true,
+  //   strategies: [
+  //     {
+  //       key: 'activityCenter',
+  //       storage: sessionStorage,
+  //       paths: [
+  //         'productQueries',
+  //       ]
+  //     }
+  //   ]
+  // }
 })

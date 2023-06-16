@@ -11,7 +11,7 @@ export function useActivities() {
   }
 
   const fetchActivitiesHandler = async () => {
-    await activityCenter.fetchActvities()
+    await activityCenter.fetchActivities()
   }
 
   return {

@@ -448,6 +448,10 @@ input.p-inputtext-lg {
     }
   }
 }
+
+.p-tabview .p-tabview-panels {
+  padding: 0;
+}
 /* ----- OVERRIDES ----- */
 
 .theme-light .primary-navigation .router-link-active:not(.disabled) {
@@ -638,4 +642,8 @@ input.p-inputtext-lg {
 
 .p-input-icon-right>svg {
   right: 1rem;
+}
+
+.pointer {
+  cursor: pointer;
 }

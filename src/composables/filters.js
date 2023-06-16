@@ -40,8 +40,33 @@ export function useFilters() {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
+  // const deleteUnwantedQueries = (queries, defaultOption) => {
+  //   for (let param in queries) {
+  //     if (
+  //       queries[param] === 'null' ||
+  //       queries[param] === '' ||
+  //       queries[param] === defaultOption ||
+  //       queries[param] === null ||
+  //       queries[param] === undefined
+  //     ) {
+  //       delete queries[param]
+  //     }
+  //   }
+  // }
+
+  const filterUnwantedQueries = (queries, defaultOption) => {
+    for (const [param, value] of Object.entries(queries)) {
+      if ([null, 'null', '', defaultOption, undefined].includes(value) || typeof value === 'undefined') {
+        if (queries.hasOwnProperty(param)) {
+          delete queries[param]
+        }
+      }
+    }
+  }
+
   return {
     copyToClipBoard,
+    filterUnwantedQueries,
     formatCommission,
     formatCurrency,
     formatDate,
