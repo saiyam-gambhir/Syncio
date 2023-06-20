@@ -2,11 +2,11 @@
 import { useConnectionsStore } from '@/stores/connections'
 import { useRouter } from 'vue-router'
 
-/* ----- DATA ----- */
+/* ----- Data ----- */
 const connections = useConnectionsStore()
 const router = useRouter()
 
-/* ----- METHODS ----- */
+/* ----- Methods ----- */
 const goBackHandler = () => {
   const { history } = window
   if(!history.state.back) return

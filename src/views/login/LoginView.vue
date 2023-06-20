@@ -1,17 +1,17 @@
 <script setup>
 import { useAuthStore } from '@/stores/auth'
 
-/* ----- DATA ----- */
+/* ----- Data ----- */
 const auth = useAuthStore()
 
-/* ----- METHODS ----- */
+/* ----- Methods ----- */
 const loginHandler = () => {
   const { email, password } = auth.loginForm
   auth.login({ email, password })
 }
 
 const shopifyLoginHandler = async () => {
-  await auth.shopifyLogin('shopify', 'test-destination-0.myshopify.com	')
+  await auth.shopifyLogin('shopify', 'test-destination-18.myshopify.com	')
 }
 </script>
 

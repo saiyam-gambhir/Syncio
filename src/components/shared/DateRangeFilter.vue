@@ -3,7 +3,7 @@ import { DateTime } from 'luxon'
 import { ref, onMounted, } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 
-/* ----- DATA ----- */
+/* ----- Data ----- */
 const { timeZone } = useAuthStore()
 const date = ref()
 const today = DateTime.now().setZone(timeZone)

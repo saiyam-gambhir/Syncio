@@ -1,13 +1,13 @@
 <script setup>
 import { useAuthStore } from '@/stores/auth'
 
-/* ----- COMPONENTS ----- */
+/* ----- Components ----- */
 import DialogWrapper from '@/components/shared/DialogWrapper.vue'
 
-/* ----- DATA ----- */
+/* ----- Data ----- */
 const auth = useAuthStore()
 
-/* ----- PROPS ----- */
+/* ----- Props ----- */
 const props = defineProps({
   online: {
     type: Boolean,
@@ -15,7 +15,7 @@ const props = defineProps({
   }
 })
 
-/* ----- METHODS ----- */
+/* ----- Methods ----- */
 const closeDialogHandler = () => {
   auth.isNetworkDialogVisible = false
 }

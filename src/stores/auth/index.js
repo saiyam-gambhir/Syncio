@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import deepmerge from 'deepmerge'
 
-/* ----- ACTIONS ----- */
+/* ----- Actions ----- */
 import { fetchCurrentPlan } from './actions/fetchCurrentPlan'
 import { fetchPlans } from './actions/fetchPlans'
 import { fetchUser } from './actions/fetchUser'

@@ -5,11 +5,11 @@ import { useConnectionsStore } from '@/stores/connections'
 import { usePayouts } from './composables/payouts'
 import { useRouter } from 'vue-router'
 
-/* ----- COMPONENTS ----- */
+/* ----- Components ----- */
 import PageHeader from '@/components/shared/PageHeader.vue'
 const PayableOrders = defineAsyncComponent(() => import('./components/destinationPayouts/PayableOrders.vue'))
 
-/* ----- DATA ----- */
+/* ----- Data ----- */
 const { fetchPayableOrdersHandler, fetchPaidPayoutsHandler, payouts } = usePayouts()
 const auth = useAuthStore()
 const { isDestinationStore, isSourceStore } = useConnectionsStore()

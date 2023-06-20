@@ -2,7 +2,7 @@
 import { useFilters } from '@/composables/filters'
 import { usePayouts } from '../../composables/payouts'
 
-/* ----- DATA ----- */
+/* ----- Data ----- */
 const { payouts } = usePayouts()
 const { formatCommission, formatCurrency } = useFilters()
 </script>

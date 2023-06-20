@@ -2,32 +2,33 @@
 import { onMounted, ref } from 'vue'
 import { useMarketPlaceStore } from '@/stores/marketPlace'
 
-/* ----- COMPONENTS ----- */
-import PageHeader from '@/components/shared/PageHeader.vue'
+/* ----- Components ----- */
 import Profiles from './components/Profiles.vue'
 import Search from './components/Search.vue'
+import MessageDialogs from './components/MessageDialogs.vue'
 
-/* ----- DATA ----- */
+/* ----- Data ----- */
 const marketPlace = useMarketPlaceStore()
-const loading = ref(false)
 
+/* ----- Mounted ----- */
 onMounted(async () => {
-	loading.value = true
-	await marketPlace.fetchProfiles()
-	setTimeout(() => {
-    loading.value = false
-  }, 500)
+	await fetchProfilesHandler()
 })
+
+/* ----- Methods ----- */
+const fetchProfilesHandler = async () => {
+	if (marketPlace.profiles) return
+
+	marketPlace.loading = true
+	await marketPlace.fetchProfiles()
+	marketPlace.loading = false
+}
 </script>
 
 <template>
-  <PageHeader
-		content="Awesome products and long lasting partnerships, all in one place"
-		title="Marketplace">
-	</PageHeader>
-
 	<section class="marketplace">
 		<Search />
-		<Profiles :loading="loading" />
+		<Profiles />
+		<MessageDialogs />
 	</section>
 </template>

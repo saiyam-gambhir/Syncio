@@ -1,11 +1,11 @@
 <script setup>
 import { useActivities } from '../../composables/activities'
 
-/* ----- COMPONENTS ----- */
+/* ----- Components ----- */
 import AppLink from '@/components/shared/AppLink.vue'
 import GeneralUpdatesSkeleton from './GeneralUpdatesSkeleton.vue'
 
-/* ----- DATA ----- */
+/* ----- Data ----- */
 const { activityCenter } = useActivities()
 </script>
 

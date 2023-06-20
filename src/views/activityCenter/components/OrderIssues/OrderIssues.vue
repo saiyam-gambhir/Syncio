@@ -1,12 +1,13 @@
 <script setup>
 import { useActivities } from '../../composables/activities'
 
-/* ----- COMPONENTS ----- */
+/* ----- Components ----- */
 import AppLink from '@/components/shared/AppLink.vue'
 import OrderIssuesSkeleton from './OrderIssuesSkeleton.vue'
+import SearchFilter from '@/components/shared/SearchFilter.vue'
 
-/* ----- DATA ----- */
-const { activityCenter, deleteActivityHandler } = useActivities()
+/* ----- Data ----- */
+const { activityCenter, deleteActivityHandler, fetchActivitiesHandler } = useActivities()
 </script>
 
 <template>
@@ -17,6 +18,18 @@ const { activityCenter, deleteActivityHandler } = useActivities()
       <div class="px-4 py-4 text-center">
         <h2 class="m-0">Hurray 🎉</h2>
         <p>You have no Order issues at this time.<br> If you notice something isn't right with your sync,<br> check back here to see if there are any issues and how to fix them.</p>
+      </div>
+    </template>
+
+    <template #header>
+      <div class="flex align-items-center justify-content-between">
+        <div class="p-inputgroup w-35">
+          <SearchFilter
+            @update:modelValue="fetchActivitiesHandler"
+            placeholder="Search by order number order ID"
+            v-model="activityCenter.orderQueries.search_str">
+          </SearchFilter>
+        </div>
       </div>
     </template>
 

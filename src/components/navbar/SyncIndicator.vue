@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 import { useRoute } from 'vue-router'
 
-/* ----- DATA ----- */
+/* ----- Data ----- */
 const auth = useAuthStore()
 const route = useRoute()
 const knobSize = ref(125)
@@ -11,7 +11,7 @@ const knobStroke = ref(15)
 </script>
 
 <template>
-  <div class="mt-auto text-center pt-4 surface-border border-top-1 surface-0" :class="{ 'pb-4' : route.name !== 'planAndBillings' }">
+  <div class="mt-auto text-center pt-4 surface-border border-top-1" :class="{ 'pb-4' : route.name !== 'planAndBillings' }" style="background: #F3FAFF;">
     <h2>Products Synced</h2>
 
     <Knob

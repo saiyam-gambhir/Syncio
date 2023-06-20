@@ -2,7 +2,7 @@
   /* ----- Dimensions ----- */
   --banner-height: 536px;
   --border-radius: 6px;
-  --font-size: 16px;
+  --font-size: 12.5px;
   --image-placeholder-height: 224px;
   --container-width: 1240px;
 
@@ -28,7 +28,7 @@
 html {
   color: $textPrimary;
   font-family: 'Inter Tight', sans-serif;
-  font-size: 12.5px;
+  font-size: var(--font-size);
   font-weight: $fontNormal;
   letter-spacing: .025rem;
 
@@ -164,6 +164,16 @@ td {
 
     .p-dialog-content {
       padding: 0 1.5rem 1.5rem 1.5rem;
+    }
+
+    &.without-title {
+      .p-dialog-header {
+        border: 0 !important;
+      }
+
+      .p-dialog-header * {
+        display: none;
+      }
     }
   }
 
@@ -394,6 +404,11 @@ input.p-inputtext-lg {
   }
 }
 
+.p-inputtext {
+  height: 3rem;
+  line-height: 1.6rem;
+}
+
 .p-carousel {
   .p-card-title {
     color: $primary;
@@ -433,6 +448,20 @@ input.p-inputtext-lg {
     }
   }
 }
+
+.p-tabview .p-tabview-panels {
+  padding: 0;
+}
+
+.p-datatable .p-datatable-header {
+  background: lighten(#dee2e6, 2.5%);
+  border-top: 0;
+  padding: .75rem !important;
+}
+
+.p-dropdown-label {
+  text-transform: none !important;
+}
 /* ----- OVERRIDES ----- */
 
 .theme-light .primary-navigation .router-link-active:not(.disabled) {
@@ -444,6 +473,7 @@ input.p-inputtext-lg {
 .nav-wrapper {
   height: calc(100% - 60px);
   overflow-y: auto;
+  background: var(--background-light-yellow);
 }
 
 .primary-navigation {
@@ -484,6 +514,7 @@ input.p-inputtext-lg {
 
 .header-height {
   height: $headerHeight;
+  background: var(--background-light-yellow);
 }
 
 .login-screen {
@@ -617,4 +648,12 @@ input.p-inputtext-lg {
       background: darken($color: #fff, $amount: 5%) !important;
     }
   }
+}
+
+.p-input-icon-right>svg {
+  right: 1rem;
+}
+
+.pointer {
+  cursor: pointer;
 }

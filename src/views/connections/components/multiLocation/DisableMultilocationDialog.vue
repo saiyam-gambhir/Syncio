@@ -2,14 +2,14 @@
 import { useConnectionsStore } from '@/stores/connections'
 import { useToasts } from '@/composables/toasts'
 
-/* ----- COMPONENTS ----- */
+/* ----- Components ----- */
 import DialogWrapper from '@/components/shared/DialogWrapper.vue'
 
-/* ----- DATA ----- */
+/* ----- Data ----- */
 const { showToast } = useToasts()
 const connectionsStore = useConnectionsStore()
 
-/* ----- METHODS ----- */
+/* ----- Methods ----- */
 const closeDialogHandler = () => {
   connectionsStore.isDisableMultilocationRequested = false
   connectionsStore.isMultilocationEnabled = 'On'

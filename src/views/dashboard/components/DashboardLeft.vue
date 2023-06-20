@@ -3,11 +3,11 @@ import { useConnectionsStore } from '@/stores/connections'
 import { useFilters } from '@/composables/filters'
 import { useToasts } from '@/composables/toasts'
 
-/* ----- COMPONENTS ----- */
+/* ----- Components ----- */
 import AppLink from '@/components/shared/AppLink.vue'
 import CardWrapper from '@/views/dashboard/components/CardWrapper.vue'
 
-/* ----- DATA ----- */
+/* ----- Data ----- */
 const { copyToClipBoard } = useFilters()
 const { showToast } = useToasts()
 const connections = useConnectionsStore()

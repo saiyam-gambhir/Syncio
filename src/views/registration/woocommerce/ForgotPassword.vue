@@ -2,10 +2,10 @@
 import { useAuthStore } from '@/stores/auth'
 import { computed } from 'vue'
 
-/* ----- DATA ----- */
+/* ----- Data ----- */
 const auth = useAuthStore()
 
-/* ----- COMPUTED ----- */
+/* ----- Computed ----- */
 const isFormDisabled = computed(() => {
   return auth.forgotPasswordForm.email.length === 0
 })

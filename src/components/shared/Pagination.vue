@@ -1,13 +1,13 @@
 <script setup>
 import { onMounted, ref, watch } from 'vue'
 
-/* ----- COMPONENTS ----- */
+/* ----- Components ----- */
 import IconPageFirst from '@/components/icons/IconPageFirst.vue'
 import IconPageLast from '@/components/icons/IconPageLast.vue'
 import IconPageNext from '@/components/icons/IconPageNext.vue'
 import IconPagePrev from '@/components/icons/IconPagePrev.vue'
 
-/* ----- PROPS ----- */
+/* ----- Props ----- */
 const props = defineProps({
   pagination: {
     type: Object,
@@ -15,7 +15,7 @@ const props = defineProps({
   }
 })
 
-/* ----- DATA ----- */
+/* ----- Data ----- */
 const entriesEndingAt = ref(null)
 const entriesStartingFrom = ref(null)
 
@@ -30,7 +30,7 @@ watch(() => props.pagination, (newValue, oldValue) => {
   setEntries()
 })
 
-/* ----- METHODS ----- */
+/* ----- Methods ----- */
 const goToFirstPage = () => {
   emits('updateCurrentPage', 1)
 }

@@ -43,6 +43,7 @@ import SpeedDial from 'primevue/speeddial'
 import TabPanel from 'primevue/tabpanel'
 import TabView from 'primevue/tabview'
 import Tag from 'primevue/tag'
+import Textarea from 'primevue/textarea'
 import Toast from 'primevue/toast'
 import ToastService from 'primevue/toastservice'
 import Tooltip from 'primevue/tooltip'
@@ -112,6 +113,7 @@ app
 .component('TabPanel', TabPanel)
 .component('TabView', TabView)
 .component('Tag', Tag)
+.component('Textarea', Textarea)
 .component('Toast', Toast)
 .component('VueDatePicker', VueDatePicker)
 .directive('ripple', Ripple)

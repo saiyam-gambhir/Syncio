@@ -4,7 +4,7 @@ import { useAuthStore } from '@/stores/auth'
 import { useOrders } from './composables/orders'
 import { useRouter } from 'vue-router'
 
-/* ----- COMPONENTS ----- */
+/* ----- Components ----- */
 import AppLink from '@/components/shared/AppLink.vue'
 import BulkSelectedCount from '@/components/shared/BulkSelectedCount.vue'
 import CheckboxWrapper from '@/components/shared/CheckboxWrapper.vue'
@@ -13,7 +13,7 @@ import OrdersViewSkeleton from './OrdersViewSkeleton.vue'
 import PageHeader from '@/components/shared/PageHeader.vue'
 const OrderDetails = defineAsyncComponent(() => import('./components/OrderDetails.vue'))
 
-/* ----- DATA ----- */
+/* ----- Data ----- */
 const { fetchOrder, fetchOrders, fetchPushSettings, getOrderStatus, orders, setAutoPushStatus, toggleAutoPush } = useOrders()
 const auth = useAuthStore()
 const options = ref(['Off', 'On'])
@@ -30,7 +30,7 @@ onMounted(async () => {
   setAutoPushStatus()
 })
 
-/* ----- METHODS ----- */
+/* ----- Methods ----- */
 const fetchOrdersHandler = async () => {
   fetchOrders()
 }

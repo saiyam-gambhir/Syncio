@@ -2,7 +2,7 @@
 import { onMounted, ref } from 'vue'
 import { useConnectionsStore } from '@/stores/connections'
 
-/* ----- PROPS ----- */
+/* ----- Props ----- */
 const props = defineProps({
   connection: {
     type: Object,
@@ -10,7 +10,7 @@ const props = defineProps({
   }
 })
 
-/* ----- DATA ----- */
+/* ----- Data ----- */
 const connectionsStore = useConnectionsStore()
 const selectedLocation = ref(null)
 const selectedLocationId = ref(null)
@@ -20,7 +20,7 @@ onMounted(() => {
   selectedLocation.value = props.connection?.destination_default_inventory_location?.name
 })
 
-/* ----- METHODS ----- */
+/* ----- Methods ----- */
 const onChangeHandler = (event) => {
   let selectedLocation = connectionsStore.destinationLocations.filter(location => location.name.toLowerCase() === event.value.toLowerCase())
   selectedLocationId.value = selectedLocation[0].id
