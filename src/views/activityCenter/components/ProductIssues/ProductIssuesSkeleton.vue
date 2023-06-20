@@ -5,37 +5,30 @@ import { useActivities } from '../../composables/activities'
 import SearchFilter from '@/components/shared/SearchFilter.vue'
 import StoresFilter from '@/components/shared/StoresFilter.vue'
 
+/* ----- Data ----- */
 const { activityCenter } = useActivities()
 </script>
 
 <template>
-  <DataTable :value="[{},{},{},{},{}]" responsiveLayout="scroll" showGridlines>
+  <DataTable :value="[{}, {}, {}, {}, {}]" responsiveLayout="scroll" showGridlines>
 
     <template #header>
       <div class="flex align-items-center justify-content-between">
         <div class="p-inputgroup w-50">
-          <SearchFilter
-            :loading="activityCenter.loadingActivities"
-            placeholder="Search by product name or SKU"
+          <SearchFilter :loading="activityCenter.loadingActivities" placeholder="Search by product name or SKU"
             v-model="activityCenter.productQueries.search_str">
           </SearchFilter>
         </div>
 
         <div class="flex w-50 align-items-center justify-content-end">
           <div class="p-inputgroup w-35">
-            <StoresFilter
-              :loading="activityCenter.loadingActivities"
+            <StoresFilter :loading="activityCenter.loadingActivities"
               v-model="activityCenter.productQueries.partner_store_id" />
           </div>
 
           <div class="p-inputgroup w-35 ml-4">
-            <Dropdown
-              :autoOptionFocus="false"
-              :loading="activityCenter.loadingActivities"
-              :options="activityCenter.productEvents"
-              optionLabel="label"
-              optionValue="value"
-              placeholder="All Events"
+            <Dropdown :autoOptionFocus="false" :loading="activityCenter.loadingActivities"
+              :options="activityCenter.productEvents" optionLabel="label" optionValue="value" placeholder="All Events"
               v-model="activityCenter.productQueries['filters[event]']">
             </Dropdown>
           </div>

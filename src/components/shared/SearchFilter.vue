@@ -32,17 +32,6 @@ const handleSearch = () => {
 </script>
 
 <template>
-  <InputText
-    :placeholder="placeholder"
-    @keyup.enter="handleSearch"
-    autocomplete="off"
-    v-model="searchText">
-  </InputText>
-
-  <Button
-    :disabled="!searchText"
-    :loading="loading"
-    @click="handleSearch"
-    icon="pi pi-search">
-  </Button>
+  <InputText :placeholder="placeholder" @keyup.enter="handleSearch" v-model="searchText" />
+  <Button :disabled="!searchText" :loading="loading" @click="handleSearch" icon="pi pi-search" />
 </template>

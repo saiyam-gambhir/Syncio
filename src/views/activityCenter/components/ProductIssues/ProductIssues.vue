@@ -29,37 +29,29 @@ const storeFilterHandler = storeId => {
     <template #empty>
       <div class="px-4 py-4 text-center">
         <h2 class="m-0">Hurray 🎉</h2>
-        <p>You have no Product issues at this time.<br> If you notice something isn't right with your sync,<br> check back here to see if there are any issues and how to fix them.</p>
+        <p>You have no Product issues at this time.<br> If you notice something isn't right with your sync,<br> check back
+          here to see if there are any issues and how to fix them.</p>
       </div>
     </template>
 
     <template #header>
       <div class="flex align-items-center justify-content-between">
         <div class="p-inputgroup w-50">
-          <SearchFilter
-            @update:modelValue="searchHandler"
-            placeholder="Search by product name or SKU"
+          <SearchFilter @update:modelValue="searchHandler" placeholder="Search by product name or SKU"
             v-model="activityCenter.productQueries.search_str">
           </SearchFilter>
         </div>
 
         <div class="flex w-50 align-items-center justify-content-end">
           <div class="p-inputgroup w-35">
-            <StoresFilter
-              @update:modelValue="storeFilterHandler"
+            <StoresFilter @update:modelValue="storeFilterHandler"
               v-model="activityCenter.productQueries.partner_store_id">
             </StoresFilter>
           </div>
 
           <div class="p-inputgroup w-35 ml-4">
-            <Dropdown
-              :autoOptionFocus="false"
-              :options="activityCenter.productEvents"
-              @change="fetchActivitiesHandler"
-              optionLabel="label"
-              optionValue="value"
-              placeholder="All Events"
-              showClear
+            <Dropdown :autoOptionFocus="false" :options="activityCenter.productEvents" @change="fetchActivitiesHandler"
+              optionLabel="label" optionValue="value" placeholder="All Events" showClear
               v-model="activityCenter.productQueries['filters[event]']">
             </Dropdown>
           </div>
@@ -89,7 +81,8 @@ const storeFilterHandler = storeId => {
       <template #body="{ data }">
         <div class="flex pointer" @click="searchHandler(data.data?.name)">
           <figure class="m-0">
-            <img v-if="data.data?.image" :src="data.data.image" :alt="data.data.name" style="width: 32px; padding: 2px; border: 1px solid rgb(231, 231, 231);">
+            <img v-if="data.data?.image" :src="data.data.image" :alt="data.data.name"
+              style="width: 32px; padding: 2px; border: 1px solid rgb(231, 231, 231);">
           </figure>
           <div class="flex flex-column ml-2">
             <span v-if="data.data?.name" class="font-semibold text-sm text-blue-500">{{ data.data.name }}</span>
@@ -117,7 +110,8 @@ const storeFilterHandler = storeId => {
 
     <Column header="Actions" style="width: 10%;" class="text-right">
       <template #body="{ data: { id } }">
-        <Button icon="pi pi-trash" class="p-button-rounded p-button-outlined p-button-danger" v-tooltip.top="'Dismiss'" @click="deleteActivityHandler(id)"></Button>
+        <Button icon="pi pi-trash" class="p-button-rounded p-button-outlined p-button-danger" v-tooltip.top="'Dismiss'"
+          @click="deleteActivityHandler(id)"></Button>
       </template>
     </Column>
   </DataTable>

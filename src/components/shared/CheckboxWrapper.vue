@@ -24,10 +24,6 @@ const onInputHandler = () => {
 </script>
 
 <template>
-  <Checkbox
-    :binary="true"
-    :class="{ 'hidden': disabled }"
-    :disabled="disabled"
-    @change="onInputHandler(isChecked)"
+  <Checkbox :binary="true" :class="{ 'hidden': disabled }" :disabled="disabled" @change="onInputHandler(isChecked)"
     v-model="props.isChecked" />
 </template>
