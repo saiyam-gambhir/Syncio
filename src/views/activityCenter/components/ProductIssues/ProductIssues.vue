@@ -59,6 +59,7 @@ const storeFilterHandler = storeId => {
               optionLabel="label"
               optionValue="value"
               placeholder="All Events"
+              showClear
               v-model="activityCenter.productQueries['filters[event]']">
             </Dropdown>
           </div>

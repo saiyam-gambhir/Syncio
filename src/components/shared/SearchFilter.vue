@@ -6,6 +6,11 @@ const searchText = ref(props.modelValue)
 
 /* ----- Props ----- */
 const props = defineProps({
+  loading: {
+    type: Boolean,
+    required: false
+  },
+
   modelValue: {
     type: String,
     required: true,
@@ -27,6 +32,17 @@ const handleSearch = () => {
 </script>
 
 <template>
-  <InputText v-model="searchText" :placeholder="placeholder" @keyup.enter="handleSearch" autocomplete="off" />
-  <Button icon="pi pi-search" @click="handleSearch" :disabled="!searchText"></Button>
+  <InputText
+    :placeholder="placeholder"
+    @keyup.enter="handleSearch"
+    autocomplete="off"
+    v-model="searchText">
+  </InputText>
+
+  <Button
+    :disabled="!searchText"
+    :loading="loading"
+    @click="handleSearch"
+    icon="pi pi-search">
+  </Button>
 </template>

@@ -17,7 +17,7 @@ onMounted(async () => {
 
 /* ----- Methods ----- */
 const fetchProfilesHandler = async () => {
-	if(marketPlace.profiles) return
+	if (marketPlace.profiles) return
 
 	marketPlace.loading = true
 	await marketPlace.fetchProfiles()

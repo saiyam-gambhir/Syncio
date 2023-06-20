@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import deepmerge from 'deepmerge'
 
-/* ----- ACTIONS ----- */
+/* ----- Actions ----- */
 import { deleteActivity } from './actions/deleteActivity'
 import { fetchActivities } from './actions/fetchActivities'
 
@@ -9,11 +9,11 @@ export const useActivityCenterStore = defineStore('activityCenter', {
   state: () => {
     return {
       activeTabIndex: 0,
-      generalQueries: { 'filters[event]': '', partner_store_id: '' },
+      generalQueries: { 'filters[event]': 'all_events', partner_store_id: null },
       generalUpdates: null,
       loadingActivities: false,
       orderIssues: null,
-      orderQueries: { 'filters[event]': '', partner_store_id: '', search_str: '' },
+      orderQueries: { 'filters[event]': 'all_events', partner_store_id: null, search_str: null },
       productEvents: [
         { value: 'all_events', label: 'All Events (Default)' },
         { value: 'sku', label: 'SKU' },
@@ -22,7 +22,7 @@ export const useActivityCenterStore = defineStore('activityCenter', {
         { value: 'product_import', label: 'Product Import' }
       ],
       productIssues: null,
-      productQueries: { 'filters[event]': 'all_events', partner_store_id: '', search_str: '' },
+      productQueries: { 'filters[event]': 'all_events', partner_store_id: null, search_str: null },
     }
   },
 
@@ -39,16 +39,18 @@ export const useActivityCenterStore = defineStore('activityCenter', {
     fetchActivities
   ]),
 
-  // persist: {
-  //   enabled: true,
-  //   strategies: [
-  //     {
-  //       key: 'activityCenter',
-  //       storage: sessionStorage,
-  //       paths: [
-  //         'productQueries',
-  //       ]
-  //     }
-  //   ]
-  // }
+  persist: {
+    enabled: true,
+    strategies: [
+      {
+        key: 'activityCenter',
+        storage: sessionStorage,
+        paths: [
+          'generalQueries',
+          'orderQueries',
+          'productQueries',
+        ]
+      }
+    ]
+  }
 })

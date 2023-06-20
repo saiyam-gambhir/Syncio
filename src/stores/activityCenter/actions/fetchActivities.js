@@ -7,11 +7,6 @@ import { useAuthStore } from '@/stores/auth'
 import { useFilters } from '@/composables/filters'
 
 export const fetchActivities = {
-  /**
-   * Fetches activities from the server.
-   * @returns {Promise<void>} A promise that resolves when the activities are fetched.
-  */
-
   async fetchActivities() {
     try {
       // Set the loading flag to true to indicate that activities are being fetched

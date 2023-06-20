@@ -15,6 +15,7 @@ const { activityCenter } = useActivities()
       <div class="flex align-items-center justify-content-between">
         <div class="p-inputgroup w-50">
           <SearchFilter
+            :loading="activityCenter.loadingActivities"
             placeholder="Search by product name or SKU"
             v-model="activityCenter.productQueries.search_str">
           </SearchFilter>
@@ -22,12 +23,15 @@ const { activityCenter } = useActivities()
 
         <div class="flex w-50 align-items-center justify-content-end">
           <div class="p-inputgroup w-35">
-            <StoresFilter v-model="activityCenter.productQueries.partner_store_id" />
+            <StoresFilter
+              :loading="activityCenter.loadingActivities"
+              v-model="activityCenter.productQueries.partner_store_id" />
           </div>
 
           <div class="p-inputgroup w-35 ml-4">
             <Dropdown
               :autoOptionFocus="false"
+              :loading="activityCenter.loadingActivities"
               :options="activityCenter.productEvents"
               optionLabel="label"
               optionValue="value"

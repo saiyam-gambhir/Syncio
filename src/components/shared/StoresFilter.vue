@@ -1,15 +1,18 @@
 <script setup>
-import { ref } from 'vue'
 import { useConnectionsStore } from '@/stores/connections'
 
 /* ----- Data ----- */
 const connections = useConnectionsStore()
-const selectedStore = ref(props.modelValue)
 
 /* ----- Props ----- */
 const props = defineProps({
+  loading: {
+    type: Boolean,
+    required: false
+  },
+
   modelValue: {
-    type: String,
+    type: [Number, String],
     required: true,
   },
 
@@ -21,22 +24,18 @@ const props = defineProps({
 
 /* ----- Emits ----- */
 const emits = defineEmits(['update:modelValue'])
-
-/* ----- Methods ----- */
-const handleSearch = () => {
-  emits('update:modelValue', `${selectedStore.value}`)
-}
 </script>
 
 <template>
   <Dropdown
     :autoOptionFocus="false"
+    :loading="loading"
     :options="connections.connections"
-    @change="handleSearch"
+    @change="$emit('update:modelValue', $event.value)"
     optionLabel="store_domain"
     optionValue="id"
     placeholder="All Stores"
     showClear
-    v-model="selectedStore">
+    v-model="props.modelValue">
   </Dropdown>
 </template>
