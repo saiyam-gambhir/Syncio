@@ -1,13 +1,13 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import * as routes from '@/routes'
-import DashboardView from '@/views/dashboard/DashboardView.vue'
-import LoggedIn from '@/layouts/LoggedIn.vue'
-import LoggedOut from '@/layouts/LoggedOut.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import * as routes from '@/routes';
+import DashboardView from '@/views/dashboard/DashboardView.vue';
+import LoggedIn from '@/layouts/LoggedIn.vue';
+import LoggedOut from '@/layouts/LoggedOut.vue';
 
 const meta = {
   layout: LoggedIn,
-  requireAuth: true
-}
+  requireAuth: true,
+};
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -17,32 +17,35 @@ const router = createRouter({
       name: routes.LOGIN,
       component: () => import('@/views/login/LoginView.vue'),
       meta: {
-        layout: LoggedOut
-      }
+        layout: LoggedOut,
+      },
     },
     {
       path: '/forgot-password',
       name: routes.FORGOT_PASSWORD,
-      component: () => import('@/views/registration/woocommerce/ForgotPassword.vue'),
+      component: () =>
+        import('@/views/registration/woocommerce/ForgotPassword.vue'),
       meta: {
-        layout: LoggedOut
-      }
+        layout: LoggedOut,
+      },
     },
     {
       path: '/reset-password',
       name: routes.RESET_PASSWORD,
-      component: () => import('@/views/registration/woocommerce/ResetPassword.vue'),
+      component: () =>
+        import('@/views/registration/woocommerce/ResetPassword.vue'),
       meta: {
-        layout: LoggedOut
-      }
+        layout: LoggedOut,
+      },
     },
     {
       path: '/registration',
       name: routes.SELECT_STORE_TYPE,
-      component: () => import('@/views/registration/woocommerce/SelectStoreType.vue'),
+      component: () =>
+        import('@/views/registration/woocommerce/SelectStoreType.vue'),
       meta: {
-        layout: LoggedOut
-      }
+        layout: LoggedOut,
+      },
     },
     {
       path: '/',
@@ -71,7 +74,8 @@ const router = createRouter({
     {
       path: '/settings/product-settings',
       name: routes.PRODUCT_SETTINGS,
-      component: () => import('@/views/productSettings/ProductSettingsView.vue'),
+      component: () =>
+        import('@/views/productSettings/ProductSettingsView.vue'),
       meta: { ...meta },
     },
     {
@@ -84,7 +88,7 @@ const router = createRouter({
       path: '/orders/push-settings',
       name: routes.PUSH_SETTINGS,
       meta: { ...meta },
-      component: () => import('@/views/orders/pushSettings/PushSettings.vue')
+      component: () => import('@/views/orders/pushSettings/PushSettings.vue'),
     },
     {
       path: '/payouts',
@@ -101,13 +105,15 @@ const router = createRouter({
     {
       path: '/settings/account-settings',
       name: routes.ACCOUNT_SETTINGS,
-      component: () => import('@/views/accountSettings/AccountSettingsView.vue'),
+      component: () =>
+        import('@/views/accountSettings/AccountSettingsView.vue'),
       meta: { ...meta },
     },
     {
       path: '/settings/plan-and-billings',
       name: routes.PLAN_AND_BILLINGS,
-      component: () => import('@/views/planAndBillings/PlanAndBillingsView.vue'),
+      component: () =>
+        import('@/views/planAndBillings/PlanAndBillingsView.vue'),
       meta: { ...meta },
     },
     {
@@ -116,7 +122,7 @@ const router = createRouter({
       component: () => import('@/views/settings/SettingsView.vue'),
       meta: { ...meta },
     },
-  ]
-})
+  ],
+});
 
-export default router
+export default router;

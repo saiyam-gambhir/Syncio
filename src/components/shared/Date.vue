@@ -1,16 +1,16 @@
 <script setup>
-import { useFilters } from '@/composables/filters'
+import { useFilters } from '@/composables/filters';
 
 /* ----- Data ----- */
-const { formatDate } = useFilters()
+const { formatDate } = useFilters();
 
 /* ----- Props ----- */
 const props = defineProps({
   date: {
     type: String,
-    required: true
-  }
-})
+    required: true,
+  },
+});
 </script>
 
 <template>

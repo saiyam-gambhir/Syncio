@@ -1,7 +1,7 @@
 export const fetchConnections = {
   async fetchConnections() {
-    const { searchString, sortBy } = this.filters
-    this.loadingConnections = true
+    const { searchString, sortBy } = this.filters;
+    this.loadingConnections = true;
 
     const response = await this.$https('stores/connections', {
       params: {
@@ -9,10 +9,10 @@ export const fetchConnections = {
         search_str: searchString,
         sort_by_desc: sortBy?.sortByDesc,
         sort_by: sortBy?.key,
-      }
-    })
+      },
+    });
 
-    this.connections = await response.data?.stores
-    this.loadingConnections = false
-  }
-}
+    this.connections = await response.data?.stores;
+    this.loadingConnections = false;
+  },
+};

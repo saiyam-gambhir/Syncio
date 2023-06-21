@@ -1,27 +1,31 @@
 <script setup>
-import { useConnectionsStore } from '@/stores/connections'
+import { useConnectionsStore } from '@/stores/connections';
 
 /* ----- Components ----- */
-import AppLink from '@/components/shared/AppLink.vue'
-import DialogWrapper from '@/components/shared/DialogWrapper.vue'
+import AppLink from '@/components/shared/AppLink.vue';
+import DialogWrapper from '@/components/shared/DialogWrapper.vue';
 
 /* ----- Data ----- */
-const connectionsStore = useConnectionsStore()
+const connectionsStore = useConnectionsStore();
 
 /* ----- Methods ----- */
 const closeDialogHandler = () => {
-  connectionsStore.isLocationChangeRequested = false
-}
+  connectionsStore.isLocationChangeRequested = false;
+};
 </script>
 
 <template>
-  <DialogWrapper :isVisible="connectionsStore.isLocationChangeRequested" title="Are you sure you want to change locations?" width="550px" @closeDialog="closeDialogHandler">
+  <DialogWrapper :isVisible="connectionsStore.isLocationChangeRequested"
+    title="Are you sure you want to change locations?" width="550px" @closeDialog="closeDialogHandler">
     <template #body>
       <section class="mt-1">
         <p class="mt-0">You cannot undo this action.</p>
-        <p class="mt-0">We recommend you to back up your inventory quantity before proceeding.</p>
+        <p class="mt-0">
+          We recommend you to back up your inventory quantity before proceeding.
+        </p>
         <p class="mt-1">
-          <AppLink link="https://help.syncio.co/en/articles/5791417-multi-locations-destination-store" label="Check out our guide" />
+          <AppLink link="https://help.syncio.co/en/articles/5791417-multi-locations-destination-store"
+            label="Check out our guide" />
         </p>
       </section>
     </template>

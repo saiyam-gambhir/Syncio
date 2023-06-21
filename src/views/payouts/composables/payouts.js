@@ -1,11 +1,11 @@
-import { usePayoutsStore } from '@/stores/payouts'
-import { useConnectionsStore } from '@/stores/connections'
-import { useToasts } from '@/composables/toasts'
+import { usePayoutsStore } from '@/stores/payouts';
+import { useConnectionsStore } from '@/stores/connections';
+import { useToasts } from '@/composables/toasts';
 
 export function usePayouts() {
-  const { showToast } = useToasts()
-  const { storeId } = useConnectionsStore()
-  const payouts = usePayoutsStore()
+  const { showToast } = useToasts();
+  const { storeId } = useConnectionsStore();
+  const payouts = usePayoutsStore();
   const {
     fetchPaidPayouts,
     fetchPayableOrders,
@@ -14,32 +14,32 @@ export function usePayouts() {
     SET_DATE_RANGE_FILTER,
     SET_STATUS_FILTER,
     updatePayout,
-  } = usePayoutsStore()
+  } = usePayoutsStore();
 
   const fetchPayableOrdersHandler = async () => {
-    await fetchPayableOrders(storeId)
-  }
+    await fetchPayableOrders(storeId);
+  };
 
   const fetchPayablePayoutsHandler = async targetStoreId => {
-    await fetchPayablePayouts({ targetStoreId })
-  }
+    await fetchPayablePayouts({ targetStoreId });
+  };
 
   const fetchUnpaidPayoutsHandler = async () => {
-    SET_STATUS_FILTER('unpaid')
-    await fetchUnpaidPayouts()
-  }
+    SET_STATUS_FILTER('unpaid');
+    await fetchUnpaidPayouts();
+  };
 
   const fetchPaidPayoutsHandler = async () => {
-    SET_STATUS_FILTER('paid_received')
-    await fetchPaidPayouts(storeId)
-  }
+    SET_STATUS_FILTER('paid_received');
+    await fetchPaidPayouts(storeId);
+  };
 
   const updatePayoutHandler = async ({ payout_id, status, activeTabIndex }) => {
-    const payload = { current_store_id: storeId, payout_id, status }
-    const message = await updatePayout(payload)
-    payouts.$patch({ activeTabIndex })
-    showToast({ message })
-  }
+    const payload = { current_store_id: storeId, payout_id, status };
+    const message = await updatePayout(payload);
+    payouts.$patch({ activeTabIndex });
+    showToast({ message });
+  };
 
   return {
     fetchPaidPayoutsHandler,
@@ -48,5 +48,5 @@ export function usePayouts() {
     fetchUnpaidPayoutsHandler,
     payouts,
     updatePayoutHandler,
-  }
+  };
 }

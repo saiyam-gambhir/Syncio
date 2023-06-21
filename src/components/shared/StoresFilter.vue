@@ -1,14 +1,14 @@
 <script setup>
-import { useConnectionsStore } from '@/stores/connections'
+import { useConnectionsStore } from '@/stores/connections';
 
 /* ----- Data ----- */
-const connections = useConnectionsStore()
+const connections = useConnectionsStore();
 
 /* ----- Props ----- */
 const props = defineProps({
   loading: {
     type: Boolean,
-    required: false
+    required: false,
   },
 
   modelValue: {
@@ -18,24 +18,17 @@ const props = defineProps({
 
   placeholder: {
     type: String,
-    required: false
-  }
-})
+    required: false,
+  },
+});
 
 /* ----- Emits ----- */
-const emits = defineEmits(['update:modelValue'])
+const emits = defineEmits(['update:modelValue']);
 </script>
 
 <template>
-  <Dropdown
-    :autoOptionFocus="false"
-    :loading="loading"
-    :options="connections.connections"
-    @change="$emit('update:modelValue', $event.value)"
-    optionLabel="store_domain"
-    optionValue="id"
-    placeholder="All Stores"
-    showClear
-    v-model="props.modelValue">
+  <Dropdown :autoOptionFocus="false" :loading="loading" :options="connections.connections"
+    @change="$emit('update:modelValue', $event.value)" optionLabel="store_domain" optionValue="id"
+    placeholder="All Stores" showClear v-model="props.modelValue">
   </Dropdown>
 </template>

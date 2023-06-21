@@ -6,7 +6,7 @@
       border: 0.0625rem solid transparent;
       margin: 0 0 1.875rem 0;
       padding: 0.625rem 1rem 0.3125rem 1rem;
-      transition: .25s;
+      transition: 0.25s;
 
       &:hover {
         scale: 1.01;
@@ -23,7 +23,7 @@
         padding: 1rem 0 3rem 0;
 
         .p-button-sm {
-          bottom: .65rem;
+          bottom: 0.65rem;
         }
       }
     }
@@ -61,7 +61,7 @@
       align-items: center;
       bottom: 0;
       display: flex;
-      padding: .5rem;
+      padding: 0.5rem;
       width: 100%;
     }
 

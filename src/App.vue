@@ -1,30 +1,32 @@
 <script setup>
-import { defineAsyncComponent, watch } from 'vue'
-import { useBattery, useOnline } from '@vueuse/core'
-import { useAuthStore } from '@/stores/auth'
+import { defineAsyncComponent, watch } from 'vue';
+import { useBattery, useOnline } from '@vueuse/core';
+import { useAuthStore } from '@/stores/auth';
 
 /* ===== COMPONENTS ===== */
-import Loading from './Loading.vue'
-import NetworkDialog from './components/shared/NetworkDialog.vue'
-const BatteryLowDialog = defineAsyncComponent(() => import('./components/shared/BatteryLowDialog.vue'))
+import Loading from './Loading.vue';
+import NetworkDialog from './components/shared/NetworkDialog.vue';
+const BatteryLowDialog = defineAsyncComponent(() =>
+  import('./components/shared/BatteryLowDialog.vue')
+);
 
 /* ===== DATA ===== */
-const { charging, level } = useBattery()
-const online = useOnline()
-const auth = useAuthStore()
+const { charging, level } = useBattery();
+const online = useOnline();
+const auth = useAuthStore();
 
 /* ===== WATCHER ===== */
 watch(online, () => {
-  if(!online.value) {
-    auth.isNetworkDialogVisible = true
+  if (!online.value) {
+    auth.isNetworkDialogVisible = true;
   }
-})
+});
 
 watch(level, () => {
-  if(level.value < .21 && !charging.value) {
-    auth.isBatteryLowDialogVisible = true
+  if (level.value < 0.21 && !charging.value) {
+    auth.isBatteryLowDialogVisible = true;
   }
-})
+});
 </script>
 
 <template>

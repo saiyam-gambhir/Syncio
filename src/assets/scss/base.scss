@@ -7,22 +7,22 @@
   --container-width: 1240px;
 
   /* ----- Colors ----- */
-  --background-light-yellow: #FFFCF5;
-  --banner-background: #F3FAFF;
-  --border-color: #EEEEEE;
+  --background-light-yellow: #fffcf5;
+  --banner-background: #f3faff;
+  --border-color: #eeeeee;
   --border: #ced4da;
   --box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.15);
-  --disabled-button: #BBBBBB;
+  --disabled-button: #bbbbbb;
   --heading-light: #495057;
-  --image-placeholder-background: #F4F4F4;
-  --indicator-background: #C7C7C7;
-  --input-background: #FAFAFA;
-  --link: #0D99FF;
-  --primary-color: #0E3B4D;
+  --image-placeholder-background: #f4f4f4;
+  --indicator-background: #c7c7c7;
+  --input-background: #fafafa;
+  --link: #0d99ff;
+  --primary-color: #0e3b4d;
   --text-dark: #212121;
   --text-light: #757575;
   --text-medium: #616161;
-  --white: #FFFFFF;
+  --white: #ffffff;
 }
 
 html {
@@ -30,7 +30,7 @@ html {
   font-family: 'Inter Tight', sans-serif;
   font-size: var(--font-size);
   font-weight: $fontNormal;
-  letter-spacing: .025rem;
+  letter-spacing: 0.025rem;
 
   &:not(.theme-light) {
     .logo-path {
@@ -47,7 +47,9 @@ a {
   text-decoration: none;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   font-weight: 600;
   margin-top: 0;
 }
@@ -65,13 +67,13 @@ p {
   margin: {
     left: -$gutter;
     right: -$gutter;
-  };
+  }
 
-  [class*="col-"] {
+  [class*='col-'] {
     padding: {
       left: $gutter;
       right: $gutter;
-    };
+    }
   }
 }
 
@@ -82,7 +84,7 @@ p {
 .p-tag {
   font-size: 11px !important;
   font-weight: $fontMedium !important;
-  padding: .5rem 1rem !important;
+  padding: 0.5rem 1rem !important;
   text-transform: capitalize !important;
 }
 
@@ -132,14 +134,14 @@ td {
 }
 
 .p-datatable {
-  .p-datatable-thead>tr>th {
+  .p-datatable-thead > tr > th {
     font-size: 1rem !important;
-    padding: 1rem .75rem !important;
+    padding: 1rem 0.75rem !important;
     text-transform: capitalize !important;
   }
 
-  .p-datatable-tbody>tr>td {
-    padding: .5rem .75rem !important;
+  .p-datatable-tbody > tr > td {
+    padding: 0.5rem 0.75rem !important;
   }
 }
 
@@ -190,8 +192,8 @@ td {
   }
 
   .p-button.p-button-secondary:enabled:hover,
-  .p-buttonset.p-button-secondary>.p-button:enabled:hover,
-  .p-splitbutton.p-button-secondary>.p-button:enabled:hover {
+  .p-buttonset.p-button-secondary > .p-button:enabled:hover,
+  .p-splitbutton.p-button-secondary > .p-button:enabled:hover {
     &:hover {
       background: $secondaryHoverBg;
       border-color: $primary;
@@ -279,7 +281,7 @@ td {
 
   .custom-sort {
     cursor: pointer;
-    padding: 1rem .85rem;
+    padding: 1rem 0.85rem;
     width: 100%;
   }
 }
@@ -291,7 +293,7 @@ td {
 .p-message {
   border-width: 1.5px 1.5px 1.5px 8px !important;
   color: $textPrimary !important;
-  padding: 0 .5rem !important;
+  padding: 0 0.5rem !important;
 
   &-wrapper {
     padding: 1rem !important;
@@ -331,14 +333,14 @@ td {
   border-width: 1.5px 1.5px 1.5px 6px !important;
   font-size: 1rem !important;
   font-weight: 700;
-  letter-spacing: .4px;
+  letter-spacing: 0.4px;
 
   .p-toast-detail {
-    margin-top: .4rem !important;
+    margin-top: 0.4rem !important;
   }
 
   .p-toast-message-content {
-    padding: .5rem 1rem !important;
+    padding: 0.5rem 1rem !important;
   }
 
   &-error {
@@ -391,7 +393,7 @@ td {
 
 .p-datatable {
   &-header {
-    padding: 1rem .7rem !important;
+    padding: 1rem 0.7rem !important;
   }
 }
 
@@ -456,7 +458,7 @@ input.p-inputtext-lg {
 .p-datatable .p-datatable-header {
   background: lighten(#dee2e6, 2%);
   border-top: 0;
-  padding: .75rem !important;
+  padding: 0.75rem !important;
 }
 
 .p-dropdown-label {
@@ -465,7 +467,11 @@ input.p-inputtext-lg {
 /* ----- OVERRIDES ----- */
 
 .theme-light .primary-navigation .router-link-active:not(.disabled) {
-  background: linear-gradient(90deg, rgba(252, 176, 87, 0.5) 33.33%, rgba(250, 117, 123, 0.5) 66.66%);
+  background: linear-gradient(
+    90deg,
+    rgba(252, 176, 87, 0.5) 33.33%,
+    rgba(250, 117, 123, 0.5) 66.66%
+  );
   color: $primary !important;
   font-weight: $fontMedium;
 }
@@ -473,7 +479,7 @@ input.p-inputtext-lg {
 .nav-wrapper {
   height: calc(100% - 60px);
   overflow-y: auto;
-  background: var(--background-light-yellow);
+  background: #f8f9fa;
 }
 
 .primary-navigation {
@@ -489,7 +495,7 @@ input.p-inputtext-lg {
   }
 
   .disabled {
-    opacity: .5;
+    opacity: 0.5;
   }
 
   .pending-icon {
@@ -514,15 +520,19 @@ input.p-inputtext-lg {
 
 .header-height {
   height: $headerHeight;
-  background: var(--background-light-yellow);
+  background: #f8f9fa;
 }
 
 .login-screen {
-  background: linear-gradient(90deg,rgba(252,176,87,.5) 33.33%,rgba(250,117,123,.5) 66.66%);
+  background: linear-gradient(
+    90deg,
+    rgba(252, 176, 87, 0.5) 33.33%,
+    rgba(250, 117, 123, 0.5) 66.66%
+  );
   position: relative;
 
   &:before {
-    background: rgba(255,255,255,.5);
+    background: rgba(255, 255, 255, 0.5);
     content: '';
     height: 100%;
     left: 0;
@@ -544,20 +554,20 @@ input.p-inputtext-lg {
 }
 
 .p-error {
-  font-size: .9rem;
+  font-size: 0.9rem;
   font-weight: 600;
 }
 
 .page-header {
   p {
     font-size: 1.1rem;
-    letter-spacing: .1rem;
-    margin-top: .5rem !important;
+    letter-spacing: 0.1rem;
+    margin-top: 0.5rem !important;
   }
 }
 
 .tabular-nums {
-  font-variant-numeric: tabular-nums
+  font-variant-numeric: tabular-nums;
 }
 
 .fade-enter-active,
@@ -570,7 +580,6 @@ input.p-inputtext-lg {
   opacity: 0;
 }
 
-
 .btn-shine {
   position: relative;
 
@@ -579,7 +588,7 @@ input.p-inputtext-lg {
     right: 125px;
     height: 100%;
     width: 5px;
-    background: rgba(255, 255, 255, .4);
+    background: rgba(255, 255, 255, 0.4);
     animation: shineAnimation 5s infinite;
     position: absolute;
   }
@@ -589,7 +598,7 @@ input.p-inputtext-lg {
     right: 118px;
     height: 100%;
     width: 5px;
-    background: rgba(255, 255, 255, .4);
+    background: rgba(255, 255, 255, 0.4);
     animation: shineAnimation-1 5s infinite;
     position: absolute;
   }
@@ -621,7 +630,7 @@ input.p-inputtext-lg {
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: all .35s;
+  transition: all 0.35s;
 }
 .fade-enter-from,
 .fade-leave-to {
@@ -633,7 +642,7 @@ input.p-inputtext-lg {
   color: #fff;
   border-radius: 0 0 12px 12px;
   left: 50%;
-  padding: .6rem 1rem;
+  padding: 0.6rem 1rem;
   position: fixed;
   top: -0;
   transform: translateX(-50%);
@@ -650,7 +659,7 @@ input.p-inputtext-lg {
   }
 }
 
-.p-input-icon-right>svg {
+.p-input-icon-right > svg {
   right: 1rem;
 }
 

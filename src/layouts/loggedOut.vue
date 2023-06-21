@@ -1,9 +1,9 @@
 <script setup>
-import { computed, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
+import { computed, onMounted } from 'vue';
+import { useRoute } from 'vue-router';
 
 /* ----- Components ----- */
-import Logo from '@/icons/Logo.vue'
+import Logo from '@/icons/Logo.vue';
 </script>
 
 <template>

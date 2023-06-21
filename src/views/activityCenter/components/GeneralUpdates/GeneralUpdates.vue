@@ -1,19 +1,19 @@
 <script setup>
-import { useActivities } from '../../composables/activities'
+import { useActivities } from '../../composables/activities';
 
 /* ----- Components ----- */
-import AppLink from '@/components/shared/AppLink.vue'
-import GeneralUpdatesSkeleton from './GeneralUpdatesSkeleton.vue'
+import AppLink from '@/components/shared/AppLink.vue';
+import GeneralUpdatesSkeleton from './GeneralUpdatesSkeleton.vue';
 
 /* ----- Data ----- */
-const { activityCenter } = useActivities()
+const { activityCenter } = useActivities();
 </script>
 
 <template>
   <GeneralUpdatesSkeleton v-if="activityCenter.loadingActivities" />
 
   <DataTable v-else :value="activityCenter.generalUpdates?.notifications" responsiveLayout="scroll" showGridlines>
-    <Column header="Date(AEST)" style="width: 7.5%;">
+    <Column header="Date(AEST)" style="width: 7.5%">
       <template #body="{ data }">
         <div class="flex flex-column">
           <span class="text-sm font-semibold">{{ data.date }}</span>
@@ -22,7 +22,7 @@ const { activityCenter } = useActivities()
       </template>
     </Column>
 
-    <Column header="Log" style="width: 25%;">
+    <Column header="Log" style="width: 25%">
       <template #body="{ data }">
         <div class="flex flex-column">
           <span class="text-sm">{{ data.title }} {{ data.subtitle }}</span>
@@ -30,7 +30,7 @@ const { activityCenter } = useActivities()
       </template>
     </Column>
 
-    <Column header="Store" style="width: 25%;">
+    <Column header="Store" style="width: 25%">
       <template #body="{ data }">
         <div class="flex flex-column">
           <span class="text-sm">{{ data.data.store_name }}</span>
@@ -38,7 +38,7 @@ const { activityCenter } = useActivities()
       </template>
     </Column>
 
-    <Column header="Details" style="width: 30%;">
+    <Column header="Details" style="width: 30%">
       <template #body="{ data }">
         <div class="flex flex-column">
           <span class="text-sm">{{ data.details.line_1 }}</span>
@@ -47,7 +47,7 @@ const { activityCenter } = useActivities()
       </template>
     </Column>
 
-    <Column header="Help" style="width: 12.5%;">
+    <Column header="Help" style="width: 12.5%">
       <template #body="{ data }">
         <AppLink v-if="data.link" label="How to fix this" :link="data.link" class="text-sm" />
         <span v-else>-</span>

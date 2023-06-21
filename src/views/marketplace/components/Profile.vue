@@ -1,44 +1,45 @@
 <script setup>
-import { computed } from 'vue'
-import { useMarketPlaceStore } from '@/stores/marketPlace'
+import { computed } from 'vue';
+import { useMarketPlaceStore } from '@/stores/marketPlace';
 
 /* ----- Components ----- */
-import AppLink from '@/components/shared/AppLink.vue'
-import IconInstagram from '@/icons/IconInstagram.vue'
-import IconNext from '@/components/icons/IconNext.vue'
-import IconPrevious from '@/components/icons/IconPrevious.vue'
+import AppLink from '@/components/shared/AppLink.vue';
+import IconInstagram from '@/icons/IconInstagram.vue';
+import IconNext from '@/components/icons/IconNext.vue';
+import IconPrevious from '@/components/icons/IconPrevious.vue';
 
 /* ----- Data ----- */
-const marketPlace = useMarketPlaceStore()
+const marketPlace = useMarketPlaceStore();
 
 /* ----- Props ----- */
 const props = defineProps({
   profile: {
     type: Object,
-    required: true
-  }
-})
+    required: true,
+  },
+});
 
 /* ----- Computed ----- */
 const profileImagesCount = computed(() => {
-  return props.profile?.coco_profile_images?.length
-})
+  return props.profile?.coco_profile_images?.length;
+});
 
 const publshedProducts = computed(() => {
-  return `${props.profile.num_of_products} published ${props.profile.num_of_products > 1 ? 'products' : 'product' }`
-})
+  return `${props.profile.num_of_products} published ${props.profile.num_of_products > 1 ? 'products' : 'product'
+    }`;
+});
 
 const instagramHandle = computed(() => {
-  return props.profile?.coco_social_media[0]?.url
-})
+  return props.profile?.coco_social_media[0]?.url;
+});
 
 /* ----- Methods ----- */
-const showMessageDialogHandler = (profile) => {
+const showMessageDialogHandler = profile => {
   marketPlace.$patch({
     isMessageDialogVisible: true,
-    selectedProfile: profile
-  })
-}
+    selectedProfile: profile,
+  });
+};
 </script>
 
 <template>
@@ -47,14 +48,8 @@ const showMessageDialogHandler = (profile) => {
       <div v-if="profileImagesCount === 0" class="profile__image">
         <div class="image no-profile-image"></div>
       </div>
-      <Carousel
-        :numScroll="1"
-        :numVisible="1"
-        :showIndicators="profileImagesCount > 1"
-        :showNavigators="profileImagesCount > 1"
-        :value="profile.coco_profile_images"
-        circular
-        v-else>
+      <Carousel :numScroll="1" :numVisible="1" :showIndicators="profileImagesCount > 1"
+        :showNavigators="profileImagesCount > 1" :value="profile.coco_profile_images" circular v-else>
         <template #previousicon>
           <IconPrevious />
         </template>

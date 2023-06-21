@@ -1,11 +1,11 @@
-import { defineStore } from 'pinia'
-import deepmerge from 'deepmerge'
+import { defineStore } from 'pinia';
+import deepmerge from 'deepmerge';
 
 /* ----- ACTIONS ----- */
-import { fetchPaidPayouts } from './actions/api/fetchPaidPayouts'
-import { fetchPayableOrders } from './actions/api/fetchPayableOrders'
-import { setDateRangeFilter } from './actions/state/setDateRangeFilter'
-import { setStatusFilter } from './actions/state/setStatusFilter'
+import { fetchPaidPayouts } from './actions/api/fetchPaidPayouts';
+import { fetchPayableOrders } from './actions/api/fetchPayableOrders';
+import { setDateRangeFilter } from './actions/state/setDateRangeFilter';
+import { setStatusFilter } from './actions/state/setStatusFilter';
 
 export const usePayoutsStore = defineStore('payouts', {
   state: () => {
@@ -22,8 +22,8 @@ export const usePayoutsStore = defineStore('payouts', {
       queries: {
         'filters[date_range]': null,
         'filters[status]': null,
-      }
-    }
+      },
+    };
   },
 
   actions: deepmerge.all([
@@ -39,10 +39,8 @@ export const usePayoutsStore = defineStore('payouts', {
       {
         key: 'payouts',
         storage: sessionStorage,
-        paths: [
-          'activeTabIndex',
-        ]
-      }
-    ]
-  }
-})
+        paths: ['activeTabIndex'],
+      },
+    ],
+  },
+});

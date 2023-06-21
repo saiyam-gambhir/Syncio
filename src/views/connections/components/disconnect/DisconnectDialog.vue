@@ -1,42 +1,53 @@
 <script setup>
-import { defineAsyncComponent } from 'vue'
-import { useConnectionsStore } from '@/stores/connections'
+import { defineAsyncComponent } from 'vue';
+import { useConnectionsStore } from '@/stores/connections';
 
 /* ----- Components ----- */
-import DialogWrapper from '@/components/shared/DialogWrapper.vue'
-import IconLinkOff from '@/icons/IconLinkOff.vue'
-const DisconnectAndDeleteDialog = defineAsyncComponent(() => import('@/views/connections/components/disconnect/DisconnectAndDeleteDialog.vue'))
-const DisconnectAndKeepDialog = defineAsyncComponent(() => import('@/views/connections/components/disconnect/DisconnectAndKeepDialog.vue'))
+import DialogWrapper from '@/components/shared/DialogWrapper.vue';
+import IconLinkOff from '@/icons/IconLinkOff.vue';
+const DisconnectAndDeleteDialog = defineAsyncComponent(() =>
+  import(
+    '@/views/connections/components/disconnect/DisconnectAndDeleteDialog.vue'
+  )
+);
+const DisconnectAndKeepDialog = defineAsyncComponent(() =>
+  import(
+    '@/views/connections/components/disconnect/DisconnectAndKeepDialog.vue'
+  )
+);
 
 /* ----- Data ----- */
-const connectionsStore = useConnectionsStore()
-const { isConnectionDisconnectRequested } = useConnectionsStore()
+const connectionsStore = useConnectionsStore();
+const { isConnectionDisconnectRequested } = useConnectionsStore();
 
 /* ----- Methods ----- */
 const closeDialogHandler = () => {
-  connectionsStore.isConnectionDisconnectRequested = false
-}
+  connectionsStore.isConnectionDisconnectRequested = false;
+};
 
 const showDisconnectAndDeleteDialog = () => {
-  connectionsStore.isDisconnectAndDeleteRequested = true
-}
+  connectionsStore.isDisconnectAndDeleteRequested = true;
+};
 
 const showDisconnectAndKeepDialog = () => {
-  connectionsStore.isDisconnectAndKeepRequested = true
-}
+  connectionsStore.isDisconnectAndKeepRequested = true;
+};
 </script>
 
 <template>
-  <DialogWrapper :isVisible="isConnectionDisconnectRequested" title="Select a disconnect option" width="725px" @closeDialog="closeDialogHandler" :showFooter="false">
+  <DialogWrapper :isVisible="isConnectionDisconnectRequested" title="Select a disconnect option" width="725px"
+    @closeDialog="closeDialogHandler" :showFooter="false">
     <template #body>
       <section class="grid">
-
         <div class="col-12 md:col-12 lg:col-6">
           <div class="surface-card shadow-2 border-round text-center p-4 pt-7">
             <IconLinkOff />
             <h2 class="mb-3 mt-4">Disconnect and Keep</h2>
-            <p class="mt-0">Unsync without deleting the product from your destination store.</p>
-            <Button class="p-button-lg block w-100 font-semibold mt-6" @click="showDisconnectAndKeepDialog">Disconnect and Keep</Button>
+            <p class="mt-0">
+              Unsync without deleting the product from your destination store.
+            </p>
+            <Button class="p-button-lg block w-100 font-semibold mt-6" @click="showDisconnectAndKeepDialog">Disconnect and
+              Keep</Button>
           </div>
         </div>
 
@@ -44,11 +55,13 @@ const showDisconnectAndKeepDialog = () => {
           <div class="surface-card shadow-2 border-round text-center p-4 pt-7">
             <i class="pi pi-trash icon-trash"></i>
             <h2 class="mb-3 mt-4">Disconnect and Delete</h2>
-            <p class="mt-0">Unsync and delete the product from your destination store.</p>
-            <Button severity="danger" class="p-button-lg block w-100 font-semibold mt-6" @click="showDisconnectAndDeleteDialog">Disconnect and Delete</Button>
+            <p class="mt-0">
+              Unsync and delete the product from your destination store.
+            </p>
+            <Button severity="danger" class="p-button-lg block w-100 font-semibold mt-6"
+              @click="showDisconnectAndDeleteDialog">Disconnect and Delete</Button>
           </div>
         </div>
-
       </section>
     </template>
   </DialogWrapper>

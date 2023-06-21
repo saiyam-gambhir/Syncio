@@ -1,24 +1,24 @@
 <script setup>
-import { ref, watch } from 'vue'
-import { useDebounceFn } from '@vueuse/core'
-import { useMarketPlaceStore } from '@/stores/marketPlace'
+import { ref, watch } from 'vue';
+import { useDebounceFn } from '@vueuse/core';
+import { useMarketPlaceStore } from '@/stores/marketPlace';
 
 /* ----- Data ----- */
-const marketPlace = useMarketPlaceStore()
-const searchString = ref('')
+const marketPlace = useMarketPlaceStore();
+const searchString = ref('');
 
 /* ----- Methods -----*/
-const debouncedSearch = useDebounceFn( async () => {
-  await marketPlace.fetchProfiles()
-}, 500)
+const debouncedSearch = useDebounceFn(async () => {
+  await marketPlace.fetchProfiles();
+}, 500);
 
 /* ----- Watchers ----- */
 watch(searchString, async (newValue, oldValue) => {
-  if(searchString.value.length > 2 || newValue.length < oldValue.length) {
-    marketPlace.queries['search_str'] = newValue
-    debouncedSearch()
+  if (searchString.value.length > 2 || newValue.length < oldValue.length) {
+    marketPlace.queries['search_str'] = newValue;
+    debouncedSearch();
   }
-})
+});
 </script>
 
 <template>
@@ -28,10 +28,7 @@ watch(searchString, async (newValue, oldValue) => {
         <h2 class="text-3xl mb-6">Find your perfect match</h2>
         <div class="p-input-icon-left w-50">
           <i class="pi pi-search" />
-          <InputText
-            class="w-full"
-            placeholder="Search for categories or brands"
-            v-model="searchString" />
+          <InputText class="w-full" placeholder="Search for categories or brands" v-model="searchString" />
         </div>
       </div>
     </div>

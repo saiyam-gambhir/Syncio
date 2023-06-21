@@ -1,11 +1,11 @@
-import { defineStore } from 'pinia'
-import deepmerge from 'deepmerge'
+import { defineStore } from 'pinia';
+import deepmerge from 'deepmerge';
 
 /* ----- ACTIONS ----- */
-import { fetchOrder } from './actions/fetchOrder'
-import { fetchOrders } from './actions/fetchOrders'
-import { fetchPushSettings } from './actions/fetchPushSettings'
-import { toggleAutoPush } from './actions/toggleAutoPush'
+import { fetchOrder } from './actions/fetchOrder';
+import { fetchOrders } from './actions/fetchOrders';
+import { fetchPushSettings } from './actions/fetchPushSettings';
+import { toggleAutoPush } from './actions/toggleAutoPush';
 
 export const useOrdersStore = defineStore('orders', {
   state: () => {
@@ -21,17 +21,29 @@ export const useOrdersStore = defineStore('orders', {
       pushSettings: [],
       selectedOrders: [],
       sortOptions: [
-        { icon: 'pi pi-sort-alpha-up', key: 'store_domain', label: 'Date: New to Old', sortByDesc: false },
-        { icon: 'pi pi-sort-alpha-up-alt', key: 'store_domain', label: 'Date: Old to New', sortByDesc: true }
-      ]
-    }
+        {
+          icon: 'pi pi-sort-alpha-up',
+          key: 'store_domain',
+          label: 'Date: New to Old',
+          sortByDesc: false,
+        },
+        {
+          icon: 'pi pi-sort-alpha-up-alt',
+          key: 'store_domain',
+          label: 'Date: Old to New',
+          sortByDesc: true,
+        },
+      ],
+    };
   },
 
   getters: {
     autoPushStatus(state) {
-      const autoPushSetting = state.pushSettings.find(setting => setting.key === 'auto_push_order')
-      return autoPushSetting?.value
-    }
+      const autoPushSetting = state.pushSettings.find(
+        setting => setting.key === 'auto_push_order'
+      );
+      return autoPushSetting?.value;
+    },
   },
 
   actions: deepmerge.all([
@@ -47,12 +59,8 @@ export const useOrdersStore = defineStore('orders', {
       {
         key: 'orders',
         storage: sessionStorage,
-        paths: [
-          'isViewOrderDetailsRequested',
-          'order',
-          'selectedOrders',
-        ]
-      }
-    ]
-  }
-})
+        paths: ['isViewOrderDetailsRequested', 'order', 'selectedOrders'],
+      },
+    ],
+  },
+});

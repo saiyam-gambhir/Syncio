@@ -1,7 +1,7 @@
-import { useToast } from 'primevue/usetoast'
+import { useToast } from 'primevue/usetoast';
 
 export function useToasts() {
-  const toast = useToast()
+  const toast = useToast();
 
   const showToast = ({ closable, message, life, severity, summary }) => {
     toast.add({
@@ -10,10 +10,10 @@ export function useToasts() {
       life: life ?? 4000,
       severity: severity ?? 'success',
       summary: summary ?? '',
-    })
-  }
+    });
+  };
 
   return {
-    showToast
-  }
+    showToast,
+  };
 }

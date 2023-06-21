@@ -1,8 +1,8 @@
-import { defineStore } from 'pinia'
-import deepmerge from 'deepmerge'
+import { defineStore } from 'pinia';
+import deepmerge from 'deepmerge';
 
 /* ----- ACTIONS ----- */
-import { fetchSettings } from './actions/fetchSettings'
+import { fetchSettings } from './actions/fetchSettings';
 
 export const useProductSettingsStore = defineStore('productSettings', {
   state: () => {
@@ -15,12 +15,10 @@ export const useProductSettingsStore = defineStore('productSettings', {
       stringifyDestinationProductSettings: null,
       stringifyDestinationVariantSettings: null,
       stringifySourceProductSettings: null,
-    }
+    };
   },
 
-  actions: deepmerge.all([
-    fetchSettings
-  ]),
+  actions: deepmerge.all([fetchSettings]),
 
   persist: {
     enabled: true,
@@ -36,8 +34,8 @@ export const useProductSettingsStore = defineStore('productSettings', {
           'stringifyDestinationProductSettings',
           'stringifyDestinationVariantSettings',
           'stringifySourceProductSettings',
-        ]
-      }
-    ]
-  }
-})
+        ],
+      },
+    ],
+  },
+});

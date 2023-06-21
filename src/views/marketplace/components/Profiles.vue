@@ -1,13 +1,13 @@
 <script setup>
-import { useMarketPlaceStore } from '@/stores/marketPlace'
+import { useMarketPlaceStore } from '@/stores/marketPlace';
 
 /* ----- Components ----- */
-import Filters from './Filters.vue'
-import Profile from './Profile.vue'
-import ProfilesSkeleton from './ProfileSkeleton.vue'
+import Filters from './Filters.vue';
+import Profile from './Profile.vue';
+import ProfilesSkeleton from './ProfileSkeleton.vue';
 
 /* ----- Data ----- */
-const marketPlace = useMarketPlaceStore()
+const marketPlace = useMarketPlaceStore();
 </script>
 
 <template>

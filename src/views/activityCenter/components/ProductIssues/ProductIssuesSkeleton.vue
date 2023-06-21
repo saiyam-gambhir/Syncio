@@ -1,17 +1,16 @@
 <script setup>
-import { useActivities } from '../../composables/activities'
+import { useActivities } from '../../composables/activities';
 
 /* ----- Components ----- */
-import SearchFilter from '@/components/shared/SearchFilter.vue'
-import StoresFilter from '@/components/shared/StoresFilter.vue'
+import SearchFilter from '@/components/shared/SearchFilter.vue';
+import StoresFilter from '@/components/shared/StoresFilter.vue';
 
 /* ----- Data ----- */
-const { activityCenter } = useActivities()
+const { activityCenter } = useActivities();
 </script>
 
 <template>
   <DataTable :value="[{}, {}, {}, {}, {}]" responsiveLayout="scroll" showGridlines>
-
     <template #header>
       <div class="flex align-items-center justify-content-between">
         <div class="p-inputgroup w-50">
@@ -36,21 +35,21 @@ const { activityCenter } = useActivities()
       </div>
     </template>
 
-    <Column header="Date(AEST)" style="width: 7.5%;">
+    <Column header="Date(AEST)" style="width: 7.5%">
       <template #body>
         <Skeleton height="12.5px" width="40px" />
         <Skeleton height="12.5px" width="50px" class="mt-2" />
       </template>
     </Column>
 
-    <Column header="Issue And Suggested Action" style="width: 25%;">
+    <Column header="Issue And Suggested Action" style="width: 25%">
       <template #body>
         <Skeleton height="12.5px" width="50%" />
         <Skeleton height="12.5px" width="80%" class="mt-2" />
       </template>
     </Column>
 
-    <Column header="Product" style="width: 25%;">
+    <Column header="Product" style="width: 25%">
       <template #body>
         <div class="flex">
           <figure class="m-0">
@@ -64,22 +63,22 @@ const { activityCenter } = useActivities()
       </template>
     </Column>
 
-    <Column header="Details" style="width: 20%;">
+    <Column header="Details" style="width: 20%">
       <template #body>
         <Skeleton height="12.5px" width="50%" />
         <Skeleton height="12.5px" width="80%" class="mt-2" />
       </template>
     </Column>
 
-    <Column header="Help" style="width: 12.5%;">
+    <Column header="Help" style="width: 12.5%">
       <template #body>
         <Skeleton height="18px" width="75%" />
       </template>
     </Column>
 
-    <Column header="Actions" style="width: 10%;" class="text-right">
+    <Column header="Actions" style="width: 10%" class="text-right">
       <template #body>
-        <Skeleton size="40px" shape="circle" style="float: right;" />
+        <Skeleton size="40px" shape="circle" style="float: right" />
       </template>
     </Column>
   </DataTable>

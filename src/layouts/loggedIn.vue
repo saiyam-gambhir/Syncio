@@ -1,6 +1,6 @@
 <script setup>
-import Header from '@/components/header/Header.vue'
-import Navbar from '@/components/navbar/Navbar.vue'
+import Header from '@/components/header/Header.vue';
+import Navbar from '@/components/navbar/Navbar.vue';
 </script>
 
 <template>

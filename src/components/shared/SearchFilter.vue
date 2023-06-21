@@ -1,14 +1,14 @@
 <script setup>
-import { ref } from 'vue'
+import { ref } from 'vue';
 
 /* ----- Data ----- */
-const searchText = ref(props.modelValue)
+const searchText = ref(props.modelValue);
 
 /* ----- Props ----- */
 const props = defineProps({
   loading: {
     type: Boolean,
-    required: false
+    required: false,
   },
 
   modelValue: {
@@ -18,17 +18,17 @@ const props = defineProps({
 
   placeholder: {
     type: String,
-    required: false
-  }
-})
+    required: false,
+  },
+});
 
 /* ----- Emits ----- */
-const emits = defineEmits(['update:modelValue'])
+const emits = defineEmits(['update:modelValue']);
 
 /* ----- Methods ----- */
 const handleSearch = () => {
-  emits('update:modelValue', searchText.value)
-}
+  emits('update:modelValue', searchText.value);
+};
 </script>
 
 <template>

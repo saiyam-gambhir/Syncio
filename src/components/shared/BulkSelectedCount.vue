@@ -2,20 +2,22 @@
 const props = defineProps({
   items: {
     type: Array,
-    default: []
+    default: [],
   },
   itemType: {
     type: String,
-    default: ''
-  }
-})
+    default: '',
+  },
+});
 </script>
 
 <template>
   <transition name="fade">
     <section v-if="items.length > 0" :class="{ 'slide-down': items.length > 0 }"
       class="bluk-selection-widget flex align-items-center">
-      <h3 class="m-0 mr-4">{{ items.length }} {{ items.length <= 1 ? itemType : `${itemType}s` }} selected</h3>
+      <h3 class="m-0 mr-4">
+        {{ items.length }}
+        {{ items.length <= 1 ? itemType : `${itemType}s` }} selected </h3>
           <slot></slot>
     </section>
   </transition>

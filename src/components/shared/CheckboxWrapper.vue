@@ -1,8 +1,8 @@
 <script setup>
-import { ref } from 'vue'
+import { ref } from 'vue';
 
 /* ----- EMITS ----- */
-const emits = defineEmits(['onInput'])
+const emits = defineEmits(['onInput']);
 
 /* ----- Props ----- */
 const props = defineProps({
@@ -13,17 +13,17 @@ const props = defineProps({
 
   isChecked: {
     type: Boolean,
-    default: false
-  }
-})
+    default: false,
+  },
+});
 
 /* ----- Methods ----- */
 const onInputHandler = () => {
-  emits('onInput', props.isChecked)
-}
+  emits('onInput', props.isChecked);
+};
 </script>
 
 <template>
-  <Checkbox :binary="true" :class="{ 'hidden': disabled }" :disabled="disabled" @change="onInputHandler(isChecked)"
+  <Checkbox :binary="true" :class="{ hidden: disabled }" :disabled="disabled" @change="onInputHandler(isChecked)"
     v-model="props.isChecked" />
 </template>
