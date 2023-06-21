@@ -8,8 +8,7 @@ import SearchFilter from '@/components/shared/SearchFilter.vue';
 import StoresFilter from '@/components/shared/StoresFilter.vue';
 
 /* ----- Data ----- */
-const { activityCenter, deleteActivityHandler, fetchActivitiesHandler } =
-  useActivities();
+const { activityCenter, deleteActivityHandler, fetchActivitiesHandler } = useActivities();
 
 /* ----- Methods ----- */
 const searchHandler = searchText => {
