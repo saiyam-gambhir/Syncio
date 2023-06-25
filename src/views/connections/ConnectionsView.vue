@@ -27,9 +27,8 @@ const { showToast } = useToasts();
 onMounted(async () => {
   if (connections.connections.length === 0) {
     await connections.fetchConnections();
+    if (connections.isStoreMultilocation) await connections.fetchDestinationLocations();
   }
-  if (connections.isStoreMultilocation)
-    await connections.fetchDestinationLocations();
 });
 
 /* ----- Methods ----- */

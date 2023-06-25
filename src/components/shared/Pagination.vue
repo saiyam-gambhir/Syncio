@@ -13,6 +13,11 @@ const props = defineProps({
     type: Object,
     required: true,
   },
+
+  showInfo: {
+    type: Boolean,
+    default: true
+  }
 });
 
 /* ----- Data ----- */
@@ -54,13 +59,11 @@ const goToNextPage = () => {
 };
 
 const setEntries = () => {
-  const { current_page, next_page_url, per_page, total_count } =
-    props.pagination;
+  const { current_page, next_page_url, per_page, total_count } = props.pagination;
   if (!current_page) return;
 
   entriesStartingFrom.value = +per_page * +current_page - (+per_page - 1);
-  if (total_count < per_page) entriesEndingAt.value = total_count;
-  else entriesEndingAt.value = +per_page * +current_page;
+  entriesEndingAt.value = total_count < per_page ? total_count : +per_page * +current_page;
 
   if (!next_page_url) {
     entriesEndingAt.value = total_count;
@@ -70,7 +73,8 @@ const setEntries = () => {
 
 <template>
   <div class="pagination flex align-items-center justify-content-between" v-if="pagination && pagination.total_count > 0">
-    <!-- <h6 class="m-0" v-if="pagination"><span v-if="pagination.total_count > 0">{{ entriesStartingFrom }} - {{ entriesEndingAt }} of</span> {{ pagination.total_count }}</h6> -->
+    <h6 class="m-0" v-if="pagination && showInfo"><span v-if="pagination.total_count > 0">{{ entriesStartingFrom }} - {{
+      entriesEndingAt }} of</span> {{ pagination.total_count }}</h6>
     <ul class="flex pl-0 m-0 w-full">
       <li class="page pagination__first" @click="goToFirstPage" :class="{ disabled: !pagination.previous_page_url }">
         <IconPageFirst />

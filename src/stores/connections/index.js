@@ -24,6 +24,8 @@ export const useConnectionsStore = defineStore('connections', {
       isMultilocationEnabled: 'Off',
       loadingConnections: false,
       selectedConnection: {},
+      currentLocation: {},
+      selectedLocation: {},
       sortOptions: [
         {
           icon: 'pi pi-sort-alpha-up',

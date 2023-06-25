@@ -46,7 +46,8 @@ const updateCurrentPageHandler = page => {
       </div>
 
       <div class="col-3">
-        <Pagination :pagination="marketPlace.pagination" @updateCurrentPage="updateCurrentPageHandler" />
+        <Pagination :pagination="marketPlace.pagination" @updateCurrentPage="updateCurrentPageHandler"
+          :showInfo="false" />
       </div>
     </div>
   </div>

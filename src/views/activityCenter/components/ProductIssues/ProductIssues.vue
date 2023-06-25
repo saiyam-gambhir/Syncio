@@ -3,6 +3,7 @@ import { useActivities } from '../../composables/activities';
 
 /* ----- Components ----- */
 import AppLink from '@/components/shared/AppLink.vue';
+import Pagination from '@/components/shared/Pagination.vue';
 import ProductIssuesSkeleton from './ProductIssuesSkeleton.vue';
 import SearchFilter from '@/components/shared/SearchFilter.vue';
 import StoresFilter from '@/components/shared/StoresFilter.vue';
@@ -19,6 +20,10 @@ const searchHandler = searchText => {
 const storeFilterHandler = storeId => {
   activityCenter.productQueries.partner_store_id = storeId;
   fetchActivitiesHandler();
+};
+
+const updateCurrentPageHandler = page => {
+  fetchActivitiesHandler(page);
 };
 </script>
 
@@ -121,4 +126,7 @@ const storeFilterHandler = storeId => {
       </template>
     </Column>
   </DataTable>
+
+  <Pagination v-if="activityCenter?.productIssues?.pagination" :pagination="activityCenter.productIssues.pagination"
+    @updateCurrentPage="updateCurrentPageHandler" />
 </template>

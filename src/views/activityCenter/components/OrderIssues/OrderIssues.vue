@@ -4,6 +4,7 @@ import { useActivities } from '../../composables/activities';
 /* ----- Components ----- */
 import AppLink from '@/components/shared/AppLink.vue';
 import OrderIssuesSkeleton from './OrderIssuesSkeleton.vue';
+import Pagination from '@/components/shared/Pagination.vue';
 import SearchFilter from '@/components/shared/SearchFilter.vue';
 import StoresFilter from '@/components/shared/StoresFilter.vue';
 
@@ -19,6 +20,10 @@ const searchHandler = async searchText => {
 const storeFilterHandler = async storeId => {
   activityCenter.orderQueries.partner_store_id = storeId;
   await fetchActivitiesHandler();
+};
+
+const updateCurrentPageHandler = page => {
+  fetchActivitiesHandler(page);
 };
 </script>
 
@@ -113,4 +118,7 @@ const storeFilterHandler = async storeId => {
       </template>
     </Column>
   </DataTable>
+
+  <Pagination v-if="activityCenter?.orderIssues?.pagination" :pagination="activityCenter.orderIssues.pagination"
+    @updateCurrentPage="updateCurrentPageHandler" />
 </template>

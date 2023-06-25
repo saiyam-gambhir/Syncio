@@ -12,30 +12,26 @@ const props = defineProps({
 
 /* ----- Data ----- */
 const connectionsStore = useConnectionsStore();
-const selectedLocation = ref(null);
-const selectedLocationId = ref(null);
 
 /* ----- MOUNTED ----- */
 onMounted(() => {
-  selectedLocation.value =
-    props.connection?.destination_default_inventory_location?.name;
+  connectionsStore.currentLocation = { ...connectionsStore.currentLocation, ...props.connection?.destination_default_inventory_location };
+  connectionsStore.selectedLocation = { ...connectionsStore.selectedLocation, ...props.connection?.destination_default_inventory_location };
 });
 
 /* ----- Methods ----- */
 const onChangeHandler = event => {
-  let selectedLocation = connectionsStore.destinationLocations.filter(
-    location => location.name.toLowerCase() === event.value.toLowerCase()
-  );
-  selectedLocationId.value = selectedLocation[0].id;
+  let { id, name } = connectionsStore.destinationLocations.filter(location => location.name.toLowerCase() === event.value.toLowerCase())[0];
+  connectionsStore.selectedLocation = { external_reference_id: id, name }
   connectionsStore.isLocationChangeRequested = true;
 };
 </script>
 
 <template>
-  <Dropdown v-if="connection.platform === 'shopify'" class="w-100" :options="connectionsStore.destinationLocations"
-    optionLabel="name" optionValue="name" placeholder="Select a Location" v-model="selectedLocation"
-    @change="onChangeHandler($event)">
+  <Dropdown v-if="connection.platform === 'shopify' && connectionsStore.selectedLocation?.name" class="w-100"
+    :options="connectionsStore.destinationLocations" optionLabel="name" optionValue="name" placeholder="Select a Location"
+    v-model="connectionsStore.selectedLocation.name" @change="onChangeHandler($event)">
   </Dropdown>
 
-  <span v-else class="ml-3">{{ selectedLocation }}</span>
+  <span v-else class="ml-3">{{ connectionsStore.selectedLocation }}</span>
 </template>
