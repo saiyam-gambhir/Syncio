@@ -65,7 +65,8 @@ const toggleMultilocationHandler = async event => {
     <Connections v-else />
 
     <DisconnectDialog v-if="connections.isConnectionDisconnectRequested" />
-    <LocationChangeDialog v-if="connections.isLocationChangeRequested" />
+    <LocationChangeDialog
+      v-if="connections.isLocationChangeRequested || connections.isLocationChangeConfirmationVisible" />
     <DisableMultilocationDialog v-if="connections.isDisableMultilocationRequested" />
   </article>
 </template>

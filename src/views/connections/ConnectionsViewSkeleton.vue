@@ -4,8 +4,9 @@ import { useConnectionsStore } from '@/stores/connections';
 /* ----- Data ----- */
 const connections = useConnectionsStore();
 </script>
+
 <template>
-  <DataTable :value="[{}, {}, {}, {}, {}]" responsiveLayout="scroll" showGridlines>
+  <DataTable :value="[{}, {}, {}, {}]" responsiveLayout="scroll" showGridlines>
     <template #header>
       <div class="flex align-items-center justify-content-between">
         <div class="p-inputgroup w-35">

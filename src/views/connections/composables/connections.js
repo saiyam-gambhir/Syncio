@@ -1,3 +1,4 @@
+import { ref } from 'vue';
 import { useConnectionsStore } from '@/stores/connections';
 
 export function useConnections() {
@@ -30,7 +31,10 @@ export function useConnections() {
       sync_option: 'keep',
     };
 
+    connections.loadingLocationChange = true;
     await connections.updateLocation(payload);
+    connections.loadingLocationChange = false;
+    connections.isLocationChangeConfirmationVisible = true;
   };
 
   return {

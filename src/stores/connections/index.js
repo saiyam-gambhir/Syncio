@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import deepmerge from 'deepmerge';
 
-/* ----- ACTIONS ----- */
+/* ----- Actions ----- */
 import { deleteConnection } from './actions/deleteConnection';
 import { fetchConnections } from './actions/fetchConnections';
 import { fetchCurrentStore } from './actions/fetchCurrentStore';
@@ -15,17 +15,22 @@ export const useConnectionsStore = defineStore('connections', {
       connections: [],
       currentStore: null,
       destinationLocations: null,
-      filters: { searchString: null, sortBy: null },
+      filters: {
+        searchString: null,
+        sortBy: null,
+      },
+      currentLocation: {},
       isConnectionDisconnectRequested: false,
       isConnectNewStoreRequested: false,
       isDisableMultilocationRequested: false,
       isDisconnectAndDeleteRequested: false,
       isDisconnectAndKeepRequested: false,
+      isLocationChangeConfirmationVisible: false,
       isLocationChangeRequested: false,
       isMultilocationEnabled: 'Off',
       loadingConnections: false,
+      loadingLocationChange: false,
       selectedConnection: {},
-      currentLocation: {},
       selectedLocation: {},
       sortOptions: [
         {

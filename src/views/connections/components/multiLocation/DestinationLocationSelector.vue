@@ -13,7 +13,7 @@ const props = defineProps({
 /* ----- Data ----- */
 const connectionsStore = useConnectionsStore();
 
-/* ----- MOUNTED ----- */
+/* ----- Mounted ----- */
 onMounted(() => {
   connectionsStore.currentLocation = { ...connectionsStore.currentLocation, ...props.connection?.destination_default_inventory_location };
   connectionsStore.selectedLocation = { ...connectionsStore.selectedLocation, ...props.connection?.destination_default_inventory_location };
