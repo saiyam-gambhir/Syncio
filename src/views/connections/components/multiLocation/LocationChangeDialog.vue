@@ -1,4 +1,6 @@
 <script setup>
+import { toRaw } from 'vue';
+import { useConnections } from '../../composables/connections';
 import { useConnectionsStore } from '@/stores/connections';
 
 /* ----- Components ----- */
@@ -6,13 +8,14 @@ import AppLink from '@/components/shared/AppLink.vue';
 import DialogWrapper from '@/components/shared/DialogWrapper.vue';
 
 /* ----- Data ----- */
+const connections = useConnections();
 const connectionsStore = useConnectionsStore();
 
 /* ----- Methods ----- */
 const closeDialogHandler = () => {
   connectionsStore.isLocationChangeRequested = false;
   connectionsStore.selectedLocation = null;
-  connectionsStore.selectedLocation = { ...connectionsStore.selectedLocation, ...connectionsStore.currentLocation };
+  connectionsStore.selectedLocation = structuredClone(toRaw(connectionsStore.currentLocation));
   /* Todo: Do not set current location to null here infact on location change set the currentvalue to the new location changed value */
 };
 </script>
@@ -35,7 +38,7 @@ const closeDialogHandler = () => {
 
     <template #footer>
       <Button label="Cancel" class="p-button-secondary ml-1" @click="closeDialogHandler"></Button>
-      <Button label="Change Location" class="mr-0"></Button>
+      <Button label="Change Location" class="mr-0" @click="connections.locationChangeHandler"></Button>
     </template>
   </DialogWrapper>
 </template>

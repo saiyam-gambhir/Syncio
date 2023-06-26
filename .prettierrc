@@ -7,5 +7,5 @@
   "bracketSameLine": true,
   "arrowParens": "avoid",
   "vueIndentScriptAndStyle": true,
-  "singleAttributePerLine": false
+  "singleAttributePerLine": true
 }

@@ -1,19 +1,10 @@
 import { useConnectionsStore } from '@/stores/connections';
-import { useFilters } from '@/composables/filters';
 
 export function useConnections() {
-  const { formatCurrency } = useFilters();
   const connections = useConnectionsStore();
 
   const fetchConnectionsHandler = async () => {
     await connections.fetchConnections();
-  };
-
-  const getStoreCommission = commission => {
-    if (!commission) return 'None';
-    if (commission.type === 'percentage') return `${commission.value}%`;
-    if (commission.type === 'flat_rate')
-      return formatCurrency(commission.value);
   };
 
   const getStoreStatus = status => {
@@ -25,11 +16,28 @@ export function useConnections() {
     connections.isConnectionDisconnectRequested = true;
   };
 
+  const locationChangeHandler = async () => {
+    const payload = {
+      d_inventory_reference:
+        connections.selectedLocation?.external_reference_id,
+      destination_store_id: connections.storeId,
+      is_default: true,
+      name: connections.selectedLocation.name,
+      s_inventory_reference:
+        connections.selectedConnection?.source_default_inventory_location,
+      source_store_id: connections.selectedConnection?.id,
+      store_type: connections.storeType,
+      sync_option: 'keep',
+    };
+
+    await connections.updateLocation(payload);
+  };
+
   return {
     connections,
     fetchConnectionsHandler,
-    getStoreCommission,
     getStoreStatus,
+    locationChangeHandler,
     showDisconnectStoreDialog,
   };
 }

@@ -21,6 +21,7 @@ onMounted(() => {
 
 /* ----- Methods ----- */
 const onChangeHandler = event => {
+  connectionsStore.selectedConnection = props.connection
   let { id, name } = connectionsStore.destinationLocations.filter(location => location.name.toLowerCase() === event.value.toLowerCase())[0];
   connectionsStore.selectedLocation = { external_reference_id: id, name }
   connectionsStore.isLocationChangeRequested = true;

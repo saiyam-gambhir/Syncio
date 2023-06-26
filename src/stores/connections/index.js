@@ -7,6 +7,7 @@ import { fetchConnections } from './actions/fetchConnections';
 import { fetchCurrentStore } from './actions/fetchCurrentStore';
 import { fetchDestinationLocations } from './actions/fetchDestinationLocations';
 import { toggleMultilocation } from './actions/toggleMultilocation';
+import { updateLocation } from './actions/updateLocation';
 
 export const useConnectionsStore = defineStore('connections', {
   state: () => {
@@ -89,6 +90,7 @@ export const useConnectionsStore = defineStore('connections', {
     fetchCurrentStore,
     fetchDestinationLocations,
     toggleMultilocation,
+    updateLocation,
   ]),
 
   persist: {
