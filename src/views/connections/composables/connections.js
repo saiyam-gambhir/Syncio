@@ -3,6 +3,8 @@ import { useConnectionsStore } from '@/stores/connections';
 
 export function useConnections() {
   const connections = useConnectionsStore();
+  const isLocationChangeRequested = ref(false);
+  const isLocationChanged = ref(false);
 
   const fetchConnectionsHandler = async () => {
     await connections.fetchConnections();
@@ -34,13 +36,15 @@ export function useConnections() {
     connections.loadingLocationChange = true;
     await connections.updateLocation(payload);
     connections.loadingLocationChange = false;
-    connections.isLocationChangeConfirmationVisible = true;
+    isLocationChanged.value = true;
   };
 
   return {
     connections,
     fetchConnectionsHandler,
     getStoreStatus,
+    isLocationChanged,
+    isLocationChangeRequested,
     locationChangeHandler,
     showDisconnectStoreDialog,
   };

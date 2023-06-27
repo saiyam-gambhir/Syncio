@@ -2,7 +2,7 @@
 import { useConnections } from './composables/connections';
 
 /* ----- Components ----- */
-import DestinationLocationSelector from '@/views/connections/components/multiLocation/DestinationLocationSelector.vue';
+import DestinationLocationSelector from './components/multiLocation/DestinationLocationSelector.vue';
 import IconShopifyVue from '@/icons/IconShopify.vue';
 import IconWoo from '@/icons/IconWoo.vue';
 import SearchFilter from '@/components/shared/SearchFilter.vue';
@@ -74,10 +74,11 @@ const {
 
     <Column header="Actions" style="width: 17.5%" class="text-right">
       <template #body="{ data: connection }">
-        <Button icon="pi pi-list" class="p-button-rounded p-button-outlined p-button-info"
-          v-tooltip.top="'Products'"></Button>
+        <Button icon="pi pi-list" class="p-button-rounded p-button-outlined p-button-info" v-tooltip.top="'Products'">
+        </Button>
         <Button icon="pi pi-trash" class="p-button-rounded p-button-outlined p-button-danger ml-3"
-          v-tooltip.top="'Disconnect'" @click="showDisconnectStoreDialog(connection)"></Button>
+          v-tooltip.top="'Disconnect'" @click="showDisconnectStoreDialog(connection)">
+        </Button>
       </template>
     </Column>
   </DataTable>

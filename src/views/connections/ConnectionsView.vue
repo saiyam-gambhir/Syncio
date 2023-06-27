@@ -14,9 +14,6 @@ const DisableMultilocationDialog = defineAsyncComponent(() =>
 const DisconnectDialog = defineAsyncComponent(() =>
   import('./components/disconnect/DisconnectDialog.vue')
 );
-const LocationChangeDialog = defineAsyncComponent(() =>
-  import('./components/multiLocation/LocationChangeDialog.vue')
-);
 
 /* ----- Data ----- */
 const connections = useConnectionsStore();
@@ -65,8 +62,6 @@ const toggleMultilocationHandler = async event => {
     <Connections v-else />
 
     <DisconnectDialog v-if="connections.isConnectionDisconnectRequested" />
-    <LocationChangeDialog
-      v-if="connections.isLocationChangeRequested || connections.isLocationChangeConfirmationVisible" />
     <DisableMultilocationDialog v-if="connections.isDisableMultilocationRequested" />
   </article>
 </template>
