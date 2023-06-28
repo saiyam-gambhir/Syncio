@@ -4,7 +4,5 @@ export const updateLocation = {
       'stores/update-inventory-location',
       { ...payload }
     );
-    await this.fetchConnections();
-    this.isLocationChangeRequested = false;
   },
 };

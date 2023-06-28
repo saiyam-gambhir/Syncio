@@ -4,19 +4,12 @@ import { useConnectionsStore } from '@/stores/connections';
 import { useToasts } from '@/composables/toasts';
 
 /* ----- Components ----- */
+const DisableMultilocationDialog = defineAsyncComponent(() => import('./components/multiLocation/DisableMultilocationDialog.vue'));
+const DisconnectDialog = defineAsyncComponent(() => import('./components/disconnect/DisconnectDialog.vue'));
 import AppLink from '@/components/shared/AppLink.vue';
 import Connections from '@/views/connections/Connections.vue';
 import ConnectionsViewSkeleton from '@/views/connections/ConnectionsViewSkeleton.vue';
 import PageHeader from '@/components/shared/PageHeader.vue';
-const DisableMultilocationDialog = defineAsyncComponent(() =>
-  import('./components/multiLocation/DisableMultilocationDialog.vue')
-);
-const DisconnectDialog = defineAsyncComponent(() =>
-  import('./components/disconnect/DisconnectDialog.vue')
-);
-const LocationChangeDialog = defineAsyncComponent(() =>
-  import('./components/multiLocation/LocationChangeDialog.vue')
-);
 
 /* ----- Data ----- */
 const connections = useConnectionsStore();
@@ -65,8 +58,6 @@ const toggleMultilocationHandler = async event => {
     <Connections v-else />
 
     <DisconnectDialog v-if="connections.isConnectionDisconnectRequested" />
-    <LocationChangeDialog
-      v-if="connections.isLocationChangeRequested || connections.isLocationChangeConfirmationVisible" />
     <DisableMultilocationDialog v-if="connections.isDisableMultilocationRequested" />
   </article>
 </template>

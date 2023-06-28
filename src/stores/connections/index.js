@@ -25,13 +25,10 @@ export const useConnectionsStore = defineStore('connections', {
       isDisableMultilocationRequested: false,
       isDisconnectAndDeleteRequested: false,
       isDisconnectAndKeepRequested: false,
-      isLocationChangeConfirmationVisible: false,
-      isLocationChangeRequested: false,
       isMultilocationEnabled: 'Off',
       loadingConnections: false,
       loadingLocationChange: false,
       selectedConnection: {},
-      selectedLocation: {},
       sortOptions: [
         {
           icon: 'pi pi-sort-alpha-up',
