@@ -2,7 +2,6 @@
 import { useConnections } from './composables/connections';
 
 /* ----- Components ----- */
-import DestinationLocationSelector from './components/multiLocation/DestinationLocationSelector.vue';
 import IconShopifyVue from '@/icons/IconShopify.vue';
 import IconWoo from '@/icons/IconWoo.vue';
 import SearchFilter from '@/components/shared/SearchFilter.vue';
@@ -68,7 +67,6 @@ const {
 
     <Column header="Assigned Location" style="width: 30%">
       <template #body="{ data: connection }" v-if="connections.isMultilocation">
-        <DestinationLocationSelector :connection="connection" />
       </template>
     </Column>
 

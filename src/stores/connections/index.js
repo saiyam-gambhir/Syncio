@@ -29,7 +29,6 @@ export const useConnectionsStore = defineStore('connections', {
       loadingConnections: false,
       loadingLocationChange: false,
       selectedConnection: {},
-      selectedLocation: {},
       sortOptions: [
         {
           icon: 'pi pi-sort-alpha-up',
