@@ -1,9 +1,9 @@
 <script setup>
 import { defineAsyncComponent, onMounted, ref } from 'vue';
 import { useConnectionsStore } from '@/stores/connections';
-import { useToasts } from '@/composables/toasts';
 
 /* ----- Components ----- */
+const ConnectNewStoreDialog = defineAsyncComponent(() => import('./components/connect/ConnectNewStoreDialog.vue'));
 const DisableMultilocationDialog = defineAsyncComponent(() => import('./components/multiLocation/DisableMultilocationDialog.vue'));
 const DisconnectDialog = defineAsyncComponent(() => import('./components/disconnect/DisconnectDialog.vue'));
 import AppLink from '@/components/shared/AppLink.vue';
@@ -12,52 +12,70 @@ import ConnectionsViewSkeleton from '@/views/connections/ConnectionsViewSkeleton
 import PageHeader from '@/components/shared/PageHeader.vue';
 
 /* ----- Data ----- */
-const connections = useConnectionsStore();
+const connectionsStore = useConnectionsStore();
 const options = ref(['Off', 'On']);
-const { showToast } = useToasts();
 
 /* ----- Mounted ----- */
 onMounted(async () => {
-  if (connections.connections.length === 0) {
-    await connections.fetchConnections();
-    if (connections.isStoreMultilocation) await connections.fetchDestinationLocations();
+  if (connectionsStore.connections.length === 0) {
+    await connectionsStore.fetchConnections();
+    if (connectionsStore.isStoreMultilocation) await connectionsStore.fetchDestinationLocations();
   }
 });
 
 /* ----- Methods ----- */
 const toggleMultilocationHandler = async event => {
-  if (event.value === 'Off' && !connections.isDisableMultilocationRequested) {
-    connections.isDisableMultilocationRequested = true;
+  if (event.value === 'Off' && !connectionsStore.isDisableMultilocationRequested) {
+    connectionsStore.isDisableMultilocationRequested = true;
     return;
   }
-  const message = await connections.toggleMultilocation();
-  await connections.fetchDestinationLocations();
-  showToast({ message });
+
+  await connectionsStore.toggleMultilocation();
+  await connectionsStore.fetchDestinationLocations();
 };
 </script>
 
 <template>
-  <PageHeader content="Connect and manage your stores" title="Stores" withActions>
+  <PageHeader
+    content="Connect and manage your stores"
+    title="Stores"
+    withActions>
     <template #actions>
       <div class="flex align-items-center justify-content-between">
         <h4 class="my-0 mr-4">
           Multi-Location
           <br />
-          <AppLink link="https://help.syncio.co/en/articles/5842693-multilocations-for-destination-stores"
-            label="Read More" class="mt-1" />
+          <AppLink
+            link="https://help.syncio.co/en/articles/5842693-multilocations-for-destination-stores"
+            label="Read More"
+            class="mt-1">
+          </AppLink>
         </h4>
-        <SelectButton v-model="connections.isMultilocationEnabled" :options="options" aria-labelledby="single"
-          @change="toggleMultilocationHandler($event)" />
+
+        <SelectButton
+          :options="options"
+          @change="toggleMultilocationHandler($event)"
+          aria-labelledby="single"
+          v-model="connectionsStore.isMultilocationEnabled">
+        </SelectButton>
       </div>
-      <Button label="Connect New Store" class="ml-5" icon="pi pi-plus-circle" iconPos="right"></Button>
+
+      <Button
+        @click="connectionsStore.isConnectNewStoreRequested = true"
+        class="ml-5"
+        icon="pi pi-plus-circle"
+        iconPos="right"
+        label="Connect New Store">
+      </Button>
     </template>
   </PageHeader>
 
   <article class="mt-4">
-    <ConnectionsViewSkeleton v-if="connections.loadingConnections" />
+    <ConnectionsViewSkeleton v-if="connectionsStore.loadingConnections" />
     <Connections v-else />
 
-    <DisconnectDialog v-if="connections.isConnectionDisconnectRequested" />
-    <DisableMultilocationDialog v-if="connections.isDisableMultilocationRequested" />
+    <ConnectNewStoreDialog v-if="connectionsStore.isConnectNewStoreRequested" />
+    <DisconnectDialog v-if="connectionsStore.isConnectionDisconnectRequested" />
+    <DisableMultilocationDialog v-if="connectionsStore.isDisableMultilocationRequested" />
   </article>
 </template>

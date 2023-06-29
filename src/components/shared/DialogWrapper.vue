@@ -38,8 +38,14 @@ const closeDialogHandler = () => {
 </script>
 
 <template>
-  <Dialog :class="{ 'without-title': withoutTitle }" :dismissableMask="false" :header="props.title" :modal="true"
-    :style="{ width: props.width }" :visible="props.isVisible" @update:visible="closeDialogHandler">
+  <Dialog
+    :class="{ 'without-title': withoutTitle }"
+    :dismissableMask="true"
+    :header="props.title"
+    :modal="true"
+    :style="{ width: props.width }"
+    :visible="props.isVisible"
+    @update:visible="closeDialogHandler">
     <div :class="{ 'border-top-1 surface-border pt-4': !withoutTitle }">
       <slot name="body"></slot>
     </div>

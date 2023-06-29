@@ -1,9 +1,7 @@
 import { usePayoutsStore } from '@/stores/payouts';
 import { useConnectionsStore } from '@/stores/connections';
-import { useToasts } from '@/composables/toasts';
 
 export function usePayouts() {
-  const { showToast } = useToasts();
   const { storeId } = useConnectionsStore();
   const payouts = usePayoutsStore();
   const {
@@ -36,9 +34,8 @@ export function usePayouts() {
 
   const updatePayoutHandler = async ({ payout_id, status, activeTabIndex }) => {
     const payload = { current_store_id: storeId, payout_id, status };
-    const message = await updatePayout(payload);
+    await updatePayout(payload);
     payouts.$patch({ activeTabIndex });
-    showToast({ message });
   };
 
   return {

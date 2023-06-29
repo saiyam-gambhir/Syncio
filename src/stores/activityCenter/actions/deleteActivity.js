@@ -8,6 +8,5 @@ export const deleteActivity = {
       `user/${auth.userId}/sync-events/${activityId}`
     );
     await this.fetchActivities();
-    return response.data?.message;
   },
 };

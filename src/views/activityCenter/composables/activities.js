@@ -1,13 +1,10 @@
 import { useActivityCenterStore } from '@/stores/activityCenter';
-import { useToasts } from '@/composables/toasts';
 
 export function useActivities() {
   const activityCenter = useActivityCenterStore();
-  const { showToast } = useToasts();
 
   const deleteActivityHandler = async activityId => {
-    const message = await activityCenter.deleteActivity(activityId);
-    showToast({ message });
+    await activityCenter.deleteActivity(activityId);
   };
 
   const fetchActivitiesHandler = async () => {

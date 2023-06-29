@@ -48,7 +48,7 @@ import Toast from 'primevue/toast';
 import ToastService from 'primevue/toastservice';
 import Tooltip from 'primevue/tooltip';
 
-/* ----- ROUTER ----- */
+/* ----- Router ----- */
 import * as routes from '@/routes';
 import axios from 'axios';
 import router from './router';
@@ -56,9 +56,8 @@ import router from './router';
 /* ----- THIRD PARTY ----- */
 import VueDatePicker from '@vuepic/vue-datepicker';
 
-/* ----- STYLES ----- */
+/* ----- Styles ----- */
 import './theme/theme-light.css';
-//import './theme/theme-dark.css'
 import '@vuepic/vue-datepicker/dist/main.css';
 import 'primevue/resources/primevue.min.css';
 import 'primeicons/primeicons.css';
@@ -129,20 +128,13 @@ const marketPlace = useMarketPlaceStore();
 const orders = useOrdersStore();
 const payouts = usePayoutsStore();
 const productSettings = useProductSettingsStore();
-activityCenter.$https =
-  auth.$https =
-  connections.$https =
-  marketPlace.$https =
-  orders.$https =
-  payouts.$https =
-  productSettings.$https =
-    $https;
+activityCenter.$https = auth.$https = connections.$https = marketPlace.$https = orders.$https = payouts.$https = productSettings.$https = $https;
 
 /* ----- LOGOUT HANDLER ----- */
 const logout = () => {
   activityCenter.$reset();
   auth.$reset();
-  connections.$reset();
+  //connections.$reset();
   marketPlace.$reset();
   orders.$reset();
   payouts.$reset();
@@ -155,13 +147,30 @@ const logout = () => {
 /* ----- INTERCEPTERS ----- */
 $https.interceptors.response.use(
   response => {
-    const auth = useAuthStore();
+    const { message, success } = response?.data
+    if(message && success) connections.showToast(message);
     return response;
   },
   error => {
-    if (error.response?.status === 403) {
-      logout();
-      return Promise.reject(error);
+    const { status, data } = error.response || {};
+    switch (status) {
+      case 422:
+      case 400: {
+        const message = data.errors?.[0];
+        if (message) connections.showToast(message, 'error');
+        break;
+      }
+      case 403:
+        logout();
+        return Promise.reject(error);
+      case 502:
+        connections.showToast('Bad Gateway: The server received an invalid response', 'error');
+        break;
+      case 500:
+        connections.showToast('Internal Server Error: An unexpected error occurred on the server', 'error');
+        break;
+      default:
+        break;
     }
   }
 );

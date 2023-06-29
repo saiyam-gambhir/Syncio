@@ -1,10 +1,14 @@
 import { useConnectionsStore } from '@/stores/connections';
+import { ref } from 'vue';
 
 export function useConnections() {
   const connections = useConnectionsStore();
+  const { connectPartnerStore, fetchConnections } = useConnectionsStore();
+  const isConnectViaStoreKeyRequested = ref(false);
+  const isInviteViaEmailRequested = ref(false);
 
   const fetchConnectionsHandler = async () => {
-    await connections.fetchConnections();
+    await fetchConnections();
   };
 
   const getStoreStatus = status => {
@@ -36,10 +40,18 @@ export function useConnections() {
   //   isLocationChanged.value = true;
   // };
 
+  const connectPartnerStoreHandler = async (storeIdentifier) => {
+    await connectPartnerStore(storeIdentifier);
+    await fetchConnections();
+  }
+
   return {
     connections,
+    connectPartnerStoreHandler,
     fetchConnectionsHandler,
     getStoreStatus,
+    isConnectViaStoreKeyRequested,
+    isInviteViaEmailRequested,
     showDisconnectStoreDialog,
   };
 }

@@ -1,9 +1,7 @@
 import { useConnectionsStore } from '@/stores/connections';
 import { useOrdersStore } from '@/stores/orders';
-import { useToasts } from '@/composables/toasts';
 
 export function useOrders() {
-  const { showToast } = useToasts();
   const connections = useConnectionsStore();
   const orders = useOrdersStore();
   const statusOptions = {
@@ -30,14 +28,11 @@ export function useOrders() {
   };
 
   const toggleAutoPush = async () => {
-    const message = await orders.toggleAutoPush(connections.storeId);
-    showToast({ message });
+    await orders.toggleAutoPush(connections.storeId);
   };
 
   const setAutoPushStatus = () => {
-    orders.autoPushStatus
-      ? (orders.isAutoPushEnabled = 'On')
-      : (orders.isAutoPushEnabled = 'Off');
+    orders.autoPushStatus ? (orders.isAutoPushEnabled = 'On') : (orders.isAutoPushEnabled = 'Off');
   };
 
   return {

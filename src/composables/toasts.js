@@ -7,7 +7,7 @@ export function useToasts() {
     toast.add({
       closable: closable ?? false,
       detail: message ?? '',
-      life: life ?? 4000,
+      life: life ?? 5000,
       severity: severity ?? 'success',
       summary: summary ?? '',
     });

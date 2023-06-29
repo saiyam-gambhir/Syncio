@@ -2,12 +2,15 @@ import { defineStore } from 'pinia';
 import deepmerge from 'deepmerge';
 
 /* ----- Actions ----- */
+import { connectPartnerStore } from './actions/connectPartnerStore';
 import { deleteConnection } from './actions/deleteConnection';
 import { fetchConnections } from './actions/fetchConnections';
 import { fetchCurrentStore } from './actions/fetchCurrentStore';
 import { fetchDestinationLocations } from './actions/fetchDestinationLocations';
 import { toggleMultilocation } from './actions/toggleMultilocation';
 import { updateLocation } from './actions/updateLocation';
+import { showToast } from './actions/showToast';
+import { useToast } from 'primevue/usetoast';
 
 export const useConnectionsStore = defineStore('connections', {
   state: () => {
@@ -29,6 +32,7 @@ export const useConnectionsStore = defineStore('connections', {
       loadingConnections: false,
       loadingLocationChange: false,
       selectedConnection: {},
+      toast: useToast(),
       sortOptions: [
         {
           icon: 'pi pi-sort-alpha-up',
@@ -63,6 +67,10 @@ export const useConnectionsStore = defineStore('connections', {
       return currentStore?.type;
     },
 
+    partnerStoreType({ currentStore }) {
+      return this.storeType === 'destination' ? 'Source store' : 'Destination store';
+    },
+
     isConnectionStatusPending(state) {
       return state.connections.some(connection => {
         return connection.status === 'pending';
@@ -87,12 +95,14 @@ export const useConnectionsStore = defineStore('connections', {
   },
 
   actions: deepmerge.all([
+    connectPartnerStore,
     deleteConnection,
     fetchConnections,
     fetchCurrentStore,
     fetchDestinationLocations,
     toggleMultilocation,
     updateLocation,
+    showToast,
   ]),
 
   persist: {

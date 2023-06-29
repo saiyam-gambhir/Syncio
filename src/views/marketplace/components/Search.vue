@@ -28,7 +28,7 @@ watch(searchString, async (newValue, oldValue) => {
         <h2 class="text-3xl mb-6">Find your perfect match</h2>
         <div class="p-input-icon-left w-50">
           <i class="pi pi-search" />
-          <InputText class="w-full" placeholder="Search for categories or brands" v-model="searchString" />
+          <InputText class="p-inputtext-lg w-full" placeholder="Search for categories or brands" v-model="searchString" />
         </div>
       </div>
     </div>

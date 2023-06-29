@@ -7,6 +7,5 @@ export const toggleMultilocation = {
       { value: toggleValue }
     );
     await this.fetchConnections();
-    return response.data?.message;
   },
 };
