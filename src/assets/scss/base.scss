@@ -325,8 +325,8 @@ td {
 }
 
 .p-toast {
-  max-width: 50rem;
-  width: auto;
+  max-width: 50rem !important;
+  width: auto !important;
 }
 
 .p-toast-message {
@@ -335,8 +335,20 @@ td {
   font-weight: 700;
   letter-spacing: 0.4px;
 
+  &.p-toast-message-error {
+    .p-toast-detail {
+      margin-top: .2rem !important;
+    }
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
   .p-toast-detail {
     margin-top: 0.4rem !important;
+    white-space: nowrap;
   }
 
   .p-toast-message-content {
