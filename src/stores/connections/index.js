@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia';
+import { useToast } from 'primevue/usetoast';
 import deepmerge from 'deepmerge';
 
 /* ----- Actions ----- */
@@ -7,10 +8,10 @@ import { deleteConnection } from './actions/deleteConnection';
 import { fetchConnections } from './actions/fetchConnections';
 import { fetchCurrentStore } from './actions/fetchCurrentStore';
 import { fetchDestinationLocations } from './actions/fetchDestinationLocations';
+import { invitePartnerStore } from './actions/invitePartnerStore';
+import { showToast } from './actions/showToast';
 import { toggleMultilocation } from './actions/toggleMultilocation';
 import { updateLocation } from './actions/updateLocation';
-import { showToast } from './actions/showToast';
-import { useToast } from 'primevue/usetoast';
 
 export const useConnectionsStore = defineStore('connections', {
   state: () => {
@@ -24,7 +25,7 @@ export const useConnectionsStore = defineStore('connections', {
       },
       currentLocation: {},
       isConnectionDisconnectRequested: false,
-      isConnectNewStoreRequested: false,
+      isNewStoreConnectionRequested: false,
       isDisableMultilocationRequested: false,
       isDisconnectAndDeleteRequested: false,
       isDisconnectAndKeepRequested: false,
@@ -67,7 +68,7 @@ export const useConnectionsStore = defineStore('connections', {
       return currentStore?.type;
     },
 
-    partnerStoreType({ currentStore }) {
+    partnerStoreType() {
       return this.storeType === 'destination' ? 'Source store' : 'Destination store';
     },
 
@@ -100,9 +101,10 @@ export const useConnectionsStore = defineStore('connections', {
     fetchConnections,
     fetchCurrentStore,
     fetchDestinationLocations,
+    invitePartnerStore,
+    showToast,
     toggleMultilocation,
     updateLocation,
-    showToast,
   ]),
 
   persist: {

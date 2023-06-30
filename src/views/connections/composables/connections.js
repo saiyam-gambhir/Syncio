@@ -1,14 +1,22 @@
+import { ref, toRefs } from 'vue';
 import { useConnectionsStore } from '@/stores/connections';
-import { ref } from 'vue';
 
 export function useConnections() {
+  const {
+    connectPartnerStore,
+    fetchConnections,
+    invitePartnerStore,
+    isConnectionDisconnectRequested,
+    isNewStoreConnectionRequested,
+    selectedConnection,
+  } = toRefs(useConnectionsStore());
   const connections = useConnectionsStore();
-  const { connectPartnerStore, fetchConnections } = useConnectionsStore();
   const isConnectViaStoreKeyRequested = ref(false);
   const isInviteViaEmailRequested = ref(false);
+  const isSendingInvitation = ref(false);
 
   const fetchConnectionsHandler = async () => {
-    await fetchConnections();
+    await fetchConnections.value();
   };
 
   const getStoreStatus = status => {
@@ -16,8 +24,8 @@ export function useConnections() {
   };
 
   const showDisconnectStoreDialog = connection => {
-    connections.selectedConnection = connection;
-    connections.isConnectionDisconnectRequested = true;
+    selectedConnection.value = connection;
+    isConnectionDisconnectRequested.value = true;
   };
 
   // const locationChangeHandler = async () => {
@@ -41,8 +49,27 @@ export function useConnections() {
   // };
 
   const connectPartnerStoreHandler = async (storeIdentifier) => {
-    await connectPartnerStore(storeIdentifier);
-    await fetchConnections();
+    try {
+      isSendingInvitation.value = true;
+      await connectPartnerStore.value(storeIdentifier);
+      isNewStoreConnectionRequested.value = false;
+    } catch(error) {
+      throw new Error(error);
+    } finally {
+      isSendingInvitation.value = false;
+    }
+  }
+
+  const invitePartnerStoreHandler = async (partnerStoreEmail) => {
+    try {
+      isSendingInvitation.value = true;
+      await invitePartnerStore.value(partnerStoreEmail);
+      isNewStoreConnectionRequested.value = false;
+    } catch(error) {
+      throw new Error(error);
+    } finally {
+      isSendingInvitation.value = false;
+    }
   }
 
   return {
@@ -50,8 +77,10 @@ export function useConnections() {
     connectPartnerStoreHandler,
     fetchConnectionsHandler,
     getStoreStatus,
+    invitePartnerStoreHandler,
     isConnectViaStoreKeyRequested,
     isInviteViaEmailRequested,
+    isSendingInvitation,
     showDisconnectStoreDialog,
   };
 }

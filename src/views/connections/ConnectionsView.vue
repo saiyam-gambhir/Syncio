@@ -61,7 +61,7 @@ const toggleMultilocationHandler = async event => {
       </div>
 
       <Button
-        @click="connectionsStore.isConnectNewStoreRequested = true"
+        @click="connectionsStore.isNewStoreConnectionRequested = true"
         class="ml-5"
         icon="pi pi-plus-circle"
         iconPos="right"
@@ -74,7 +74,7 @@ const toggleMultilocationHandler = async event => {
     <ConnectionsViewSkeleton v-if="connectionsStore.loadingConnections" />
     <Connections v-else />
 
-    <ConnectNewStoreDialog v-if="connectionsStore.isConnectNewStoreRequested" />
+    <ConnectNewStoreDialog v-if="connectionsStore.isNewStoreConnectionRequested" />
     <DisconnectDialog v-if="connectionsStore.isConnectionDisconnectRequested" />
     <DisableMultilocationDialog v-if="connectionsStore.isDisableMultilocationRequested" />
   </article>

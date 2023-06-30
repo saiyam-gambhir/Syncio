@@ -35,7 +35,7 @@ const showDisconnectAndKeepDialog = () => {
     <template #body>
       <section class="grid">
         <div class="col-12 md:col-12 lg:col-6">
-          <div class="surface-card shadow-2 border-round text-center p-4 pt-7">
+          <div class="surface-0 shadow-2 border-round text-center p-4 pt-7">
             <IconLinkOff />
             <h2 class="mb-3 mt-4">Disconnect and Keep</h2>
             <p class="mt-0">Unsync without deleting the product from your destination store.</p>
@@ -44,7 +44,7 @@ const showDisconnectAndKeepDialog = () => {
         </div>
 
         <div class="col-12 md:col-12 lg:col-6">
-          <div class="surface-card shadow-2 border-round text-center p-4 pt-7">
+          <div class="surface-0 shadow-2 border-round text-center p-4 pt-7">
             <i class="pi pi-trash icon-trash"></i>
             <h2 class="mb-3 mt-4">Disconnect and Delete</h2>
             <p class="mt-0">Unsync and delete the product from your destination store.</p>
