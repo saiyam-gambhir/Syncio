@@ -1,4 +1,5 @@
 <script setup>
+import { toRefs } from 'vue';
 import { defineAsyncComponent } from 'vue';
 import { useConnectionsStore } from '@/stores/connections';
 
@@ -9,25 +10,29 @@ import DialogWrapper from '@/components/shared/DialogWrapper.vue';
 import IconLinkOff from '@/icons/IconLinkOff.vue';
 
 /* ----- Data ----- */
-const connectionsStore = useConnectionsStore();
+const {
+  isConnectionDisconnectRequested,
+  isDisconnectAndDeleteRequested,
+  isDisconnectAndKeepRequested,
+} = toRefs(useConnectionsStore());
 
 /* ----- Methods ----- */
 const closeDialogHandler = () => {
-  connectionsStore.isConnectionDisconnectRequested = false;
+  isConnectionDisconnectRequested.value = false;
 };
 
 const showDisconnectAndDeleteDialog = () => {
-  connectionsStore.isDisconnectAndDeleteRequested = true;
+  isDisconnectAndDeleteRequested.value = true;
 };
 
 const showDisconnectAndKeepDialog = () => {
-  connectionsStore.isDisconnectAndKeepRequested = true;
+  isDisconnectAndKeepRequested.value = true;
 };
 </script>
 
 <template>
   <DialogWrapper
-    :isVisible="connectionsStore.isConnectionDisconnectRequested"
+    :isVisible="isConnectionDisconnectRequested"
     :showFooter="false"
     @closeDialog="closeDialogHandler"
     title="Select a disconnect option"
@@ -55,8 +60,8 @@ const showDisconnectAndKeepDialog = () => {
     </template>
   </DialogWrapper>
 
-  <DisconnectAndDeleteDialog v-if="connectionsStore.isDisconnectAndDeleteRequested" />
-  <DisconnectAndKeepDialog v-if="connectionsStore.isDisconnectAndKeepRequested" />
+  <DisconnectAndDeleteDialog v-if="isDisconnectAndDeleteRequested" />
+  <DisconnectAndKeepDialog v-if="isDisconnectAndKeepRequested" />
 </template>
 
 <style scoped>

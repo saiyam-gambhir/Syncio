@@ -10,7 +10,7 @@ export function useConnections() {
     isNewStoreConnectionRequested,
     selectedConnection,
   } = toRefs(useConnectionsStore());
-  const connections = useConnectionsStore();
+
   const isConnectViaStoreKeyRequested = ref(false);
   const isInviteViaEmailRequested = ref(false);
   const isSendingInvitation = ref(false);
@@ -73,7 +73,6 @@ export function useConnections() {
   }
 
   return {
-    connections,
     connectPartnerStoreHandler,
     fetchConnectionsHandler,
     getStoreStatus,

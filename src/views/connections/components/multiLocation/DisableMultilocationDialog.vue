@@ -1,27 +1,34 @@
 <script setup>
+import { toRefs } from 'vue';
 import { useConnectionsStore } from '@/stores/connections';
 
 /* ----- Components ----- */
 import DialogWrapper from '@/components/shared/DialogWrapper.vue';
 
 /* ----- Data ----- */
-const connectionsStore = useConnectionsStore();
+const {
+  isDisableMultilocationRequested,
+  isMultilocationEnabled,
+  loadingConnections,
+  storeName,
+  toggleMultilocation,
+} = toRefs(useConnectionsStore());
 
 /* ----- Methods ----- */
 const closeDialogHandler = () => {
-  connectionsStore.isDisableMultilocationRequested = false;
-  connectionsStore.isMultilocationEnabled = 'On';
+  isDisableMultilocationRequested.value = false;
+  isMultilocationEnabled.value = 'On';
 };
 
 const disableMultilocationHandler = async () => {
-  await connectionsStore.toggleMultilocation();
-  connectionsStore.isDisableMultilocationRequested = false;
+  await toggleMultilocation.value();
+  isDisableMultilocationRequested.value = false;
 };
 </script>
 
 <template>
   <DialogWrapper
-    :isVisible="connectionsStore.isDisableMultilocationRequested"
+    :isVisible="isDisableMultilocationRequested"
     title="Disable Multilocation?"
     width="550px"
     @closeDialog="closeDialogHandler">
@@ -30,7 +37,7 @@ const disableMultilocationHandler = async () => {
         <p class="mt-0">Are you sure you want to disable multilocation for</p>
         <p class="mt-0">
           <span class="text-danger font-semibold">
-            {{ connectionsStore.storeName }}
+            {{ storeName }}
           </span>
         </p>
         <p class="mt-2 mb-1">All settings will be removed.</p>
@@ -39,7 +46,7 @@ const disableMultilocationHandler = async () => {
 
     <template #footer>
       <Button label="Cancel" class="p-button-secondary ml-1" @click="closeDialogHandler"></Button>
-      <Button label="Disable" class="mr-1" @click="disableMultilocationHandler" :loading="connectionsStore.loadingConnections"></Button>
+      <Button label="Disable" class="mr-1" @click="disableMultilocationHandler" :loading="loadingConnections"></Button>
     </template>
   </DialogWrapper>
 </template>

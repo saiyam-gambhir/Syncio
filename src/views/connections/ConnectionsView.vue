@@ -1,5 +1,5 @@
 <script setup>
-import { defineAsyncComponent, onMounted, ref } from 'vue';
+import { defineAsyncComponent, onMounted, ref, toRefs } from 'vue';
 import { useConnectionsStore } from '@/stores/connections';
 
 /* ----- Components ----- */
@@ -12,26 +12,37 @@ import ConnectionsViewSkeleton from '@/views/connections/ConnectionsViewSkeleton
 import PageHeader from '@/components/shared/PageHeader.vue';
 
 /* ----- Data ----- */
-const connectionsStore = useConnectionsStore();
+const {
+  connections,
+  fetchConnections,
+  fetchDestinationLocations,
+  isConnectionDisconnectRequested,
+  isDisableMultilocationRequested,
+  isMultilocationEnabled,
+  isNewStoreConnectionRequested,
+  isStoreMultilocation,
+  loadingConnections,
+  toggleMultilocation,
+} = toRefs(useConnectionsStore());
 const options = ref(['Off', 'On']);
 
 /* ----- Mounted ----- */
 onMounted(async () => {
-  if (connectionsStore.connections.length === 0) {
-    await connectionsStore.fetchConnections();
-    if (connectionsStore.isStoreMultilocation) await connectionsStore.fetchDestinationLocations();
+  if (connections.value.length === 0) {
+    await fetchConnections.value();
+    if (isStoreMultilocation.value) await fetchDestinationLocations.value();
   }
 });
 
 /* ----- Methods ----- */
 const toggleMultilocationHandler = async event => {
-  if (event.value === 'Off' && !connectionsStore.isDisableMultilocationRequested) {
-    connectionsStore.isDisableMultilocationRequested = true;
+  if (event.value === 'Off' && !isDisableMultilocationRequested.value) {
+    isDisableMultilocationRequested.value = true;
     return;
   }
 
-  await connectionsStore.toggleMultilocation();
-  await connectionsStore.fetchDestinationLocations();
+  await toggleMultilocation.value();
+  await fetchDestinationLocations.value();
 };
 </script>
 
@@ -56,12 +67,12 @@ const toggleMultilocationHandler = async event => {
           :options="options"
           @change="toggleMultilocationHandler($event)"
           aria-labelledby="single"
-          v-model="connectionsStore.isMultilocationEnabled">
+          v-model="isMultilocationEnabled">
         </SelectButton>
       </div>
 
       <Button
-        @click="connectionsStore.isNewStoreConnectionRequested = true"
+        @click="isNewStoreConnectionRequested = true"
         class="ml-5"
         icon="pi pi-plus-circle"
         iconPos="right"
@@ -71,11 +82,11 @@ const toggleMultilocationHandler = async event => {
   </PageHeader>
 
   <article class="mt-4">
-    <ConnectionsViewSkeleton v-if="connectionsStore.loadingConnections" />
+    <ConnectionsViewSkeleton v-if="loadingConnections" />
     <Connections v-else />
 
-    <ConnectNewStoreDialog v-if="connectionsStore.isNewStoreConnectionRequested" />
-    <DisconnectDialog v-if="connectionsStore.isConnectionDisconnectRequested" />
-    <DisableMultilocationDialog v-if="connectionsStore.isDisableMultilocationRequested" />
+    <ConnectNewStoreDialog v-if="isNewStoreConnectionRequested" />
+    <DisconnectDialog v-if="isConnectionDisconnectRequested" />
+    <DisableMultilocationDialog v-if="isDisableMultilocationRequested" />
   </article>
 </template>

@@ -2,7 +2,11 @@
 import { useConnectionsStore } from '@/stores/connections';
 
 /* ----- Data ----- */
-const connections = useConnectionsStore();
+const {
+  filters,
+  loadingConnections,
+  sortOptions
+} = useConnectionsStore();
 </script>
 
 <template>
@@ -10,13 +14,13 @@ const connections = useConnectionsStore();
     <template #header>
       <div class="flex align-items-center justify-content-between">
         <div class="p-inputgroup w-35">
-          <InputText v-model="connections.filters.searchString" placeholder="Search by store URL" />
-          <Button icon="pi pi-search" :loading="connections.loadingConnections"
-            :disabled="!connections.filters.searchString"></Button>
+          <InputText v-model="filters.searchString" placeholder="Search by store URL" />
+          <Button icon="pi pi-search" :loading="loadingConnections"
+            :disabled="!filters.searchString"></Button>
         </div>
 
-        <Dropdown v-model="connections.filters.sortBy" :options="connections.sortOptions" optionLabel="label"
-          placeholder="Sort by Store" :loading="connections.loadingConnections">
+        <Dropdown v-model="filters.sortBy" :options="sortOptions" optionLabel="label"
+          placeholder="Sort by Store" :loading="loadingConnections">
           <template #value> Sort by Store </template>
           <template #option="{ option }">
             <div class="flex align-items-center justify-content-between">
