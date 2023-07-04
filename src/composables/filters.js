@@ -57,6 +57,10 @@ export function useFilters() {
     }
   };
 
+  const formattedUnderscoreText = (text) => {
+    if(text) return text.split('_').join(' ');
+  };
+
   return {
     copyToClipBoard,
     filterUnwantedQueries,
@@ -65,5 +69,6 @@ export function useFilters() {
     formatDate,
     formatDecimal,
     randomInteger,
+    formattedUnderscoreText,
   };
 }

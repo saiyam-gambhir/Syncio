@@ -1,17 +1,22 @@
 <script setup>
+import { toRefs } from 'vue';
 import { useAuthStore } from '@/stores/auth';
 
 /* ----- Data ----- */
-const auth = useAuthStore();
+const {
+  login,
+  loginForm,
+  shopifyLogin,
+} = toRefs(useAuthStore());
 
 /* ----- Methods ----- */
 const loginHandler = () => {
-  const { email, password } = auth.loginForm;
-  auth.login({ email, password });
+  const { email, password } = loginForm.value;
+  login.value({ email, password });
 };
 
 const shopifyLoginHandler = async () => {
-  await auth.shopifyLogin('shopify', 'test-nainesh-destination-4.myshopify.com');
+  await shopifyLogin.value('shopify', 'test-destination-11.myshopify.com');
 };
 </script>
 
@@ -38,22 +43,46 @@ const shopifyLoginHandler = async () => {
 
   <form class="mt-6" autocomplete="current-password">
     <div class="field">
-      <InputText id="email" type="text" class="p-inputtext-lg mb-3 w-full" placeholder="Email address"
-        v-model="auth.loginForm.email" autocomplete="email" />
+      <InputText
+        class="p-inputtext-lg mb-3 w-full"
+        id="email"
+        placeholder="Email address"
+        type="text"
+        v-model="loginForm.email" autocomplete="email">
+      </InputText>
     </div>
 
     <div class="field">
-      <Password id="password" class="p-inputtext-lg mb-3 w-full" placeholder="Password" v-model="auth.loginForm.password"
-        autocomplete="new-password" :feedback="false" toggleMask />
+      <Password
+        :feedback="false"
+        autocomplete="new-password"
+        class="p-inputtext-lg mb-3 w-full"
+        id="password"
+        placeholder="Password"
+        toggleMask
+        v-model="loginForm.password">
+      </Password>
     </div>
 
     <div class="flex align-items-center mt-5 mb-4">
       <router-link to="/forgot-password" class="btn-link hovered text-xl">Forgot password?</router-link>
     </div>
 
-    <Button label="Login" class="w-full p-button-lg" @click="loginHandler" :loading="auth.loginForm.loading"
-      iconPos="right"></Button>
-    <Button label="Shopify Login" icon="pi pi-user" class="w-full p-button-lg mt-4" @click="shopifyLoginHandler"
-      :loading="auth.loading" iconPos="right"></Button>
+    <Button
+      :loading="loginForm.loading"
+      @click="loginHandler"
+      class="w-full p-button-lg"
+      iconPos="right"
+      label="Login">
+    </Button>
+
+    <Button
+      :loading="loginForm.loading"
+      @click="shopifyLoginHandler"
+      class="w-full p-button-lg mt-4"
+      icon="pi pi-user"
+      iconPos="right"
+      label="Shopify Login">
+    </Button>
   </form>
 </template>

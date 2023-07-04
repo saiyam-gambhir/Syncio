@@ -8,12 +8,16 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  strong: {
+    type: Boolean,
+    default: false
+  }
 });
 </script>
 
 <template>
-  <a :href="link" target="_blank" class="btn-link font-normal inline-block">
-    {{ label }}
+  <a :href="props.link" target="_blank" class="btn-link font-normal inline-block" :class="{ 'font-semibold': props.strong }">
+    {{ props.label }}
     <i class="pi pi-external-link"></i>
   </a>
 </template>

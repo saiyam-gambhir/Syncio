@@ -25,7 +25,12 @@ export const useAuthStore = defineStore('auth', {
       isNetworkDialogVisible: false,
       isUpgradeDialogRequested: false,
       locales: 'en-US',
-      loginForm: { email: '', loading: false, password: '', submitted: false },
+      loginForm: {
+        email: '',
+        loading: false,
+        password: '',
+        submitted: false
+      },
       plan: null,
       plans: [],
       registrationForm: {
@@ -64,23 +69,17 @@ export const useAuthStore = defineStore('auth', {
     },
 
     isOrderModuleAvailable({ plan }) {
-      let ordersPlan = plan?.active_addons.filter(
-        plan => plan.name === 'Orders'
-      );
+      let ordersPlan = plan?.active_addons.filter(plan => plan.name === 'Orders');
       return ordersPlan?.length === 1;
     },
 
     isPayoutsModuleAvailable({ plan }) {
-      let payoutsPlan = plan?.active_addons.filter(
-        plan => plan.name === 'Payouts'
-      );
+      let payoutsPlan = plan?.active_addons.filter(plan => plan.name === 'Payouts');
       return payoutsPlan?.length === 1;
     },
 
     isProductModuleAvailable({ plan }) {
-      let settingsPlan = plan?.active_addons.filter(
-        plan => plan.name === 'Product Settings'
-      );
+      let settingsPlan = plan?.active_addons.filter(plan => plan.name === 'Product Settings');
       return settingsPlan?.length === 1;
     },
 

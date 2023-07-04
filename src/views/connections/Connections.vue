@@ -4,7 +4,7 @@ import { useConnections } from './composables/connections';
 import { useConnectionsStore } from '@/stores/connections';
 
 /* ----- Components ----- */
-import IconShopifyVue from '@/icons/IconShopify.vue';
+import IconShopify from '@/icons/IconShopify.vue';
 import IconWoo from '@/icons/IconWoo.vue';
 import SearchFilter from '@/components/shared/SearchFilter.vue';
 
@@ -68,7 +68,7 @@ const searchHandler = async (searchText) => {
 
     <Column header="Platform" style="width: 5%" class="text-center">
       <template #body="{ data: connection }">
-        <IconShopifyVue v-if="connection.platform === 'shopify'" />
+        <IconShopify v-if="connection.platform === 'shopify'" />
         <IconWoo v-if="connection.platform === 'woocommerce'" />
       </template>
     </Column>

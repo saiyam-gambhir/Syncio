@@ -1,10 +1,21 @@
 <script setup>
+import { computed, toRefs } from 'vue';
+import { useConnectionsStore } from '@/stores/connections';
 import { useFilters } from '@/composables/filters';
 import { useOrders } from '../composables/orders';
+import { useOrdersStore } from '@/stores/orders';
+
+/* ----- Components ----- */
+import IconShopify from '@/icons/IconShopify.vue';
+import AppLink from '@/components/shared/AppLink.vue';
+import CardWrapper from '@/views/dashboard/components/CardWrapper.vue';
+import OrderDetailsSkeleton from './OrderDetailsSkeleton.vue';
 
 /* ----- Data ----- */
-const { formatCurrency, formatDate } = useFilters();
-const { fetchOrder, orders } = useOrders();
+const { formatCurrency, formattedUnderscoreText, formatDate } = useFilters();
+const { fetchOrder, orders, getFinancialStatus, getFulfillmentStatus } = useOrders();
+const { loadingOrder } = toRefs(useOrdersStore());
+const { storeName } = useConnectionsStore();
 
 /* ----- Props ----- */
 const props = defineProps({
@@ -13,6 +24,13 @@ const props = defineProps({
     default: {},
   },
 });
+
+/* ----- Computed ----- */
+const getOrderFulfillmentStatus = computed(() => {
+  let status = formattedUnderscoreText(props.order.fulfillment_status);
+  if(status === 'partial') return 'partially fulfilled';
+  return status;
+})
 
 const fetchOrderSummary = async index => {
   const { order, ordersCollection } = orders;
@@ -27,19 +45,51 @@ const fetchPreviousOrderSummary = () => fetchOrderSummary(1);
 const fetchNextOrderSummary = () => fetchOrderSummary(-1);
 </script>
 
+<!-- <v-col v-else class="text-right pr-0">
+  <div v-if="storeOrder.is_mapper_deleted!==true && storeOrder.store_disconnected!==true">
+    <v-chip class="mb-1" color="#D91E18" text-color="white">
+      <span class="text-capitalize">{{ storeOrder.push_status }}</span>
+    </v-chip>
+    <p style="color:#D91E18" class="mt-1 mb-0" v-if="currentOrder.push_status==='pushed'">Location
+      changed</p>
+    <p style="color:#D91E18" class="mt-1 mb-0" v-else>blocked by Syncio location mismatching</p>
+  </div>
+
+</v-col>
+<v-col class="text-no-wrap pt-0" v-if="storeOrder.is_mapper_deleted==true && storeOrder.store_disconnected!==true">
+<div><span style=" color: red;" class="pl-4" >
+  Cannot fetch info as some product(s) are unsynced on {{ new Date(storeOrder.mapper_deleted_at).toLocaleString("en-US", {timeZone: "Australia/Sydney"}) | moment("DD MMM") }} (AEST)
+</span></div>
+</v-col>
+<v-col class="text-no-wrap pt-0" v-if="storeOrder.store_disconnected==true">
+<div><span style="color: red;" class="pl-4">
+  Cannot fetch info as store is disconnected
+</span></div>
+</v-col> -->
+
 <template>
   <Sidebar v-model:visible="orders.isViewOrderDetailsRequested" position="full">
     <template #header>
       <h1 class="text-4xl font-bold mb-0 flex align-items-center">
         Order Summary
-        <Button icon="pi pi-arrow-left" class="p-button-rounded p-button-outlined p-button-info ml-3"
-          v-tooltip.left="'Previous order'" @click="fetchPreviousOrderSummary"></Button>
-        <Button icon="pi pi-arrow-right" class="p-button-rounded p-button-outlined p-button-info ml-3"
-          v-tooltip="'Next order'" @click="fetchNextOrderSummary"></Button>
+        <Button
+          @click="fetchPreviousOrderSummary"
+          class="p-button-rounded p-button-outlined p-button-info ml-3"
+          icon="pi pi-arrow-left"
+          v-tooltip.left="'Previous order'">
+        </Button>
+
+        <Button
+          @click="fetchNextOrderSummary"
+          class="p-button-rounded p-button-outlined p-button-info ml-3"
+          icon="pi pi-arrow-right"
+          v-tooltip="'Next order'">
+        </Button>
       </h1>
     </template>
 
-    <ProgressSpinner v-if="orders.loadingOrder" strokeWidth="1.5" animationDuration="1" />
+    <OrderDetailsSkeleton v-if="loadingOrder" />
+
     <div v-else class="grid mt-4">
       <div v-if="order.edited" class="col-12 mb-2 py-0">
         <Message severity="warn" class="col-12 mt-0" :closable="false">
@@ -56,57 +106,78 @@ const fetchNextOrderSummary = () => fetchOrderSummary(-1);
       </div>
 
       <div class="col-7">
-        <div class="surface-card border-round border-1 surface-border p-4">
-          <h2 class="text-xl font-bold">My order details: {{ order.name }}</h2>
-        </div>
-
-        <Panel class="mt-4" v-for="(store, key) in order.source_stores" :key="key" :toggleable="true">
-          <template #header>
-            <h3 class="text-bold m-0">
-              {{ key }}
+        <CardWrapper class="pb-3">
+          <template #links>
+            <h3 class="mb-2 flex align-items-center">
+              <IconShopify class="mr-3" style="transform: translateY(-1px);" />
+              My order details: {{ order.name }}
             </h3>
+            <div class="mt-3 mb-5">
+              <strong>Status:</strong>
+              <Tag :severity="getFinancialStatus(order.financial_status)" rounded class="ml-2">{{ formattedUnderscoreText(order.financial_status) }}</Tag>
+              <Tag :severity="getFulfillmentStatus(order.fulfillment_status)" rounded class="ml-2">{{ getOrderFulfillmentStatus }}</Tag>
+            </div>
+            <AppLink
+              strong
+              :label="`Order ID: ${order.id}`"
+              :link="`https://${storeName}/admin/orders/${order.id}`">
+            </AppLink>
+            <div class="mt-2">
+              <strong>Order created on</strong> {{ formatDate(order.created_at).date }} at {{ formatDate(order.created_at).time }}
+            </div>
+            <div v-if="order.edited_at" class="mt-2">
+              <strong>Order edited on</strong> {{ formatDate(order.edited_at).date }} at {{ formatDate(order.edited_at).time }}
+            </div>
           </template>
-          <DataTable :value="store.line_items" responsiveLayout="scroll">
-            <Column header="Image" style="width: 5%" class="text-center">
+        </CardWrapper>
+
+      <CardWrapper class="mt-5" v-for="(store, key) in order.source_stores" :key="key">
+        <template #links>
+          <h2 class="mb-4">
+            <i class="pi pi-shopping-cart text-xl mr-2"></i>
+            {{ key }}
+          </h2>
+          <DataTable :value="store.line_items" responsiveLayout="scroll" showGridlines>
+            <Column header="Image" style="width: 7.5%" class="text-center">
               <template #body="{ data: { image } }">
-                <img :src="image" alt="Product image" style="height: 2rem; width: auto" />
+                <div style="height: 38px; padding: 2px; border: 1px solid rgb(231, 231, 231);" class="flex align-items-center flex-shrink-0 justify-content-center">
+                  <img :src="image" alt="Product image" style="width: 32px;" />
+                </div>
               </template>
             </Column>
-            <Column header="Title" style="width: 50%">
+            <Column header="Title" style="width: 47.5%">
               <template #body="{ data: { title } }">
                 {{ title }}
               </template>
             </Column>
-            <Column header="Price" style="width: 15%" class="text-right">
+            <Column header="Price" style="width: 15%" class="text-right tabular-nums">
               <template #body="{ data: { unit_price } }">
                 {{ formatCurrency(unit_price) }}
               </template>
             </Column>
-            <Column header="Quantity" style="width: 12.5%" class="text-right">
+            <Column header="Quantity" style="width: 12.5%" class="text-right tabular-nums">
               <template #body="{ data: { quantity } }">
                 {{ quantity }}
               </template>
             </Column>
-            <Column header="Total" style="width: 17.5%" class="text-right">
+            <Column header="Total" style="width: 17.5%" class="text-right tabular-nums">
               <template #body="{ data: { total_price } }">
                 {{ formatCurrency(total_price) }}
               </template>
             </Column>
           </DataTable>
-        </Panel>
+        </template>
+      </CardWrapper>
       </div>
       <div class="col-5">
-        <div class="surface-card border-round border-1 surface-border p-4">
-          <h2 class="text-xl font-bold">Notes</h2>
-        </div>
-
-        <div class="surface-card border-round border-1 surface-border p-4 mt-4">
-          <h2 class="text-xl font-bold">Additional Notes</h2>
-        </div>
-
-        <div class="surface-card border-round border-1 surface-border p-4 mt-4">
-          <h2 class="text-xl font-bold">Tags</h2>
-        </div>
+        <CardWrapper class="pb-3" title="Notes"></CardWrapper>
+        <CardWrapper class="pb-3 mt-5" title="Additional Notes"></CardWrapper>
+        <CardWrapper class="pb-3 mt-5" title="Tags">
+          <template #links>
+            <div class="mt-3"></div>
+            <Tag v-for="tag in order.tags" :key="tag" severity="info" :value="tag" rounded class="mr-2"></Tag>
+          </template>
+        </CardWrapper>
       </div>
     </div>
   </Sidebar>
