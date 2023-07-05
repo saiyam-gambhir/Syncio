@@ -49,14 +49,16 @@ const isPathSettings = computed(() => {
             <NavLink href="/products" iconClass="pi-list" linkText="Products" />
           </li>
           <li class="mt-2">
+            <NavLink v-if="auth.isProductModuleAvailable" href="/products-settings" iconClass="pi-list" linkText="Product Settings" />
+            <NavLink v-else :href="$route.path" iconClass="pi-list" linkText="Product Settings" disabled />
+          </li>
+          <li class="mt-2">
             <NavLink v-if="auth.isOrderModuleAvailable" href="/orders" iconClass="pi-file" linkText="Orders" />
-            <NavLink v-else :href="$route.path" iconClass="pi-file" linkText="Orders" disabled
-              @click="showUpgradeDialogHandler('orders')" />
+            <NavLink v-else :href="$route.path" iconClass="pi-file" linkText="Orders" disabled @click="showUpgradeDialogHandler('orders')" />
           </li>
           <li class="mt-2">
             <NavLink v-if="auth.isPayoutsModuleAvailable" href="/payouts" iconClass="pi-dollar" linkText="Payouts" />
-            <NavLink v-else :href="$route.path" iconClass="pi-dollar" linkText="Payouts" disabled
-              @click="showUpgradeDialogHandler('payouts')" />
+            <NavLink v-else :href="$route.path" iconClass="pi-dollar" linkText="Payouts" disabled @click="showUpgradeDialogHandler('payouts')" />
           </li>
           <li class="mt-2">
             <NavLink href="/activity-center" iconClass="pi-bell" linkText="Activity Center" />

@@ -4,7 +4,7 @@ export const fetchOrders = {
     const { page, searchString, sortBy } = this.params;
     const response = await this.$https(`stores/${storeId}/orders`, {
       params: {
-        page: page,
+        page,
         searchStr: searchString,
         sortBy: sortBy,
       },

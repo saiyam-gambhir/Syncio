@@ -80,14 +80,12 @@ const isChecked = ({ id }) => {
         <h4 class="my-0 mr-4">
           Automated Push
           <br />
-          <AppLink link="https://help.syncio.co/en/articles/5842693-multilocations-for-destination-stores"
-            label="Read More" class="mt-1" />
+          <AppLink link="https://help.syncio.co/en/articles/5842693-multilocations-for-destination-stores" label="Read More" class="mt-1" />
         </h4>
-        <SelectButton v-model="orders.isAutoPushEnabled" :options="options" aria-labelledby="single"
-          @click="toggleAutoPushHandler" />
+        <SelectButton v-model="orders.isAutoPushEnabled" :options="options" aria-labelledby="single" @click="toggleAutoPushHandler" />
       </div>
       <router-link to="/orders/push-settings">
-        <Button label="Push Settings" class="ml-5" icon="pi pi-cog" iconPos="right"></Button>
+        <Button label="Push Settings" class="ml-4"></Button>
       </router-link>
     </template>
   </PageHeader>
@@ -107,8 +105,7 @@ const isChecked = ({ id }) => {
 
     <Column header="" style="width: 3rem; min-width: 42.5px">
       <template #body="{ data }">
-        <CheckboxWrapper :isChecked="isChecked(data)" :disabled="data.push_status === 'pushed'"
-          @onInput="onInputHandler(data)" />
+        <CheckboxWrapper :isChecked="isChecked(data)" :disabled="data.push_status === 'pushed'" @onInput="onInputHandler(data)" />
       </template>
     </Column>
 
@@ -147,8 +144,7 @@ const isChecked = ({ id }) => {
 
     <Column header="Actions" style="width: 10%" class="text-right">
       <template #body="{ data: { id } }">
-        <Button icon="pi pi-window-maximize" class="p-button-rounded p-button-outlined p-button-info"
-          v-tooltip.top="'View Details'" @click="fetchOrderHandler(id)"></Button>
+        <Button icon="pi pi-window-maximize" class="p-button-rounded p-button-outlined p-button-raised" v-tooltip.top="'View Details'" @click="fetchOrderHandler(id)"></Button>
       </template>
     </Column>
   </DataTable>

@@ -93,3 +93,7 @@
     height: 25%;
   }
 }
+
+.w-sidebar {
+  width: calc(100% - 19rem) !important;
+}
