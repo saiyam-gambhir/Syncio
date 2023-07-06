@@ -5,6 +5,7 @@ import deepmerge from 'deepmerge';
 import { fetchOrder } from './actions/fetchOrder';
 import { fetchOrders } from './actions/fetchOrders';
 import { fetchPushSettings } from './actions/fetchPushSettings';
+import { pushOrder } from './actions/pushOrder';
 import { toggleAutoPush } from './actions/toggleAutoPush';
 
 export const useOrdersStore = defineStore('orders', {
@@ -50,6 +51,7 @@ export const useOrdersStore = defineStore('orders', {
     fetchOrder,
     fetchOrders,
     fetchPushSettings,
+    pushOrder,
     toggleAutoPush,
   ]),
 

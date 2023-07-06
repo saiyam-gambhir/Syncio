@@ -1,5 +1,5 @@
 <script setup>
-import { computed, toRefs } from 'vue';
+import { computed, ref, toRefs } from 'vue';
 import { useConnectionsStore } from '@/stores/connections';
 import { useFilters } from '@/composables/filters';
 import { useOrders } from '../composables/orders';
@@ -12,10 +12,12 @@ import IconShopify from '@/icons/IconShopify.vue';
 import OrderDetailsSkeleton from './OrderDetailsSkeleton.vue';
 
 /* ----- Data ----- */
-const { fetchOrder, getFinancialStatus, getFulfillmentStatus, getPushStatus } = useOrders();
+const { fetchOrder, getFinancialStatus, getFulfillmentStatus } = useOrders();
 const { formatCurrency, formattedUnderscoreText, formatDate } = useFilters();
-const { isViewOrderDetailsRequested, loadingOrder, order, ordersCollection } = toRefs(useOrdersStore());
-const { storeName } = useConnectionsStore();
+const { isViewOrderDetailsRequested, loadingOrder, order, ordersCollection, pushOrder } = toRefs(useOrdersStore());
+const { storeId, storeName } = useConnectionsStore();
+const isPushOrderLoading = ref(false);
+const shippingCost = ref('');
 
 /* ----- Props ----- */
 const props = defineProps({
@@ -57,29 +59,20 @@ const fetchPreviousOrderSummary = () => {
 const fetchNextOrderSummary = () => {
   fetchOrderSummary(-1)
 };
+
+const pushOrderHandler = async (targetStoreId) => {
+  const payload = {
+    orderId: props.order.syncio_order_id,
+    shippingCost: shippingCost.value,
+    storeId: storeId,
+    targetStoreId: targetStoreId,
+  };
+
+  isPushOrderLoading.value = true;
+  await pushOrder.value(payload);
+  isPushOrderLoading.value = false;
+};
 </script>
-
-<!-- <v-col v-else class="text-right pr-0">
-  <div v-if="storeOrder.is_mapper_deleted!==true && storeOrder.store_disconnected!==true">
-    <v-chip class="mb-1" color="#D91E18" text-color="white">
-      <span class="text-capitalize">{{ storeOrder.push_status }}</span>
-    </v-chip>
-    <p style="color:#D91E18" class="mt-1 mb-0" v-if="currentOrder.push_status==='pushed'">Location
-      changed</p>
-    <p style="color:#D91E18" class="mt-1 mb-0" v-else>blocked by Syncio location mismatching</p>
-  </div>
-
-</v-col>
-<v-col class="text-no-wrap pt-0" v-if="storeOrder.is_mapper_deleted==true && storeOrder.store_disconnected!==true">
-<div><span style=" color: red;" class="pl-4" >
-  Cannot fetch info as some product(s) are unsynced on {{ new Date(storeOrder.mapper_deleted_at).toLocaleString("en-US", {timeZone: "Australia/Sydney"}) | moment("DD MMM") }} (AEST)
-</span></div>
-</v-col>
-<v-col class="text-no-wrap pt-0" v-if="storeOrder.store_disconnected==true">
-<div><span style="color: red;" class="pl-4">
-  Cannot fetch info as store is disconnected
-</span></div>
-</v-col> -->
 
 <template>
   <Sidebar v-model:visible="isViewOrderDetailsRequested" position="right" class="w-sidebar">
@@ -109,42 +102,44 @@ const fetchNextOrderSummary = () => {
     <OrderDetailsSkeleton v-if="loadingOrder" />
 
     <div v-else class="grid mt-4">
-      <div v-if="order.edited" class="col-12 mb-2 py-0">
-        <Message severity="warn" class="col-12 mt-0" :closable="false">
-          <p class="my-0">
-            This order has been edited. Last edited:
-            <span class="font-semibold">{{ formatDate(order.edited_at).date }} at {{ formatDate(order.edited_at).time }}</span>
-          </p>
-          <p class="my-0">
-            The line item / quantity edits have been pushed to the source store.
-            Please verify if the source store has received the right items and
-            quantities.
-          </p>
-        </Message>
-      </div>
 
       <div class="col-8">
+        <div v-if="order.edited">
+          <Message severity="warn" class="col-12 mt-0 mb-5" :closable="false">
+            <p class="my-0">
+              This order has been edited. Last edited:
+              <span class="font-semibold">{{ formatDate(order.edited_at).date }} at {{ formatDate(order.edited_at).time }}</span>
+            </p>
+            <p class="my-0">The line item / quantity edits have been pushed to the source store. Please verify if the source store has received the right items and quantities.</p>
+          </Message>
+        </div>
+
         <CardWrapper class="pb-3">
           <template #links>
             <h3 class="mb-2 flex align-items-center">
               <IconShopify class="mr-3" style="transform: translateY(-1px);" />
               My order details: {{ order.name }}
             </h3>
-            <div class="mt-3 mb-5">
+            <Divider />
+            <div>
               <strong>Status:</strong>
-              <Tag :severity="getFinancialStatus(order.financial_status)" rounded class="ml-2">{{ formattedUnderscoreText(order.financial_status) }}</Tag>
+              <Tag :severity="getFinancialStatus(order.financial_status)" rounded class="ml-3">{{ formattedUnderscoreText(order.financial_status) }}</Tag>
               <Tag :severity="getFulfillmentStatus(order.fulfillment_status)" rounded class="ml-2">{{ getOrderFulfillmentStatus }}</Tag>
             </div>
+            <Divider />
             <AppLink
               strong
               :label="`Order ID: ${order.id}`"
               :link="`https://${storeName}/admin/orders/${order.id}`">
             </AppLink>
-            <div class="mt-2">
+            <Divider />
+            <div>
               <strong>Order created on</strong> {{ formatDate(order.created_at).date }} at {{ formatDate(order.created_at).time }}
             </div>
-            <div v-if="order.edited_at" class="mt-2">
+            <Divider />
+            <div v-if="order.edited_at">
               <strong>Order edited on</strong> {{ formatDate(order.edited_at).date }} at {{ formatDate(order.edited_at).time }}
+              <Divider />
             </div>
           </template>
         </CardWrapper>
@@ -156,7 +151,22 @@ const fetchNextOrderSummary = () => {
                 <i class="pi pi-shopping-cart text-xl mr-2"></i>
                 {{ key }}
               </h2>
+
               <div class="text-right">
+                <template v-if="store.push_status !== 'pushed' && store.push_status !== 'blocked' && !store.is_mapper_deleted && !store.store_disconnected">
+                  <InputText v-if="!!order.customer || !!order.shipping_address" placeholder="$ Enter a shipping fee" v-model="shippingCost" />
+                </template>
+
+                <template v-if="store.push_status !== 'blocked'">
+                  <Button :loading="isPushOrderLoading" class="ml-3" :disabled="!shippingCost" v-if="order.customer !== null && order.shipping_address !== null && store.push_status !== 'pushed' && !store.is_mapper_deleted && !store.store_disconnected" @click="pushOrderHandler(store.target_store_id, storeName)">
+                    <span v-if="store.push_status === 'failed'">Repush</span>
+                    <span v-else>Push Order</span>
+                  </Button>
+                </template>
+
+                <template v-if="store.push_status === 'failed' && !store.is_mapper_deleted">
+                  <p class="mb-0 mt-2 text-error font-semibold">An error has occurred while pushing your order to one or more source stores. <br> Please click 'repush' to try again.</p>
+                </template>
 
                 <!-- If order is pushed -->
                 <template v-if="store.push_status === 'pushed'">
@@ -165,8 +175,9 @@ const fetchNextOrderSummary = () => {
                   <p class="mb-0 mt-2" v-if="store.pushed_at">on {{ formatDate(store.pushed_at).date }} at {{ formatDate(store.pushed_at).time }}</p>
                 </template>
 
+                <!-- If store is disconnected -->
                 <template v-if="store.store_disconnected">
-                  <p class="mb-0 mt-2 text-error font-semibold">Cannot fetch info as store is disconnected</p>
+                  <p class="mb-0 mt-2 text-error font-semibold">Cannot fetch information as store is disconnected</p>
                 </template>
 
                 <template v-if="store.push_status !== 'blocked'"></template>
@@ -181,11 +192,13 @@ const fetchNextOrderSummary = () => {
 
                 <template v-if="store.is_mapper_deleted && !store.store_disconnected">
                   <p class="mb-0 mt-2 text-error font-semibold">
-                    Cannot fetch info as some product(s) are unsynced on {{ formatDate(store.mapper_deleted_at).date }} at {{ formatDate(store.mapper_deleted_at).time }}
+                    Cannot fetch information as some product(s) are unsynced on {{ formatDate(store.mapper_deleted_at).date }} at {{ formatDate(store.mapper_deleted_at).time }}
                   </p>
                 </template>
               </div>
             </div>
+
+            <Divider />
 
             <DataTable :value="store.line_items" responsiveLayout="scroll" showGridlines>
               <Column header="Image" style="width: 7.5%" class="text-center">

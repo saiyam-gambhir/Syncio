@@ -9,18 +9,22 @@ import IconShopify from '@/icons/IconShopify.vue';
     <div class="col-8">
       <CardWrapper class="pb-3">
         <template #links>
-          <h3 class="mb-2 flex align-items-center">
+          <h3 class="flex align-items-center">
             <IconShopify class="mr-3" style="transform: translateY(-1px);" />
             My order details: <Skeleton width="50px" height="24px" class="ml-1"></Skeleton>
           </h3>
-          <div class="mt-3">
-            <div class="flex align-items-center mt-2 mb-5">
+          <Divider />
+          <div>
+            <div class="flex align-items-center">
               <strong>Status:</strong>
-              <Skeleton class="mx-2" width="50px" height="24px" borderRadius="20px"></Skeleton>
-              <Skeleton width="75px" height="24px" borderRadius="20px"></Skeleton>
+              <Skeleton class="ml-3" width="50px" height="24px" borderRadius="20px"></Skeleton>
+              <Skeleton class="ml-2" width="75px" height="24px" borderRadius="20px"></Skeleton>
             </div>
+            <Divider />
             <Skeleton width="175px" height="16px"></Skeleton>
-            <Skeleton width="225px" height="16px" class="mt-2"></Skeleton>
+            <Divider />
+            <Skeleton width="225px" height="16px"></Skeleton>
+            <Divider />
           </div>
         </template>
       </CardWrapper>

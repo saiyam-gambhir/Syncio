@@ -67,10 +67,6 @@ export function useOrders() {
     return fulfillmentStatus[status];
   }
 
-  const getPushStatus = status => {
-    return pushStatus[status];
-  }
-
   return {
     fetchOrder,
     fetchOrders,
@@ -78,7 +74,6 @@ export function useOrders() {
     getFinancialStatus,
     getFulfillmentStatus,
     getOrderStatus,
-    getPushStatus,
     orders,
     setAutoPushStatus,
     toggleAutoPush,
