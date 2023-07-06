@@ -27,7 +27,10 @@ import IconShopify from '@/icons/IconShopify.vue';
 
       <CardWrapper class="pb-3 mt-5">
         <template #links>
-          <Skeleton width="200px" height="23px" class="mb-4"></Skeleton>
+          <div class="flex align-items-center justify-content-between">
+            <Skeleton width="200px" height="23px" class="mb-4"></Skeleton>
+            <Skeleton width="100px" height="23px" class="mb-4"></Skeleton>
+          </div>
 
           <DataTable :value="[{}, {}, {}, {}]" responsiveLayout="scroll" showGridlines>
             <Column header="Image" style="width: 7.5%" class="text-center">
@@ -75,7 +78,48 @@ import IconShopify from '@/icons/IconShopify.vue';
       </CardWrapper>
 
       <CardWrapper class="pb-3 mt-5" title="Additional Notes">
-        <template #links></template>
+        <template #links>
+          <div>
+            <Divider />
+            <Skeleton width="200px" height="15px"></Skeleton>
+          </div>
+          <div>
+            <Divider />
+            <Skeleton width="100px" height="15px"></Skeleton>
+            <Skeleton width="150px" height="15px" class="mt-2"></Skeleton>
+          </div>
+          <div>
+            <Divider />
+            <Skeleton width="100px" height="15px"></Skeleton>
+            <Skeleton width="50px" height="15px" class="mt-2"></Skeleton>
+          </div>
+          <div>
+            <Divider />
+            <Skeleton width="50px" height="15px"></Skeleton>
+            <Skeleton width="100px" height="15px" class="mt-2"></Skeleton>
+          </div>
+        </template>
+      </CardWrapper>
+
+      <CardWrapper class="pb-3 mt-5">
+        <template #links>
+          <div>
+            <div class="font-semibold text-lg uppercase">Customer</div>
+            <Skeleton width="100px" height="15px" class="mt-2"></Skeleton>
+          </div>
+          <Divider />
+          <div>
+            <div class="font-semibold text-lg uppercase">Contact information</div>
+            <Skeleton width="150px" height="15px" class="mt-2"></Skeleton>
+          </div>
+          <Divider />
+          <div>
+            <div class="font-semibold text-lg uppercase">Shipping address</div>
+            <Skeleton width="100px" height="15px" class="mt-2"></Skeleton>
+            <Skeleton width="110px" height="15px" class="mt-2"></Skeleton>
+            <Skeleton width="80px" height="15px" class="mt-2"></Skeleton>
+          </div>
+        </template>
       </CardWrapper>
 
       <CardWrapper class="pb-3 mt-5" title="Tags">

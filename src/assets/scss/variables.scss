@@ -17,3 +17,7 @@ $secondaryHoverBg: rgba(233, 236, 239, 1);
 $skeletonBackground: rgba(180, 208, 221, 1);
 $sourceIndicator: rgba(252, 176, 87, 1);
 $textPrimary: rgba(17, 17, 17, 1);
+
+.text-error {
+  color: $danger;
+};

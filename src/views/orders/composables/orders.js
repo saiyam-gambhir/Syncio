@@ -26,6 +26,14 @@ export function useOrders() {
     unfulfilled: 'danger',
     restocked: 'info',
   };
+  const pushStatus = {
+    blocked: 'danger',
+    failed: 'danger',
+    invalid: 'danger',
+    not_pushed: 'info',
+    partially_pushed: 'warning',
+    pushed: 'success',
+  };
 
   const fetchOrder = async orderId => {
     await orders.fetchOrder(connections.storeId, orderId);
@@ -59,15 +67,20 @@ export function useOrders() {
     return fulfillmentStatus[status];
   }
 
+  const getPushStatus = status => {
+    return pushStatus[status];
+  }
+
   return {
     fetchOrder,
     fetchOrders,
     fetchPushSettings,
+    getFinancialStatus,
+    getFulfillmentStatus,
     getOrderStatus,
+    getPushStatus,
     orders,
     setAutoPushStatus,
     toggleAutoPush,
-    getFinancialStatus,
-    getFulfillmentStatus,
   };
 }

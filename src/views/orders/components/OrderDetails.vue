@@ -12,7 +12,7 @@ import IconShopify from '@/icons/IconShopify.vue';
 import OrderDetailsSkeleton from './OrderDetailsSkeleton.vue';
 
 /* ----- Data ----- */
-const { fetchOrder, getFinancialStatus, getFulfillmentStatus } = useOrders();
+const { fetchOrder, getFinancialStatus, getFulfillmentStatus, getPushStatus } = useOrders();
 const { formatCurrency, formattedUnderscoreText, formatDate } = useFilters();
 const { isViewOrderDetailsRequested, loadingOrder, order, ordersCollection } = toRefs(useOrdersStore());
 const { storeName } = useConnectionsStore();
@@ -88,6 +88,7 @@ const fetchNextOrderSummary = () => {
         Order Summary
         <Button
           :disabled="isPreviousOrderButtonDisabled"
+          :loading="loadingOrder"
           @click="fetchPreviousOrderSummary"
           class="p-button-rounded p-button-outlined p-button-info ml-3"
           icon="pi pi-arrow-left"
@@ -96,6 +97,7 @@ const fetchNextOrderSummary = () => {
 
         <Button
           :disabled="isNextOrderButtonDisabled"
+          :loading="loadingOrder"
           @click="fetchNextOrderSummary"
           class="p-button-rounded p-button-outlined p-button-info ml-3"
           icon="pi pi-arrow-right"
@@ -149,10 +151,41 @@ const fetchNextOrderSummary = () => {
 
         <CardWrapper class="mt-5" v-for="(store, key) in order.source_stores" :key="key">
           <template #links>
-            <h2 class="mb-4">
-              <i class="pi pi-shopping-cart text-xl mr-2"></i>
-              {{ key }}
-            </h2>
+            <div class="flex align-items-top justify-content-between mb-4">
+              <h2 class="mb-0">
+                <i class="pi pi-shopping-cart text-xl mr-2"></i>
+                {{ key }}
+              </h2>
+              <div class="text-right">
+
+                <!-- If order is pushed -->
+                <template v-if="store.push_status === 'pushed'">
+                  <Tag severity="success" :value="store.push_status" icon="pi pi-check" />
+                  <!-- TODO: Change date format from BE -->
+                  <p class="mb-0 mt-2" v-if="store.pushed_at">on {{ formatDate(store.pushed_at).date }} at {{ formatDate(store.pushed_at).time }}</p>
+                </template>
+
+                <template v-if="store.store_disconnected">
+                  <p class="mb-0 mt-2 text-error font-semibold">Cannot fetch info as store is disconnected</p>
+                </template>
+
+                <template v-if="store.push_status !== 'blocked'"></template>
+
+                <template v-else>
+                  <div v-if="!store.is_mapper_deleted && !store.store_disconnected">
+                    <Tag severity="danger" :value="store.push_status" icon="pi pi-times" />
+                    <p class="mb-0 mt-2 text-error font-semibold" v-if="order.push_status === 'pushed'">Location changed</p>
+                    <p class="mb-0 mt-2 text-error font-semibold" v-else>Blocked by Syncio location mismatching</p>
+                  </div>
+                </template>
+
+                <template v-if="store.is_mapper_deleted && !store.store_disconnected">
+                  <p class="mb-0 mt-2 text-error font-semibold">
+                    Cannot fetch info as some product(s) are unsynced on {{ formatDate(store.mapper_deleted_at).date }} at {{ formatDate(store.mapper_deleted_at).time }}
+                  </p>
+                </template>
+              </div>
+            </div>
 
             <DataTable :value="store.line_items" responsiveLayout="scroll" showGridlines>
               <Column header="Image" style="width: 7.5%" class="text-center">
@@ -200,8 +233,8 @@ const fetchNextOrderSummary = () => {
           <template #links>
             <div v-for="(value, propertyName) in order.additional_notes" :key="propertyName">
               <Divider />
-              <div class="font-semibold text-lg">{{ propertyName }}</div>
-              <div class="mt-2 text-lg">{{ value }}</div>
+              <div class="font-semibold">{{ propertyName }}</div>
+              <div class="mt-2">{{ value }}</div>
             </div>
           </template>
         </CardWrapper>
@@ -210,23 +243,23 @@ const fetchNextOrderSummary = () => {
           <template #links>
             <div>
               <div class="font-semibold text-lg uppercase">Customer</div>
-              <div class="mt-2 text-lg">{{ order.contact_details?.name }}</div>
+              <div class="mt-2">{{ order.contact_details?.name }}</div>
             </div>
 
             <Divider />
 
             <div>
               <div class="font-semibold text-lg uppercase">Contact information</div>
-              <div class="mt-2 text-lg">{{ order.contact_details?.email }}</div>
+              <div class="mt-2">{{ order.contact_details?.email }}</div>
             </div>
 
             <Divider />
 
             <div>
               <div class="font-semibold text-lg uppercase">Shipping address</div>
-              <div class="mt-2 text-lg">{{ order.shipping_address?.address1 }}</div>
-              <div class="mt-2 text-lg">{{ order.shipping_address?.city }}, {{ order.shipping_address?.province }}</div>
-              <div class="mt-2 text-lg">{{ order.shipping_address?.zip }}, {{ order.shipping_address?.country }}</div>
+              <div class="mt-2">{{ order.shipping_address?.address1 }}</div>
+              <div class="mt-2">{{ order.shipping_address?.city }}, {{ order.shipping_address?.province }}</div>
+              <div class="mt-2">{{ order.shipping_address?.zip }}, {{ order.shipping_address?.country }}</div>
             </div>
           </template>
         </CardWrapper>
