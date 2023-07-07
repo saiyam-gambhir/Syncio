@@ -83,18 +83,18 @@ const pushOrderHandler = async (targetStoreId) => {
           :disabled="isPreviousOrderButtonDisabled"
           :loading="loadingOrder"
           @click="fetchPreviousOrderSummary"
-          class="p-button-rounded p-button-outlined p-button-info ml-3"
-          icon="pi pi-arrow-left"
-          v-tooltip.left="'Previous order'">
+          class="p-button-sm ml-3"
+          label="Previous Order"
+          outlined>
         </Button>
 
         <Button
           :disabled="isNextOrderButtonDisabled"
           :loading="loadingOrder"
           @click="fetchNextOrderSummary"
-          class="p-button-rounded p-button-outlined p-button-info ml-3"
-          icon="pi pi-arrow-right"
-          v-tooltip="'Next order'">
+          class="p-button-sm ml-3"
+          label="Next Order"
+          outlined>
         </Button>
       </h1>
     </template>
@@ -158,8 +158,8 @@ const pushOrderHandler = async (targetStoreId) => {
                 </template>
 
                 <template v-if="store.push_status !== 'blocked'">
-                  <Button :loading="isPushOrderLoading" class="ml-3" :disabled="!shippingCost" v-if="order.customer !== null && order.shipping_address !== null && store.push_status !== 'pushed' && !store.is_mapper_deleted && !store.store_disconnected" @click="pushOrderHandler(store.target_store_id, storeName)">
-                    <span v-if="store.push_status === 'failed'">Repush</span>
+                  <Button :loading="isPushOrderLoading" class="ml-3" :disabled="!shippingCost" v-if="order.customer !== null && order.shipping_address !== null && store.push_status !== 'pushed' && !store.is_mapper_deleted && !store.store_disconnected" @click="pushOrderHandler(store.target_store_id, storeName)" style="transform: translateY(-1px);">
+                    <span v-if="store.push_status === 'failed'">Repush Order</span>
                     <span v-else>Push Order</span>
                   </Button>
                 </template>

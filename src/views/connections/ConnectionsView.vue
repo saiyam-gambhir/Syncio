@@ -74,8 +74,6 @@ const toggleMultilocationHandler = async event => {
       <Button
         @click="isNewStoreConnectionRequested = true"
         class="ml-5"
-        icon="pi pi-plus-circle"
-        iconPos="right"
         label="Connect New Store">
       </Button>
     </template>

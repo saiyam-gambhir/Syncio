@@ -34,7 +34,9 @@ const {
 
     <Column header="Platform" style="width: 5%" class="text-center">
       <template #body>
-        <Skeleton size="40px" shape="circle" />
+        <div class="flex align-items-center justify-content-center">
+          <Skeleton width="31px" height="31px" />
+        </div>
       </template>
     </Column>
 
@@ -52,14 +54,14 @@ const {
 
     <Column header="Assigned Location" style="width: 30%">
       <template #body>
-        <Skeleton height="39px" />
+        <Skeleton height="31px" />
       </template>
     </Column>
 
     <Column header="Actions" style="width: 17.5%" class="text-right">
       <template #body>
-        <Skeleton size="40px" shape="circle" style="float: right" class="ml-3" />
-        <Skeleton size="40px" shape="circle" style="float: right" />
+        <Skeleton width="95px" height="31.5px" style="float: right" class="ml-2" />
+        <Skeleton width="107px" height="31.5px" style="float: right" />
       </template>
     </Column>
   </DataTable>

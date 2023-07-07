@@ -144,7 +144,12 @@ const isChecked = ({ id }) => {
 
     <Column header="Actions" style="width: 10%" class="text-right">
       <template #body="{ data: { id } }">
-        <Button icon="pi pi-window-maximize" class="p-button-rounded p-button-outlined p-button-raised" v-tooltip.top="'View Details'" @click="fetchOrderHandler(id)"></Button>
+        <Button
+          @click="fetchOrderHandler(id)"
+          class="p-button-sm"
+          label="View Details"
+          outlined>
+        </Button>
       </template>
     </Column>
   </DataTable>

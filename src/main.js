@@ -147,8 +147,9 @@ const logout = () => {
 /* ----- INTERCEPTERS ----- */
 $https.interceptors.response.use(
   response => {
-    const { message, success } = response?.data
+    const { message, success, errors } = response?.data
     if(message && success) connections.showToast(message);
+    else if(!success && errors[0]) connections.showToast(errors[0], 'error');
     return response;
   },
   error => {

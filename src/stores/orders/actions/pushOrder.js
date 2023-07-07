@@ -4,5 +4,7 @@ export const pushOrder = {
       shipping_cost: shippingCost,
       target_store_id: targetStoreId,
     });
+
+    //fetch order summary
   }
 };

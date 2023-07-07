@@ -121,12 +121,16 @@ const updateCurrentPageHandler = page => {
 
     <Column header="Actions" style="width: 10%" class="text-right">
       <template #body="{ data: { id } }">
-        <Button icon="pi pi-trash" class="p-button-rounded p-button-outlined p-button-danger" v-tooltip.top="'Dismiss'"
-          @click="deleteActivityHandler(id)"></Button>
+        <Button
+          @click="deleteActivityHandler(id)"
+          class="p-button-sm"
+          label="Dismiss"
+          outlined
+          severity="danger">
+        </Button>
       </template>
     </Column>
   </DataTable>
 
-  <Pagination v-if="activityCenter?.productIssues?.pagination" :pagination="activityCenter.productIssues.pagination"
-    @updateCurrentPage="updateCurrentPageHandler" />
+  <Pagination v-if="activityCenter?.productIssues?.pagination" :pagination="activityCenter.productIssues.pagination" @updateCurrentPage="updateCurrentPageHandler" />
 </template>

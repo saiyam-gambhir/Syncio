@@ -189,6 +189,12 @@ td {
     &.shadow {
       box-shadow: 0px 2px 2px 0px #00000040;
     }
+
+    letter-spacing: .5px;
+
+    .p-button-label {
+      font-weight: 600;
+    }
   }
 
   .p-button.p-button-secondary:enabled:hover,
@@ -325,7 +331,6 @@ td {
 }
 
 .p-toast {
-  max-width: 50rem !important;
   width: auto !important;
 }
 
@@ -343,6 +348,9 @@ td {
     svg {
       width: 20px;
       height: 20px;
+      position: absolute;
+      left: 1rem;
+      top: .86rem;
     }
   }
 
@@ -352,7 +360,7 @@ td {
   }
 
   .p-toast-message-content {
-    padding: 0.5rem 1rem !important;
+    padding: .75rem 1rem .75rem 1.75rem !important;
   }
 
   &-error {
