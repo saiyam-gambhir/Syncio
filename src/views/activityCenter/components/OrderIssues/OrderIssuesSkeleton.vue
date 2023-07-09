@@ -1,33 +1,44 @@
 <script setup>
-import { useActivities } from '../../composables/activities';
+import { toRefs } from 'vue';
+import { useActivityCenterStore } from '@/stores/activityCenter';
 
 /* ----- Components ----- */
 import SearchFilter from '@/components/shared/SearchFilter.vue';
 import StoresFilter from '@/components/shared/StoresFilter.vue';
 
 /* ----- Data ----- */
-const { activityCenter } = useActivities();
+const { loadingActivities, orderEvents, orderQueries } = toRefs(useActivityCenterStore());
 </script>
+
 <template>
   <DataTable :value="[{}, {}, {}, {}]" responsiveLayout="scroll" showGridlines>
     <template #header>
       <div class="flex align-items-center justify-content-between">
         <div class="p-inputgroup w-50">
-          <SearchFilter :loading="activityCenter.loadingActivities" placeholder="Search by product name or SKU"
-            v-model="activityCenter.orderQueries.search_str">
+          <SearchFilter
+            :loading="loadingActivities"
+            placeholder="Search by product name or SKU"
+            v-model="orderQueries.search_str">
           </SearchFilter>
         </div>
 
         <div class="flex w-50 align-items-center justify-content-end">
           <div class="p-inputgroup w-35">
-            <StoresFilter :loading="activityCenter.loadingActivities"
-              v-model="activityCenter.orderQueries.partner_store_id" />
+            <StoresFilter
+              :loading="loadingActivities"
+              v-model="orderQueries.partner_store_id">
+            </StoresFilter>
           </div>
 
           <div class="p-inputgroup w-35 ml-4">
-            <Dropdown :autoOptionFocus="false" :loading="activityCenter.loadingActivities"
-              :options="activityCenter.productEvents" optionLabel="label" optionValue="value" placeholder="All Events"
-              v-model="activityCenter.orderQueries['filters[event]']">
+            <Dropdown
+              :autoOptionFocus="false"
+              :loading="loadingActivities"
+              :options="orderEvents"
+              optionLabel="label"
+              optionValue="value"
+              placeholder="All Events"
+              v-model="orderQueries['filters[event]']">
             </Dropdown>
           </div>
         </div>
@@ -70,7 +81,7 @@ const { activityCenter } = useActivities();
 
     <Column header="Actions" style="width: 10%" class="text-right">
       <template #body>
-        <Skeleton size="40px" shape="circle" style="float: right" />
+        <Skeleton width="71.4px" height="31.4px" style="float: right" />
       </template>
     </Column>
   </DataTable>

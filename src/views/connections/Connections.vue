@@ -94,23 +94,6 @@ const searchHandler = async (searchText) => {
 
     <Column header="Actions" style="width: 17.5%" class="text-right">
       <template #body="{ data: connection }">
-        <!-- <Button
-          icon="pi pi-list"
-          outlined
-          raised
-          rounded
-          v-tooltip.top="'Products'">
-        </Button>
-        <Button
-          @click="showDisconnectStoreDialog(connection)"
-          class="ml-3"
-          icon="pi pi-trash"
-          outlined
-          raised
-          rounded
-          severity="danger"
-          v-tooltip.top="'Disconnect'">
-        </Button> -->
         <Button
           class="p-button-sm"
           label="View Products"

@@ -1,12 +1,13 @@
 <script setup>
-import { useActivities } from '../../composables/activities';
+import { toRefs } from 'vue';
+import { useActivityCenterStore } from '@/stores/activityCenter';
 import { useFilters } from '@/composables/filters';
 
 /* ----- Components ----- */
 import StoresFilter from '@/components/shared/StoresFilter.vue';
 
 /* ----- Data ----- */
-const { activityCenter } = useActivities();
+const { generalEvents, generalQueries, loadingActivities } = toRefs(useActivityCenterStore());
 const { randomInteger } = useFilters();
 </script>
 
@@ -18,16 +19,21 @@ const { randomInteger } = useFilters();
 
         <div class="flex w-50 align-items-center justify-content-end">
           <div class="p-inputgroup w-35">
-            <StoresFilter :loading="activityCenter.loadingActivities" @update:modelValue="storeFilterHandler"
-              v-model="activityCenter.generalQueries.partner_store_id">
+            <StoresFilter
+              :loading="loadingActivities"
+              @update:modelValue="storeFilterHandler"
+              v-model="generalQueries.partner_store_id">
             </StoresFilter>
           </div>
 
           <div class="p-inputgroup w-35 ml-4">
-            <Dropdown :autoOptionFocus="false" :loading="activityCenter.loadingActivities"
-              :options="activityCenter.generalEvents" @change="fetchActivitiesHandler" optionLabel="label"
+            <Dropdown
+              :autoOptionFocus="false"
+              :loading="loadingActivities"
+              :options="generalEvents"
+              optionLabel="label"
               optionValue="value" placeholder="All Events" showClear
-              v-model="activityCenter.generalQueries['filters[event]']">
+              v-model="generalQueries['filters[event]']">
             </Dropdown>
           </div>
         </div>

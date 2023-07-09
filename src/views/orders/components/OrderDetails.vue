@@ -81,7 +81,6 @@ const pushOrderHandler = async (targetStoreId) => {
         Order Summary
         <Button
           :disabled="isPreviousOrderButtonDisabled"
-          :loading="loadingOrder"
           @click="fetchPreviousOrderSummary"
           class="p-button-sm ml-3"
           label="Previous Order"
@@ -90,7 +89,6 @@ const pushOrderHandler = async (targetStoreId) => {
 
         <Button
           :disabled="isNextOrderButtonDisabled"
-          :loading="loadingOrder"
           @click="fetchNextOrderSummary"
           class="p-button-sm ml-3"
           label="Next Order"

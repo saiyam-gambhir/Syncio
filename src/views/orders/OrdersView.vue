@@ -96,7 +96,7 @@ const isChecked = ({ id }) => {
   </BulkSelectedCount>
 
   <OrdersViewSkeleton v-if="orders.loadingOrders" />
-  <DataTable v-else :value="orders.orders" :rowHover="true" responsiveLayout="scroll" showGridlines class="mt-4">
+  <DataTable v-else :value="orders.orders" responsiveLayout="scroll" showGridlines class="mt-4">
     <template #empty>
       <div class="px-4 py-8 text-center">
         <h2 class="m-0">No orders found</h2>
@@ -136,7 +136,7 @@ const isChecked = ({ id }) => {
       </template>
     </Column>
 
-    <Column header="Synced Items" style="width: 10%">
+    <Column header="Synced Items" style="width: 10%;">
       <template #body="{ data: { line_items } }">
         {{ line_items?.length }}
       </template>
