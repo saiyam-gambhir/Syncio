@@ -18,6 +18,7 @@
   --indicator-background: #c7c7c7;
   --input-background: #fafafa;
   --link: #0d99ff;
+  --pagination: rgb(242, 242, 242);
   --primary-color: #0e3b4d;
   --text-dark: #212121;
   --text-light: #757575;
@@ -117,10 +118,6 @@ td {
 }
 
 .p-datatable-gridlines {
-  th {
-    border-bottom: 0 !important;
-  }
-
   td + td,
   th + th {
     border-left: 0 !important;
@@ -476,9 +473,12 @@ input.p-inputtext-lg {
 }
 
 .p-datatable .p-datatable-header {
-  background: lighten(#dee2e6, 2%);
+  background: var(--pagination);
   border-top: 0;
   padding: 0.75rem !important;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 .p-dropdown-label {

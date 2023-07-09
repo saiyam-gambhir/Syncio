@@ -24,19 +24,16 @@ const props = defineProps({
 const entriesEndingAt = ref(null);
 const entriesStartingFrom = ref(null);
 
-/* ----- EMITS ----- */
+/* ----- Emits ----- */
 const emits = defineEmits(['updateCurrentPage']);
 
-/* ----- MOUNTED ----- */
+/* ----- Mounted ----- */
 onMounted(() => setEntries());
 
-/* ----- WATCHERS ----- */
-watch(
-  () => props.pagination,
-  (newValue, oldValue) => {
-    setEntries();
-  }
-);
+/* ----- Watchers ----- */
+watch(() => props.pagination, (newValue, oldValue) => {
+  setEntries();
+});
 
 /* ----- Methods ----- */
 const goToFirstPage = () => {
@@ -44,10 +41,7 @@ const goToFirstPage = () => {
 };
 
 const goToLastPage = () => {
-  emits(
-    'updateCurrentPage',
-    Math.ceil(props.pagination.total_count / props.pagination.per_page)
-  );
+  emits('updateCurrentPage', Math.ceil(props.pagination.total_count / props.pagination.per_page));
 };
 
 const goToPrevPage = () => {
@@ -62,20 +56,21 @@ const setEntries = () => {
   const { current_page, next_page_url, per_page, total_count } = props.pagination;
   if (!current_page) return;
 
-  entriesStartingFrom.value = +per_page * +current_page - (+per_page - 1);
-  entriesEndingAt.value = total_count < per_page ? total_count : +per_page * +current_page;
+  const currentPage = +current_page;
+  const perPage = +per_page;
+  entriesStartingFrom.value = perPage * currentPage - (perPage - 1);
+  entriesEndingAt.value = total_count < perPage ? total_count : perPage * currentPage;
 
-  if (!next_page_url) {
-    entriesEndingAt.value = total_count;
-  }
+  if (!next_page_url) entriesEndingAt.value = total_count;
 };
 </script>
 
 <template>
   <div class="pagination flex align-items-center justify-content-between" v-if="pagination && pagination.total_count > 0">
-    <h6 class="m-0" v-if="pagination && showInfo"><span v-if="pagination.total_count > 0">{{ entriesStartingFrom }} - {{
-      entriesEndingAt }} of</span> {{ pagination.total_count }}</h6>
-    <ul class="flex pl-0 m-0 w-full">
+    <h5 class="m-0" v-if="pagination && showInfo">
+      <span v-if="pagination.total_count > 0">{{ entriesStartingFrom }} - {{ entriesEndingAt }} of</span> {{ pagination.total_count }}
+    </h5>
+    <ul class="flex pl-0 m-0 pagination__actions">
       <li class="page pagination__first" @click="goToFirstPage" :class="{ disabled: !pagination.previous_page_url }">
         <IconPageFirst />
       </li>

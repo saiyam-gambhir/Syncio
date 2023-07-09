@@ -1,5 +1,12 @@
 .pagination {
-  background: var(--white);
+  background: var(--pagination);
+  bottom: 0;
+  padding: 0.75rem;
+  position: sticky;
+
+  &__actions {
+    width: 200px;
+  }
 
   .page {
     align-items: center;
@@ -47,5 +54,20 @@
 
   &__last {
     border-radius: 0 var(--border-radius) var(--border-radius) 0;
+  }
+}
+
+.marketplace {
+  .pagination {
+    background: transparent;
+    padding: 0;
+
+    &__actions {
+      width: 100%;
+    }
+
+    .page {
+      height: 39.5px;
+    }
   }
 }
