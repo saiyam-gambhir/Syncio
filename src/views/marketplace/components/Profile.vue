@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from 'vue';
+import { computed, toRefs } from 'vue';
 import { useMarketPlaceStore } from '@/stores/marketPlace';
 
 /* ----- Components ----- */
@@ -9,7 +9,7 @@ import IconNext from '@/components/icons/IconNext.vue';
 import IconPrevious from '@/components/icons/IconPrevious.vue';
 
 /* ----- Data ----- */
-const marketPlace = useMarketPlaceStore();
+const { isMessageDialogVisible, selectedProfile } = toRefs(useMarketPlaceStore());
 
 /* ----- Props ----- */
 const props = defineProps({
@@ -35,10 +35,8 @@ const instagramHandle = computed(() => {
 
 /* ----- Methods ----- */
 const showMessageDialogHandler = profile => {
-  marketPlace.$patch({
-    isMessageDialogVisible: true,
-    selectedProfile: profile,
-  });
+  isMessageDialogVisible.value = true;
+  selectedProfile.value = { ...profile };
 };
 </script>
 
@@ -48,8 +46,12 @@ const showMessageDialogHandler = profile => {
       <div v-if="profileImagesCount === 0" class="profile__image">
         <div class="image no-profile-image"></div>
       </div>
-      <Carousel :numScroll="1" :numVisible="1" :showIndicators="profileImagesCount > 1"
-        :showNavigators="profileImagesCount > 1" :value="profile.coco_profile_images" circular v-else>
+      <Carousel
+        :numScroll="1"
+        :numVisible="1"
+        :showIndicators="profileImagesCount > 1"
+        :showNavigators="profileImagesCount > 1"
+        :value="profile.coco_profile_images" circular v-else>
         <template #previousicon>
           <IconPrevious />
         </template>
@@ -77,7 +79,7 @@ const showMessageDialogHandler = profile => {
           <AppLink label="Website" :link="profile.website" />
         </div>
         <Divider />
-        <Button label="Message" class="absolute" @click="showMessageDialogHandler(profile)"></Button>
+        <Button label="Message" class="absolute" outlined @click="showMessageDialogHandler(profile)"></Button>
       </div>
     </div>
   </div>

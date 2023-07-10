@@ -96,7 +96,7 @@ const searchHandler = async (searchText) => {
       <template #body="{ data: connection }">
         <Button
           class="p-button-sm"
-          label="View Products"
+          label="Products"
           outlined>
         </Button>
         <Button

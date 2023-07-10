@@ -1,21 +1,21 @@
 <script setup>
-import { ref, watch } from 'vue';
+import { ref, toRefs, watch } from 'vue';
 import { useDebounceFn } from '@vueuse/core';
 import { useMarketPlaceStore } from '@/stores/marketPlace';
 
 /* ----- Data ----- */
-const marketPlace = useMarketPlaceStore();
+const { fetchProfiles, queries } = toRefs(useMarketPlaceStore());
 const searchString = ref('');
 
 /* ----- Methods -----*/
 const debouncedSearch = useDebounceFn(async () => {
-  await marketPlace.fetchProfiles();
-}, 500);
+  await fetchProfiles.value();
+}, 350);
 
 /* ----- Watchers ----- */
 watch(searchString, async (newValue, oldValue) => {
   if (searchString.value.length > 2 || newValue.length < oldValue.length) {
-    marketPlace.queries['search_str'] = newValue;
+    queries.value['search_str'] = newValue;
     debouncedSearch();
   }
 });
@@ -28,7 +28,11 @@ watch(searchString, async (newValue, oldValue) => {
         <h2 class="text-3xl mb-6">Find your perfect match</h2>
         <div class="p-input-icon-left w-50">
           <i class="pi pi-search" />
-          <InputText class="p-inputtext-lg w-full" placeholder="Search for categories or brands" v-model="searchString" />
+          <InputText
+            class="p-inputtext-lg w-full"
+            placeholder="Search for categories or brands"
+            v-model="searchString">
+          </InputText>
         </div>
       </div>
     </div>

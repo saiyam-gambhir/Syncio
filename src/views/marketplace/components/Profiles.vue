@@ -1,4 +1,5 @@
 <script setup>
+import { toRefs } from 'vue';
 import { useMarketPlaceStore } from '@/stores/marketPlace';
 
 /* ----- Components ----- */
@@ -7,18 +8,22 @@ import Profile from './Profile.vue';
 import ProfilesSkeleton from './ProfileSkeleton.vue';
 
 /* ----- Data ----- */
-const marketPlace = useMarketPlaceStore();
+const { loading, profiles } = toRefs(useMarketPlaceStore());
 </script>
 
 <template>
   <section class="profiles mx-auto mb-4">
     <div class="container">
       <Filters />
-      <div class="grid" v-if="marketPlace.loading">
+      <div class="grid" v-if="loading">
         <ProfilesSkeleton />
       </div>
       <div class="grid" v-else>
-        <Profile v-for="profile in marketPlace.profiles" :key="profile.id" :profile="profile" />
+        <Profile
+          :key="profile.id"
+          :profile="profile"
+          v-for="profile in profiles">
+        </Profile>
       </div>
     </div>
   </section>
