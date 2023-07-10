@@ -6,7 +6,7 @@ import IconShopify from '@/icons/IconShopify.vue';
 
 <template>
   <div class="grid mt-4">
-    <div class="col-8">
+    <div class="col-12 md:col-12 lg:col-8">
       <CardWrapper class="pb-3">
         <template #links>
           <h3 class="flex align-items-center">
@@ -74,7 +74,7 @@ import IconShopify from '@/icons/IconShopify.vue';
       </CardWrapper>
     </div>
 
-    <div class="col-4">
+    <div class="col-12 md:col-12 lg:col-4">
       <CardWrapper class="pb-3" title="Notes">
         <template #links>
           <Skeleton width="300px" height="20px" class="mt-3"></Skeleton>

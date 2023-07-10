@@ -535,6 +535,7 @@ input.p-inputtext-lg {
   @extend .w-100;
   height: calc(100vh - $headerHeight);
   max-width: 1920px;
+  min-width: 1024px;
   overflow-y: auto;
 }
 

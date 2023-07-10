@@ -101,7 +101,7 @@ const pushOrderHandler = async (targetStoreId) => {
 
     <div v-else class="grid mt-4">
 
-      <div class="col-8">
+      <div class="col-12 md:col-12 lg:col-8">
         <div v-if="order.edited">
           <Message severity="warn" class="col-12 mt-0 mb-5" :closable="false">
             <p class="my-0">
@@ -232,7 +232,7 @@ const pushOrderHandler = async (targetStoreId) => {
         </CardWrapper>
       </div>
 
-      <div class="col-4">
+      <div class="col-12 md:col-12 lg:col-4">
         <CardWrapper class="pb-3" title="Notes">
           <template #links>
             <p v-if="order.note" class="text-lg mb-0 mt-3">{{ order.note }}</p>
