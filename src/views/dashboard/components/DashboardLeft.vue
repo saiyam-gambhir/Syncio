@@ -10,7 +10,7 @@ import CardWrapper from '@/views/dashboard/components/CardWrapper.vue';
 /* ----- Data ----- */
 const { copyToClipBoard } = useFilters();
 const { showToast } = useToasts();
-const connections = useConnectionsStore();
+const { storeKey } = useConnectionsStore();
 
 const copyStoreKeyHandler = async val => {
   await copyToClipBoard(val);
@@ -26,9 +26,12 @@ const copyStoreKeyHandler = async val => {
       icon="key" title="Unique store key">
       <template #links>
         <h3 class="mb-0 flex align-items-center">
-          {{ connections.storeKey }}
-          <Button icon="pi pi-copy" class="p-button-rounded p-button-text ml-2"
-            @click="copyStoreKeyHandler(connections.storeKey)"></Button>
+          {{ storeKey }}
+          <Button
+            @click="copyStoreKeyHandler(storeKey)"
+            class="p-button-rounded p-button-text ml-2"
+            icon="pi pi-copy">
+          </Button>
         </h3>
       </template>
     </CardWrapper>
@@ -37,9 +40,7 @@ const copyStoreKeyHandler = async val => {
       <template #links>
         <div class="pt-3">
           <router-link to="/settings" class="btn-link">Account settings</router-link>
-          <p class="text-sm mt-1 mb-0">
-            Manage account and notification settings
-          </p>
+          <p class="text-sm mt-1 mb-0">Manage account and notification settings</p>
         </div>
 
         <div class="pt-3">
@@ -60,9 +61,7 @@ const copyStoreKeyHandler = async val => {
           <AppLink
             link="https://docs.google.com/forms/d/e/1FAIpQLSego6l-ceEo02LZyAfGH78U_C8hzN7mNTWCr4u4yzS4AlB07Q/viewform"
             label="Let us know what you think" />
-          <p class="text-sm mt-1 mb-0">
-            Answer a short 3 minute survey to help us improve Syncio for you
-          </p>
+          <p class="text-sm mt-1 mb-0">Answer a short 3 minute survey to help us improve Syncio for you</p>
         </div>
       </template>
     </CardWrapper>
