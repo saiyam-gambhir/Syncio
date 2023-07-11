@@ -29,7 +29,9 @@ const copyStoreKeyHandler = async val => {
           {{ storeKey }}
           <Button
             @click="copyStoreKeyHandler(storeKey)"
-            class="p-button-rounded p-button-text ml-2"
+            class="ml-2"
+            rounded
+            text
             icon="pi pi-copy">
           </Button>
         </h3>

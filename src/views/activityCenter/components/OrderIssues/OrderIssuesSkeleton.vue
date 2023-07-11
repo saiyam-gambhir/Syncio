@@ -17,7 +17,7 @@ const { loadingActivities, orderEvents, orderQueries } = toRefs(useActivityCente
         <div class="p-inputgroup w-50">
           <SearchFilter
             :loading="loadingActivities"
-            placeholder="Search by product name or SKU"
+            placeholder="Search by order number order ID"
             v-model="orderQueries.search_str">
           </SearchFilter>
         </div>

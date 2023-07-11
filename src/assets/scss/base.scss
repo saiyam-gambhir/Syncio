@@ -534,7 +534,7 @@ input.p-inputtext-lg {
 .router-view {
   @extend .w-100;
   height: calc(100vh - $headerHeight);
-  max-width: 1920px;
+  max-width: 1680px;
   min-width: 1024px;
   overflow-y: auto;
 }

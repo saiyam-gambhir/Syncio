@@ -41,7 +41,7 @@ const props = defineProps({
         <p class="mb-3 mt-4 text-700 line-height-4">{{ description }}</p>
       </div>
 
-      <div class="px-4 py-3 surface-card text-right border-top-1 surface-border">
+      <div class="px-4 py-3 text-right border-top-1 surface-border">
         <router-link v-if="disabled" to="/settings/plan-and-billings">
           <Button icon="pi pi-lock-open" iconPos="right" iconClass="ml-3" label="Unlock this add-on"></Button>
         </router-link>

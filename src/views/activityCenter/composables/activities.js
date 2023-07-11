@@ -7,8 +7,8 @@ export function useActivities() {
     await activityCenter.deleteActivity(activityId);
   };
 
-  const fetchActivitiesHandler = async () => {
-    await activityCenter.fetchActivities();
+  const fetchActivitiesHandler = async (page) => {
+    await activityCenter.fetchActivities(page);
   };
 
   return {

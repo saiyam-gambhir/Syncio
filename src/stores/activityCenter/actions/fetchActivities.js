@@ -7,7 +7,7 @@ import { useAuthStore } from '@/stores/auth';
 import { useFilters } from '@/composables/filters';
 
 export const fetchActivities = {
-  async fetchActivities() {
+  async fetchActivities(page) {
     try {
       // Set the loading flag to true to indicate that activities are being fetched
       this.loadingActivities = true;
@@ -36,6 +36,7 @@ export const fetchActivities = {
           ...queries,
           group: activeTab,
           limiter: 25,
+          page: page ?? null
         },
       });
 

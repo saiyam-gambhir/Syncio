@@ -5,6 +5,7 @@ import { useActivityCenterStore } from '@/stores/activityCenter';
 
 /* ----- Components ----- */
 import AppLink from '@/components/shared/AppLink.vue';
+import EmptyTable from '../EmptyTable.vue';
 import OrderIssuesSkeleton from './OrderIssuesSkeleton.vue';
 import Pagination from '@/components/shared/Pagination.vue';
 import SearchFilter from '@/components/shared/SearchFilter.vue';
@@ -35,14 +36,7 @@ const updateCurrentPageHandler = page => {
 
   <DataTable v-else :value="orderIssues?.notifications" responsiveLayout="scroll" showGridlines>
     <template #empty>
-      <div class="px-4 py-4 text-center">
-        <h2 class="m-0">Hurray 🎉</h2>
-        <p>
-          You have no Order issues at this time.<br />
-          If you notice something isn't right with your sync,<br />
-          check back here to see if there are any issues and how to fix them.
-        </p>
-      </div>
+      <EmptyTable />
     </template>
 
     <template #header>

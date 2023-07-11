@@ -39,7 +39,7 @@ const closeDialogHandler = () => {
     </template>
 
     <template #footer>
-      <Button label="Cancel" outlined @click="closeDialogHandler"></Button>
+      <Button label="Cancel" class="p-button-secondary" @click="closeDialogHandler"></Button>
       <Button label="Send" class="m-0"></Button>
     </template>
   </DialogWrapper>

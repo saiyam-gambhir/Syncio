@@ -47,8 +47,8 @@ const isPathSettings = computed(() => {
             <NavLink href="/products" iconClass="pi-list" linkText="Products" />
           </li>
           <li class="mt-2">
-            <NavLink v-if="auth.isProductModuleAvailable" href="/products-settings" iconClass="pi-list" linkText="Product Settings" />
-            <NavLink v-else :href="$route.path" iconClass="pi-list" linkText="Product Settings" disabled />
+            <NavLink v-if="auth.isProductModuleAvailable" href="/products-settings" iconClass="pi-sync" linkText="Product Settings" />
+            <NavLink v-else :href="$route.path" iconClass="pi-sync" linkText="Product Settings" disabled @click="showUpgradeDialogHandler('product-settings')" />
           </li>
           <li class="mt-2">
             <NavLink v-if="auth.isOrderModuleAvailable" href="/orders" iconClass="pi-file" linkText="Orders" />
@@ -116,8 +116,8 @@ const isPathSettings = computed(() => {
                 from synced orders
               </h1>
               <p class="text-xl line-height-3">
-                Payouts allows you to create, manage and share payment
-                information with Source stores for simpler earnings settlements
+                Payouts allows you to create, manage and share payment <br />
+                information with Source stores for simpler earnings <br /> and settlements
                 (Shopify only).
               </p>
               <AppLink
@@ -127,11 +127,11 @@ const isPathSettings = computed(() => {
             </template>
 
             <template v-else-if="auth.showProductSettingsUpgradeDialog">
-              <i class="pi pi-list text-primary text-6xl mb-4"></i>
+              <i class="pi pi-sync text-primary text-6xl mb-4"></i>
               <h1 class="text-primary">Sync more than just inventory</h1>
               <p class="text-xl line-height-3">
-                Our product sync add-on allows you to sync product and variant
-                attributes such as title, description, images, <br />
+                Our product sync add-on allows you to sync product and <br /> variant
+                attributes  such as title, description, images, <br />
                 and much more.
               </p>
               <AppLink label="Learn more" link="https://help.syncio.co/en/articles/3704617-product-settings-add-on" class="text-xl my-2" />
@@ -142,7 +142,7 @@ const isPathSettings = computed(() => {
         <template #footer>
           <div class="flex align-items-center justify-content-between">
             <Button label="Cancel" class="p-button-secondary" @click="closeDialogHandler"></Button>
-            <Button label="Upgrade Plan" class="p-button-lg mr-0" @click="goToPlanSelectionPage"></Button>
+            <Button label="Select Add-on" class="p-button-lg mr-0" @click="goToPlanSelectionPage"></Button>
           </div>
         </template>
       </DialogWrapper>

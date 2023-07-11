@@ -1,25 +1,24 @@
 <script setup>
-import { defineAsyncComponent, onMounted } from 'vue';
-import { toRefs } from 'vue';
+import { defineAsyncComponent, onMounted, toRefs } from 'vue';
 import { useActivities } from './composables/activities';
 import { useActivityCenterStore } from '@/stores/activityCenter';
 import { useConnectionsStore } from '@/stores/connections';
 
 /* ----- Components ----- */
-import PageHeader from '@/components/shared/PageHeader.vue';
 const GeneralUpdates = defineAsyncComponent(() => import('@/views/activityCenter/components/GeneralUpdates/GeneralUpdates.vue'));
 const OrderIssues = defineAsyncComponent(() => import('@/views/activityCenter/components/OrderIssues/OrderIssues.vue'));
 const ProductIssues = defineAsyncComponent(() => import('@/views/activityCenter/components/ProductIssues/ProductIssues.vue'));
+import PageHeader from '@/components/shared/PageHeader.vue';
 
 /* ----- Data ----- */
-const { fetchActivitiesHandler } = useActivities();
-const connections = useConnectionsStore();
 const { activeTabIndex } = toRefs(useActivityCenterStore());
+const { fetchActivitiesHandler } = useActivities();
+const { connections, fetchConnections } = toRefs(useConnectionsStore());
 
 /* ----- Mounted ----- */
 onMounted(async () => {
   fetchActivitiesHandler();
-  if (connections.connections.length === 0) await connections.fetchConnections();
+  if (connections.value.length === 0) await fetchConnections.value();
 });
 
 /* ----- Methods ----- */

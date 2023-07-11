@@ -5,7 +5,9 @@ import { useActivityCenterStore } from '@/stores/activityCenter';
 
 /* ----- Components ----- */
 import AppLink from '@/components/shared/AppLink.vue';
+import EmptyTable from '../EmptyTable.vue';
 import GeneralUpdatesSkeleton from './GeneralUpdatesSkeleton.vue';
+import Pagination from '@/components/shared/Pagination.vue';
 import StoresFilter from '@/components/shared/StoresFilter.vue';
 
 /* ----- Data ----- */
@@ -17,12 +19,20 @@ const storeFilterHandler = async storeId => {
   generalQueries.value.partner_store_id = storeId;
   await fetchActivitiesHandler();
 };
+
+const updateCurrentPageHandler = page => {
+  fetchActivitiesHandler(page);
+};
 </script>
 
 <template>
   <GeneralUpdatesSkeleton v-if="loadingActivities" />
 
   <DataTable v-else :value="generalUpdates?.notifications" responsiveLayout="scroll" showGridlines>
+    <template #empty>
+      <EmptyTable />
+    </template>
+
     <template #header>
       <div class="flex align-items-center justify-content-between">
         <div class="p-inputgroup w-50"></div>
@@ -92,4 +102,10 @@ const storeFilterHandler = async storeId => {
       </template>
     </Column>
   </DataTable>
+
+  <Pagination
+    :pagination="generalUpdates.pagination"
+    @updateCurrentPage="updateCurrentPageHandler"
+    v-if="generalUpdates?.pagination">
+  </Pagination>
 </template>
