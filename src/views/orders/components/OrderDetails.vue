@@ -12,7 +12,7 @@ import IconShopify from '@/icons/IconShopify.vue';
 import OrderDetailsSkeleton from './OrderDetailsSkeleton.vue';
 
 /* ----- Data ----- */
-const { fetchOrder, getFinancialStatus, getFulfillmentStatus } = useOrders();
+const { fetchOrder, getFinancialStatus, getFulfillmentStatus, getPushStatus } = useOrders();
 const { formatCurrency, formattedUnderscoreText, formatDate } = useFilters();
 const { isViewOrderDetailsRequested, loadingOrder, order, ordersCollection, pushOrder } = toRefs(useOrdersStore());
 const { storeId, storeName } = useConnectionsStore();
@@ -115,6 +115,11 @@ const pushOrderHandler = async (targetStoreId) => {
         <CardWrapper class="pb-3">
           <template #links>
             <h3 class="mb-2 flex align-items-center">
+              Syncio Status: <Tag class="ml-3" rounded :severity="getPushStatus(order.push_status)">{{ formattedUnderscoreText(order.push_status) }}</Tag>
+            </h3>
+            <p class="mt-3 mb-0">Order contains synced products from <strong>{{ Object.keys(order?.source_stores).length }}</strong> source stores.</p>
+            <Divider />
+            <h3 class="mb-2 flex align-items-center">
               <IconShopify class="mr-3" style="transform: translateY(-1px);" />
               My order details: {{ order.name }}
             </h3>
@@ -163,7 +168,7 @@ const pushOrderHandler = async (targetStoreId) => {
                 </template>
 
                 <template v-if="store.push_status === 'failed' && !store.is_mapper_deleted">
-                  <p class="mb-0 mt-2 text-error font-semibold">An error has occurred while pushing your order to one or more source stores. <br> Please click 'repush' to try again.</p>
+                  <p class="mb-0 mt-2 text-error font-semibold">An error has occurred while pushing your order to one or more source stores. <br> Please click 'Repush Order' to try again.</p>
                 </template>
 
                 <!-- If order is pushed -->

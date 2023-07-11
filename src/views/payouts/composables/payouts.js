@@ -29,7 +29,7 @@ export function usePayouts() {
 
   const fetchPaidPayoutsHandler = async () => {
     SET_STATUS_FILTER('paid_received');
-    await fetchPaidPayouts(storeId);
+    await fetchPaidPayouts();
   };
 
   const updatePayoutHandler = async ({ payout_id, status, activeTabIndex }) => {

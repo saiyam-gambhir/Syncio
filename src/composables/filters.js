@@ -16,15 +16,8 @@ export function useFilters() {
     }
   };
 
-  const formatCurrency = (
-    val = 0,
-    currency = auth.currency,
-    locales = auth.locales
-  ) => {
-    return Intl.NumberFormat(locales, {
-      currency,
-      style: 'currency',
-    }).format(val);
+  const formatCurrency = (val = 0, currency = auth.currency, locales = auth.locales) => {
+    return Intl.NumberFormat(locales, { currency, style: 'currency'}).format(val);
   };
 
   const formatDate = (val, timeZone = auth.timeZone) => {
@@ -46,10 +39,7 @@ export function useFilters() {
 
   const filterUnwantedQueries = (queries, defaultOption) => {
     for (const [param, value] of Object.entries(queries)) {
-      if (
-        [null, 'null', '', defaultOption, undefined].includes(value) ||
-        typeof value === 'undefined'
-      ) {
+      if ([null, 'null', '', defaultOption, undefined].includes(value) || typeof value === 'undefined') {
         if (queries.hasOwnProperty(param)) {
           delete queries[param];
         }

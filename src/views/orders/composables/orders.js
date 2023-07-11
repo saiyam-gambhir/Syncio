@@ -8,6 +8,7 @@ export function useOrders() {
     failed: 'danger',
     invalid: 'danger',
     not_pushed: 'warning',
+    partially_pushed: 'warning',
     pushed: 'success',
   };
   const financialStatusOptions = {
@@ -30,7 +31,7 @@ export function useOrders() {
     blocked: 'danger',
     failed: 'danger',
     invalid: 'danger',
-    not_pushed: 'info',
+    not_pushed: 'warning',
     partially_pushed: 'warning',
     pushed: 'success',
   };
@@ -61,11 +62,15 @@ export function useOrders() {
 
   const getFinancialStatus = status => {
     return financialStatusOptions[status];
-  }
+  };
 
   const getFulfillmentStatus = status => {
     return fulfillmentStatus[status];
-  }
+  };
+
+  const getPushStatus = status => {
+    return pushStatus[status];
+  };
 
   return {
     fetchOrder,
@@ -74,6 +79,7 @@ export function useOrders() {
     getFinancialStatus,
     getFulfillmentStatus,
     getOrderStatus,
+    getPushStatus,
     orders,
     setAutoPushStatus,
     toggleAutoPush,

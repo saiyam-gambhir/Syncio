@@ -12,8 +12,7 @@ const PayableOrders = defineAsyncComponent(() =>
 );
 
 /* ----- Data ----- */
-const { fetchPayableOrdersHandler, fetchPaidPayoutsHandler, payouts } =
-  usePayouts();
+const { fetchPayableOrdersHandler, fetchPaidPayoutsHandler, payouts } = usePayouts();
 const auth = useAuthStore();
 const { isDestinationStore, isSourceStore } = useConnectionsStore();
 const router = useRouter();

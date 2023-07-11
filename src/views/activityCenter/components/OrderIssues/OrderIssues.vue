@@ -76,7 +76,7 @@ const updateCurrentPageHandler = page => {
     <Column header="Date(AEST)" style="width: 7.5%">
       <template #body="{ data }">
         <div class="flex flex-column">
-          <span class="font-semibold">{{ data.date }}</span>
+          <span>{{ data.date }}</span>
           <span class="text-sm mt-2">{{ data.time }}</span>
         </div>
       </template>

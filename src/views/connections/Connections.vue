@@ -9,12 +9,7 @@ import IconWoo from '@/icons/IconWoo.vue';
 import SearchFilter from '@/components/shared/SearchFilter.vue';
 
 /* ----- Data ----- */
-const {
-  fetchConnectionsHandler,
-  getStoreStatus,
-  showDisconnectStoreDialog,
-} = useConnections();
-
+const { fetchConnectionsHandler, getStoreStatus, showDisconnectStoreDialog } = useConnections();
 const {
   connections,
   filters,

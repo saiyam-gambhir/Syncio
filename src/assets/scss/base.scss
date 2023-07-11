@@ -484,6 +484,12 @@ input.p-inputtext-lg {
 .p-dropdown-label {
   text-transform: none !important;
 }
+
+.p-tag.p-tag-warning {
+  background: #fff2e3;
+  color: #aa5200;
+  border: 1px solid #aa5200;
+}
 /* ----- OVERRIDES ----- */
 
 .theme-light .primary-navigation .router-link-active:not(.disabled) {

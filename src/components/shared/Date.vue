@@ -15,7 +15,7 @@ const props = defineProps({
 
 <template>
   <div class="flex flex-column date">
-    <span class="text-sm font-semibold">{{ formatDate(date).date }}</span>
-    <span class="text-xs mt-2">{{ formatDate(date).time }}</span>
+    <span>{{ formatDate(date).date }}</span>
+    <span class="text-sm mt-2">{{ formatDate(date).time }}</span>
   </div>
 </template>
