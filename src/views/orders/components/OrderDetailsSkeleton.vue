@@ -10,7 +10,7 @@ import IconShopify from '@/icons/IconShopify.vue';
       <CardWrapper class="pb-3">
         <template #links>
           <h3 class="mb-2 flex align-items-center">
-            Syncio Status: <Skeleton class="ml-2" width="100px" height="24px" borderRadius="20px"></Skeleton>
+            Syncio Status: <Skeleton class="ml-2" width="100px" height="28.75px" borderRadius="20px"></Skeleton>
           </h3>
           <Skeleton class="mt-3 mb-0" width="300px" height="21px"></Skeleton>
           <Divider />
@@ -22,8 +22,8 @@ import IconShopify from '@/icons/IconShopify.vue';
           <div>
             <div class="flex align-items-center">
               <strong>Status:</strong>
-              <Skeleton class="ml-3" width="50px" height="24px" borderRadius="20px"></Skeleton>
-              <Skeleton class="ml-2" width="75px" height="24px" borderRadius="20px"></Skeleton>
+              <Skeleton class="ml-3" width="50px" height="28.75px" borderRadius="20px"></Skeleton>
+              <Skeleton class="ml-2" width="75px" height="28.75px" borderRadius="20px"></Skeleton>
             </div>
             <Divider />
             <Skeleton width="175px" height="16px"></Skeleton>
@@ -134,8 +134,8 @@ import IconShopify from '@/icons/IconShopify.vue';
       <CardWrapper class="pb-3 mt-5" title="Tags">
         <template #links>
           <div class="flex flex-wrap align-items-center">
-            <Skeleton class="mt-2" width="150px" height="29px" borderRadius="50px"></Skeleton>
-            <Skeleton class="mt-2 ml-2" width="100px" height="29px" borderRadius="50px"></Skeleton>
+            <Skeleton class="mt-2" width="150px" height="32.25px" borderRadius="50px"></Skeleton>
+            <Skeleton class="mt-2 ml-2" width="100px" height="32.25px" borderRadius="50px"></Skeleton>
           </div>
         </template>
       </CardWrapper>

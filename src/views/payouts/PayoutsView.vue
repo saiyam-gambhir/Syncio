@@ -1,25 +1,26 @@
 <script setup>
-import { defineAsyncComponent, onMounted } from 'vue';
+import { defineAsyncComponent, onMounted, toRefs } from 'vue';
 import { useAuthStore } from '@/stores/auth';
 import { useConnectionsStore } from '@/stores/connections';
 import { usePayouts } from './composables/payouts';
+import { usePayoutsStore } from '@/stores/payouts';
 import { useRouter } from 'vue-router';
 
 /* ----- Components ----- */
 import PageHeader from '@/components/shared/PageHeader.vue';
-const PayableOrders = defineAsyncComponent(() =>
-  import('./components/destinationPayouts/PayableOrders.vue')
-);
+const PayableOrders = defineAsyncComponent(() => import('./components/destinationPayouts/PayableOrders.vue'));
+
 
 /* ----- Data ----- */
-const { fetchPayableOrdersHandler, fetchPaidPayoutsHandler, payouts } = usePayouts();
-const auth = useAuthStore();
+const { activeTabIndex } = toRefs(usePayoutsStore());
+const { fetchPayableOrdersHandler, fetchPaidPayoutsHandler } = usePayouts();
 const { isDestinationStore, isSourceStore } = useConnectionsStore();
+const { isPayoutsModuleAvailable } = useAuthStore();
 const router = useRouter();
 
-/* ----- MOUNTED ----- */
+/* ----- Mounted ----- */
 onMounted(async () => {
-  if (!auth.isOrderModuleAvailable) {
+  if (!isPayoutsModuleAvailable) {
     router.push({
       path: '/',
       query: { showUpgrade: 'true', type: 'payouts' },
@@ -30,104 +31,36 @@ onMounted(async () => {
   await fetchPayableOrdersHandler();
   await fetchPaidPayoutsHandler();
 });
+
+/* ----- Methods ----- */
+const handleTabChange = async index => {
+  activeTabIndex.value = index;
+};
 </script>
 
 <template>
-  <PageHeader content="Manage Payouts for fulfilled orders" title="Manage Payouts">
+  <!-- Page Header -->
+  <PageHeader
+    content="Manage Payouts for fulfilled orders"
+    title="Manage Payouts">
   </PageHeader>
 
-  <section v-if="isDestinationStore" class="payouts mt-4">
-    <ul class="surface-card p-0 m-0 list-none flex overflow-x-auto select-none">
-      <li class="pr-3">
-        <a class="cursor-pointer px-4 py-3 flex align-items-center border-bottom-2 hover:border-500 transition-colors transition-duration-150"
-          :class="{
-            'border-blue-500 text-blue-500 hover:border-blue-500':
-              payouts.activeTabIndex === 0,
-            'text-700 border-transparent': payouts.activeTabIndex !== 0,
-          }">
-          <span class="font-semibold capitalize">Payable Orders</span>
-        </a>
-      </li>
-      <li class="flex align-items-center">
-        <div style="width: 1px; height: 50%" class="border-right-1 surface-border"></div>
-      </li>
-      <li class="px-3">
-        <a class="cursor-pointer px-4 py-3 flex align-items-center border-bottom-2 hover:border-500 transition-colors transition-duration-150"
-          :class="{
-            'border-blue-500 text-blue-500 hover:border-blue-500':
-              payouts.activeTabIndex === 1,
-            'text-700 border-transparent': payouts.activeTabIndex !== 1,
-          }">
-          <span class="font-semibold capitalize">Unpaid</span>
-        </a>
-      </li>
-      <li class="flex align-items-center">
-        <div style="width: 1px; height: 50%" class="border-right-1 surface-border"></div>
-      </li>
-      <li class="pl-3">
-        <a class="cursor-pointer px-4 py-3 flex align-items-center border-bottom-2 hover:border-500 transition-colors transition-duration-150"
-          :class="{
-            'border-blue-500 text-blue-500 hover:border-blue-500':
-              payouts.activeTabIndex === 2,
-            'text-700 border-transparent': payouts.activeTabIndex !== 2,
-          }">
-          <span class="font-semibold capitalize">Paid</span>
-        </a>
-      </li>
-    </ul>
-  </section>
-
-  <section v-if="isSourceStore" class="payouts mt-4">
-    <ul class="surface-card p-0 m-0 list-none flex overflow-x-auto select-none">
-      <li class="pr-3">
-        <a class="cursor-pointer px-4 py-3 flex align-items-center border-bottom-2 hover:border-500 transition-colors transition-duration-150"
-          :class="{
-            'border-blue-500 text-blue-500 hover:border-blue-500':
-              payouts.activeTabIndex === 0,
-            'text-700 border-transparent': payouts.activeTabIndex !== 0,
-          }">
-          <span class="font-semibold capitalize">Payable Orders</span>
-        </a>
-      </li>
-      <li class="flex align-items-center">
-        <div style="width: 1px; height: 50%" class="border-right-1 surface-border"></div>
-      </li>
-      <li class="px-3">
-        <a class="cursor-pointer px-4 py-3 flex align-items-center border-bottom-2 hover:border-500 transition-colors transition-duration-150"
-          :class="{
-            'border-blue-500 text-blue-500 hover:border-blue-500':
-              payouts.activeTabIndex === 1,
-            'text-700 border-transparent': payouts.activeTabIndex !== 1,
-          }">
-          <span class="font-semibold capitalize">Unpaid</span>
-        </a>
-      </li>
-      <li class="flex align-items-center">
-        <div style="width: 1px; height: 50%" class="border-right-1 surface-border"></div>
-      </li>
-      <li class="pl-3">
-        <a class="cursor-pointer px-4 py-3 flex align-items-center border-bottom-2 hover:border-500 transition-colors transition-duration-150"
-          :class="{
-            'border-blue-500 text-blue-500 hover:border-blue-500':
-              payouts.activeTabIndex === 2,
-            'text-700 border-transparent': payouts.activeTabIndex !== 2,
-          }">
-          <span class="font-semibold capitalize">Paid</span>
-        </a>
-      </li>
-    </ul>
-  </section>
-
-  <template v-if="isDestinationStore">
-    <div v-if="payouts.activeTabIndex === 0">
+  <!-- Destination Payouts -->
+  <TabView v-if="isDestinationStore" @update:activeIndex="handleTabChange" class="mt-4">
+    <TabPanel header="Payable Orders">
       <PayableOrders />
-    </div>
-    <div v-if="payouts.activeTabIndex === 1"></div>
-    <div v-if="payouts.activeTabIndex === 2"></div>
-  </template>
+    </TabPanel>
+    <TabPanel header="Unpaid">
+    </TabPanel>
+    <TabPanel header="Paid">
+    </TabPanel>
+  </TabView>
 
-  <template v-else-if="isSourceStore">
-    <div v-if="payouts.activeTabIndex === 0"></div>
-    <div v-if="payouts.activeTabIndex === 1"></div>
-  </template>
+  <!-- Source Payouts -->
+  <TabView v-if="isSourceStore" @update:activeIndex="handleTabChange" class="mt-4">
+    <TabPanel header="Open">
+    </TabPanel>
+    <TabPanel header="Complete">
+    </TabPanel>
+  </TabView>
 </template>
