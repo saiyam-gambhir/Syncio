@@ -1,6 +1,9 @@
 <script setup>
 import { ref } from 'vue';
 import { useConnectionsStore } from '@/stores/connections';
+import MarketPlaceImageUrl from '@/assets/images/marketplace.svg';
+import MultilocationImageUrl from '@/assets/images/multilocation.svg';
+import WooShopifyImageUrl from '@/assets/images/woo-shopify.svg';
 
 /* ----- Components ----- */
 import AppLink from '@/components/shared/AppLink.vue';
@@ -16,7 +19,7 @@ const destinationAnnouncements = ref([
     ],
     externalLink: true,
     href: '',
-    image: 'woo-shopify.svg',
+    image: `${WooShopifyImageUrl}`,
     title: 'Sell in more places',
     features: [
       'Seamlessly sync inventory between Woo and Shopify',
@@ -32,7 +35,7 @@ const destinationAnnouncements = ref([
     ],
     externalLink: false,
     href: '/marketplace',
-    image: 'marketplace.svg',
+    image: `${MarketPlaceImageUrl}`,
     title: 'Boost sales with your perfect partner',
   },
   {
@@ -43,7 +46,7 @@ const destinationAnnouncements = ref([
     ],
     externalLink: true,
     href: 'https://help.syncio.co/en/articles/5842693-multilocations-for-destination-stores',
-    image: 'multilocation.svg',
+    image: `${MultilocationImageUrl}`,
     title: 'Sync stock to multiple locations',
   },
 ]);
@@ -79,7 +82,7 @@ const sourceAnnouncements = ref([
               </div>
 
               <div class="col-4 justify-content-center flex" :class="{ 'col-6': !data.features }">
-                <img :src="`/src/assets/images/${data.image}`" :alt="`${data.image}`" />
+                <img :src="`${data.image}`" :alt="`${data.image}`" />
               </div>
 
               <div v-if="data.features" class="col-4">

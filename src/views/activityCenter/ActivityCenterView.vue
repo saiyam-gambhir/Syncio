@@ -34,7 +34,7 @@ const handleTabChange = async index => {
     title="Activity Center">
   </PageHeader>
 
-  <TabView @update:activeIndex="handleTabChange">
+  <TabView @update:activeIndex="handleTabChange" class="mt-4">
     <TabPanel header="Product issues">
       <ProductIssues />
     </TabPanel>

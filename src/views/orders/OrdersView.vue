@@ -1,6 +1,7 @@
 <script setup>
-import { defineAsyncComponent, onMounted, ref, toRaw } from 'vue';
+import { defineAsyncComponent, onMounted, ref, toRefs } from 'vue';
 import { useAuthStore } from '@/stores/auth';
+import { useOrdersStore } from '@/stores/orders';
 import { useOrders } from './composables/orders';
 import { useRouter } from 'vue-router';
 
@@ -11,9 +12,7 @@ import CheckboxWrapper from '@/components/shared/CheckboxWrapper.vue';
 import Date from '@/components/shared/Date.vue';
 import OrdersViewSkeleton from './OrdersViewSkeleton.vue';
 import PageHeader from '@/components/shared/PageHeader.vue';
-const OrderDetails = defineAsyncComponent(() =>
-  import('./components/OrderDetails.vue')
-);
+const OrderDetails = defineAsyncComponent(() => import('./components/OrderDetails.vue'));
 
 /* ----- Data ----- */
 const {
@@ -25,11 +24,12 @@ const {
   setAutoPushStatus,
   toggleAutoPush,
 } = useOrders();
+const { bulkPushOrders, isBulkPushActive, loadingOrders, selectedOrders } = toRefs(useOrdersStore());
 const auth = useAuthStore();
 const options = ref(['Off', 'On']);
 const router = useRouter();
 
-/* ----- MOUNTED ----- */
+/* ----- Mounted ----- */
 onMounted(async () => {
   if (!auth.isOrderModuleAvailable) {
     router.push({
@@ -44,6 +44,25 @@ onMounted(async () => {
 });
 
 /* ----- Methods ----- */
+const getOrderPushStatus = (order_ref_id, pushStatus) => {
+  const _selectedOrders = selectedOrders.value;
+  const index = _selectedOrders.indexOf(order_ref_id);
+  const isOrderSelected = index !== -1;
+  const isBulkPushActiveValue = isBulkPushActive.value;
+
+  if (isOrderSelected && isBulkPushActiveValue) {
+    if (pushStatus !== 'pushed') {
+      return true;
+    } else {
+      selectedOrders.splice(index, 1);
+      return false;
+    }
+  }
+
+  return false;
+};
+
+
 const fetchOrdersHandler = async () => {
   fetchOrders();
 };
@@ -51,25 +70,28 @@ const fetchOrdersHandler = async () => {
 const fetchOrderHandler = async orderId => {
   orders.isViewOrderDetailsRequested = true;
   await fetchOrder(orderId);
-  //set(orders.currentOrder, structuredClone(toRaw(orders.order)))
 };
 
 const toggleAutoPushHandler = async () => {
   toggleAutoPush();
 };
 
-const onInputHandler = ({ id }) => {
-  if (orders.selectedOrders.includes(id)) {
-    const index = orders.selectedOrders.indexOf(id);
+const onInputHandler = ({ order_ref_id }) => {
+  if (orders.selectedOrders.includes(order_ref_id)) {
+    const index = orders.selectedOrders.indexOf(order_ref_id);
     orders.selectedOrders.splice(index, 1);
     return;
   }
 
-  orders.selectedOrders.push(id);
+  orders.selectedOrders.push(order_ref_id);
 };
 
-const isChecked = ({ id }) => {
-  return orders.selectedOrders.length > 0 && orders.selectedOrders.includes(id);
+const isChecked = ({ order_ref_id }) => {
+  return orders.selectedOrders.length > 0 && orders.selectedOrders.includes(order_ref_id);
+};
+
+const isAdded = (row) => {
+  if(orders.selectedOrders.includes(row.order_ref_id)) return 'selected';
 };
 </script>
 
@@ -91,12 +113,15 @@ const isChecked = ({ id }) => {
   </PageHeader>
 
   <!-- Bulk Push -->
-  <BulkSelectedCount v-if="!orders.loadingOrders" :items="orders.selectedOrders" itemType="order">
-    <Button label="Push Selected Orders"></Button>
+  <BulkSelectedCount v-if="!isBulkPushActive" :items="orders.selectedOrders" itemType="order">
+    <Button label="Push Selected Orders" @click="bulkPushOrders()" :loading="loadingOrders"></Button>
   </BulkSelectedCount>
 
+  <!-- Skeleton Loading -->
   <OrdersViewSkeleton v-if="orders.loadingOrders" />
-  <DataTable v-else :value="orders.orders" responsiveLayout="scroll" showGridlines class="mt-4">
+
+  <!-- Orders Table -->
+  <DataTable v-else :value="orders.orders" responsiveLayout="scroll" showGridlines class="mt-4" :rowClass="isAdded">
     <template #empty>
       <div class="px-4 py-8 text-center">
         <h2 class="m-0">No orders found</h2>
@@ -105,7 +130,7 @@ const isChecked = ({ id }) => {
 
     <Column header="" style="width: 3rem; min-width: 42.5px">
       <template #body="{ data }">
-        <CheckboxWrapper :isChecked="isChecked(data)" :disabled="data.push_status === 'pushed'" @onInput="onInputHandler(data)" />
+        <CheckboxWrapper :isChecked="isChecked(data)" :disabled="data.push_status === 'pushed' || isBulkPushActive" @onInput="onInputHandler(data)" />
       </template>
     </Column>
 
@@ -121,28 +146,31 @@ const isChecked = ({ id }) => {
       </template>
     </Column>
 
-    <Column header="Customer" style="width: 35%">
+    <Column header="Customer" style="width: 30%">
       <template #body="{ data: { customer_name } }">
         {{ customer_name ?? 'Customer name not available' }}
       </template>
     </Column>
 
     <Column header="Push Status" style="width: 15%">
-      <template #body="{ data: { order_fail_reason, push_status } }">
+      <template #body="{ data: { order_fail_reason, order_ref_id, push_status } }">
         <div class="flex align-items-center">
-          <Tag :severity="getOrderStatus(push_status)" rounded>{{ push_status.replace('_', ' ') }}</Tag>
-          <i v-if="order_fail_reason" class="pi pi-question-circle ml-3 text-xl" v-tooltip.right="order_fail_reason"></i>
+          <Tag v-if="getOrderPushStatus(order_ref_id, push_status)" severity="warning" rounded>Pending</Tag>
+          <template v-else>
+            <Tag :severity="getOrderStatus(push_status)" rounded>{{ push_status.replace('_', ' ') }}</Tag>
+            <i v-if="order_fail_reason" class="pi pi-question-circle ml-3 text-xl" v-tooltip.right="order_fail_reason"></i>
+          </template>
         </div>
       </template>
     </Column>
 
-    <Column header="Synced Items" style="width: 10%;">
+    <Column header="Synced Items" style="width: 10%;" class="text-center">
       <template #body="{ data: { line_items } }">
-        {{ line_items?.length }}
+        <Tag severity="info">{{ line_items?.length }}</Tag>
       </template>
     </Column>
 
-    <Column header="Actions" style="width: 10%" class="text-right">
+    <Column header="Actions" style="width: 15%" class="text-right">
       <template #body="{ data: { id } }">
         <Button
           @click="fetchOrderHandler(id)"
@@ -154,5 +182,9 @@ const isChecked = ({ id }) => {
     </Column>
   </DataTable>
 
-  <OrderDetails v-if="orders.isViewOrderDetailsRequested" :order="orders.order" />
+  <!-- Order Details -->
+  <OrderDetails
+    v-if="orders.isViewOrderDetailsRequested"
+    :order="orders.order">
+  </OrderDetails>
 </template>

@@ -107,6 +107,12 @@ th {
       justify-content: flex-end;
     }
   }
+
+  &.text-center {
+    .p-column-header-content {
+      justify-content: center;
+    }
+  }
 }
 
 td {
@@ -139,6 +145,14 @@ td {
 
   .p-datatable-tbody > tr > td {
     padding: 0.5rem 0.75rem !important;
+  }
+
+  tr {
+    transition: 1s background;
+  }
+
+  .selected {
+    background: lighten(#e3f2ff, 2.5%) !important;
   }
 }
 
@@ -304,6 +318,8 @@ td {
 
   &-icon {
     margin-right: 1.25rem !important;
+    width: 1.75rem;
+    height: 1.75rem;
   }
 
   &-error {
@@ -487,7 +503,7 @@ input.p-inputtext-lg {
 
 .p-tag {
   letter-spacing: .5px;
-  padding-top: .6rem !important;
+  padding-top: .58rem !important;
 
   &.p-tag-warning {
     background: #fff2e3;
@@ -511,6 +527,7 @@ input.p-inputtext-lg {
     background: #e3f2ff;
     border: 1px solid #0052aa;
     color: #0052aa;
+    text-transform: none !important;
   }
 }
 

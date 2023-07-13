@@ -4,8 +4,7 @@ export const fetchProfiles = {
   async fetchProfiles(page = 1) {
     this.loading = true;
     const connections = useConnectionsStore();
-    let storeType =
-      connections.storeType === 'destination' ? 'source' : 'destination';
+    let storeType = connections.storeType === 'destination' ? 'source' : 'destination';
 
     for (let param in this.queries) {
       if (
@@ -19,22 +18,16 @@ export const fetchProfiles = {
     }
 
     this.searchQuery = `${new URLSearchParams(this.queries).toString()}`;
-    const {
-      data: { profiles, success },
-    } = await this.$https(
-      `stores/coco-profiles?${this.searchQuery ? this.searchQuery : ''}`,
-      {
-        params: {
-          'filters[excluded_store_ids]': connections.storeId,
-          'filters[store_type]': storeType,
-          page,
-        },
-      }
-    );
+    const { data: { profiles, success } } = await this.$https(`stores/coco-profiles?${this.searchQuery ? this.searchQuery : ''}`, {
+      params: {
+        'filters[excluded_store_ids]': connections.storeId,
+        'filters[store_type]': storeType,
+        page,
+      },
+    });
 
     if (success) {
-      const { current_page, data, next_page_url, prev_page_url, total } =
-        profiles;
+      const { current_page, data, next_page_url, prev_page_url, total } = profiles;
       const pagination = {
         current_page: current_page,
         next_page_url: next_page_url,

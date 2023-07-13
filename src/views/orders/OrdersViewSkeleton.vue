@@ -21,7 +21,7 @@ const { randomInteger } = useFilters();
       </template>
     </Column>
 
-    <Column header="Customer" style="width: 35%">
+    <Column header="Customer" style="width: 30%">
       <template #body>
         <Skeleton height="26px" :width="`${randomInteger()}%`" />
       </template>
@@ -33,13 +33,13 @@ const { randomInteger } = useFilters();
       </template>
     </Column>
 
-    <Column header="Synced Items" style="width: 10%">
+    <Column header="Synced Items" style="width: 10%" class="text-center">
       <template #body>
         <Skeleton height="26px" />
       </template>
     </Column>
 
-    <Column header="Actions" style="width: 10%" class="text-right">
+    <Column header="Actions" style="width: 15%" class="text-right">
       <template #body>
         <Skeleton size="40px" shape="circle" style="float: right" />
       </template>

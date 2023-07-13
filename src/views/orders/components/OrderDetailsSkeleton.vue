@@ -82,7 +82,7 @@ import IconShopify from '@/icons/IconShopify.vue';
     <div class="col-12 md:col-12 lg:col-4">
       <CardWrapper class="pb-3" title="Notes">
         <template #links>
-          <Skeleton width="300px" height="20px" class="mt-3"></Skeleton>
+          <Skeleton width="300px" height="20px" class="mt-2"></Skeleton>
         </template>
       </CardWrapper>
 

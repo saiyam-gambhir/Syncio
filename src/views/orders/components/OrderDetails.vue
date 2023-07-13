@@ -241,7 +241,7 @@ const pushOrderHandler = async (targetStoreId) => {
         <CardWrapper class="pb-3" title="Notes">
           <template #links>
             <p v-if="order.note" class="text-lg mb-0 mt-3">{{ order.note }}</p>
-            <p v-else class="text-lg mb-0 mt-3">There are no notes or feedback provided by the customer.</p>
+            <p v-else class="text-lg mb-0 mt-2">There are no notes or feedback provided by the customer.</p>
           </template>
         </CardWrapper>
 

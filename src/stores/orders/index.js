@@ -1,7 +1,9 @@
 import { defineStore } from 'pinia';
+import { useConnectionsStore } from '@/stores/connections';
 import deepmerge from 'deepmerge';
 
-/* ----- ACTIONS ----- */
+/* ----- Actions ----- */
+import { bulkPushOrders } from './actions/bulkPushOrders';
 import { fetchOrder } from './actions/fetchOrder';
 import { fetchOrders } from './actions/fetchOrders';
 import { fetchPushSettings } from './actions/fetchPushSettings';
@@ -10,14 +12,19 @@ import { toggleAutoPush } from './actions/toggleAutoPush';
 
 export const useOrdersStore = defineStore('orders', {
   state: () => {
+    const { storeId } = useConnectionsStore();
     return {
-      ordersCollection: [],
+      storeId: storeId,
+      bulkPushCount: null,
+      bulkPushShippingCost: null,
       isAutoPushEnabled: 'Off',
+      isBulkPushActive: false,
       isViewOrderDetailsRequested: false,
       loadingOrder: false,
       loadingOrders: false,
       order: {},
       orders: [],
+      ordersCollection: [],
       params: { page: '1', searchString: null, sortBy: 'DESC' },
       pushSettings: [],
       selectedOrders: [],
@@ -40,14 +47,13 @@ export const useOrdersStore = defineStore('orders', {
 
   getters: {
     autoPushStatus(state) {
-      const autoPushSetting = state.pushSettings.find(
-        setting => setting.key === 'auto_push_order'
-      );
+      const autoPushSetting = state.pushSettings.find(setting => setting.key === 'auto_push_order');
       return autoPushSetting?.value;
     },
   },
 
   actions: deepmerge.all([
+    bulkPushOrders,
     fetchOrder,
     fetchOrders,
     fetchPushSettings,

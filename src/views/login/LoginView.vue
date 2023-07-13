@@ -16,7 +16,7 @@ const loginHandler = () => {
 };
 
 const shopifyLoginHandler = async () => {
-  await shopifyLogin.value('shopify', 'test-destination-19.myshopify.com');
+  await shopifyLogin.value('shopify', 'test-destination-18.myshopify.com');
 };
 </script>
 
