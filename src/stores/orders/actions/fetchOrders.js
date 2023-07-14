@@ -1,6 +1,7 @@
 export const fetchOrders = {
-  async fetchOrders(storeId) {
+  async fetchOrders() {
     this.loadingOrders = true;
+    this.isBulkPushActive = false;
     const { page, searchString, sortBy } = this.params;
     const response = await this.$https(`stores/${this.storeId}/orders`, {
       params: {

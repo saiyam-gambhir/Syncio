@@ -48,9 +48,8 @@ const getOrderPushStatus = (order_ref_id, pushStatus) => {
   const _selectedOrders = selectedOrders.value;
   const index = _selectedOrders.indexOf(order_ref_id);
   const isOrderSelected = index !== -1;
-  const isBulkPushActiveValue = isBulkPushActive.value;
 
-  if (isOrderSelected && isBulkPushActiveValue) {
+  if (isOrderSelected && isBulkPushActive.value) {
     if (pushStatus !== 'pushed') {
       return true;
     } else {

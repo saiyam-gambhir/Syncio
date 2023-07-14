@@ -14,9 +14,15 @@ import OrderDetailsSkeleton from './OrderDetailsSkeleton.vue';
 /* ----- Data ----- */
 const { fetchOrder, getFinancialStatus, getFulfillmentStatus, getPushStatus } = useOrders();
 const { formatCurrency, formattedUnderscoreText, formatDate } = useFilters();
-const { isViewOrderDetailsRequested, loadingOrder, order, ordersCollection, pushOrder } = toRefs(useOrdersStore());
-const { storeId, storeName } = useConnectionsStore();
-const isPushOrderLoading = ref(false);
+const {
+  isViewOrderDetailsRequested,
+  loadingOrder,
+  loadingPushOrder,
+  order,
+  ordersCollection,
+  pushOrder,
+} = toRefs(useOrdersStore());
+const { storeName } = useConnectionsStore();
 const shippingCost = ref('');
 
 /* ----- Props ----- */
@@ -64,13 +70,10 @@ const pushOrderHandler = async (targetStoreId) => {
   const payload = {
     orderId: props.order.syncio_order_id,
     shippingCost: shippingCost.value,
-    storeId: storeId,
     targetStoreId: targetStoreId,
   };
 
-  isPushOrderLoading.value = true;
   await pushOrder.value(payload);
-  isPushOrderLoading.value = false;
 };
 </script>
 
@@ -147,7 +150,7 @@ const pushOrderHandler = async (targetStoreId) => {
           </template>
         </CardWrapper>
 
-        <CardWrapper class="mt-5" v-for="(store, key) in order.source_stores" :key="key">
+        <CardWrapper class="mt-5" :class="`status-${store.push_status}`" v-for="(store, key) in order.source_stores" :key="key">
           <template #links>
             <div class="flex align-items-top justify-content-between mb-4">
               <h2 class="mb-0">
@@ -161,7 +164,7 @@ const pushOrderHandler = async (targetStoreId) => {
                 </template>
 
                 <template v-if="store.push_status !== 'blocked'">
-                  <Button :loading="isPushOrderLoading" class="ml-3" :disabled="!shippingCost" v-if="order.customer !== null && order.shipping_address !== null && store.push_status !== 'pushed' && !store.is_mapper_deleted && !store.store_disconnected" @click="pushOrderHandler(store.target_store_id, storeName)" style="transform: translateY(-1px);">
+                  <Button :loading="loadingPushOrder" class="ml-3" :disabled="!shippingCost" v-if="order.customer !== null && order.shipping_address !== null && store.push_status !== 'pushed' && !store.is_mapper_deleted && !store.store_disconnected" @click="pushOrderHandler(store.target_store_id, storeName)" style="transform: translateY(-1px);">
                     <span v-if="store.push_status === 'failed'">Repush Order</span>
                     <span v-else>Push Order</span>
                   </Button>
@@ -173,7 +176,7 @@ const pushOrderHandler = async (targetStoreId) => {
 
                 <!-- If order is pushed -->
                 <template v-if="store.push_status === 'pushed'">
-                  <Tag severity="success" :value="store.push_status" icon="pi pi-check" />
+                  <Tag severity="success" :value="store.push_status" rounded />
                   <!-- TODO: Change date format from BE -->
                   <p class="mb-0 mt-2" v-if="store.pushed_at">on {{ formatDate(store.pushed_at).date }} at {{ formatDate(store.pushed_at).time }}</p>
                 </template>

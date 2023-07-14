@@ -37,7 +37,7 @@ export function useOrders() {
   };
 
   const fetchOrder = async orderId => {
-    await orders.fetchOrder(connections.storeId, orderId);
+    await orders.fetchOrder(orderId);
   };
 
   const fetchOrders = async () => {

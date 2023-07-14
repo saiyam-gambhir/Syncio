@@ -12,9 +12,7 @@ import { toggleAutoPush } from './actions/toggleAutoPush';
 
 export const useOrdersStore = defineStore('orders', {
   state: () => {
-    const { storeId } = useConnectionsStore();
     return {
-      storeId: storeId,
       bulkPushCount: null,
       bulkPushShippingCost: null,
       isAutoPushEnabled: 'Off',
@@ -22,6 +20,7 @@ export const useOrdersStore = defineStore('orders', {
       isViewOrderDetailsRequested: false,
       loadingOrder: false,
       loadingOrders: false,
+      loadingPushOrder: false,
       order: {},
       orders: [],
       ordersCollection: [],
@@ -50,6 +49,11 @@ export const useOrdersStore = defineStore('orders', {
       const autoPushSetting = state.pushSettings.find(setting => setting.key === 'auto_push_order');
       return autoPushSetting?.value;
     },
+
+    storeId() {
+      const { storeId } = useConnectionsStore();
+      return storeId;
+    }
   },
 
   actions: deepmerge.all([
