@@ -17,7 +17,6 @@ const { formatCurrency, formattedUnderscoreText, formatDate } = useFilters();
 const {
   isViewOrderDetailsRequested,
   loadingOrder,
-  loadingPushOrder,
   order,
   ordersCollection,
   pushOrder,
@@ -164,7 +163,7 @@ const pushOrderHandler = async (targetStoreId) => {
                 </template>
 
                 <template v-if="store.push_status !== 'blocked'">
-                  <Button :loading="loadingPushOrder" class="ml-3" :disabled="!shippingCost" v-if="order.customer !== null && order.shipping_address !== null && store.push_status !== 'pushed' && !store.is_mapper_deleted && !store.store_disconnected" @click="pushOrderHandler(store.target_store_id, storeName)" style="transform: translateY(-1px);">
+                  <Button class="ml-3" :disabled="!shippingCost" v-if="order.customer !== null && order.shipping_address !== null && store.push_status !== 'pushed' && !store.is_mapper_deleted && !store.store_disconnected" @click="pushOrderHandler(store.target_store_id, storeName)" style="transform: translateY(-1px);">
                     <span v-if="store.push_status === 'failed'">Repush Order</span>
                     <span v-else>Push Order</span>
                   </Button>

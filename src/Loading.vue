@@ -11,9 +11,7 @@ import Logo from '@/icons/Logo.vue';
 <style lang="scss" scoped>
 .loading-page {
   height: 100vh;
-  background: linear-gradient(90deg,
-      rgba(252, 176, 87, 0.4) 33.33%,
-      rgba(250, 117, 123, 0.4) 66.66%);
+  background: linear-gradient(90deg,rgba(252, 176, 87, 0.4) 33.33%,rgba(250, 117, 123, 0.4) 66.66%);
 
   svg {
     animation: logo 0.75s infinite alternate;

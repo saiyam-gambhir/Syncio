@@ -1,8 +1,8 @@
 <script setup>
 import { defineAsyncComponent, onMounted, ref, toRefs } from 'vue';
 import { useAuthStore } from '@/stores/auth';
-import { useOrdersStore } from '@/stores/orders';
 import { useOrders } from './composables/orders';
+import { useOrdersStore } from '@/stores/orders';
 import { useRouter } from 'vue-router';
 
 /* ----- Components ----- */
@@ -10,8 +10,10 @@ import AppLink from '@/components/shared/AppLink.vue';
 import BulkSelectedCount from '@/components/shared/BulkSelectedCount.vue';
 import CheckboxWrapper from '@/components/shared/CheckboxWrapper.vue';
 import Date from '@/components/shared/Date.vue';
+import EnableAutoPushDialog from './components/EnableAutoPushDialog.vue';
 import OrdersViewSkeleton from './OrdersViewSkeleton.vue';
 import PageHeader from '@/components/shared/PageHeader.vue';
+import SearchFilter from '@/components/shared/SearchFilter.vue';
 const OrderDetails = defineAsyncComponent(() => import('./components/OrderDetails.vue'));
 
 /* ----- Data ----- */
@@ -24,7 +26,16 @@ const {
   setAutoPushStatus,
   toggleAutoPush,
 } = useOrders();
-const { bulkPushOrders, isBulkPushActive, loadingOrders, selectedOrders } = toRefs(useOrdersStore());
+
+const {
+  bulkPushOrders,
+  isAutoPushEnabled,
+  isBulkPushActive,
+  isEnableAutoPushRequested,
+  loadingOrders,
+  selectedOrders,
+} = toRefs(useOrdersStore());
+
 const auth = useAuthStore();
 const options = ref(['Off', 'On']);
 const router = useRouter();
@@ -72,6 +83,10 @@ const fetchOrderHandler = async orderId => {
 };
 
 const toggleAutoPushHandler = async () => {
+  if(isAutoPushEnabled.value === 'On') {
+    isEnableAutoPushRequested.value = true;
+    return;
+  }
   toggleAutoPush();
 };
 
@@ -101,7 +116,7 @@ const isAdded = (row) => {
         <h4 class="my-0 mr-4">
           Automated Push
           <br />
-          <AppLink link="https://help.syncio.co/en/articles/5842693-multilocations-for-destination-stores" label="Read More" class="mt-1" />
+          <AppLink link="https://help.syncio.co/en/articles/4163480-orders-add-on" label="Read More" class="mt-1" />
         </h4>
         <SelectButton v-model="orders.isAutoPushEnabled" :options="options" aria-labelledby="single" @click="toggleAutoPushHandler" />
       </div>
@@ -124,6 +139,27 @@ const isAdded = (row) => {
     <template #empty>
       <div class="px-4 py-8 text-center">
         <h2 class="m-0">No orders found</h2>
+      </div>
+    </template>
+
+    <template #header>
+      <div class="flex align-items-center justify-content-between">
+        <div class="p-inputgroup w-35">
+          <SearchFilter
+            placeholder="Search by exact order number (eg: #1234)">
+          </SearchFilter>
+        </div>
+
+        <Dropdown
+          placeholder="Sort by">
+          <template #value>Sort by</template>
+          <template #option="{ option }">
+            <div class="flex align-items-center justify-content-between">
+              {{ option.label }}
+              <i :class="option.icon"></i>
+            </div>
+          </template>
+        </Dropdown>
       </div>
     </template>
 
@@ -186,4 +222,7 @@ const isAdded = (row) => {
     v-if="orders.isViewOrderDetailsRequested"
     :order="orders.order">
   </OrderDetails>
+
+  <!-- Enable Auto Push Dialog -->
+  <EnableAutoPushDialog />
 </template>

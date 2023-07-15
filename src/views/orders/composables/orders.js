@@ -48,12 +48,13 @@ export function useOrders() {
     await orders.fetchPushSettings(connections.storeId);
   };
 
-  const toggleAutoPush = async () => {
-    await orders.toggleAutoPush(connections.storeId);
-  };
-
   const setAutoPushStatus = () => {
     orders.autoPushStatus ? (orders.isAutoPushEnabled = 'On') : (orders.isAutoPushEnabled = 'Off');
+  };
+
+  const toggleAutoPush = async () => {
+    await orders.toggleAutoPush(connections.storeId);
+    orders.isEnableAutoPushRequested = false;
   };
 
   const getOrderStatus = status => {
