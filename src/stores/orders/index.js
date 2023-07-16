@@ -15,6 +15,7 @@ export const useOrdersStore = defineStore('orders', {
     return {
       bulkPushCount: null,
       bulkPushShippingCost: null,
+      filters: { searchStr: '', sortBy: 'DESC' },
       isAutoPushEnabled: 'Off',
       isBulkPushActive: false,
       isEnableAutoPushRequested: false,
@@ -24,21 +25,18 @@ export const useOrdersStore = defineStore('orders', {
       order: {},
       orders: [],
       ordersCollection: [],
-      params: { page: '1', searchString: null, sortBy: 'DESC' },
       pushSettings: [],
       selectedOrders: [],
       sortOptions: [
         {
-          icon: 'pi pi-sort-alpha-up',
-          key: 'store_domain',
-          label: 'Date: New to Old',
-          sortByDesc: false,
+          icon: 'pi pi-sort-numeric-up-alt',
+          label: 'Date: Newest first',
+          sortBy: 'DESC',
         },
         {
-          icon: 'pi pi-sort-alpha-up-alt',
-          key: 'store_domain',
-          label: 'Date: Old to New',
-          sortByDesc: true,
+          icon: 'pi pi-sort-numeric-up',
+          label: 'Oldest First',
+          sortBy: 'ASC',
         },
       ],
     };

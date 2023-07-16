@@ -7,7 +7,7 @@ export const bulkPushOrders = {
     });
 
     if(success) {
-      const { data: { bulk_push_count, bulk_push, success } } = await this.fetchOrders(this.storeId);
+      const { data: { bulk_push_count, bulk_push, success } } = await this.fetchOrders();
 
       if(success) {
         this.bulkPushCount = bulk_push_count;

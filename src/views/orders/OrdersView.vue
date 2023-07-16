@@ -29,11 +29,13 @@ const {
 
 const {
   bulkPushOrders,
+  filters,
   isAutoPushEnabled,
   isBulkPushActive,
   isEnableAutoPushRequested,
   loadingOrders,
   selectedOrders,
+  sortOptions,
 } = toRefs(useOrdersStore());
 
 const auth = useAuthStore();
@@ -107,6 +109,11 @@ const isChecked = ({ order_ref_id }) => {
 const isAdded = (row) => {
   if(orders.selectedOrders.includes(row.order_ref_id)) return 'selected';
 };
+
+const searchHandler = async (searchText) => {
+  filters.value.searchString = searchText;
+  await fetchOrders();
+};
 </script>
 
 <template>
@@ -118,7 +125,7 @@ const isAdded = (row) => {
           <br />
           <AppLink link="https://help.syncio.co/en/articles/4163480-orders-add-on" label="Read More" class="mt-1" />
         </h4>
-        <SelectButton v-model="orders.isAutoPushEnabled" :options="options" aria-labelledby="single" @click="toggleAutoPushHandler" />
+        <SelectButton v-model="orders.isAutoPushEnabled" :options="options" aria-labelledby="single" @change="toggleAutoPushHandler" />
       </div>
       <router-link to="/orders/push-settings">
         <Button label="Push Settings" class="ml-4"></Button>
@@ -146,17 +153,24 @@ const isAdded = (row) => {
       <div class="flex align-items-center justify-content-between">
         <div class="p-inputgroup w-35">
           <SearchFilter
-            placeholder="Search by exact order number (eg: #1234)">
+            @update:modelValue="searchHandler"
+            placeholder="Search by exact order number (eg: #1234)"
+            v-model="filters.searchString">
           </SearchFilter>
         </div>
 
         <Dropdown
-          placeholder="Sort by">
+          :options="sortOptions"
+          @change="fetchOrdersHandler"
+          optionLabel="label"
+          placeholder="Sort by"
+          optionValue="sortBy"
+          v-model="filters.sortBy">
           <template #value>Sort by</template>
           <template #option="{ option }">
             <div class="flex align-items-center justify-content-between">
               {{ option.label }}
-              <i :class="option.icon"></i>
+              <i :class="option.icon" class="ml-2"></i>
             </div>
           </template>
         </Dropdown>

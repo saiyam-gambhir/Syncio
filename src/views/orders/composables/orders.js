@@ -41,7 +41,7 @@ export function useOrders() {
   };
 
   const fetchOrders = async () => {
-    await orders.fetchOrders(connections.storeId);
+    await orders.fetchOrders();
   };
 
   const fetchPushSettings = async () => {
