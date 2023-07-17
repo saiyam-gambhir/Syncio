@@ -123,6 +123,7 @@ const updateCurrentPageHandler = page => {
           class="p-button-sm"
           label="Dismiss"
           outlined
+          raised
           severity="danger">
         </Button>
       </template>

@@ -20,11 +20,13 @@ export const useOrdersStore = defineStore('orders', {
       isBulkPushActive: false,
       isEnableAutoPushRequested: false,
       isViewOrderDetailsRequested: false,
+      loadingMoreOrders: false,
       loadingOrder: false,
       loadingOrders: false,
       order: {},
       orders: [],
       ordersCollection: [],
+      pagination: {},
       pushSettings: [],
       selectedOrders: [],
       sortOptions: [
@@ -69,7 +71,12 @@ export const useOrdersStore = defineStore('orders', {
       {
         key: 'orders',
         storage: sessionStorage,
-        paths: ['isViewOrderDetailsRequested', 'order', 'selectedOrders'],
+        paths: [
+          'filters',
+          'isViewOrderDetailsRequested',
+          'order',
+          'selectedOrders',
+        ],
       },
     ],
   },

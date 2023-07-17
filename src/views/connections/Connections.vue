@@ -92,15 +92,16 @@ const searchHandler = async (searchText) => {
         <Button
           class="p-button-sm"
           label="Products"
-          outlined>
+          outlined
+          raised>
         </Button>
         <Button
           @click="showDisconnectStoreDialog(connection)"
           class="ml-2 p-button-sm"
           label="Disconnect"
           outlined
-          severity="danger"
-          style="letter-spacing: 1px;">
+          raised
+          severity="danger">
         </Button>
       </template>
     </Column>

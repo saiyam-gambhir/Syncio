@@ -32,8 +32,7 @@ const props = defineProps({
     <div class="border-round shadow-2 surface-0 mb-3 h-full flex-column justify-content-between flex position-relative">
       <div class="p-4">
         <div class="flex align-items-center">
-          <span class="inline-flex border-circle surface-card border-1 align-items-center justify-content-center mr-3"
-            style="width: 38px; height: 38px">
+          <span class="inline-flex border-circle surface-card border-1 align-items-center justify-content-center mr-3" style="width: 38px; height: 38px">
             <i class="pi text-xl" :class="icon"></i>
           </span>
           <span class="text-900 font-semibold text-2xl">{{ title }}</span>
@@ -43,10 +42,10 @@ const props = defineProps({
 
       <div class="px-4 py-3 text-right border-top-1 surface-border">
         <router-link v-if="disabled" to="/settings/plan-and-billings">
-          <Button icon="pi pi-lock-open" iconPos="right" iconClass="ml-3" label="Unlock this add-on"></Button>
+          <Button iconClass="ml-3" raised outlined label="Unlock this add-on"></Button>
         </router-link>
         <router-link v-else :to="href">
-          <Button icon="pi pi-arrow-right" iconPos="right" label="More" outlined></Button>
+          <Button label="Manage" outlined raised></Button>
         </router-link>
       </div>
     </div>

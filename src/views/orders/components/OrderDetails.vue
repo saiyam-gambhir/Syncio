@@ -86,7 +86,8 @@ const pushOrderHandler = async (targetStoreId) => {
           @click="fetchPreviousOrderSummary"
           class="p-button-sm ml-3"
           label="Previous Order"
-          outlined>
+          outlined
+          raised>
         </Button>
 
         <Button
@@ -94,7 +95,8 @@ const pushOrderHandler = async (targetStoreId) => {
           @click="fetchNextOrderSummary"
           class="p-button-sm ml-3"
           label="Next Order"
-          outlined>
+          outlined
+          raised>
         </Button>
       </h1>
     </template>

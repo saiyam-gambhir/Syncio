@@ -19,7 +19,6 @@ const OrderDetails = defineAsyncComponent(() => import('./components/OrderDetail
 /* ----- Data ----- */
 const {
   fetchOrder,
-  fetchOrders,
   fetchPushSettings,
   getOrderStatus,
   orders,
@@ -29,11 +28,14 @@ const {
 
 const {
   bulkPushOrders,
+  fetchOrders,
   filters,
   isAutoPushEnabled,
   isBulkPushActive,
   isEnableAutoPushRequested,
+  loadingMoreOrders,
   loadingOrders,
+  pagination,
   selectedOrders,
   sortOptions,
 } = toRefs(useOrdersStore());
@@ -76,7 +78,7 @@ const getOrderPushStatus = (order_ref_id, pushStatus) => {
 
 
 const fetchOrdersHandler = async () => {
-  fetchOrders();
+  fetchOrders.value();
 };
 
 const fetchOrderHandler = async orderId => {
@@ -112,7 +114,7 @@ const isAdded = (row) => {
 
 const searchHandler = async (searchText) => {
   filters.value.searchString = searchText;
-  await fetchOrders();
+  await fetchOrders.value();
 };
 </script>
 
@@ -160,6 +162,7 @@ const searchHandler = async (searchText) => {
         </div>
 
         <Dropdown
+          :loading="loadingOrders"
           :options="sortOptions"
           @change="fetchOrdersHandler"
           optionLabel="label"
@@ -225,11 +228,29 @@ const searchHandler = async (searchText) => {
           @click="fetchOrderHandler(id)"
           class="p-button-sm"
           label="View Details"
-          outlined>
+          outlined
+          raised>
         </Button>
       </template>
     </Column>
   </DataTable>
+
+  <!-- Pagination -->
+  <div class="text-center mt-5 mb-2">
+    <h3 class="font-semibold" v-if="(pagination?.current_page === pagination?.last_page) && orders.orders.length > 0">
+      No more orders to see. We only display orders upto 60 days.
+    </h3>
+
+    <Button
+      :loading="loadingMoreOrders"
+      @click="fetchOrders(pagination?.current_page + 1, true)"
+      class="p-button-lg font-semibold"
+      outlined
+      raised
+      label="Load More Orders"
+      v-if="(pagination?.current_page !== pagination?.last_page)">
+    </Button>
+  </div>
 
   <!-- Order Details -->
   <OrderDetails

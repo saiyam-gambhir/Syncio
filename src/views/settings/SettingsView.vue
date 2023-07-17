@@ -16,28 +16,46 @@ const auth = useAuthStore();
       <div class="grid">
         <Setting
           description="Find specific information about your account with Syncio, including how to store type, your Syncio key and how to uninstall Syncio"
-          href="/settings/account-details" icon="pi-user" title="Account details">
+          href="/settings/account-details"
+          icon="pi-user"
+          title="Account details">
         </Setting>
 
-        <Setting description="Manage and upgrade your base plan and add ons" href="/settings/plan-and-billings"
-          icon="pi-file" title="Plan and billing">
+        <Setting
+          description="Manage and upgrade your base plan and add ons"
+          href="/settings/plan-and-billings"
+          icon="pi-file"
+          title="Plan and billing">
         </Setting>
 
-        <Setting description="Manage what attributes sync across your connected stores"
-          :disabled="!auth.isProductModuleAvailable" href="/product-settings" icon="pi-list" title="Product settings">
+        <Setting
+          :disabled="!auth.isProductModuleAvailable"
+          description="Manage what attributes sync across your connected stores"
+          href="/product-settings"
+          icon="pi-list"
+          title="Product settings">
         </Setting>
 
-        <Setting description="Set commissions at store, vendor or product/SKU level"
-          :disabled="!auth.isOrderModuleAvailable" href="/payouts-settings" icon="pi-dollar" title="Payouts settings">
+        <Setting
+          :disabled="!auth.isPayoutModuleAvailable"
+          description="Set commissions at store, vendor or product/SKU level"
+          href="/payouts-settings"
+          icon="pi-dollar"
+          title="Payouts settings">
         </Setting>
 
-        <Setting description="Manage your Marketplace profile and settings" href="/payouts-settings"
-          icon="pi-shopping-bag" title="Marketplace settings">
+        <Setting
+          description="Manage your Marketplace profile and settings"
+          href="/payouts-settings"
+          icon="pi-shopping-bag"
+          title="Marketplace settings">
         </Setting>
 
         <Setting
           description="Choose how you'd like to receive communications and customise what type of alerts we send you"
-          href="/notifications" icon="pi-bell" title="Notifications">
+          href="/notifications"
+          icon="pi-bell"
+          title="Notifications">
         </Setting>
       </div>
     </div>
