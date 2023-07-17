@@ -12,6 +12,7 @@ const { copyToClipBoard } = useFilters();
 const { showToast } = useToasts();
 const { storeKey } = useConnectionsStore();
 
+/* ----- Methods ----- */
 const copyStoreKeyHandler = async val => {
   await copyToClipBoard(val);
   showToast({ message: 'Store key copied successfully' });

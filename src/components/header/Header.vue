@@ -3,7 +3,7 @@ import { useConnectionsStore } from '@/stores/connections';
 import { useRouter } from 'vue-router';
 
 /* ----- Data ----- */
-const connections = useConnectionsStore();
+const { storeName, storeType } = useConnectionsStore();
 const router = useRouter();
 
 /* ----- Methods ----- */
@@ -20,7 +20,7 @@ const goBackHandler = () => {
       <Button outlined icon="pi pi-arrow-left" iconPos="left" raised @click="goBackHandler" v-tooltip.right="'Back'"></Button>
     </div>
     <div class="header-right flex align-items-center">
-      <Tag :value="`${connections.storeType} store`" :class="connections.storeType" />
+      <Tag :value="`${storeType} store`" :class="storeType" v-tooltip.left="storeName" />
       <Button icon="pi pi-user" rounded outlined class="ml-4"></Button>
     </div>
   </header>

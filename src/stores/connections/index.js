@@ -52,6 +52,14 @@ export const useConnectionsStore = defineStore('connections', {
   },
 
   getters: {
+    platform({ currentStore }) {
+      return currentStore?.platform;
+    },
+
+    storeCreationDate({ currentStore }) {
+      return currentStore?.created_at;
+    },
+
     storeId({ currentStore }) {
       return currentStore?.id;
     },

@@ -74,8 +74,7 @@ const router = createRouter({
     {
       path: '/settings/product-settings',
       name: routes.PRODUCT_SETTINGS,
-      component: () =>
-        import('@/views/productSettings/ProductSettingsView.vue'),
+      component: () => import('@/views/productSettings/ProductSettingsView.vue'),
       meta: { ...meta },
     },
     {
@@ -105,15 +104,13 @@ const router = createRouter({
     {
       path: '/settings/account-settings',
       name: routes.ACCOUNT_SETTINGS,
-      component: () =>
-        import('@/views/accountSettings/AccountSettingsView.vue'),
+      component: () => import('@/views/settings/accountSettings/AccountSettingsView.vue'),
       meta: { ...meta },
     },
     {
       path: '/settings/plan-and-billings',
       name: routes.PLAN_AND_BILLINGS,
-      component: () =>
-        import('@/views/planAndBillings/PlanAndBillingsView.vue'),
+      component: () => import('@/views/settings/planAndBillings/PlanAndBillingsView.vue'),
       meta: { ...meta },
     },
     {

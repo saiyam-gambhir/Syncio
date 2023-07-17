@@ -29,7 +29,7 @@ const props = defineProps({
 
 <template>
   <div class="col-12 lg:col-4 p-3">
-    <div class="border-round shadow-2 surface-0 mb-3 h-full flex-column justify-content-between flex position-relative">
+    <div class="border-round shadow-2 surface-0 mb-3 h-full flex-column justify-content-between flex position-relative" :class="{ 'disabled': disabled }">
       <div class="p-4">
         <div class="flex align-items-center">
           <span class="inline-flex border-circle surface-card border-1 align-items-center justify-content-center mr-3" style="width: 38px; height: 38px">

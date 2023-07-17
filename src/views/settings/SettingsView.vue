@@ -15,8 +15,8 @@ const auth = useAuthStore();
     <div class="surface-white">
       <div class="grid">
         <Setting
-          description="Find specific information about your account with Syncio, including how to store type, your Syncio key and how to uninstall Syncio"
-          href="/settings/account-details"
+          description="Find specific information about your account with Syncio, including your store type, Syncio connection key and how to uninstall Syncio"
+          href="/settings/account-settings"
           icon="pi-user"
           title="Account details">
         </Setting>

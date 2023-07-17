@@ -7,7 +7,7 @@ import WooShopifyImageUrl from '@/assets/images/woo-shopify.svg';
 
 /* ----- Components ----- */
 import AppLink from '@/components/shared/AppLink.vue';
-import CardWarapper from '@/views/dashboard/components/CardWrapper.vue';
+import CardWrapper from '@/views/dashboard/components/CardWrapper.vue';
 
 /* ----- Data ----- */
 const { isSourceStore } = useConnectionsStore();
@@ -99,7 +99,7 @@ const sourceAnnouncements = ref([
       </template>
     </Carousel>
 
-    <CardWarapper title="Learn the basics" class="mt-5">
+    <CardWrapper title="Learn the basics" class="mt-5">
       <template #links>
         <ul class="list-none p-0 mb-0 mt-4">
           <li class="py-3 border-bottom-1 border-top-1 surface-border">
@@ -119,6 +119,6 @@ const sourceAnnouncements = ref([
           </li>
         </ul>
       </template>
-    </CardWarapper>
+    </CardWrapper>
   </section>
 </template>
