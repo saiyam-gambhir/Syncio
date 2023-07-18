@@ -1,5 +1,7 @@
 <script setup>
 import { useAuthStore } from '@/stores/auth';
+
+/* ----- Components ----- */
 import PageHeader from '@/components/shared/PageHeader.vue';
 import Setting from './components/Setting.vue';
 
@@ -8,7 +10,9 @@ const auth = useAuthStore();
 </script>
 
 <template>
-  <PageHeader content="Manage your settings to make Syncio work better for you" title="Settings">
+  <PageHeader
+    content="Manage your settings to make Syncio work better for you"
+    title="Settings">
   </PageHeader>
 
   <section class="settings mt-4">
@@ -31,7 +35,7 @@ const auth = useAuthStore();
         <Setting
           :disabled="!auth.isProductModuleAvailable"
           description="Manage what attributes sync across your connected stores"
-          href="/product-settings"
+          href="/settings/product-settings"
           icon="pi-list"
           title="Product settings">
         </Setting>
@@ -39,21 +43,21 @@ const auth = useAuthStore();
         <Setting
           :disabled="!auth.isPayoutModuleAvailable"
           description="Set commissions at store, vendor or product/SKU level"
-          href="/payouts-settings"
+          href="/settings/payouts-settings"
           icon="pi-dollar"
           title="Payouts settings">
         </Setting>
 
         <Setting
           description="Manage your Marketplace profile and settings"
-          href="/payouts-settings"
+          href="/settings/marketplace-settings"
           icon="pi-shopping-bag"
           title="Marketplace settings">
         </Setting>
 
         <Setting
           description="Choose how you'd like to receive communications and customise what type of alerts we send you"
-          href="/notifications"
+          href="/settings/notification-settings"
           icon="pi-bell"
           title="Notifications">
         </Setting>

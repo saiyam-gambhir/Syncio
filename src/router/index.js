@@ -1,123 +1,128 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import * as routes from '@/routes';
+
+/* ----- Components ----- */
 import DashboardView from '@/views/dashboard/DashboardView.vue';
 import LoggedIn from '@/layouts/LoggedIn.vue';
 import LoggedOut from '@/layouts/LoggedOut.vue';
 
+/* ----- Data ----- */
 const meta = {
   layout: LoggedIn,
   requireAuth: true,
 };
 
+/* ----- Routes ----- */
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/login',
-      name: routes.LOGIN,
       component: () => import('@/views/login/LoginView.vue'),
-      meta: {
-        layout: LoggedOut,
-      },
+      meta: { layout: LoggedOut },
+      name: routes.LOGIN,
+      path: '/login',
     },
     {
-      path: '/forgot-password',
+      component: () => import('@/views/registration/woocommerce/ForgotPassword.vue'),
+      meta: { layout: LoggedOut },
       name: routes.FORGOT_PASSWORD,
-      component: () =>
-        import('@/views/registration/woocommerce/ForgotPassword.vue'),
-      meta: {
-        layout: LoggedOut,
-      },
+      path: '/forgot-password',
     },
     {
-      path: '/reset-password',
+      component: () => import('@/views/registration/woocommerce/ResetPassword.vue'),
+      meta: { layout: LoggedOut },
       name: routes.RESET_PASSWORD,
-      component: () =>
-        import('@/views/registration/woocommerce/ResetPassword.vue'),
-      meta: {
-        layout: LoggedOut,
-      },
+      path: '/reset-password',
     },
     {
-      path: '/registration',
+      component: () => import('@/views/registration/woocommerce/SelectStoreType.vue'),
+      meta: { layout: LoggedOut },
       name: routes.SELECT_STORE_TYPE,
-      component: () =>
-        import('@/views/registration/woocommerce/SelectStoreType.vue'),
-      meta: {
-        layout: LoggedOut,
-      },
+      path: '/registration',
     },
     {
-      path: '/',
-      name: routes.DASHBOARD,
       component: DashboardView,
       meta: { ...meta },
+      name: routes.DASHBOARD,
+      path: '/',
     },
     {
-      path: '/marketplace',
-      name: routes.MARKETPLACE,
       component: () => import('@/views/marketplace/MarketplaceView.vue'),
       meta: { ...meta },
+      name: routes.MARKETPLACE,
+      path: '/marketplace',
     },
     {
-      path: '/stores',
-      name: routes.STORES,
       component: () => import('@/views/connections/ConnectionsView.vue'),
       meta: { ...meta },
+      name: routes.STORES,
+      path: '/stores',
     },
     {
-      path: '/products',
-      name: routes.PRODUCTS,
       component: () => import('@/views/products/ProductsView.vue'),
       meta: { ...meta },
+      name: routes.PRODUCTS,
+      path: '/products',
     },
     {
-      path: '/settings/product-settings',
-      name: routes.PRODUCT_SETTINGS,
       component: () => import('@/views/productSettings/ProductSettingsView.vue'),
       meta: { ...meta },
+      name: routes.PRODUCT_SETTINGS,
+      path: '/settings/product-settings',
     },
     {
-      path: '/orders',
-      name: routes.ORDERS,
       component: () => import('@/views/orders/OrdersView.vue'),
       meta: { ...meta },
+      name: routes.ORDERS,
+      path: '/orders',
     },
     {
-      path: '/orders/push-settings',
-      name: routes.PUSH_SETTINGS,
-      meta: { ...meta },
       component: () => import('@/views/orders/pushSettings/PushSettings.vue'),
+      meta: { ...meta },
+      name: routes.PUSH_SETTINGS,
+      path: '/orders/push-settings',
     },
     {
-      path: '/payouts',
-      name: routes.PAYOUTS,
       component: () => import('@/views/payouts/PayoutsView.vue'),
       meta: { ...meta },
+      name: routes.PAYOUTS,
+      path: '/payouts',
     },
     {
-      path: '/activity-center',
-      name: routes.ACTIVITY_CENTER,
       component: () => import('@/views/activityCenter/ActivityCenterView.vue'),
       meta: { ...meta },
+      name: routes.ACTIVITY_CENTER,
+      path: '/activity-center',
     },
     {
-      path: '/settings/account-settings',
-      name: routes.ACCOUNT_SETTINGS,
       component: () => import('@/views/settings/accountSettings/AccountSettingsView.vue'),
       meta: { ...meta },
+      name: routes.ACCOUNT_SETTINGS,
+      path: '/settings/account-settings',
     },
     {
-      path: '/settings/plan-and-billings',
-      name: routes.PLAN_AND_BILLINGS,
       component: () => import('@/views/settings/planAndBillings/PlanAndBillingsView.vue'),
       meta: { ...meta },
+      name: routes.PLAN_AND_BILLINGS,
+      path: '/settings/plan-and-billings',
     },
     {
-      path: '/settings',
-      name: routes.SETTINGS,
+      component: () => import('@/views/settings/marketplaceSettings/MarketplaceSettingsView.vue'),
+      meta: { ...meta },
+      name: routes.MARKETPLACE_SETTINGS,
+      path: '/settings/marketplace-settings',
+    },
+    {
+      component: () => import('@/views/settings/notificationSettings/NotificationSettingsView.vue'),
+      meta: { ...meta },
+      name: routes.NOTIFICATION_SETTINGS,
+      path: '/settings/notification-settings',
+    },
+    {
       component: () => import('@/views/settings/SettingsView.vue'),
       meta: { ...meta },
+      name: routes.SETTINGS,
+      path: '/settings',
     },
   ],
 });

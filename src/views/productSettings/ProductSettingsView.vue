@@ -33,8 +33,9 @@ const changeTabHandler = activeTabIndex => {
 </script>
 
 <template>
-  <PageHeader content="Manage how your products sync with your connected store" title="Product Settings" withBackButton
-    href="settings">
+  <PageHeader
+    content="Manage how your products sync with your connected store"
+    title="Product Settings">
   </PageHeader>
 
   <section class="mt-4">
