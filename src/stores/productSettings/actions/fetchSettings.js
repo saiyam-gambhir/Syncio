@@ -1,29 +1,18 @@
 import { useAuthStore } from '@/stores/auth';
 
 export const fetchSettings = {
-  async filterSettings(
-    configurations = [],
-    groupName,
-    storeType = 'destinations'
-  ) {
+  async filterSettings(configurations = [], groupName, storeType = 'destinations') {
     return configurations.filter(({ group, store_type }) => {
       return group === groupName && store_type === storeType;
     });
   },
 
   checkExsistingSettings(destinationProductSettings, sourceProductSettings) {
-    return (
-      destinationProductSettings.length > 0 || sourceProductSettings.length > 0
-    );
+    return (destinationProductSettings.length > 0 || sourceProductSettings.length > 0);
   },
 
   async fetchSettings() {
-    if (
-      this.checkExsistingSettings(
-        this.destinationProductSettings,
-        this.sourceProductSettings
-      )
-    ) {
+    if (this.checkExsistingSettings(this.destinationProductSettings, this.sourceProductSettings)) {
       return;
     }
 
@@ -33,30 +22,14 @@ export const fetchSettings = {
       const response = await this.$https(`configurations/${auth.userId}`);
       const { success, configurations } = response.data;
       if (success) {
-        this.destinationProductSettings = await this.filterSettings(
-          configurations,
-          'product'
-        );
-        this.stringifyDestinationProductSettings = JSON.stringify(
-          this.destinationProductSettings
-        );
+        this.destinationProductSettings = await this.filterSettings(configurations, 'product');
+        this.stringifyDestinationProductSettings = JSON.stringify(this.destinationProductSettings);
 
-        this.destinationVariantSettings = await this.filterSettings(
-          configurations,
-          'variant'
-        );
-        this.stringifyDestinationVariantSettings = JSON.stringify(
-          this.destinationVariantSettings
-        );
+        this.destinationVariantSettings = await this.filterSettings(configurations, 'variant');
+        this.stringifyDestinationVariantSettings = JSON.stringify(this.destinationVariantSettings);
 
-        this.sourceProductSettings = await this.filterSettings(
-          configurations,
-          'product',
-          'source'
-        );
-        this.stringifySourceProductSettings = JSON.stringify(
-          this.sourceProductSettings
-        );
+        this.sourceProductSettings = await this.filterSettings(configurations, 'product', 'source');
+        this.stringifySourceProductSettings = JSON.stringify(this.sourceProductSettings);
       }
     } catch (error) {
       throw new Error(error);

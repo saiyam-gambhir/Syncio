@@ -41,8 +41,12 @@ const { formatCommission, formatCurrency } = useFilters();
 
     <Column header="Actions" style="width: 10%" class="text-right">
       <template #body="{}">
-        <Button icon="pi pi-arrow-right" class="p-button-rounded p-button-outlined p-button-info"
-          v-tooltip.top="'View details'"></Button>
+        <Button
+          class="p-button-sm"
+          label="View details"
+          outlined
+          raised>
+        </Button>
       </template>
     </Column>
   </DataTable>

@@ -1,5 +1,5 @@
 <script setup>
-import { defineAsyncComponent, onMounted } from 'vue';
+import { defineAsyncComponent, onMounted, toRefs } from 'vue';
 import { useAuthStore } from '@/stores/auth';
 import { useProductSettingsStore } from '@/stores/productSettings';
 import { useRouter } from 'vue-router';
@@ -10,68 +10,40 @@ const Product = defineAsyncComponent(() => import('./components/Product.vue'));
 const Variant = defineAsyncComponent(() => import('./components/Variant.vue'));
 
 /* ----- Data ----- */
-const auth = useAuthStore();
-const productSettings = useProductSettingsStore();
+const { activeTabIndex, fetchSettings, } = toRefs(useProductSettingsStore());
+const { isProductModuleAvailable } = toRefs(useAuthStore());
 const router = useRouter();
 
-/* ----- MOUNTED ----- */
+/* ----- Mounted ----- */
 onMounted(async () => {
-  if (!auth.isProductModuleAvailable) {
+  if (!isProductModuleAvailable.value) {
     router.push({
       path: '/',
       query: { showUpgrade: 'true', type: 'product-settings' },
     });
     return;
   }
-  await productSettings.fetchSettings();
+  await fetchSettings.value();
 });
 
 /* ----- Methods ----- */
-const changeTabHandler = activeTabIndex => {
-  productSettings.activeTabIndex = activeTabIndex;
+const handleTabChange = async index => {
+  activeTabIndex.value = index;
 };
 </script>
 
 <template>
   <PageHeader
-    content="Manage how your products sync with your connected store"
+    content="Manage what information syncs from your Source store"
     title="Product Settings">
   </PageHeader>
 
-  <section class="mt-4">
-    <ul class="surface-card p-0 m-0 list-none flex overflow-x-auto select-none">
-      <li class="pr-3">
-        <a class="cursor-pointer px-4 py-3 flex align-items-center border-bottom-2 hover:border-500 transition-colors transition-duration-150"
-          :class="{
-            'border-blue-500 text-blue-500 hover:border-blue-500':
-              productSettings.activeTabIndex === 0,
-            'text-700 border-transparent': productSettings.activeTabIndex !== 0,
-          }" @click="changeTabHandler(0)">
-          <span class="font-semibold capitalize">Product</span>
-        </a>
-      </li>
-      <li class="flex align-items-center">
-        <div style="width: 1px; height: 50%" class="border-right-1 surface-border"></div>
-      </li>
-      <li class="px-3">
-        <a class="cursor-pointer px-4 py-3 flex align-items-center border-bottom-2 hover:border-500 transition-colors transition-duration-150"
-          :class="{
-            'border-blue-500 text-blue-500 hover:border-blue-500':
-              productSettings.activeTabIndex === 1,
-            'text-700 border-transparent': productSettings.activeTabIndex !== 1,
-          }" @click="changeTabHandler(1)">
-          <span class="font-semibold capitalize">Variant</span>
-        </a>
-      </li>
-    </ul>
-  </section>
-
-  <section class="mt-4">
-    <div v-if="productSettings.activeTabIndex === 0">
+  <TabView @update:activeIndex="handleTabChange" class="mt-4">
+    <TabPanel header="Product">
       <Product />
-    </div>
-    <div v-if="productSettings.activeTabIndex === 1">
+    </TabPanel>
+    <TabPanel header="Variant">
       <Variant />
-    </div>
-  </section>
+    </TabPanel>
+  </TabView>
 </template>
