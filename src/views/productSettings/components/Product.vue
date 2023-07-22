@@ -3,12 +3,11 @@ import { useProductSettingsStore } from '@/stores/productSettings';
 import { computed, ref, toRefs, watch } from 'vue';
 
 /* ----- Data ----- */
-const { destinationProductSettings } = toRefs(useProductSettingsStore());
-const settingsUpdated = ref(false);
+const { destinationProductSettings, stringifyDestinationProductSettings, settingsUpdated } = toRefs(useProductSettingsStore());
 
-watch(destinationProductSettings, (newValue, oldValue) => {
-  if(JSON.parse(JSON.stringify(newValue)) === JSON.parse(JSON.stringify(oldValue)) || oldValue.length === 0) return;
-  settingsUpdated.value = true;
+/* ----- Watcher ----- */
+watch(destinationProductSettings, (newSettings, oldSettings) => {
+  settingsUpdated.value = stringifyDestinationProductSettings.value !== JSON.stringify(newSettings);
 },{ deep: true });
 
 /* ----- Computed ----- */
@@ -23,12 +22,12 @@ const initialSyncSettings = computed(() => {
 
 const ongoingSyncSettings = computed(() => {
   const syncSetting = {
-    'sync_product_title': true,
+    'product_publish_sync': true,
+    'sync_hs_code_and_country_origin': true,
     'sync_product_description': true,
     'sync_product_images': true,
     'sync_product_tags': true,
-    'sync_hs_code_and_country_origin': true,
-    'product_publish_sync': true,
+    'sync_product_title': true,
     'unpublish_at_product_creation': true,
   };
 

@@ -535,12 +535,31 @@ input.p-inputtext-lg {
   }
 }
 
+.margin-bottom .p-tabview-nav-container {
+  margin-bottom: 1.5rem;
+  position: sticky;
+  top: 0;
+  background: var(--white);
+  z-index: 10;
+}
+
+.p-tabview .p-tabview-nav li .p-tabview-nav-link:not(.p-disabled):focus {
+  box-shadow: none !important;
+}
+
 .p-tabview-header {
+
+  .p-tabview-nav-link {
+    color: #6c757d !important;
+    letter-spacing: .5px;
+    font-size: 1.1rem;
+  }
+
   &.p-highlight {
     .p-tabview-nav-link {
-      background: #e3f2ff !important;
+      color: var(--link) !important;
+      border-color: var(--link) !important;
       border-radius: 0 !important;
-      color: var(--primary-color);
     }
   }
 }

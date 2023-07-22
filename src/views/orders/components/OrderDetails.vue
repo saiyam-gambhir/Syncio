@@ -9,6 +9,7 @@ import { useOrdersStore } from '@/stores/orders';
 import AppLink from '@/components/shared/AppLink.vue';
 import CardWrapper from '@/views/dashboard/components/CardWrapper.vue';
 import IconShopify from '@/icons/IconShopify.vue';
+import LogoSmall from '@/icons/LogoSmall.vue';
 import OrderDetailsSkeleton from './OrderDetailsSkeleton.vue';
 
 /* ----- Data ----- */
@@ -119,13 +120,13 @@ const pushOrderHandler = async (targetStoreId) => {
         <CardWrapper class="pb-3">
           <template #links>
             <h3 class="mb-2 flex align-items-center">
-              Syncio Status: <Tag class="ml-3" rounded :severity="getPushStatus(order.push_status)">{{ formattedUnderscoreText(order.push_status) }}</Tag>
+              <LogoSmall style="width: 30px;transform: translateY(1px);" class="mr-2" /> Status: <Tag class="ml-3" rounded :severity="getPushStatus(order.push_status)">{{ formattedUnderscoreText(order.push_status) }}</Tag>
             </h3>
-            <p class="mt-3 mb-0">Order contains synced products from <strong>{{ Object.keys(order?.source_stores).length }}</strong> source stores.</p>
+            <p class="mt-3 mb-0">Order contains synced products from <Tag severity="info" class="mx-1" style="padding: .25rem .75rem !important;">{{ Object.keys(order?.source_stores).length }}</Tag> {{ Object.keys(order?.source_stores).length > 1 ? 'source stores' : 'source store' }}.</p>
             <Divider />
             <h3 class="mb-2 flex align-items-center">
               <IconShopify class="mr-3" style="transform: translateY(-1px);" />
-              My order details: {{ order.name }}
+              Order details: <span class="ml-2">{{ order.name }}</span>
             </h3>
             <Divider />
             <div>

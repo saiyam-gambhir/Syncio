@@ -1,5 +1,3 @@
-<script setup></script>
-
 <template>
   <svg viewBox="0 0 98 34" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 120px">
     <path

@@ -6,11 +6,12 @@ import { useRouter } from 'vue-router';
 
 /* ----- Components ----- */
 import PageHeader from '@/components/shared/PageHeader.vue';
+import ProductSkeleton from './components/ProductSkeleton.vue';
 const Product = defineAsyncComponent(() => import('./components/Product.vue'));
 const Variant = defineAsyncComponent(() => import('./components/Variant.vue'));
 
 /* ----- Data ----- */
-const { activeTabIndex, fetchSettings, } = toRefs(useProductSettingsStore());
+const { activeTabIndex, fetchSettings, loading, settingsUpdated } = toRefs(useProductSettingsStore());
 const { isProductModuleAvailable } = toRefs(useAuthStore());
 const router = useRouter();
 
@@ -35,12 +36,17 @@ const handleTabChange = async index => {
 <template>
   <PageHeader
     content="Manage what information syncs from your Source store"
-    title="Product Settings">
+    title="Product Settings"
+    withActions>
+    <template #actions>
+      <Button label="Save changes" :disabled="!settingsUpdated"></Button>
+    </template>
   </PageHeader>
 
-  <TabView @update:activeIndex="handleTabChange" class="mt-4">
+  <TabView @update:activeIndex="handleTabChange" class="mt-4 margin-bottom">
     <TabPanel header="Product">
-      <Product />
+      <ProductSkeleton v-if="loading" />
+      <Product v-else />
     </TabPanel>
     <TabPanel header="Variant">
       <Variant />

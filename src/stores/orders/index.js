@@ -37,7 +37,7 @@ export const useOrdersStore = defineStore('orders', {
         },
         {
           icon: 'pi pi-sort-numeric-up',
-          label: 'Oldest First',
+          label: 'Date: Oldest first',
           sortBy: 'ASC',
         },
       ],

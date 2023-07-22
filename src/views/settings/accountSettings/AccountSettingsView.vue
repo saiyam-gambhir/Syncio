@@ -54,31 +54,31 @@ const copyStoreKeyHandler = async val => {
       <CardWrapper class="pb-3">
         <template #links>
           <ul class="list-none p-0 mb-0 mt-0">
-            <li class="pb-3 pt-0 border-bottom-1 surface-border">
+            <li class="pb-4 pt-0 border-bottom-1 surface-border">
               <h3 class="flex align-items-center justify-content-between mb-1">
                 Platform:
                 <Tag severity="info" class="capitalize ml-3">{{ platform }}</Tag>
               </h3>
             </li>
-            <li class="py-3 border-bottom-1 surface-border">
+            <li class="py-4 border-bottom-1 surface-border">
               <h3 class="flex align-items-center justify-content-between my-1">
                 Store Type:
                 <Tag severity="info" class="capitalize ml-3">{{ storeType }} store</Tag>
               </h3>
             </li>
-            <li class="py-3 border-bottom-1 surface-border">
+            <li class="py-4 border-bottom-1 surface-border">
               <h3 class="flex align-items-center justify-content-between my-1">
                 Store Name:
                 <Tag severity="info" class="ml-3">{{ storeName }}</Tag>
               </h3>
             </li>
-            <li class="py-3 border-bottom-1 surface-border">
+            <li class="py-4 border-bottom-1 surface-border">
               <h3 class="flex align-items-center justify-content-between my-1">
                 Joining Date:
                 <Tag severity="info" class="ml-3">{{ formatDate(storeCreationDate).date }} at {{ formatDate(storeCreationDate).time }}</Tag>
               </h3>
             </li>
-            <li class="pt-3 pb-1 surface-border">
+            <li class="pt-4 pb-2 surface-border">
               <h3 class="flex align-items-center justify-content-between mt-1 mb-0">
                 Uninstall Syncio:
                 <Tag severity="danger" class="ml-3 transform-none">* For Shopify, please use Shopify admin page to uninstall Syncio.</Tag>

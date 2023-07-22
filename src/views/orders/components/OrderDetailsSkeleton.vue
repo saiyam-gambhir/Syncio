@@ -2,6 +2,7 @@
 /* ----- Components ----- */
 import CardWrapper from '@/views/dashboard/components/CardWrapper.vue';
 import IconShopify from '@/icons/IconShopify.vue';
+import LogoSmall from '@/icons/LogoSmall.vue';
 </script>
 
 <template>
@@ -10,13 +11,13 @@ import IconShopify from '@/icons/IconShopify.vue';
       <CardWrapper class="pb-3">
         <template #links>
           <h3 class="mb-2 flex align-items-center">
-            Syncio Status: <Skeleton class="ml-2" width="100px" height="28.75px" borderRadius="20px"></Skeleton>
+            <LogoSmall style="width: 30px;transform: translateY(1px);" class="mr-2" /> Status: <Skeleton class="ml-2" width="100px" height="28.75px" borderRadius="20px"></Skeleton>
           </h3>
-          <Skeleton class="mt-3 mb-0" width="300px" height="21px"></Skeleton>
+          <p class="mt-3 mb-0">Order contains synced products from <Skeleton class="inline-flex vertical-align-middle mx-1" width="25.5px" height="28.5px"></Skeleton> source store.</p>
           <Divider />
           <h3 class="flex align-items-center">
             <IconShopify class="mr-3" style="transform: translateY(-1px);" />
-            My order details: <Skeleton width="50px" height="24px" class="ml-1"></Skeleton>
+            Order details: <Skeleton width="75px" height="24px" class="ml-2"></Skeleton>
           </h3>
           <Divider />
           <div>

@@ -18,7 +18,6 @@ const { isConnectionStatusPending, isDestinationStore } = useConnectionsStore();
 const {
   isOrderModuleAvailable,
   isPayoutsModuleAvailable,
-  isProductModuleAvailable,
   isUpgradeDialogRequested,
   showOrdersUpgradeDialog,
   showPayoutsUpgradeDialog,
@@ -53,10 +52,6 @@ const isPathSettings = computed(() => {
           <li class="mt-2">
             <NavLink href="/products" iconClass="pi-list" linkText="Products" />
           </li>
-          <!-- <li class="mt-2">
-            <NavLink v-if="isProductModuleAvailable" href="/settings/product-settings" iconClass="pi-sync" linkText="Product Settings" />
-            <NavLink v-else :href="$route.path" iconClass="pi-sync" linkText="Product Settings" disabled @click="showUpgradeDialogHandler('product-settings')" />
-          </li> -->
           <li class="mt-2">
             <NavLink v-if="isOrderModuleAvailable" href="/orders" iconClass="pi-file" linkText="Orders" />
             <NavLink v-else :href="$route.path" iconClass="pi-file" linkText="Orders" disabled @click="showUpgradeDialogHandler('orders')" />
