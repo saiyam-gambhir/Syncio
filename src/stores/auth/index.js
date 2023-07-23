@@ -49,6 +49,7 @@ export const useAuthStore = defineStore('auth', {
         submitted: false,
         token: '',
       },
+      showLeavingPageDialog: false,
       timeZone: 'Australia/Melbourne',
       upgradeDialogType: '',
       user: null,

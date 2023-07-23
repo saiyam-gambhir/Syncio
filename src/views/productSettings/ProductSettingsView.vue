@@ -2,17 +2,18 @@
 import { defineAsyncComponent, onMounted, toRefs } from 'vue';
 import { useAuthStore } from '@/stores/auth';
 import { useProductSettingsStore } from '@/stores/productSettings';
-import { useRouter } from 'vue-router';
+import { useRouter, onBeforeRouteLeave } from 'vue-router';
 
 /* ----- Components ----- */
 import PageHeader from '@/components/shared/PageHeader.vue';
-import ProductSkeleton from './components/ProductSkeleton.vue';
+const LeavingPageDialog = defineAsyncComponent(() => import('@/components/shared/LeavingPageDialog.vue'));
 const Product = defineAsyncComponent(() => import('./components/Product.vue'));
+const ProductSkeleton = defineAsyncComponent(() => import('./components/ProductSkeleton.vue'));
 const Variant = defineAsyncComponent(() => import('./components/Variant.vue'));
 
 /* ----- Data ----- */
 const { activeTabIndex, fetchSettings, loading, settingsUpdated } = toRefs(useProductSettingsStore());
-const { isProductModuleAvailable } = toRefs(useAuthStore());
+const { isProductModuleAvailable, showLeavingPageDialog } = toRefs(useAuthStore());
 const router = useRouter();
 
 /* ----- Mounted ----- */
@@ -27,6 +28,15 @@ onMounted(async () => {
   await fetchSettings.value();
 });
 
+onBeforeRouteLeave((to, from, next) => {
+  if(settingsUpdated.value) {
+    showLeavingPageDialog.value = true;
+    next(false);
+  } else {
+    next();
+  }
+});
+
 /* ----- Methods ----- */
 const handleTabChange = async index => {
   activeTabIndex.value = index;
@@ -39,7 +49,11 @@ const handleTabChange = async index => {
     title="Product Settings"
     withActions>
     <template #actions>
-      <Button label="Save changes" :disabled="!settingsUpdated"></Button>
+      <Button
+        :class="{ 'p-button-lg': settingsUpdated }"
+        :disabled="!settingsUpdated"
+        label="Save changes">
+      </Button>
     </template>
   </PageHeader>
 
@@ -52,4 +66,6 @@ const handleTabChange = async index => {
       <Variant />
     </TabPanel>
   </TabView>
+
+  <LeavingPageDialog :isDialogVisible="settingsUpdated" />
 </template>
