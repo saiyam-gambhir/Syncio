@@ -1,5 +1,5 @@
 <script setup>
-import { defineAsyncComponent, onMounted, toRefs } from 'vue';
+import { defineAsyncComponent, onMounted, ref, toRefs } from 'vue';
 import { useAuthStore } from '@/stores/auth';
 import { useProductSettingsStore } from '@/stores/productSettings';
 import { useRouter, onBeforeRouteLeave } from 'vue-router';
@@ -12,9 +12,20 @@ const ProductSkeleton = defineAsyncComponent(() => import('./components/ProductS
 const Variant = defineAsyncComponent(() => import('./components/Variant.vue'));
 
 /* ----- Data ----- */
-const { activeTabIndex, fetchSettings, loading, settingsUpdated } = toRefs(useProductSettingsStore());
 const { isProductModuleAvailable, showLeavingPageDialog } = toRefs(useAuthStore());
+const {
+  activeTabIndex,
+  destinationProductSettings,
+  destinationVariantSettings,
+  fetchSettings,
+  loading,
+  settingsUpdated,
+  stringifyDestinationProductSettings,
+  updateSettings,
+} = toRefs(useProductSettingsStore());
+const forceLeavingPage = ref(false);
 const router = useRouter();
+const routeTo = ref(null);
 
 /* ----- Mounted ----- */
 onMounted(async () => {
@@ -29,8 +40,9 @@ onMounted(async () => {
 });
 
 onBeforeRouteLeave((to, from, next) => {
-  if(settingsUpdated.value) {
+  if(settingsUpdated.value && !forceLeavingPage.value) {
     showLeavingPageDialog.value = true;
+    routeTo.value = to;
     next(false);
   } else {
     next();
@@ -41,6 +53,28 @@ onBeforeRouteLeave((to, from, next) => {
 const handleTabChange = async index => {
   activeTabIndex.value = index;
 };
+
+const resetLeavePageConfigs = () => {
+  forceLeavingPage.value = showLeavingPageDialog.value = settingsUpdated.value = false;
+};
+
+const leaveCurrentPageHandler = () => {
+  if (routeTo.value) {
+    forceLeavingPage.value = true;
+    router.push(routeTo.value);
+    showLeavingPageDialog.value = false;
+    destinationProductSettings.value = JSON.parse(stringifyDestinationProductSettings.value);
+  }
+};
+
+const updateSettingsHandler = async () => {
+  const payload = [...destinationProductSettings.value, ...destinationVariantSettings.value];
+  const configrations = payload.map(({ key, is_active }) => {
+    return { key, is_active };
+  });
+  await updateSettings.value(configrations);
+  resetLeavePageConfigs();
+}
 </script>
 
 <template>
@@ -50,8 +84,10 @@ const handleTabChange = async index => {
     withActions>
     <template #actions>
       <Button
+        @click="updateSettingsHandler"
         :class="{ 'p-button-lg': settingsUpdated }"
         :disabled="!settingsUpdated"
+        :loading="loading"
         label="Save changes">
       </Button>
     </template>
@@ -67,5 +103,5 @@ const handleTabChange = async index => {
     </TabPanel>
   </TabView>
 
-  <LeavingPageDialog :isDialogVisible="settingsUpdated" />
+  <LeavingPageDialog :isDialogVisible="settingsUpdated" @leaveCurrentPage="leaveCurrentPageHandler" />
 </template>

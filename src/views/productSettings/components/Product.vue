@@ -1,6 +1,6 @@
 <script setup>
 import { useProductSettingsStore } from '@/stores/productSettings';
-import { computed, ref, toRefs, watch } from 'vue';
+import { computed, toRefs, watch } from 'vue';
 
 /* ----- Data ----- */
 const { destinationProductSettings, stringifyDestinationProductSettings, settingsUpdated } = toRefs(useProductSettingsStore());

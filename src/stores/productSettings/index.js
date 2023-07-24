@@ -1,8 +1,9 @@
 import { defineStore } from 'pinia';
 import deepmerge from 'deepmerge';
 
-/* ----- ACTIONS ----- */
+/* ----- Actions ----- */
 import { fetchSettings } from './actions/fetchSettings';
+import { updateSettings } from './actions/updateSettings';
 
 export const useProductSettingsStore = defineStore('productSettings', {
   state: () => {
@@ -19,7 +20,10 @@ export const useProductSettingsStore = defineStore('productSettings', {
     };
   },
 
-  actions: deepmerge.all([fetchSettings]),
+  actions: deepmerge.all([
+    fetchSettings,
+    updateSettings,
+  ]),
 
   persist: {
     enabled: true,
