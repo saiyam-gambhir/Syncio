@@ -33,9 +33,6 @@ const ongoingSyncSettings = computed(() => {
 
   return destinationProductSettings.value?.filter(({ key }) => syncSetting[key]);
 });
-
-const checkForUpdate = (setting) => {
-}
 </script>
 
 <template>
@@ -61,7 +58,7 @@ const checkForUpdate = (setting) => {
                 </span>
               </p>
             </div>
-            <InputSwitch v-model="setting.is_active" @change="checkForUpdate(setting)" />
+            <InputSwitch v-model="setting.is_active" />
           </div>
         </li>
       </ul>

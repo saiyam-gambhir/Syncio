@@ -10,6 +10,7 @@ const LeavingPageDialog = defineAsyncComponent(() => import('@/components/shared
 const Product = defineAsyncComponent(() => import('./components/Product.vue'));
 const ProductSkeleton = defineAsyncComponent(() => import('./components/ProductSkeleton.vue'));
 const Variant = defineAsyncComponent(() => import('./components/Variant.vue'));
+const VariantSkeleton = defineAsyncComponent(() => import('./components/VariantSkeleton.vue'));
 
 /* ----- Data ----- */
 const { isProductModuleAvailable, showLeavingPageDialog } = toRefs(useAuthStore());
@@ -21,6 +22,7 @@ const {
   loading,
   settingsUpdated,
   stringifyDestinationProductSettings,
+  stringifyDestinationVariantSettings,
   updateSettings,
 } = toRefs(useProductSettingsStore());
 const forceLeavingPage = ref(false);
@@ -64,6 +66,7 @@ const leaveCurrentPageHandler = () => {
     router.push(routeTo.value);
     showLeavingPageDialog.value = false;
     destinationProductSettings.value = JSON.parse(stringifyDestinationProductSettings.value);
+    destinationVariantSettings.value = JSON.parse(stringifyDestinationVariantSettings.value);
   }
 };
 
@@ -84,10 +87,10 @@ const updateSettingsHandler = async () => {
     withActions>
     <template #actions>
       <Button
-        @click="updateSettingsHandler"
         :class="{ 'p-button-lg': settingsUpdated }"
         :disabled="!settingsUpdated"
         :loading="loading"
+        @click="updateSettingsHandler"
         label="Save changes">
       </Button>
     </template>
@@ -99,9 +102,13 @@ const updateSettingsHandler = async () => {
       <Product v-else />
     </TabPanel>
     <TabPanel header="Variant">
-      <Variant />
+      <VariantSkeleton v-if="loading" />
+      <Variant v-else />
     </TabPanel>
   </TabView>
 
-  <LeavingPageDialog :isDialogVisible="settingsUpdated" @leaveCurrentPage="leaveCurrentPageHandler" />
+  <LeavingPageDialog
+    :isDialogVisible="settingsUpdated"
+    @leaveCurrentPage="leaveCurrentPageHandler">
+  </LeavingPageDialog>
 </template>
