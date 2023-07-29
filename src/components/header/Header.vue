@@ -17,11 +17,26 @@ const goBackHandler = () => {
 <template>
   <header class="header-height surface-section border-bottom-1 surface-border flex align-items-center justify-content-between px-5">
     <div class="header-left">
-      <Button outlined icon="pi pi-arrow-left" iconPos="left" raised @click="goBackHandler" v-tooltip.right="'Back'"></Button>
+      <Button
+        icon="pi pi-arrow-left"
+        iconPos="left"
+        outlined
+        raised @click="goBackHandler"
+        v-tooltip.right="'Back'">
+      </Button>
     </div>
     <div class="header-right flex align-items-center">
-      <Tag :value="`${storeType} store`" :class="storeType" v-tooltip.left="storeName" />
-      <Button icon="pi pi-user" rounded outlined class="ml-4"></Button>
+      <Tag
+        :value="`${storeType} store`"
+        :class="storeType"
+        v-tooltip.left="storeName">
+      </Tag>
+      <Button
+        class="ml-4"
+        icon="pi pi-user"
+        outlined
+        rounded>
+      </Button>
     </div>
   </header>
 </template>

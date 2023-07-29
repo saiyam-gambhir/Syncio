@@ -37,7 +37,7 @@ const props = defineProps({
           </span>
           <span class="text-900 font-semibold text-2xl">{{ title }}</span>
         </div>
-        <p class="mb-3 mt-4 text-700 line-height-4">{{ description }}</p>
+        <p class="mb-3 mt-4 text-700 line-height-4 text-lg">{{ description }}</p>
       </div>
 
       <div class="px-4 py-3 text-right border-top-1 surface-border">
