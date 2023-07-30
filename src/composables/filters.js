@@ -39,7 +39,7 @@ export function useFilters() {
 
   const filterUnwantedQueries = (queries, defaultOption) => {
     for (const [param, value] of Object.entries(queries)) {
-      if ([null, 'null', '', defaultOption, undefined].includes(value) || typeof value === 'undefined') {
+      if ([null, 'null', '', defaultOption, undefined].includes(value) || typeof value === 'undefined' || (Array.isArray(value) && value.length === 0)) {
         if (queries.hasOwnProperty(param)) {
           delete queries[param];
         }

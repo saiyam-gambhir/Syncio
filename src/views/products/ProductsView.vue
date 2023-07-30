@@ -9,7 +9,7 @@ import StoresFilter from '@/components/shared/StoresFilter.vue';
 
 /* ----- Data ----- */
 const { connections, fetchConnections, partnerStoreType } = toRefs(useConnectionsStore());
-const { selectedStore } = toRefs(useProductsStore());
+const { fetchProducts, selectedStoreId } = toRefs(useProductsStore());
 
 /* ----- Mounted ----- */
 onMounted(async () => {
@@ -18,8 +18,12 @@ onMounted(async () => {
 
 /* ----- Methods ----- */
 const storeFilterHandler = async storeId => {
-  selectedStore.value = storeId;
+  selectedStoreId.value = storeId;
 };
+
+const fetchProductsHandler= () => {
+  fetchProducts.value();
+}
 </script>
 
 <template>
@@ -29,11 +33,12 @@ const storeFilterHandler = async storeId => {
     withActions>
     <template #actions>
       <StoresFilter
-        @update:modelValue="storeFilterHandler"
-        customPlaceholder
         :customPlaceholderText="`Select a ${partnerStoreType}`"
         :showClear="false"
-        v-model="selectedStore">
+        @change="fetchProductsHandler()"
+        @update:modelValue="storeFilterHandler"
+        customPlaceholder
+        v-model="selectedStoreId">
       </StoresFilter>
     </template>
   </PageHeader>
