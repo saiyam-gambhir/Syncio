@@ -8,6 +8,7 @@ import { fetchProducts } from './actions/fetchProducts';
 export const useProductsStore = defineStore('products', {
   state: () => {
     return {
+      products: null,
       selectedStoreId: null,
       queries: {
         'filters': [],
@@ -37,6 +38,7 @@ export const useProductsStore = defineStore('products', {
         key: 'products',
         storage: sessionStorage,
         paths: [
+          'products',
           'selectedStoreId',
         ],
       },

@@ -1,11 +1,14 @@
 import { useConnectionsStore } from '@/stores/connections';
-import { useFilters } from '@/composables/filters';
+import { useAxios } from '@/composables/axios';
 
 export const fetchProducts = {
-  async fetchProducts() {
-    const { storeId, storeType } = useConnectionsStore();
-    const { filters, limiter, sort_by_desc, sort_by } = this.queries;
+  async fetchProducts(isStoreChanged = false) {
+    if(this.products && !isStoreChanged) return;
+
     const { connection_id, id } = this.selectedStore[0];
+    const { filters, limiter, sort_by_desc, sort_by } = this.queries;
+    const { getData } = useAxios();
+    const { storeId, storeType } = useConnectionsStore();
 
     const params = {
       connection_id: connection_id,
@@ -18,14 +21,10 @@ export const fetchProducts = {
       source_store_id: id,
     };
 
-    // Get the filterUnwantedQueries function from the filters composable
-    const { filterUnwantedQueries } = useFilters();
-
-    // Remove unwanted queries using the filterUnwantedQueries function
-    filterUnwantedQueries(params, '');
-
-    const response = this.$https('products', {
-      params: { ...params }
-    })
+    const response = await getData('products', params);
+    if(response.success) {
+      this.products = response.products;
+    }
+    console.log(response);
   }
 };

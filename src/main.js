@@ -41,6 +41,7 @@ import SelectButton from 'primevue/selectbutton';
 import Sidebar from 'primevue/sidebar';
 import Skeleton from 'primevue/skeleton';
 import SpeedDial from 'primevue/speeddial';
+import SplitButton from 'primevue/splitbutton';
 import TabPanel from 'primevue/tabpanel';
 import TabView from 'primevue/tabview';
 import Tag from 'primevue/tag';
@@ -109,6 +110,7 @@ app
   .component('ProgressBar', ProgressBar)
   .component('ProgressSpinner', ProgressSpinner)
   .component('SelectButton', SelectButton)
+  .component('SplitButton', SplitButton)
   .component('Sidebar', Sidebar)
   .component('Skeleton', Skeleton)
   .component('SpeedDial', SpeedDial)
@@ -134,12 +136,13 @@ activityCenter.$https = auth.$https = connections.$https = marketPlace.$https = 
 
 /* ----- LOGOUT HANDLER ----- */
 const logout = () => {
+  //connections.$reset();
   activityCenter.$reset();
   auth.$reset();
-  //connections.$reset();
   marketPlace.$reset();
   orders.$reset();
   payouts.$reset();
+  products.$reset();
   productSettings.$reset();
   sessionStorage.removeItem('ID_TOKEN_KEY');
   sessionStorage.removeItem('USER_ID');
