@@ -25,6 +25,5 @@ export const fetchProducts = {
     if(response.success) {
       this.products = response.products;
     }
-    console.log(response);
   }
 };

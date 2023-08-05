@@ -4,10 +4,12 @@ import { useConnectionsStore } from '@/stores/connections';
 
 /* ----- Actions ----- */
 import { fetchProducts } from './actions/fetchProducts';
+import { getProductDetails } from './actions/getProductDetails';
 
 export const useProductsStore = defineStore('products', {
   state: () => {
     return {
+      productDetails: null,
       products: null,
       selectedStoreId: null,
       queries: {
@@ -22,6 +24,7 @@ export const useProductsStore = defineStore('products', {
 
   actions: deepmerge.all([
     fetchProducts,
+    getProductDetails,
   ]),
 
   getters: {

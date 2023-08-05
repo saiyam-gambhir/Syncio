@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref, toRefs } from 'vue';
+import { computed, onMounted, ref, toRefs } from 'vue';
 import { useConnectionsStore } from '@/stores/connections';
 import { useProductsStore } from '@/stores/products';
 
@@ -17,8 +17,9 @@ const {
 } = toRefs(useConnectionsStore());
 const {
   fetchProducts,
+  getProductDetails,
   products,
-  selectedStoreId
+  selectedStoreId,
 } = toRefs(useProductsStore());
 const statusOptions = {
   'Not synced': 'info',
@@ -56,6 +57,11 @@ const unSyncedActions = ref([
 onMounted(async () => {
   if (connections.value.length === 0) await fetchConnections.value();
 });
+
+/* ----- Computed ----- */
+const selectedStore = computed(() => {
+  return connections.value.filter(connection => connection.id === selectedStoreId.value)[0];
+})
 
 /* ----- Methods ----- */
 const storeFilterHandler = async storeId => {
@@ -112,7 +118,8 @@ const getProductSyncStatus = product => {
       </StoresFilter>
 
       <Button
-        class="ml-5"
+        v-if="selectedStoreId"
+        class="ml-5 bulk-mapper-btn"
         label="Bulk Mapper">
       </Button>
     </template>
@@ -174,10 +181,13 @@ const getProductSyncStatus = product => {
         </template>
       </Column>
 
-      <Column header="Inventory" style="width: 8%">
+      <Column header="Inventory" style="width: 10%;" class="text-center">
+        <template #body="{ data: { total_inventory_quantity } }">
+          <Tag severity="info">{{ total_inventory_quantity }}</Tag>
+        </template>
       </Column>
 
-      <Column header="Status" style="width: 13%">
+      <Column header="Status" style="width: 11%">
         <template #body="{ data }">
           <Tag :severity="statusOptions[getProductSyncStatus(data)]" rounded>{{ getProductSyncStatus(data).replace('_', ' ') }}</Tag>
         </template>
@@ -191,12 +201,12 @@ const getProductSyncStatus = product => {
       </Column>
 
       <Column header="Actions" style="width: 15%" class="text-right">
-        <template #body="{ data: { mapper_id } }" v-if="isDestinationStore">
+        <template #body="{ data: { external_product_id, mapper_id, store_id } }" v-if="isDestinationStore">
           <div v-if="mapper_id">
-            <SplitButton label="View Details" class="p-button-sm" outlined raised :model="syncedActions" />
+            <SplitButton label="View Details" class="p-button-sm" outlined raised :model="syncedActions" @click="getProductDetails({ externalProductId: external_product_id, targetStoreId: store_id })" />
           </div>
           <div v-else>
-            <SplitButton label="View Details" class="p-button-sm" outlined raised :model="unSyncedActions" />
+            <SplitButton label="View Details" class="p-button-sm" outlined raised :model="unSyncedActions" @click="getProductDetails({ externalProductId: external_product_id, targetStoreId: store_id })" />
           </div>
         </template>
       </Column>
@@ -207,5 +217,9 @@ const getProductSyncStatus = product => {
 <style scoped>
 .product-action {
   width: 70px;
+}
+
+.bulk-mapper-btn {
+  height: 39.5px;
 }
 </style>
