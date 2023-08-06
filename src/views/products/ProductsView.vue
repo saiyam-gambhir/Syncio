@@ -9,18 +9,8 @@ import PageHeader from '@/components/shared/PageHeader.vue';
 import StoresFilter from '@/components/shared/StoresFilter.vue';
 
 /* ----- Data ----- */
-const {
-  connections,
-  fetchConnections,
-  isDestinationStore,
-  partnerStoreType,
-} = toRefs(useConnectionsStore());
-const {
-  fetchProducts,
-  getProductDetails,
-  products,
-  selectedStoreId,
-} = toRefs(useProductsStore());
+const { connections, fetchConnections, isDestinationStore, partnerStoreType } = toRefs(useConnectionsStore());
+const { fetchProducts, getProductDetails, products, selectedStoreId } = toRefs(useProductsStore());
 const statusOptions = {
   'Not synced': 'info',
   'pending': 'warning',
@@ -28,30 +18,14 @@ const statusOptions = {
   'synced': 'success',
 };
 const syncedActions = ref([
-  {
-    label: 'View sync',
-    command: () => {}
-  },
-  {
-    label: 'Resync',
-    command: () => {}
-  },
-  {
-    label: 'Unsync',
-    command: () => {}
-  },
+  { label: 'View sync', command: () => {} },
+  { label: 'Resync', command: () => {} },
+  { label: 'Unsync', command: () => {} },
 ]);
 const unSyncedActions = ref([
-  {
-    label: 'Map',
-    command: () => {}
-  },
-  {
-    label: 'Sync',
-    command: () => {}
-  },
+  { label: 'Map', command: () => {} },
+  { label: 'Sync', command: () => {} },
 ]);
-
 
 /* ----- Mounted ----- */
 onMounted(async () => {

@@ -1,7 +1,10 @@
 <script setup>
-import { toRefs } from 'vue';
+import { ref, toRefs } from 'vue';
 import { useConnections } from './composables/connections';
 import { useConnectionsStore } from '@/stores/connections';
+import { useProductsStore } from '@/stores/products';
+import * as routes from '@/routes';
+import router from '@/router';
 
 /* ----- Components ----- */
 import IconShopify from '@/icons/IconShopify.vue';
@@ -9,20 +12,24 @@ import IconWoo from '@/icons/IconWoo.vue';
 import SearchFilter from '@/components/shared/SearchFilter.vue';
 
 /* ----- Data ----- */
+const { connections, filters, isMultilocation, loadingConnections, sortOptions } = toRefs(useConnectionsStore());
 const { fetchConnectionsHandler, getStoreStatus, showDisconnectStoreDialog } = useConnections();
-const {
-  connections,
-  filters,
-  isMultilocation,
-  loadingConnections,
-  sortOptions,
-} = toRefs(useConnectionsStore());
+const { fetchProducts, selectedStoreId } = toRefs(useProductsStore());
+const loadingProductsRoute = ref(false);
 
 /* ----- Methods ----- */
 const searchHandler = async (searchText) => {
   filters.value.searchString = searchText;
   await fetchConnectionsHandler();
 };
+
+const fetchProductsHandler = async (store) => {
+  selectedStoreId.value = store.id;
+  loadingProductsRoute.value = true;
+  await fetchProducts.value(true);
+  loadingProductsRoute.value = false;
+  await router.push({ name: routes.PRODUCTS });
+}
 </script>
 
 <template>
@@ -76,7 +83,7 @@ const searchHandler = async (searchText) => {
       </template>
     </Column>
 
-    <Column header="Status" style="width: 10%">
+    <Column header="Status" style="width: 12.5%">
       <template #body="{ data: connection }">
         <Tag :severity="getStoreStatus(connection.status)" rounded>{{ connection.status }}</Tag>
       </template>
@@ -87,9 +94,12 @@ const searchHandler = async (searchText) => {
       </template>
     </Column>
 
-    <Column header="Actions" style="width: 17.5%" class="text-right">
+    <Column header="Actions" style="width: 15%" class="text-right">
       <template #body="{ data: connection }">
         <Button
+          :disabled="loadingProductsRoute"
+          :loading="loadingProductsRoute"
+          @click="fetchProductsHandler(connection)"
           class="p-button-sm"
           label="Products"
           outlined
