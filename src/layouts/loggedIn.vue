@@ -15,11 +15,7 @@ import Navbar from '@/components/navbar/Navbar.vue';
         <div class="flex flex-auto flex-column router-view mx-auto">
           <div class="flex-auto surface-section p-5 pt-4">
             <router-view v-slot="{ Component }">
-              <transition name="fade">
-                <div>
-                  <component :is="Component" />
-                </div>
-              </transition>
+              <component :is="Component" />
             </router-view>
           </div>
         </div>

@@ -4,7 +4,7 @@ import { useFilters } from '@/composables/filters';
 import { useToasts } from '@/composables/toasts';
 
 /* ----- Components ----- */
-import CardWrapper from '@/views/dashboard/components/CardWrapper.vue';
+import CardWrapper from '@/components/shared/CardWrapper.vue';
 import PageHeader from '@/components/shared/PageHeader.vue';
 
 /* ----- Data ----- */
@@ -33,7 +33,7 @@ const copyStoreKeyHandler = async val => {
         description="Share this with Source stores so you can import products to your store."
         icon="key"
         title="Unique store key">
-        <template #links>
+        <template #content>
           <h3 class="mb-0 flex align-items-center">
             {{ storeKey }}
             <Button
@@ -52,7 +52,7 @@ const copyStoreKeyHandler = async val => {
       <h2 class="pb-2">My Store Details</h2>
 
       <CardWrapper class="pb-3">
-        <template #links>
+        <template #content>
           <ul class="list-none p-0 mb-0 mt-0">
             <li class="pb-4 pt-0 border-bottom-1 surface-border">
               <h3 class="flex align-items-center justify-content-between mb-1">

@@ -1,6 +1,6 @@
 <script setup>
 /* ----- Components ----- */
-import CardWrapper from '@/views/dashboard/components/CardWrapper.vue';
+import CardWrapper from '@/components/shared/CardWrapper.vue';
 import IconShopify from '@/icons/IconShopify.vue';
 import LogoSmall from '@/icons/LogoSmall.vue';
 </script>
@@ -9,7 +9,7 @@ import LogoSmall from '@/icons/LogoSmall.vue';
   <div class="grid mt-4">
     <div class="col-12 md:col-12 lg:col-8">
       <CardWrapper class="pb-3">
-        <template #links>
+        <template #content>
           <h3 class="mb-2 flex align-items-center">
             <LogoSmall style="width: 30px;transform: translateY(1px);" class="mr-2" /> Status: <Skeleton class="ml-2" width="100px" height="28.75px" borderRadius="20px"></Skeleton>
           </h3>
@@ -36,7 +36,7 @@ import LogoSmall from '@/icons/LogoSmall.vue';
       </CardWrapper>
 
       <CardWrapper class="pb-3 mt-5">
-        <template #links>
+        <template #content>
           <div class="flex align-items-center justify-content-between">
             <Skeleton width="200px" height="23px" class="mb-4"></Skeleton>
             <Skeleton width="100px" height="23px" class="mb-4"></Skeleton>
@@ -82,13 +82,13 @@ import LogoSmall from '@/icons/LogoSmall.vue';
 
     <div class="col-12 md:col-12 lg:col-4">
       <CardWrapper class="pb-3" title="Notes">
-        <template #links>
+        <template #content>
           <Skeleton width="300px" height="20px" class="mt-2"></Skeleton>
         </template>
       </CardWrapper>
 
       <CardWrapper class="pb-3 mt-5" title="Additional Notes">
-        <template #links>
+        <template #content>
           <div>
             <Divider />
             <Skeleton width="200px" height="15px"></Skeleton>
@@ -112,7 +112,7 @@ import LogoSmall from '@/icons/LogoSmall.vue';
       </CardWrapper>
 
       <CardWrapper class="pb-3 mt-5">
-        <template #links>
+        <template #content>
           <div>
             <div class="font-semibold text-lg uppercase">Customer</div>
             <Skeleton width="100px" height="15px" class="mt-2"></Skeleton>
@@ -133,7 +133,7 @@ import LogoSmall from '@/icons/LogoSmall.vue';
       </CardWrapper>
 
       <CardWrapper class="pb-3 mt-5" title="Tags">
-        <template #links>
+        <template #content>
           <div class="flex flex-wrap align-items-center">
             <Skeleton class="mt-2" width="150px" height="32.25px" borderRadius="50px"></Skeleton>
             <Skeleton class="mt-2 ml-2" width="100px" height="32.25px" borderRadius="50px"></Skeleton>

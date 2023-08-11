@@ -5,7 +5,7 @@ import { useToasts } from '@/composables/toasts';
 
 /* ----- Components ----- */
 import AppLink from '@/components/shared/AppLink.vue';
-import CardWrapper from '@/views/dashboard/components/CardWrapper.vue';
+import CardWrapper from '@/components/shared/CardWrapper.vue';
 
 /* ----- Data ----- */
 const { copyToClipBoard } = useFilters();
@@ -25,7 +25,7 @@ const copyStoreKeyHandler = async val => {
 
     <CardWrapper class="pb-3" description="Share this with Source stores so you can import products to your store."
       icon="key" title="Unique store key">
-      <template #links>
+      <template #content>
         <h3 class="mb-0 flex align-items-center">
           {{ storeKey }}
           <Button
@@ -40,7 +40,7 @@ const copyStoreKeyHandler = async val => {
     </CardWrapper>
 
     <CardWrapper class="mt-5" icon="user" title="Your account">
-      <template #links>
+      <template #content>
         <div class="pt-3">
           <router-link to="/settings" class="btn-link">Account settings</router-link>
           <p class="text-sm mt-1 mb-0">Manage account and notification settings</p>
@@ -54,7 +54,7 @@ const copyStoreKeyHandler = async val => {
     </CardWrapper>
 
     <CardWrapper class="mt-5" icon="volume-up" title="Have your say">
-      <template #links>
+      <template #content>
         <div class="pt-3">
           <AppLink link="https://syncio.canny.io/" label="Feature requests" />
           <p class="text-sm mt-1 mb-0">Got an idea? Submit here</p>

@@ -4,7 +4,7 @@ import { useFilters } from '@/composables/filters';
 import { useToasts } from '@/composables/toasts';
 
 /* ----- Components ----- */
-import CardWrapper from '@/views/dashboard/components/CardWrapper.vue';
+import CardWrapper from '@/components/shared/CardWrapper.vue';
 import PageHeader from '@/components/shared/PageHeader.vue';
 
 /* ----- Data ----- */

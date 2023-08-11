@@ -1,5 +1,5 @@
 import { useConnectionsStore } from '@/stores/connections';
-import { useAxios } from '@/composables/axios';
+import axiosService from '@/composables/axios';
 
 export const fetchProducts = {
   async fetchProducts(isStoreChanged = false) {
@@ -7,7 +7,6 @@ export const fetchProducts = {
 
     const { connection_id, id } = this.selectedStore[0];
     const { filters, limiter, sort_by_desc, sort_by } = this.queries;
-    const { getData } = useAxios();
     const { storeId, storeType } = useConnectionsStore();
 
     const params = {
@@ -21,7 +20,7 @@ export const fetchProducts = {
       source_store_id: id,
     };
 
-    const response = await getData('products', params);
+    const response = await axiosService.getData('products', params);
     if(response.success) {
       this.products = response.products;
     }

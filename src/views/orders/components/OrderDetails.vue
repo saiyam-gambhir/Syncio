@@ -7,7 +7,7 @@ import { useOrdersStore } from '@/stores/orders';
 
 /* ----- Components ----- */
 import AppLink from '@/components/shared/AppLink.vue';
-import CardWrapper from '@/views/dashboard/components/CardWrapper.vue';
+import CardWrapper from '@/components/shared/CardWrapper.vue';
 import IconShopify from '@/icons/IconShopify.vue';
 import LogoSmall from '@/icons/LogoSmall.vue';
 import OrderDetailsSkeleton from './OrderDetailsSkeleton.vue';
@@ -118,7 +118,7 @@ const pushOrderHandler = async (targetStoreId) => {
         </div>
 
         <CardWrapper class="pb-3">
-          <template #links>
+          <template #content>
             <h3 class="mb-2 flex align-items-center">
               <LogoSmall style="width: 30px;transform: translateY(1px);" class="mr-2" /> Status: <Tag class="ml-3" rounded :severity="getPushStatus(order.push_status)">{{ formattedUnderscoreText(order.push_status) }}</Tag>
             </h3>
@@ -153,7 +153,7 @@ const pushOrderHandler = async (targetStoreId) => {
         </CardWrapper>
 
         <CardWrapper class="mt-5" :class="`status-${store.push_status}`" v-for="(store, key) in order.source_stores" :key="key">
-          <template #links>
+          <template #content>
             <div class="flex align-items-top justify-content-between mb-4">
               <h2 class="mb-0">
                 <i class="pi pi-shopping-cart text-xl mr-2"></i>
@@ -244,14 +244,14 @@ const pushOrderHandler = async (targetStoreId) => {
 
       <div class="col-12 md:col-12 lg:col-4">
         <CardWrapper class="pb-3" title="Notes">
-          <template #links>
+          <template #content>
             <p v-if="order.note" class="text-lg mb-0 mt-3">{{ order.note }}</p>
-            <p v-else class="text-lg mb-0 mt-2">There are no notes or feedback provided by the customer.</p>
+            <p v-else class="mb-0 mt-2">There are no notes or feedback provided by the customer.</p>
           </template>
         </CardWrapper>
 
         <CardWrapper class="pb-3 mt-5" title="Additional Notes">
-          <template #links>
+          <template #content>
             <div v-for="(value, propertyName) in order.additional_notes" :key="propertyName">
               <Divider />
               <div class="font-semibold">{{ propertyName }}</div>
@@ -261,7 +261,7 @@ const pushOrderHandler = async (targetStoreId) => {
         </CardWrapper>
 
         <CardWrapper class="pb-3 mt-5">
-          <template #links>
+          <template #content>
             <div>
               <div class="font-semibold text-lg uppercase">Customer</div>
               <div class="mt-2">{{ order.contact_details?.name }}</div>
@@ -286,7 +286,7 @@ const pushOrderHandler = async (targetStoreId) => {
         </CardWrapper>
 
         <CardWrapper class="pb-3 mt-5" title="Tags">
-          <template #links>
+          <template #content>
             <div class="mt-3"></div>
             <Tag v-for="tag in order.tags" :key="tag" severity="info" :value="tag" rounded class="mr-2"></Tag>
           </template>

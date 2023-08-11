@@ -25,6 +25,6 @@ const props = defineProps({
     <p v-if="description" class="mt-0 mb-4">
       {{ description }}
     </p>
-    <slot name="links"></slot>
+    <slot name="content"></slot>
   </div>
 </template>

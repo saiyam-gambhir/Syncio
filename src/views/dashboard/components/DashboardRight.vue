@@ -7,7 +7,7 @@ import WooShopifyImageUrl from '@/assets/images/woo-shopify.svg';
 
 /* ----- Components ----- */
 import AppLink from '@/components/shared/AppLink.vue';
-import CardWrapper from '@/views/dashboard/components/CardWrapper.vue';
+import CardWrapper from '@/components/shared/CardWrapper.vue';
 
 /* ----- Data ----- */
 const { isSourceStore } = useConnectionsStore();
@@ -100,7 +100,7 @@ const sourceAnnouncements = ref([
     </Carousel>
 
     <CardWrapper title="Learn the basics" class="mt-5">
-      <template #links>
+      <template #content>
         <ul class="list-none p-0 mb-0 mt-4">
           <li class="py-3 border-bottom-1 border-top-1 surface-border">
             <AppLink link="https://help.syncio.co/en/articles/6116999-quick-start" label="Quick start guide" />

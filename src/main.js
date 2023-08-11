@@ -132,7 +132,7 @@ const orders = useOrdersStore();
 const payouts = usePayoutsStore();
 const products = useProductsStore();
 const productSettings = useProductSettingsStore();
-activityCenter.$https = auth.$https = connections.$https = marketPlace.$https = orders.$https = payouts.$https = products.$https = productSettings.$https = $https;
+activityCenter.$https = auth.$https = connections.$https = marketPlace.$https = orders.$https = payouts.$https = productSettings.$https = $https;
 
 /* ----- LOGOUT HANDLER ----- */
 const logout = () => {
