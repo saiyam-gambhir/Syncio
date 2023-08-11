@@ -32,7 +32,8 @@ export const useAuthStore = defineStore('auth', {
         submitted: false
       },
       plan: null,
-      plans: [],
+      selectedPlan: null,
+      plans: null,
       registrationForm: {
         email: '',
         loading: false,
@@ -95,6 +96,10 @@ export const useAuthStore = defineStore('auth', {
     showProductSettingsUpgradeDialog({ upgradeDialogType }) {
       return upgradeDialogType === 'product-settings';
     },
+
+    getCurrentPlanId({ selectedPlan }) {
+      return selectedPlan?.id;
+    }
   },
 
   actions: deepmerge.all([
@@ -105,4 +110,19 @@ export const useAuthStore = defineStore('auth', {
     login,
     shopifyLogin,
   ]),
+
+  persist: {
+    enabled: true,
+    strategies: [
+      {
+        key: 'auth',
+        storage: sessionStorage,
+        paths: [
+          'plan',
+          'plans',
+          'user',
+        ],
+      },
+    ],
+  },
 });

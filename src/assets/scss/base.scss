@@ -27,7 +27,7 @@
 }
 
 html {
-  color: $textPrimary;
+  color: var(--primary-color);
   font-family: 'Inter Tight', sans-serif;
   font-size: var(--font-size);
   font-weight: $fontNormal;

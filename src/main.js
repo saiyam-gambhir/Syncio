@@ -193,10 +193,11 @@ router.beforeEach(async (to, from, next) => {
 
     auth.isAuthenticated = true;
 
+    Object.assign($https.defaults.headers.common, {
+      Authorization: `Bearer ${ID_TOKEN_KEY}`,
+    });
+
     if (!auth.user) {
-      Object.assign($https.defaults.headers.common, {
-        Authorization: `Bearer ${ID_TOKEN_KEY}`,
-      });
       const userId = sessionStorage.getItem('USER_ID');
       await auth.fetchUser(userId);
       await auth.fetchCurrentPlan(userId);
