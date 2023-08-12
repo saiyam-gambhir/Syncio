@@ -5,6 +5,7 @@ import { useConnectionsStore } from '@/stores/connections';
 import { useFilters } from '@/composables/filters';
 
 /* ----- Components ----- */
+import Addon from './components/Addon.vue';
 import AppLink from '@/components/shared/AppLink.vue';
 import CardWrapper from '@/components/shared/CardWrapper.vue';
 import PageHeader from '@/components/shared/PageHeader.vue';
@@ -46,15 +47,15 @@ const selectPlanHandler = (plan) => {
         <CardWrapper>
           <template #content>
             <Tag severity="info" style="text-transform: uppercase !important;" class="mb-3">Step 1: select a base plan</Tag>
-            <h2>Select how many products you need to sync</h2>
-            <p>
+            <h2 class="my-2">Select how many products you need to sync</h2>
+            <p class="mt-0">
               All base plans include real time and ongoing inventory syncing, and have a <strong>14 day free trial</strong>.
               <AppLink label="Learn more about our pricing" link="https://www.syncio.co/pricing"></AppLink>
             </p>
 
             <div class="grid mt-4">
               <div class="lg:col-3 relative p-3" v-for="_plan in plans" :key="plan?.id">
-                <Plan :plan="_plan" class="pointer" @click="selectPlanHandler(_plan)" :style="{ 'background': getCurrentPlanId === _plan.id ? '#f4f4f4 !important' : '' }" />
+                <Plan :plan="_plan" class="plan-block pointer" @click="selectPlanHandler(_plan)" :class="{ 'current-plan': (plan.syncio_plan.id === _plan.id), 'selected-plan': getCurrentPlanId === _plan.id }" />
                 <i v-if="getCurrentPlanId === _plan.id" class="pi pi-check-circle absolute" style="font-size: 2rem; top: 2.15rem; right: 2.15rem;"></i>
               </div>
             </div>
@@ -64,10 +65,13 @@ const selectPlanHandler = (plan) => {
         <CardWrapper class="mt-5">
           <template #content>
             <Tag severity="info" style="text-transform: uppercase !important;" class="mb-3">Step 2: upgrade add-ons</Tag>
-            <h2>Upgrade add-ons to suit your needs</h2>
-            <p>Downgrade at any time. All add-ons have a <strong>14 day free trial</strong>.</p>
+            <h2 class="my-2">Upgrade add-ons to suit your needs</h2>
+            <p class="mt-0">Downgrade at any time. All add-ons have a <strong>14 day free trial</strong>.</p>
 
             <div class="grid mt-4">
+              <div class="lg:col-4 relative p-3" v-for="(options, key) in plan.syncio_plan.available_addons" :key="key">
+                 <Addon :options="options" :title="key" />
+              </div>
             </div>
           </template>
         </CardWrapper>
@@ -79,14 +83,41 @@ const selectPlanHandler = (plan) => {
             <p class="m-0">For paid plans, cancel any time within your <strong>14 day free trial</strong> period and you won't be charged. Free plans are free forever.</p>
             <Divider />
             <h2>Plan Summary</h2>
-            <h4 class="mt-5 uppercase">Base Plan</h4>
-            <div class="flex justify-content-between uppercase">
-              <span>{{ plan?.name }}</span>
-              <span class="tabular-nums">{{ formatCurrency(plan?.price_per_month) }}</span>
+            <h4 class="uppercase mt-5">Base Plan</h4>
+            <div v-if="plan.syncio_plan" class="flex justify-content-between uppercase font-semibold" :class="{ 'strike-through': plan.syncio_plan.id !== selectedPlan?.id }">
+              <span>{{ plan.syncio_plan.name }}</span>
+              <span class="tabular-nums">{{ formatCurrency(plan.syncio_plan.price_per_month) }}</span>
             </div>
+
+            <div class="flex justify-content-between uppercase font-semibold mt-2" v-if="(plan.syncio_plan?.id !== selectedPlan?.id)">
+              <span>{{ selectedPlan?.name }}</span>
+              <span class="tabular-nums">{{ formatCurrency(selectedPlan?.price_per_month) }}</span>
+            </div>
+
+            <h4 class="uppercase mt-5">Add-ons</h4>
           </template>
         </CardWrapper>
       </div>
     </section>
   </article>
 </template>
+
+<style scoped>
+.plan-block {
+  border: 1px solid transparent;
+  transition: .35s border-color;
+}
+
+.current-plan {
+  background: #e3f2ff !important;
+}
+
+.selected-plan {
+  border: 1px solid #0052aa;
+}
+
+.strike-through {
+  text-decoration: line-through;
+  color: #999;
+}
+</style>

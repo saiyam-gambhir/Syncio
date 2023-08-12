@@ -16,7 +16,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="flex align-items-end justify-content-between border-bottom-1 surface-border pb-4">
+  <div class="flex align-items-end justify-content-between surface-border">
     <section class="flex">
       <div class="border-round-md page-header">
         <h1 class="text-5xl mb-0">{{ title }}</h1>
@@ -27,4 +27,5 @@ const props = defineProps({
       <slot name="actions"></slot>
     </section>
   </div>
+  <Divider/>
 </template>

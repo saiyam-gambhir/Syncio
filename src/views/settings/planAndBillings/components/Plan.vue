@@ -17,7 +17,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <CardWrapper>
+  <CardWrapper class="surface-card">
     <template #content>
       <h3 class="m-0 uppercase">{{ plan.name }}</h3>
       <h2 class="mt-3 mb-1 font-semibld">{{ plan.sync_product_limit }}</h2>

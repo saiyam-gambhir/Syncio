@@ -36,6 +36,7 @@ import Password from 'primevue/password';
 import PrimeVue from 'primevue/config';
 import ProgressBar from 'primevue/progressbar';
 import ProgressSpinner from 'primevue/progressspinner';
+import RadioButton from 'primevue/radiobutton';
 import Ripple from 'primevue/ripple';
 import SelectButton from 'primevue/selectbutton';
 import Sidebar from 'primevue/sidebar';
@@ -55,7 +56,7 @@ import * as routes from '@/routes';
 import axios from 'axios';
 import router from './router';
 
-/* ----- THIRD PARTY ----- */
+/* ----- Third Party ----- */
 import VueDatePicker from '@vuepic/vue-datepicker';
 
 /* ----- Styles ----- */
@@ -87,7 +88,7 @@ app
   .use(ToastService)
   .mount('#app');
 
-/* ----- PRIME VUE COMPONENTS ----- */
+/* ----- Prime Vue Components ----- */
 app
   .component('Button', Button)
   .component('Calendar', Calendar)
@@ -109,6 +110,7 @@ app
   .component('Password', Password)
   .component('ProgressBar', ProgressBar)
   .component('ProgressSpinner', ProgressSpinner)
+  .component('RadioButton', RadioButton)
   .component('SelectButton', SelectButton)
   .component('SplitButton', SplitButton)
   .component('Sidebar', Sidebar)
@@ -123,7 +125,7 @@ app
   .directive('ripple', Ripple)
   .directive('tooltip', Tooltip);
 
-/* ----- BINDING TO VUE INSTANCE ----- */
+/* ----- Binding to the Vue instance ----- */
 const activityCenter = useActivityCenterStore();
 const auth = useAuthStore();
 const connections = useConnectionsStore();
@@ -134,7 +136,7 @@ const products = useProductsStore();
 const productSettings = useProductSettingsStore();
 activityCenter.$https = auth.$https = connections.$https = marketPlace.$https = orders.$https = payouts.$https = productSettings.$https = $https;
 
-/* ----- LOGOUT HANDLER ----- */
+/* ----- Logout Handler ----- */
 const logout = () => {
   //connections.$reset();
   activityCenter.$reset();
@@ -149,7 +151,7 @@ const logout = () => {
   router.push({ name: routes.LOGIN });
 };
 
-/* ----- INTERCEPTERS ----- */
+/* ----- Interceptors ----- */
 $https.interceptors.response.use(
   response => {
     const { message, success, errors } = response?.data
@@ -210,6 +212,6 @@ router.beforeEach(async (to, from, next) => {
   next();
 });
 
-/* ----- THEME ----- */
+/* ----- Theme ----- */
 sessionStorage.setItem('theme', 'theme-light');
 document.querySelector('html').classList.add(sessionStorage.getItem('theme'));

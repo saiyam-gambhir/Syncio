@@ -242,10 +242,7 @@ const searchHandler = async (searchText) => {
   </div>
 
   <!-- Order Details -->
-  <OrderDetails
-    v-if="orders.isViewOrderDetailsRequested"
-    :order="orders.order">
-  </OrderDetails>
+  <OrderDetails v-if="orders.isViewOrderDetailsRequested" :order="orders.order" />
 
   <!-- Enable Auto Push Dialog -->
   <EnableAutoPushDialog />
