@@ -1,9 +1,7 @@
 <script setup>
 import { defineAsyncComponent, onMounted, ref, toRefs } from 'vue';
-import { useAuthStore } from '@/stores/auth';
 import { useOrders } from './composables/orders';
 import { useOrdersStore } from '@/stores/orders';
-import { useRouter } from 'vue-router';
 
 /* ----- Components ----- */
 import AppLink from '@/components/shared/AppLink.vue';
@@ -40,19 +38,10 @@ const {
   sortOptions,
 } = toRefs(useOrdersStore());
 
-const auth = useAuthStore();
 const options = ref(['Off', 'On']);
-const router = useRouter();
 
 /* ----- Mounted ----- */
 onMounted(async () => {
-  if (!auth.isOrderModuleAvailable) {
-    router.push({
-      path: '/',
-      query: { showUpgrade: 'true', type: 'orders' },
-    });
-    return;
-  }
   fetchOrdersHandler();
   await fetchPushSettings();
   setAutoPushStatus();

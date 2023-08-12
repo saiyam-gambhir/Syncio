@@ -33,7 +33,6 @@ const auth = useAuthStore();
         </Setting>
 
         <Setting
-          :disabled="!auth.isProductModuleAvailable"
           description="Manage what attributes sync across your connected stores"
           href="/settings/product-settings"
           icon="pi-list"
@@ -41,7 +40,6 @@ const auth = useAuthStore();
         </Setting>
 
         <Setting
-          :disabled="!auth.isPayoutModuleAvailable"
           description="Set commissions at store, vendor or product/SKU level"
           href="/settings/payouts-settings"
           icon="pi-dollar"

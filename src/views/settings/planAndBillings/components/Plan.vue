@@ -20,9 +20,9 @@ const props = defineProps({
   <CardWrapper>
     <template #content>
       <h3 class="m-0 uppercase">{{ plan.name }}</h3>
-      <h2 class="mt-4 mb-1 font-normal">{{ plan.sync_product_limit }}</h2>
-      <h3 class="m-0">products</h3>
-      <h3 class="mt-4 mb-0 font-semibold">{{ formatCurrency(plan.price_per_month) }}/ month</h3>
+      <h2 class="mt-3 mb-1 font-semibld">{{ plan.sync_product_limit }}</h2>
+      <h3 class="m-0 font-normal">products</h3>
+      <h3 class="mt-4 mb-0 font-semibold">{{ formatCurrency(plan.price_per_month) }} / month</h3>
     </template>
   </CardWrapper>
 </template>

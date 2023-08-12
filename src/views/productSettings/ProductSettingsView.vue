@@ -31,13 +31,6 @@ const routeTo = ref(null);
 
 /* ----- Mounted ----- */
 onMounted(async () => {
-  if (!isProductModuleAvailable.value) {
-    router.push({
-      path: '/',
-      query: { showUpgrade: 'true', type: 'product-settings' },
-    });
-    return;
-  }
   await fetchSettings.value();
 });
 

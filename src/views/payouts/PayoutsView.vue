@@ -1,33 +1,20 @@
 <script setup>
 import { defineAsyncComponent, onMounted, toRefs } from 'vue';
-import { useAuthStore } from '@/stores/auth';
 import { useConnectionsStore } from '@/stores/connections';
 import { usePayouts } from './composables/payouts';
 import { usePayoutsStore } from '@/stores/payouts';
-import { useRouter } from 'vue-router';
 
 /* ----- Components ----- */
 import PageHeader from '@/components/shared/PageHeader.vue';
 const PayableOrders = defineAsyncComponent(() => import('./components/destinationPayouts/PayableOrders.vue'));
 
-
 /* ----- Data ----- */
 const { activeTabIndex } = toRefs(usePayoutsStore());
 const { fetchPayableOrdersHandler, fetchPaidPayoutsHandler } = usePayouts();
 const { isDestinationStore, isSourceStore } = useConnectionsStore();
-const { isPayoutsModuleAvailable } = useAuthStore();
-const router = useRouter();
 
 /* ----- Mounted ----- */
 onMounted(async () => {
-  if (!isPayoutsModuleAvailable) {
-    router.push({
-      path: '/',
-      query: { showUpgrade: 'true', type: 'payouts' },
-    });
-    return;
-  }
-
   await fetchPayableOrdersHandler();
   await fetchPaidPayoutsHandler();
 });
