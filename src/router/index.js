@@ -71,6 +71,12 @@ const router = createRouter({
       path: '/settings/product-settings',
     },
     {
+      component: () => import('@/views/planAndBillings/PlanAndBillingsView.vue'),
+      meta: { ...meta },
+      name: routes.PLAN_AND_BILLINGS,
+      path: '/settings/plan-and-billings',
+    },
+    {
       component: () => import('@/views/orders/OrdersView.vue'),
       meta: { ...meta },
       name: routes.ORDERS,
@@ -89,31 +95,31 @@ const router = createRouter({
       path: '/payouts',
     },
     {
+      component: () => import('@/views/payoutsSettings/PayoutsSettingsView.vue'),
+      meta: { ...meta },
+      name: routes.PAYOUTS_SETTINGS,
+      path: '/settings/payouts-settings',
+    },
+    {
       component: () => import('@/views/activityCenter/ActivityCenterView.vue'),
       meta: { ...meta },
       name: routes.ACTIVITY_CENTER,
       path: '/activity-center',
     },
     {
-      component: () => import('@/views/settings/accountSettings/AccountSettingsView.vue'),
+      component: () => import('@/views/accountSettings/AccountSettingsView.vue'),
       meta: { ...meta },
       name: routes.ACCOUNT_SETTINGS,
       path: '/settings/account-settings',
     },
     {
-      component: () => import('@/views/settings/planAndBillings/PlanAndBillingsView.vue'),
-      meta: { ...meta },
-      name: routes.PLAN_AND_BILLINGS,
-      path: '/settings/plan-and-billings',
-    },
-    {
-      component: () => import('@/views/settings/marketplaceSettings/MarketplaceSettingsView.vue'),
+      component: () => import('@/views/marketplaceSettings/MarketplaceSettingsView.vue'),
       meta: { ...meta },
       name: routes.MARKETPLACE_SETTINGS,
       path: '/settings/marketplace-settings',
     },
     {
-      component: () => import('@/views/settings/notificationSettings/NotificationSettingsView.vue'),
+      component: () => import('@/views/notificationSettings/NotificationSettingsView.vue'),
       meta: { ...meta },
       name: routes.NOTIFICATION_SETTINGS,
       path: '/settings/notification-settings',
@@ -123,6 +129,7 @@ const router = createRouter({
       meta: { ...meta },
       name: routes.SETTINGS,
       path: '/settings',
+      children: []
     },
   ],
 });

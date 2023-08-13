@@ -8,6 +8,7 @@ export const MARKETPLACE_SETTINGS = 'marketplace-settings';
 export const NOTIFICATION_SETTINGS = 'notification-settings';
 export const ORDERS = 'orders';
 export const PAYOUTS = 'payouts';
+export const PAYOUTS_SETTINGS = 'payouts-settings';
 export const PLAN_AND_BILLINGS = 'plan-and-billings';
 export const PRODUCT_SETTINGS = 'product-settings';
 export const PRODUCTS = 'products';

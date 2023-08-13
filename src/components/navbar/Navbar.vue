@@ -2,6 +2,7 @@
 import { computed } from 'vue';
 import { useConnectionsStore } from '@/stores/connections';
 import { useRoute } from 'vue-router';
+import * as routes from '@/routes';
 
 /* ----- Components ----- */
 import Logo from '@/icons/Logo.vue';
@@ -13,9 +14,12 @@ const { isConnectionStatusPending, isDestinationStore } = useConnectionsStore();
 const route = useRoute();
 
 /* ----- Computed ----- */
-const isPathSettings = computed(() => {
-  return route.name === 'product-settings';
+const isSettingsPath = computed(() => {
+  const { ACCOUNT_SETTINGS, MARKETPLACE_SETTINGS, NOTIFICATION_SETTINGS, PAYOUTS_SETTINGS, PLAN_AND_BILLINGS } = routes;
+  const settingsPaths = [ACCOUNT_SETTINGS, MARKETPLACE_SETTINGS, NOTIFICATION_SETTINGS, PAYOUTS_SETTINGS, PLAN_AND_BILLINGS];
+  return settingsPaths.includes(route.name);
 });
+
 </script>
 
 <template>
@@ -40,6 +44,9 @@ const isPathSettings = computed(() => {
             <NavLink href="/products" iconClass="pi-list" linkText="Products" />
           </li>
           <li class="mt-2">
+            <NavLink href="/settings/product-settings" iconClass="pi-cog" linkText="Product Settings" />
+          </li>
+          <li class="mt-2">
             <NavLink href="/orders" iconClass="pi-file" linkText="Orders" />
           </li>
           <li class="mt-2">
@@ -49,7 +56,7 @@ const isPathSettings = computed(() => {
             <NavLink href="/activity-center" iconClass="pi-bell" linkText="Activity Center" />
           </li>
           <li class="mt-2">
-            <NavLink href="/settings" iconClass="pi-cog" :class="{ 'router-link-active': isPathSettings }" linkText="Settings" />
+            <NavLink href="/settings" iconClass="pi-cog" :class="{ 'router-link-active': isSettingsPath }" linkText="Settings" />
           </li>
         </ul>
 

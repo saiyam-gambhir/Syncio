@@ -1,15 +1,9 @@
 <script setup>
-import { computed, onMounted, ref, toRefs } from 'vue';
-import { useAuthStore } from '@/stores/auth';
-import { useConnectionsStore } from '@/stores/connections';
+import { onMounted, toRefs } from 'vue';
 import { useFilters } from '@/composables/filters';
 
 /* ----- Components ----- */
-import Addon from './components/Addon.vue';
-import AppLink from '@/components/shared/AppLink.vue';
 import CardWrapper from '@/components/shared/CardWrapper.vue';
-import PageHeader from '@/components/shared/PageHeader.vue';
-import Plan from './components/Plan.vue';
 
 /* ----- Data ----- */
 const { fetchPlans, plan, plans, getCurrentPlanId, selectedPlan } = toRefs(useAuthStore());

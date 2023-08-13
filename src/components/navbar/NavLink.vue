@@ -24,9 +24,10 @@ const props = defineProps({
 </script>
 
 <template>
-  <router-link :to="href"
-    class="flex align-items-center justify-content-between cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors no-underline"
+  <router-link
     :class="{ error: isLocationPending, disabled: disabled }"
+    :to="href"
+    class="flex align-items-center justify-content-between cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors no-underline"
     v-tooltip.top="isLocationPending ? 'Missing store location' : ''">
     <div>
       <i class="pi mr-3" :class="iconClass"></i>
