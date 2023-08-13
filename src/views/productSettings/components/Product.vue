@@ -1,9 +1,11 @@
 <script setup>
-import { useProductSettingsStore } from '@/stores/productSettings';
 import { computed, toRefs, watch } from 'vue';
+import { useAuthStore } from '@/stores/auth';
+import { useProductSettingsStore } from '@/stores/productSettings';
 
 /* ----- Data ----- */
 const { destinationProductSettings, stringifyDestinationProductSettings, settingsUpdated } = toRefs(useProductSettingsStore());
+const { isProductModuleAvailable } = toRefs(useAuthStore());
 
 /* ----- Watcher ----- */
 watch(destinationProductSettings, (newSettings, oldSettings) => {
@@ -36,6 +38,7 @@ const ongoingSyncSettings = computed(() => {
 </script>
 
 <template>
+  <p v-if="!isProductModuleAvailable" class="m-0 mb-2 text-lg">Locked settings (<i class="pi pi-lock" style="font-size: 1rem; font-weight: bold;"></i>) are available with Product Settings PRO - <router-link to="/settings/plan-and-billings" class="btn-link text-lg">Upgrade</router-link> </p>
   <div class="grid">
     <div class="col-5">
       <ul class="list-none p-0 m-0">
@@ -58,11 +61,13 @@ const ongoingSyncSettings = computed(() => {
                 </span>
               </p>
             </div>
-            <InputSwitch v-model="setting.is_active" />
+            <InputSwitch v-if="isProductModuleAvailable" v-model="setting.is_active" />
+            <i v-else class="pi pi-lock" style="font-size: 1.5rem"></i>
           </div>
         </li>
       </ul>
     </div>
+
     <div class="col-5 col-offset-1">
       <ul class="list-none p-0 m-0">
         <li class="py-5 border-bottom-1 surface-border">
@@ -103,7 +108,8 @@ const ongoingSyncSettings = computed(() => {
                 </span>
               </p>
             </div>
-            <InputSwitch v-model="setting.is_active" />
+            <InputSwitch v-if="isProductModuleAvailable" v-model="setting.is_active" />
+            <i v-else class="pi pi-lock" style="font-size: 1.5rem"></i>
           </div>
         </li>
       </ul>

@@ -1,9 +1,11 @@
 <script setup>
-import { useProductSettingsStore } from '@/stores/productSettings';
 import { toRefs, watch } from 'vue';
+import { useAuthStore } from '@/stores/auth';
+import { useProductSettingsStore } from '@/stores/productSettings';
 
 /* ----- Data ----- */
 const { destinationVariantSettings, stringifyDestinationVariantSettings, settingsUpdated } = toRefs(useProductSettingsStore());
+const { isProductModuleAvailable } = toRefs(useAuthStore());
 
 /* ----- Watcher ----- */
 watch(destinationVariantSettings, (newSettings, oldSettings) => {
@@ -12,6 +14,7 @@ watch(destinationVariantSettings, (newSettings, oldSettings) => {
 </script>
 
 <template>
+  <p v-if="!isProductModuleAvailable" class="m-0 mb-2 text-lg">Locked settings (<i class="pi pi-lock" style="font-size: 1rem; font-weight: bold;"></i>) are available with Product Settings PRO - <router-link to="/settings/plan-and-billings" class="btn-link text-lg">Upgrade</router-link> </p>
   <div class="grid">
     <div class="col-5">
       <ul class="list-none p-0 m-0">
@@ -23,9 +26,49 @@ watch(destinationVariantSettings, (newSettings, oldSettings) => {
           <div class="flex align-items-center justify-content-between w-full">
             <div class="w-85">
               <p class="m-0 font-semibold text-lg">{{ setting.label }}</p>
-              <p class="mt-2 mb-0 text-lg" v-html="setting.description"></p>
+              <p class="mt-2 mb-0 text-lg">
+                <span v-if="setting.key === 'auto_add_product_variant'">
+                  Ongoing sync of new variants.
+                  <br> <br>
+                  When a new variant is added to a synced product on the Source store, Syncio will auto-add the variant to the corresponding product on the Destination store.
+                  <br>
+                  <strong>Note:</strong> Syncio does not add/remove
+                </span>
+
+                <span v-if="setting.key === 'sync_inventory_policy'">
+                  Ongoing sync of the Track quantity and Continue selling when out of stock under the Inventory section for each variant.
+                </span>
+
+                <span v-if="setting.key === 'auto_remove_product_variant'">
+                  Ongoing sync of removed variants.
+                  <br><br>
+                  When a variant is removed from a synced product on the Source store, Syncio will auto-remove the variant from the corresponding product on the Destination store.
+                  <br>
+                  <strong>Note:</strong> Syncio does not add
+                </span>
+
+                <span v-if="setting.key === 'd_sync_cost_per_item'">
+                  Ongoing Sync of the "Cost Per Item" field.
+                  <br><br>
+                  <strong>Note:</strong> Your source store needs to grant permission first. Do not use if currency is different.
+                </span>
+
+                <span v-if="setting.key === 'sync_variant_title'">
+                  Ongoing sync of variant name which is a combination of option values separated by "/".
+                  Example: Grey T-Shirt / XS
+                  <br><br>
+                  <strong>Note:</strong> Syncio is not able to add/remove product options.
+                </span>
+
+                <span v-if="setting.key === 'price_sync'">
+                  Ongoing sync of both the Price and Compare at Price for the product.
+                  <br><br>
+                  <strong>Note:</strong> Compare at price value must be greater than price.
+                </span>
+              </p>
             </div>
-            <InputSwitch v-model="setting.is_active" />
+            <InputSwitch v-if="isProductModuleAvailable || setting.key === 'auto_remove_product_variant'" v-model="setting.is_active" />
+            <i v-else class="pi pi-lock" style="font-size: 1.5rem"></i>
           </div>
         </li>
       </ul>
