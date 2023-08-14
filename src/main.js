@@ -67,7 +67,7 @@ import 'primeicons/primeicons.css';
 import '/node_modules/primeflex/primeflex.css';
 import './assets/scss/main.scss';
 
-/* ----- AXIOS INSTANCES ----- */
+/* ----- Axios Instances ----- */
 const $https = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
   timeout: 20000,
@@ -77,7 +77,7 @@ Object.assign($https.defaults.headers.common, {
   'x-syncio-app-id': import.meta.env.VITE_APP_ID,
 });
 
-/* ----- CREATE APP AND USE DEPENDENCIES ----- */
+/* ----- Create app and use dependencies ----- */
 const pinia = createPinia();
 pinia.use(piniaPersist);
 const app = createApp(App);
@@ -166,6 +166,9 @@ $https.interceptors.response.use(
       case 400: {
         const message = data.errors?.[0];
         if (message) connections.showToast(message, 'error');
+        if(data.redirect_to === 'billing') {
+          router.push({ name: routes.PLAN_AND_BILLINGS });
+        }
         break;
       }
       case 403:
@@ -183,7 +186,7 @@ $https.interceptors.response.use(
   }
 );
 
-/* ----- ACTIONS BEFORE EACH ROUTE ----- */
+/* ----- Actions before each route ----- */
 router.beforeEach(async (to, from, next) => {
   const isAuthenticated = auth.isAuthenticated;
   const ID_TOKEN_KEY = sessionStorage.getItem('ID_TOKEN_KEY');
