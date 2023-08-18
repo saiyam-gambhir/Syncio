@@ -1,12 +1,15 @@
 <script setup>
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref, toRefs, watch } from 'vue';
 import { useFilters } from '@/composables/filters';
+import { useAuthStore } from '@/stores/auth';
+import { useRoute } from 'vue-router';
 
 /* ----- Components ----- */
 import AppLink from '@/components/shared/AppLink.vue';
 import CardWrapper from '@/components/shared/CardWrapper.vue';
 
 /* ----- Data ----- */
+const { selectedAddonIds, selectedPlan } = toRefs(useAuthStore());
 const selectedOption = ref(null);
 const { formatCurrency } = useFilters();
 
@@ -20,8 +23,24 @@ const props = defineProps({
   title: {
     type: String,
     required: true
+  },
+
+  addon: {
+    type: Object,
+    required: true
   }
 })
+
+/* ----- Mounted ----- */
+onMounted(() => {
+  selectedOption.value = props.addon?.module_id;
+  selectedAddonIds.value = { ...selectedAddonIds.value, [props.title]: selectedOption.value };
+})
+
+/* ----- Watcher ----- */
+watch(selectedPlan, () => {
+  selectedOption.value = props.addon?.module_id;
+});
 
 /* ----- Computed ----- */
 const isOrdersAddon = computed(() => {
@@ -33,8 +52,13 @@ const isProductSettingsAddon = computed(() => {
 });
 
 const isPayoutsAddon = computed(() => {
-  return props.title === 'order';
+  return props.title === 'payout';
 });
+
+/* ----- Methods ----- */
+const changeHandler = ({ module_id, usage_unit }) => {
+  selectedAddonIds.value[usage_unit] = module_id;
+};
 </script>
 
 <template>
@@ -48,21 +72,21 @@ const isPayoutsAddon = computed(() => {
 
       <div v-else-if="isProductSettingsAddon">
         <h3 class="uppercase mb-2">Product settings</h3>
-        <p class="m-0 mb-4">Syncio's Product Settings add-on allows you to sync specific product attributes such as tags on an ongoing basis.</p>
+        <p class="m-0 mb-4">Syncio's Product Settings add-on allows you to sync specific product attributes such as tags, title, description, images, etc.. on an ongoing basis.</p>
         <AppLink label="Learn more" link="https://help.syncio.co/en/articles/3704617-product-settings-add-on"></AppLink>
       </div>
 
-      <div v-else="isPayoutsAddon">
+      <div v-else-if="isPayoutsAddon">
         <h3 class="uppercase mb-2">Payouts</h3>
         <p class="m-0 mb-4">Premium Payouts requires Orders add-on to be on the Premium plan. Generate payouts to keep track of commissions, payments and invoices (Shopify only).</p>
         <AppLink label="Learn more" link="https://help.syncio.co/en/collections/3557007-payouts-shopify-only"></AppLink>
       </div>
 
       <aside class="mt-4">
-        <CardWrapper v-for="option in options" :key="option.id" class="flex mt-4">
+        <CardWrapper v-for="option in options" :key="option.id" class="radio-option flex mt-4">
           <template #content>
-            <RadioButton v-model="selectedOption" :value="option.module_id" class="mr-2" />
-            <label :for="option.module_id" class="ml-2">
+            <RadioButton v-model="selectedOption" :inputId="`${option.module_id}`" :value="option.module_id" class="mr-2" @change="changeHandler(option)" />
+            <label :for="option.module_id" class="ml-2 pointer">
               <template v-if="+option.price_per_month === 0">
                 <h4 class="uppercase m-0">Free</h4>
                 <p v-if="isOrdersAddon" class="my-2">5 Orders / month</p>
@@ -83,3 +107,22 @@ const isPayoutsAddon = computed(() => {
     </template>
   </CardWrapper>
 </template>
+
+<style scoped>
+.radio-option {
+  box-shadow: none !important;
+  border: 1px solid #dfe7ef;
+  border-radius: var(--border-radius) var(--border-radius) 0 0 !important;
+  transition: .25s background-color;
+
+  + .radio-option {
+    border-radius: 0 0 var(--border-radius) var(--border-radius) !important;
+    border-top: none;
+    margin-top: 0 !important;
+  }
+
+  &:has(.p-radiobutton-checked) {
+    background: #e3f2ff !important;
+  }
+}
+</style>

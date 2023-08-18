@@ -89,12 +89,12 @@ const fetchProductsHandler = async (store) => {
       </template>
     </Column>
 
-    <Column header="Assigned Location" style="width: 30%">
+    <Column header="Assigned Location" style="width: 25%">
       <template #body="{ data: connection }" v-if="isMultilocation">
       </template>
     </Column>
 
-    <Column header="Actions" style="width: 15%" class="text-right">
+    <Column header="Actions" style="width: 20%" class="text-right">
       <template #body="{ data: connection }">
         <Button
           :disabled="loadingProductsRoute"

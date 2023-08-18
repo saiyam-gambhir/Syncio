@@ -1,5 +1,5 @@
 <script setup>
-import { toRefs } from 'vue';
+import { computed, toRefs } from 'vue';
 import { useAuthStore } from '@/stores/auth';
 
 /* ----- Data ----- */
@@ -8,6 +8,11 @@ const {
   loginForm,
   shopifyLogin,
 } = toRefs(useAuthStore());
+
+/* ----- Computed ----- */
+const isDevelopment = computed(() => {
+  return import.meta.env.VITE_NODE_ENV === 'development';
+})
 
 /* ----- Methods ----- */
 const loginHandler = () => {
@@ -18,7 +23,8 @@ const loginHandler = () => {
 const shopifyLoginHandler = async () => {
   //await shopifyLogin.value('shopify', 'alpha-jimmy.myshopify.com');
   //await shopifyLogin.value('shopify', 'test-destination-19.myshopify.com');
-  await shopifyLogin.value('shopify', 'test-saiyam-destination.myshopify.com');
+  //await shopifyLogin.value('shopify', 'test-saiyam-destination.myshopify.com');
+  await shopifyLogin.value('shopify', 'test-destination-5.myshopify.com');
 };
 </script>
 
@@ -66,7 +72,7 @@ const shopifyLoginHandler = async () => {
       </Password>
     </div>
 
-    <div class="flex align-items-center mt-5 mb-4">
+    <div class="flex align-items-center mb-6">
       <router-link to="/forgot-password" class="btn-link hovered text-xl">Forgot password?</router-link>
     </div>
 
@@ -79,6 +85,7 @@ const shopifyLoginHandler = async () => {
     </Button>
 
     <Button
+      v-if="isDevelopment"
       :loading="loginForm.loading"
       @click="shopifyLoginHandler"
       class="w-full p-button-lg mt-4"

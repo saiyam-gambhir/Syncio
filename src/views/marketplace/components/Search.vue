@@ -4,8 +4,7 @@ import { useDebounceFn } from '@vueuse/core';
 import { useMarketPlaceStore } from '@/stores/marketPlace';
 
 /* ----- Data ----- */
-const { fetchProfiles, queries } = toRefs(useMarketPlaceStore());
-const searchString = ref('');
+const { fetchProfiles, queries, searchString, } = toRefs(useMarketPlaceStore());
 
 /* ----- Methods -----*/
 const debouncedSearch = useDebounceFn(async () => {
@@ -14,7 +13,7 @@ const debouncedSearch = useDebounceFn(async () => {
 
 /* ----- Watchers ----- */
 watch(searchString, async (newValue, oldValue) => {
-  if (searchString.value.length > 2 || newValue.length < oldValue.length) {
+  if (searchString?.value.length > 2 || newValue.length < oldValue.length) {
     queries.value['search_str'] = newValue;
     debouncedSearch();
   }

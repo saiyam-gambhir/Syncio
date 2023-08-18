@@ -81,7 +81,7 @@ const copyStoreKeyHandler = async val => {
             <li class="pt-4 pb-2 surface-border">
               <h3 class="flex align-items-center justify-content-between mt-1 mb-0">
                 Uninstall Syncio:
-                <Tag severity="danger" class="ml-3 transform-none">* For Shopify, please use Shopify admin page to uninstall Syncio.</Tag>
+                <Tag severity="danger" class="ml-3 transform-none">* For Shopify, please use Shopify admin page to uninstall Syncio</Tag>
               </h3>
             </li>
           </ul>

@@ -40,7 +40,7 @@ const selectPlanHandler = (plan) => {
       <div class="col-12 md:col-12 lg:col-9">
         <CardWrapper>
           <template #content>
-            <Tag severity="info" style="text-transform: uppercase !important;" class="mb-3">Step 1: select a base plan</Tag>
+            <Tag severity="warning" style="text-transform: uppercase !important;" class="mb-3">Step 1: select a base plan</Tag>
             <h2 class="my-2">Select how many products you need to sync</h2>
             <p class="mt-0">
               All base plans include real time and ongoing inventory syncing, and have a <strong>14 day free trial</strong>.

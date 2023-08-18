@@ -124,7 +124,6 @@ export const useConnectionsStore = defineStore('connections', {
         paths: [
           'currentStore',
           'filters',
-          'isConnectionDisconnectRequested',
           'selectedConnection',
         ],
       },

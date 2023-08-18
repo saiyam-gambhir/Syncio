@@ -246,9 +246,27 @@ export const useMarketPlaceStore = defineStore('marketPlace', {
         search_str: null,
       },
       searchQuery: null,
+      searchString: null,
       selectedProfile: null,
     };
   },
 
-  actions: deepmerge.all([fetchProfiles, sendMessage]),
+  actions: deepmerge.all([
+    fetchProfiles,
+    sendMessage
+  ]),
+
+  persist: {
+    enabled: true,
+    strategies: [
+      {
+        key: 'marketPlace',
+        storage: sessionStorage,
+        paths: [
+          'queries',
+          'searchString',
+        ],
+      },
+    ],
+  },
 });

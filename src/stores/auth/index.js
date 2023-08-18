@@ -23,6 +23,7 @@ export const useAuthStore = defineStore('auth', {
       isAuthenticated: false,
       isBatteryLowDialogVisible: false,
       isNetworkDialogVisible: false,
+      isOnboarding: false,
       isUpgradeDialogRequested: false,
       locales: 'en-US',
       loginForm: {
@@ -33,6 +34,7 @@ export const useAuthStore = defineStore('auth', {
       },
       plan: null,
       selectedPlan: null,
+      selectedAddonIds: null,
       plans: null,
       registrationForm: {
         email: '',
@@ -68,6 +70,31 @@ export const useAuthStore = defineStore('auth', {
 
     userId({ user }) {
       return user?.id;
+    },
+
+    activeAddons({ plan }) {
+      let order = null;
+      let payout = null;
+      let product = null;
+
+      plan?.active_addons.forEach(addon => {
+        switch (addon.name) {
+          case 'Orders':
+            order = { ...addon };
+            break;
+          case 'Payouts':
+            payout = { ...addon };
+            break;
+          default:
+            product = { ...addon };
+        }
+      });
+
+      return {
+        order,
+        payout,
+        product,
+      };
     },
 
     isOrderModuleAvailable({ plan }) {
@@ -118,9 +145,7 @@ export const useAuthStore = defineStore('auth', {
         key: 'auth',
         storage: sessionStorage,
         paths: [
-          'plan',
           'plans',
-          'user',
         ],
       },
     ],

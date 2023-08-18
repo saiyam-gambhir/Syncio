@@ -45,22 +45,22 @@ const { filters, loadingConnections, sortOptions } = useConnectionsStore();
       </template>
     </Column>
 
-    <Column header="Status" style="width: 10%">
+    <Column header="Status" style="width: 12.5%">
       <template #body>
         <Skeleton width="62px" height="26px" borderRadius="20px" />
       </template>
     </Column>
 
-    <Column header="Assigned Location" style="width: 30%">
+    <Column header="Assigned Location" style="width: 25%">
       <template #body>
         <Skeleton height="31px" />
       </template>
     </Column>
 
-    <Column header="Actions" style="width: 17.5%" class="text-right">
+    <Column header="Actions" style="width: 20%" class="text-right">
       <template #body>
         <Skeleton width="95px" height="31.5px" style="float: right" class="ml-2" />
-        <Skeleton width="107px" height="31.5px" style="float: right" />
+        <Skeleton width="80px" height="31.5px" style="float: right" />
       </template>
     </Column>
   </DataTable>

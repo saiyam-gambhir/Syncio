@@ -4,6 +4,8 @@ export const fetchCurrentPlan = {
     this.plan = response.data.plan;
     if(this.plan) {
       this.selectedPlan = JSON.parse(JSON.stringify(this.plan.syncio_plan));
+    } else {
+      this.isOnboarding = true;
     }
   },
 };
