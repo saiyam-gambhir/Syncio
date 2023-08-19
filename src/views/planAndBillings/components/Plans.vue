@@ -8,13 +8,18 @@ import CardWrapper from '@/components/shared/CardWrapper.vue';
 import Plan from './Plan.vue';
 
 /* ----- Data ----- */
-const { activeAddons, isOnboarding, plan, plans, getCurrentPlanId, selectedPlan } = toRefs(useAuthStore());
+const { activeAddons, isOnboarding, plan, plans, getCurrentPlanId, selectedPlan, selectedAddonIds } = toRefs(useAuthStore());
 
 /* ----- Methods ----- */
 const selectPlanHandler = (plan) => {
   selectedPlan.value = plan;
   selectedPlan.value.addonsSummary = structuredClone(activeAddons.value);
   document.getElementById('addons-wrapper').scrollIntoView({ behavior: 'smooth' });
+
+  /* Setting the selectedPlan active addons module id to selectedAddonIds */
+  Object.keys(selectedAddonIds.value).forEach(key => {
+    selectedAddonIds.value[key] = selectedPlan.value.addonsSummary[key].module_id;
+  });
 };
 </script>
 

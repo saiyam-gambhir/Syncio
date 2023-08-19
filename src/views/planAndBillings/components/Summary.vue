@@ -1,5 +1,5 @@
 <script setup>
-import { ref, toRefs, watch } from 'vue';
+import { computed, onMounted, ref, toRefs, watch } from 'vue';
 import { useAuthStore } from '@/stores/auth';
 import { useFilters } from '@/composables/filters';
 
@@ -7,20 +7,35 @@ import { useFilters } from '@/composables/filters';
 import CardWrapper from '@/components/shared/CardWrapper.vue';
 
 /* ----- Data ----- */
-const { plan, selectedPlan } = toRefs(useAuthStore());
+const { isOnboarding, plan, selectedAddonIds, selectedPlan } = toRefs(useAuthStore());
 const { formatCurrency } = useFilters();
 const totalCartValue = ref(0);
-const disableButton = ref(true);
+const isBasePlanChanged = ref(false);
+const areAddonsChanged = ref(false);
+const clonedSelectedAddonIds = ref(null);
+
+onMounted(() => {
+  clonedSelectedAddonIds.value = JSON.parse(JSON.stringify(selectedAddonIds.value));
+});
 
 /* ----- Watchers ----- */
-watch(selectedPlan, (newValue, oldValue) => {
+watch(selectedPlan, () => {
   calculateTotalCartValue();
-  const newValueClone = Object.assign({}, newValue);
+  const newValueClone = Object.assign({}, selectedPlan.value);
   delete newValueClone.addonsSummary;
-  const selectedPlan = JSON.stringify(newValueClone);
+  const _selectedPlan = JSON.stringify(newValueClone);
   const activePlan = JSON.stringify(plan.value.syncio_plan);
-  disableButton.value = selectedPlan === activePlan;
-},{ deep: true });
+  isBasePlanChanged.value = _selectedPlan !== activePlan;
+}, { deep: true });
+
+watch(selectedAddonIds, () => {
+  areAddonsChanged.value = JSON.stringify(clonedSelectedAddonIds.value) !== JSON.stringify(selectedAddonIds.value);
+}, { deep: true });
+
+/* ----- Computed ----- */
+const allowToProceed = computed(() => {
+  return (isBasePlanChanged.value || areAddonsChanged.value) && !isOnboarding.value;
+});
 
 /* ----- Methods ----- */
 const calculateTotalCartValue = () => {
@@ -73,7 +88,7 @@ const calculateTotalCartValue = () => {
         <h2 class="mb-0 tabular-nums">{{ formatCurrency(totalCartValue) }}</h2>
       </div>
 
-      <Button label="Next" :disabled="disableButton" class="p-button-lg w-full mt-5"></Button>
+      <Button label="Next" :disabled="!allowToProceed" class="p-button-lg w-full mt-5"></Button>
     </template>
   </CardWrapper>
 </template>
