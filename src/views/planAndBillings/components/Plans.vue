@@ -8,11 +8,12 @@ import CardWrapper from '@/components/shared/CardWrapper.vue';
 import Plan from './Plan.vue';
 
 /* ----- Data ----- */
-const { isOnboarding, plan, plans, getCurrentPlanId, selectedPlan } = toRefs(useAuthStore());
+const { activeAddons, isOnboarding, plan, plans, getCurrentPlanId, selectedPlan } = toRefs(useAuthStore());
 
 /* ----- Methods ----- */
 const selectPlanHandler = (plan) => {
   selectedPlan.value = plan;
+  selectedPlan.value.addonsSummary = structuredClone(activeAddons.value);
   document.getElementById('addons-wrapper').scrollIntoView({ behavior: 'smooth' });
 };
 </script>
@@ -27,23 +28,27 @@ const selectPlanHandler = (plan) => {
         <AppLink label="Learn more about our pricing" link="https://www.syncio.co/pricing"></AppLink>
       </p>
 
-      <Tag v-if="!plan.syncio_plan.is_active && !isOnboarding" severity="warning" class="mt-5 block">
-        <h3 class="mb-3">New Freemium Plans Available</h3>
-        <h3 class="line-height-3 m-0" style="text-transform: none !important;">We haven't made any changes to your account but there are new freemium plans that could suit your needs. <br> To view, simply click on any plan option on the page.</h3>
-      </Tag>
+      <Message v-if="!plan.syncio_plan.is_active && !isOnboarding" severity="info" :closable="false" class="mt-5 block message-warning">
+        <h3 class="mb-2">New Freemium Plans Available</h3>
+        <h3 class="line-height-3 m-0 font-normal" style="text-transform: none !important;">
+          We haven't made any changes to your account but there are new <span class="font-semibold">FREEMIUM</span> plans that could suit your needs.
+          <br>
+          To view, simply click on any plan option on the page.
+        </h3>
+      </Message>
 
       <div class="grid mt-4 pb-1">
         <div class="md:col-3 lg:col-3 relative p-3" v-for="_plan in plans" :key="plan?.id">
           <Plan :plan="_plan" class="plan-block pointer" @click="selectPlanHandler(_plan)" :class="{ 'current-plan': (plan.syncio_plan.id === _plan.id), 'selected-plan': getCurrentPlanId === _plan.id }" />
           <i v-if="getCurrentPlanId === _plan.id" class="pi pi-check-circle absolute"></i>
         </div>
-        <div class="md:col-3 lg:col-3 relative p-3">
+        <!-- <div class="md:col-3 lg:col-3 relative p-3">
           <CardWrapper class="surface-card h-full">
             <template #content>
               <h3 class="m-0 uppercase">Custom Plan</h3>
             </template>
           </CardWrapper>
-        </div>
+        </div> -->
       </div>
     </template>
   </CardWrapper>

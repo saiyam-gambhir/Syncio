@@ -1,5 +1,5 @@
 <script setup>
-import { toRefs } from 'vue';
+import { ref, toRefs, watch } from 'vue';
 import { useAuthStore } from '@/stores/auth';
 import { useFilters } from '@/composables/filters';
 
@@ -9,6 +9,28 @@ import CardWrapper from '@/components/shared/CardWrapper.vue';
 /* ----- Data ----- */
 const { plan, selectedPlan } = toRefs(useAuthStore());
 const { formatCurrency } = useFilters();
+const totalCartValue = ref(0);
+const disableButton = ref(true);
+
+/* ----- Watchers ----- */
+watch(selectedPlan, (newValue, oldValue) => {
+  calculateTotalCartValue();
+  const newValueClone = Object.assign({}, newValue);
+  delete newValueClone.addonsSummary;
+  const selectedPlan = JSON.stringify(newValueClone);
+  const activePlan = JSON.stringify(plan.value.syncio_plan);
+  disableButton.value = selectedPlan === activePlan;
+},{ deep: true });
+
+/* ----- Methods ----- */
+const calculateTotalCartValue = () => {
+  let addonsPrice = 0;
+  let basePlanPrice = +selectedPlan.value.price_per_month;
+  Object.values(selectedPlan.value.addonsSummary).forEach(addon => {
+    addonsPrice += +addon.price_per_month;
+  });
+  totalCartValue.value = basePlanPrice + addonsPrice;
+};
 </script>
 
 <template>
@@ -16,9 +38,9 @@ const { formatCurrency } = useFilters();
     <template #content>
       <Tag severity="warning" style="text-transform: uppercase !important;" class="mb-3">Step 3: Review and approve subscription</Tag>
       <p class="m-0">For paid plans, cancel any time within your <strong>14 day free trial</strong> period and you won't be charged. Free plans are free forever.</p>
+      <h2 class="mt-3">Plan Summary</h2>
       <Divider />
-      <h2>Plan Summary</h2>
-      <h4 class="uppercase mt-5">Base Plan</h4>
+      <h4 class="uppercase">Base Plan</h4>
       <div v-if="plan.syncio_plan" class="flex justify-content-between uppercase font-semibold" :class="{ 'strike-through': plan.syncio_plan.id !== selectedPlan?.id }">
         <span>{{ plan.syncio_plan.name }} <span v-if="!plan.syncio_plan.is_active" class="legacy">(legacy)</span></span>
         <span class="tabular-nums">{{ formatCurrency(plan.syncio_plan.price_per_month) }}</span>
@@ -29,7 +51,29 @@ const { formatCurrency } = useFilters();
         <span class="tabular-nums">{{ formatCurrency(selectedPlan?.price_per_month) }}</span>
       </div>
 
-      <h4 class="uppercase mt-5">Add-ons</h4>
+      <Divider />
+
+      <h4 class="uppercase">Add-ons</h4>
+      <div class="flex justify-content-between uppercase font-semibold mb-3" v-for="(addon, key) in selectedPlan.addonsSummary" :key="key">
+        <div>
+          <span v-if="key === 'order'">Orders</span>
+          <span v-else-if="key === 'product'">Product Settings</span>
+          <span v-else-if="key === 'payout'">Payouts</span>
+          -
+          <span v-if="addon.price_per_month === 0">Free</span>
+          <span v-else>Pro</span>
+        </div>
+        <span class="tabular-nums">{{ formatCurrency(addon.price_per_month) }}</span>
+      </div>
+
+      <Divider />
+
+      <div class="flex justify-content-between uppercase font-semibold">
+        <h2 class="mb-0">Total</h2>
+        <h2 class="mb-0 tabular-nums">{{ formatCurrency(totalCartValue) }}</h2>
+      </div>
+
+      <Button label="Next" :disabled="disableButton" class="p-button-lg w-full mt-5"></Button>
     </template>
   </CardWrapper>
 </template>

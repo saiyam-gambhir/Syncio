@@ -331,7 +331,9 @@ td {
   }
 
   &-warn {
-    background: rgba(204, 137, 37, 7.5%) !important;
+    background: rgba(252, 176, 87, .35) !important;
+    color: $primary !important;
+    border: 1px solid #cc8925;
   }
 
   &.p-message-lg {

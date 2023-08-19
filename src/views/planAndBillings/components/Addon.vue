@@ -56,8 +56,9 @@ const isPayoutsAddon = computed(() => {
 });
 
 /* ----- Methods ----- */
-const changeHandler = ({ module_id, usage_unit }) => {
-  selectedAddonIds.value[usage_unit] = module_id;
+const changeHandler = (addon) => {
+  selectedAddonIds.value[addon.usage_unit] = addon.module_id;
+  selectedPlan.value.addonsSummary[addon.usage_unit] = addon;
 };
 </script>
 

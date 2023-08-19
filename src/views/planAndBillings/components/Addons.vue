@@ -1,5 +1,5 @@
 <script setup>
-import { toRefs } from 'vue';
+import { onMounted, toRefs } from 'vue';
 import { useAuthStore } from '@/stores/auth';
 
 /* ----- Components ----- */
@@ -8,6 +8,10 @@ import CardWrapper from '@/components/shared/CardWrapper.vue';
 
 /* ----- Data ----- */
 const { selectedPlan, activeAddons } = toRefs(useAuthStore());
+
+onMounted(() => {
+  selectedPlan.value.addonsSummary = structuredClone(activeAddons.value);
+})
 </script>
 
 <template>

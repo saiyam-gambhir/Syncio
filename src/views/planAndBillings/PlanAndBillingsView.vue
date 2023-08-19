@@ -58,7 +58,7 @@ const fetchPlansHandler = async () => {
   transition: .35s border-color;
 }
 
-.current-plan {
+.current-plan.surface-card {
   background: #e3f2ff !important;
 }
 
