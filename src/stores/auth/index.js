@@ -68,6 +68,22 @@ export const useAuthStore = defineStore('auth', {
       return +plan?.syncio_plan?.sync_product_limit || 0;
     },
 
+    ordersPushed() {
+      return this.activeAddons?.order?.current_usage;
+    },
+
+    ordersPushLimit() {
+      return this.activeAddons?.order?.usage_count_limit;
+    },
+
+    payoutsProcessed() {
+      return this.activeAddons?.payout?.current_usage;
+    },
+
+    payoutsProcessLimit() {
+      return this.activeAddons?.payout?.usage_count_limit;
+    },
+
     userId({ user }) {
       return user?.id;
     },

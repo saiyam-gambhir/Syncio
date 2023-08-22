@@ -1,30 +1,28 @@
 <script setup>
-import { ref } from 'vue';
+import { toRefs } from 'vue';
 import { useAuthStore } from '@/stores/auth';
 import { useRoute } from 'vue-router';
 
+/* ----- Components ----- */
+import AddonUsage from './AddonUsage.vue';
+import CardWrapper from '@/components/shared/CardWrapper.vue';
+
 /* ----- Data ----- */
-const auth = useAuthStore();
+const { plan, productsSynced, productsSyncedLimit, ordersPushed, ordersPushLimit, payoutsProcessed, payoutsProcessLimit } = toRefs(useAuthStore());
 const route = useRoute();
-const knobSize = ref(125);
-const knobStroke = ref(15);
 </script>
 
 <template>
-  <div class="mt-auto text-center pt-4 surface-border border-top-1" :class="{ 'pb-4': route.name !== 'planAndBillings' }"
-    style="background: #f8f9fa">
-    <h2>Products Synced</h2>
-
-    <Knob :max="auth.productsSyncedLimit" :min="0" :size="knobSize" :strokeWidth="knobStroke"
-      rangeColor="rgba(250, 117, 123, .25)" textColor="rgba(0, 0 , 0, 1)" v-model="auth.productsSynced" v-tooltip.top="`${auth.productsSynced} of ${auth.productsSyncedLimit} products synced`
-        " valueColor="rgba(250, 117, 123, 1)" />
-
-    <router-link to="/settings/plan-and-billings" v-if="route.name !== 'planAndBillings'">
-      <Button class="mt-2 p-button-lg btn-shine font-bold">
-        Upgrade
-        <div class="shine"></div>
-        <div class="shine-1"></div>
-      </Button>
-    </router-link>
+  <div class="mt-auto pt-4 px-4" :class="{ 'pb-4': route.name !== 'planAndBillings' }" style="background: #f8f9fa;">
+    <CardWrapper>
+      <template #content>
+        <AddonUsage v-if="plan" title="Products Synced" :limitUsed="productsSynced" :limitAvailable="productsSyncedLimit"></AddonUsage>
+        <AddonUsage v-if="plan" title="Orders Pushed" :limitUsed="ordersPushed" :limitAvailable="ordersPushLimit"></AddonUsage>
+        <AddonUsage v-if="plan" title="Payouts Processed" :limitUsed="payoutsProcessed" :limitAvailable="payoutsProcessLimit"></AddonUsage>
+        <router-link to="/settings/plan-and-billings" v-if="route.name !== 'planAndBillings'">
+          <Button label="Manage" class="mt-4 font-bold justify-content-center w-full"></Button>
+        </router-link>
+      </template>
+    </CardWrapper>
   </div>
 </template>

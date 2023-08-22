@@ -30,7 +30,7 @@ const isSettingsPath = computed(() => {
       </div>
 
       <div class="nav-wrapper select-none">
-        <ul v-if="isDestinationStore" class="primary-navigation list-none pb-5 pt-4 px-3 m-0">
+        <ul v-if="isDestinationStore" class="primary-navigation list-none p-4 pb-2 m-0">
           <li>
             <NavLink linkText="Dashboard" />
           </li>

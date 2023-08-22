@@ -9,6 +9,7 @@ import CardWrapper from '@/components/shared/CardWrapper.vue';
 /* ----- Data ----- */
 const { selectedPlan, activeAddons } = toRefs(useAuthStore());
 
+/* ----- Mounted ----- */
 onMounted(() => {
   selectedPlan.value.addonsSummary = structuredClone(activeAddons.value);
 })

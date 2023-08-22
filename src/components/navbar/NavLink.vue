@@ -4,10 +4,6 @@ const props = defineProps({
     type: String,
     default: '/',
   },
-  disabled: {
-    type: Boolean,
-    default: false,
-  },
   iconClass: {
     type: String,
     default: 'pi-th-large',
@@ -25,7 +21,7 @@ const props = defineProps({
 
 <template>
   <router-link
-    :class="{ error: isLocationPending, disabled: disabled }"
+    :class="{ error: isLocationPending }"
     :to="href"
     class="flex align-items-center justify-content-between cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors no-underline"
     v-tooltip.top="isLocationPending ? 'Missing store location' : ''">
@@ -34,6 +30,5 @@ const props = defineProps({
       <span>{{ linkText }}</span>
     </div>
     <i v-if="isLocationPending" class="pi pi-info-circle pending-icon"></i>
-    <i v-if="disabled" class="pi pi-lock pending-icon-reverse"></i>
   </router-link>
 </template>

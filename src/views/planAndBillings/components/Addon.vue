@@ -2,16 +2,15 @@
 import { computed, onMounted, ref, toRefs, watch } from 'vue';
 import { useFilters } from '@/composables/filters';
 import { useAuthStore } from '@/stores/auth';
-import { useRoute } from 'vue-router';
 
 /* ----- Components ----- */
 import AppLink from '@/components/shared/AppLink.vue';
 import CardWrapper from '@/components/shared/CardWrapper.vue';
 
 /* ----- Data ----- */
+const { formatCurrency } = useFilters();
 const { selectedAddonIds, selectedPlan } = toRefs(useAuthStore());
 const selectedOption = ref(null);
-const { formatCurrency } = useFilters();
 
 /* ----- Props ----- */
 const props = defineProps({
@@ -58,6 +57,8 @@ const isPayoutsAddon = computed(() => {
 /* ----- Methods ----- */
 const changeHandler = (addon) => {
   selectedAddonIds.value[addon.usage_unit] = addon.module_id;
+
+  /* Setting the addonSummary in selectedPlan to the addon */
   selectedPlan.value.addonsSummary[addon.usage_unit] = addon;
 };
 </script>

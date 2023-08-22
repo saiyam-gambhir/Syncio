@@ -14,6 +14,7 @@ const isBasePlanChanged = ref(false);
 const areAddonsChanged = ref(false);
 const clonedSelectedAddonIds = ref(null);
 
+/* ----- Mounted ----- */
 onMounted(() => {
   clonedSelectedAddonIds.value = JSON.parse(JSON.stringify(selectedAddonIds.value));
 });
@@ -85,7 +86,7 @@ const calculateTotalCartValue = () => {
 
       <div class="flex justify-content-between uppercase font-semibold">
         <h2 class="mb-0">Total</h2>
-        <h2 class="mb-0 tabular-nums">{{ formatCurrency(totalCartValue) }}</h2>
+        <h2 class="mb-0 tabular-nums">{{ formatCurrency(totalCartValue) }} <span class="text-base lowercase">/ month</span></h2>
       </div>
 
       <Button label="Next" :disabled="!allowToProceed" class="p-button-lg w-full mt-5"></Button>
