@@ -1,14 +1,7 @@
 <script setup>
-import { toRefs } from 'vue';
-import { useAuthStore } from '@/stores/auth';
-import { useFilters } from '@/composables/filters';
-
 /* ----- Components ----- */
+import AppLink from '@/components/shared/AppLink.vue';
 import CardWrapper from '@/components/shared/CardWrapper.vue';
-
-/* ----- Data ----- */
-const { plan, selectedPlan } = toRefs(useAuthStore());
-const { formatCurrency } = useFilters();
 </script>
 
 <template>

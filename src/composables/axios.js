@@ -24,6 +24,20 @@ class AxiosService {
       throw error;
     }
   }
+
+  async postData(url, params = {}) {
+    try {
+      const cleanedParams = Object.fromEntries(
+        Object.entries(params).filter(([_, value]) => value !== null)
+      );
+
+      const response = await this.https.post(url, { ...cleanedParams });
+      return response.data;
+    } catch (error) {
+      console.error('Error:', error.message);
+      throw error;
+    }
+  }
 }
 
 const axiosService = new AxiosService();

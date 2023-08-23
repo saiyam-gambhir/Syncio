@@ -6,6 +6,7 @@ import { fetchCurrentPlan } from './actions/fetchCurrentPlan';
 import { fetchPlans } from './actions/fetchPlans';
 import { fetchUser } from './actions/fetchUser';
 import { forgotPassword } from './actions/forgotPassword';
+import { generateCharge } from './actions/generateCharge';
 import { login } from './actions/login';
 import { shopifyLogin } from './actions/shopifyLogin';
 
@@ -25,6 +26,7 @@ export const useAuthStore = defineStore('auth', {
       isNetworkDialogVisible: false,
       isOnboarding: false,
       isUpgradeDialogRequested: false,
+      loadingPayment: false,
       loadingPlans: false,
       locales: 'en-US',
       loginForm: {
@@ -160,6 +162,7 @@ export const useAuthStore = defineStore('auth', {
     fetchPlans,
     fetchUser,
     forgotPassword,
+    generateCharge,
     login,
     shopifyLogin,
   ]),
@@ -171,6 +174,7 @@ export const useAuthStore = defineStore('auth', {
         key: 'auth',
         storage: sessionStorage,
         paths: [
+          'plans',
         ],
       },
     ],

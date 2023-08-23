@@ -7,7 +7,7 @@ import { useFilters } from '@/composables/filters';
 import CardWrapper from '@/components/shared/CardWrapper.vue';
 
 /* ----- Data ----- */
-const { isOnboarding, plan, selectedAddonIds, selectedPlan } = toRefs(useAuthStore());
+const { generateCharge, isOnboarding, loadingPayment, plan, selectedAddonIds, selectedPlan } = toRefs(useAuthStore());
 const { formatCurrency } = useFilters();
 const totalCartValue = ref(0);
 const isBasePlanChanged = ref(false);
@@ -93,7 +93,7 @@ const calculateTotalCartValue = () => {
         <h2 class="mb-0 tabular-nums">{{ formatCurrency(totalCartValue) }} <span class="text-base lowercase">/ month</span></h2>
       </div>
 
-      <Button label="Next" :disabled="!allowToProceed" class="p-button-lg w-full mt-5"></Button>
+      <Button label="Next" :disabled="!allowToProceed" @click="generateCharge" :loading="loadingPayment" iconPos="right" class="p-button-lg w-full mt-5"></Button>
     </template>
   </CardWrapper>
 </template>
