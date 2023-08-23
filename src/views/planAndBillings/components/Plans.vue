@@ -8,7 +8,7 @@ import CardWrapper from '@/components/shared/CardWrapper.vue';
 import Plan from './Plan.vue';
 
 /* ----- Data ----- */
-const { activeAddons, isOnboarding, plan, plans, getCurrentPlanId, selectedPlan, selectedAddonIds } = toRefs(useAuthStore());
+const { activeAddons, isOnboarding, plan, plans, currentPlanId, selectedPlan, selectedAddonIds } = toRefs(useAuthStore());
 
 /* ----- Methods ----- */
 const selectPlanHandler = (plan) => {
@@ -44,16 +44,9 @@ const selectPlanHandler = (plan) => {
 
       <div class="grid mt-4 pb-1">
         <div class="md:col-3 lg:col-3 relative p-3" v-for="_plan in plans" :key="plan?.id">
-          <Plan :plan="_plan" class="plan-block pointer" @click="selectPlanHandler(_plan)" :class="{ 'current-plan': (plan.syncio_plan.id === _plan.id), 'selected-plan': getCurrentPlanId === _plan.id }" />
-          <i v-if="getCurrentPlanId === _plan.id" class="pi pi-check-circle absolute"></i>
+          <Plan :plan="_plan" class="plan-block pointer" @click="selectPlanHandler(_plan)" :class="{ 'current-plan': (plan.syncio_plan.id === _plan.id), 'selected-plan': currentPlanId === _plan.id }" />
+          <i v-if="currentPlanId === _plan.id" class="pi pi-check-circle absolute"></i>
         </div>
-        <!-- <div class="md:col-3 lg:col-3 relative p-3">
-          <CardWrapper class="surface-card h-full">
-            <template #content>
-              <h3 class="m-0 uppercase">Custom Plan</h3>
-            </template>
-          </CardWrapper>
-        </div> -->
       </div>
     </template>
   </CardWrapper>

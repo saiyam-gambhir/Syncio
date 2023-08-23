@@ -5,9 +5,9 @@ import { useRoute } from 'vue-router';
 import * as routes from '@/routes';
 
 /* ----- Components ----- */
+import AddonsUsageIndicator from './AddonsUsageIndicator.vue';
 import Logo from '@/icons/Logo.vue';
 import NavLink from '@/components/navbar/NavLink.vue';
-import SyncIndicator from '@/components/navbar/SyncIndicator.vue';
 
 /* ----- Data ----- */
 const { isConnectionStatusPending, isDestinationStore } = useConnectionsStore();
@@ -29,6 +29,7 @@ const isSettingsPath = computed(() => {
         <Logo tabindex="0" class="pt-2" />
       </div>
 
+      <!-- Destination Store Navigation -->
       <div class="nav-wrapper select-none">
         <ul v-if="isDestinationStore" class="primary-navigation list-none p-4 pb-2 m-0">
           <li>
@@ -60,6 +61,7 @@ const isSettingsPath = computed(() => {
           </li>
         </ul>
 
+        <!-- Source Store Navigation -->
         <ul v-else class="primary-navigation list-none pb-5 pt-4 px-3 m-0">
           <li>
             <NavLink linkText="Dashboard" />
@@ -85,7 +87,8 @@ const isSettingsPath = computed(() => {
         </ul>
       </div>
 
-      <SyncIndicator />
+      <!-- Addons Usage Indicator -->
+      <AddonsUsageIndicator />
     </div>
   </div>
 </template>

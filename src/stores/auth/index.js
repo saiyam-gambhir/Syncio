@@ -25,6 +25,7 @@ export const useAuthStore = defineStore('auth', {
       isNetworkDialogVisible: false,
       isOnboarding: false,
       isUpgradeDialogRequested: false,
+      loadingPlans: false,
       locales: 'en-US',
       loginForm: {
         email: '',
@@ -113,19 +114,28 @@ export const useAuthStore = defineStore('auth', {
       };
     },
 
-    isOrderModuleAvailable({ plan }) {
-      let ordersPlan = plan?.active_addons.filter(plan => plan.name === 'Orders')[0];
-      return ordersPlan?.price_per_month > 0;
-    },
+    addons({ plan }) {
+      const ordersAddon = plan?.active_addons.find(addon => addon.name.toLowerCase() === 'orders');
+      const payoutsAddon = plan?.active_addons.find(addon => addon.name.toLowerCase() === 'payouts');
+      const settingsAddon = plan?.active_addons.find(addon => addon.name.toLowerCase() === 'product settings');
 
-    isPayoutsModuleAvailable({ plan }) {
-      let payoutsPlan = plan?.active_addons.filter(plan => plan.name === 'Payouts')[0];
-      return payoutsPlan?.price_per_month > 0;
-    },
+      const isOrderModuleAvailable = !!ordersAddon;
+      const isOrderModulePaid = isOrderModuleAvailable && ordersAddon.price_per_month > 0;
 
-    isProductModuleAvailable({ plan }) {
-      let settingsPlan = plan?.active_addons.filter(plan => plan.name === 'Product Settings')[0];
-      return settingsPlan?.price_per_month > 0;
+      const isPayoutsModuleAvailable = !!payoutsAddon;
+      const isPayoutsModulePaid = isPayoutsModuleAvailable && payoutsAddon.price_per_month > 0;
+
+      const isSettingsModuleAvailable = !!settingsAddon;
+      const isSettingsModulePaid = isSettingsModuleAvailable && settingsAddon.price_per_month > 0;
+
+      return {
+        isOrderModuleAvailable,
+        isOrderModulePaid,
+        isPayoutsModuleAvailable,
+        isPayoutsModulePaid,
+        isSettingsModuleAvailable,
+        isSettingsModulePaid,
+      }
     },
 
     showOrdersUpgradeDialog({ upgradeDialogType }) {
@@ -140,7 +150,7 @@ export const useAuthStore = defineStore('auth', {
       return upgradeDialogType === 'product-settings';
     },
 
-    getCurrentPlanId({ selectedPlan }) {
+    currentPlanId({ selectedPlan }) {
       return selectedPlan?.id;
     }
   },
@@ -161,7 +171,6 @@ export const useAuthStore = defineStore('auth', {
         key: 'auth',
         storage: sessionStorage,
         paths: [
-          'plans',
         ],
       },
     ],

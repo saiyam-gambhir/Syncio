@@ -43,7 +43,9 @@ const calculateTotalCartValue = () => {
   let addonsPrice = 0;
   let basePlanPrice = +selectedPlan.value.price_per_month;
   Object.values(selectedPlan.value.addonsSummary).forEach(addon => {
-    addonsPrice += +addon.price_per_month;
+    if(addon) {
+      addonsPrice += addon?.price_per_month;
+    }
   });
   totalCartValue.value = basePlanPrice + addonsPrice;
 };
@@ -70,16 +72,18 @@ const calculateTotalCartValue = () => {
       <Divider />
 
       <h4 class="uppercase">Add-ons</h4>
-      <div class="flex justify-content-between uppercase font-semibold mb-3" v-for="(addon, key) in selectedPlan.addonsSummary" :key="key">
-        <div>
-          <span v-if="key === 'order'">Orders</span>
-          <span v-else-if="key === 'product'">Product Settings</span>
-          <span v-else-if="key === 'payout'">Payouts</span>
-          -
-          <span v-if="addon.price_per_month === 0">Free</span>
-          <span v-else>Pro</span>
+      <div v-for="(addon, key) in selectedPlan.addonsSummary" :key="key">
+        <div v-if="addon" class="flex justify-content-between uppercase font-semibold mb-3">
+          <div>
+            <span v-if="key === 'order'">Orders</span>
+            <span v-else-if="key === 'product'">Product Settings</span>
+            <span v-else-if="key === 'payout'">Payouts</span>
+            -
+            <span v-if="addon?.price_per_month === 0">Free</span>
+            <span v-else>Pro</span>
+          </div>
+          <span class="tabular-nums">{{ formatCurrency(addon?.price_per_month) }}</span>
         </div>
-        <span class="tabular-nums">{{ formatCurrency(addon.price_per_month) }}</span>
       </div>
 
       <Divider />

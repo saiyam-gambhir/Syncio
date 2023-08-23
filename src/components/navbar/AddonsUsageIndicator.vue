@@ -8,7 +8,7 @@ import AddonUsage from './AddonUsage.vue';
 import CardWrapper from '@/components/shared/CardWrapper.vue';
 
 /* ----- Data ----- */
-const { plan, productsSynced, productsSyncedLimit, ordersPushed, ordersPushLimit, payoutsProcessed, payoutsProcessLimit } = toRefs(useAuthStore());
+const { addons, plan, productsSynced, productsSyncedLimit, ordersPushed, ordersPushLimit, payoutsProcessed, payoutsProcessLimit } = toRefs(useAuthStore());
 const route = useRoute();
 </script>
 
@@ -17,8 +17,8 @@ const route = useRoute();
     <CardWrapper>
       <template #content>
         <AddonUsage v-if="plan" title="Products Synced" :limitUsed="productsSynced" :limitAvailable="productsSyncedLimit"></AddonUsage>
-        <AddonUsage v-if="plan" title="Orders Pushed" :limitUsed="ordersPushed" :limitAvailable="ordersPushLimit"></AddonUsage>
-        <AddonUsage v-if="plan" title="Payouts Processed" :limitUsed="payoutsProcessed" :limitAvailable="payoutsProcessLimit"></AddonUsage>
+        <AddonUsage v-if="addons.isOrderModuleAvailable" title="Orders Pushed" :limitUsed="ordersPushed" :limitAvailable="ordersPushLimit"></AddonUsage>
+        <AddonUsage v-if="addons.isPayoutsModuleAvailable" title="Payouts Processed" :limitUsed="payoutsProcessed" :limitAvailable="payoutsProcessLimit"></AddonUsage>
         <router-link to="/settings/plan-and-billings" v-if="route.name !== 'planAndBillings'">
           <Button label="Manage" class="mt-4 font-bold justify-content-center w-full"></Button>
         </router-link>

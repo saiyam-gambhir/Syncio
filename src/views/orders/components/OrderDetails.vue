@@ -108,7 +108,7 @@ const pushOrderHandler = async (targetStoreId) => {
 
       <div class="col-12 md:col-12 lg:col-8">
         <div v-if="order.edited">
-          <Message severity="warn" class="col-12 mt-0 mb-5" :closable="false">
+          <Message severity="info" class="col-12 mt-0 mb-5" :closable="false">
             <p class="my-0">
               This order has been edited. Last edited:
               <span class="font-semibold">{{ formatDate(order.edited_at).date }} at {{ formatDate(order.edited_at).time }}</span>

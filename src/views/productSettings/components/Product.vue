@@ -5,7 +5,7 @@ import { useProductSettingsStore } from '@/stores/productSettings';
 
 /* ----- Data ----- */
 const { destinationProductSettings, stringifyDestinationProductSettings, settingsUpdated } = toRefs(useProductSettingsStore());
-const { isProductModuleAvailable } = toRefs(useAuthStore());
+const { addons } = toRefs(useAuthStore());
 
 /* ----- Watcher ----- */
 watch(destinationProductSettings, (newSettings, oldSettings) => {
@@ -38,7 +38,7 @@ const ongoingSyncSettings = computed(() => {
 </script>
 
 <template>
-  <p v-if="!isProductModuleAvailable" class="m-0 mb-2 text-lg">Locked settings (<i class="pi pi-lock" style="font-size: 1rem; font-weight: bold;"></i>) are available with Product Settings PRO - <router-link to="/settings/plan-and-billings" class="btn-link text-lg">Upgrade</router-link> </p>
+  <p v-if="!addons.isSettingsModulePaid" class="m-0 mb-2 text-lg">Locked settings (<i class="pi pi-lock" style="font-size: 1rem; font-weight: bold;"></i>) are available with Product Settings PRO - <router-link to="/settings/plan-and-billings" class="btn-link text-lg">Upgrade</router-link> </p>
   <div class="grid">
     <div class="col-5">
       <ul class="list-none p-0 m-0">
@@ -61,7 +61,7 @@ const ongoingSyncSettings = computed(() => {
                 </span>
               </p>
             </div>
-            <InputSwitch v-if="isProductModuleAvailable" v-model="setting.is_active" />
+            <InputSwitch v-if="addons.isSettingsModulePaid" v-model="setting.is_active" />
             <i v-else class="pi pi-lock" style="font-size: 1.5rem"></i>
           </div>
         </li>
@@ -108,7 +108,7 @@ const ongoingSyncSettings = computed(() => {
                 </span>
               </p>
             </div>
-            <InputSwitch v-if="isProductModuleAvailable" v-model="setting.is_active" />
+            <InputSwitch v-if="addons.isSettingsModulePaid" v-model="setting.is_active" />
             <i v-else class="pi pi-lock" style="font-size: 1.5rem"></i>
           </div>
         </li>

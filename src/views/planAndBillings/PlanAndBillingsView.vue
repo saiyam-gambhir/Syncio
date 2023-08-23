@@ -2,16 +2,16 @@
 import { onMounted, toRefs } from 'vue';
 import { useAuthStore } from '@/stores/auth';
 import { useConnectionsStore } from '@/stores/connections';
-import { useFilters } from '@/composables/filters';
 
 /* ----- Components ----- */
 import Addons from './components/Addons.vue';
 import PageHeader from '@/components/shared/PageHeader.vue';
+import PlanAndBillingsSkeleton from './PlanAndBillingsSkeleton.vue';
 import Plans from './components/Plans.vue';
 import Summary from './components/Summary.vue';
 
 /* ----- Data ----- */
-const { fetchPlans, plan, selectedPlan } = toRefs(useAuthStore());
+const { fetchPlans, loadingPlans, plan, selectedPlan } = toRefs(useAuthStore());
 
 /* ----- Mounted ----- */
 onMounted(async () => {
@@ -35,7 +35,9 @@ const fetchPlansHandler = async () => {
 <template>
   <PageHeader content="Upgrade or downgrade anytime. <a href='#' class='btn-link'>Contact us</a> for help" title="Plan and Billings" />
 
-  <article class="mt-5 pt-1">
+  <PlanAndBillingsSkeleton v-if="loadingPlans" />
+
+  <article v-else class="mt-5 pt-1">
     <section class="grid">
       <div class="col-12 md:col-12 lg:col-9">
         <div class="pr-2">

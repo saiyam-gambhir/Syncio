@@ -1,6 +1,7 @@
 <script setup>
 import { computed } from 'vue';
 
+/* ----- Props ----- */
 const props = defineProps({
   title: {
     type: String,
@@ -16,6 +17,7 @@ const props = defineProps({
   }
 });
 
+/* ----- Computed ----- */
 const percentageLimitUsed = computed(() => {
   let progress = ((props.limitUsed * 100) / props.limitAvailable);
   return progress > 100 ? '100%' : `${progress}%`;
@@ -35,7 +37,7 @@ const percentageLimitUsed = computed(() => {
       <div class="addon-active"></div>
       <h4 class="uppercase font-semibold text-sm mt-4 mb-2">{{ title }}</h4>
       <div class="text-xl font-semibold mb-3">
-        {{ limitUsed }}/<span class="text-lg font-normal">unlimited</span>
+        {{ limitUsed }} / <span class="text-lg font-normal">unlimited</span>
       </div>
     </template>
   </aside>
