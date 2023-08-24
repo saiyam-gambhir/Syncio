@@ -29,6 +29,7 @@ import InputNumber from 'primevue/inputnumber';
 import InputSwitch from 'primevue/inputswitch';
 import InputText from 'primevue/inputText';
 import Knob from 'primevue/knob';
+import Menu from 'primevue/menu';
 import Message from 'primevue/message';
 import MultiSelect from 'primevue/multiselect';
 import Panel from 'primevue/panel';
@@ -104,6 +105,7 @@ app
   .component('InputSwitch', InputSwitch)
   .component('InputText', InputText)
   .component('Knob', Knob)
+  .component('Menu', Menu)
   .component('Message', Message)
   .component('MultiSelect', MultiSelect)
   .component('Panel', Panel)
