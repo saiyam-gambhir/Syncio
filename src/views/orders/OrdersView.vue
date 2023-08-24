@@ -1,7 +1,9 @@
 <script setup>
 import { defineAsyncComponent, onMounted, ref, toRefs } from 'vue';
+import { useAuthStore } from '@/stores/auth';
 import { useOrders } from './composables/orders';
 import { useOrdersStore } from '@/stores/orders';
+import { useRouter } from 'vue-router';
 
 /* ----- Components ----- */
 import AppLink from '@/components/shared/AppLink.vue';
@@ -15,6 +17,7 @@ import SearchFilter from '@/components/shared/SearchFilter.vue';
 const OrderDetails = defineAsyncComponent(() => import('./components/OrderDetails.vue'));
 
 /* ----- Data ----- */
+const auth = useAuthStore();
 const {
   fetchOrder,
   fetchPushSettings,
@@ -23,7 +26,6 @@ const {
   setAutoPushStatus,
   toggleAutoPush,
 } = useOrders();
-
 const {
   bulkPushOrders,
   fetchOrders,
@@ -37,11 +39,19 @@ const {
   selectedOrders,
   sortOptions,
 } = toRefs(useOrdersStore());
-
 const options = ref(['Off', 'On']);
+const router = useRouter();
 
 /* ----- Mounted ----- */
 onMounted(async () => {
+  if (!auth.addons.isOrderModuleAvailable) {
+    router.push({
+      path: '/',
+      query: { showUpgrade: 'true', type: 'orders' },
+    });
+    return;
+  }
+
   fetchOrdersHandler();
   await fetchPushSettings();
   setAutoPushStatus();

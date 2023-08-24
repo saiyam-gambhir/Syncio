@@ -13,7 +13,7 @@ const Variant = defineAsyncComponent(() => import('./components/Variant.vue'));
 const VariantSkeleton = defineAsyncComponent(() => import('./components/VariantSkeleton.vue'));
 
 /* ----- Data ----- */
-const { isProductModuleAvailable, showLeavingPageDialog } = toRefs(useAuthStore());
+const { addons, showLeavingPageDialog } = toRefs(useAuthStore());
 const {
   activeTabIndex,
   destinationProductSettings,
@@ -31,6 +31,13 @@ const routeTo = ref(null);
 
 /* ----- Mounted ----- */
 onMounted(async () => {
+  if (!addons.isProductModuleAvailable) {
+    router.push({
+      path: '/',
+      query: { showUpgrade: 'true', type: 'product-settings' },
+    });
+    return;
+  }
   await fetchSettings.value();
 });
 
