@@ -7,16 +7,16 @@ class AxiosService {
       timeout: 20000,
     });
 
-    this.https.defaults.headers.common['Authorization'] = `Bearer ${sessionStorage.getItem('ID_TOKEN_KEY')}`;
     this.https.defaults.headers.common['x-syncio-app-id'] = import.meta.env.VITE_APP_ID;
   }
 
   async getData(url, params = {}) {
+    this.https.defaults.headers.common['Authorization'] = `Bearer ${sessionStorage.getItem('ID_TOKEN_KEY')}`;
+
     try {
       const cleanedParams = Object.fromEntries(
         Object.entries(params).filter(([_, value]) => value !== null)
       );
-
       const response = await this.https.get(url, { params: cleanedParams });
       return response.data;
     } catch (error) {
@@ -26,6 +26,7 @@ class AxiosService {
   }
 
   async postData(url, params = {}) {
+    this.https.defaults.headers.common['Authorization'] = `Bearer ${sessionStorage.getItem('ID_TOKEN_KEY')}`;
     try {
       const cleanedParams = Object.fromEntries(
         Object.entries(params).filter(([_, value]) => value !== null)
