@@ -6,9 +6,7 @@ import { useAuthStore } from '@/stores/auth';
 /* ===== COMPONENTS ===== */
 import Loading from './Loading.vue';
 import NetworkDialog from './components/shared/NetworkDialog.vue';
-const BatteryLowDialog = defineAsyncComponent(() =>
-  import('./components/shared/BatteryLowDialog.vue')
-);
+const BatteryLowDialog = defineAsyncComponent(() => import('./components/shared/BatteryLowDialog.vue'));
 
 /* ===== DATA ===== */
 const { charging, level } = useBattery();
@@ -22,11 +20,11 @@ watch(online, () => {
   }
 });
 
-// watch(level, () => {
-//   if (level.value < 0.21 && !charging.value) {
-//     auth.isBatteryLowDialogVisible = true;
-//   }
-// });
+watch(level, () => {
+  if (level.value < 0.21 && !charging.value) {
+    auth.isBatteryLowDialogVisible = true;
+  }
+});
 </script>
 
 <template>

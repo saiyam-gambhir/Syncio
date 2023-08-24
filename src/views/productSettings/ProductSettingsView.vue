@@ -31,7 +31,7 @@ const routeTo = ref(null);
 
 /* ----- Mounted ----- */
 onMounted(async () => {
-  if (!addons.isProductModuleAvailable) {
+  if (!addons.value.isSettingsModuleAvailable) {
     router.push({
       path: '/',
       query: { showUpgrade: 'true', type: 'product-settings' },

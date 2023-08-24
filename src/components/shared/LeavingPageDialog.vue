@@ -1,6 +1,5 @@
 <script setup>
 import { toRefs } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/auth';
 
 /* ----- Components ----- */
@@ -15,7 +14,7 @@ const emits = defineEmits(['leaveCurrentPage']);
 /* ----- Methods ----- */
 const closeDialogHandler = () => {
   showLeavingPageDialog.value = false;
-}
+};
 
 const leaveCurrentPageHandler = () => {
   emits('leaveCurrentPage');
@@ -25,7 +24,7 @@ const leaveCurrentPageHandler = () => {
 <template>
   <DialogWrapper :isVisible="showLeavingPageDialog" title="Unsaved changes" width="500px" @closeDialog="closeDialogHandler">
     <template #body>
-      <p class="text-xl m-0 py-3" style="line-height: 2rem;">Leaving this page without saving any changes may result in the loss of unsaved data.</p>
+      <p class="text-xl m-0 py-3" style="line-height: 2rem;">Leaving this page without saving changes may result in the loss of unsaved data.</p>
     </template>
 
     <template #footer>

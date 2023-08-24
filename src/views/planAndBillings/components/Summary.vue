@@ -1,18 +1,19 @@
 <script setup>
-import { computed, onMounted, ref, toRefs, watch } from 'vue';
+import { computed, defineAsyncComponent, onMounted, ref, toRefs, watch } from 'vue';
 import { useAuthStore } from '@/stores/auth';
 import { useFilters } from '@/composables/filters';
 
 /* ----- Components ----- */
 import CardWrapper from '@/components/shared/CardWrapper.vue';
+const AddonsDowngradeDialog = defineAsyncComponent(() => import('./AddonsDowngradeDialog.vue'));
 
 /* ----- Data ----- */
-const { generateCharge, isOnboarding, loadingPayment, plan, selectedAddonIds, selectedPlan } = toRefs(useAuthStore());
 const { formatCurrency } = useFilters();
-const totalCartValue = ref(0);
-const isBasePlanChanged = ref(false);
+const { generateCharge, isOnboarding, loadingPayment, plan, selectedAddonIds, selectedPlan, shouldShowAddonsDowngradeDialog } = toRefs(useAuthStore());
 const areAddonsChanged = ref(false);
 const clonedSelectedAddonIds = ref(null);
+const isBasePlanChanged = ref(false);
+const totalCartValue = ref(0);
 
 /* ----- Mounted ----- */
 onMounted(() => {
@@ -42,13 +43,26 @@ const allowToProceed = computed(() => {
 const calculateTotalCartValue = () => {
   let addonsPrice = 0;
   let basePlanPrice = +selectedPlan.value.price_per_month;
-  Object.values(selectedPlan.value.addonsSummary).forEach(addon => {
+  Object.values(selectedPlan?.value?.addonsSummary).forEach(addon => {
     if(addon) {
       addonsPrice += addon?.price_per_month;
     }
   });
   totalCartValue.value = basePlanPrice + addonsPrice;
 };
+
+const generateChargeHandler = async () => {
+  const paidAddonModuleIds = plan.value.active_addons.filter(addon => +addon.price_per_month > 0).map(addon => addon.module_id);
+  const selectedAddonsIdsList = Object.values(selectedAddonIds.value);
+  const areAllPaidAddonsSelected = paidAddonModuleIds.every(id => selectedAddonsIdsList.includes(id));
+
+  if(!areAllPaidAddonsSelected) {
+    shouldShowAddonsDowngradeDialog.value = true;
+    return;
+  }
+
+  await generateCharge.value();
+}
 </script>
 
 <template>
@@ -93,7 +107,9 @@ const calculateTotalCartValue = () => {
         <h2 class="mb-0 tabular-nums">{{ formatCurrency(totalCartValue) }} <span class="text-base lowercase">/ month</span></h2>
       </div>
 
-      <Button label="Next" :disabled="!allowToProceed" @click="generateCharge" :loading="loadingPayment" iconPos="right" class="p-button-lg w-full mt-5"></Button>
+      <Button label="Next" :disabled="!allowToProceed" @click="generateChargeHandler" :loading="loadingPayment" iconPos="right" class="p-button-lg w-full mt-5"></Button>
     </template>
   </CardWrapper>
+
+  <AddonsDowngradeDialog />
 </template>
