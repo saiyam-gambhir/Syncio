@@ -12,9 +12,7 @@ export const fetchSettings = {
   },
 
   async fetchSettings() {
-    if (this.checkExsistingSettings(this.destinationProductSettings, this.sourceProductSettings)) {
-      return;
-    }
+    if (this.checkExsistingSettings(this.destinationProductSettings, this.sourceProductSettings)) return;
 
     try {
       this.loading = true;

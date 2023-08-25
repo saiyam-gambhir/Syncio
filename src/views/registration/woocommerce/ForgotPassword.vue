@@ -15,9 +15,9 @@ const isFormDisabled = computed(() => {
   <div class="flex align-items-center justify-content-between">
     <h1 class="text-3xl text-center line-height-3 m-0">Reset my passsword</h1>
   </div>
-  <p class="mt-4 font-semibold">
-    Enter your Syncio account's email to reset your password <br />
-    We'll send you an email with a link and instruction
+  <p class="mt-4 font-semibold text-lg line-height-3">
+    Enter your Syncio account's email to reset your password. <br />
+    We'll send you an email with a link and instruction.
   </p>
 
   <Message v-if="auth.forgotPasswordForm.emailSent" severity="success" :closable="false" class="p-message-lg mt-5 mb-0">

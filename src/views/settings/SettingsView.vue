@@ -1,4 +1,5 @@
 <script setup>
+import { toRefs } from 'vue';
 import { useAuthStore } from '@/stores/auth';
 
 /* ----- Components ----- */
@@ -6,7 +7,7 @@ import PageHeader from '@/components/shared/PageHeader.vue';
 import Setting from './components/Setting.vue';
 
 /* ----- Data ----- */
-const auth = useAuthStore();
+const { isDestinationStore } = toRefs(useAuthStore());
 </script>
 
 <template>
@@ -26,6 +27,7 @@ const auth = useAuthStore();
         </Setting>
 
         <Setting
+          v-if="isDestinationStore"
           description="Manage and upgrade your base plan and add ons"
           href="/settings/plan-and-billings"
           icon="pi-file"
@@ -40,6 +42,7 @@ const auth = useAuthStore();
         </Setting>
 
         <Setting
+          v-if="isDestinationStore"
           description="Set commissions at store, vendor or product/SKU level"
           href="/settings/payouts-settings"
           icon="pi-dollar"

@@ -43,11 +43,13 @@ const allowToProceed = computed(() => {
 const calculateTotalCartValue = () => {
   let addonsPrice = 0;
   let basePlanPrice = +selectedPlan.value.price_per_month;
-  Object.values(selectedPlan?.value?.addonsSummary).forEach(addon => {
-    if(addon) {
-      addonsPrice += addon?.price_per_month;
-    }
-  });
+  if(selectedPlan?.value?.addonsSummary) {
+    Object.values(selectedPlan.value.addonsSummary).forEach(addon => {
+      if(addon) {
+        addonsPrice += addon?.price_per_month;
+      }
+    });
+  }
   totalCartValue.value = basePlanPrice + addonsPrice;
 };
 
@@ -107,7 +109,7 @@ const generateChargeHandler = async () => {
         <h2 class="mb-0 tabular-nums">{{ formatCurrency(totalCartValue) }} <span class="text-base lowercase">/ month</span></h2>
       </div>
 
-      <Button label="Next" :disabled="!allowToProceed" @click="generateChargeHandler" :loading="loadingPayment" iconPos="right" class="p-button-lg w-full mt-5"></Button>
+      <Button label="Next" :disabled="!allowToProceed" @click="generateChargeHandler" :loading="loadingPayment" class="p-button-lg w-full mt-5"></Button>
     </template>
   </CardWrapper>
 

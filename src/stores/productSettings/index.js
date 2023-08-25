@@ -33,12 +33,6 @@ export const useProductSettingsStore = defineStore('productSettings', {
         storage: sessionStorage,
         paths: [
           'activeTabIndex',
-          // 'destinationProductSettings',
-          // 'destinationVariantSettings',
-          // 'sourceProductSettings',
-          // 'stringifyDestinationProductSettings',
-          // 'stringifyDestinationVariantSettings',
-          // 'stringifySourceProductSettings',
         ],
       },
     ],

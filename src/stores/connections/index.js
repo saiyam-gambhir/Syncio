@@ -81,9 +81,7 @@ export const useConnectionsStore = defineStore('connections', {
     },
 
     isConnectionStatusPending(state) {
-      return state.connections.some(connection => {
-        return connection.status === 'pending';
-      });
+      return state.connections?.some(connection => connection.status.toLowerCase() === 'pending');
     },
 
     isMultilocation({ isMultilocationEnabled }) {

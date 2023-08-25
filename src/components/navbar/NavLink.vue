@@ -14,7 +14,7 @@ const props = defineProps({
   },
   isLocationPending: {
     type: Boolean,
-    required: false,
+    default: false,
   },
 });
 </script>
@@ -29,6 +29,6 @@ const props = defineProps({
       <i class="pi mr-3" :class="iconClass"></i>
       <span>{{ linkText }}</span>
     </div>
-    <i v-if="isLocationPending" class="pi pi-info-circle pending-icon"></i>
+    <i v-if="isLocationPending" class="pi pi-info-circle pending-icon text-2xl" style="color: red; transform: translateY(-.5px);"></i>
   </router-link>
 </template>

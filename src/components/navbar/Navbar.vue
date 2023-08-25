@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from 'vue';
+import { computed, toRefs } from 'vue';
 import { useAuthStore } from '@/stores/auth';
 import { useConnectionsStore } from '@/stores/connections';
 import { useRoute } from 'vue-router';
@@ -15,7 +15,7 @@ import NavLink from '@/components/navbar/NavLink.vue';
 
 /* ----- Data ----- */
 const { closeDialogHandler, goToPlanSelectionPage, showUpgradeDialogHandler } = useUpgradeDialog();
-const { isConnectionStatusPending, isDestinationStore } = useConnectionsStore();
+const { isConnectionStatusPending, isDestinationStore } = toRefs(useConnectionsStore());
 const auth = useAuthStore();
 const route = useRoute();
 
@@ -82,6 +82,9 @@ const isSettingsPath = computed(() => {
             <NavLink href="/products" iconClass="pi-list" linkText="Products" />
           </li>
           <li class="mt-2">
+            <NavLink href="/settings/product-settings" iconClass="pi-cog" linkText="Product Settings" />
+          </li>
+          <li class="mt-2">
             <NavLink href="/payouts" iconClass="pi-dollar" linkText="Payouts" />
           </li>
           <li class="mt-2">
@@ -94,7 +97,7 @@ const isSettingsPath = computed(() => {
       </div>
 
       <!-- Addons Usage Indicator -->
-      <AddonsUsageIndicator />
+      <AddonsUsageIndicator v-if="isDestinationStore" />
 
       <!-- No Addons Found Dialogs -->
       <DialogWrapper :isVisible="auth.isUpgradeDialogRequested" title="This is an add-on feature" width="600px" @closeDialog="closeDialogHandler">

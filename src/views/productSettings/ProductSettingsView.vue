@@ -1,6 +1,7 @@
 <script setup>
 import { defineAsyncComponent, onMounted, ref, toRefs } from 'vue';
 import { useAuthStore } from '@/stores/auth';
+import { useConnectionsStore } from '@/stores/connections';
 import { useProductSettingsStore } from '@/stores/productSettings';
 import { useRouter, onBeforeRouteLeave } from 'vue-router';
 
@@ -13,7 +14,16 @@ const Variant = defineAsyncComponent(() => import('./components/Variant.vue'));
 const VariantSkeleton = defineAsyncComponent(() => import('./components/VariantSkeleton.vue'));
 
 /* ----- Data ----- */
-const { addons, showLeavingPageDialog } = toRefs(useAuthStore());
+const {
+  addons,
+  showLeavingPageDialog
+} = toRefs(useAuthStore());
+
+const {
+  isDestinationStore,
+  isSourceStore,
+} = toRefs(useConnectionsStore());
+
 const {
   activeTabIndex,
   destinationProductSettings,
@@ -21,17 +31,20 @@ const {
   fetchSettings,
   loading,
   settingsUpdated,
+  sourceProductSettings,
   stringifyDestinationProductSettings,
   stringifyDestinationVariantSettings,
+  stringifySourceProductSettings,
   updateSettings,
 } = toRefs(useProductSettingsStore());
+
 const forceLeavingPage = ref(false);
 const router = useRouter();
 const routeTo = ref(null);
 
 /* ----- Mounted ----- */
 onMounted(async () => {
-  if (!addons.value.isSettingsModuleAvailable) {
+  if (!addons.value.isSettingsModuleAvailable && isDestinationStore.value) {
     router.push({
       path: '/',
       query: { showUpgrade: 'true', type: 'product-settings' },
@@ -67,11 +80,18 @@ const leaveCurrentPageHandler = () => {
     showLeavingPageDialog.value = false;
     destinationProductSettings.value = JSON.parse(stringifyDestinationProductSettings.value);
     destinationVariantSettings.value = JSON.parse(stringifyDestinationVariantSettings.value);
+    sourceProductSettings.value = JSON.parse(stringifySourceProductSettings.value);
   }
 };
 
 const updateSettingsHandler = async () => {
-  const payload = [...destinationProductSettings.value, ...destinationVariantSettings.value];
+  let payload = [];
+  if(isDestinationStore.value) {
+    payload = [...destinationProductSettings.value, ...destinationVariantSettings.value];
+  } else if (isSourceStore.value) {
+    payload = [...sourceProductSettings.value];
+  }
+
   const configrations = payload.map(({ key, is_active }) => {
     return { key, is_active };
   });
@@ -96,7 +116,7 @@ const updateSettingsHandler = async () => {
     </template>
   </PageHeader>
 
-  <p class="m-0 pt-1">
+  <p v-if="isDestinationStore" class="m-0 pt-1">
     For support with the following, contact our friendly team via the in-app chat: <strong>Tag Mirror </strong>(syncs Source store deletion of tags), <strong>sync of the Barcode field</strong>, <strong>disable Stock Sync</strong>, and <strong>broken SKU recovery</strong>.
   </p>
 
@@ -105,7 +125,7 @@ const updateSettingsHandler = async () => {
       <ProductSkeleton v-if="loading" />
       <Product v-else />
     </TabPanel>
-    <TabPanel header="Variant">
+    <TabPanel v-if="isDestinationStore" header="Variant">
       <VariantSkeleton v-if="loading" />
       <Variant v-else />
     </TabPanel>

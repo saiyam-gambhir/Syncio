@@ -39,8 +39,10 @@ const closeDialogHandler = () => {
     </template>
 
     <template #footer>
-      <Button label="Cancel" class="p-button-secondary" @click="closeDialogHandler"></Button>
-      <Button label="Send" class="m-0"></Button>
+      <div class="flex justify-content-between">
+        <Button label="Cancel" raised outlined @click="closeDialogHandler"></Button>
+        <Button :disabled="!message" label="Send message" class="m-0"></Button>
+      </div>
     </template>
   </DialogWrapper>
 </template>
