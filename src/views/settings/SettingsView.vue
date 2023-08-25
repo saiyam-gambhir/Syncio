@@ -1,13 +1,13 @@
 <script setup>
 import { toRefs } from 'vue';
-import { useAuthStore } from '@/stores/auth';
+import { useConnectionsStore } from '@/stores/connections';
 
 /* ----- Components ----- */
 import PageHeader from '@/components/shared/PageHeader.vue';
 import Setting from './components/Setting.vue';
 
 /* ----- Data ----- */
-const { isDestinationStore } = toRefs(useAuthStore());
+const { isDestinationStore } = toRefs(useConnectionsStore());
 </script>
 
 <template>

@@ -88,9 +88,6 @@ const isSettingsPath = computed(() => {
             <NavLink href="/payouts" iconClass="pi-dollar" linkText="Payouts" />
           </li>
           <li class="mt-2">
-            <NavLink href="/activity-center" iconClass="pi-bell" linkText="Activity Center" />
-          </li>
-          <li class="mt-2">
             <NavLink href="/settings" iconClass="pi-cog" linkText="Settings" />
           </li>
         </ul>

@@ -3,6 +3,7 @@ import { defineAsyncComponent, onMounted, toRefs } from 'vue';
 import { useActivities } from './composables/activities';
 import { useActivityCenterStore } from '@/stores/activityCenter';
 import { useConnectionsStore } from '@/stores/connections';
+import { useRouter } from 'vue-router';
 
 /* ----- Components ----- */
 const GeneralUpdates = defineAsyncComponent(() => import('@/views/activityCenter/components/GeneralUpdates/GeneralUpdates.vue'));
@@ -12,11 +13,17 @@ import PageHeader from '@/components/shared/PageHeader.vue';
 
 /* ----- Data ----- */
 const { activeTabIndex } = toRefs(useActivityCenterStore());
+const { connections, fetchConnections, isDestinationStore } = toRefs(useConnectionsStore());
 const { fetchActivitiesHandler } = useActivities();
-const { connections, fetchConnections } = toRefs(useConnectionsStore());
+const router = useRouter();
 
 /* ----- Mounted ----- */
 onMounted(async () => {
+  if(!isDestinationStore.value) {
+    router.push({ path: '/' });
+    return;
+  }
+
   fetchActivitiesHandler();
   if (connections.value.length === 0) await fetchConnections.value();
 });
