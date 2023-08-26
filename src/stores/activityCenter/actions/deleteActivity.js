@@ -1,4 +1,4 @@
-import { useAuthStore } from '@/stores/auth';
+import { useAuthStore } from 'auth';
 
 export const deleteActivity = {
   async deleteActivity(activityId) {

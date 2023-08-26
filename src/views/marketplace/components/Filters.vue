@@ -1,6 +1,6 @@
 <script setup>
-import { useConnectionsStore } from '@/stores/connections';
-import { useMarketPlaceStore } from '@/stores/marketPlace';
+import { useConnectionsStore } from 'connections';
+import { useMarketPlaceStore } from 'marketPlace';
 
 /* ----- Data ----- */
 const { partnerStoreType } = toRefs(useConnectionsStore());

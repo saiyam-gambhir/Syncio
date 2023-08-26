@@ -1,5 +1,5 @@
 <script setup>
-import { useAuthStore } from '@/stores/auth';
+import { useAuthStore } from 'auth';
 import { useFilters } from '@/composables/filters';
 
 /* ----- Components ----- */

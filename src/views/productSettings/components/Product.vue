@@ -1,7 +1,7 @@
 <script setup>
-import { useAuthStore } from '@/stores/auth';
-import { useConnectionsStore } from '@/stores/connections';
-import { useProductSettingsStore } from '@/stores/productSettings';
+import { useAuthStore } from 'auth';
+import { useConnectionsStore } from 'connections';
+import { useProductSettingsStore } from 'productSettings';
 
 /* ----- Data ----- */
 const {

@@ -1,5 +1,5 @@
 <script setup>
-import { useAuthStore } from '@/stores/auth';
+import { useAuthStore } from 'auth';
 
 /* ----- Data ----- */
 const { addons, plan, productsSynced, productsSyncedLimit, ordersPushed, ordersPushLimit, payoutsProcessed, payoutsProcessLimit } = toRefs(useAuthStore());

@@ -4,7 +4,6 @@ import vue from '@vitejs/plugin-vue';
 import Components from 'unplugin-vue-components/vite';
 import AutoImports from 'unplugin-auto-import/vite'
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     vue(),
@@ -16,13 +15,21 @@ export default defineConfig({
       ],
     }),
     Components({
-      dirs: ['./src']
+      dirs: ['./src'],
     }),
   ],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
-    }
+      'activityCenter': fileURLToPath(new URL('./src/stores/activityCenter', import.meta.url)),
+      'auth': fileURLToPath(new URL('./src/stores/auth', import.meta.url)),
+      'connections': fileURLToPath(new URL('./src/stores/connections', import.meta.url)),
+      'marketPlace': fileURLToPath(new URL('./src/stores/marketPlace', import.meta.url)),
+      'orders': fileURLToPath(new URL('./src/stores/orders', import.meta.url)),
+      'payouts': fileURLToPath(new URL('./src/stores/payouts', import.meta.url)),
+      'products': fileURLToPath(new URL('./src/stores/products', import.meta.url)),
+      'productSettings': fileURLToPath(new URL('./src/stores/productSettings', import.meta.url)),
+    },
   },
 
   server: {

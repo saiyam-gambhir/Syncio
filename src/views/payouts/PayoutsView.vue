@@ -1,8 +1,8 @@
 <script setup>
-import { useAuthStore } from '@/stores/auth';
-import { useConnectionsStore } from '@/stores/connections';
+import { useAuthStore } from 'auth';
+import { useConnectionsStore } from 'connections';
 import { usePayouts } from './composables/payouts';
-import { usePayoutsStore } from '@/stores/payouts';
+import { usePayoutsStore } from 'payouts';
 
 /* ----- Components ----- */
 const PayableOrders = defineAsyncComponent(() => import('./components/destinationPayouts/PayableOrders.vue'));

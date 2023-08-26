@@ -1,5 +1,5 @@
 <script setup>
-import { useConnectionsStore } from '@/stores/connections';
+import { useConnectionsStore } from 'connections';
 
 /* ----- Data ----- */
 const {

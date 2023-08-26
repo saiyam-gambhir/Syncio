@@ -1,5 +1,5 @@
 <script setup>
-import { useActivityCenterStore } from '@/stores/activityCenter';
+import { useActivityCenterStore } from 'activityCenter';
 
 /* ----- Data ----- */
 const { loadingActivities, productEvents, productQueries } = toRefs(useActivityCenterStore());

@@ -1,5 +1,5 @@
 import router from '@/router';
-import { useConnectionsStore } from '@/stores/connections';
+import { useConnectionsStore } from 'connections';
 
 export const login = {
   async login(payload) {

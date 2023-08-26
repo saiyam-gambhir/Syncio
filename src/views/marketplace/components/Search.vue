@@ -1,6 +1,6 @@
 <script setup>
 import { useDebounceFn } from '@vueuse/core';
-import { useMarketPlaceStore } from '@/stores/marketPlace';
+import { useMarketPlaceStore } from 'marketPlace';
 
 /* ----- Data ----- */
 const { fetchProfiles, queries, searchString, } = toRefs(useMarketPlaceStore());

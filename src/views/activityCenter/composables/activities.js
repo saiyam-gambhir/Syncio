@@ -1,4 +1,4 @@
-import { useActivityCenterStore } from '@/stores/activityCenter';
+import { useActivityCenterStore } from 'activityCenter';
 
 export function useActivities() {
   const activityCenter = useActivityCenterStore();

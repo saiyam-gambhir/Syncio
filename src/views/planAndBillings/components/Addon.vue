@@ -1,6 +1,6 @@
 <script setup>
+import { useAuthStore } from 'auth';
 import { useFilters } from '@/composables/filters';
-import { useAuthStore } from '@/stores/auth';
 
 /* ----- Data ----- */
 const { formatCurrency } = useFilters();

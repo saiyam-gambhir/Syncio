@@ -1,6 +1,6 @@
 <script setup>
 import { useActivities } from '../../composables/activities';
-import { useActivityCenterStore } from '@/stores/activityCenter';
+import { useActivityCenterStore } from 'activityCenter';
 
 /* ----- Data ----- */
 const { deleteActivityHandler, fetchActivitiesHandler } = useActivities();

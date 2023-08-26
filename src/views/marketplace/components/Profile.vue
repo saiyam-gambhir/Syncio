@@ -1,5 +1,5 @@
 <script setup>
-import { useMarketPlaceStore } from '@/stores/marketPlace';
+import { useMarketPlaceStore } from 'marketPlace';
 
 /* ----- Data ----- */
 const { isMessageDialogVisible, selectedProfile } = toRefs(useMarketPlaceStore());

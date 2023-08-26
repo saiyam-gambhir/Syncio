@@ -1,6 +1,6 @@
 <script setup>
-import { useAuthStore } from '@/stores/auth';
-import { useProductSettingsStore } from '@/stores/productSettings';
+import { useAuthStore } from 'auth';
+import { useProductSettingsStore } from 'productSettings';
 
 /* ----- Data ----- */
 const { destinationVariantSettings, stringifyDestinationVariantSettings, settingsUpdated } = toRefs(useProductSettingsStore());

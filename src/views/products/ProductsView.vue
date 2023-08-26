@@ -1,6 +1,6 @@
 <script setup>
-import { useConnectionsStore } from '@/stores/connections';
-import { useProductsStore } from '@/stores/products';
+import { useConnectionsStore } from 'connections';
+import { useProductsStore } from 'products';
 
 /* ----- Data ----- */
 const { connections, fetchConnections, isDestinationStore, partnerStoreType } = toRefs(useConnectionsStore());

@@ -5,14 +5,14 @@ import App from './App.vue';
 /* ----- Pinia ----- */
 import { createPinia } from 'pinia';
 import piniaPersist from 'pinia-plugin-persist';
-import { useActivityCenterStore } from '@/stores/activityCenter';
-import { useAuthStore } from '@/stores/auth';
-import { useConnectionsStore } from '@/stores/connections';
-import { useMarketPlaceStore } from '@/stores/marketPlace';
-import { useOrdersStore } from '@/stores/orders';
-import { usePayoutsStore } from '@/stores/payouts';
-import { useProductSettingsStore } from '@/stores/productSettings';
-import { useProductsStore } from '@/stores/products';
+import { useActivityCenterStore } from 'activityCenter';
+import { useAuthStore } from 'auth';
+import { useConnectionsStore } from 'connections';
+import { useMarketPlaceStore } from 'marketPlace';
+import { useOrdersStore } from 'orders';
+import { usePayoutsStore } from 'payouts';
+import { useProductSettingsStore } from 'productSettings';
+import { useProductsStore } from 'products';
 
 /* ----- Prime Vue ----- */
 import Button from 'primevue/button';

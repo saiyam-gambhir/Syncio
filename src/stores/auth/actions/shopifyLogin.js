@@ -1,5 +1,5 @@
 import router from '@/router';
-import { useConnectionsStore } from '@/stores/connections';
+import { useConnectionsStore } from 'connections';
 
 export const shopifyLogin = {
   async shopifyLogin(platform, storeName) {

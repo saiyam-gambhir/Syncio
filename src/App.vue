@@ -1,6 +1,6 @@
 <script setup>
 import { useBattery, useOnline } from '@vueuse/core';
-import { useAuthStore } from '@/stores/auth';
+import { useAuthStore } from 'auth';
 
 /* ----- Components ----- */
 import Loading from './Loading.vue';

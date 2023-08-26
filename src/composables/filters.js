@@ -1,4 +1,4 @@
-import { useAuthStore } from '@/stores/auth';
+import { useAuthStore } from 'auth';
 import { DateTime } from 'luxon';
 
 export function useFilters() {

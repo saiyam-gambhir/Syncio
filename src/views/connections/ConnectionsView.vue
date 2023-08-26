@@ -1,5 +1,5 @@
 <script setup>
-import { useConnectionsStore } from '@/stores/connections';
+import { useConnectionsStore } from 'connections';
 
 /* ----- Components ----- */
 const ConnectNewStoreDialog = defineAsyncComponent(() => import('./components/connect/ConnectNewStoreDialog.vue'));

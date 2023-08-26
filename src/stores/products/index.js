@@ -1,5 +1,5 @@
 import deepmerge from 'deepmerge';
-import { useConnectionsStore } from '@/stores/connections';
+import { useConnectionsStore } from 'connections';
 
 /* ----- Actions ----- */
 import { fetchProducts } from './actions/fetchProducts';

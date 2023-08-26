@@ -1,5 +1,5 @@
-import { usePayoutsStore } from '@/stores/payouts';
-import { useConnectionsStore } from '@/stores/connections';
+import { usePayoutsStore } from 'payouts';
+import { useConnectionsStore } from 'connections';
 
 export function usePayouts() {
   const { storeId } = useConnectionsStore();

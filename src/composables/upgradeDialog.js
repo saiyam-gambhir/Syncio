@@ -1,4 +1,4 @@
-import { useAuthStore } from '@/stores/auth';
+import { useAuthStore } from 'auth';
 import * as routes from '@/routes';
 
 export function useUpgradeDialog() {

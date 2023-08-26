@@ -1,4 +1,4 @@
-import { useConnectionsStore } from '@/stores/connections';
+import { useConnectionsStore } from 'connections';
 import deepmerge from 'deepmerge';
 
 /* ----- Actions ----- */

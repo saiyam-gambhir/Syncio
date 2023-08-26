@@ -1,6 +1,6 @@
 <script setup>
 import { useConnections } from '../../composables/connections';
-import { useConnectionsStore } from '@/stores/connections';
+import { useConnectionsStore } from 'connections';
 
 /* ----- Data ----- */
 const {

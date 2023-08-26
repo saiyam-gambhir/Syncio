@@ -1,7 +1,7 @@
 <script setup>
 import { useFilters } from '@/composables/filters';
 import { useOrders } from '../composables/orders';
-import { useOrdersStore } from '@/stores/orders';
+import { useOrdersStore } from 'orders';
 
 /* ----- Data ----- */
 const { formatCurrency } = useFilters();

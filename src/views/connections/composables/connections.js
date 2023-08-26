@@ -1,4 +1,4 @@
-import { useConnectionsStore } from '@/stores/connections';
+import { useConnectionsStore } from 'connections';
 
 export function useConnections() {
   const {

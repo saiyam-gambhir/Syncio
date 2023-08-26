@@ -1,6 +1,6 @@
 <script setup>
 import { useFilters } from '@/composables/filters';
-import { useOrdersStore } from '@/stores/orders';
+import { useOrdersStore } from 'orders';
 
 /* ----- Data ----- */
 const { filters, loadingOrders, sortOptions } = toRefs(useOrdersStore());

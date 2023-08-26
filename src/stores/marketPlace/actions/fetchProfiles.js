@@ -1,4 +1,4 @@
-import { useConnectionsStore } from '@/stores/connections';
+import { useConnectionsStore } from 'connections';
 
 export const fetchProfiles = {
   async fetchProfiles(page = 1) {

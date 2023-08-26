@@ -1,5 +1,5 @@
-import { useConnectionsStore } from '@/stores/connections';
-import { useOrdersStore } from '@/stores/orders';
+import { useConnectionsStore } from 'connections';
+import { useOrdersStore } from 'orders';
 
 export function useOrders() {
   const connections = useConnectionsStore();

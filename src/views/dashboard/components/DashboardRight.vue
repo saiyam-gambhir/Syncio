@@ -1,5 +1,5 @@
 <script setup>
-import { useConnectionsStore } from '@/stores/connections';
+import { useConnectionsStore } from 'connections';
 import MarketPlaceImageUrl from '@/assets/images/marketplace.svg';
 import MultilocationImageUrl from '@/assets/images/multilocation.svg';
 import WooShopifyImageUrl from '@/assets/images/woo-shopify.svg';

@@ -1,5 +1,5 @@
 <script setup>
-import { useActivityCenterStore } from '@/stores/activityCenter';
+import { useActivityCenterStore } from 'activityCenter';
 import { useFilters } from '@/composables/filters';
 
 /* ----- Data ----- */

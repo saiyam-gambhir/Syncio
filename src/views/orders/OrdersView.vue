@@ -1,7 +1,7 @@
 <script setup>
-import { useAuthStore } from '@/stores/auth';
+import { useAuthStore } from 'auth';
 import { useOrders } from './composables/orders';
-import { useOrdersStore } from '@/stores/orders';
+import { useOrdersStore } from 'orders';
 
 /* ----- Components ----- */
 const OrderDetails = defineAsyncComponent(() => import('./components/OrderDetails.vue'));

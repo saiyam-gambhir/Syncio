@@ -1,5 +1,5 @@
 <script setup>
-import { useMarketPlaceStore } from '@/stores/marketPlace';
+import { useMarketPlaceStore } from 'marketPlace';
 
 /* ----- Components ----- */
 const MessageDialogs = defineAsyncComponent(() => import('./components/MessageDialogs.vue'));

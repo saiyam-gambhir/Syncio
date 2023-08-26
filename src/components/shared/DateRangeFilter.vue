@@ -1,6 +1,6 @@
 <script setup>
 import { DateTime } from 'luxon';
-import { useAuthStore } from '@/stores/auth';
+import { useAuthStore } from 'auth';
 
 /* ----- Data ----- */
 const { timeZone } = useAuthStore();

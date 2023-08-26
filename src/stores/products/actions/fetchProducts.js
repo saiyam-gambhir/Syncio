@@ -1,4 +1,4 @@
-import { useConnectionsStore } from '@/stores/connections';
+import { useConnectionsStore } from 'connections';
 import axiosService from '@/composables/axios';
 
 export const fetchProducts = {

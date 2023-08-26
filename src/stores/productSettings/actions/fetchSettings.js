@@ -1,4 +1,4 @@
-import { useAuthStore } from '@/stores/auth';
+import { useAuthStore } from 'auth';
 
 export const fetchSettings = {
   async filterSettings(configurations = [], groupName, storeType = 'destinations') {

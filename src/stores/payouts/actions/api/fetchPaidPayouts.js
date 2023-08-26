@@ -1,4 +1,4 @@
-import { useConnectionsStore } from '@/stores/connections';
+import { useConnectionsStore } from 'connections';
 import { useFilters } from '@/composables/filters';
 
 export const fetchPaidPayouts = {
