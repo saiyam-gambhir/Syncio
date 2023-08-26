@@ -1,7 +1,4 @@
 <script setup>
-/* ----- Components ----- */
-import PageHeader from '@/components/shared/PageHeader.vue';
-
 /* ----- Methods ----- */
 const handleTabChange = async index => {
   activeTabIndex.value = index;

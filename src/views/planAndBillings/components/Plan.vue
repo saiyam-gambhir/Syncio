@@ -1,9 +1,6 @@
 <script setup>
 import { useFilters } from '@/composables/filters';
 
-/* ----- Components ----- */
-import CardWrapper from '@/components/shared/CardWrapper.vue';
-
 /* ----- Data ----- */
 const { formatCurrency } = useFilters();
 

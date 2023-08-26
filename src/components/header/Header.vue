@@ -1,5 +1,4 @@
 <script setup>
-import { ref } from 'vue';
 import { useActivityCenterStore } from '@/stores/activityCenter';
 import { useAuthStore } from '@/stores/auth';
 import { useConnectionsStore } from '@/stores/connections';
@@ -8,7 +7,6 @@ import { useOrdersStore } from '@/stores/orders';
 import { usePayoutsStore } from '@/stores/payouts';
 import { useProductSettingsStore } from '@/stores/productSettings';
 import { useProductsStore } from '@/stores/products';
-import { useRouter } from 'vue-router';
 import * as routes from '@/routes';
 
 /* ----- Data ----- */

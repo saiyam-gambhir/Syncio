@@ -1,16 +1,8 @@
 <script setup>
-import { computed, ref, toRefs } from 'vue';
 import { useConnectionsStore } from '@/stores/connections';
 import { useFilters } from '@/composables/filters';
 import { useOrders } from '../composables/orders';
 import { useOrdersStore } from '@/stores/orders';
-
-/* ----- Components ----- */
-import AppLink from '@/components/shared/AppLink.vue';
-import CardWrapper from '@/components/shared/CardWrapper.vue';
-import IconShopify from '@/icons/IconShopify.vue';
-import LogoSmall from '@/icons/LogoSmall.vue';
-import OrderDetailsSkeleton from './OrderDetailsSkeleton.vue';
 
 /* ----- Data ----- */
 const { fetchOrder, getFinancialStatus, getFulfillmentStatus, getPushStatus } = useOrders();

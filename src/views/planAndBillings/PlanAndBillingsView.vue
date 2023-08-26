@@ -1,14 +1,5 @@
 <script setup>
-import { onMounted, toRefs } from 'vue';
 import { useAuthStore } from '@/stores/auth';
-import { useConnectionsStore } from '@/stores/connections';
-
-/* ----- Components ----- */
-import Addons from './components/Addons.vue';
-import PageHeader from '@/components/shared/PageHeader.vue';
-import PlanAndBillingsSkeleton from './PlanAndBillingsSkeleton.vue';
-import Plans from './components/Plans.vue';
-import Summary from './components/Summary.vue';
 
 /* ----- Data ----- */
 const { fetchPlans, loadingPlans, plan, selectedPlan } = toRefs(useAuthStore());

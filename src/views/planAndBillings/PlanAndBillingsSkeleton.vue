@@ -1,9 +1,3 @@
-<script setup>
-/* ----- Components ----- */
-import AppLink from '@/components/shared/AppLink.vue';
-import CardWrapper from '@/components/shared/CardWrapper.vue';
-</script>
-
 <template>
   <article class="mt-5 pt-1">
     <section class="grid">
@@ -33,7 +27,7 @@ import CardWrapper from '@/components/shared/CardWrapper.vue';
               <p class="mt-0">Downgrade at any time. All add-ons have a <strong>14 day free trial</strong>.</p>
 
               <div class="grid mt-4 pb-1">
-                <div class="md:col-4 lg:col-4 relative p-3" v-for="addon in 3">
+                <div class="md:col-4 lg:col-4 relative p-3" v-for="_addon in 3">
                   <Skeleton height="426.5px" width="100%" />
                 </div>
               </div>

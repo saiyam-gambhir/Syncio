@@ -1,11 +1,6 @@
 <script setup>
-import { toRefs } from 'vue';
 import { useFilters } from '@/composables/filters';
 import { useOrdersStore } from '@/stores/orders';
-
-/* ----- Components ----- */
-import CheckboxWrapper from '@/components/shared/CheckboxWrapper.vue';
-import SearchFilter from '@/components/shared/SearchFilter.vue';
 
 /* ----- Data ----- */
 const { filters, loadingOrders, sortOptions } = toRefs(useOrdersStore());

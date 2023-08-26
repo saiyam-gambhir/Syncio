@@ -1,12 +1,6 @@
 <script setup>
-import { computed, onMounted, ref, toRefs } from 'vue';
 import { useConnectionsStore } from '@/stores/connections';
 import { useProductsStore } from '@/stores/products';
-
-/* ----- Components ----- */
-import CheckboxWrapper from '@/components/shared/CheckboxWrapper.vue';
-import PageHeader from '@/components/shared/PageHeader.vue';
-import StoresFilter from '@/components/shared/StoresFilter.vue';
 
 /* ----- Data ----- */
 const { connections, fetchConnections, isDestinationStore, partnerStoreType } = toRefs(useConnectionsStore());

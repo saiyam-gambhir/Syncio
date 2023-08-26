@@ -1,10 +1,5 @@
 <script setup>
-import { toRefs } from 'vue';
 import { useAuthStore } from '@/stores/auth';
-
-/* ----- Components ----- */
-import AppLink from '@/components/shared/AppLink.vue';
-import DialogWrapper from '@/components/shared/DialogWrapper.vue';
 
 /* ----- Data ----- */
 const { generateCharge, loadingPayment, shouldShowAddonsDowngradeDialog, } = toRefs(useAuthStore());

@@ -1,21 +1,15 @@
 <script setup>
-import { ref, toRefs } from 'vue';
 import { useConnections } from './composables/connections';
 import { useConnectionsStore } from '@/stores/connections';
 import { useProductsStore } from '@/stores/products';
 import * as routes from '@/routes';
-import router from '@/router';
-
-/* ----- Components ----- */
-import IconShopify from '@/icons/IconShopify.vue';
-import IconWoo from '@/icons/IconWoo.vue';
-import SearchFilter from '@/components/shared/SearchFilter.vue';
 
 /* ----- Data ----- */
 const { connections, filters, isMultilocation, loadingConnections, sortOptions } = toRefs(useConnectionsStore());
 const { fetchConnectionsHandler, getStoreStatus, showDisconnectStoreDialog } = useConnections();
 const { fetchProducts, selectedStoreId } = toRefs(useProductsStore());
 const loadingProductsRoute = ref(false);
+const router = useRouter();
 
 /* ----- Methods ----- */
 const searchHandler = async (searchText) => {

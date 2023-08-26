@@ -1,9 +1,5 @@
 <script setup>
-import { onMounted, ref } from 'vue';
 import { useOrders } from '../composables/orders';
-
-/* ----- Components ----- */
-import PageHeader from '@/components/shared/PageHeader.vue';
 
 /* ----- Data ----- */
 const { fetchPushSettings } = useOrders();

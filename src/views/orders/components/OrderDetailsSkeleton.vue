@@ -1,10 +1,3 @@
-<script setup>
-/* ----- Components ----- */
-import CardWrapper from '@/components/shared/CardWrapper.vue';
-import IconShopify from '@/icons/IconShopify.vue';
-import LogoSmall from '@/icons/LogoSmall.vue';
-</script>
-
 <template>
   <div class="grid mt-4">
     <div class="col-12 md:col-12 lg:col-8">

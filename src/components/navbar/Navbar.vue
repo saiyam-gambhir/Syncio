@@ -1,17 +1,8 @@
 <script setup>
-import { computed, toRefs } from 'vue';
 import { useAuthStore } from '@/stores/auth';
 import { useConnectionsStore } from '@/stores/connections';
-import { useRoute } from 'vue-router';
 import { useUpgradeDialog } from '@/composables/upgradeDialog';
 import * as routes from '@/routes';
-
-/* ----- Components ----- */
-import AddonsUsageIndicator from './AddonsUsageIndicator.vue';
-import AppLink from '@/components/shared/AppLink.vue';
-import DialogWrapper from '@/components/shared/DialogWrapper.vue';
-import Logo from '@/icons/Logo.vue';
-import NavLink from '@/components/navbar/NavLink.vue';
 
 /* ----- Data ----- */
 const { closeDialogHandler, goToPlanSelectionPage, showUpgradeDialogHandler } = useUpgradeDialog();

@@ -1,8 +1,3 @@
-<script setup>
-/* ----- Components ----- */
-import AppLink from '@/components/shared/AppLink.vue';
-</script>
-
 <template>
   <div class="px2 py-5 text-center">
     <p class="font-semibold text-xl mt-0">You have no logs to review at this time.</p>

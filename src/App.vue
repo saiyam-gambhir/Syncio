@@ -1,19 +1,17 @@
 <script setup>
-import { defineAsyncComponent, watch } from 'vue';
 import { useBattery, useOnline } from '@vueuse/core';
 import { useAuthStore } from '@/stores/auth';
 
-/* ===== COMPONENTS ===== */
+/* ----- Components ----- */
 import Loading from './Loading.vue';
-import NetworkDialog from './components/shared/NetworkDialog.vue';
 const BatteryLowDialog = defineAsyncComponent(() => import('./components/shared/BatteryLowDialog.vue'));
 
-/* ===== DATA ===== */
+/* ----- Data ----- */
 const { charging, level } = useBattery();
 const online = useOnline();
 const auth = useAuthStore();
 
-/* ===== WATCHER ===== */
+/* ----- Watcher ----- */
 watch(online, () => {
   if (!online.value) {
     auth.isNetworkDialogVisible = true;

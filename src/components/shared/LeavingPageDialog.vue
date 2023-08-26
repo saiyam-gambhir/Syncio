@@ -1,9 +1,5 @@
 <script setup>
-import { toRefs } from 'vue';
 import { useAuthStore } from '@/stores/auth';
-
-/* ----- Components ----- */
-import DialogWrapper from '@/components/shared/DialogWrapper.vue';
 
 /* ----- Data ----- */
 const { showLeavingPageDialog } = toRefs(useAuthStore());

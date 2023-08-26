@@ -1,10 +1,8 @@
 <script setup>
-import { computed, defineAsyncComponent, onMounted, ref, toRefs, watch } from 'vue';
 import { useAuthStore } from '@/stores/auth';
 import { useFilters } from '@/composables/filters';
 
 /* ----- Components ----- */
-import CardWrapper from '@/components/shared/CardWrapper.vue';
 const AddonsDowngradeDialog = defineAsyncComponent(() => import('./AddonsDowngradeDialog.vue'));
 
 /* ----- Data ----- */
@@ -113,5 +111,5 @@ const generateChargeHandler = async () => {
     </template>
   </CardWrapper>
 
-  <AddonsDowngradeDialog />
+  <AddonsDowngradeDialog v-if="shouldShowAddonsDowngradeDialog" />
 </template>

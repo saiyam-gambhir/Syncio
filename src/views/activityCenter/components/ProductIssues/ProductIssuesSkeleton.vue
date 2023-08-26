@@ -1,10 +1,5 @@
 <script setup>
-import { toRefs } from 'vue';
 import { useActivityCenterStore } from '@/stores/activityCenter';
-
-/* ----- Components ----- */
-import SearchFilter from '@/components/shared/SearchFilter.vue';
-import StoresFilter from '@/components/shared/StoresFilter.vue';
 
 /* ----- Data ----- */
 const { loadingActivities, productEvents, productQueries } = toRefs(useActivityCenterStore());

@@ -1,4 +1,3 @@
-import { ref, toRefs } from 'vue';
 import { useConnectionsStore } from '@/stores/connections';
 
 export function useConnections() {

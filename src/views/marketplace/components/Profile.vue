@@ -1,12 +1,5 @@
 <script setup>
-import { computed, toRefs } from 'vue';
 import { useMarketPlaceStore } from '@/stores/marketPlace';
-
-/* ----- Components ----- */
-import AppLink from '@/components/shared/AppLink.vue';
-import IconInstagram from '@/icons/IconInstagram.vue';
-import IconNext from '@/components/icons/IconNext.vue';
-import IconPrevious from '@/components/icons/IconPrevious.vue';
 
 /* ----- Data ----- */
 const { isMessageDialogVisible, selectedProfile } = toRefs(useMarketPlaceStore());
