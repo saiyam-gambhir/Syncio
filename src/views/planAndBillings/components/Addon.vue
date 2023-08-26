@@ -2,10 +2,6 @@
 import { useFilters } from '@/composables/filters';
 import { useAuthStore } from '@/stores/auth';
 
-/* ----- Components ----- */
-import AppLink from '@/components/shared/AppLink.vue';
-import CardWrapper from '@/components/shared/CardWrapper.vue';
-
 /* ----- Data ----- */
 const { formatCurrency } = useFilters();
 const { selectedAddonIds, selectedPlan } = toRefs(useAuthStore());

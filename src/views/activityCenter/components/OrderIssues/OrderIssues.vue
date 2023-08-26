@@ -2,14 +2,6 @@
 import { useActivities } from '../../composables/activities';
 import { useActivityCenterStore } from '@/stores/activityCenter';
 
-/* ----- Components ----- */
-import AppLink from '@/components/shared/AppLink.vue';
-import EmptyTable from '../EmptyTable.vue';
-import OrderIssuesSkeleton from './OrderIssuesSkeleton.vue';
-import Pagination from '@/components/shared/Pagination.vue';
-import SearchFilter from '@/components/shared/SearchFilter.vue';
-import StoresFilter from '@/components/shared/StoresFilter.vue';
-
 /* ----- Data ----- */
 const { deleteActivityHandler, fetchActivitiesHandler } = useActivities();
 const { loadingActivities, orderEvents, orderIssues, orderQueries } = toRefs(useActivityCenterStore());

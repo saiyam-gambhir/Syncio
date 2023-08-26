@@ -1,11 +1,6 @@
 <script setup>
 import { useMarketPlaceStore } from '@/stores/marketPlace';
 
-/* ----- Components ----- */
-import Filters from './Filters.vue';
-import Profile from './Profile.vue';
-import ProfilesSkeleton from './ProfileSkeleton.vue';
-
 /* ----- Data ----- */
 const { loading, profiles } = toRefs(useMarketPlaceStore());
 </script>

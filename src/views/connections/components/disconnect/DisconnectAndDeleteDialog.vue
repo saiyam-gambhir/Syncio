@@ -1,9 +1,6 @@
 <script setup>
 import { useConnectionsStore } from '@/stores/connections';
 
-/* ----- Components ----- */
-import DialogWrapper from '@/components/shared/DialogWrapper.vue';
-
 /* ----- Data ----- */
 const {
   deleteConnection,

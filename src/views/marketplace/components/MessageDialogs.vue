@@ -1,10 +1,6 @@
 <script setup>
 import { useMarketPlaceStore } from '@/stores/marketPlace';
 
-/* ----- Components ----- */
-import DialogWrapper from '@/components/shared/DialogWrapper.vue';
-import IconSendMessage from '@/icons/IconSendMessage.vue';
-
 /* ----- Data ----- */
 const { isMessageDialogVisible, message, selectedProfile } = toRefs(useMarketPlaceStore());
 

@@ -1,10 +1,4 @@
 <script setup>
-/* ----- Components ----- */
-import IconPageFirst from '@/components/icons/IconPageFirst.vue';
-import IconPageLast from '@/components/icons/IconPageLast.vue';
-import IconPageNext from '@/components/icons/IconPageNext.vue';
-import IconPagePrev from '@/components/icons/IconPagePrev.vue';
-
 /* ----- Props ----- */
 const props = defineProps({
   pagination: {

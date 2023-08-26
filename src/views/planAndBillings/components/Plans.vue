@@ -1,11 +1,6 @@
 <script setup>
 import { useAuthStore } from '@/stores/auth';
 
-/* ----- Components ----- */
-import AppLink from '@/components/shared/AppLink.vue';
-import CardWrapper from '@/components/shared/CardWrapper.vue';
-import Plan from './Plan.vue';
-
 /* ----- Data ----- */
 const { activeAddons, isOnboarding, plan, plans, currentPlanId, selectedPlan, selectedAddonIds } = toRefs(useAuthStore());
 

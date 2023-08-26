@@ -1,10 +1,6 @@
 <script setup>
 import { useActivityCenterStore } from '@/stores/activityCenter';
 
-/* ----- Components ----- */
-import SearchFilter from '@/components/shared/SearchFilter.vue';
-import StoresFilter from '@/components/shared/StoresFilter.vue';
-
 /* ----- Data ----- */
 const { loadingActivities, orderEvents, orderQueries } = toRefs(useActivityCenterStore());
 </script>

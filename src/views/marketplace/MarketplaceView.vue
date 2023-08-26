@@ -2,12 +2,10 @@
 import { useMarketPlaceStore } from '@/stores/marketPlace';
 
 /* ----- Components ----- */
-import Profiles from './components/Profiles.vue';
-import Search from './components/Search.vue';
-import MessageDialogs from './components/MessageDialogs.vue';
+const MessageDialogs = defineAsyncComponent(() => import('./components/MessageDialogs.vue'));
 
 /* ----- Data ----- */
-const { fetchProfiles, profiles } = toRefs(useMarketPlaceStore());
+const { fetchProfiles, isMessageDialogVisible, profiles } = toRefs(useMarketPlaceStore());
 
 /* ----- Mounted ----- */
 onMounted(async () => {
@@ -25,6 +23,6 @@ const fetchProfilesHandler = async () => {
   <section class="marketplace">
     <Search />
     <Profiles />
-    <MessageDialogs />
+    <MessageDialogs v-if="isMessageDialogVisible" />
   </section>
 </template>

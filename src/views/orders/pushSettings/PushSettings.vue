@@ -1,9 +1,6 @@
 <script setup>
 import { useOrders } from '../composables/orders';
 
-/* ----- Components ----- */
-import PageHeader from '@/components/shared/PageHeader.vue';
-
 /* ----- Data ----- */
 const { fetchPushSettings } = useOrders();
 const activeTabIndex = ref(0);

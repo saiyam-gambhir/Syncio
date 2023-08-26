@@ -2,11 +2,6 @@
 import { useUpgradeDialog } from '@/composables/upgradeDialog';
 import { useUrlSearchParams } from '@vueuse/core';
 
-/* ----- Components ----- */
-import DashboardLeft from '@/views/dashboard/components/DashboardLeft.vue';
-import DashboardRight from '@/views/dashboard/components/DashboardRight.vue';
-import PageHeader from '@/components/shared/PageHeader.vue';
-
 /* ----- Data ----- */
 const { showUpgradeDialogHandler } = useUpgradeDialog();
 const { showUpgrade, type } = useUrlSearchParams();

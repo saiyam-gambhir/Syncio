@@ -2,9 +2,6 @@
 import { useActivityCenterStore } from '@/stores/activityCenter';
 import { useFilters } from '@/composables/filters';
 
-/* ----- Components ----- */
-import StoresFilter from '@/components/shared/StoresFilter.vue';
-
 /* ----- Data ----- */
 const { generalEvents, generalQueries, loadingActivities } = toRefs(useActivityCenterStore());
 const { randomInteger } = useFilters();

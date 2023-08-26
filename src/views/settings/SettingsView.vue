@@ -1,10 +1,6 @@
 <script setup>
 import { useConnectionsStore } from '@/stores/connections';
 
-/* ----- Components ----- */
-import PageHeader from '@/components/shared/PageHeader.vue';
-import Setting from './components/Setting.vue';
-
 /* ----- Data ----- */
 const { isDestinationStore } = toRefs(useConnectionsStore());
 </script>

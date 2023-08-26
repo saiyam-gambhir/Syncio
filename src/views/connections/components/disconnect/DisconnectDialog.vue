@@ -4,8 +4,6 @@ import { useConnectionsStore } from '@/stores/connections';
 /* ----- Components ----- */
 const DisconnectAndDeleteDialog = defineAsyncComponent(() => import('./DisconnectAndDeleteDialog.vue'));
 const DisconnectAndKeepDialog = defineAsyncComponent(() => import('./DisconnectAndKeepDialog.vue'));
-import DialogWrapper from '@/components/shared/DialogWrapper.vue';
-import IconLinkOff from '@/icons/IconLinkOff.vue';
 
 /* ----- Data ----- */
 const {

@@ -2,10 +2,6 @@
 import { useConnectionsStore } from '@/stores/connections';
 
 /* ----- Components ----- */
-import AppLink from '@/components/shared/AppLink.vue';
-import Connections from '@/views/connections/Connections.vue';
-import ConnectionsViewSkeleton from '@/views/connections/ConnectionsViewSkeleton.vue';
-import PageHeader from '@/components/shared/PageHeader.vue';
 const ConnectNewStoreDialog = defineAsyncComponent(() => import('./components/connect/ConnectNewStoreDialog.vue'));
 const DisableMultilocationDialog = defineAsyncComponent(() => import('./components/multiLocation/DisableMultilocationDialog.vue'));
 const DisconnectDialog = defineAsyncComponent(() => import('./components/disconnect/DisconnectDialog.vue'));

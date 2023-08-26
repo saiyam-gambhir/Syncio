@@ -2,13 +2,6 @@
 import { useActivities } from '../../composables/activities';
 import { useActivityCenterStore } from '@/stores/activityCenter';
 
-/* ----- Components ----- */
-import AppLink from '@/components/shared/AppLink.vue';
-import EmptyTable from '../EmptyTable.vue';
-import GeneralUpdatesSkeleton from './GeneralUpdatesSkeleton.vue';
-import Pagination from '@/components/shared/Pagination.vue';
-import StoresFilter from '@/components/shared/StoresFilter.vue';
-
 /* ----- Data ----- */
 const { fetchActivitiesHandler } = useActivities();
 const { generalEvents, generalQueries, generalUpdates, loadingActivities } = toRefs(useActivityCenterStore());

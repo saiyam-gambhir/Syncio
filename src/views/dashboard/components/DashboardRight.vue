@@ -4,10 +4,6 @@ import MarketPlaceImageUrl from '@/assets/images/marketplace.svg';
 import MultilocationImageUrl from '@/assets/images/multilocation.svg';
 import WooShopifyImageUrl from '@/assets/images/woo-shopify.svg';
 
-/* ----- Components ----- */
-import AppLink from '@/components/shared/AppLink.vue';
-import CardWrapper from '@/components/shared/CardWrapper.vue';
-
 /* ----- Data ----- */
 const { isSourceStore } = useConnectionsStore();
 const destinationAnnouncements = ref([

@@ -1,8 +1,3 @@
-<script setup>
-/* ----- Components ----- */
-import LogoDark from '@/components/icons/LogoDark.vue';
-</script>
-
 <template>
   <div class="min-h-screen flex relative lg:static surface-ground">
     <section class="auth flex align-items-center justify-content-center w-full login-screen">

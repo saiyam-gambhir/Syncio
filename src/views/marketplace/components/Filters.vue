@@ -2,9 +2,6 @@
 import { useConnectionsStore } from '@/stores/connections';
 import { useMarketPlaceStore } from '@/stores/marketPlace';
 
-/* ----- Components ----- */
-import Pagination from '@/components/shared/Pagination.vue';
-
 /* ----- Data ----- */
 const { partnerStoreType } = toRefs(useConnectionsStore());
 const {

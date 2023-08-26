@@ -4,7 +4,6 @@ import { useConnectionsStore } from '@/stores/connections';
 import { useProductSettingsStore } from '@/stores/productSettings';
 
 /* ----- Components ----- */
-import PageHeader from '@/components/shared/PageHeader.vue';
 const LeavingPageDialog = defineAsyncComponent(() => import('@/components/shared/LeavingPageDialog.vue'));
 const Product = defineAsyncComponent(() => import('./components/Product.vue'));
 const ProductSkeleton = defineAsyncComponent(() => import('./components/ProductSkeleton.vue'));

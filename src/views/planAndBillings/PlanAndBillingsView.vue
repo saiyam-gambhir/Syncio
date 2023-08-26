@@ -1,13 +1,6 @@
 <script setup>
 import { useAuthStore } from '@/stores/auth';
 
-/* ----- Components ----- */
-import Addons from './components/Addons.vue';
-import PageHeader from '@/components/shared/PageHeader.vue';
-import PlanAndBillingsSkeleton from './PlanAndBillingsSkeleton.vue';
-import Plans from './components/Plans.vue';
-import Summary from './components/Summary.vue';
-
 /* ----- Data ----- */
 const { fetchPlans, loadingPlans, plan, selectedPlan } = toRefs(useAuthStore());
 

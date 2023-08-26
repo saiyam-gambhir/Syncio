@@ -1,10 +1,6 @@
 <script setup>
 import { useAuthStore } from '@/stores/auth';
 
-/* ----- Components ----- */
-import Addon from './Addon.vue';
-import CardWrapper from '@/components/shared/CardWrapper.vue';
-
 /* ----- Data ----- */
 const { selectedPlan, activeAddons } = toRefs(useAuthStore());
 

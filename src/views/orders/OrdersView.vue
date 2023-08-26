@@ -4,14 +4,6 @@ import { useOrders } from './composables/orders';
 import { useOrdersStore } from '@/stores/orders';
 
 /* ----- Components ----- */
-import AppLink from '@/components/shared/AppLink.vue';
-import BulkSelectedCount from '@/components/shared/BulkSelectedCount.vue';
-import CheckboxWrapper from '@/components/shared/CheckboxWrapper.vue';
-import Date from '@/components/shared/Date.vue';
-import EnableAutoPushDialog from './components/EnableAutoPushDialog.vue';
-import OrdersViewSkeleton from './OrdersViewSkeleton.vue';
-import PageHeader from '@/components/shared/PageHeader.vue';
-import SearchFilter from '@/components/shared/SearchFilter.vue';
 const OrderDetails = defineAsyncComponent(() => import('./components/OrderDetails.vue'));
 
 /* ----- Data ----- */

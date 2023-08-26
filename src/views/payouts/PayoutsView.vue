@@ -5,7 +5,6 @@ import { usePayouts } from './composables/payouts';
 import { usePayoutsStore } from '@/stores/payouts';
 
 /* ----- Components ----- */
-import PageHeader from '@/components/shared/PageHeader.vue';
 const PayableOrders = defineAsyncComponent(() => import('./components/destinationPayouts/PayableOrders.vue'));
 
 /* ----- Data ----- */

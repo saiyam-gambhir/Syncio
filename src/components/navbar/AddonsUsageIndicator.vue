@@ -1,10 +1,6 @@
 <script setup>
 import { useAuthStore } from '@/stores/auth';
 
-/* ----- Components ----- */
-import AddonUsage from './AddonUsage.vue';
-import CardWrapper from '@/components/shared/CardWrapper.vue';
-
 /* ----- Data ----- */
 const { addons, plan, productsSynced, productsSyncedLimit, ordersPushed, ordersPushLimit, payoutsProcessed, payoutsProcessLimit } = toRefs(useAuthStore());
 const route = useRoute();

@@ -3,9 +3,6 @@ import { useFilters } from '@/composables/filters';
 import { useOrders } from '../composables/orders';
 import { useOrdersStore } from '@/stores/orders';
 
-/* ----- Components ----- */
-import DialogWrapper from '@/components/shared/DialogWrapper.vue';
-
 /* ----- Data ----- */
 const { formatCurrency } = useFilters();
 const { isEnableAutoPushRequested, pushSettings } = toRefs(useOrdersStore());
