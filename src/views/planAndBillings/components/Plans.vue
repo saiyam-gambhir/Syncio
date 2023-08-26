@@ -1,5 +1,4 @@
 <script setup>
-import { toRefs } from 'vue';
 import { useAuthStore } from '@/stores/auth';
 
 /* ----- Components ----- */

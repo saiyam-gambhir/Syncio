@@ -1,6 +1,4 @@
 <script setup>
-import { ref } from 'vue';
-
 /* ----- Data ----- */
 const searchText = ref(props.modelValue);
 

@@ -1,7 +1,5 @@
 <script setup>
-import { toRefs } from 'vue';
 import { useAuthStore } from '@/stores/auth';
-import { useRoute } from 'vue-router';
 
 /* ----- Components ----- */
 import AddonUsage from './AddonUsage.vue';

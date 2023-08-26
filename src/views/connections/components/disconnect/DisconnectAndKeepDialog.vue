@@ -1,5 +1,4 @@
 <script setup>
-import { toRefs } from 'vue';
 import { useConnectionsStore } from '@/stores/connections';
 
 /* ----- Components ----- */

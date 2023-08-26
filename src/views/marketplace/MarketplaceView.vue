@@ -1,6 +1,4 @@
 <script setup>
-import { toRefs } from 'vue';
-import { onMounted, ref } from 'vue';
 import { useMarketPlaceStore } from '@/stores/marketPlace';
 
 /* ----- Components ----- */

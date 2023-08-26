@@ -1,8 +1,6 @@
 <script setup>
-import { computed, toRefs } from 'vue';
 import { useAuthStore } from '@/stores/auth';
 import { useConnectionsStore } from '@/stores/connections';
-import { useRoute } from 'vue-router';
 import { useUpgradeDialog } from '@/composables/upgradeDialog';
 import * as routes from '@/routes';
 

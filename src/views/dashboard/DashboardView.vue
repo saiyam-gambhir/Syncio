@@ -1,5 +1,4 @@
 <script setup>
-import { onMounted } from 'vue';
 import { useUpgradeDialog } from '@/composables/upgradeDialog';
 import { useUrlSearchParams } from '@vueuse/core';
 

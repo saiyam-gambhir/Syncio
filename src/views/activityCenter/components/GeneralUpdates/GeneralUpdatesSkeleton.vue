@@ -1,5 +1,4 @@
 <script setup>
-import { toRefs } from 'vue';
 import { useActivityCenterStore } from '@/stores/activityCenter';
 import { useFilters } from '@/composables/filters';
 

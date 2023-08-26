@@ -1,5 +1,4 @@
 <script setup>
-import { ref } from 'vue';
 import { useConnectionsStore } from '@/stores/connections';
 import MarketPlaceImageUrl from '@/assets/images/marketplace.svg';
 import MultilocationImageUrl from '@/assets/images/multilocation.svg';

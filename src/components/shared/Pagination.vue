@@ -1,6 +1,4 @@
 <script setup>
-import { onMounted, ref, watch } from 'vue';
-
 /* ----- Components ----- */
 import IconPageFirst from '@/components/icons/IconPageFirst.vue';
 import IconPageLast from '@/components/icons/IconPageLast.vue';

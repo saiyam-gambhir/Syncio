@@ -1,5 +1,4 @@
 <script setup>
-import { computed, toRefs, watch } from 'vue';
 import { useAuthStore } from '@/stores/auth';
 import { useConnectionsStore } from '@/stores/connections';
 import { useProductSettingsStore } from '@/stores/productSettings';

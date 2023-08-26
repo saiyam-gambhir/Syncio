@@ -1,7 +1,5 @@
 <script setup>
-import { onMounted, toRefs } from 'vue';
 import { useAuthStore } from '@/stores/auth';
-import { useConnectionsStore } from '@/stores/connections';
 
 /* ----- Components ----- */
 import Addons from './components/Addons.vue';

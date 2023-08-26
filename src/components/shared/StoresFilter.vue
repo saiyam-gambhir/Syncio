@@ -41,10 +41,10 @@ const emits = defineEmits(['update:modelValue']);
     :autoOptionFocus="false"
     :loading="loading"
     :options="connections.connections"
+    :placeholder="customPlaceholder ? customPlaceholderText : 'All Stores'"
     @change="$emit('update:modelValue', $event.value)"
     optionLabel="store_domain"
     optionValue="id"
-    :placeholder="customPlaceholder ? customPlaceholderText : 'All Stores'"
     showClear
     v-model="props.modelValue">
   </Dropdown>

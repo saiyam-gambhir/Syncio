@@ -1,5 +1,4 @@
 <script setup>
-import { computed, onMounted, ref, toRefs } from 'vue';
 import { useConnectionsStore } from '@/stores/connections';
 import { useProductsStore } from '@/stores/products';
 

@@ -1,16 +1,6 @@
 <script setup>
-import { useConnectionsStore } from '@/stores/connections';
-import { useFilters } from '@/composables/filters';
-import { useToasts } from '@/composables/toasts';
-
 /* ----- Components ----- */
-import CardWrapper from '@/components/shared/CardWrapper.vue';
 import PageHeader from '@/components/shared/PageHeader.vue';
-
-/* ----- Data ----- */
-const { copyToClipBoard, formatDate } = useFilters();
-const { showToast } = useToasts();
-const { platform, storeCreationDate, storeKey, storeName, storeType } = useConnectionsStore();
 </script>
 
 <template>

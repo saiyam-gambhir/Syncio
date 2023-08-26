@@ -1,10 +1,8 @@
 <script setup>
-import { ref, toRefs } from 'vue';
 import { useConnections } from './composables/connections';
 import { useConnectionsStore } from '@/stores/connections';
 import { useProductsStore } from '@/stores/products';
 import * as routes from '@/routes';
-import router from '@/router';
 
 /* ----- Components ----- */
 import IconShopify from '@/icons/IconShopify.vue';

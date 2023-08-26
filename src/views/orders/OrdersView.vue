@@ -1,9 +1,7 @@
 <script setup>
-import { defineAsyncComponent, onMounted, ref, toRefs } from 'vue';
 import { useAuthStore } from '@/stores/auth';
 import { useOrders } from './composables/orders';
 import { useOrdersStore } from '@/stores/orders';
-import { useRouter } from 'vue-router';
 
 /* ----- Components ----- */
 import AppLink from '@/components/shared/AppLink.vue';

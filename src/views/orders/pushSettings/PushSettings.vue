@@ -1,5 +1,4 @@
 <script setup>
-import { onMounted, ref } from 'vue';
 import { useOrders } from '../composables/orders';
 
 /* ----- Components ----- */

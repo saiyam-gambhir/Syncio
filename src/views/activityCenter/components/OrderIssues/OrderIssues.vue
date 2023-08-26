@@ -1,5 +1,4 @@
 <script setup>
-import { toRefs } from 'vue';
 import { useActivities } from '../../composables/activities';
 import { useActivityCenterStore } from '@/stores/activityCenter';
 

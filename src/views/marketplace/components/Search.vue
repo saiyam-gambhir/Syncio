@@ -1,5 +1,4 @@
 <script setup>
-import { ref, toRefs, watch } from 'vue';
 import { useDebounceFn } from '@vueuse/core';
 import { useMarketPlaceStore } from '@/stores/marketPlace';
 

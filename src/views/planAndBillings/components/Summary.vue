@@ -1,5 +1,4 @@
 <script setup>
-import { computed, defineAsyncComponent, onMounted, ref, toRefs, watch } from 'vue';
 import { useAuthStore } from '@/stores/auth';
 import { useFilters } from '@/composables/filters';
 

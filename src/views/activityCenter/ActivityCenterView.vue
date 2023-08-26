@@ -1,9 +1,7 @@
 <script setup>
-import { defineAsyncComponent, onMounted, toRefs } from 'vue';
 import { useActivities } from './composables/activities';
 import { useActivityCenterStore } from '@/stores/activityCenter';
 import { useConnectionsStore } from '@/stores/connections';
-import { useRouter } from 'vue-router';
 
 /* ----- Components ----- */
 const GeneralUpdates = defineAsyncComponent(() => import('@/views/activityCenter/components/GeneralUpdates/GeneralUpdates.vue'));

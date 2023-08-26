@@ -1,10 +1,8 @@
 <script setup>
-import { defineAsyncComponent, onMounted, toRefs } from 'vue';
 import { useAuthStore } from '@/stores/auth';
 import { useConnectionsStore } from '@/stores/connections';
 import { usePayouts } from './composables/payouts';
 import { usePayoutsStore } from '@/stores/payouts';
-import { useRouter } from 'vue-router';
 
 /* ----- Components ----- */
 import PageHeader from '@/components/shared/PageHeader.vue';

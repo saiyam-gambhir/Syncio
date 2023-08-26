@@ -1,5 +1,4 @@
 <script setup>
-import { defineAsyncComponent, watch } from 'vue';
 import { useBattery, useOnline } from '@vueuse/core';
 import { useAuthStore } from '@/stores/auth';
 

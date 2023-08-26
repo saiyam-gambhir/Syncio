@@ -1,9 +1,7 @@
 <script setup>
-import { defineAsyncComponent, onMounted, ref, toRefs } from 'vue';
 import { useAuthStore } from '@/stores/auth';
 import { useConnectionsStore } from '@/stores/connections';
 import { useProductSettingsStore } from '@/stores/productSettings';
-import { useRouter, onBeforeRouteLeave } from 'vue-router';
 
 /* ----- Components ----- */
 import PageHeader from '@/components/shared/PageHeader.vue';

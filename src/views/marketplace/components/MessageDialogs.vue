@@ -1,5 +1,4 @@
 <script setup>
-import { toRefs } from 'vue';
 import { useMarketPlaceStore } from '@/stores/marketPlace';
 
 /* ----- Components ----- */

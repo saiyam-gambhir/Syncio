@@ -1,5 +1,4 @@
 <script setup>
-import { toRefs } from 'vue';
 import { useFilters } from '@/composables/filters';
 import { useOrdersStore } from '@/stores/orders';
 
