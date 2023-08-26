@@ -1,4 +1,3 @@
-import { defineStore } from 'pinia';
 import { useConnectionsStore } from '@/stores/connections';
 import deepmerge from 'deepmerge';
 

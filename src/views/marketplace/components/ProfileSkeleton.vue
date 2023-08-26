@@ -1,5 +1,5 @@
 <template>
-  <div v-for="item in 16" class="profile col-3" :key="item">
+  <div v-for="item in 8" class="profile col-3" :key="item">
     <Skeleton width="100%" height="224px" borderRadius="8px"></Skeleton>
     <div class="p-3">
       <Skeleton class="mt-2" width="100%" height="24px" borderRadius="0"></Skeleton>

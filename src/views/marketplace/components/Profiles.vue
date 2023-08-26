@@ -10,7 +10,7 @@ const { loading, profiles } = toRefs(useMarketPlaceStore());
     <div class="container">
       <Filters />
       <div class="grid" v-if="loading">
-        <ProfilesSkeleton />
+        <ProfileSkeleton />
       </div>
       <div class="grid" v-else>
         <Profile
