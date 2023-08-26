@@ -27,6 +27,7 @@ export default defineConfig({
       'marketPlace': fileURLToPath(new URL('./src/stores/marketPlace', import.meta.url)),
       'orders': fileURLToPath(new URL('./src/stores/orders', import.meta.url)),
       'payouts': fileURLToPath(new URL('./src/stores/payouts', import.meta.url)),
+      'plan': fileURLToPath(new URL('./src/stores/plan', import.meta.url)),
       'products': fileURLToPath(new URL('./src/stores/products', import.meta.url)),
       'productSettings': fileURLToPath(new URL('./src/stores/productSettings', import.meta.url)),
     },

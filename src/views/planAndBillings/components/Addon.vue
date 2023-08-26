@@ -1,10 +1,10 @@
 <script setup>
-import { useAuthStore } from 'auth';
+import { usePlanStore } from 'plan';
 import { useFilters } from '@/composables/filters';
 
 /* ----- Data ----- */
 const { formatCurrency } = useFilters();
-const { selectedAddonIds, selectedPlan } = toRefs(useAuthStore());
+const { selectedAddonIds, selectedPlan } = toRefs(usePlanStore());
 const selectedOption = ref(null);
 
 /* ----- Props ----- */

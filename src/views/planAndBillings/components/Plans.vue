@@ -1,8 +1,8 @@
 <script setup>
-import { useAuthStore } from 'auth';
+import { usePlanStore } from 'plan';
 
 /* ----- Data ----- */
-const { activeAddons, isOnboarding, plan, plans, currentPlanId, selectedPlan, selectedAddonIds } = toRefs(useAuthStore());
+const { activeAddons, isOnboarding, plan, plans, currentPlanId, selectedPlan, selectedAddonIds } = toRefs(usePlanStore());
 
 /* ----- Methods ----- */
 const selectPlanHandler = (plan) => {
@@ -27,7 +27,7 @@ const selectPlanHandler = (plan) => {
         <AppLink label="Learn more about our pricing" link="https://www.syncio.co/pricing"></AppLink>
       </p>
 
-      <Message v-if="!plan.syncio_plan.is_active && !isOnboarding" severity="info" :closable="false" class="mt-5 block message-warning">
+      <Message v-if="!plan?.syncio_plan.is_active && !isOnboarding" severity="info" :closable="false" class="mt-5 block message-warning">
         <h3 class="mb-2">New Free Plans Available</h3>
         <h3 class="line-height-3 m-0 font-normal" style="text-transform: none !important;">
           We haven't made any changes to your account but there are new <span class="font-semibold">FREE</span> plans that could suit your needs.
@@ -38,7 +38,7 @@ const selectPlanHandler = (plan) => {
 
       <div class="grid mt-4 pb-1">
         <div class="md:col-3 lg:col-3 relative p-3" v-for="_plan in plans" :key="plan?.id">
-          <Plan :plan="_plan" class="plan-block pointer" @click="selectPlanHandler(_plan)" :class="{ 'current-plan': (plan.syncio_plan.id === _plan.id), 'selected-plan': currentPlanId === _plan.id }" />
+          <Plan :plan="_plan" class="plan-block pointer" @click="selectPlanHandler(_plan)" :class="{ 'current-plan': (plan?.syncio_plan.id === _plan.id), 'selected-plan': currentPlanId === _plan.id }" />
           <i v-if="currentPlanId === _plan.id" class="pi pi-check-circle absolute"></i>
         </div>
       </div>

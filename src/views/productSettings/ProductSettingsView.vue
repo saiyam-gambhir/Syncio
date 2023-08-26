@@ -1,6 +1,7 @@
 <script setup>
 import { useAuthStore } from 'auth';
 import { useConnectionsStore } from 'connections';
+import { usePlanStore } from 'plan';
 import { useProductSettingsStore } from 'productSettings';
 
 /* ----- Components ----- */
@@ -12,7 +13,6 @@ const VariantSkeleton = defineAsyncComponent(() => import('./components/VariantS
 
 /* ----- Data ----- */
 const {
-  addons,
   showLeavingPageDialog
 } = toRefs(useAuthStore());
 
@@ -20,6 +20,10 @@ const {
   isDestinationStore,
   isSourceStore,
 } = toRefs(useConnectionsStore());
+
+const {
+  addons,
+} = toRefs(usePlanStore());
 
 const {
   activeTabIndex,

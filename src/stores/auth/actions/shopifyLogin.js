@@ -1,10 +1,12 @@
-import router from '@/router';
 import { useConnectionsStore } from 'connections';
+import { usePlanStore } from 'plan';
+import router from '@/router';
 
 export const shopifyLogin = {
   async shopifyLogin(platform, storeName) {
     this.loginForm.loading = true;
     const connections = useConnectionsStore();
+    const plan = usePlanStore();
     const response = await this.$https.post('user/platforms/login', {
       platform: platform,
       store_name: storeName,
@@ -18,7 +20,7 @@ export const shopifyLogin = {
       sessionStorage.setItem('USER_ID', this.user?.id);
       this.$https.defaults.headers.common['Authorization'] = `Bearer ${sessionStorage.getItem('ID_TOKEN_KEY')}`;
       await connections.fetchCurrentStore();
-      await this.fetchCurrentPlan(sessionStorage.getItem('USER_ID'));
+      await plan.fetchCurrentPlan(sessionStorage.getItem('USER_ID'));
       router.replace('/');
       this.loginForm.loading = false;
     }

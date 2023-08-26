@@ -1,12 +1,12 @@
 <script setup>
-import { useAuthStore } from 'auth';
+import { usePlanStore } from 'plan';
 import { useConnectionsStore } from 'connections';
 import { useProductSettingsStore } from 'productSettings';
 
 /* ----- Data ----- */
 const {
   addons,
-} = toRefs(useAuthStore());
+} = toRefs(usePlanStore());
 
 const {
   isDestinationStore,

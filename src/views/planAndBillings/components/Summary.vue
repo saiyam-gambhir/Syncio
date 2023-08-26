@@ -1,13 +1,25 @@
 <script setup>
-import { useAuthStore } from 'auth';
+import { usePlanStore } from 'plan';
 import { useFilters } from '@/composables/filters';
 
 /* ----- Components ----- */
 const AddonsDowngradeDialog = defineAsyncComponent(() => import('./AddonsDowngradeDialog.vue'));
 
 /* ----- Data ----- */
-const { formatCurrency } = useFilters();
-const { generateCharge, isOnboarding, loadingPayment, plan, selectedAddonIds, selectedPlan, shouldShowAddonsDowngradeDialog } = toRefs(useAuthStore());
+const {
+  formatCurrency
+} = useFilters();
+
+const {
+  generateCharge,
+  isOnboarding,
+  loadingPayment,
+  plan,
+  selectedAddonIds,
+  selectedPlan,
+  shouldShowAddonsDowngradeDialog,
+} = toRefs(usePlanStore());
+
 const areAddonsChanged = ref(false);
 const clonedSelectedAddonIds = ref(null);
 const isBasePlanChanged = ref(false);
@@ -24,7 +36,7 @@ watch(selectedPlan, () => {
   const newValueClone = Object.assign({}, selectedPlan.value);
   delete newValueClone.addonsSummary;
   const _selectedPlan = JSON.stringify(newValueClone);
-  const activePlan = JSON.stringify(plan.value.syncio_plan);
+  const activePlan = JSON.stringify(plan?.value?.syncio_plan);
   isBasePlanChanged.value = _selectedPlan !== activePlan;
 }, { deep: true });
 
@@ -40,7 +52,7 @@ const allowToProceed = computed(() => {
 /* ----- Methods ----- */
 const calculateTotalCartValue = () => {
   let addonsPrice = 0;
-  let basePlanPrice = +selectedPlan.value.price_per_month;
+  let basePlanPrice = +selectedPlan?.value?.price_per_month;
   if(selectedPlan?.value?.addonsSummary) {
     Object.values(selectedPlan.value.addonsSummary).forEach(addon => {
       if(addon) {
@@ -73,12 +85,12 @@ const generateChargeHandler = async () => {
       <h2 class="mt-3">Plan Summary</h2>
       <Divider />
       <h4 class="uppercase">Base Plan</h4>
-      <div v-if="plan.syncio_plan" class="flex justify-content-between uppercase font-semibold" :class="{ 'strike-through': plan.syncio_plan.id !== selectedPlan?.id }">
+      <div v-if="plan?.syncio_plan" class="flex justify-content-between uppercase font-semibold" :class="{ 'strike-through': plan?.syncio_plan.id !== selectedPlan?.id }">
         <span>{{ plan.syncio_plan.name }} <span v-if="!plan.syncio_plan.is_active" class="legacy">(legacy)</span></span>
-        <span class="tabular-nums">{{ formatCurrency(plan.syncio_plan.price_per_month) }}</span>
+        <span class="tabular-nums">{{ formatCurrency(plan.syncio_plan?.price_per_month) }}</span>
       </div>
 
-      <div class="flex justify-content-between uppercase font-semibold mt-2" v-if="(plan.syncio_plan?.id !== selectedPlan?.id)">
+      <div class="flex justify-content-between uppercase font-semibold mt-2" v-if="(plan?.syncio_plan?.id !== selectedPlan?.id)">
         <span>{{ selectedPlan?.name }}</span>
         <span class="tabular-nums">{{ formatCurrency(selectedPlan?.price_per_month) }}</span>
       </div>
@@ -86,7 +98,7 @@ const generateChargeHandler = async () => {
       <Divider />
 
       <h4 class="uppercase">Add-ons</h4>
-      <div v-for="(addon, key) in selectedPlan.addonsSummary" :key="key">
+      <div v-for="(addon, key) in selectedPlan?.addonsSummary" :key="key">
         <div v-if="addon" class="flex justify-content-between uppercase font-semibold mb-3">
           <div>
             <span v-if="key === 'order'">Orders</span>

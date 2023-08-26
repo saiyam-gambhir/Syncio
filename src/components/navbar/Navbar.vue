@@ -5,7 +5,7 @@ import { useUpgradeDialog } from '@/composables/upgradeDialog';
 import * as routes from '@/routes';
 
 /* ----- Data ----- */
-const { closeDialogHandler, goToPlanSelectionPage, showUpgradeDialogHandler } = useUpgradeDialog();
+const { closeDialogHandler, goToPlanSelectionPage } = useUpgradeDialog();
 const { isConnectionStatusPending, isDestinationStore } = toRefs(useConnectionsStore());
 const auth = useAuthStore();
 const route = useRoute();

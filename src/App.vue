@@ -20,7 +20,7 @@ watch(online, () => {
 
 watch(level, () => {
   if (level.value < 0.21 && !charging.value) {
-    auth.isBatteryLowDialogVisible = true;
+    //auth.isBatteryLowDialogVisible = true;
   }
 });
 </script>

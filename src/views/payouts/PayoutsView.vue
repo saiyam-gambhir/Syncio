@@ -1,5 +1,5 @@
 <script setup>
-import { useAuthStore } from 'auth';
+import { usePlanStore } from 'plan';
 import { useConnectionsStore } from 'connections';
 import { usePayouts } from './composables/payouts';
 import { usePayoutsStore } from 'payouts';
@@ -11,12 +11,12 @@ const PayableOrders = defineAsyncComponent(() => import('./components/destinatio
 const { activeTabIndex } = toRefs(usePayoutsStore());
 const { fetchPayableOrdersHandler, fetchPaidPayoutsHandler } = usePayouts();
 const { isDestinationStore, isSourceStore } = useConnectionsStore();
-const auth = useAuthStore();
+const { addons } = toRefs(usePlanStore());
 const router = useRouter();
 
 /* ----- Mounted ----- */
 onMounted(async () => {
-  if (!auth.addons.isPayoutsModuleAvailable) {
+  if (!addons.value.isPayoutsModuleAvailable && isDestinationStore.value) {
     router.push({
       path: '/',
       query: { showUpgrade: 'true', type: 'payouts' },

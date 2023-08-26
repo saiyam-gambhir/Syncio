@@ -1,8 +1,18 @@
 <script setup>
-import { useAuthStore } from 'auth';
+import { usePlanStore } from 'plan';
 
 /* ----- Data ----- */
-const { addons, plan, productsSynced, productsSyncedLimit, ordersPushed, ordersPushLimit, payoutsProcessed, payoutsProcessLimit } = toRefs(useAuthStore());
+const {
+  addons,
+  ordersPushed,
+  ordersPushLimit,
+  payoutsProcessed,
+  payoutsProcessLimit,
+  plan,
+  productsSynced,
+  productsSyncedLimit,
+} = toRefs(usePlanStore());
+
 const route = useRoute();
 </script>
 

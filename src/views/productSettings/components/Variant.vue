@@ -1,10 +1,10 @@
 <script setup>
-import { useAuthStore } from 'auth';
+import { usePlanStore } from 'plan';
 import { useProductSettingsStore } from 'productSettings';
 
 /* ----- Data ----- */
 const { destinationVariantSettings, stringifyDestinationVariantSettings, settingsUpdated } = toRefs(useProductSettingsStore());
-const { addons } = toRefs(useAuthStore());
+const { addons } = toRefs(usePlanStore());
 
 /* ----- Watcher ----- */
 watch(destinationVariantSettings, (newSettings, oldSettings) => {

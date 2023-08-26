@@ -1,12 +1,14 @@
 <script setup>
-import { useAuthStore } from 'auth';
+import { usePlanStore } from 'plan';
 
 /* ----- Data ----- */
-const { selectedPlan, activeAddons } = toRefs(useAuthStore());
+const { selectedPlan, activeAddons } = toRefs(usePlanStore());
 
 /* ----- Mounted ----- */
 onMounted(() => {
-  selectedPlan.value.addonsSummary = structuredClone(activeAddons.value);
+  if(selectedPlan.value) {
+    selectedPlan.value.addonsSummary = structuredClone(activeAddons?.value);
+  }
 })
 </script>
 
@@ -18,7 +20,7 @@ onMounted(() => {
       <p class="mt-0">Downgrade at any time. All add-ons have a <strong>14 day free trial</strong>.</p>
 
       <div class="grid mt-4 pb-1">
-        <div class="md:col-4 lg:col-4 relative p-3" v-for="(options, key) in selectedPlan.available_addons" :key="key">
+        <div class="md:col-4 lg:col-4 relative p-3" v-for="(options, key) in selectedPlan?.available_addons" :key="key">
           <Addon :options="options" :title="key" :addon="activeAddons[key]" />
         </div>
       </div>

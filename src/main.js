@@ -11,6 +11,7 @@ import { useConnectionsStore } from 'connections';
 import { useMarketPlaceStore } from 'marketPlace';
 import { useOrdersStore } from 'orders';
 import { usePayoutsStore } from 'payouts';
+import { usePlanStore } from './stores/plan';
 import { useProductSettingsStore } from 'productSettings';
 import { useProductsStore } from 'products';
 
@@ -134,9 +135,10 @@ const connections = useConnectionsStore();
 const marketPlace = useMarketPlaceStore();
 const orders = useOrdersStore();
 const payouts = usePayoutsStore();
+const plan = usePlanStore();
 const products = useProductsStore();
 const productSettings = useProductSettingsStore();
-activityCenter.$https = auth.$https = connections.$https = marketPlace.$https = orders.$https = payouts.$https = productSettings.$https = $https;
+activityCenter.$https = auth.$https = connections.$https = marketPlace.$https = orders.$https = payouts.$https = plan.$https = productSettings.$https = $https;
 
 /* ----- Logout Handler ----- */
 const logout = () => {
@@ -146,6 +148,7 @@ const logout = () => {
   marketPlace.$reset();
   orders.$reset();
   payouts.$reset();
+  plan.$reset();
   products.$reset();
   productSettings.$reset();
   sessionStorage.removeItem('ID_TOKEN_KEY');
@@ -207,7 +210,7 @@ router.beforeEach(async (to, from, next) => {
     if (!auth.user) {
       const userId = sessionStorage.getItem('USER_ID');
       await auth.fetchUser(userId);
-      await auth.fetchCurrentPlan(userId);
+      await plan.fetchCurrentPlan(userId);
       await connections.fetchCurrentStore();
     }
   } else if (to.name === 'login' && ID_TOKEN_KEY) {

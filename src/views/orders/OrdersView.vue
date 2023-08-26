@@ -1,5 +1,5 @@
 <script setup>
-import { useAuthStore } from 'auth';
+import { usePlanStore } from 'plan';
 import { useOrders } from './composables/orders';
 import { useOrdersStore } from 'orders';
 
@@ -7,7 +7,10 @@ import { useOrdersStore } from 'orders';
 const OrderDetails = defineAsyncComponent(() => import('./components/OrderDetails.vue'));
 
 /* ----- Data ----- */
-const auth = useAuthStore();
+const {
+  addons
+} = toRefs(usePlanStore());
+
 const {
   fetchOrder,
   fetchPushSettings,
@@ -16,6 +19,7 @@ const {
   setAutoPushStatus,
   toggleAutoPush,
 } = useOrders();
+
 const {
   bulkPushOrders,
   fetchOrders,
@@ -29,12 +33,13 @@ const {
   selectedOrders,
   sortOptions,
 } = toRefs(useOrdersStore());
+
 const options = ref(['Off', 'On']);
 const router = useRouter();
 
 /* ----- Mounted ----- */
 onMounted(async () => {
-  if (!auth.addons.isOrderModuleAvailable) {
+  if (!addons.value.isOrderModuleAvailable) {
     router.push({
       path: '/',
       query: { showUpgrade: 'true', type: 'orders' },
