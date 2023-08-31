@@ -23,6 +23,12 @@ const router = createRouter({
       path: '/login',
     },
     {
+      component: () => import('@/views/registration/PlatformSelection.vue'),
+      meta: { layout: LoggedOut },
+      name: routes.PLATFORM_SELECTION,
+      path: '/registration',
+    },
+    {
       component: () => import('@/views/registration/woocommerce/ForgotPassword.vue'),
       meta: { layout: LoggedOut },
       name: routes.FORGOT_PASSWORD,

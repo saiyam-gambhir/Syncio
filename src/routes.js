@@ -10,6 +10,7 @@ export const ORDERS = 'orders';
 export const PAYOUTS = 'payouts';
 export const PAYOUTS_SETTINGS = 'payouts-settings';
 export const PLAN_AND_BILLINGS = 'plan-and-billings';
+export const PLATFORM_SELECTION = 'registration';
 export const PRODUCT_SETTINGS = 'product-settings';
 export const PRODUCTS = 'products';
 export const PUSH_SETTINGS = 'push-settings';

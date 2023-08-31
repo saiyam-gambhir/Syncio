@@ -1,5 +1,6 @@
 <script setup>
 import { useAuthStore } from 'auth';
+import * as routes from '@/routes';
 
 /* ----- Data ----- */
 const {
@@ -10,7 +11,7 @@ const {
 
 /* ----- Computed ----- */
 const isDevelopment = computed(() => {
-  return import.meta.env.VITE_NODE_ENV === 'development';
+  return !import.meta.env.VITE_NODE_ENV === 'development';
 })
 
 /* ----- Methods ----- */
@@ -29,69 +30,75 @@ const shopifyLoginHandler = async () => {
 </script>
 
 <template>
-  <div class="flex align-items-center justify-content-between">
-    <h1 class="text-3xl text-center line-height-3 m-0">
+  <div class="text-center">
+    <h1 class="text-5xl line-height-3 my-6 font-bold">
       Login to your account
     </h1>
-    <router-link to="/woocommerce/create-account" class="btn-link hovered text-xl">Register</router-link>
   </div>
+  <aside class="auth-wrapper">
+    <div class="flex justify-content-between login-platforms">
+      <Button
+        class="active-btn mr-2 w-6 font-bold border-1 surface-border surface-0 p-button-lg p-component text-900 inline-flex align-items-center justify-content-center">
+        <img src="@/assets/images/wo-logo-sm.png" alt="shopify logo" class="mr-2" />
+        <span class="ml-2">WooCommerce</span>
+      </Button>
+      <Button
+        class="ml-2 w-6 font-bold border-1 surface-border surface-0 p-button-lg p-component text-600 inline-flex align-items-center justify-content-center">
+        <img src="@/assets/images/shopify-logo-sm.png" alt="shopify logo" class="mr-2" />
+        <span class="ml-2">Shopify</span>
+      </Button>
+    </div>
 
-  <div class="flex justify-content-between mt-5 login-platforms">
-    <Button
-      class="active-btn mr-2 w-6 font-bold border-1 surface-border surface-0 p-button-lg p-component text-900 inline-flex align-items-center justify-content-center">
-      <img src="@/assets/images/wo-logo-sm.png" alt="shopify logo" class="mr-2" />
-      <span class="ml-2">WooCommerce</span>
-    </Button>
-    <Button
-      class="ml-2 w-6 font-bold border-1 surface-border surface-0 p-button-lg p-component text-600 inline-flex align-items-center justify-content-center">
-      <img src="@/assets/images/shopify-logo-sm.png" alt="shopify logo" class="mr-2" />
-      <span class="ml-2">Shopify</span>
-    </Button>
+    <form class="mt-6" autocomplete="current-password">
+      <div class="field">
+        <InputText
+          class="p-inputtext-lg mb-3 w-full"
+          id="email"
+          placeholder="Email address"
+          type="text"
+          v-model="loginForm.email" autocomplete="email">
+        </InputText>
+      </div>
+
+      <div class="field">
+        <Password
+          :feedback="false"
+          autocomplete="new-password"
+          class="mb-3 w-full p-inputtext-lg"
+          id="password"
+          placeholder="Password"
+          toggleMask
+          v-model="loginForm.password">
+        </Password>
+      </div>
+
+      <div class="flex align-items-center mb-6">
+        <router-link to="/forgot-password" class="btn-link hovered text-xl">Forgot password?</router-link>
+      </div>
+
+      <Button
+        :loading="loginForm.loading"
+        @click="loginHandler"
+        class="w-full p-button-lg"
+        iconPos="right"
+        label="Login">
+      </Button>
+
+      <Button
+        v-if="isDevelopment"
+        :loading="loginForm.loading"
+        @click="shopifyLoginHandler"
+        class="w-full p-button-lg mt-4"
+        icon="pi pi-user"
+        iconPos="right"
+        label="Shopify Login">
+      </Button>
+    </form>
+  </aside>
+
+  <div class="text-center">
+    <router-link :to="routes.PLATFORM_SELECTION">
+      <Button label="Dont't have an account? Register for Syncio" outlined raised class="p-button-lg outlined-button-hover w-75 mt-6"></Button>
+    </router-link>
   </div>
-
-  <form class="mt-6" autocomplete="current-password">
-    <div class="field">
-      <InputText
-        class="p-inputtext-lg mb-3 w-full"
-        id="email"
-        placeholder="Email address"
-        type="text"
-        v-model="loginForm.email" autocomplete="email">
-      </InputText>
-    </div>
-
-    <div class="field">
-      <Password
-        :feedback="false"
-        autocomplete="new-password"
-        class="p-inputtext-lg mb-3 w-full"
-        id="password"
-        placeholder="Password"
-        toggleMask
-        v-model="loginForm.password">
-      </Password>
-    </div>
-
-    <div class="flex align-items-center mb-6">
-      <router-link to="/forgot-password" class="btn-link hovered text-xl">Forgot password?</router-link>
-    </div>
-
-    <Button
-      :loading="loginForm.loading"
-      @click="loginHandler"
-      class="w-full p-button-lg"
-      iconPos="right"
-      label="Login">
-    </Button>
-
-    <Button
-      v-if="isDevelopment"
-      :loading="loginForm.loading"
-      @click="shopifyLoginHandler"
-      class="w-full p-button-lg mt-4"
-      icon="pi pi-user"
-      iconPos="right"
-      label="Shopify Login">
-    </Button>
-  </form>
 </template>

@@ -52,23 +52,15 @@ header {
     z-index: 2;
   }
 
-  .grid {
-    margin-left: -2rem;
-    margin-right: -2rem;
-  }
-
-  &-right {
+  &-wrapper {
     margin: {
       left: auto;
       right: auto;
     }
+    background: rgba(255, 255, 255, .35);
+    border-radius: var(--border-radius);
+    box-shadow: 0 0 4px rgba(255, 255, 255, .5);
     padding: 3rem !important;
-  }
-
-  &-right {
-    //backdrop-filter: blur(15px);
-    background: rgba(255, 255, 255, .6);
-    //border: 1.5px solid rgba(255, 255, 255, 0.5);
   }
 
   .active-btn {

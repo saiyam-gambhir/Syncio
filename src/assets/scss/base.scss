@@ -651,6 +651,12 @@ input.p-inputtext-lg {
   border-color: $primary;
 }
 
+.p-inputtext:is(.p-inputtext-lg, .p-password-input) {
+  padding-top: .25rem !important;
+  padding-bottom: .25rem !important;
+  height: 54px !important;
+}
+
 .p-invalid:enabled:focus {
   box-shadow: none;
   border-color: #ef4444;

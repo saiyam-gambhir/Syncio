@@ -37,6 +37,10 @@
     transition: color;
     color: $primary !important;
 
+    &:hover {
+      color: red !important;
+    }
+
     &:before {
       @extend .w-100;
     }
@@ -55,9 +59,22 @@
       color: $primary !important;
       font-weight: 600;
 
+      &:hover {
+        color: var(--link) !important;
+      }
+
       &:before {
         background: $primary !important;
+        display: none;
       }
     }
+  }
+}
+
+.outlined-button-hover {
+  background: rgba(255, 255, 255, .5) !important;
+
+  &:hover {
+    background: rgba(255, 255, 255, 1) !important;
   }
 }
