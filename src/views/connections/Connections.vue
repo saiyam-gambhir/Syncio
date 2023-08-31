@@ -96,15 +96,13 @@ const fetchProductsHandler = async (store) => {
           @click="fetchProductsHandler(connection)"
           class="p-button-sm"
           label="Products"
-          outlined
-          raised>
+          outlined>
         </Button>
         <Button
           @click="showDisconnectStoreDialog(connection)"
           class="ml-2 p-button-sm"
           label="Disconnect"
           outlined
-          raised
           severity="danger">
         </Button>
       </template>

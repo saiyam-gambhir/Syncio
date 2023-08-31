@@ -19,8 +19,7 @@ const closeDialogHandler = () => {
 </script>
 
 <template>
-  <DialogWrapper :isVisible="!online && auth.isNetworkDialogVisible" title="OOPS!" width="600px"
-    @closeDialog="closeDialogHandler" :showFooter="false">
+  <DialogWrapper :isVisible="!online && auth.isNetworkDialogVisible" title="OOPS!" width="600px" @closeDialog="closeDialogHandler" :showFooter="false">
     <template #body>
       <div class="text-center">
         <i class="pi pi-exclamation-triangle text-primary text-6xl mb-4" style="color: #d9342b !important"></i>

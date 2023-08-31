@@ -59,6 +59,10 @@ export const useConnectionsStore = defineStore('connections', {
       return currentStore?.created_at;
     },
 
+    storeDefaultCommission({ currentStore }) {
+      return currentStore?.default_commission_rate;
+    },
+
     storeId({ currentStore }) {
       return currentStore?.id;
     },

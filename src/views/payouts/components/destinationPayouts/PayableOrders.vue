@@ -44,8 +44,7 @@ const { formatCommission, formatCurrency } = useFilters();
         <Button
           class="p-button-sm"
           label="View details"
-          outlined
-          raised>
+          outlined>
         </Button>
       </template>
     </Column>

@@ -21,6 +21,7 @@ const handleTabChange = async index => {
 
     <TabView @update:activeIndex="handleTabChange" class="mt-4">
       <TabPanel header="Your Shop default">
+        <DefaultStoreCommission class="mt-4" />
       </TabPanel>
       <TabPanel header="By Store">
       </TabPanel>

@@ -29,11 +29,11 @@ const selectPlanHandler = (plan) => {
 
       <Message v-if="!plan?.syncio_plan.is_active && !isOnboarding" severity="info" :closable="false" class="mt-5 block message-warning">
         <h3 class="mb-2">New Free Plans Available</h3>
-        <h3 class="line-height-3 m-0 font-normal" style="text-transform: none !important;">
+        <h4 class="line-height-3 m-0 font-normal" style="text-transform: none !important;">
           We haven't made any changes to your account but there are new <span class="font-semibold">FREE</span> plans that could suit your needs.
           <br>
           To view, simply click on any plan option on the page.
-        </h3>
+        </h4>
       </Message>
 
       <div class="grid mt-4 pb-1">

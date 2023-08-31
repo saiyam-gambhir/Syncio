@@ -222,8 +222,7 @@ const searchHandler = async (searchText) => {
           @click="fetchOrderHandler(id)"
           class="p-button-sm"
           label="View Details"
-          outlined
-          raised>
+          outlined>
         </Button>
       </template>
     </Column>
@@ -240,7 +239,6 @@ const searchHandler = async (searchText) => {
       @click="fetchOrders(pagination?.current_page + 1, true)"
       class="p-button-lg font-semibold"
       outlined
-      raised
       label="Load More Orders"
       v-if="(pagination?.current_page !== pagination?.last_page)">
     </Button>

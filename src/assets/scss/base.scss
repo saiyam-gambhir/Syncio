@@ -566,6 +566,10 @@ input.p-inputtext-lg {
     }
   }
 }
+
+.line-height-3 {
+  line-height: 1.65 !important;
+}
 /* ----- OVERRIDES ----- */
 
 .theme-light .primary-navigation .router-link-active:not(.disabled) {

@@ -37,7 +37,7 @@ const props = defineProps({
 
       <div class="px-4 py-3 text-right border-top-1 surface-border">
         <router-link :to="href">
-          <Button label="Manage" outlined raised></Button>
+          <Button label="Manage" outlined></Button>
         </router-link>
       </div>
     </div>

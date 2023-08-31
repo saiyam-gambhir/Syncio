@@ -42,7 +42,7 @@ const closeDialogHandler = () => {
 
     <template #footer>
       <div class="flex align-items-center justify-content-between">
-        <Button label="Continue" outlined raised :loading="loadingPayment" @click="generateCharge"></Button>
+        <Button label="Continue" outlined :loading="loadingPayment" @click="generateCharge"></Button>
         <Button label="I changed my mind" @click="closeDialogHandler" class="mr-0"></Button>
       </div>
     </template>

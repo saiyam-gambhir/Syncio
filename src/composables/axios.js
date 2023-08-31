@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { useToasts } from '@/composables/toasts';
+import {app} from '@/main';
 
 class AxiosService {
   constructor() {
@@ -7,17 +9,25 @@ class AxiosService {
       timeout: 20000,
     });
 
+    debugger
+
     this.https.defaults.headers.common['x-syncio-app-id'] = import.meta.env.VITE_APP_ID;
+    const { showToast } = useToasts();
   }
+
+  getCleanedParams(params) {
+    return Object.fromEntries(
+      Object.entries(params).filter(([_, value]) => value !== null)
+    );
+  };
 
   async getData(url, params = {}) {
     this.https.defaults.headers.common['Authorization'] = `Bearer ${sessionStorage.getItem('ID_TOKEN_KEY')}`;
 
     try {
-      const cleanedParams = Object.fromEntries(
-        Object.entries(params).filter(([_, value]) => value !== null)
-      );
+      const cleanedParams = this.getCleanedParams(params);
       const response = await this.https.get(url, { params: cleanedParams });
+      showToast({ message: 'Hello' });
       return response.data;
     } catch (error) {
       console.error('Error:', error.message);
@@ -28,10 +38,7 @@ class AxiosService {
   async postData(url, params = {}) {
     this.https.defaults.headers.common['Authorization'] = `Bearer ${sessionStorage.getItem('ID_TOKEN_KEY')}`;
     try {
-      const cleanedParams = Object.fromEntries(
-        Object.entries(params).filter(([_, value]) => value !== null)
-      );
-
+      const cleanedParams = this.getCleanedParams(params);
       const response = await this.https.post(url, { ...cleanedParams });
       return response.data;
     } catch (error) {

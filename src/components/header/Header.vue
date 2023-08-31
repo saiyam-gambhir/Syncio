@@ -69,7 +69,7 @@ const logout = () => {
         icon="pi pi-arrow-left"
         iconPos="left"
         outlined
-        raised @click="goBackHandler"
+        @click="goBackHandler"
         v-tooltip.right="'Back'">
       </Button>
     </div>

@@ -171,10 +171,10 @@ const getProductSyncStatus = product => {
       <Column header="Actions" style="width: 15%" class="text-right">
         <template #body="{ data: { external_product_id, mapper_id, store_id } }" v-if="isDestinationStore">
           <div v-if="mapper_id">
-            <SplitButton label="View Details" class="p-button-sm" outlined raised :model="syncedActions" @click="getProductDetails({ externalProductId: external_product_id, targetStoreId: store_id })" />
+            <SplitButton label="View Details" class="p-button-sm" outlined :model="syncedActions" @click="getProductDetails({ externalProductId: external_product_id, targetStoreId: store_id })" />
           </div>
           <div v-else>
-            <SplitButton label="View Details" class="p-button-sm" outlined raised :model="unSyncedActions" @click="getProductDetails({ externalProductId: external_product_id, targetStoreId: store_id })" />
+            <SplitButton label="View Details" class="p-button-sm" outlined :model="unSyncedActions" @click="getProductDetails({ externalProductId: external_product_id, targetStoreId: store_id })" />
           </div>
         </template>
       </Column>
