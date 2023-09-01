@@ -1,5 +1,6 @@
 <script setup>
 import { useAuthStore } from 'auth';
+import * as routes from '@/routes';
 
 /* ----- Data ----- */
 const auth = useAuthStore();
@@ -11,16 +12,8 @@ const isFormDisabled = computed(() => {
 </script>
 
 <template>
-  <div class="text-center">
-    <h1 class="text-5xl line-height-3 m-0 font-bold">
-      Reset my passsword
-    </h1>
+  <PageDetails title="Reset my passsword" content="Enter your Syncio account's email to reset your password. <br /> We'll send you an email with a link and instruction." />
 
-    <p class="font-semibold text-2xl line-height-3 mt-2 mb-6">
-      Enter your Syncio account's email to reset your password. <br />
-      We'll send you an email with a link and instruction.
-    </p>
-  </div>
   <aside class="auth-wrapper">
     <Message v-if="auth.forgotPasswordForm.emailSent" severity="success" :closable="false" class="p-message-lg mt-1 mb-0">
       Email sent to {{ auth.forgotPasswordForm.email }} <br />
@@ -42,6 +35,6 @@ const isFormDisabled = computed(() => {
       If you still need help contact
       <a href="mailto:support@syncio.co" class="btn-link text-xl">support@syncio.co</a>
     </p>
-    <router-link to="/login" class="btn-link hovered text-xl">Go back</router-link>
+    <router-link :to="routes.LOGIN" class="btn-link hovered text-xl">Go back</router-link>
   </div>
 </template>

@@ -3,24 +3,19 @@ import * as routes from '@/routes';
 </script>
 
 <template>
-  <div class="text-center">
-    <h1 class="text-5xl line-height-3 m-0 font-bold">
-      Welcome, Let's get started!
-    </h1>
+  <PageDetails title="Welcome, Let's get started!" content="Free 14 day trial for WooCommerce Destination accounts!" />
 
-    <p class="font-semibold text-2xl line-height-3 mt-2 mb-6">
-      Free 14 day trial for WooCommerce Destination accounts!
-    </p>
-  </div>
   <aside class="auth-wrapper text-center" style="width: 150%; margin-left: -25%;">
     <div class="grid">
       <div class="col-4 py-0">
-        <CardWrapper class="platform text-center">
-          <template #content>
-            <img src="@/assets/images/wo-logo-sm.png" alt="Woocommerce logo" style="height: 150px;" class="mt-3" />
-            <h2 class="mt-5 mb-3">Woocommerce</h2>
-          </template>
-        </CardWrapper>
+        <router-link :to="routes.WOO_CREATE_ACCOUNT">
+          <CardWrapper class="platform text-center">
+            <template #content>
+              <img src="@/assets/images/wo-logo-sm.png" alt="Woocommerce logo" style="height: 150px;" class="mt-3" />
+              <h2 class="mt-5 mb-3">Woocommerce</h2>
+            </template>
+          </CardWrapper>
+        </router-link>
       </div>
       <div class="col-4 py-0">
         <CardWrapper class="platform text-center">
@@ -51,7 +46,6 @@ import * as routes from '@/routes';
 <style scoped>
 .platform {
   background: rgba(255, 255, 255, .5) !important;
-  cursor: pointer;
   transition: .25s background;
 
   &:hover {

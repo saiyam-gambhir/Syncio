@@ -20,7 +20,7 @@ const router = createRouter({
       component: () => import('@/views/login/LoginView.vue'),
       meta: { layout: LoggedOut },
       name: routes.LOGIN,
-      path: '/login',
+      path: routes.LOGIN,
     },
     {
       component: () => import('@/views/registration/PlatformSelection.vue'),
@@ -28,6 +28,16 @@ const router = createRouter({
       name: routes.PLATFORM_SELECTION,
       path: '/registration',
     },
+
+    /* ----- Woocommerce ----- */
+    {
+      component: () => import('@/views/registration/woocommerce/CreateAccount.vue'),
+      meta: { layout: LoggedOut },
+      name: routes.WOO_CREATE_ACCOUNT,
+      path: routes.WOO_CREATE_ACCOUNT,
+    },
+    /* ----- Woocommerce ----- */
+
     {
       component: () => import('@/views/registration/woocommerce/ForgotPassword.vue'),
       meta: { layout: LoggedOut },
