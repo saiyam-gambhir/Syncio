@@ -1,5 +1,6 @@
 import { useConnectionsStore } from 'connections';
 import { usePlanStore } from 'plan';
+import * as routes from '@/routes';
 import router from '@/router';
 
 export const login = {
@@ -20,7 +21,7 @@ export const login = {
       this.$https.defaults.headers.common['Authorization'] = `Bearer ${sessionStorage.getItem('ID_TOKEN_KEY')}`;
       await connections.fetchCurrentStore();
       await plan.fetchCurrentPlan(sessionStorage.getItem('USER_ID'));
-      router.replace('/');
+      router.replace({ name: routes.DASHBOARD });
       this.loginForm.loading = false;
     }
   },

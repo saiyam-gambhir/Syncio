@@ -4,6 +4,7 @@ import deepmerge from 'deepmerge';
 import { fetchUser } from './actions/fetchUser';
 import { forgotPassword } from './actions/forgotPassword';
 import { login } from './actions/login';
+import { registerUser } from './actions/registerUser';
 import { shopifyLogin } from './actions/shopifyLogin';
 
 export const useAuthStore = defineStore('auth', {
@@ -73,6 +74,7 @@ export const useAuthStore = defineStore('auth', {
     fetchUser,
     forgotPassword,
     login,
+    registerUser,
     shopifyLogin,
   ]),
 });

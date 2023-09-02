@@ -30,7 +30,7 @@ const isSettingsPath = computed(() => {
       <div class="nav-wrapper select-none">
         <ul v-if="isDestinationStore" class="primary-navigation list-none p-4 pb-2 m-0">
           <li>
-            <NavLink linkText="Dashboard" />
+            <NavLink linkText="Dashboard" :href="routes.DASHBOARD" />
           </li>
           <li class="mt-2">
             <NavLink href="/marketplace" iconClass="pi-shopping-bag" linkText="Syncio Marketplace" />
@@ -61,7 +61,7 @@ const isSettingsPath = computed(() => {
         <!-- Source Store Navigation -->
         <ul v-else class="primary-navigation list-none pb-5 pt-4 px-3 m-0">
           <li>
-            <NavLink linkText="Dashboard" />
+            <NavLink linkText="Dashboard" :href="routes.DASHBOARD" />
           </li>
           <li class="mt-2">
             <NavLink href="/marketplace" iconClass="pi-shopping-bag" linkText="Syncio Marketplace" />

@@ -60,7 +60,7 @@ const router = createRouter({
       component: DashboardView,
       meta: { ...meta },
       name: routes.DASHBOARD,
-      path: '/',
+      path: '/dashboard',
     },
     {
       component: () => import('@/views/marketplace/MarketplaceView.vue'),

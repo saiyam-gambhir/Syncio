@@ -1,6 +1,6 @@
 export const ACCOUNT_SETTINGS = 'account-settings';
 export const ACTIVITY_CENTER = 'activity-center';
-export const DASHBOARD = 'dashboard';
+export const DASHBOARD = '/dashboard';
 export const FORGOT_PASSWORD = 'forgot-password';
 export const LOGIN = '/';
 export const MARKETPLACE = 'marketplace';

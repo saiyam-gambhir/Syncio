@@ -4,6 +4,7 @@ import * as routes from '@/routes';
 
 /* ----- Data ----- */
 const {
+  registerUser,
   registrationForm,
 } = toRefs(useAuthStore());
 </script>
@@ -58,6 +59,8 @@ const {
       </div>
 
       <Button
+        :loading="registrationForm.loading"
+        @click="registerUser"
         class="w-full p-button-lg"
         iconPos="right"
         label="Create Syncio account">
