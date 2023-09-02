@@ -1,31 +1,32 @@
 <script setup>
-import { usePlanStore } from 'plan';
 import { useConnectionsStore } from 'connections';
 import { usePayouts } from './composables/payouts';
 import { usePayoutsStore } from 'payouts';
+import { usePlanStore } from 'plan';
+import * as routes from '@/routes';
 
 /* ----- Components ----- */
 const PayableOrders = defineAsyncComponent(() => import('./components/destinationPayouts/PayableOrders.vue'));
 
 /* ----- Data ----- */
 const { activeTabIndex } = toRefs(usePayoutsStore());
-const { fetchPayableOrdersHandler, fetchPaidPayoutsHandler } = usePayouts();
-const { isDestinationStore, isSourceStore } = useConnectionsStore();
 const { addons } = toRefs(usePlanStore());
+const { fetchPayableOrdersHandler, fetchPaidPayoutsHandler } = toRefs(usePayouts());
+const { isDestinationStore, isSourceStore } = toRefs(useConnectionsStore());
 const router = useRouter();
 
 /* ----- Mounted ----- */
 onMounted(async () => {
   if (!addons.value.isPayoutsModuleAvailable && isDestinationStore.value) {
     router.push({
-      path: '/',
+      path: routes.DASHBOARD,
       query: { showUpgrade: 'true', type: 'payouts' },
     });
     return;
   }
 
-  await fetchPayableOrdersHandler();
-  await fetchPaidPayoutsHandler();
+  await fetchPayableOrdersHandler.value();
+  await fetchPaidPayoutsHandler.value();
 });
 
 /* ----- Methods ----- */

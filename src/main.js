@@ -11,7 +11,7 @@ import { useConnectionsStore } from 'connections';
 import { useMarketPlaceStore } from 'marketPlace';
 import { useOrdersStore } from 'orders';
 import { usePayoutsStore } from 'payouts';
-import { usePlanStore } from './stores/plan';
+import { usePlanStore } from 'plan';
 import { useProductSettingsStore } from 'productSettings';
 import { useProductsStore } from 'products';
 
@@ -203,9 +203,7 @@ router.beforeEach(async (to, from, next) => {
 
     auth.isAuthenticated = true;
 
-    Object.assign($https.defaults.headers.common, {
-      Authorization: `Bearer ${ID_TOKEN_KEY}`,
-    });
+    Object.assign($https.defaults.headers.common, { Authorization: `Bearer ${ID_TOKEN_KEY}` });
 
     if (!auth.user) {
       const userId = sessionStorage.getItem('USER_ID');

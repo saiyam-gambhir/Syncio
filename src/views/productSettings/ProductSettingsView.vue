@@ -3,6 +3,7 @@ import { useAuthStore } from 'auth';
 import { useConnectionsStore } from 'connections';
 import { usePlanStore } from 'plan';
 import { useProductSettingsStore } from 'productSettings';
+import * as routes from '@/routes';
 
 /* ----- Components ----- */
 const LeavingPageDialog = defineAsyncComponent(() => import('@/components/shared/LeavingPageDialog.vue'));
@@ -47,7 +48,7 @@ const routeTo = ref(null);
 onMounted(async () => {
   if (!addons.value.isSettingsModuleAvailable && isDestinationStore.value) {
     router.push({
-      path: '/',
+      path: routes.DASHBOARD,
       query: { showUpgrade: 'true', type: 'product-settings' },
     });
     return;

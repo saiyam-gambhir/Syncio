@@ -1,7 +1,8 @@
 <script setup>
-import { usePlanStore } from 'plan';
 import { useOrders } from './composables/orders';
 import { useOrdersStore } from 'orders';
+import { usePlanStore } from 'plan';
+import * as routes from '@/routes';
 
 /* ----- Components ----- */
 const OrderDetails = defineAsyncComponent(() => import('./components/OrderDetails.vue'));
@@ -41,7 +42,7 @@ const router = useRouter();
 onMounted(async () => {
   if (!addons.value.isOrderModuleAvailable) {
     router.push({
-      path: '/',
+      path: routes.DASHBOARD,
       query: { showUpgrade: 'true', type: 'orders' },
     });
     return;

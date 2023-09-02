@@ -77,4 +77,17 @@ export const useAuthStore = defineStore('auth', {
     registerUser,
     shopifyLogin,
   ]),
+
+  // persist: {
+  //   enabled: true,
+  //   strategies: [
+  //     {
+  //       key: 'auth',
+  //       storage: sessionStorage,
+  //       paths: [
+  //         'user'
+  //       ],
+  //     },
+  //   ],
+  // },
 });

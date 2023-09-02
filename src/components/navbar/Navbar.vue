@@ -122,8 +122,8 @@ const isSettingsPath = computed(() => {
 
         <template #footer>
           <div class="flex align-items-center justify-content-between">
-            <Button label="Cancel" outlined @click="closeDialogHandler"></Button>
-            <Button label="Manage Plan" class="p-button-lg mr-0" @click="goToPlanSelectionPage"></Button>
+            <Button label="Cancel" class="p-button-secondary" @click="closeDialogHandler"></Button>
+            <Button label="Manage Plan" class="mr-0" @click="goToPlanSelectionPage"></Button>
           </div>
         </template>
       </DialogWrapper>
