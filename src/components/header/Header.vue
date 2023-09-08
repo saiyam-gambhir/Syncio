@@ -10,8 +10,17 @@ import { useProductSettingsStore } from 'productSettings';
 import { useProductsStore } from 'products';
 import * as routes from '@/routes';
 
+/* ----- Components ----- */
+const ShopifyPermissionsDialog = defineAsyncComponent(() => import('./components/ShopifyPermissionsDialog.vue'));
+
 /* ----- Data ----- */
-const { storeName, storeType } = useConnectionsStore();
+const {
+  fetchMetadata,
+  shopifyPermissions,
+  storeName,
+  storeType,
+} = toRefs(useConnectionsStore());
+
 const activityCenter = useActivityCenterStore();
 const auth = useAuthStore();
 const marketPlace = useMarketPlaceStore();
@@ -22,19 +31,19 @@ const plan = usePlanStore();
 const products = useProductsStore();
 const productSettings = useProductSettingsStore();
 const router = useRouter();
-
 const items = ref([
   {
     label: '',
     items: [
-      {
-        label: 'Logout',
-        icon: 'pi pi-logout',
-        command: () => logout()
-      },
+      { label: 'Logout', icon: 'pi pi-logout', command: () => logout() },
     ]
   },
 ]);
+
+/* ----- Mounted ----- */
+onMounted(() => {
+  fetchMetadata.value();
+});
 
 /* ----- Methods ----- */
 const goBackHandler = () => {
@@ -88,5 +97,7 @@ const logout = () => {
       </Button>
       <Menu ref="menu" id="overlay_menu" :model="items" :popup="true" />
     </div>
+
+    <ShopifyPermissionsDialog v-if="shopifyPermissions.showPermissionsDialog" />
   </header>
 </template>

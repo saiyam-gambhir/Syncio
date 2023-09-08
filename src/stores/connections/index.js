@@ -7,6 +7,7 @@ import { deleteConnection } from './actions/deleteConnection';
 import { fetchConnections } from './actions/fetchConnections';
 import { fetchCurrentStore } from './actions/fetchCurrentStore';
 import { fetchDestinationLocations } from './actions/fetchDestinationLocations';
+import { fetchMetadata } from './actions/fetchMetadata';
 import { invitePartnerStore } from './actions/invitePartnerStore';
 import { showToast } from './actions/showToast';
 import { toggleMultilocation } from './actions/toggleMultilocation';
@@ -33,6 +34,10 @@ export const useConnectionsStore = defineStore('connections', {
       loadingLocationChange: false,
       selectedConnection: {},
       toast: useToast(),
+      shopifyPermissions: {
+        showPermissionsDialog: false,
+        link: null,
+      },
       sortOptions: [
         {
           icon: 'pi pi-sort-alpha-up',
@@ -110,6 +115,7 @@ export const useConnectionsStore = defineStore('connections', {
     fetchConnections,
     fetchCurrentStore,
     fetchDestinationLocations,
+    fetchMetadata,
     invitePartnerStore,
     showToast,
     toggleMultilocation,
