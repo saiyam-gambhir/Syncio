@@ -37,9 +37,12 @@ const handleTabChange = async index => {
 
 <template>
   <!-- Page Header -->
-  <PageHeader
-    content="Manage Payouts for fulfilled orders"
-    title="Manage Payouts">
+  <PageHeader content="Manage Payouts for fulfilled orders" title="Manage Payouts" withActions>
+    <template #actions>
+      <router-link to="/settings/payouts-settings">
+        <Button label="Payouts settings" outlined class="ml-4"></Button>
+      </router-link>
+    </template>
   </PageHeader>
 
   <!-- Destination Payouts -->

@@ -40,7 +40,7 @@ const showDisconnectAndKeepDialog = () => {
             <IconLinkOff />
             <h2 class="mb-3 mt-4">Disconnect and Keep</h2>
             <p class="mt-0">Unsync without deleting the product from your destination store.</p>
-            <Button class="p-button-lg block w-100 font-semibold mt-6" @click="showDisconnectAndKeepDialog">Disconnect and Keep</Button>
+            <Button outlined class="p-button-lg block w-100 font-semibold mt-6" @click="showDisconnectAndKeepDialog">Disconnect and Keep</Button>
           </div>
         </div>
 
@@ -49,7 +49,7 @@ const showDisconnectAndKeepDialog = () => {
             <i class="pi pi-trash icon-trash"></i>
             <h2 class="mb-3 mt-4">Disconnect and Delete</h2>
             <p class="mt-0">Unsync and delete the product from your destination store.</p>
-            <Button severity="danger" class="p-button-lg block w-100 font-semibold mt-6" @click="showDisconnectAndDeleteDialog">Disconnect and Delete</Button>
+            <Button severity="danger" outlined class="p-button-lg block w-100 font-semibold mt-6" @click="showDisconnectAndDeleteDialog">Disconnect and Delete</Button>
           </div>
         </div>
       </section>

@@ -21,12 +21,17 @@ const updateCurrentPageHandler = page => {
 </script>
 
 <template>
-  <div class="filters-wrapper mb-6">
-    <h2 class="pt-4 mt-0 border-bottom">All {{ partnerStoreType }}s ({{ pagination?.total_count }})</h2>
+  <div class="filters-wrapper mb-4">
+    <div class="pt-4 flex align-items-center justify-content-between">
+      <h2 class="m-0 border-bottom">All {{ partnerStoreType }}s ({{ pagination?.total_count }})</h2>
+      <router-link to="/settings/marketplace-settings">
+        <Button label="Marketplace settings" outlined></Button>
+      </router-link>
+    </div>
 
     <Divider></Divider>
 
-    <div class="grid filters">
+    <div class="grid filters mt-4">
       <div class="col-3">
         <Dropdown
           :autoOptionFocus="false"

@@ -71,8 +71,16 @@ const showMessageDialogHandler = profile => {
         <div class="mt-2 mb-0">
           <AppLink label="Website" :link="profile.website" />
         </div>
+
         <Divider />
-        <Button label="Message" class="absolute" outlined @click="showMessageDialogHandler(profile)"></Button>
+
+        <Button
+          @click="showMessageDialogHandler(profile)"
+          class="absolute"
+          label="Message"
+          outlined
+          style="right: 2rem;">
+        </Button>
       </div>
     </div>
   </div>

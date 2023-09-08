@@ -37,6 +37,7 @@ const {
 
 const options = ref(['Off', 'On']);
 const router = useRouter();
+const route = useRoute();
 
 /* ----- Mounted ----- */
 onMounted(async () => {
@@ -125,7 +126,7 @@ const searchHandler = async (searchText) => {
         <SelectButton v-model="orders.isAutoPushEnabled" :options="options" aria-labelledby="single" @change="toggleAutoPushHandler" />
       </div>
       <router-link to="/orders/push-settings">
-        <Button label="Push Settings" class="ml-4"></Button>
+        <Button label="Settings" outlined class="ml-4"></Button>
       </router-link>
     </template>
   </PageHeader>

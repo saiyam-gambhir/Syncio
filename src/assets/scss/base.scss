@@ -1,7 +1,7 @@
 :root {
   /* ----- Dimensions ----- */
   --banner-height: 536px;
-  --border-radius: 6px;
+  --border-radius: 8px;
   --font-size: 13px;
   --image-placeholder-height: 224px;
   --container-width: 1240px;
@@ -17,7 +17,7 @@
   --image-placeholder-background: #f4f4f4;
   --indicator-background: #c7c7c7;
   --input-background: #fafafa;
-  --link: #0d99ff;
+  --link: #108de6;
   --pagination: rgb(242, 242, 242);
   --primary-color: #0e3b4d;
   --text-dark: #212121;
@@ -192,6 +192,8 @@ td {
   }
 
   .p-button {
+    border-radius: var(--border-radius);
+
     &:hover {
       background: $primaryButtonHover;
       border-color: $primaryButtonHover;
@@ -654,7 +656,7 @@ input.p-inputtext-lg {
 .p-inputtext:is(.p-inputtext-lg, .p-password-input) {
   padding-top: .25rem !important;
   padding-bottom: .25rem !important;
-  height: 54px !important;
+  height: 46px !important;
 }
 
 .p-invalid:enabled:focus {

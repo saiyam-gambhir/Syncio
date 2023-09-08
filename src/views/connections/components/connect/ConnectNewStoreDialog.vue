@@ -75,7 +75,7 @@ const closeDialogHandler = () => {
     </template>
 
     <template #footer>
-      <div v-if="isInviteViaEmailRequested">
+      <div v-if="isInviteViaEmailRequested" class="flex align-items-center justify-content-between">
         <Button
           @click="isInviteViaEmailRequested = false"
           class="p-button-secondary"
@@ -85,11 +85,12 @@ const closeDialogHandler = () => {
           :disabled="!emailAddress"
           :loading="isSendingInvitation"
           @click="invitePartnerStoreHandler(emailAddress)"
+          class="mr-0"
           label="Send Invite">
         </Button>
       </div>
 
-      <div v-if="isConnectViaStoreKeyRequested">
+      <div v-if="isConnectViaStoreKeyRequested" class="flex align-items-center justify-content-between">
         <Button
           @click="isConnectViaStoreKeyRequested = false"
           class="p-button-secondary"
@@ -99,6 +100,7 @@ const closeDialogHandler = () => {
           :disabled="!uniqueKey"
           :loading="isSendingInvitation"
           @click="connectPartnerStoreHandler(uniqueKey)"
+          class="mr-0"
           label="Connect">
         </Button>
       </div>

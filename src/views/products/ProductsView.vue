@@ -86,9 +86,10 @@ const getProductSyncStatus = product => {
       </StoresFilter>
 
       <Button
-        v-if="selectedStoreId"
         class="ml-5 bulk-mapper-btn"
-        label="Bulk Mapper">
+        label="Bulk Mapper"
+        outlined
+        v-if="selectedStoreId">
       </Button>
     </template>
   </PageHeader>
