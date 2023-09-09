@@ -1,35 +1,46 @@
+import { useConnectionsStore } from 'connections';
 import deepmerge from 'deepmerge';
 
-/* ----- ACTIONS ----- */
-import { fetchPaidPayouts } from './actions/api/fetchPaidPayouts';
-import { fetchPayableOrders } from './actions/api/fetchPayableOrders';
-import { setDateRangeFilter } from './actions/state/setDateRangeFilter';
-import { setStatusFilter } from './actions/state/setStatusFilter';
+/* ----- Actions ----- */
+import { fetchPaidPayouts } from './actions/fetchPaidPayouts';
+import { fetchPayableOrders } from './actions/fetchPayableOrders';
+import { fetchUnpaidPayouts } from './actions/fetchUnpaidPayouts';
+import { setDateRangeFilter } from './actions/setDateRangeFilter';
+import { setStatusFilter } from './actions/setStatusFilter';
+import { updatePayout } from './actions/updatePayout';
 
 export const usePayoutsStore = defineStore('payouts', {
   state: () => {
     return {
       activeTabIndex: 0,
-      dashboardStats: null,
       limiter: 10,
       completePayouts: { items: [], pagination: {} },
       openPayouts: { items: [], pagination: {} },
       paidPayouts: { items: [], loading: true, pagination: {} },
       payableOrders: { items: [], pagination: {} },
       payablePayouts: { items: [], pagination: {} },
-      unPaidPayouts: { items: [], loading: true, pagination: {} },
+      unpaidPayouts: { items: [], loading: true, pagination: {} },
       queries: {
-        'filters[date_range]': null,
+        'filters[date_range]': '2023-06-11 to 2023-09-09',
         'filters[status]': null,
       },
     };
   },
 
+  getters: {
+    storeId() {
+      const { storeId } = useConnectionsStore();
+      return storeId;
+    }
+  },
+
   actions: deepmerge.all([
     fetchPaidPayouts,
     fetchPayableOrders,
+    fetchUnpaidPayouts,
     setDateRangeFilter,
     setStatusFilter,
+    updatePayout,
   ]),
 
   persist: {

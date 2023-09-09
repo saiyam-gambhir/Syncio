@@ -15,31 +15,35 @@ const { formatCommission, formatCurrency } = useFilters();
       </template>
     </Column>
 
-    <Column header="Unpaid orders" style="width: 13.5%">
+    <Column header="Unpaid orders" style="width: 12%;" class="text-center">
       <template #body="{ data: { unpaid_orders } }">
-        {{ unpaid_orders }}
+        <Tag severity="info">{{ unpaid_orders }}</Tag>
       </template>
     </Column>
 
-    <Column header="Total sales" style="width: 15.5%">
+    <Column header="Total sales" style="width: 14%" class="text-right">
       <template #body="{ data: { total_sales } }">
-        {{ formatCurrency(total_sales) }}
+        <span class="tabular-nums">
+          {{ formatCurrency(total_sales) }}
+        </span>
       </template>
     </Column>
 
-    <Column header="Total commissions" style="width: 14.5%">
+    <Column header="Total commissions" style="width: 13%" class="text-right">
       <template #body="{ data: { commission_type, total_commissions } }">
-        {{ formatCommission(commission_type, total_commissions) }}
+        <span class="tabular-nums">
+          {{ formatCommission(commission_type, total_commissions) }}
+        </span>
       </template>
     </Column>
 
-    <Column header="Payout amount" style="width: 13.5%">
+    <Column header="Payout amount" style="width: 12%" class="text-right">
       <template #body="{ data: { payout_amount } }">
-        <strong>{{ formatCurrency(payout_amount) }}</strong>
+        <strong class="tabular-nums">{{ formatCurrency(payout_amount) }}</strong>
       </template>
     </Column>
 
-    <Column header="Actions" style="width: 10%" class="text-right">
+    <Column header="Actions" style="width: 16.5%" class="text-right">
       <template #body="{}">
         <Button
           class="p-button-sm"

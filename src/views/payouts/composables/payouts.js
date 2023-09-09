@@ -1,21 +1,19 @@
 import { usePayoutsStore } from 'payouts';
-import { useConnectionsStore } from 'connections';
 
 export function usePayouts() {
-  const { storeId } = useConnectionsStore();
   const payouts = usePayoutsStore();
+
   const {
     fetchPaidPayouts,
     fetchPayableOrders,
     fetchPayablePayouts,
     fetchUnpaidPayouts,
-    SET_DATE_RANGE_FILTER,
     SET_STATUS_FILTER,
     updatePayout,
   } = usePayoutsStore();
 
   const fetchPayableOrdersHandler = async () => {
-    await fetchPayableOrders(storeId);
+    await fetchPayableOrders();
   };
 
   const fetchPayablePayoutsHandler = async targetStoreId => {
@@ -32,10 +30,24 @@ export function usePayouts() {
     await fetchPaidPayouts();
   };
 
-  const updatePayoutHandler = async ({ payout_id, status, activeTabIndex }) => {
-    const payload = { current_store_id: storeId, payout_id, status };
-    await updatePayout(payload);
-    payouts.$patch({ activeTabIndex });
+  const handleTabChange = async index => {
+    payouts.$patch({ activeTabIndex: index })
+  };
+
+  const updatePayoutHandler = async (payoutId, status) => {
+    const payload = { payoutId, status };
+    const success = await updatePayout(payload);
+    if(success) {
+      switch (status) {
+        case 'paid':
+          await payouts.$patch({ activeTabIndex: 2 });
+          break;
+
+        case 'unpaid':
+          await payouts.$patch({ activeTabIndex: 1 });
+          break;
+      }
+    }
   };
 
   return {
@@ -43,6 +55,7 @@ export function usePayouts() {
     fetchPayableOrdersHandler,
     fetchPayablePayoutsHandler,
     fetchUnpaidPayoutsHandler,
+    handleTabChange,
     payouts,
     updatePayoutHandler,
   };

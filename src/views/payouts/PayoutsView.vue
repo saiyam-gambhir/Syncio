@@ -4,15 +4,32 @@ import { usePayouts } from './composables/payouts';
 import { usePayoutsStore } from 'payouts';
 import { usePlanStore } from 'plan';
 import * as routes from '@/routes';
+import { watch } from 'vue';
 
 /* ----- Components ----- */
+const Paid = defineAsyncComponent(() => import('./components/destinationPayouts/Paid.vue'));
 const PayableOrders = defineAsyncComponent(() => import('./components/destinationPayouts/PayableOrders.vue'));
+const Unpaid = defineAsyncComponent(() => import('./components/destinationPayouts/Unpaid.vue'));
 
 /* ----- Data ----- */
-const { activeTabIndex } = toRefs(usePayoutsStore());
-const { addons } = toRefs(usePlanStore());
-const { fetchPayableOrdersHandler, fetchPaidPayoutsHandler } = toRefs(usePayouts());
-const { isDestinationStore, isSourceStore } = toRefs(useConnectionsStore());
+const {
+  isDestinationStore,
+  isSourceStore
+} = toRefs(useConnectionsStore());
+
+const {
+  activeTabIndex
+} = toRefs(usePayoutsStore());
+
+const {
+  addons
+} = toRefs(usePlanStore());
+
+const {
+  fetchPayableOrdersHandler,
+  handleTabChange,
+} = usePayouts();
+
 const router = useRouter();
 
 /* ----- Mounted ----- */
@@ -25,19 +42,13 @@ onMounted(async () => {
     return;
   }
 
-  await fetchPayableOrdersHandler.value();
-  await fetchPaidPayoutsHandler.value();
+  await fetchPayableOrdersHandler();
 });
-
-/* ----- Methods ----- */
-const handleTabChange = async index => {
-  activeTabIndex.value = index;
-};
 </script>
 
 <template>
   <!-- Page Header -->
-  <PageHeader content="Manage Payouts for fulfilled orders" title="Manage Payouts" withActions>
+  <PageHeader content="Manage Payouts for fulfilled orders" title="Payouts" withActions>
     <template #actions>
       <router-link to="/settings/payouts-settings">
         <Button label="Payouts settings" outlined class="ml-4"></Button>
@@ -46,13 +57,15 @@ const handleTabChange = async index => {
   </PageHeader>
 
   <!-- Destination Payouts -->
-  <TabView v-if="isDestinationStore" @update:activeIndex="handleTabChange" class="mt-4">
+  <TabView v-if="isDestinationStore" v-model:activeIndex="activeTabIndex" @update:activeIndex="handleTabChange" class="mt-4">
     <TabPanel header="Payable Orders">
-      <PayableOrders />
+      <PayableOrders v-if="activeTabIndex === 0" />
     </TabPanel>
     <TabPanel header="Unpaid">
+      <Unpaid v-if="activeTabIndex === 1" />
     </TabPanel>
     <TabPanel header="Paid">
+      <Paid v-if="activeTabIndex === 2" />
     </TabPanel>
   </TabView>
 

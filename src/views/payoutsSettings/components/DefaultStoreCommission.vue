@@ -59,6 +59,7 @@ const cancelHandler = () => {
 
           <div class="p-inputgroup w-50 mt-4">
             <InputNumber
+              :disabled="!storeDefaultCommissionRate.type"
               :maxFractionDigits="2"
               :useGrouping="false"
               placeholder="Enter Rate"

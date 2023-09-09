@@ -182,7 +182,7 @@ const pushOrderHandler = async (targetStoreId) => {
 
                 <template v-else>
                   <div v-if="!store.is_mapper_deleted && !store.store_disconnected">
-                    <Tag severity="danger" :value="store.push_status" icon="pi pi-times" />
+                    <Tag severity="danger" :value="store.push_status" />
                     <p class="mb-0 mt-2 text-error font-semibold" v-if="order.push_status === 'pushed'">Location changed</p>
                     <p class="mb-0 mt-2 text-error font-semibold" v-else>Blocked by Syncio location mismatching</p>
                   </div>
