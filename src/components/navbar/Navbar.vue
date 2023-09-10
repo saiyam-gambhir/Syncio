@@ -5,9 +5,23 @@ import { useUpgradeDialog } from '@/composables/upgradeDialog';
 import * as routes from '@/routes';
 
 /* ----- Data ----- */
-const { closeDialogHandler, goToPlanSelectionPage } = useUpgradeDialog();
-const { isConnectionStatusPending, isDestinationStore } = toRefs(useConnectionsStore());
-const auth = useAuthStore();
+const {
+  isUpgradeDialogRequested,
+  showOrdersUpgradeDialog,
+  showPayoutsUpgradeDialog,
+  showProductSettingsUpgradeDialog,
+} = toRefs(useAuthStore());
+
+const {
+  closeDialogHandler,
+  goToPlanSelectionPage,
+} = useUpgradeDialog();
+
+const {
+  isConnectionStatusPending,
+  isDestinationStore,
+} = toRefs(useConnectionsStore());
+
 const route = useRoute();
 
 /* ----- Computed ----- */
@@ -88,10 +102,10 @@ const isSettingsPath = computed(() => {
       <AddonsUsageIndicator v-if="isDestinationStore" />
 
       <!-- No Addons Found Dialogs -->
-      <DialogWrapper :isVisible="auth.isUpgradeDialogRequested" title="This is an add-on feature" width="600px" @closeDialog="closeDialogHandler">
+      <DialogWrapper :isVisible="isUpgradeDialogRequested" title="This is an add-on feature" width="600px" @closeDialog="closeDialogHandler">
         <template #body>
           <div class="text-center">
-            <template v-if="auth.showOrdersUpgradeDialog">
+            <template v-if="showOrdersUpgradeDialog">
               <i class="pi pi-file text-primary text-6xl mb-4"></i>
               <h1 class="text-primary">Sync more than just inventory</h1>
               <p class="text-xl line-height-3">
@@ -100,7 +114,7 @@ const isSettingsPath = computed(() => {
               <AppLink label="Learn more" link="https://help.syncio.co/en/articles/4163480-orders-add-on" class="text-xl my-2" />
             </template>
 
-            <template v-else-if="auth.showPayoutsUpgradeDialog">
+            <template v-else-if="showPayoutsUpgradeDialog">
               <i class="pi pi-dollar text-primary text-6xl mb-4"></i>
               <h1 class="text-primary">Easily keep track of sales and commissions <br />from synced orders</h1>
               <p class="text-xl line-height-3">
@@ -109,7 +123,7 @@ const isSettingsPath = computed(() => {
               <AppLink label="Learn more" link="https://help.syncio.co/en/articles/6398970-payouts-add-on-destination-store-side" class="text-xl my-2" />
             </template>
 
-            <template v-else-if="auth.showProductSettingsUpgradeDialog">
+            <template v-else-if="showProductSettingsUpgradeDialog">
               <i class="pi pi-list text-primary text-6xl mb-4"></i>
               <h1 class="text-primary">Sync more than just inventory</h1>
               <p class="text-xl line-height-3">

@@ -26,7 +26,8 @@ const shopifyLoginHandler = async () => {
   //await shopifyLogin.value('shopify', 'test-saiyam-destination.myshopify.com');
   //await shopifyLogin.value('shopify', 'test-destination-5.myshopify.com');
   //await shopifyLogin.value('shopify', 'auto-shp-stag-source1.myshopify.com');
-  await shopifyLogin.value('shopify', 'test-nainesh-destination-3.myshopify.com');
+  //await shopifyLogin.value('shopify', 'test-nainesh-destination-3.myshopify.com');
+  await shopifyLogin.value('shopify', 'test-nainesh-source-2.myshopify.com');
 };
 </script>
 
