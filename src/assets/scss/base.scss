@@ -96,8 +96,13 @@ p {
   }
 
   .p-speeddial-list {
-    @extend .position-absolute;
-    left: -100px;
+    left: 0;
+  }
+
+  .p-speeddial-action {
+    background: transparent;
+    border: 1px solid $primary;
+    color: $primary;
   }
 }
 
@@ -452,6 +457,11 @@ input.p-inputtext-lg {
 .p-inputtext {
   height: 3rem;
   line-height: 1.6rem;
+
+  + .p-button-icon-only {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
 }
 
 .p-carousel {

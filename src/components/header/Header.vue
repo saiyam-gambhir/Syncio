@@ -9,6 +9,8 @@ import { usePlanStore } from 'plan';
 import { useProductSettingsStore } from 'productSettings';
 import { useProductsStore } from 'products';
 import * as routes from '@/routes';
+import { useFilters } from '@/composables/filters';
+import { useToasts } from '@/composables/toasts';
 
 /* ----- Components ----- */
 const ShopifyPermissionsDialog = defineAsyncComponent(() => import('./components/ShopifyPermissionsDialog.vue'));
@@ -17,9 +19,18 @@ const ShopifyPermissionsDialog = defineAsyncComponent(() => import('./components
 const {
   fetchMetadata,
   shopifyPermissions,
+  storeKey,
   storeName,
   storeType,
 } = toRefs(useConnectionsStore());
+
+const {
+  copyToClipBoard,
+} = useFilters();
+
+const {
+  showToast
+} = useToasts();
 
 const activityCenter = useActivityCenterStore();
 const auth = useAuthStore();
@@ -39,6 +50,35 @@ const items = ref([
     ]
   },
 ]);
+const quickActions = ref([
+  {
+    label: 'Connect new store',
+    icon: 'pi pi-plus',
+    command: () => {}
+  },
+  {
+    label: 'Toggle multilocation',
+    icon: 'pi pi-refresh',
+    command: () => {}
+  },
+  {
+    label: 'Copy store key',
+    icon: 'pi pi-copy',
+    command: () => {
+      copyStoreKeyHandler();
+    }
+  },
+  {
+    label: 'Toggle auto push',
+    icon: 'pi pi-upload',
+    command: () => {}
+  },
+  {
+    label: 'Set default commission',
+    icon: 'pi pi-external-link',
+    command: () => {}
+  }
+])
 
 /* ----- Mounted ----- */
 onMounted(() => {
@@ -69,6 +109,11 @@ const logout = () => {
   sessionStorage.removeItem('USER_ID');
   router.push({ name: routes.LOGIN });
 };
+
+const copyStoreKeyHandler = () => {
+  copyToClipBoard(storeKey.value);
+  showToast({ message: 'Store key copied successfully' });
+};
 </script>
 
 <template>
@@ -82,6 +127,18 @@ const logout = () => {
         v-tooltip.right="'Back'">
       </Button>
     </div>
+
+    <SpeedDial
+      :model="quickActions"
+      :radius="80"
+      :style="{ left: 'calc(50% - 2rem)', top: '.65rem' }"
+      :tooltipOptions="{ position: 'bottom' }"
+      :transitionDelay="80"
+      buttonClass="p-button-outlined"
+      direction="down"
+      type="semi-circle">
+    </SpeedDial>
+
     <div class="header-right flex align-items-center">
       <Tag
         :value="`${storeType} store`"
