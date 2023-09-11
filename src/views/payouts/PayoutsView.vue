@@ -7,6 +7,8 @@ import * as routes from '@/routes';
 import { watch } from 'vue';
 
 /* ----- Components ----- */
+const Complete = defineAsyncComponent(() => import('./components/sourcePayouts/Complete.vue'));
+const Open = defineAsyncComponent(() => import('./components/sourcePayouts/Open.vue'));
 const Paid = defineAsyncComponent(() => import('./components/destinationPayouts/Paid.vue'));
 const PayableOrders = defineAsyncComponent(() => import('./components/destinationPayouts/PayableOrders.vue'));
 const Unpaid = defineAsyncComponent(() => import('./components/destinationPayouts/Unpaid.vue'));
@@ -42,7 +44,7 @@ onMounted(async () => {
     return;
   }
 
-  await fetchPayableOrdersHandler();
+  if(isDestinationStore.value) await fetchPayableOrdersHandler();
 });
 </script>
 
@@ -70,10 +72,12 @@ onMounted(async () => {
   </TabView>
 
   <!-- Source Payouts -->
-  <TabView v-if="isSourceStore" @update:activeIndex="handleTabChange" class="mt-4">
+  <TabView v-if="isSourceStore" v-model:activeIndex="activeTabIndex" @update:activeIndex="handleTabChange" class="mt-4">
     <TabPanel header="Open">
+      <Open v-if="activeTabIndex === 0" />
     </TabPanel>
     <TabPanel header="Complete">
+      <Complete v-if="activeTabIndex === 1" />
     </TabPanel>
   </TabView>
 </template>

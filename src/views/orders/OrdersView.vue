@@ -231,7 +231,7 @@ const searchHandler = async (searchText) => {
   </DataTable>
 
   <!-- Pagination -->
-  <div class="text-center mt-5 mb-2">
+  <div v-if="!orders.loadingOrders" class="text-center mt-5 mb-2">
     <h3 class="font-semibold" v-if="(pagination?.current_page === pagination?.last_page) && orders.orders.length > 0">
       No more orders to see. We only display orders upto 60 days.
     </h3>

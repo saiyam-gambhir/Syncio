@@ -3,8 +3,15 @@ import { usePlanStore } from 'plan';
 import { useProductSettingsStore } from 'productSettings';
 
 /* ----- Data ----- */
-const { destinationVariantSettings, stringifyDestinationVariantSettings, settingsUpdated } = toRefs(useProductSettingsStore());
-const { addons } = toRefs(usePlanStore());
+const {
+  destinationVariantSettings,
+  settingsUpdated,
+  stringifyDestinationVariantSettings,
+} = toRefs(useProductSettingsStore());
+
+const {
+  addons
+} = toRefs(usePlanStore());
 
 /* ----- Watcher ----- */
 watch(destinationVariantSettings, (newSettings, oldSettings) => {
@@ -28,10 +35,10 @@ watch(destinationVariantSettings, (newSettings, oldSettings) => {
               <p class="mt-2 mb-0 text-lg">
                 <span v-if="setting.key === 'auto_add_product_variant'">
                   Ongoing sync of new variants.
-                  <br> <br>
-                  When a new variant is added to a synced product on the Source store, Syncio will auto-add the variant to the corresponding product on the Destination store.
                   <br>
-                  <strong>Note:</strong> Syncio does not add/remove
+                  When a new variant is added to a synced product on the Source store, Syncio will auto-add the variant to the corresponding product on the Destination store.
+                  <br><br>
+                  <strong>Note:</strong> Syncio does not add/remove.
                 </span>
 
                 <span v-if="setting.key === 'sync_inventory_policy'">
@@ -42,8 +49,8 @@ watch(destinationVariantSettings, (newSettings, oldSettings) => {
                   Ongoing sync of removed variants.
                   <br><br>
                   When a variant is removed from a synced product on the Source store, Syncio will auto-remove the variant from the corresponding product on the Destination store.
-                  <br>
-                  <strong>Note:</strong> Syncio does not add
+                  <br><br>
+                  <strong>Note:</strong> Syncio does not add.
                 </span>
 
                 <span v-if="setting.key === 'd_sync_cost_per_item'">
@@ -63,6 +70,10 @@ watch(destinationVariantSettings, (newSettings, oldSettings) => {
                   Ongoing sync of both the Price and Compare at Price for the product.
                   <br><br>
                   <strong>Note:</strong> Compare at price value must be greater than price.
+                </span>
+
+                <span v-if="setting.key === 'sync_product_variant_weight'">
+                  Ongoing sync of a variant's weight data from the source product.
                 </span>
               </p>
             </div>

@@ -7,6 +7,7 @@ export function usePayouts() {
     fetchPaidPayouts,
     fetchPayableOrders,
     fetchPayablePayouts,
+    fetchSourcePayouts,
     fetchUnpaidPayouts,
     SET_STATUS_FILTER,
     updatePayout,
@@ -30,6 +31,11 @@ export function usePayouts() {
     await fetchPaidPayouts();
   };
 
+  const fetchSourcePayoutsHandler = async (status) => {
+    SET_STATUS_FILTER(status);
+    await fetchSourcePayouts();
+  };
+
   const handleTabChange = async index => {
     payouts.$patch({ activeTabIndex: index })
   };
@@ -44,6 +50,7 @@ export function usePayouts() {
           break;
 
         case 'unpaid':
+        case 'payment_received':
           await payouts.$patch({ activeTabIndex: 1 });
           break;
       }
@@ -54,6 +61,7 @@ export function usePayouts() {
     fetchPaidPayoutsHandler,
     fetchPayableOrdersHandler,
     fetchPayablePayoutsHandler,
+    fetchSourcePayoutsHandler,
     fetchUnpaidPayoutsHandler,
     handleTabChange,
     payouts,

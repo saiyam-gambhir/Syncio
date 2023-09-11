@@ -4,6 +4,7 @@ import deepmerge from 'deepmerge';
 /* ----- Actions ----- */
 import { fetchPaidPayouts } from './actions/fetchPaidPayouts';
 import { fetchPayableOrders } from './actions/fetchPayableOrders';
+import { fetchSourcePayouts } from './actions/fetchSourcePayouts';
 import { fetchUnpaidPayouts } from './actions/fetchUnpaidPayouts';
 import { setDateRangeFilter } from './actions/setDateRangeFilter';
 import { setStatusFilter } from './actions/setStatusFilter';
@@ -37,6 +38,7 @@ export const usePayoutsStore = defineStore('payouts', {
   actions: deepmerge.all([
     fetchPaidPayouts,
     fetchPayableOrders,
+    fetchSourcePayouts,
     fetchUnpaidPayouts,
     setDateRangeFilter,
     setStatusFilter,

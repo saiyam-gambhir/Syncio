@@ -73,10 +73,10 @@ const ongoingSyncSettings = computed(() => {
                 </p>
                 <p class="mt-2 mb-0 text-lg">
                   <span v-if="setting.key === 'sync_product_handler'">
-                    URL Handle in the Website SEO section of your Shopify Product
+                    URL Handle in the Website SEO section of your Shopify Product.
                   </span>
                   <span v-else-if="setting.key === 'sync_product_metafield'">
-                    Copy from Source store, including Page title and Description
+                    Copy from Source store, including Page title and Description.
                   </span>
                 </p>
               </div>
@@ -101,10 +101,10 @@ const ongoingSyncSettings = computed(() => {
                 </p>
                 <p class="mt-2 mb-0 text-lg">
                   <span v-if="setting.key === 'sync_product_title'">
-                    Name of the product as the customer would see it
+                    Name of the product as the customer would see it.
                   </span>
                   <span v-else-if="setting.key === 'sync_product_description'">
-                    Descriptions for each product
+                    Descriptions for each product.
                   </span>
                   <span v-else-if="setting.key === 'sync_product_images'">
                     <strong class="font-semibold">Product</strong> and <strong class="font-semibold">Variant</strong> images. Syncio doesn't currently sync videos.
@@ -115,7 +115,7 @@ const ongoingSyncSettings = computed(() => {
                     Tags that are removed on the Source store will not be removed on the Destination store.
                   </span>
                   <span v-else-if="setting.key === 'sync_hs_code_and_country_origin'">
-                    Found in the customs information section of the product in Shopify
+                    Found in the customs information section of the product in Shopify.
                   </span>
                   <span v-else-if="setting.key === 'product_publish_sync'">
                     Found in Shopify under Sales Channels and Apps.
