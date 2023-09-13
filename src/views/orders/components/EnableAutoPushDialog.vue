@@ -53,7 +53,7 @@ const closeDialogHandler = () => {
           <Button label="Cancel" class="p-button-secondary" @click="closeDialogHandler"></Button>
         </div>
         <div>
-          <router-link to="/orders/push-settings">
+          <router-link to="/settings/push-settings">
             <Button outlined label="Change Settings" class="mr-3"></Button>
           </router-link>
           <Button label="Confirm" class="mr-0" @click="toggleAutoPush"></Button>

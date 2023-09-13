@@ -38,15 +38,15 @@ const handleTabChange = async index => {
     title="Activity Center">
   </PageHeader>
 
-  <TabView @update:activeIndex="handleTabChange" class="mt-4">
+  <TabView v-model:activeIndex="activeTabIndex" @update:activeIndex="handleTabChange" class="mt-4">
     <TabPanel header="Product Issues">
-      <ProductIssues />
+      <ProductIssues v-if="activeTabIndex === 0" />
     </TabPanel>
     <TabPanel header="Order Issues">
-      <OrderIssues />
+      <OrderIssues v-if="activeTabIndex === 1" />
     </TabPanel>
     <TabPanel header="General Updates">
-      <GeneralUpdates />
+      <GeneralUpdates v-if="activeTabIndex === 2" />
     </TabPanel>
   </TabView>
 </template>

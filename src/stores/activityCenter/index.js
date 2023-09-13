@@ -66,6 +66,7 @@ export const useActivityCenterStore = defineStore('activityCenter', {
         key: 'activityCenter',
         storage: sessionStorage,
         paths: [
+          'activeTabIndex',
           'generalQueries',
           'orderQueries',
           'productQueries',

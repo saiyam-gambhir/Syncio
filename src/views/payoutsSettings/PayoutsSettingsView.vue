@@ -1,4 +1,16 @@
 <script setup>
+import { usePayoutsSettingsStore } from 'payoutsSettings';
+
+/* ----- Components ----- */
+const DefaultStoreCommission = defineAsyncComponent(() => import('./components/DefaultStoreCommission.vue'));
+const ProductCommission = defineAsyncComponent(() => import('./components/ProductCommission.vue'));
+const StoreCommission = defineAsyncComponent(() => import('./components/StoreCommission.vue'));
+
+/* ----- Data ----- */
+const {
+  activeTabIndex,
+} = toRefs(usePayoutsSettingsStore());
+
 /* ----- Methods ----- */
 const handleTabChange = async index => {
   activeTabIndex.value = index;
@@ -19,13 +31,15 @@ const handleTabChange = async index => {
       Commissions can only be set for Shopify stores, as Payouts is not available for Woo stores yet.
     </p>
 
-    <TabView @update:activeIndex="handleTabChange" class="mt-4">
+    <TabView v-model:activeIndex="activeTabIndex" @update:activeIndex="handleTabChange" class="mt-4">
       <TabPanel header="Your Shop Default">
-        <DefaultStoreCommission class="mt-4" />
+        <DefaultStoreCommission class="mt-4" v-if="activeTabIndex === 0" />
       </TabPanel>
       <TabPanel header="By Store">
+        <StoreCommission v-if="activeTabIndex === 1" />
       </TabPanel>
       <TabPanel header="By Product">
+        <ProductCommission v-if="activeTabIndex === 2" />
       </TabPanel>
     </TabView>
   </article>

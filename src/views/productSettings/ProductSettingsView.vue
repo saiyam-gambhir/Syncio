@@ -122,14 +122,18 @@ const updateSettingsHandler = async () => {
     For support with the following, contact our friendly team via the in-app chat: <strong>Tag Mirror </strong>(syncs Source store deletion of tags), <strong>sync of the Barcode field</strong>, <strong>disable Stock Sync</strong>, and <strong>broken SKU recovery</strong>.
   </p>
 
-  <TabView @update:activeIndex="handleTabChange" class="mt-4 margin-bottom">
+  <TabView v-model:activeIndex="activeTabIndex" @update:activeIndex="handleTabChange" class="mt-4 margin-bottom">
     <TabPanel header="Product">
-      <ProductSkeleton v-if="loading" />
-      <Product v-else />
+      <template v-if="activeTabIndex === 0">
+        <ProductSkeleton v-if="loading" />
+        <Product v-else />
+      </template>
     </TabPanel>
-    <TabPanel v-if="isDestinationStore" header="Variant">
-      <VariantSkeleton v-if="loading" />
-      <Variant v-else />
+    <TabPanel header="Variant">
+      <template v-if="activeTabIndex === 1">
+        <VariantSkeleton v-if="loading" />
+        <Variant v-else />
+      </template>
     </TabPanel>
   </TabView>
 

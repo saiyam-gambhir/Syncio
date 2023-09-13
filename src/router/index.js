@@ -99,10 +99,10 @@ const router = createRouter({
       path: '/orders',
     },
     {
-      component: () => import('@/views/orders/pushSettings/PushSettings.vue'),
+      component: () => import('@/views/orderPushSettings/OrderPushSettingsView.vue'),
       meta: { ...meta },
       name: routes.PUSH_SETTINGS,
-      path: '/orders/push-settings',
+      path: '/settings/push-settings',
     },
     {
       component: () => import('@/views/payouts/PayoutsView.vue'),

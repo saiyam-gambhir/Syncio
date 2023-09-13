@@ -1,7 +1,7 @@
 .btn-link {
   @extend .position-relative;
   color: var(--link) !important;
-  font-size: 13px;
+  font-size: 1rem;
   text-decoration: none;
 
   &:before {

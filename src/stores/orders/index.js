@@ -12,6 +12,7 @@ import { toggleAutoPush } from './actions/toggleAutoPush';
 export const useOrdersStore = defineStore('orders', {
   state: () => {
     return {
+      activeTabIndex: 0,
       bulkPushCount: null,
       bulkPushShippingCost: null,
       filters: { searchStr: '', sortBy: 'DESC' },
@@ -71,6 +72,7 @@ export const useOrdersStore = defineStore('orders', {
         key: 'orders',
         storage: sessionStorage,
         paths: [
+          'activeTabIndex',
           'filters',
           'isViewOrderDetailsRequested',
           'order',

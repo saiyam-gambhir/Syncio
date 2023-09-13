@@ -58,7 +58,7 @@ const quickActions = ref([
   },
   {
     label: 'Toggle multilocation',
-    icon: 'pi pi-refresh',
+    icon: 'pi pi-map-marker',
     command: () => {}
   },
   {
@@ -70,12 +70,12 @@ const quickActions = ref([
   },
   {
     label: 'Toggle auto push',
-    icon: 'pi pi-upload',
+    icon: 'pi pi-fast-forward',
     command: () => {}
   },
   {
     label: 'Set default commission',
-    icon: 'pi pi-external-link',
+    icon: 'pi pi-percentage',
     command: () => {}
   }
 ])
@@ -133,7 +133,7 @@ const copyStoreKeyHandler = () => {
       :radius="80"
       :style="{ left: 'calc(50% - 2rem)', top: '.65rem' }"
       :tooltipOptions="{ position: 'bottom' }"
-      :transitionDelay="80"
+      :transitionDelay="50"
       buttonClass="p-button-outlined"
       direction="down"
       type="semi-circle">

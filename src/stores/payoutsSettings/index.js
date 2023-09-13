@@ -3,7 +3,7 @@ import deepmerge from 'deepmerge';
 /* ----- Actions ----- */
 import { updateStoreCommission } from './actions/updateStoreConnection';
 
-export const usePayoutSettingsStore = defineStore('payoutSettings', {
+export const usePayoutsSettingsStore = defineStore('payoutsSettings', {
   state: () => {
     return {
       activeTabIndex: 0,
@@ -23,7 +23,7 @@ export const usePayoutSettingsStore = defineStore('payoutSettings', {
     enabled: true,
     strategies: [
       {
-        key: 'payoutSettings',
+        key: 'payoutsSettings',
         storage: sessionStorage,
         paths: [
           'activeTabIndex'

@@ -125,7 +125,7 @@ const searchHandler = async (searchText) => {
         </h4>
         <SelectButton v-model="orders.isAutoPushEnabled" :options="options" aria-labelledby="single" @change="toggleAutoPushHandler" />
       </div>
-      <router-link to="/orders/push-settings">
+      <router-link to="/settings/push-settings">
         <Button label="Settings" outlined class="ml-4"></Button>
       </router-link>
     </template>

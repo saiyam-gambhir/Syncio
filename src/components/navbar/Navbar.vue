@@ -26,8 +26,8 @@ const route = useRoute();
 
 /* ----- Computed ----- */
 const isSettingsPath = computed(() => {
-  const { ACCOUNT_SETTINGS, MARKETPLACE_SETTINGS, NOTIFICATION_SETTINGS, PAYOUTS_SETTINGS, PLAN_AND_BILLINGS } = routes;
-  const settingsPaths = [ACCOUNT_SETTINGS, MARKETPLACE_SETTINGS, NOTIFICATION_SETTINGS, PAYOUTS_SETTINGS, PLAN_AND_BILLINGS];
+  const { ACCOUNT_SETTINGS, MARKETPLACE_SETTINGS, NOTIFICATION_SETTINGS, PAYOUTS_SETTINGS, PLAN_AND_BILLINGS, PUSH_SETTINGS } = routes;
+  const settingsPaths = [ACCOUNT_SETTINGS, MARKETPLACE_SETTINGS, NOTIFICATION_SETTINGS, PAYOUTS_SETTINGS, PLAN_AND_BILLINGS, PUSH_SETTINGS];
   return settingsPaths.includes(route.name);
 });
 
@@ -56,7 +56,7 @@ const isSettingsPath = computed(() => {
             <NavLink href="/products" iconClass="pi-list" linkText="Products" />
           </li>
           <li class="mt-2">
-            <NavLink href="/settings/product-settings" iconClass="pi-cog" linkText="Product Settings" />
+            <NavLink href="/settings/product-settings" iconClass="pi-wrench" linkText="Product Settings" />
           </li>
           <li class="mt-2">
             <NavLink href="/orders" iconClass="pi-file" linkText="Orders" />
@@ -87,7 +87,7 @@ const isSettingsPath = computed(() => {
             <NavLink href="/products" iconClass="pi-list" linkText="Products" />
           </li>
           <li class="mt-2">
-            <NavLink href="/settings/product-settings" iconClass="pi-cog" linkText="Product Settings" />
+            <NavLink href="/settings/product-settings" iconClass="pi-wrench" linkText="Product Settings" />
           </li>
           <li class="mt-2">
             <NavLink href="/payouts" iconClass="pi-dollar" linkText="Payouts" />

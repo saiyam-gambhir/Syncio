@@ -1,6 +1,6 @@
 <script setup>
 import { useConnectionsStore } from 'connections';
-import { usePayoutSettingsStore } from 'payoutSettings';
+import { usePayoutsSettingsStore } from 'payoutsSettings';
 import { watch } from 'vue';
 
 /* ----- Data ----- */
@@ -12,7 +12,7 @@ const {
   commissionTypeOptions,
   storeDefaultCommissionRate,
   updateStoreCommission,
-} = toRefs(usePayoutSettingsStore());
+} = toRefs(usePayoutsSettingsStore());
 
 const storeDefaultCommissionRateCopy = ref(null);
 const isDefaultCommissionChanged = ref(false);
