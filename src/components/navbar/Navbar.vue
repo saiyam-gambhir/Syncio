@@ -20,7 +20,7 @@ const {
 const {
   isConnectionStatusPending,
   isDestinationStore,
-  isSouceStore,
+  isSourceStore,
 } = toRefs(useConnectionsStore());
 
 const route = useRoute();
@@ -74,7 +74,7 @@ const isSettingsPath = computed(() => {
         </ul>
 
         <!-- Source Store Navigation -->
-        <ul v-else-if="isSouceStore" class="primary-navigation list-none pb-5 pt-4 px-3 m-0">
+        <ul v-else-if="isSourceStore" class="primary-navigation list-none pb-5 pt-4 px-3 m-0">
           <li>
             <NavLink :href="routes.DASHBOARD" iconClass="pi-th-large" linkText="Dashboard" />
           </li>
@@ -138,7 +138,7 @@ const isSettingsPath = computed(() => {
         <template #footer>
           <div class="flex align-items-center justify-content-between">
             <Button label="Cancel" class="p-button-secondary" @click="closeDialogHandler"></Button>
-            <Button label="Manage Plan" class="mr-0" @click="goToPlanSelectionPage"></Button>
+            <Button label="Manage Plan" outlined class="mr-0" @click="goToPlanSelectionPage"></Button>
           </div>
         </template>
       </DialogWrapper>

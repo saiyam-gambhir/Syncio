@@ -53,6 +53,7 @@ const { isDestinationStore } = toRefs(useConnectionsStore());
         </Setting>
 
         <Setting
+          v-if="isDestinationStore"
           description="Manage order push settings like email, shipping rate and shipping tags."
           :href="routes.ORDER_PUSH_SETTINGS"
           icon="pi-file"

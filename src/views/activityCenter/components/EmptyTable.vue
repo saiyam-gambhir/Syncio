@@ -1,4 +1,4 @@
-<script>
+<script setup>
 import * as routes from '@/routes';
 </script>
 
