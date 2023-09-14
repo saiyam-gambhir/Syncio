@@ -1,5 +1,6 @@
 <script setup>
 import { usePlanStore } from 'plan';
+import * as routes from '@/routes';
 
 /* ----- Data ----- */
 const {
@@ -23,7 +24,7 @@ const route = useRoute();
         <AddonUsage v-if="plan" title="Products Synced" :limitUsed="productsSynced" :limitAvailable="productsSyncedLimit"></AddonUsage>
         <AddonUsage v-if="addons.isOrderModuleAvailable" title="Orders Pushed" :limitUsed="ordersPushed" :limitAvailable="ordersPushLimit"></AddonUsage>
         <AddonUsage v-if="addons.isPayoutsModuleAvailable" title="Payouts Processed" :limitUsed="payoutsProcessed" :limitAvailable="payoutsProcessLimit"></AddonUsage>
-        <router-link to="/settings/plan-and-billings" v-if="route.name !== 'planAndBillings'">
+        <router-link :to="routes.PLAN_AND_BILLINGS" v-if="route.name !== 'planAndBillings'">
           <Button label="Manage" class="mt-4 font-bold justify-content-center w-full"></Button>
         </router-link>
       </template>

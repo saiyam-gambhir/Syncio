@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { toast } from 'vue3-toastify';
 
 class AxiosService {
   constructor() {
@@ -22,6 +23,7 @@ class AxiosService {
     try {
       const cleanedParams = this.getCleanedParams(params);
       const response = await this.https.get(url, { params: cleanedParams });
+      toast("Wow so easy !", { autoClose: 1000 })
       return response.data;
     } catch (error) {
       console.error('Error:', error.message);
@@ -34,6 +36,7 @@ class AxiosService {
     try {
       const cleanedParams = this.getCleanedParams(params);
       const response = await this.https.post(url, { ...cleanedParams });
+      toast("Wow so easy !", { autoClose: 1000 })
       return response.data;
     } catch (error) {
       console.error('Error:', error.message);

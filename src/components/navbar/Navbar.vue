@@ -20,14 +20,15 @@ const {
 const {
   isConnectionStatusPending,
   isDestinationStore,
+  isSouceStore,
 } = toRefs(useConnectionsStore());
 
 const route = useRoute();
 
 /* ----- Computed ----- */
 const isSettingsPath = computed(() => {
-  const { ACCOUNT_SETTINGS, MARKETPLACE_SETTINGS, NOTIFICATION_SETTINGS, PAYOUTS_SETTINGS, PLAN_AND_BILLINGS, PUSH_SETTINGS } = routes;
-  const settingsPaths = [ACCOUNT_SETTINGS, MARKETPLACE_SETTINGS, NOTIFICATION_SETTINGS, PAYOUTS_SETTINGS, PLAN_AND_BILLINGS, PUSH_SETTINGS];
+  const { ACCOUNT_SETTINGS, MARKETPLACE_SETTINGS, NOTIFICATION_SETTINGS, PAYOUTS_SETTINGS, PLAN_AND_BILLINGS, ORDER_PUSH_SETTINGS } = routes;
+  const settingsPaths = [ACCOUNT_SETTINGS, MARKETPLACE_SETTINGS, NOTIFICATION_SETTINGS, PAYOUTS_SETTINGS, PLAN_AND_BILLINGS, ORDER_PUSH_SETTINGS];
   return settingsPaths.includes(route.name);
 });
 
@@ -44,56 +45,56 @@ const isSettingsPath = computed(() => {
       <div class="nav-wrapper select-none">
         <ul v-if="isDestinationStore" class="primary-navigation list-none p-4 pb-2 m-0">
           <li>
-            <NavLink linkText="Dashboard" :href="routes.DASHBOARD" />
+            <NavLink :href="routes.DASHBOARD" iconClass="pi-th-large" linkText="Dashboard" />
           </li>
           <li class="mt-2">
-            <NavLink href="/marketplace" iconClass="pi-shopping-bag" linkText="Syncio Marketplace" />
+            <NavLink :href="routes.MARKETPLACE" iconClass="pi-shopping-bag" linkText="Marketplace" />
           </li>
           <li class="mt-2">
-            <NavLink href="/stores" iconClass="pi-link" linkText="Stores" :isLocationPending="isConnectionStatusPending" />
+            <NavLink :href="routes.STORES" iconClass="pi-link" linkText="Stores" :isLocationPending="isConnectionStatusPending" />
           </li>
           <li class="mt-2">
-            <NavLink href="/products" iconClass="pi-list" linkText="Products" />
+            <NavLink :href="routes.PRODUCTS" iconClass="pi-list" linkText="Products" />
           </li>
           <li class="mt-2">
-            <NavLink href="/settings/product-settings" iconClass="pi-wrench" linkText="Product Settings" />
+            <NavLink :href="routes.PRODUCT_SETTINGS" iconClass="pi-wrench" linkText="Product Settings" />
           </li>
           <li class="mt-2">
-            <NavLink href="/orders" iconClass="pi-file" linkText="Orders" />
+            <NavLink :href="routes.ORDERS" iconClass="pi-file" linkText="Orders" />
           </li>
           <li class="mt-2">
-            <NavLink href="/payouts" iconClass="pi-dollar" linkText="Payouts" />
+            <NavLink :href="routes.PAYOUTS" iconClass="pi-dollar" linkText="Payouts" />
           </li>
           <li class="mt-2">
-            <NavLink href="/activity-center" iconClass="pi-bell" linkText="Activity Center" />
+            <NavLink :href="routes.ACTIVITY_CENTER" iconClass="pi-bell" linkText="Activity Center" />
           </li>
           <li class="mt-2">
-            <NavLink href="/settings" iconClass="pi-cog" :class="{ 'router-link-active': isSettingsPath }" linkText="Settings" />
+            <NavLink :href="routes.SETTINGS" iconClass="pi-cog" linkText="Settings" :class="{ 'router-link-active': isSettingsPath }" />
           </li>
         </ul>
 
         <!-- Source Store Navigation -->
-        <ul v-else class="primary-navigation list-none pb-5 pt-4 px-3 m-0">
+        <ul v-else-if="isSouceStore" class="primary-navigation list-none pb-5 pt-4 px-3 m-0">
           <li>
-            <NavLink linkText="Dashboard" :href="routes.DASHBOARD" />
+            <NavLink :href="routes.DASHBOARD" iconClass="pi-th-large" linkText="Dashboard" />
           </li>
           <li class="mt-2">
-            <NavLink href="/marketplace" iconClass="pi-shopping-bag" linkText="Syncio Marketplace" />
+            <NavLink :href="routes.MARKETPLACE" iconClass="pi-shopping-bag" linkText="Marketplace" />
           </li>
           <li class="mt-2">
-            <NavLink href="/stores" iconClass="pi-link" linkText="Stores" :isLocationPending="isConnectionStatusPending" />
+            <NavLink :href="routes.STORES" iconClass="pi-link" linkText="Stores" :isLocationPending="isConnectionStatusPending" />
           </li>
           <li class="mt-2">
-            <NavLink href="/products" iconClass="pi-list" linkText="Products" />
+            <NavLink :href="routes.PRODUCTS" iconClass="pi-list" linkText="Products" />
           </li>
           <li class="mt-2">
-            <NavLink href="/settings/product-settings" iconClass="pi-wrench" linkText="Product Settings" />
+            <NavLink :href="routes.PRODUCT_SETTINGS" iconClass="pi-wrench" linkText="Product Settings" />
           </li>
           <li class="mt-2">
-            <NavLink href="/payouts" iconClass="pi-dollar" linkText="Payouts" />
+            <NavLink :href="routes.PAYOUTS" iconClass="pi-dollar" linkText="Payouts" />
           </li>
           <li class="mt-2">
-            <NavLink href="/settings" iconClass="pi-cog" linkText="Settings" />
+            <NavLink :href="routes.SETTINGS" iconClass="pi-cog" linkText="Settings" />
           </li>
         </ul>
       </div>
@@ -101,7 +102,7 @@ const isSettingsPath = computed(() => {
       <!-- Addons Usage Indicator -->
       <AddonsUsageIndicator v-if="isDestinationStore" />
 
-      <!-- No Addons Found Dialogs -->
+      <!-- Addons not available dialog -->
       <DialogWrapper :isVisible="isUpgradeDialogRequested" title="This is an add-on feature" width="600px" @closeDialog="closeDialogHandler">
         <template #body>
           <div class="text-center">

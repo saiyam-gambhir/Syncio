@@ -1,6 +1,7 @@
 <script setup>
 import { usePlanStore } from 'plan';
 import { useProductSettingsStore } from 'productSettings';
+import * as routes from '@/routes';
 
 /* ----- Data ----- */
 const {
@@ -20,7 +21,7 @@ watch(destinationVariantSettings, (newSettings, oldSettings) => {
 </script>
 
 <template>
-  <p v-if="!addons.isSettingsModulePaid" class="m-0 mb-2 text-lg">Locked settings (<i class="pi pi-lock" style="font-size: 1rem; font-weight: bold;"></i>) are available with Product Settings PRO - <router-link to="/settings/plan-and-billings" class="btn-link text-lg">Upgrade</router-link> </p>
+  <p v-if="!addons.isSettingsModulePaid" class="m-0 mb-2 text-lg">Locked settings (<i class="pi pi-lock" style="font-size: 1rem; font-weight: bold;"></i>) are available with Product Settings PRO - <router-link :to="routes.PLAN_AND_BILLINGS" class="btn-link text-lg">Upgrade</router-link> </p>
   <div class="grid">
     <div class="col-5">
       <ul class="list-none p-0 m-0">

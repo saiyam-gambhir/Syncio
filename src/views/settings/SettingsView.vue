@@ -54,7 +54,7 @@ const { isDestinationStore } = toRefs(useConnectionsStore());
 
         <Setting
           description="Manage order push settings like email, shipping rate and shipping tags."
-          :href="routes.PUSH_SETTINGS"
+          :href="routes.ORDER_PUSH_SETTINGS"
           icon="pi-file"
           title="Order push settings">
         </Setting>

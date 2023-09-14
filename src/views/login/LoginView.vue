@@ -75,7 +75,7 @@ const shopifyLoginHandler = async () => {
       </div>
 
       <div class="flex align-items-center mb-6">
-        <router-link to="/forgot-password" class="btn-link hovered text-xl">Forgot password?</router-link>
+        <router-link :to="routes.FORGOT_PASSWORD" class="btn-link hovered text-xl">Forgot password?</router-link>
       </div>
 
       <Button

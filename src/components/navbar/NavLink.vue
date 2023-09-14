@@ -14,7 +14,7 @@ const props = defineProps({
   },
   iconClass: {
     type: String,
-    default: 'pi-th-large',
+    required: true,
   },
   linkText: {
     type: String,

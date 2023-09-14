@@ -2,6 +2,7 @@
 import { useConnectionsStore } from 'connections';
 import { useFilters } from '@/composables/filters';
 import { useToasts } from '@/composables/toasts';
+import * as routes from '@/routes';
 
 /* ----- Data ----- */
 const { copyToClipBoard } = useFilters();
@@ -38,12 +39,12 @@ const copyStoreKeyHandler = async val => {
     <CardWrapper class="mt-5" icon="user" title="Your account">
       <template #content>
         <div class="pt-3">
-          <router-link to="/settings" class="btn-link">Account settings</router-link>
+          <router-link :to="routes.SETTINGS" class="btn-link">Account settings</router-link>
           <p class="text-sm mt-1 mb-0">Manage account and notification settings</p>
         </div>
 
         <div class="pt-3">
-          <router-link to="/settings/plan-and-billings" class="btn-link">Plan and billing</router-link>
+          <router-link :to="routes.PLAN_AND_BILLINGS" class="btn-link">Plan and billing</router-link>
           <p class="text-sm mt-1 mb-0">Manage your plan and billing details</p>
         </div>
       </template>

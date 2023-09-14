@@ -1,6 +1,7 @@
 /* ----- Vue ----- */
 import { createApp } from 'vue';
 import App from './App.vue';
+import Vue3Toasity from 'vue3-toastify';
 
 /* ----- Pinia ----- */
 import { createPinia } from 'pinia';
@@ -68,6 +69,7 @@ import 'primevue/resources/primevue.min.css';
 import 'primeicons/primeicons.css';
 import '/node_modules/primeflex/primeflex.css';
 import './assets/scss/main.scss';
+import 'vue3-toastify/dist/index.css';
 
 /* ----- Axios Instances ----- */
 const $https = axios.create({
@@ -88,6 +90,7 @@ app
   .use(router)
   .use(PrimeVue, { ripple: true })
   .use(ToastService)
+  .use(Vue3Toasity)
   .mount('#app');
 
 /* ----- Prime Vue Components ----- */

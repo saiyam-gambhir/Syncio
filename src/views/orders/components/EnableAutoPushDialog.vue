@@ -2,6 +2,7 @@
 import { useFilters } from '@/composables/filters';
 import { useOrders } from '../composables/orders';
 import { useOrdersStore } from 'orders';
+import * as routes from '@/routes';
 
 /* ----- Data ----- */
 const { formatCurrency } = useFilters();
@@ -53,7 +54,7 @@ const closeDialogHandler = () => {
           <Button label="Cancel" class="p-button-secondary" @click="closeDialogHandler"></Button>
         </div>
         <div>
-          <router-link to="/settings/push-settings">
+          <router-link :to="routes.ORDER_PUSH_SETTINGS">
             <Button outlined label="Change Settings" class="mr-3"></Button>
           </router-link>
           <Button label="Confirm" class="mr-0" @click="toggleAutoPush"></Button>

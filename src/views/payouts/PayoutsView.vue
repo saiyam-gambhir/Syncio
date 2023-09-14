@@ -4,7 +4,6 @@ import { usePayouts } from './composables/payouts';
 import { usePayoutsStore } from 'payouts';
 import { usePlanStore } from 'plan';
 import * as routes from '@/routes';
-import { watch } from 'vue';
 
 /* ----- Components ----- */
 const Complete = defineAsyncComponent(() => import('./components/sourcePayouts/Complete.vue'));
@@ -52,7 +51,7 @@ onMounted(async () => {
   <!-- Page Header -->
   <PageHeader content="Manage Payouts for fulfilled orders" title="Payouts" withActions>
     <template #actions>
-      <router-link to="/settings/payouts-settings">
+      <router-link :to="routes.PAYOUTS_SETTINGS">
         <Button label="Payouts settings" outlined class="ml-4"></Button>
       </router-link>
     </template>
