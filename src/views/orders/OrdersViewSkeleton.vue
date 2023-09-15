@@ -75,7 +75,7 @@ const { randomInteger } = useFilters();
 
     <Column header="Actions" style="width: 15%" class="text-right">
       <template #body>
-        <Skeleton height="30.5px" width="96px" style="float: right" />
+        <Skeleton height="30.5px" width="96px" class="ml-auto" />
       </template>
     </Column>
   </DataTable>

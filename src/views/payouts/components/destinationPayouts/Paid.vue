@@ -20,7 +20,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <DataTable :value="payouts.paidPayouts?.items" responsiveLayout="scroll" showGridlines>
+  <DataTable :value="payouts.paidPayouts.items" responsiveLayout="scroll" showGridlines>
     <Column header="Date" style="width: 10%">
       <template #body="{ data: { date } }">
         {{ date }}

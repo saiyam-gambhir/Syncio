@@ -9,7 +9,6 @@ export function usePayouts() {
     fetchPayablePayouts,
     fetchSourcePayouts,
     fetchUnpaidPayouts,
-    SET_STATUS_FILTER,
     updatePayout,
   } = usePayoutsStore();
 
@@ -22,22 +21,22 @@ export function usePayouts() {
   };
 
   const fetchUnpaidPayoutsHandler = async () => {
-    SET_STATUS_FILTER('unpaid');
+    payouts.$patch({ queries: { ...payouts.queries, 'filters[status]': 'unpaid' } })
     await fetchUnpaidPayouts();
   };
 
   const fetchPaidPayoutsHandler = async () => {
-    SET_STATUS_FILTER('paid_received');
+    payouts.$patch({ queries: { ...payouts.queries, 'filters[status]': 'paid_received' } })
     await fetchPaidPayouts();
   };
 
   const fetchSourcePayoutsHandler = async (status) => {
-    SET_STATUS_FILTER(status);
+    payouts.$patch({ queries: { ...payouts.queries, 'filters[status]': status } })
     await fetchSourcePayouts();
   };
 
   const handleTabChange = async index => {
-    payouts.$patch({ activeTabIndex: index })
+    payouts.$patch({ activeTabIndex: index });
   };
 
   const updatePayoutHandler = async (payoutId, status) => {

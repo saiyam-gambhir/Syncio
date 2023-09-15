@@ -1,14 +1,30 @@
 <script setup>
 import { useFilters } from '@/composables/filters';
 import { usePayouts } from '../../composables/payouts';
+import { usePayoutsStore } from 'payouts';
 
 /* ----- Data ----- */
-const { payouts } = usePayouts();
-const { formatCommission, formatCurrency } = useFilters();
+const {
+  formatCommission,
+  formatCurrency,
+} = useFilters();
+
+const {
+  fetchPayableOrdersHandler,
+} = usePayouts();
+
+const {
+  payableOrders,
+} = toRefs(usePayoutsStore());
+
+/* ----- Mounted ----- */
+onMounted(async () => {
+  await fetchPayableOrdersHandler();
+});
 </script>
 
 <template>
-  <DataTable :value="payouts.payableOrders?.items" responsiveLayout="scroll" showGridlines>
+  <DataTable :value="payableOrders?.items" responsiveLayout="scroll" showGridlines>
     <Column header="Source store" style="width: 32.5%">
       <template #body="{ data: { store_name } }">
         {{ store_name }}

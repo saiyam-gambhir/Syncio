@@ -15,12 +15,12 @@ export const usePayoutsStore = defineStore('payouts', {
     return {
       activeTabIndex: 0,
       limiter: 10,
-      completePayouts: { items: [], pagination: {} },
-      openPayouts: { items: [], pagination: {} },
-      paidPayouts: { items: [], loading: true, pagination: {} },
-      payableOrders: { items: [], pagination: {} },
-      payablePayouts: { items: [], pagination: {} },
-      unpaidPayouts: { items: [], loading: true, pagination: {} },
+      completePayouts: { items: [], loading: false, pagination: {} },
+      openPayouts: { items: [], loading: false, pagination: {} },
+      paidPayouts: { items: [], loading: false, pagination: {} },
+      payableOrders: { items: [], loading: false, pagination: {} },
+      payablePayouts: { items: [], loading: false, pagination: {} },
+      unpaidPayouts: { items: [], loading: false, pagination: {} },
       queries: {
         'filters[date_range]': '2023-06-11 to 2023-09-09',
         'filters[status]': null,

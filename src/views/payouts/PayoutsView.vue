@@ -9,7 +9,9 @@ import * as routes from '@/routes';
 const Complete = defineAsyncComponent(() => import('./components/sourcePayouts/Complete.vue'));
 const Open = defineAsyncComponent(() => import('./components/sourcePayouts/Open.vue'));
 const Paid = defineAsyncComponent(() => import('./components/destinationPayouts/Paid.vue'));
+const PaidSkeleton = defineAsyncComponent(() => import('./components/destinationPayouts/PaidSkeleton.vue'));
 const PayableOrders = defineAsyncComponent(() => import('./components/destinationPayouts/PayableOrders.vue'));
+const PayableOrdersSkeleton = defineAsyncComponent(() => import('./components/destinationPayouts/PayableOrdersSkeleton.vue'));
 const Unpaid = defineAsyncComponent(() => import('./components/destinationPayouts/Unpaid.vue'));
 
 /* ----- Data ----- */
@@ -19,7 +21,10 @@ const {
 } = toRefs(useConnectionsStore());
 
 const {
-  activeTabIndex
+  activeTabIndex,
+  payableOrders,
+  paidPayouts,
+  unpaidPayouts,
 } = toRefs(usePayoutsStore());
 
 const {
@@ -40,10 +45,9 @@ onMounted(async () => {
       path: routes.DASHBOARD,
       query: { showUpgrade: 'true', type: 'payouts' },
     });
+
     return;
   }
-
-  if(isDestinationStore.value) await fetchPayableOrdersHandler();
 });
 </script>
 
@@ -60,13 +64,24 @@ onMounted(async () => {
   <!-- Destination Payouts -->
   <TabView v-if="isDestinationStore" v-model:activeIndex="activeTabIndex" @update:activeIndex="handleTabChange" class="mt-4">
     <TabPanel header="Payable Orders">
-      <PayableOrders v-if="activeTabIndex === 0" />
+      <template v-if="activeTabIndex === 0">
+        <PayableOrdersSkeleton v-if="payableOrders.loading" />
+        <PayableOrders v-show="!payableOrders.loading" />
+      </template>
     </TabPanel>
+
     <TabPanel header="Unpaid">
-      <Unpaid v-if="activeTabIndex === 1" />
+      <template v-if="activeTabIndex === 1">
+        <PaidSkeleton v-if="unpaidPayouts.loading" />
+        <Unpaid v-show="!unpaidPayouts.loading" />
+      </template>
     </TabPanel>
+
     <TabPanel header="Paid">
-      <Paid v-if="activeTabIndex === 2" />
+      <template v-if="activeTabIndex === 2">
+        <PaidSkeleton v-if="paidPayouts.loading" />
+        <Paid v-show="!paidPayouts.loading" />
+      </template>
     </TabPanel>
   </TabView>
 
