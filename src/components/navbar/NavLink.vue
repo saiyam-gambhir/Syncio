@@ -31,7 +31,7 @@ const props = defineProps({
   <router-link
     :class="{ error: isLocationPending }"
     :to="href"
-    class="flex align-items-center justify-content-between cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors no-underline relative"
+    class="p-ripple flex align-items-center justify-content-between cursor-pointer p-3 border-round text-700 hover:surface-200 no-underline relative"
     v-tooltip.top="isLocationPending ? 'Missing store location' : ''">
     <div>
       <i class="pi mr-3" :class="iconClass"></i>
@@ -44,6 +44,6 @@ const props = defineProps({
       style="right: 1rem; width: 2rem; height: 2rem;"
       v-if="+currentStore.payout_count > 0 && isSourceStore && href === '/payouts'">
         {{ currentStore.payout_count }}
-      </Tag>
+    </Tag>
   </router-link>
 </template>

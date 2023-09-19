@@ -21,7 +21,14 @@ onMounted(async () => {
 
 <template>
   <DataTable :value="payouts.paidPayouts.items" responsiveLayout="scroll" showGridlines>
-    <Column header="Date" style="width: 10%">
+    <template #empty>
+      <div class="px-4 py-8 text-center">
+        <h2 class="mt-0 mb-4">You have no Paid payouts to show at this time</h2>
+        <AppLink link="https://help.syncio.co/en/articles/6398970-payouts-add-on-destination-store-side" label="Learn more about payouts" />
+      </div>
+    </template>
+
+    <Column header="Date" style="width: 12.5%">
       <template #body="{ data: { date } }">
         {{ date }}
       </template>
@@ -33,13 +40,13 @@ onMounted(async () => {
       </template>
     </Column>
 
-    <Column header="Store" style="width: 20%">
+    <Column header="Store" style="width: 30%">
       <template #body="{ data: { store_name } }">
         {{ store_name }}
       </template>
     </Column>
 
-    <Column header="Amount" style="width: 14%" class="text-right">
+    <Column header="Amount" style="width: 12.5%">
       <template #body="{ data: { payout_total } }">
         <span class="tabular-nums">
           {{ formatCurrency(payout_total) }}
@@ -47,13 +54,13 @@ onMounted(async () => {
       </template>
     </Column>
 
-    <Column header="Payment Status" style="width: 14%" class="text-center">
+    <Column header="Payment Status" style="width: 15%">
       <template #body="{ data: { status } }">
         <Tag severity="success" rounded>{{ status }}</Tag>
       </template>
     </Column>
 
-    <Column header="Actions" style="width: 16.5%" class="text-right">
+    <Column header="Actions" style="width: 20%" class="text-right">
       <template #body="{ data: { payout_id } }">
         <Button
           @click="updatePayoutHandler(payout_id, 'unpaid')"

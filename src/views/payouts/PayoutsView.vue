@@ -32,7 +32,6 @@ const {
 } = toRefs(usePlanStore());
 
 const {
-  fetchPayableOrdersHandler,
   handleTabChange,
 } = usePayouts();
 

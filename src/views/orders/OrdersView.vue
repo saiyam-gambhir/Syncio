@@ -24,7 +24,6 @@ const {
 const {
   bulkPushOrders,
   fetchOrders,
-  filters,
   isAutoPushEnabled,
   isBulkPushActive,
   isEnableAutoPushRequested,
@@ -32,7 +31,6 @@ const {
   loadingOrders,
   pagination,
   selectedOrders,
-  sortOptions,
 } = toRefs(useOrdersStore());
 
 const options = ref(['Off', 'On']);
@@ -48,7 +46,7 @@ onMounted(async () => {
     return;
   }
 
-  fetchOrdersHandler();
+  fetchOrders.value();
   await fetchPushSettings();
   setAutoPushStatus();
 });
@@ -69,10 +67,6 @@ const getOrderPushStatus = (order_ref_id, pushStatus) => {
   }
 
   return false;
-};
-
-const fetchOrdersHandler = async () => {
-  fetchOrders.value();
 };
 
 const fetchOrderHandler = async orderId => {
@@ -104,11 +98,6 @@ const isChecked = ({ order_ref_id }) => {
 
 const isAdded = (row) => {
   if(orders.selectedOrders.includes(row.order_ref_id)) return 'selected';
-};
-
-const searchHandler = async (searchText) => {
-  filters.value.searchString = searchText;
-  await fetchOrders.value();
 };
 </script>
 
@@ -146,32 +135,7 @@ const searchHandler = async (searchText) => {
     </template>
 
     <template #header>
-      <div class="flex align-items-center justify-content-between">
-        <div class="p-inputgroup w-35">
-          <SearchFilter
-            @update:modelValue="searchHandler"
-            placeholder="Search by exact order number (eg: #1234)"
-            v-model="filters.searchString">
-          </SearchFilter>
-        </div>
-
-        <Dropdown
-          :loading="loadingOrders"
-          :options="sortOptions"
-          @change="fetchOrdersHandler"
-          optionLabel="label"
-          placeholder="Sort by"
-          optionValue="sortBy"
-          v-model="filters.sortBy">
-          <template #value>Sort by</template>
-          <template #option="{ option }">
-            <div class="flex align-items-center justify-content-between">
-              {{ option.label }}
-              <i :class="option.icon" class="ml-2"></i>
-            </div>
-          </template>
-        </Dropdown>
-      </div>
+      <OrdersViewHeader />
     </template>
 
     <Column header="" style="width: 3rem; min-width: 42.5px">

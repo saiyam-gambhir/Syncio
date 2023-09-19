@@ -151,7 +151,7 @@ const pushOrderHandler = async (targetStoreId) => {
               </h2>
 
               <div class="text-right">
-                <template v-if="store.push_status !== 'pushed' && store.push_status !== 'blocked' && !store.is_mapper_deleted && !store.store_disconnected">
+                <template v-if="store.push_status !== 'pushed' && store.push_status !== 'blocked' && order.push_status !== 'invalid' && !store.is_mapper_deleted && !store.store_disconnected">
                   <InputText v-if="!!order.customer || !!order.shipping_address" placeholder="$ Enter a shipping fee" v-model="shippingCost" />
                 </template>
 

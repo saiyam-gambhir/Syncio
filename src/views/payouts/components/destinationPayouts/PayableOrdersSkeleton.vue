@@ -12,21 +12,21 @@
       </template>
     </Column>
 
-    <Column header="Total sales" style="width: 14%" class="text-right">
+    <Column header="Total sales" style="width: 14%">
       <template #body>
-        <Skeleton width="60px" height="16px" class="ml-auto" />
+        <Skeleton width="60px" height="16px" />
       </template>
     </Column>
 
-    <Column header="Total commissions" style="width: 13%" class="text-right">
+    <Column header="Total commissions" style="width: 13%">
       <template #body>
-        <Skeleton width="60px" height="16px" class="ml-auto" />
+        <Skeleton width="60px" height="16px" />
       </template>
     </Column>
 
-    <Column header="Payout amount" style="width: 12%" class="text-right">
+    <Column header="Payout amount" style="width: 12%">
       <template #body>
-        <Skeleton width="60px" height="16px" class="ml-auto" />
+        <Skeleton width="60px" height="16px" />
       </template>
     </Column>
 

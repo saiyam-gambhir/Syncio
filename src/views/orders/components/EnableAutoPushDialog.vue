@@ -41,7 +41,7 @@ const closeDialogHandler = () => {
               </span>
             </li>
           </ul>
-          <div v-if="setting.key === 'custom_shipping_tags'" class="ml-3 mb-3">
+          <div v-if="setting.key === 'custom_shipping_tags'" class="ml-3">
             <Tag severity="info" rounded class="mr-2 mb-3" v-for="key in Object.keys(JSON.parse(setting.value))">{{ key }}</Tag>
           </div>
         </div>

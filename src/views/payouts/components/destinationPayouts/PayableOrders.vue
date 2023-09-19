@@ -37,7 +37,7 @@ onMounted(async () => {
       </template>
     </Column>
 
-    <Column header="Total sales" style="width: 14%" class="text-right">
+    <Column header="Total sales" style="width: 14%">
       <template #body="{ data: { total_sales } }">
         <span class="tabular-nums">
           {{ formatCurrency(total_sales) }}
@@ -45,7 +45,7 @@ onMounted(async () => {
       </template>
     </Column>
 
-    <Column header="Total commissions" style="width: 13%" class="text-right">
+    <Column header="Total commissions" style="width: 13%">
       <template #body="{ data: { commission_type, total_commissions } }">
         <span class="tabular-nums">
           {{ formatCommission(commission_type, total_commissions) }}
@@ -53,7 +53,7 @@ onMounted(async () => {
       </template>
     </Column>
 
-    <Column header="Payout amount" style="width: 12%" class="text-right">
+    <Column header="Payout amount" style="width: 12%">
       <template #body="{ data: { payout_amount } }">
         <strong class="tabular-nums">{{ formatCurrency(payout_amount) }}</strong>
       </template>
