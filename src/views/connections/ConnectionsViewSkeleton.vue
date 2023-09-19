@@ -1,34 +1,7 @@
-<script setup>
-import { useConnectionsStore } from 'connections';
-
-/* ----- Data ----- */
-const { filters, loadingConnections, sortOptions } = useConnectionsStore();
-</script>
-
 <template>
   <DataTable :value="[{}, {}, {}, {}]" responsiveLayout="scroll" showGridlines>
     <template #header>
-      <div class="flex align-items-center justify-content-between">
-        <div class="p-inputgroup w-35">
-          <InputText v-model="filters.searchString" placeholder="Search by store URL" />
-          <Button icon="pi pi-search" :loading="loadingConnections" :disabled="!filters.searchString"></Button>
-        </div>
-
-        <Dropdown
-          :loading="loadingConnections"
-          :options="sortOptions"
-          optionLabel="label"
-          placeholder="Sort by Store"
-          v-model="filters.sortBy">
-          <template #value> Sort by Store </template>
-          <template #option="{ option }">
-            <div class="flex align-items-center justify-content-between">
-              {{ option.label }}
-              <i :class="option.icon"></i>
-            </div>
-          </template>
-        </Dropdown>
-      </div>
+      <ConnectionsViewHeader />
     </template>
 
     <Column header="Platform" style="width: 5%" class="text-center">
