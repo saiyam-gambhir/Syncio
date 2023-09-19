@@ -17,10 +17,17 @@ const {
 onMounted(async () => {
   await fetchUnpaidPayoutsHandler();
 });
+
+/* ----- Methods ----- */
+const updateCurrentPageHandler = page => {
+  fetchUnpaidPayoutsHandler(page);
+};
 </script>
 
 <template>
-  <DataTable :value="payouts.unpaidPayouts?.items" responsiveLayout="scroll" showGridlines>
+  <PaidSkeleton v-if="payouts.unpaidPayouts.loading" />
+
+  <DataTable v-else :value="payouts.unpaidPayouts?.items" responsiveLayout="scroll" showGridlines>
     <template #empty>
       <div class="px-4 py-8 text-center">
         <h2 class="mt-0 mb-4">You have no Unpaid payouts to show at this time</h2>
@@ -76,4 +83,10 @@ onMounted(async () => {
       </template>
     </Column>
   </DataTable>
+
+  <Pagination
+    :pagination="payouts.unpaidPayouts.pagination"
+    @updateCurrentPage="updateCurrentPageHandler"
+    v-if="payouts.unpaidPayouts?.pagination">
+  </Pagination>
 </template>

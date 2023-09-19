@@ -24,7 +24,9 @@ onMounted(async () => {
 </script>
 
 <template>
-  <DataTable :value="payableOrders?.items" responsiveLayout="scroll" showGridlines>
+  <PayableOrdersSkeleton v-if="payableOrders.loading" />
+
+  <DataTable v-else :value="payableOrders?.items" responsiveLayout="scroll" showGridlines>
     <Column header="Source store" style="width: 32.5%">
       <template #body="{ data: { store_name } }">
         {{ store_name }}

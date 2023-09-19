@@ -17,10 +17,17 @@ const {
 onMounted(async () => {
   await fetchPaidPayoutsHandler();
 });
+
+/* ----- Methods ----- */
+const updateCurrentPageHandler = page => {
+  fetchPaidPayoutsHandler(page);
+};
 </script>
 
 <template>
-  <DataTable :value="payouts.paidPayouts.items" responsiveLayout="scroll" showGridlines>
+  <PaidSkeleton v-if="payouts.paidPayouts.loading" />
+
+  <DataTable v-else :value="payouts.paidPayouts.items" responsiveLayout="scroll" showGridlines>
     <template #empty>
       <div class="px-4 py-8 text-center">
         <h2 class="mt-0 mb-4">You have no Paid payouts to show at this time</h2>
@@ -77,4 +84,10 @@ onMounted(async () => {
       </template>
     </Column>
   </DataTable>
+
+  <Pagination
+    :pagination="payouts.paidPayouts.pagination"
+    @updateCurrentPage="updateCurrentPageHandler"
+    v-if="payouts.paidPayouts?.pagination">
+  </Pagination>
 </template>

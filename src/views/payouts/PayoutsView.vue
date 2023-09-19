@@ -23,7 +23,6 @@ const {
 const {
   activeTabIndex,
   payableOrders,
-  paidPayouts,
   unpaidPayouts,
 } = toRefs(usePayoutsStore());
 
@@ -64,22 +63,19 @@ onMounted(async () => {
   <TabView v-if="isDestinationStore" v-model:activeIndex="activeTabIndex" @update:activeIndex="handleTabChange" class="mt-4">
     <TabPanel header="Payable Orders">
       <template v-if="activeTabIndex === 0">
-        <PayableOrdersSkeleton v-if="payableOrders.loading" />
-        <PayableOrders v-show="!payableOrders.loading" />
+        <PayableOrders />
       </template>
     </TabPanel>
 
     <TabPanel header="Unpaid">
       <template v-if="activeTabIndex === 1">
-        <PaidSkeleton v-if="unpaidPayouts.loading" />
-        <Unpaid v-show="!unpaidPayouts.loading" />
+        <Unpaid />
       </template>
     </TabPanel>
 
     <TabPanel header="Paid">
       <template v-if="activeTabIndex === 2">
-        <PaidSkeleton v-if="paidPayouts.loading" />
-        <Paid v-show="!paidPayouts.loading" />
+        <Paid />
       </template>
     </TabPanel>
   </TabView>
