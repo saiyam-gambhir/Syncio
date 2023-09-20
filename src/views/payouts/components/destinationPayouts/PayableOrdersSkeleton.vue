@@ -1,5 +1,18 @@
+<script setup>
+import { usePayoutsStore } from 'payouts';
+
+/* ----- Data ----- */
+const {
+  payableOrders,
+} = toRefs(usePayoutsStore());
+</script>
+
 <template>
   <DataTable :value="[{}, {}, {}, {}]" responsiveLayout="scroll" showGridlines>
+    <template #header>
+      <DestinationPayoutsHeader :loading="payableOrders.loading" />
+    </template>
+
     <Column header="Source store" style="width: 32.5%">
       <template #body>
         <Skeleton width="50%" height="21px" />

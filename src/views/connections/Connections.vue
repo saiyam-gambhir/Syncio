@@ -35,14 +35,14 @@ const fetchProductsHandler = async (store) => {
 
 <template>
   <DataTable :value="connections" responsiveLayout="scroll" showGridlines>
-    <template #header>
-      <ConnectionsViewHeader />
-    </template>
-
     <template #empty>
       <div class="px-4 py-8 text-center">
         <h2 class="m-0">No stores found</h2>
       </div>
+    </template>
+
+    <template #header>
+      <ConnectionsViewHeader />
     </template>
 
     <Column header="Platform" style="width: 5%" class="text-center">

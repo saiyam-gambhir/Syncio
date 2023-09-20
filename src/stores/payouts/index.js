@@ -24,6 +24,7 @@ export const usePayoutsStore = defineStore('payouts', {
       queries: {
         'filters[date_range]': '2023-06-11 to 2023-09-09',
         'filters[status]': null,
+        'filters[target_store]': null,
       },
     };
   },
@@ -51,7 +52,10 @@ export const usePayoutsStore = defineStore('payouts', {
       {
         key: 'payouts',
         storage: sessionStorage,
-        paths: ['activeTabIndex'],
+        paths: [
+          'activeTabIndex',
+          'queries',
+        ],
       },
     ],
   },

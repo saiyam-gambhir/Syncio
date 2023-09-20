@@ -2,6 +2,7 @@
 import { useFilters } from '@/composables/filters';
 import { usePayouts } from '../../composables/payouts';
 import { usePayoutsStore } from 'payouts';
+import DestinationPayoutsHeader from './DestinationPayoutsHeader.vue';
 
 /* ----- Data ----- */
 const {
@@ -27,6 +28,10 @@ onMounted(async () => {
   <PayableOrdersSkeleton v-if="payableOrders.loading" />
 
   <DataTable v-else :value="payableOrders?.items" responsiveLayout="scroll" showGridlines>
+    <template #header>
+      <DestinationPayoutsHeader />
+    </template>
+
     <Column header="Source store" style="width: 32.5%">
       <template #body="{ data: { store_name } }">
         {{ store_name }}

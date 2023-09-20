@@ -35,6 +35,10 @@ const updateCurrentPageHandler = page => {
       </div>
     </template>
 
+    <template #header>
+      <DestinationPayoutsHeader />
+    </template>
+
     <Column header="Date" style="width: 12.5%">
       <template #body="{ data: { date } }">
         {{ date }}
