@@ -25,7 +25,7 @@ const leaveCurrentPageHandler = () => {
 
     <template #footer>
       <div class="flex align-items-center justify-content-between">
-        <Button label="Cancel" outlined class="mr-0" @click="closeDialogHandler"></Button>
+        <Button label="Cancel" class="p-button-secondary mr-0" @click="closeDialogHandler"></Button>
         <Button label="Leave page" class="mr-0" @click="leaveCurrentPageHandler"></Button>
       </div>
     </template>

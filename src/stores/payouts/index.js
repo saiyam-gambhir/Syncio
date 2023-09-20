@@ -18,11 +18,15 @@ export const usePayoutsStore = defineStore('payouts', {
       completePayouts: { items: [], loading: false, pagination: {} },
       openPayouts: { items: [], loading: false, pagination: {} },
       paidPayouts: { items: [], loading: false, pagination: {} },
+      paidPayoutsStatusOptions: [
+        { value: 'paid', label: 'Paid' },
+        { value: 'payment_confirmed', label: 'Received' },
+      ],
       payableOrders: { items: [], loading: false, pagination: {} },
       payablePayouts: { items: [], loading: false, pagination: {} },
       unpaidPayouts: { items: [], loading: false, pagination: {} },
       queries: {
-        'filters[date_range]': '2023-06-11 to 2023-09-09',
+        'filters[date_range]': '2022-01-01 to 2023-09-09',
         'filters[status]': null,
         'filters[target_store]': null,
       },

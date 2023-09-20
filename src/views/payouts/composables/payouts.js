@@ -20,14 +20,14 @@ export function usePayouts() {
     await fetchPayablePayouts({ targetStoreId });
   };
 
-  const fetchUnpaidPayoutsHandler = async () => {
+  const fetchUnpaidPayoutsHandler = async (page) => {
     payouts.$patch({ queries: { ...payouts.queries, 'filters[status]': 'unpaid' } })
-    await fetchUnpaidPayouts();
+    await fetchUnpaidPayouts(page);
   };
 
-  const fetchPaidPayoutsHandler = async () => {
+  const fetchPaidPayoutsHandler = async (page) => {
     payouts.$patch({ queries: { ...payouts.queries, 'filters[status]': 'paid_received' } })
-    await fetchPaidPayouts();
+    await fetchPaidPayouts(page);
   };
 
   const fetchSourcePayoutsHandler = async (status) => {

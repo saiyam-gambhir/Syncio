@@ -6,8 +6,17 @@ const {
   fetchPaidPayouts,
   fetchPayableOrders,
   fetchUnpaidPayouts,
+  paidPayouts,
+  paidPayoutsStatusOptions,
+  payableOrders,
   queries,
+  unpaidPayouts,
 } = toRefs(usePayoutsStore());
+
+/* ----- Computed ----- */
+const isLoading = computed(() => {
+  return paidPayouts.value.loading || payableOrders.value.loading || unpaidPayouts.value.loading;
+});
 
 /* ----- Methods ----- */
 const storeFilterHandler = async storeId => {
@@ -27,6 +36,14 @@ const storeFilterHandler = async storeId => {
       break;
   }
 };
+
+const fetchPaidPayoutsHandler = async (event) => {
+  if(!event.value) {
+    queries.value['filters[status]'] = 'paid_received';
+  }
+
+  await fetchPaidPayouts.value(1);
+}
 </script>
 
 <template>
@@ -34,22 +51,25 @@ const storeFilterHandler = async storeId => {
     <div class="flex w-50 align-items-center">
       <div class="p-inputgroup w-50">
         <StoresFilter
+          :loading="isLoading"
           @update:modelValue="storeFilterHandler"
           v-model="queries['filters[target_store]']">
         </StoresFilter>
       </div>
 
       <div class="p-inputgroup w-35 ml-4">
-        <!-- <Dropdown
+        <Dropdown
           :autoOptionFocus="false"
-          :options="generalEvents"
-          @change="fetchActivitiesHandler"
+          :loading="isLoading"
+          :options="paidPayoutsStatusOptions"
+          @change="fetchPaidPayoutsHandler($event)"
           optionLabel="label"
           optionValue="value"
-          placeholder="All Events"
+          placeholder="Payment status"
           showClear
-          v-model="generalQueries['filters[event]']">
-        </Dropdown> -->
+          v-if="activeTabIndex === 2"
+          v-model="queries['filters[status]']">
+        </Dropdown>
       </div>
     </div>
   </div>

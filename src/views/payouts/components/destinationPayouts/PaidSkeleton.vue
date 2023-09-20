@@ -1,22 +1,16 @@
 <script setup>
 import { useFilters } from '@/composables/filters';
-import { usePayoutsStore } from 'payouts';
 
 /* ----- Data ----- */
 const {
   randomInteger
 } = useFilters();
-
-const {
-  paidPayouts,
-  unpaidPayouts,
-} = toRefs(usePayoutsStore());
 </script>
 
 <template>
   <DataTable :value="[{}, {}, {}, {}]" responsiveLayout="scroll" showGridlines>
     <template #header>
-      <DestinationPayoutsHeader :loading="paidPayouts.loading || unpaidPayouts.loading" />
+      <DestinationPayoutsHeader />
     </template>
 
     <Column header="Date" style="width: 12.5%">
