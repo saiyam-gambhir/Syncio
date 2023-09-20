@@ -2,7 +2,7 @@
 import { useConnectionsStore } from 'connections';
 
 /* ----- Data ----- */
-const connections = useConnectionsStore();
+const { connectionFilterItems } = toRefs(useConnectionsStore());
 
 /* ----- Props ----- */
 const props = defineProps({
@@ -40,7 +40,7 @@ const emits = defineEmits(['update:modelValue']);
   <Dropdown
     :autoOptionFocus="false"
     :loading="loading"
-    :options="connections.connections"
+    :options="connectionFilterItems"
     :placeholder="customPlaceholder ? customPlaceholderText : 'All Stores'"
     @change="$emit('update:modelValue', $event.value)"
     optionLabel="store_domain"

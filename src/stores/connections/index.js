@@ -16,6 +16,7 @@ import { updateLocation } from './actions/updateLocation';
 export const useConnectionsStore = defineStore('connections', {
   state: () => {
     return {
+      connectionFilterItems: [],
       connections: [],
       currentStore: null,
       destinationLocations: null,
@@ -129,6 +130,7 @@ export const useConnectionsStore = defineStore('connections', {
         key: 'connections',
         storage: sessionStorage,
         paths: [
+          'connectionFilterItems',
           'currentStore',
           'filters',
           'selectedConnection',

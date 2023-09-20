@@ -47,28 +47,28 @@ const isSettingsPath = computed(() => {
           <li>
             <NavLink :href="routes.DASHBOARD" iconClass="pi-th-large" linkText="Dashboard" />
           </li>
-          <li class="mt-2">
+          <li class="mt-1">
             <NavLink :href="routes.MARKETPLACE" iconClass="pi-shopping-bag" linkText="Marketplace" />
           </li>
-          <li class="mt-2">
+          <li class="mt-1">
             <NavLink :href="routes.STORES" iconClass="pi-link" linkText="Stores" :isLocationPending="isConnectionStatusPending" />
           </li>
-          <li class="mt-2">
+          <li class="mt-1">
             <NavLink :href="routes.PRODUCTS" iconClass="pi-list" linkText="Products" />
           </li>
-          <li class="mt-2">
+          <li class="mt-1">
             <NavLink :href="routes.PRODUCT_SETTINGS" iconClass="pi-wrench" linkText="Product Settings" />
           </li>
-          <li class="mt-2">
+          <li class="mt-1">
             <NavLink :href="routes.ORDERS" iconClass="pi-file" linkText="Orders" />
           </li>
-          <li class="mt-2">
+          <li class="mt-1">
             <NavLink :href="routes.PAYOUTS" iconClass="pi-dollar" linkText="Payouts" />
           </li>
-          <li class="mt-2">
+          <li class="mt-1">
             <NavLink :href="routes.ACTIVITY_CENTER" iconClass="pi-bell" linkText="Activity Center" />
           </li>
-          <li class="mt-2">
+          <li class="mt-1">
             <NavLink :href="routes.SETTINGS" iconClass="pi-cog" linkText="Settings" :class="{ 'router-link-active': isSettingsPath }" />
           </li>
         </ul>
@@ -78,22 +78,22 @@ const isSettingsPath = computed(() => {
           <li>
             <NavLink :href="routes.DASHBOARD" iconClass="pi-th-large" linkText="Dashboard" />
           </li>
-          <li class="mt-2">
+          <li class="mt-1">
             <NavLink :href="routes.MARKETPLACE" iconClass="pi-shopping-bag" linkText="Marketplace" />
           </li>
-          <li class="mt-2">
+          <li class="mt-1">
             <NavLink :href="routes.STORES" iconClass="pi-link" linkText="Stores" :isLocationPending="isConnectionStatusPending" />
           </li>
-          <li class="mt-2">
+          <li class="mt-1">
             <NavLink :href="routes.PRODUCTS" iconClass="pi-list" linkText="Products" />
           </li>
-          <li class="mt-2">
+          <li class="mt-1">
             <NavLink :href="routes.PRODUCT_SETTINGS" iconClass="pi-wrench" linkText="Product Settings" />
           </li>
-          <li class="mt-2">
+          <li class="mt-1">
             <NavLink :href="routes.PAYOUTS" iconClass="pi-dollar" linkText="Payouts" />
           </li>
-          <li class="mt-2">
+          <li class="mt-1">
             <NavLink :href="routes.SETTINGS" iconClass="pi-cog" linkText="Settings" />
           </li>
         </ul>

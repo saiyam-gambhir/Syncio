@@ -13,6 +13,9 @@ export const fetchConnections = {
     });
 
     this.connections = await response.data?.stores;
+    if(this.connectionFilterItems.length === 0) {
+      this.connectionFilterItems = await response.data?.stores;
+    }
     this.loadingConnections = false;
   },
 };
