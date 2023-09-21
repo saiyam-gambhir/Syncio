@@ -27,8 +27,10 @@ const {
   isAutoPushEnabled,
   isBulkPushActive,
   isEnableAutoPushRequested,
+  isViewOrderDetailsRequested,
   loadingMoreOrders,
   loadingOrders,
+  order,
   pagination,
   selectedOrders,
 } = toRefs(useOrdersStore());
@@ -70,7 +72,7 @@ const getOrderPushStatus = (order_ref_id, pushStatus) => {
 };
 
 const fetchOrderHandler = async orderId => {
-  orders.isViewOrderDetailsRequested = true;
+  isViewOrderDetailsRequested.value = true;
   await fetchOrder(orderId);
 };
 
@@ -209,7 +211,7 @@ const isAdded = (row) => {
   </div>
 
   <!-- Order Details -->
-  <OrderDetails v-if="orders.isViewOrderDetailsRequested" :order="orders.order" />
+  <OrderDetails v-if="isViewOrderDetailsRequested" :order="order" />
 
   <!-- Enable Auto Push Dialog -->
   <EnableAutoPushDialog />

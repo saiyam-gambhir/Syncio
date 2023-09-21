@@ -5,6 +5,7 @@ import { usePayouts } from '../../composables/payouts';
 /* ----- Data ----- */
 const {
   fetchPaidPayoutsHandler,
+  fetchPayoutHandler,
   payouts,
   updatePayoutHandler,
 } = usePayouts();
@@ -72,7 +73,7 @@ const updateCurrentPageHandler = page => {
     </Column>
 
     <Column header="Actions" style="width: 20%" class="text-right">
-      <template #body="{ data: { payout_id } }">
+      <template #body="{ data: { payout_id, target_store_id } }">
         <Button
           @click="updatePayoutHandler(payout_id, 'unpaid')"
           class="p-button-sm p-button-danger"
@@ -81,6 +82,7 @@ const updateCurrentPageHandler = page => {
         </Button>
 
         <Button
+          @click="fetchPayoutHandler(payout_id, target_store_id)"
           class="p-button-sm ml-2"
           label="Manage payout"
           outlined>

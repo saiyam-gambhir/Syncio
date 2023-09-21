@@ -3,37 +3,33 @@ import { usePayoutsStore } from 'payouts';
 export function usePayouts() {
   const payouts = usePayoutsStore();
 
-  const {
-    fetchPaidPayouts,
-    fetchPayableOrders,
-    fetchPayablePayouts,
-    fetchSourcePayouts,
-    fetchUnpaidPayouts,
-    updatePayout,
-  } = usePayoutsStore();
-
   const fetchPayableOrdersHandler = async () => {
-    await fetchPayableOrders();
+    await payouts.fetchPayableOrders();
   };
 
   const fetchPayablePayoutsHandler = async targetStoreId => {
-    await fetchPayablePayouts({ targetStoreId });
+    await payouts.fetchPayablePayouts({ targetStoreId });
   };
 
   const fetchUnpaidPayoutsHandler = async (page) => {
     payouts.$patch({ queries: { ...payouts.queries, 'filters[status]': 'unpaid' } })
-    await fetchUnpaidPayouts(page);
+    await payouts.fetchUnpaidPayouts(page);
   };
 
   const fetchPaidPayoutsHandler = async (page) => {
     payouts.$patch({ queries: { ...payouts.queries, 'filters[status]': 'paid_received' } })
-    await fetchPaidPayouts(page);
+    await payouts.fetchPaidPayouts(page);
   };
 
   const fetchSourcePayoutsHandler = async (status) => {
     payouts.$patch({ queries: { ...payouts.queries, 'filters[status]': status } })
-    await fetchSourcePayouts();
+    await payouts.fetchSourcePayouts();
   };
+
+  const fetchPayoutHandler = async (payoutId, targetStoreId) => {
+    payouts.$patch({ isViewPayoutDetailsRequested: true });
+    await payouts.fetchPayout(payoutId, targetStoreId);
+  }
 
   const handleTabChange = async index => {
     payouts.$patch({ activeTabIndex: index });
@@ -41,7 +37,7 @@ export function usePayouts() {
 
   const updatePayoutHandler = async (payoutId, status) => {
     const payload = { payoutId, status };
-    const success = await updatePayout(payload);
+    const success = await payouts.updatePayout(payload);
     if(success) {
       switch (status) {
         case 'paid':
@@ -60,6 +56,7 @@ export function usePayouts() {
     fetchPaidPayoutsHandler,
     fetchPayableOrdersHandler,
     fetchPayablePayoutsHandler,
+    fetchPayoutHandler,
     fetchSourcePayoutsHandler,
     fetchUnpaidPayoutsHandler,
     handleTabChange,

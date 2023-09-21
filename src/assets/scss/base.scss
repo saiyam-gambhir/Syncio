@@ -141,6 +141,12 @@ td {
   }
 }
 
+.p-tabview-nav-container + .p-tabview-panels {
+  .p-datatable-header {
+    border-top: 0;
+  }
+}
+
 .p-datatable {
   .p-datatable-thead > tr > th {
     font-size: 1rem !important;

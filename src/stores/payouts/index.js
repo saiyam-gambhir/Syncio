@@ -4,6 +4,7 @@ import deepmerge from 'deepmerge';
 /* ----- Actions ----- */
 import { fetchPaidPayouts } from './actions/fetchPaidPayouts';
 import { fetchPayableOrders } from './actions/fetchPayableOrders';
+import { fetchPayout } from './actions/fetchPayout';
 import { fetchSourcePayouts } from './actions/fetchSourcePayouts';
 import { fetchUnpaidPayouts } from './actions/fetchUnpaidPayouts';
 import { setDateRangeFilter } from './actions/setDateRangeFilter';
@@ -14,8 +15,10 @@ export const usePayoutsStore = defineStore('payouts', {
   state: () => {
     return {
       activeTabIndex: 0,
-      limiter: 10,
       completePayouts: { items: [], loading: false, pagination: {} },
+      isViewPayoutDetailsRequested: false,
+      limiter: 10,
+      loadingPayout: false,
       openPayouts: { items: [], loading: false, pagination: {} },
       paidPayouts: { items: [], loading: false, pagination: {} },
       paidPayoutsStatusOptions: [
@@ -24,12 +27,13 @@ export const usePayoutsStore = defineStore('payouts', {
       ],
       payableOrders: { items: [], loading: false, pagination: {} },
       payablePayouts: { items: [], loading: false, pagination: {} },
-      unpaidPayouts: { items: [], loading: false, pagination: {} },
+      payout: null,
       queries: {
         'filters[date_range]': '2022-01-01 to 2023-09-09',
         'filters[status]': null,
         'filters[target_store]': null,
       },
+      unpaidPayouts: { items: [], loading: false, pagination: {} },
     };
   },
 
@@ -43,6 +47,7 @@ export const usePayoutsStore = defineStore('payouts', {
   actions: deepmerge.all([
     fetchPaidPayouts,
     fetchPayableOrders,
+    fetchPayout,
     fetchSourcePayouts,
     fetchUnpaidPayouts,
     setDateRangeFilter,

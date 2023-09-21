@@ -74,8 +74,6 @@ export const useOrdersStore = defineStore('orders', {
         paths: [
           'activeTabIndex',
           'filters',
-          'isViewOrderDetailsRequested',
-          'order',
           'selectedOrders',
         ],
       },

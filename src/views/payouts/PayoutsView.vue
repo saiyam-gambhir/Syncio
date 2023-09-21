@@ -9,9 +9,8 @@ import * as routes from '@/routes';
 const Complete = defineAsyncComponent(() => import('./components/sourcePayouts/Complete.vue'));
 const Open = defineAsyncComponent(() => import('./components/sourcePayouts/Open.vue'));
 const Paid = defineAsyncComponent(() => import('./components/destinationPayouts/Paid.vue'));
-const PaidSkeleton = defineAsyncComponent(() => import('./components/destinationPayouts/PaidSkeleton.vue'));
 const PayableOrders = defineAsyncComponent(() => import('./components/destinationPayouts/PayableOrders.vue'));
-const PayableOrdersSkeleton = defineAsyncComponent(() => import('./components/destinationPayouts/PayableOrdersSkeleton.vue'));
+const PayoutDetails = defineAsyncComponent(() => import('./components/PayoutDetails.vue'));
 const Unpaid = defineAsyncComponent(() => import('./components/destinationPayouts/Unpaid.vue'));
 
 /* ----- Data ----- */
@@ -22,8 +21,8 @@ const {
 
 const {
   activeTabIndex,
-  payableOrders,
-  unpaidPayouts,
+  isViewPayoutDetailsRequested,
+  payout,
 } = toRefs(usePayoutsStore());
 
 const {
@@ -89,4 +88,7 @@ onMounted(async () => {
       <Complete v-if="activeTabIndex === 1" />
     </TabPanel>
   </TabView>
+
+  <!-- Payout Details -->
+  <PayoutDetails v-if="isViewPayoutDetailsRequested" :payout="payout" />
 </template>

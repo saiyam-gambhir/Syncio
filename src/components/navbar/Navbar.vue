@@ -35,7 +35,7 @@ const isSettingsPath = computed(() => {
 </script>
 
 <template>
-  <div class="surface-0 h-screen hidden lg:block flex-shrink-0 absolute lg:static left-0 top-0 z-1 border-right-1 surface-border select-none surface-0" style="width: 19rem">
+  <div class="surface-0 h-screen hidden lg:block flex-shrink-0 absolute lg:static left-0 top-0 z-1 border-right-1 surface-border select-none surface-0" style="width: 18.5rem">
     <div class="flex flex-column h-full">
       <div class="flex align-items-center flex-shrink-0 justify-content-center header-height px-4">
         <Logo tabindex="0" class="pt-2" />
@@ -43,7 +43,7 @@ const isSettingsPath = computed(() => {
 
       <!-- Destination Store Navigation -->
       <div class="nav-wrapper select-none">
-        <ul v-if="isDestinationStore" class="primary-navigation list-none p-4 pb-2 m-0">
+        <ul v-if="isDestinationStore" class="primary-navigation list-none p-4 px-3 pb-2 m-0">
           <li>
             <NavLink :href="routes.DASHBOARD" iconClass="pi-th-large" linkText="Dashboard" />
           </li>
