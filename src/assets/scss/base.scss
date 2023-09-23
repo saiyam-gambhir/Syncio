@@ -791,11 +791,11 @@ input.p-inputtext-lg {
 }
 
 .status-blocked,
-.status-failed,
-.status-false {
+.status-failed {
   background:lighten(#ffe3e3, 4%) !important;
 }
 
-.status-not_pushed {
+.status-not_pushed,
+.status-false {
   background: lighten(#fff2e3, 4%) !important;
 }

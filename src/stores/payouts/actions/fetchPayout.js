@@ -1,6 +1,8 @@
 export const fetchPayout = {
   async fetchPayout(payoutId, targetStoreId) {
     try {
+      if(payoutId === this.payout?.id) return;
+
       this.loadingPayout = true;
       const params = {
         current_store_id: this.storeId,
@@ -8,10 +10,13 @@ export const fetchPayout = {
         target_store_id: targetStoreId,
       }
 
-      const { data: { payout, success } } = await this.$https.post(`stores/payout/view-payout`, { ...params });
+      const { data: { data, payout, success } } = await this.$https.post(`stores/payout/view-payout`, { ...params });
 
       if(success) {
-        this.payout = payout;
+        this.payout = {
+          ...payout,
+          data: data[0][0],
+        };
       }
 
     } catch (error) {

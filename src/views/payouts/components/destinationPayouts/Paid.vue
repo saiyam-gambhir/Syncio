@@ -77,7 +77,6 @@ const updateCurrentPageHandler = page => {
         <Button
           @click="updatePayoutHandler(payout_id, 'unpaid')"
           class="p-button-sm p-button-danger"
-          outlined
           label="Mark as unpaid">
         </Button>
 

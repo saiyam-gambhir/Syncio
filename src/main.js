@@ -41,6 +41,7 @@ import ProgressBar from 'primevue/progressbar';
 import ProgressSpinner from 'primevue/progressspinner';
 import RadioButton from 'primevue/radiobutton';
 import Ripple from 'primevue/ripple';
+import Row from 'primevue/row';                   // optional
 import SelectButton from 'primevue/selectbutton';
 import Sidebar from 'primevue/sidebar';
 import Skeleton from 'primevue/skeleton';
@@ -117,6 +118,7 @@ app
   .component('ProgressBar', ProgressBar)
   .component('ProgressSpinner', ProgressSpinner)
   .component('RadioButton', RadioButton)
+  .component('Row', Row)
   .component('SelectButton', SelectButton)
   .component('SplitButton', SplitButton)
   .component('Sidebar', Sidebar)

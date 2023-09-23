@@ -10,7 +10,7 @@ import { shopifyLogin } from './actions/shopifyLogin';
 export const useAuthStore = defineStore('auth', {
   state: () => {
     return {
-      currency: 'USD',
+      currency: 'INR',
       forgotPasswordForm: {
         email: '',
         emailNotFound: false,
@@ -46,7 +46,7 @@ export const useAuthStore = defineStore('auth', {
         token: '',
       },
       showLeavingPageDialog: false,
-      timeZone: 'Australia/Melbourne',
+      timeZone: 'Asia/Kolkata',
       upgradeDialogType: '',
       user: null,
     };

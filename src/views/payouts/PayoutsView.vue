@@ -10,7 +10,7 @@ const Complete = defineAsyncComponent(() => import('./components/sourcePayouts/C
 const Open = defineAsyncComponent(() => import('./components/sourcePayouts/Open.vue'));
 const Paid = defineAsyncComponent(() => import('./components/destinationPayouts/Paid.vue'));
 const PayableOrders = defineAsyncComponent(() => import('./components/destinationPayouts/PayableOrders.vue'));
-const PayoutDetails = defineAsyncComponent(() => import('./components/PayoutDetails.vue'));
+const Payout = defineAsyncComponent(() => import('./components/payout/Payout.vue'));
 const Unpaid = defineAsyncComponent(() => import('./components/destinationPayouts/Unpaid.vue'));
 
 /* ----- Data ----- */
@@ -89,6 +89,6 @@ onMounted(async () => {
     </TabPanel>
   </TabView>
 
-  <!-- Payout Details -->
-  <PayoutDetails v-if="isViewPayoutDetailsRequested" :payout="payout" />
+  <!-- Payout -->
+  <Payout v-if="isViewPayoutDetailsRequested" :payout="payout" />
 </template>

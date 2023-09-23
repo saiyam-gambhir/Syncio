@@ -29,7 +29,7 @@ export const usePayoutsStore = defineStore('payouts', {
       payablePayouts: { items: [], loading: false, pagination: {} },
       payout: null,
       queries: {
-        'filters[date_range]': '2022-01-01 to 2023-09-09',
+        'filters[date_range]': '2022-01-01 to 2024-09-09',
         'filters[status]': null,
         'filters[target_store]': null,
       },
@@ -41,7 +41,7 @@ export const usePayoutsStore = defineStore('payouts', {
     storeId() {
       const { storeId } = useConnectionsStore();
       return storeId;
-    }
+    },
   },
 
   actions: deepmerge.all([

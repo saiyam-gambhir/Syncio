@@ -5,9 +5,17 @@ import { useToasts } from '@/composables/toasts';
 import * as routes from '@/routes';
 
 /* ----- Data ----- */
-const { copyToClipBoard } = useFilters();
-const { showToast } = useToasts();
-const { storeKey } = useConnectionsStore();
+const {
+  copyToClipBoard
+} = useFilters();
+
+const {
+  showToast
+} = useToasts();
+
+const {
+  storeKey
+} = useConnectionsStore();
 
 /* ----- Methods ----- */
 const copyStoreKeyHandler = async val => {
@@ -20,8 +28,7 @@ const copyStoreKeyHandler = async val => {
   <section class="col-12 md:col-5 lg:col-3">
     <h2 class="pb-2">The essentials</h2>
 
-    <CardWrapper class="pb-3" description="Share this with Source stores so you can import products to your store."
-      icon="key" title="Unique store key">
+    <CardWrapper class="pb-3" description="Share this with Source stores so you can import products to your store." icon="key" title="Unique store key">
       <template #content>
         <h3 class="mb-0 flex align-items-center">
           {{ storeKey }}
@@ -58,9 +65,7 @@ const copyStoreKeyHandler = async val => {
         </div>
 
         <div class="pt-3">
-          <AppLink
-            link="https://docs.google.com/forms/d/e/1FAIpQLSego6l-ceEo02LZyAfGH78U_C8hzN7mNTWCr4u4yzS4AlB07Q/viewform"
-            label="Let us know what you think" />
+          <AppLink link="https://docs.google.com/forms/d/e/1FAIpQLSego6l-ceEo02LZyAfGH78U_C8hzN7mNTWCr4u4yzS4AlB07Q/viewform" label="Let us know what you think" />
           <p class="text-sm mt-1 mb-0">Answer a short 3 minute survey to help us improve Syncio for you</p>
         </div>
       </template>
