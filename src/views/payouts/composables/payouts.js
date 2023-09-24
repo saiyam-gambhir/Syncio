@@ -42,11 +42,13 @@ export function usePayouts() {
       switch (status) {
         case 'paid':
           await payouts.$patch({ activeTabIndex: 2 });
+          payouts.isViewPayoutDetailsRequested = false;
           break;
 
         case 'unpaid':
         case 'payment_received':
           await payouts.$patch({ activeTabIndex: 1 });
+          payouts.isViewPayoutDetailsRequested = false;
           break;
       }
     }

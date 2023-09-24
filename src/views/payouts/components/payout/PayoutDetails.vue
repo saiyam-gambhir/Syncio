@@ -1,12 +1,17 @@
 <script setup>
 import { useConnectionsStore } from 'connections';
 import { useFilters } from '@/composables/filters';
+import { usePayouts } from '../../composables/payouts';
 
 /* ----- Data ----- */
 const {
   formatCurrency,
   formatDate,
 } = useFilters();
+
+const {
+  updatePayoutHandler,
+} = usePayouts();
 
 const {
   connectionFilterItems,
@@ -126,6 +131,32 @@ const payoutReceiver = computed(() => {
           </div>
         </div>
       </h3>
+
+      <Divider />
+
+      <ul class="flex justify-content-between list-none p-0 m-0" v-if="isDestinationStore">
+        <li>
+          <Button
+            class="p-button-danger"
+            label="Delete">
+          </Button>
+        </li>
+        <li>
+          <Button
+            v-if="payout.status === 'payout_created' || payout.status === 'unpaid'"
+            @click="updatePayoutHandler(payout.id, 'paid')"
+            class="p-button-success"
+            label="Mark as paid">
+          </Button>
+
+          <Button
+            v-if="payout.status === 'paid'"
+            @click="updatePayoutHandler(payout.id, 'unpaid')"
+            class="p-button-warning"
+            label="Mark as unpaid">
+          </Button>
+        </li>
+      </ul>
     </template>
   </CardWrapper>
 </template>

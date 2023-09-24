@@ -76,7 +76,7 @@ const updateCurrentPageHandler = page => {
       <template #body="{ data: { payout_id, target_store_id } }">
         <Button
           @click="updatePayoutHandler(payout_id, 'unpaid')"
-          class="p-button-sm p-button-danger"
+          class="p-button-sm p-button-warning"
           label="Mark as unpaid">
         </Button>
 

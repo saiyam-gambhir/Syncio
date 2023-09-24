@@ -1,8 +1,6 @@
 export const fetchPayout = {
   async fetchPayout(payoutId, targetStoreId) {
     try {
-      if(payoutId === this.payout?.id) return;
-
       this.loadingPayout = true;
       const params = {
         current_store_id: this.storeId,
