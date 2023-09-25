@@ -46,7 +46,7 @@ const payoutReceiver = computed(() => {
 
       <h3 class="grid mb-0">
         <div class="col-3">Send to</div>
-        <div class="col-9 font-normal">{{ payoutReceiver.store_domain }}</div>
+        <div class="col-9 font-normal">{{ payoutReceiver?.store_domain }}</div>
       </h3>
 
       <Divider />

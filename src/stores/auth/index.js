@@ -10,7 +10,7 @@ import { shopifyLogin } from './actions/shopifyLogin';
 export const useAuthStore = defineStore('auth', {
   state: () => {
     return {
-      currency: 'INR',
+      currency: 'USD',
       forgotPasswordForm: {
         email: '',
         emailNotFound: false,

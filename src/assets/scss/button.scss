@@ -78,3 +78,11 @@
     background: rgba(255, 255, 255, 1) !important;
   }
 }
+
+.p-button {
+  &-warning {
+    background: #fff2e3 !important;
+    color: #aa5200 !important;
+    border-color: #aa5200 !important;
+  }
+}

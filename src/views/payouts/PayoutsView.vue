@@ -15,8 +15,10 @@ const Unpaid = defineAsyncComponent(() => import('./components/destinationPayout
 
 /* ----- Data ----- */
 const {
+  connections,
+  fetchConnections,
   isDestinationStore,
-  isSourceStore
+  isSourceStore,
 } = toRefs(useConnectionsStore());
 
 const {
@@ -45,6 +47,8 @@ onMounted(async () => {
 
     return;
   }
+
+  if (connections.value.length === 0) await fetchConnections.value();
 });
 </script>
 

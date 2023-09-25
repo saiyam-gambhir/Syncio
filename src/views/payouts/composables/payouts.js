@@ -11,6 +11,11 @@ export function usePayouts() {
     await payouts.fetchPayablePayouts({ targetStoreId });
   };
 
+  const fetchPayoutOrdersHandler = async targetStoreId => {
+    await payouts.fetchPayoutOrders({ targetStoreId: targetStoreId });
+    payouts.arePayableOrdersVisible = false;
+  }
+
   const fetchUnpaidPayoutsHandler = async (page) => {
     payouts.$patch({ queries: { ...payouts.queries, 'filters[status]': 'unpaid' } })
     await payouts.fetchUnpaidPayouts(page);
@@ -59,6 +64,7 @@ export function usePayouts() {
     fetchPayableOrdersHandler,
     fetchPayablePayoutsHandler,
     fetchPayoutHandler,
+    fetchPayoutOrdersHandler,
     fetchSourcePayoutsHandler,
     fetchUnpaidPayoutsHandler,
     handleTabChange,
