@@ -20,6 +20,7 @@
   --link: #108de6;
   --pagination: rgb(242, 242, 242);
   --primary-color: #0e3b4d;
+  --success: #1ea97c;
   --text-dark: #212121;
   --text-light: #757575;
   --text-medium: #616161;
@@ -695,6 +696,11 @@ input.p-inputtext-lg {
 
 .tabular-nums {
   font-variant-numeric: tabular-nums;
+
+  &.display-commission {
+    color: var(--success);
+    font-weight: 600;
+  }
 }
 
 .fade-enter-active,

@@ -126,7 +126,7 @@ const isAdded = (row) => {
   </BulkSelectedCount>
 
   <!-- Skeleton Loading -->
-  <OrdersViewSkeleton v-if="orders.loadingOrders" />
+  <OrdersViewSkeleton v-if="loadingOrders" />
 
   <!-- Orders Table -->
   <DataTable v-else :value="orders.orders" responsiveLayout="scroll" showGridlines class="mt-4" :rowClass="isAdded">

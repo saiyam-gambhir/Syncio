@@ -37,7 +37,7 @@ const isSettingsPath = computed(() => {
 <template>
   <div class="surface-0 h-screen hidden lg:block flex-shrink-0 absolute lg:static left-0 top-0 z-1 border-right-1 surface-border select-none surface-0" style="width: 18.5rem">
     <div class="flex flex-column h-full">
-      <div class="flex align-items-center flex-shrink-0 justify-content-center header-height px-4">
+      <div class="flex align-items-center flex-shrink-0 header-height px-4">
         <Logo tabindex="0" class="pt-2" />
       </div>
 

@@ -26,41 +26,51 @@ const {
       <!-- <DestinationPayoutsHeader /> -->
     </template>
 
-    <Column header="Source store" style="width: 32.5%">
-      <template #body="{ data: { store_name } }">
-        {{ store_name }}
+    <Column style="width: 5%">
+      <template #body="{ data }">
+        <CheckboxWrapper />
       </template>
     </Column>
 
-    <Column header="Unpaid orders" style="width: 12%;" class="text-center">
-      <template #body="{ data: { unpaid_orders } }">
-        <Tag severity="info">{{ unpaid_orders }}</Tag>
+    <Column header="Date" style="width: 15%">
+      <template #body="{ data: { date } }">
+        {{ date }}
       </template>
     </Column>
 
-    <Column header="Total sales" style="width: 14%">
-      <template #body="{ data: { total_sales } }">
+    <Column header="Age (Days)" style="width: 12.5%;">
+      <template #body="{ data: { age } }">
+        {{ age }}
+      </template>
+    </Column>
+
+    <Column header="Order #" style="width: 12.5%">
+      <template #body="{ data: { order_number } }">
+        {{ order_number }}
+      </template>
+    </Column>
+
+    <Column header="Sales" style="width: 12.5%">
+      <template #body="{ data: { sales } }">
         <span class="tabular-nums">
-          {{ formatCurrency(total_sales) }}
+          {{ formatCurrency(sales) }}
         </span>
       </template>
     </Column>
 
-    <Column header="Total commissions" style="width: 13%">
-      <template #body="{ data: { commission_type, total_commissions } }">
-        <span class="tabular-nums">
-          {{ formatCommission(commission_type, total_commissions) }}
-        </span>
+    <Column header="Commission" style="width: 12.5%">
+      <template #body="{ data: { commission, commission_type } }">
+        <span class="tabular-nums display-commission">+ {{ formatCommission(commission_type, commission) }}</span>
       </template>
     </Column>
 
-    <Column header="Payout amount" style="width: 12%">
+    <Column header="Payout amount" style="width: 12.5%">
       <template #body="{ data: { payout_amount } }">
         <strong class="tabular-nums">{{ formatCurrency(payout_amount) }}</strong>
       </template>
     </Column>
 
-    <Column header="Actions" style="width: 16.5%" class="text-right">
+    <Column header="Actions" style="width: 17.5%" class="text-right">
       <template #body="{}">
         <Button
           class="p-button-sm p-button-success"
