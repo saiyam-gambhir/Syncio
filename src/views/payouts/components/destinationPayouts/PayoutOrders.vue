@@ -13,12 +13,17 @@ const {
 const {
   payoutOrders,
 } = toRefs(usePayoutsStore());
+
+/* ----- Methods ----- */
+// const updateCurrentPageHandler = page => {
+//   fetchPaidPayoutsHandler(page);
+// };
 </script>
 
 <template>
   <DataTable :value="payoutOrders?.items" responsiveLayout="scroll" showGridlines>
     <template #header>
-      <DestinationPayoutsHeader />
+      <!-- <DestinationPayoutsHeader /> -->
     </template>
 
     <Column header="Source store" style="width: 32.5%">
@@ -58,11 +63,16 @@ const {
     <Column header="Actions" style="width: 16.5%" class="text-right">
       <template #body="{}">
         <Button
-          class="p-button-sm"
-          label="View details"
-          outlined>
+          class="p-button-sm p-button-success"
+          label="Create Payout">
         </Button>
       </template>
     </Column>
   </DataTable>
+
+  <Pagination
+    :pagination="payoutOrders.pagination"
+    @updateCurrentPage="updateCurrentPageHandler"
+    v-if="payoutOrders?.pagination">
+  </Pagination>
 </template>

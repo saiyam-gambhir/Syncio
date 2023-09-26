@@ -2,6 +2,7 @@
 import { useFilters } from '@/composables/filters';
 import { usePayouts } from '../../composables/payouts';
 import { usePayoutsStore } from 'payouts';
+import * as routes from '@/routes';
 import DestinationPayoutsHeader from './DestinationPayoutsHeader.vue';
 
 /* ----- Components ----- */
@@ -34,6 +35,19 @@ onMounted(async () => {
     <PayableOrdersSkeleton v-if="payableOrders.loading" />
 
     <DataTable v-else :value="payableOrders?.items" responsiveLayout="scroll" showGridlines>
+      <template #empty>
+        <div class="px-4 py-8 text-center">
+          <h2 class="mt-0 mb-4">You have no payouts to review at this time.</h2>
+          <p>Payable orders will show when a pushed order has been fulfilled by the source store.</p>
+          <p>
+            To create a payout, you will need to set up commission for your store. Go to
+            <router-link :to="routes.PAYOUTS_SETTINGS" class="btn-link">Commission settings</router-link>
+            to get started.
+          </p>
+          <AppLink link="https://help.syncio.co/en/articles/6398970-payouts-add-on-destination-store-side" label="Learn more about payouts" />
+        </div>
+      </template>
+
       <template #header>
         <DestinationPayoutsHeader />
       </template>

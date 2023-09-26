@@ -4,12 +4,11 @@ export const fetchPayoutOrders = {
   async fetchPayoutOrders({ page, targetStoreId }) {
     try {
       this.payoutOrders.loading = true;
-
       const { filterUnwantedQueries } = useFilters();
       filterUnwantedQueries(this.queries, '');
 
-      const getURL = `stores/payout/payout-orders/${this.storeId}/${targetStoreId}?${new URLSearchParams(this.queries).toString()}`;
-      const { data: { current_page, last_page, next_page_url, payoutOrders, previous_page_url, total } } = await this.$https(getURL, {
+      const URL = `stores/payout/payout-orders/${this.storeId}/${targetStoreId}?${new URLSearchParams(this.queries).toString()}`;
+      const { data: { current_page, last_page, next_page_url, payoutOrders, previous_page_url, total } } = await this.$https(URL, {
         params: {
           limiter: this.limiter,
           page: page ?? 1,

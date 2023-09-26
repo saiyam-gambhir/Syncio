@@ -4,6 +4,7 @@ export function usePayouts() {
   const payouts = usePayoutsStore();
 
   const fetchPayableOrdersHandler = async () => {
+    payouts.$patch({ queries: { ...payouts.queries, 'filters[status]': 'unpaid' } })
     await payouts.fetchPayableOrders();
   };
 
