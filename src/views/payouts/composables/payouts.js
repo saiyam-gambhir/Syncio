@@ -14,7 +14,7 @@ export function usePayouts() {
 
   const fetchPayoutOrdersHandler = async targetStoreId => {
     await payouts.fetchPayoutOrders({ targetStoreId: targetStoreId });
-    payouts.arePayableOrdersVisible = false;
+    payouts.selectedPayoutOrdersStore = targetStoreId;
   }
 
   const fetchUnpaidPayoutsHandler = async (page) => {

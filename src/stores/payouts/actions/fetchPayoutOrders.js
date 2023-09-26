@@ -4,6 +4,8 @@ export const fetchPayoutOrders = {
   async fetchPayoutOrders({ page, targetStoreId }) {
     try {
       this.payoutOrders.loading = true;
+      this.arePayableOrdersVisible = false;
+
       const { filterUnwantedQueries } = useFilters();
       filterUnwantedQueries(this.queries, '');
 

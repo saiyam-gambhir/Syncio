@@ -31,6 +31,7 @@ export const usePayoutsStore = defineStore('payouts', {
       payablePayouts: { items: [], loading: false, pagination: {} },
       payout: null,
       payoutOrders: { items: [], loading: false, pagination: {} },
+      selectedPayoutOrdersStore: null,
       queries: {
         'filters[date_range]': '2023-06-28 to 2023-09-26',
         'filters[status]': null,
@@ -45,6 +46,12 @@ export const usePayoutsStore = defineStore('payouts', {
       const { storeId } = useConnectionsStore();
       return storeId;
     },
+
+    selectedPayoutOrdersStoreName() {
+      const { connectionFilterItems } = useConnectionsStore();
+      const store = connectionFilterItems?.find(store => store.id === this.selectedPayoutOrdersStore);
+      return store?.store_domain;
+    }
   },
 
   actions: deepmerge.all([

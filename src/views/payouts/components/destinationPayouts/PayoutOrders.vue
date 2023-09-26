@@ -1,8 +1,6 @@
 <script setup>
 import { useFilters } from '@/composables/filters';
-//import { usePayouts } from '../../composables/payouts';
 import { usePayoutsStore } from 'payouts';
-import DestinationPayoutsHeader from './DestinationPayoutsHeader.vue';
 
 /* ----- Data ----- */
 const {
@@ -12,18 +10,18 @@ const {
 
 const {
   payoutOrders,
+  selectedPayoutOrdersStoreName,
 } = toRefs(usePayoutsStore());
-
-/* ----- Methods ----- */
-// const updateCurrentPageHandler = page => {
-//   fetchPaidPayoutsHandler(page);
-// };
 </script>
 
 <template>
-  <DataTable :value="payoutOrders?.items" responsiveLayout="scroll" showGridlines>
+  <PayoutOrdersSkeleton v-if="payoutOrders?.loading" />
+
+  <DataTable v-else :value="payoutOrders?.items" responsiveLayout="scroll" showGridlines>
     <template #header>
-      <!-- <DestinationPayoutsHeader /> -->
+      <div class="text-lg p-2">
+        <span class="font-light">Payable orders for</span> <span>{{ selectedPayoutOrdersStoreName }}</span>
+      </div>
     </template>
 
     <Column style="width: 5%">
