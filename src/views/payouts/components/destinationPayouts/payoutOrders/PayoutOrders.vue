@@ -9,18 +9,29 @@ const {
 } = useFilters();
 
 const {
+  arePayableOrdersVisible,
   payoutOrders,
+  selectedPayoutOrders,
   selectedPayoutOrdersStoreName,
 } = toRefs(usePayoutsStore());
+
+/* ----- Methods ----- */
+const isSelected = (row) => {
+  if(selectedPayoutOrders.value.includes(row.order_id)) return 'selected';
+};
 </script>
 
 <template>
   <PayoutOrdersSkeleton v-if="payoutOrders?.loading" />
 
-  <DataTable v-else :value="payoutOrders?.items" responsiveLayout="scroll" showGridlines>
+  <DataTable v-else :value="payoutOrders?.items" responsiveLayout="scroll" showGridlines :rowClass="isSelected">
     <template #header>
-      <div class="text-lg p-2">
-        <span class="font-light">Payable orders for</span> <span>{{ selectedPayoutOrdersStoreName }}</span>
+      <div class="text-lg p-2 flex align-items-center">
+        <span class="pr-3 pointer flex align-items-center" @click="arePayableOrdersVisible = true">
+          <i class="pi pi-arrow-left mr-2"></i> Stores
+        </span>
+        <span class="font-light text-xl">|</span>
+        <span class="font-light pl-3">Payable orders for</span>&nbsp; <span>{{ selectedPayoutOrdersStoreName }}</span>
       </div>
     </template>
 
@@ -36,7 +47,7 @@ const {
       </template>
     </Column>
 
-    <Column header="Age (Days)" style="width: 12.5%;">
+    <Column header="Age" style="width: 12.5%;">
       <template #body="{ data: { age } }">
         {{ age }}
       </template>

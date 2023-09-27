@@ -6,12 +6,12 @@ import { usePlanStore } from 'plan';
 import * as routes from '@/routes';
 
 /* ----- Components ----- */
-const Complete = defineAsyncComponent(() => import('./components/sourcePayouts/Complete.vue'));
-const Open = defineAsyncComponent(() => import('./components/sourcePayouts/Open.vue'));
-const Paid = defineAsyncComponent(() => import('./components/destinationPayouts/Paid.vue'));
-const PayableOrders = defineAsyncComponent(() => import('./components/destinationPayouts/PayableOrders.vue'));
+const Complete = defineAsyncComponent(() => import('./components/sourcePayouts/complete/Complete.vue'));
+const Open = defineAsyncComponent(() => import('./components/sourcePayouts/open/Open.vue'));
+const Paid = defineAsyncComponent(() => import('./components/destinationPayouts/paid/Paid.vue'));
+const PayableOrders = defineAsyncComponent(() => import('./components/destinationPayouts/payableOrders/PayableOrders.vue'));
 const Payout = defineAsyncComponent(() => import('./components/payout/Payout.vue'));
-const Unpaid = defineAsyncComponent(() => import('./components/destinationPayouts/Unpaid.vue'));
+const Unpaid = defineAsyncComponent(() => import('./components/destinationPayouts/unpaid/Unpaid.vue'));
 
 /* ----- Data ----- */
 const {

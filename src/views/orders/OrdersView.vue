@@ -98,7 +98,7 @@ const isChecked = ({ order_ref_id }) => {
   return orders.selectedOrders.length > 0 && orders.selectedOrders.includes(order_ref_id);
 };
 
-const isAdded = (row) => {
+const isSelected = (row) => {
   if(orders.selectedOrders.includes(row.order_ref_id)) return 'selected';
 };
 </script>
@@ -129,7 +129,7 @@ const isAdded = (row) => {
   <OrdersViewSkeleton v-if="loadingOrders" />
 
   <!-- Orders Table -->
-  <DataTable v-else :value="orders.orders" responsiveLayout="scroll" showGridlines class="mt-4" :rowClass="isAdded">
+  <DataTable v-else :value="orders.orders" responsiveLayout="scroll" showGridlines class="mt-4" :rowClass="isSelected">
     <template #empty>
       <div class="px-4 py-8 text-center">
         <h2 class="m-0">No orders found</h2>

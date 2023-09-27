@@ -1,6 +1,6 @@
 <script setup>
 import { useFilters } from '@/composables/filters';
-import { usePayouts } from '../../composables/payouts';
+import { usePayouts } from '../../../composables/payouts';
 
 /* ----- Data ----- */
 const {
@@ -15,12 +15,12 @@ const {
 
 /* ----- Mounted ----- */
 onMounted(async () => {
-  await fetchSourcePayoutsHandler('not_confirmed');
+  await fetchSourcePayoutsHandler('payment_confirmed');
 });
 </script>
 
 <template>
-  <DataTable :value="payouts.openPayouts?.items" responsiveLayout="scroll" showGridlines>
+  <DataTable :value="payouts.completePayouts?.items" responsiveLayout="scroll" showGridlines>
     <Column header="Date" style="width: 10%">
       <template #body="{ data: { date } }">
         {{ date }}
@@ -41,8 +41,7 @@ onMounted(async () => {
 
     <Column header="Payment Status" style="width: 14%">
       <template #body="{ data: { status } }">
-        <Tag v-if="status === 'paid'" severity="success" rounded>{{ status }}</Tag>
-        <Tag v-else-if="status === 'payout_created'" severity="warning" rounded>Unpaid</Tag>
+        <Tag v-if="status === 'payment_confirmed'" severity="success" rounded>Received</Tag>
       </template>
     </Column>
 
@@ -56,12 +55,6 @@ onMounted(async () => {
 
     <Column header="Actions" style="width: 22.5%" class="text-right">
       <template #body="{ data: { payout_id } }">
-        <Button
-          @click="updatePayoutHandler(payout_id, 'payment_received')"
-          class="p-button-sm p-button-success"
-          label="Mark as received">
-        </Button>
-
         <Button
           class="p-button-sm ml-2"
           label="View payout"

@@ -11,7 +11,11 @@ const {
   <DataTable :value="[{}, {}, {}, {}]" responsiveLayout="scroll" showGridlines>
     <template #header>
       <div class="text-lg p-2 flex align-items-center">
-        <span class="font-light">Payable orders for</span>
+        <span class="pr-3 pointer flex align-items-center">
+          <i class="pi pi-arrow-left mr-2"></i> Stores
+        </span>
+        <span class="font-light text-xl">|</span>
+        <span class="font-light pl-3">Payable orders for</span>
         <Skeleton class="ml-2" width="250px" height="18px" />
       </div>
     </template>
@@ -28,7 +32,7 @@ const {
       </template>
     </Column>
 
-    <Column header="Age (Days)" style="width: 12.5%;">
+    <Column header="Age" style="width: 12.5%;">
       <template #body>
         <Skeleton width="75px" height="16px" />
       </template>
