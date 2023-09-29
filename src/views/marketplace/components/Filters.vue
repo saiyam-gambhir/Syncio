@@ -76,7 +76,8 @@ const updateCurrentPageHandler = page => {
         <Pagination
           :pagination="pagination"
           :showInfo="false"
-          @updateCurrentPage="updateCurrentPageHandler">
+          @updateCurrentPage="updateCurrentPageHandler"
+          class="border-0">
         </Pagination>
       </div>
     </div>

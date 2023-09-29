@@ -17,16 +17,21 @@ export const fetchPayoutOrders = {
         },
       });
 
-      this.payoutOrders = {
-        items: payoutOrders,
-        pagination: {
-          current_page,
-          last_page,
-          next_page_url,
-          per_page: this.limiter,
-          previous_page_url,
-          total_count: total,
-        }
+      if(!payoutOrders || Object.keys(payoutOrders).length === 0) {
+        this.payoutOrders.items = [];
+      } else {
+        this.payoutOrders.items = Object.keys(payoutOrders).map(key => {
+          return { ...payoutOrders[key], id: +key };
+        }) ?? [];
+      }
+
+      this.payoutOrders.pagination = {
+        current_page,
+        last_page,
+        next_page_url,
+        per_page: this.limiter,
+        previous_page_url,
+        total_count: total,
       };
 
     } catch (error) {

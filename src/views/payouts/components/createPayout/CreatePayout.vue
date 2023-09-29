@@ -3,7 +3,8 @@ import { usePayoutsStore } from 'payouts';
 
 /* ----- Data ----- */
 const {
-  isViewPayoutDetailsRequested,
+  isCreatePayoutDetailsRequested,
+  payoutCreationDetails,
 } = toRefs(usePayoutsStore());
 
 /* ----- Props ----- */
@@ -21,10 +22,10 @@ const printHandler = () => {
 </script>
 
 <template>
-  <Sidebar v-model:visible="isViewPayoutDetailsRequested" position="right" class="w-sidebar">
+  <Sidebar v-model:visible="isCreatePayoutDetailsRequested" position="right" class="w-sidebar">
     <template #header>
       <h1 class="text-4xl font-bold mb-0 flex align-items-center justify-content-between">
-        Payout {{ payout?.id }}
+        Payout
         <Button
           @click="printHandler"
           class="mr-6"
@@ -36,7 +37,8 @@ const printHandler = () => {
 
     <div class="grid mt-4">
       <div class="col-12 md:col-12" v-if="payout">
-        <PayoutDetails :payout="payout" />
+        <!-- <PayoutDetails :payout="payout" /> -->
+        {{ payoutCreationDetails }}
       </div>
     </div>
   </Sidebar>

@@ -27,10 +27,6 @@
       background-color: var(--banner-background);
     }
 
-    &:active {
-      background-color: var(--link);
-    }
-
     &.disabled {
       opacity: 0.7;
       pointer-events: none;

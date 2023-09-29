@@ -3,6 +3,15 @@ import { usePayoutsStore } from 'payouts';
 export function usePayouts() {
   const payouts = usePayoutsStore();
 
+  const fetchPayoutPreviewHandler = async (orderId) => {
+    if(!payouts.selectedPayoutOrders.includes(orderId)) {
+      payouts.selectedPayoutOrders.push(orderId);
+    };
+
+    await payouts.fetchPayoutPreview(orderId);
+    payouts.$patch({ isCreatePayoutDetailsRequested: true });
+  };
+
   const fetchPayableOrdersHandler = async () => {
     payouts.$patch({ queries: { ...payouts.queries, 'filters[status]': 'unpaid' } })
     await payouts.fetchPayableOrders();
@@ -15,7 +24,7 @@ export function usePayouts() {
   const fetchPayoutOrdersHandler = async targetStoreId => {
     await payouts.fetchPayoutOrders({ targetStoreId: targetStoreId });
     payouts.selectedPayoutOrdersStore = targetStoreId;
-  }
+  };
 
   const fetchUnpaidPayoutsHandler = async (page) => {
     payouts.$patch({ queries: { ...payouts.queries, 'filters[status]': 'unpaid' } })
@@ -35,7 +44,7 @@ export function usePayouts() {
   const fetchPayoutHandler = async (payoutId, targetStoreId) => {
     payouts.$patch({ isViewPayoutDetailsRequested: true });
     await payouts.fetchPayout(payoutId, targetStoreId);
-  }
+  };
 
   const handleTabChange = async index => {
     payouts.$patch({ activeTabIndex: index });
@@ -66,6 +75,7 @@ export function usePayouts() {
     fetchPayablePayoutsHandler,
     fetchPayoutHandler,
     fetchPayoutOrdersHandler,
+    fetchPayoutPreviewHandler,
     fetchSourcePayoutsHandler,
     fetchUnpaidPayoutsHandler,
     handleTabChange,

@@ -57,7 +57,7 @@ onMounted(async () => {
   <PageHeader content="Manage Payouts for fulfilled orders" title="Payouts" withActions>
     <template #actions>
       <router-link :to="routes.PAYOUTS_SETTINGS">
-        <Button label="Payouts settings" outlined class="ml-4"></Button>
+        <Button label="Payouts settings" outlined></Button>
       </router-link>
     </template>
   </PageHeader>

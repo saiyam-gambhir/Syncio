@@ -1,6 +1,7 @@
 <script setup>
 import { useFilters } from '@/composables/filters';
 import { usePayoutsStore } from 'payouts';
+import { usePayouts } from '../../../composables/payouts';
 
 /* ----- Data ----- */
 const {
@@ -9,15 +10,22 @@ const {
 } = useFilters();
 
 const {
-  arePayableOrdersVisible,
+  fetchPayoutPreviewHandler
+} = usePayouts();
+
+const {
+  isCreatePayoutDetailsRequested,
   payoutOrders,
   selectedPayoutOrders,
-  selectedPayoutOrdersStoreName,
 } = toRefs(usePayoutsStore());
 
 /* ----- Methods ----- */
 const isSelected = (row) => {
   if(selectedPayoutOrders.value.includes(row.order_id)) return 'selected';
+};
+
+const updateCurrentPageHandler = (page) => {
+
 };
 </script>
 
@@ -26,13 +34,7 @@ const isSelected = (row) => {
 
   <DataTable v-else :value="payoutOrders?.items" responsiveLayout="scroll" showGridlines :rowClass="isSelected">
     <template #header>
-      <div class="text-lg p-2 flex align-items-center">
-        <span class="pr-3 pointer flex align-items-center" @click="arePayableOrdersVisible = true">
-          <i class="pi pi-arrow-left mr-2"></i> Stores
-        </span>
-        <span class="font-light text-xl">|</span>
-        <span class="font-light pl-3">Payable orders for</span>&nbsp; <span>{{ selectedPayoutOrdersStoreName }}</span>
-      </div>
+      <PayoutOrdersHeader />
     </template>
 
     <Column style="width: 5%">
@@ -67,7 +69,7 @@ const isSelected = (row) => {
       </template>
     </Column>
 
-    <Column header="Commission" style="width: 12.5%">
+    <Column header="Commission" style="width: 12.5%;">
       <template #body="{ data: { commission, commission_type } }">
         <span class="tabular-nums display-commission">+ {{ formatCommission(commission_type, commission) }}</span>
       </template>
@@ -80,10 +82,11 @@ const isSelected = (row) => {
     </Column>
 
     <Column header="Actions" style="width: 17.5%" class="text-right">
-      <template #body="{}">
+      <template #body="{ data: { order_id } }">
         <Button
+          @click="fetchPayoutPreviewHandler(order_id)"
           class="p-button-sm p-button-success"
-          label="Create Payout">
+          label="Create payout">
         </Button>
       </template>
     </Column>
@@ -94,4 +97,6 @@ const isSelected = (row) => {
     @updateCurrentPage="updateCurrentPageHandler"
     v-if="payoutOrders?.pagination">
   </Pagination>
+
+  <CreatePayout v-if="isCreatePayoutDetailsRequested" />
 </template>
