@@ -19,6 +19,7 @@ const {
   loadingConnections,
   toggleMultilocation,
 } = toRefs(useConnectionsStore());
+
 const options = ref(['Off', 'On']);
 
 /* ----- Mounted ----- */

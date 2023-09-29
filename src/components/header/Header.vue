@@ -2,15 +2,15 @@
 import { useActivityCenterStore } from 'activityCenter';
 import { useAuthStore } from 'auth';
 import { useConnectionsStore } from 'connections';
+import { useFilters } from '@/composables/filters';
 import { useMarketPlaceStore } from 'marketPlace';
 import { useOrdersStore } from 'orders';
 import { usePayoutsStore } from 'payouts';
 import { usePlanStore } from 'plan';
 import { useProductSettingsStore } from 'productSettings';
 import { useProductsStore } from 'products';
-import * as routes from '@/routes';
-import { useFilters } from '@/composables/filters';
 import { useToasts } from '@/composables/toasts';
+import * as routes from '@/routes';
 
 /* ----- Components ----- */
 const ShopifyPermissionsDialog = defineAsyncComponent(() => import('./components/ShopifyPermissionsDialog.vue'));
@@ -18,6 +18,7 @@ const ShopifyPermissionsDialog = defineAsyncComponent(() => import('./components
 /* ----- Data ----- */
 const {
   fetchMetadata,
+  isNewStoreConnectionRequested,
   shopifyPermissions,
   storeKey,
   storeName,
@@ -54,7 +55,9 @@ const quickActions = ref([
   {
     label: 'Connect new store',
     icon: 'pi pi-plus',
-    command: () => {}
+    command: () => {
+      connectNewStoreHandler();
+    }
   },
   {
     label: 'Toggle multilocation',
@@ -114,6 +117,11 @@ const copyStoreKeyHandler = () => {
   copyToClipBoard(storeKey.value);
   showToast({ message: 'Store key copied successfully' });
 };
+
+const connectNewStoreHandler = async () => {
+  await router.push({ name: routes.STORES });
+  isNewStoreConnectionRequested.value = true;
+}
 </script>
 
 <template>
