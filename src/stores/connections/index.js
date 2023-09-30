@@ -106,7 +106,7 @@ export const useConnectionsStore = defineStore('connections', {
     },
 
     isSourceStore() {
-      return this.storeType === 'source';
+      return this.storeType.toLowerCase() === 'source';
     },
   },
 

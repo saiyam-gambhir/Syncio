@@ -15,6 +15,7 @@ import { usePayoutsStore } from 'payouts';
 import { usePlanStore } from 'plan';
 import { useProductSettingsStore } from 'productSettings';
 import { useProductsStore } from 'products';
+import { usePayoutsSettingsStore } from 'payoutsSettings';
 
 /* ----- Prime Vue ----- */
 import Button from 'primevue/button';
@@ -143,7 +144,8 @@ const payouts = usePayoutsStore();
 const plan = usePlanStore();
 const products = useProductsStore();
 const productSettings = useProductSettingsStore();
-activityCenter.$https = auth.$https = connections.$https = marketPlace.$https = orders.$https = payouts.$https = plan.$https = productSettings.$https = $https;
+const usePayoutsSettings = usePayoutsSettingsStore();
+activityCenter.$https = auth.$https = connections.$https = marketPlace.$https = orders.$https = payouts.$https = plan.$https = productSettings.$https = usePayoutsSettings.$https = $https;
 
 /* ----- Logout Handler ----- */
 const logout = () => {

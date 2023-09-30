@@ -24,6 +24,7 @@ const searchHandler = async (searchText) => {
   <div class="flex align-items-center justify-content-between">
     <div class="p-inputgroup w-35">
       <SearchFilter
+        :loading="loadingConnections"
         @update:modelValue="searchHandler"
         placeholder="Search by store URL"
         v-model="filters.searchString">
