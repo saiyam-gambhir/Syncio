@@ -24,11 +24,11 @@ const handleTabChange = async index => {
   </PageHeader>
 
   <article class="mt-4">
-    <h2>Commissions</h2>
+    <!-- <h2>Commissions</h2> -->
     <p class="text-lg line-height-4">
       Commissions will be calculated on sales value; the total amount your customers pay for the product. <br>
       If no Product commissions are set, Syncio will use the Store commission in Payouts calculations for that product. <br>
-      Commissions can only be set for Shopify stores, as Payouts is not available for Woo stores yet.
+      Commissions can only be set for <strong>Shopify</strong> stores, as Payouts is not available for <strong>Woocommerce</strong> stores yet.
     </p>
 
     <TabView v-model:activeIndex="activeTabIndex" @update:activeIndex="handleTabChange" class="mt-4">

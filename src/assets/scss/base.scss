@@ -361,7 +361,7 @@ td {
 }
 
 .p-toast {
-  width: auto !important;
+  //width: auto !important;
   opacity: 1;
 }
 
@@ -374,11 +374,16 @@ td {
   background: #ffffff !important;
 
   .p-toast-summary {
-    display: none;
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 600 !important;
+    margin-bottom: .5rem;
+    text-transform: capitalize;
   }
 
   .p-toast-detail {
     margin-top: 0 !important;
+    font-weight: 600 !important;
   }
 
   .p-toast-message-icon {

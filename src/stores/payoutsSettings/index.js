@@ -3,20 +3,26 @@ import deepmerge from 'deepmerge';
 
 /* ----- Actions ----- */
 import { bulkCommissionsUpdate } from './actions/bulkCommissionsUpdate';
-import { deleteStoreCommission } from './actions/deleteStoreCommission';
+import { deleteCommission } from './actions/deleteCommission';
+import { fetchByProduct } from './actions/fetchByProduct';
 import { updateStoreCommission } from './actions/updateStoreCommission';
 
 export const usePayoutsSettingsStore = defineStore('payoutsSettings', {
   state: () => {
     return {
       activeTabIndex: 0,
+      areProductCommissionsChanged: false,
       areStoreCommissionsChanged: false,
       commissionTypeOptions: [
         { name: 'Flat rate', type: 'flat_rate' },
         { name: 'Percentage', type: 'percentage' },
       ],
+      limiter: 25,
       storeConnections: null,
       storeDefaultCommissionRate: {},
+      storeProducts: null,
+      unMutatedStoreProducts: null,
+      storeProductsPagination: {},
     };
   },
 
@@ -29,7 +35,8 @@ export const usePayoutsSettingsStore = defineStore('payoutsSettings', {
 
   actions: deepmerge.all([
     bulkCommissionsUpdate,
-    deleteStoreCommission,
+    deleteCommission,
+    fetchByProduct,
     updateStoreCommission,
   ]),
 

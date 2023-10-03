@@ -20,9 +20,9 @@ export const fetchProducts = {
       source_store_id: id,
     };
 
-    const response = await axiosService.getData('products', params);
-    if(response.success) {
-      this.products = response.products;
+    const { products, success } = await axiosService.getData('products', params);
+    if(success) {
+      this.products = await products;
     }
   }
 };

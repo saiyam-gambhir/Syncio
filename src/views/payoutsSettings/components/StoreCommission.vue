@@ -13,7 +13,7 @@ const {
   areStoreCommissionsChanged,
   bulkCommissionsUpdate,
   commissionTypeOptions,
-  deleteStoreCommission,
+  deleteCommission,
   storeConnections,
 } = toRefs(usePayoutsSettingsStore());
 
@@ -32,13 +32,23 @@ const getDefaultCommissionType = (connectionType) => {
   return connectionType === 'percentage' ? '%' : '$';
 };
 
+const deleteCommissionHandler = async (commissionId) => {
+  await deleteCommission.value(commissionId);
+  cancelHandler();
+};
+
+const bulkCommissionsUpdateHandler = async () => {
+  await bulkCommissionsUpdate.value(storeConnections.value);
+  cancelHandler();
+}
+
 const cancelHandler = () => {
   storeConnections.value = structuredClone(toRaw(connections.value));
 };
 </script>
 
 <template>
-  <ConnectionsViewSkeleton v-if="loadingConnections" />
+  <StoreCommissionSkeleton v-if="loadingConnections" />
   <DataTable v-else :value="storeConnections" responsiveLayout="scroll" showGridlines>
     <template #empty>
       <div class="px-4 py-8 text-center">
@@ -53,7 +63,7 @@ const cancelHandler = () => {
     <Column header="Platform" style="width: 5%" class="text-center">
       <template #body="{ data: connection }">
         <IconShopify v-if="connection.platform === 'shopify'" />
-        <IconWoo v-if="connection.platform === 'woocommerce'" class="py-2" />
+        <IconWoo v-if="connection.platform === 'woocommerce'" style="padding: .79rem 0" />
       </template>
     </Column>
 
@@ -80,11 +90,13 @@ const cancelHandler = () => {
       </template>
     </Column>
 
-    <Column header="Rate" style="width: 12.5%">
+    <Column style="width: 12.5%">
+      <template #header>
+        Rate <i class="pi pi-question-circle ml-3 text-xl" v-tooltip.right="'Select commission type to add rate'"></i>
+      </template>
       <template #body="{ data: connection }">
-        <div v-if="connection.platform === 'shopify'" class="p-inputgroup">
+        <div v-if="connection.platform === 'shopify' && connection.store_commission_rate.type" class="p-inputgroup">
           <InputNumber
-            :disabled="!connection.store_commission_rate.type"
             :maxFractionDigits="2"
             :useGrouping="false"
             placeholder="Enter Rate"
@@ -92,39 +104,43 @@ const cancelHandler = () => {
           </InputNumber>
           <span class="p-inputgroup-addon">{{ getDefaultCommissionType(connection.store_commission_rate.type) }}</span>
         </div>
-        <span v-else>Not supported</span>
+        <span v-if="connection.platform === 'woocommerce'">Not supported</span>
       </template>
     </Column>
 
     <Column header="Actions" style="width: 22.5%" class="text-right">
       <template #body="{ data: connection }">
         <Button
-          @click="deleteStoreCommission(connection.store_commission_rate.id)"
+          @click="deleteCommissionHandler(connection.store_commission_rate.id)"
           class="p-button-sm p-button-danger"
           label="Clear commission"
           outlined
           v-if="connection.platform === 'shopify' && (connection.store_commission_rate.id)">
         </Button>
       </template>
+
+      <template #footer>
+        <div class="flex justify-content-end">
+          <Button
+            :disabled="!areStoreCommissionsChanged"
+            @click="cancelHandler"
+            class="mr-2"
+            label="Cancel"
+            outlined
+            style="width: 80px;">
+          </Button>
+
+          <Button
+            :disabled="!areStoreCommissionsChanged"
+            :loading="loadingConnections"
+            @click="bulkCommissionsUpdateHandler"
+            class="ml-2"
+            label="Save"
+            style="width: 100px;"
+            width="80px">
+          </Button>
+        </div>
+      </template>
     </Column>
   </DataTable>
-
-  <div class="flex justify-content-end pt-4">
-    <Button
-      :disabled="!areStoreCommissionsChanged"
-      @click="cancelHandler"
-      class="mr-3"
-      label="Cancel"
-      outlined
-      style="width: 80px;">
-    </Button>
-
-    <Button
-      :disabled="!areStoreCommissionsChanged"
-      @click="bulkCommissionsUpdate(storeConnections)"
-      label="Save"
-      style="width: 100px;"
-      width="80px">
-    </Button>
-  </div>
 </template>

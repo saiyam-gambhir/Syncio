@@ -62,6 +62,9 @@ const setEntries = () => {
     <h5 class="m-0" v-if="pagination && showInfo">
       <span v-if="pagination.total_count > 0">{{ entriesStartingFrom }} - {{ entriesEndingAt }} of</span> {{ pagination.total_count }}
     </h5>
+
+    <slot name="footer"></slot>
+
     <ul class="flex pl-0 m-0 pagination__actions">
       <li class="page pagination__first" @click="goToFirstPage" :class="{ disabled: !pagination.previous_page_url }">
         <IconPageFirst />

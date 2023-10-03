@@ -8,7 +8,7 @@ export const bulkCommissionsUpdate = {
     });
 
     const commissionRates = updatesStores.map(store => {
-      const { connection_id, id, store_commission_rate: { type, value } } = store
+      const { connection_id, id, store_commission_rate: { type, value } } = store;
       return {
         commission_type: type,
         commission_value: value,
@@ -22,7 +22,7 @@ export const bulkCommissionsUpdate = {
     const params = {
       commission_rates: [...commissionRates],
       destination_store_id: this.storeId,
-    }
+    };
 
     const { data: { success } } = await this.$https.post(`stores/${this.storeId}/bulk-commission-rates-update`, { ...params });
     if(success) {

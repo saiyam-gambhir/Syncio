@@ -9,7 +9,7 @@ export function useToasts() {
       detail: message ?? '',
       life: life ?? 5000,
       severity: severity ?? 'success',
-      summary: summary ?? '',
+      summary: summary ?? 'success',
     });
   };
 

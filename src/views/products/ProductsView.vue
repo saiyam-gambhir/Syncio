@@ -140,7 +140,7 @@ const getProductSyncStatus = product => {
       <Column header="Product" style="width: 36%">
         <template #body="{ data: { default_image_url, title } }">
           <div class="flex align-items-center">
-            <figure class="m-0" style="width: 42px; height: 42px; padding: 4px; border: 1px solid rgb(231, 231, 231);">
+            <figure class="m-0" style="width: 42px; height: 42px; padding: 4px; border: 1px solid rgb(231, 231, 231); flex-shrink: 0;">
               <div class="w-full h-full" style="background-size: contain; background-repeat: no-repeat; background-position: center;" :style="{ backgroundImage: `url(${default_image_url})` }"></div>
             </figure>
             <div class="flex flex-column ml-3">

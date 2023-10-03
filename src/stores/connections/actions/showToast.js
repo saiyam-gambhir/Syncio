@@ -5,7 +5,7 @@ export const showToast = {
       detail: message ?? '',
       life: 5000,
       severity: severity ?? 'success',
-      summary: '',
+      summary: severity ?? 'success',
     });
   }
 }

@@ -1,3 +1,5 @@
+import { usePayoutsSettingsStore } from 'payoutsSettings';
+
 export const fetchConnections = {
   async fetchConnections() {
     const { searchString, sortBy } = this.filters;
@@ -13,6 +15,10 @@ export const fetchConnections = {
     });
 
     this.connections = await response.data?.stores;
+
+    const { storeConnections } = toRefs(usePayoutsSettingsStore());
+    storeConnections.value = await response.data?.stores;
+
     if(this.connectionFilterItems.length === 0) {
       this.connectionFilterItems = await response.data?.stores;
     }
