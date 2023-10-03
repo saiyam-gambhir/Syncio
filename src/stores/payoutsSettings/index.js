@@ -18,6 +18,7 @@ export const usePayoutsSettingsStore = defineStore('payoutsSettings', {
         { name: 'Percentage', type: 'percentage' },
       ],
       limiter: 25,
+      loadingStoreProducts: true,
       storeConnections: null,
       storeDefaultCommissionRate: {},
       storeProducts: null,

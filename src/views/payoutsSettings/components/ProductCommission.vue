@@ -1,6 +1,7 @@
 <script setup>
 import { useConnectionsStore } from 'connections';
 import { usePayoutsSettingsStore } from 'payoutsSettings';
+import ProductCommissionSkeleton from './ProductCommissionSkeleton.vue';
 
 /* ----- Data ----- */
 const {
@@ -15,7 +16,7 @@ const {
   commissionTypeOptions,
   deleteCommission,
   fetchByProduct,
-  storeConnections,
+  loadingStoreProducts,
   storeProducts,
   storeProductsPagination,
   unMutatedStoreProducts,
@@ -38,13 +39,13 @@ const getDefaultCommissionType = (connectionType) => {
 
 const deleteCommissionHandler = async (commissionId) => {
   await deleteCommission.value(commissionId);
-  //cancelHandler();
+  cancelHandler();
 };
 
-// const bulkCommissionsUpdateHandler = async () => {
-//   await bulkCommissionsUpdate.value(storeConnections.value);
-//   cancelHandler();
-// };
+const bulkCommissionsUpdateHandler = async () => {
+  await bulkCommissionsUpdate.value(storeProducts.value, 'product');
+  cancelHandler();
+};
 
 const cancelHandler = () => {
   storeProducts.value = JSON.parse(unMutatedStoreProducts.value);
@@ -61,7 +62,8 @@ const updateCurrentPageHandler = page => {
 </script>
 
 <template>
-  <DataTable :value="storeProducts" responsiveLayout="scroll" showGridlines>
+  <ProductCommissionSkeleton v-if="loadingStoreProducts" />
+  <DataTable v-else :value="storeProducts" responsiveLayout="scroll" showGridlines>
     <template #empty>
       <div class="px-4 py-8 text-center">
         <h2 class="m-0">No products found</h2>
@@ -157,8 +159,9 @@ const updateCurrentPageHandler = page => {
 
         <Button
           :disabled="!areProductCommissionsChanged"
-          label="Save"
+          @click="bulkCommissionsUpdateHandler"
           class="ml-2"
+          label="Save"
           style="width: 100px;"
           width="80px">
         </Button>

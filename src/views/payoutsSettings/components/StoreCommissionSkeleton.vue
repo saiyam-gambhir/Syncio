@@ -41,7 +41,7 @@ const {
 
     <Column header="Actions" style="width: 22.5%" class="text-right">
       <template #body>
-        <Skeleton width="130px" height="32.5px" style="float: right" />
+        <Skeleton width="130px" height="32.5px" borderRadius="8px" style="float: right" />
       </template>
     </Column>
   </DataTable>

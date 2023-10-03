@@ -38,7 +38,7 @@ const deleteCommissionHandler = async (commissionId) => {
 };
 
 const bulkCommissionsUpdateHandler = async () => {
-  await bulkCommissionsUpdate.value(storeConnections.value);
+  await bulkCommissionsUpdate.value(storeConnections.value, 'store');
   cancelHandler();
 }
 
