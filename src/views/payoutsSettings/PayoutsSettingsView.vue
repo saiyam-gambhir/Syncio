@@ -3,8 +3,8 @@ import { usePayoutsSettingsStore } from 'payoutsSettings';
 
 /* ----- Components ----- */
 const DefaultStoreCommission = defineAsyncComponent(() => import('./components/DefaultStoreCommission.vue'));
-const ProductCommission = defineAsyncComponent(() => import('./components/ProductCommission.vue'));
-const StoreCommission = defineAsyncComponent(() => import('./components/StoreCommission.vue'));
+const ProductCommission = defineAsyncComponent(() => import('./components/product/ProductCommission.vue'));
+const StoreCommission = defineAsyncComponent(() => import('./components/store/StoreCommission.vue'));
 
 /* ----- Data ----- */
 const {
@@ -24,7 +24,6 @@ const handleTabChange = async index => {
   </PageHeader>
 
   <article class="mt-4">
-    <!-- <h2>Commissions</h2> -->
     <p class="text-lg line-height-4">
       Commissions will be calculated on sales value; the total amount your customers pay for the product. <br>
       If no Product commissions are set, Syncio will use the Store commission in Payouts calculations for that product. <br>

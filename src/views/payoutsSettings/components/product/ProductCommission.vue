@@ -1,7 +1,6 @@
 <script setup>
 import { useConnectionsStore } from 'connections';
 import { usePayoutsSettingsStore } from 'payoutsSettings';
-import ProductCommissionSkeleton from './ProductCommissionSkeleton.vue';
 
 /* ----- Data ----- */
 const {

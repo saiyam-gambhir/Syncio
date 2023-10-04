@@ -13,6 +13,12 @@ const {
       <ConnectionsViewHeader />
     </template>
 
+    <Column header="" style="width: 3%">
+      <template #body>
+        <CheckboxWrapper />
+      </template>
+    </Column>
+
     <Column header="Platform" style="width: 5%" class="text-center">
       <template #body>
         <div class="flex align-items-center justify-content-center">
@@ -39,7 +45,7 @@ const {
       </template>
     </Column>
 
-    <Column header="Actions" style="width: 22.5%" class="text-right">
+    <Column header="Actions" style="width: 19.5%" class="text-right">
       <template #body>
         <Skeleton width="130px" height="32.5px" borderRadius="8px" style="float: right" />
       </template>

@@ -23,6 +23,8 @@ export const usePayoutsSettingsStore = defineStore('payoutsSettings', {
       storeDefaultCommissionRate: {},
       storeProducts: null,
       unMutatedStoreProducts: null,
+      selectedProducts: [],
+      selectedStores: [],
       storeProductsPagination: {},
     };
   },
@@ -48,7 +50,9 @@ export const usePayoutsSettingsStore = defineStore('payoutsSettings', {
         key: 'payoutsSettings',
         storage: sessionStorage,
         paths: [
-          'activeTabIndex'
+          'activeTabIndex',
+
+          'selectedProducts',
         ],
       },
     ],

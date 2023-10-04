@@ -24,6 +24,7 @@ import Card from 'primevue/card';
 import Carousel from 'primevue/carousel';
 import Checkbox from 'primevue/checkbox';
 import Column from 'primevue/column';
+import ConfirmPopup from 'primevue/confirmpopup';
 import DataTable from 'primevue/dataTable';
 import Dialog from 'primevue/dialog';
 import Divider from 'primevue/divider';

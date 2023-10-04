@@ -1,4 +1,5 @@
 <script setup>
+import { useCheckbox } from '@/composables/checkbox';
 import { useConnectionsStore } from 'connections';
 import { usePayoutsSettingsStore } from 'payoutsSettings';
 
@@ -15,7 +16,14 @@ const {
   commissionTypeOptions,
   deleteCommission,
   storeConnections,
+  selectedStores
 } = toRefs(usePayoutsSettingsStore());
+
+const {
+  isCheckboxSelected,
+  onInputHandler,
+  isRowSelected,
+} = useCheckbox(selectedStores.value);
 
 /* ----- Mounted ----- */
 onMounted(async () => {
@@ -45,11 +53,31 @@ const bulkCommissionsUpdateHandler = async () => {
 const cancelHandler = () => {
   storeConnections.value = structuredClone(toRaw(connections.value));
 };
+
+// const isSelected = (row) => {
+//   const _row = selectedStores.value.filter(store => store.id === row.id)[0];
+//   if(_row?.id === row.id) return 'selected';
+// };
+
+// const onInputHandler = async data => {
+//   if(isSelected(data) === 'selected') {
+//     let _store = selectedStores.value.find(store => store.id === data.id);
+//     let index = selectedStores.value.findIndex(store => store.id === _store.id);
+//     selectedStores.value.splice(index, 1);
+//   }
+//   selectedStores.value.push(data);
+// };
 </script>
 
 <template>
+  <!-- Bulk Push -->
+  <BulkSelectedCount :items="selectedStores" itemType="order">
+    <Button label="Set commission type and rate" @click=""></Button>
+  </BulkSelectedCount>
+
   <StoreCommissionSkeleton v-if="loadingConnections" />
-  <DataTable v-else :value="storeConnections" responsiveLayout="scroll" showGridlines>
+
+  <DataTable v-else :value="storeConnections" responsiveLayout="scroll" showGridlines :rowClass="isRowSelected">
     <template #empty>
       <div class="px-4 py-8 text-center">
         <h2 class="m-0">No stores found</h2>
@@ -58,7 +86,14 @@ const cancelHandler = () => {
 
     <template #header>
       <ConnectionsViewHeader />
+      {{ selectedStores }}
     </template>
+
+    <Column header="" style="width: 3%">
+      <template #body="{ data }">
+        <CheckboxWrapper :isChecked="isCheckboxSelected(data, selectedStores) === 'selected'" @onInput="onInputHandler(data, selectedStores)" />
+      </template>
+    </Column>
 
     <Column header="Platform" style="width: 5%" class="text-center">
       <template #body="{ data: connection }">
@@ -108,7 +143,7 @@ const cancelHandler = () => {
       </template>
     </Column>
 
-    <Column header="Actions" style="width: 22.5%" class="text-right">
+    <Column header="Actions" style="width: 19.5%" class="text-right">
       <template #body="{ data: connection }">
         <Button
           @click="deleteCommissionHandler(connection.store_commission_rate.id)"
