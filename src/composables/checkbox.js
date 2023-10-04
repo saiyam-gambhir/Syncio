@@ -1,17 +1,28 @@
-export function useCheckbox(items) {
+export function useCheckbox(selectedItems = []) {
 
-  const isCheckboxSelected = (data = {}, selectedItems = [], key = 'id') => {
+  const isCheckboxSelected = (data = {}, key = 'id') => {
     const row = selectedItems.filter(item => item[key] === data[key])[0];
     if(row) return 'selected';
   };
 
-  const onInputHandler = (data, selectedItems) => {
+  const checkboxUncheckedHandler = (data) => {
+    if(isCheckboxSelected(data) === 'selected') {
+      const index = selectedItems.findIndex(item => item.id === data.id);
+      selectedItems.splice(index, 1);
+      return true;
+    }
+
+    return false;
+  };
+
+  const onInputHandler = (data) => {
+    if(checkboxUncheckedHandler(data)) return;
     selectedItems.push(data);
-    isCheckboxSelected(data, selectedItems);
+    isCheckboxSelected(data);
   };
 
   const isRowSelected = (data) => {
-    return isCheckboxSelected(data, items);
+    return isCheckboxSelected(data);
   };
 
   return {

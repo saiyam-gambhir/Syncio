@@ -51,7 +51,7 @@ export const usePayoutsSettingsStore = defineStore('payoutsSettings', {
         storage: sessionStorage,
         paths: [
           'activeTabIndex',
-
+          'selectedStores',
           'selectedProducts',
         ],
       },

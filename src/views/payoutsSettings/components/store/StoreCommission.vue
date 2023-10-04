@@ -53,25 +53,10 @@ const bulkCommissionsUpdateHandler = async () => {
 const cancelHandler = () => {
   storeConnections.value = structuredClone(toRaw(connections.value));
 };
-
-// const isSelected = (row) => {
-//   const _row = selectedStores.value.filter(store => store.id === row.id)[0];
-//   if(_row?.id === row.id) return 'selected';
-// };
-
-// const onInputHandler = async data => {
-//   if(isSelected(data) === 'selected') {
-//     let _store = selectedStores.value.find(store => store.id === data.id);
-//     let index = selectedStores.value.findIndex(store => store.id === _store.id);
-//     selectedStores.value.splice(index, 1);
-//   }
-//   selectedStores.value.push(data);
-// };
 </script>
 
 <template>
-  <!-- Bulk Push -->
-  <BulkSelectedCount :items="selectedStores" itemType="order">
+  <BulkSelectedCount :items="selectedStores" itemType="store">
     <Button label="Set commission type and rate" @click=""></Button>
   </BulkSelectedCount>
 
@@ -86,12 +71,11 @@ const cancelHandler = () => {
 
     <template #header>
       <ConnectionsViewHeader />
-      {{ selectedStores }}
     </template>
 
     <Column header="" style="width: 3%">
       <template #body="{ data }">
-        <CheckboxWrapper :isChecked="isCheckboxSelected(data, selectedStores) === 'selected'" @onInput="onInputHandler(data, selectedStores)" />
+        <CheckboxWrapper :isChecked="isCheckboxSelected(data) === 'selected'" @onInput="onInputHandler(data)" v-if="data.platform.toLowerCase() === 'shopify'" />
       </template>
     </Column>
 

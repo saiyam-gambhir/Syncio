@@ -1,4 +1,5 @@
 <script setup>
+import { useCheckbox } from '@/composables/checkbox';
 import { useConnectionsStore } from 'connections';
 import { usePayoutsSettingsStore } from 'payoutsSettings';
 
@@ -19,7 +20,14 @@ const {
   storeProducts,
   storeProductsPagination,
   unMutatedStoreProducts,
+  selectedProducts,
 } = toRefs(usePayoutsSettingsStore());
+
+const {
+  isCheckboxSelected,
+  onInputHandler,
+  isRowSelected,
+} = useCheckbox(selectedProducts.value);
 
 /* ----- Mounted ----- */
 onMounted(async () => {
@@ -61,8 +69,13 @@ const updateCurrentPageHandler = page => {
 </script>
 
 <template>
+  <BulkSelectedCount :items="selectedProducts" itemType="product">
+    <Button label="Set commission type and rate" @click=""></Button>
+  </BulkSelectedCount>
+
   <ProductCommissionSkeleton v-if="loadingStoreProducts" />
-  <DataTable v-else :value="storeProducts" responsiveLayout="scroll" showGridlines>
+
+  <DataTable v-else :value="storeProducts" responsiveLayout="scroll" showGridlines :rowClass="isRowSelected">
     <template #empty>
       <div class="px-4 py-8 text-center">
         <h2 class="m-0">No products found</h2>
@@ -75,7 +88,7 @@ const updateCurrentPageHandler = page => {
 
     <Column header="" style="width: 3%">
       <template #body="{ data }">
-        <CheckboxWrapper />
+        <CheckboxWrapper :isChecked="isCheckboxSelected(data, 'external_product_id') === 'selected'" @onInput="onInputHandler(data, 'external_product_id')" />
       </template>
     </Column>
 
