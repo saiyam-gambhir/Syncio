@@ -2,6 +2,7 @@
 import { useCheckbox } from '@/composables/checkbox';
 import { useConnectionsStore } from 'connections';
 import { usePayoutsSettingsStore } from 'payoutsSettings';
+import { watch } from 'vue';
 
 /* ----- Components ----- */
 const BulkCommissionDialog = defineAsyncComponent(() => import('../BulkCommissionDialog.vue'));
@@ -30,8 +31,7 @@ const {
 const {
   isCheckboxSelected,
   onInputHandler,
-  isRowSelected,
-} = useCheckbox(selectedProducts.value);
+} = useCheckbox();
 
 /* ----- Mounted ----- */
 onMounted(async () => {
@@ -70,11 +70,33 @@ const getStoreName = (id) => {
 const updateCurrentPageHandler = page => {
   fetchByProduct.value(page);
 };
+
+const clearSelectionHandler = () => {
+  selectedProducts.value = [];
+}
+
+const isRowSelectedHandler = (data) => {
+  return isCheckboxSelected(data, selectedProducts.value, 'external_product_id');
+}
 </script>
 
 <template>
   <BulkSelectedCount :items="selectedProducts" itemType="product">
-    <Button label="Set commission type and rate" @click="isBulkCommissionUpdateRequested = true"></Button>
+    <Button
+      @click="isBulkCommissionUpdateRequested = true"
+      label="Set commission type and rate">
+    </Button>
+
+    <template #clear>
+      <Button
+        @click="clearSelectionHandler"
+        class="ml-2"
+        icon="pi pi-times"
+        rounded
+        size="10px"
+        v-tooltip.bottom="'Clear selection'">
+      </Button>
+    </template>
   </BulkSelectedCount>
 
   <BulkCommissionDialog
@@ -85,7 +107,7 @@ const updateCurrentPageHandler = page => {
 
   <ProductCommissionSkeleton v-if="loadingStoreProducts" />
 
-  <DataTable v-else :value="storeProducts" responsiveLayout="scroll" showGridlines :rowClass="isRowSelected">
+  <DataTable v-else :value="storeProducts" responsiveLayout="scroll" showGridlines :rowClass="isRowSelectedHandler">
     <template #empty>
       <div class="px-4 py-8 text-center">
         <h2 class="m-0">No products found</h2>
@@ -98,7 +120,7 @@ const updateCurrentPageHandler = page => {
 
     <Column header="" style="width: 3%">
       <template #body="{ data }">
-        <CheckboxWrapper :isChecked="isCheckboxSelected(data, 'external_product_id') === 'selected'" @onInput="onInputHandler(data, 'external_product_id')" />
+        <CheckboxWrapper :isChecked="isCheckboxSelected(data, selectedProducts, 'external_product_id') === 'selected'" @onInput="onInputHandler(data, selectedProducts, 'external_product_id')" />
       </template>
     </Column>
 

@@ -19,6 +19,7 @@ const props = defineProps({
         {{ items.length <= 1 ? itemType : `${itemType}s` }} selected
       </h3>
       <slot></slot>
+      <slot name="clear"></slot>
     </section>
   </transition>
 </template>
