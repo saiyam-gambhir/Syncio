@@ -3,6 +3,9 @@ import { useCheckbox } from '@/composables/checkbox';
 import { useConnectionsStore } from 'connections';
 import { usePayoutsSettingsStore } from 'payoutsSettings';
 
+/* ----- Components ----- */
+const BulkCommissionDialog = defineAsyncComponent(() => import('../BulkCommissionDialog.vue'));
+
 /* ----- Data ----- */
 const {
   connections,
@@ -16,11 +19,12 @@ const {
   commissionTypeOptions,
   deleteCommission,
   fetchByProduct,
+  isBulkCommissionUpdateRequested,
   loadingStoreProducts,
+  selectedProducts,
   storeProducts,
   storeProductsPagination,
   unMutatedStoreProducts,
-  selectedProducts,
 } = toRefs(usePayoutsSettingsStore());
 
 const {
@@ -70,8 +74,14 @@ const updateCurrentPageHandler = page => {
 
 <template>
   <BulkSelectedCount :items="selectedProducts" itemType="product">
-    <Button label="Set commission type and rate" @click=""></Button>
+    <Button label="Set commission type and rate" @click="isBulkCommissionUpdateRequested = true"></Button>
   </BulkSelectedCount>
+
+  <BulkCommissionDialog
+    v-if="isBulkCommissionUpdateRequested"
+    :items="selectedProducts"
+    itemType="product">
+  </BulkCommissionDialog>
 
   <ProductCommissionSkeleton v-if="loadingStoreProducts" />
 

@@ -1,23 +1,28 @@
 import { useConnectionsStore } from 'connections';
 
 export const bulkCommissionsUpdate = {
-  async bulkCommissionsUpdate(payload, updateType) {
+  async bulkCommissionsUpdate(payload, updateType, isBulkUpdate = false) {
+    this.loadingBulkCommissions = true;
 
     let updatedStores = [];
     let updatedProducts = [];
     let commissionRates = null;
 
     if(updateType === 'store') {
-      updatedStores = payload.filter(store => {
-        const { platform, store_commission_rate: { type, value } } = store;
-        return platform === 'shopify' && (type && value);
-      });
+      if(!isBulkUpdate) {
+        updatedStores = payload.filter(store => {
+          const { platform, store_commission_rate: { type, value } } = store;
+          return platform === 'shopify' && (type && value);
+        });
+      } else {
+        updatedStores = payload;
+      }
 
       commissionRates = updatedStores.map(store => {
         const { connection_id, id, store_commission_rate: { type, value } } = store;
         return {
-          commission_type: type,
-          commission_value: value,
+          commission_type: isBulkUpdate ? this.bulkCommission.type : type,
+          commission_value: isBulkUpdate ? this.bulkCommission.val : value,
           connection_id,
           destination_store_id: this.storeId,
           source_product_id: null,
@@ -25,10 +30,14 @@ export const bulkCommissionsUpdate = {
         }
       });
     } else if (updateType === 'product') {
-      updatedProducts = payload.filter(product => {
-        const { product_commission_rate: { type, value } } = product;
-        return type && value;
-      });
+      if(!isBulkUpdate) {
+        updatedProducts = payload.filter(product => {
+          const { product_commission_rate: { type, value } } = product;
+          return type && value;
+        });
+      } else {
+        updatedProducts = payload;
+      }
 
       const connections = useConnectionsStore();
 
@@ -40,8 +49,8 @@ export const bulkCommissionsUpdate = {
       commissionRates = updatedProducts.map(product => {
         const { external_product_id, product_commission_rate: { type, value }, store_id } = product;
         return {
-          commission_type: type,
-          commission_value: value,
+          commission_type: isBulkUpdate ? this.bulkCommission.type : type,
+          commission_value: isBulkUpdate ? this.bulkCommission.val : value,
           connection_id: getConnectionId(store_id),
           destination_store_id: this.storeId,
           source_product_id: external_product_id,
@@ -60,9 +69,13 @@ export const bulkCommissionsUpdate = {
       if(updateType === 'store') {
         const connections = useConnectionsStore();
         await connections.fetchConnections();
+        this.selectedStores = [];
       } else if (updateType === 'product') {
         await this.fetchByProduct();
+        this.selectedProducts = [];
       }
     }
+    this.loadingBulkCommissions = false;
+    this.isBulkCommissionUpdateRequested = false;
   }
 };

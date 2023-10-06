@@ -3,6 +3,9 @@ import { useCheckbox } from '@/composables/checkbox';
 import { useConnectionsStore } from 'connections';
 import { usePayoutsSettingsStore } from 'payoutsSettings';
 
+/* ----- Components ----- */
+const BulkCommissionDialog = defineAsyncComponent(() => import('../BulkCommissionDialog.vue'));
+
 /* ----- Data ----- */
 const {
   connections,
@@ -15,8 +18,9 @@ const {
   bulkCommissionsUpdate,
   commissionTypeOptions,
   deleteCommission,
+  isBulkCommissionUpdateRequested,
+  selectedStores,
   storeConnections,
-  selectedStores
 } = toRefs(usePayoutsSettingsStore());
 
 const {
@@ -57,8 +61,14 @@ const cancelHandler = () => {
 
 <template>
   <BulkSelectedCount :items="selectedStores" itemType="store">
-    <Button label="Set commission type and rate" @click=""></Button>
+    <Button label="Set commission type and rate" @click="isBulkCommissionUpdateRequested = true"></Button>
   </BulkSelectedCount>
+
+  <BulkCommissionDialog
+    v-if="isBulkCommissionUpdateRequested"
+    :items="selectedStores"
+    itemType="store">
+  </BulkCommissionDialog>
 
   <StoreCommissionSkeleton v-if="loadingConnections" />
 

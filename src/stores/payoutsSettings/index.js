@@ -13,11 +13,17 @@ export const usePayoutsSettingsStore = defineStore('payoutsSettings', {
       activeTabIndex: 0,
       areProductCommissionsChanged: false,
       areStoreCommissionsChanged: false,
+      bulkCommission: {
+        type: null,
+        val: null,
+      },
       commissionTypeOptions: [
         { name: 'Flat rate', type: 'flat_rate' },
         { name: 'Percentage', type: 'percentage' },
       ],
+      isBulkCommissionUpdateRequested: false,
       limiter: 25,
+      loadingBulkCommissions: false,
       loadingStoreProducts: true,
       storeConnections: null,
       storeDefaultCommissionRate: {},

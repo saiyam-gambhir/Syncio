@@ -5,7 +5,7 @@ export function useCheckbox(selectedItems = []) {
     if(row) return 'selected';
   };
 
-  const checkboxUncheckedHandler = (data) => {
+  const checkboxUncheckHandler = (data) => {
     if(isCheckboxSelected(data) === 'selected') {
       const index = selectedItems.findIndex(item => item.id === data.id);
       selectedItems.splice(index, 1);
@@ -16,9 +16,9 @@ export function useCheckbox(selectedItems = []) {
   };
 
   const onInputHandler = (data) => {
-    if(checkboxUncheckedHandler(data)) return;
+    if(checkboxUncheckHandler(data)) return;
     selectedItems.push(data);
-    isCheckboxSelected(data);
+    //isCheckboxSelected(data);
   };
 
   const isRowSelected = (data) => {
