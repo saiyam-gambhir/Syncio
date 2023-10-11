@@ -770,11 +770,11 @@ input.p-inputtext-lg {
   background: $primary;
   color: #fff;
   border-radius: 0 0 12px 12px;
-  left: 50%;
+  left: calc(50% - 9.25rem);
   padding: 0.6rem 1rem;
   position: fixed;
   top: -0;
-  transform: translateX(-50%);
+  //transform: translateX(calc(-50% + (18.5rem / 2)));
   z-index: 1;
 
   button {

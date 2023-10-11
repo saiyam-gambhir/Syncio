@@ -73,11 +73,11 @@ const updateCurrentPageHandler = page => {
 
 const clearSelectionHandler = () => {
   selectedProducts.value = [];
-}
+};
 
 const isRowSelectedHandler = (data) => {
   return isCheckboxSelected(data, selectedProducts.value, 'external_product_id');
-}
+};
 </script>
 
 <template>
@@ -115,12 +115,15 @@ const isRowSelectedHandler = (data) => {
     </template>
 
     <template #header>
-      <ConnectionsViewHeader />
+      <ProductCommissionHeader />
     </template>
 
     <Column header="" style="width: 3%">
       <template #body="{ data }">
-        <CheckboxWrapper :isChecked="isCheckboxSelected(data, selectedProducts, 'external_product_id') === 'selected'" @onInput="onInputHandler(data, selectedProducts, 'external_product_id')" />
+        <CheckboxWrapper
+          :isChecked="isCheckboxSelected(data, selectedProducts, 'external_product_id') === 'selected'"
+          @onInput="onInputHandler(data, selectedProducts, 'external_product_id')">
+        </CheckboxWrapper>
       </template>
     </Column>
 
@@ -147,7 +150,7 @@ const isRowSelectedHandler = (data) => {
       <template #body="{ data: { product_commission_rate } }">
         <Dropdown
           :options="commissionTypeOptions"
-          class="w-90"
+          class="w-75"
           optionLabel="name"
           optionValue="type"
           placeholder="Select type"
@@ -161,7 +164,7 @@ const isRowSelectedHandler = (data) => {
         Rate <i class="pi pi-question-circle ml-3 text-xl" v-tooltip.right="'Select commission type to add rate'"></i>
       </template>
       <template #body="{ data: { id, product_commission_rate } }">
-        <div class="p-inputgroup" v-if="product_commission_rate.type">
+        <div class="p-inputgroup w-75" v-if="product_commission_rate.type">
           <InputNumber
             :maxFractionDigits="2"
             :useGrouping="false"

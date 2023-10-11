@@ -1,5 +1,5 @@
 export const fetchByProduct = {
-  async fetchByProduct(page, forceUpdate = false) {
+  async fetchByProduct(page) {
 
     try {
       this.loadingStoreProducts = true;
@@ -7,7 +7,8 @@ export const fetchByProduct = {
       const params = {
         destination_store_id: this.storeId,
         limiter: this.limiter,
-        page: page ?? 1
+        page: page ?? 1,
+        search_str: this.searchString,
       };
 
       const { data: { current_page, last_page, next_page_url, previous_page_url, products, total } } = await this.$https('products', {

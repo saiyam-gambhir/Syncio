@@ -5,8 +5,19 @@ import { useOrders } from '../composables/orders';
 import { useOrdersStore } from 'orders';
 
 /* ----- Data ----- */
-const { fetchOrder, getFinancialStatus, getFulfillmentStatus, getPushStatus } = useOrders();
-const { formatCurrency, formattedUnderscoreText, formatDate } = useFilters();
+const {
+  fetchOrder,
+  getFinancialStatus,
+  getFulfillmentStatus,
+  getPushStatus
+} = useOrders();
+
+const {
+  formatCurrency,
+  formattedUnderscoreText,
+  formatDate
+} = useFilters();
+
 const {
   isViewOrderDetailsRequested,
   loadingOrder,
@@ -14,7 +25,11 @@ const {
   ordersCollection,
   pushOrder,
 } = toRefs(useOrdersStore());
-const { storeName } = useConnectionsStore();
+
+const {
+  storeName,
+} = useConnectionsStore();
+
 const shippingCost = ref('');
 
 /* ----- Props ----- */
@@ -125,11 +140,7 @@ const pushOrderHandler = async (targetStoreId) => {
               <Tag :severity="getFulfillmentStatus(order.fulfillment_status)" rounded class="ml-2">{{ getOrderFulfillmentStatus }}</Tag>
             </div>
             <Divider />
-            <AppLink
-              strong
-              :label="`Order ID: ${order.id}`"
-              :link="`https://${storeName}/admin/orders/${order.id}`">
-            </AppLink>
+            <AppLink strong :label="`Order ID: ${order.id}`" :link="`https://${storeName}/admin/orders/${order.id}`" />
             <Divider />
             <div>
               <strong>Order created on</strong> {{ formatDate(order.created_at).date }} at {{ formatDate(order.created_at).time }}

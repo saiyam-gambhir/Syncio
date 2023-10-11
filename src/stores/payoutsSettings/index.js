@@ -32,6 +32,7 @@ export const usePayoutsSettingsStore = defineStore('payoutsSettings', {
       selectedProducts: [],
       selectedStores: [],
       storeProductsPagination: {},
+      searchString: null,
     };
   },
 

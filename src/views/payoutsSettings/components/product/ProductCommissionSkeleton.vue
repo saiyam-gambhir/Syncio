@@ -11,7 +11,7 @@ const {
   <DataTable :value="[{}, {}, {}, {}]" responsiveLayout="scroll" showGridlines>
 
     <template #header>
-      <ConnectionsViewHeader />
+      <ProductCommissionHeader />
     </template>
 
     <Column header="" style="width: 3%">

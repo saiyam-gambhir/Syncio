@@ -26,7 +26,6 @@ const {
 const {
   isCheckboxSelected,
   onInputHandler,
-  isRowSelected,
 } = useCheckbox(selectedStores.value);
 
 /* ----- Mounted ----- */
@@ -57,11 +56,33 @@ const bulkCommissionsUpdateHandler = async () => {
 const cancelHandler = () => {
   storeConnections.value = structuredClone(toRaw(connections.value));
 };
+
+const clearSelectionHandler = () => {
+  selectedStores.value = [];
+};
+
+const isRowSelectedHandler = (data) => {
+  return isCheckboxSelected(data, selectedStores.value);
+};
 </script>
 
 <template>
   <BulkSelectedCount :items="selectedStores" itemType="store">
-    <Button label="Set commission type and rate" @click="isBulkCommissionUpdateRequested = true"></Button>
+    <Button
+      @click="isBulkCommissionUpdateRequested = true"
+      label="Set commission type and rate">
+    </Button>
+
+    <template #clear>
+      <Button
+        @click="clearSelectionHandler"
+        class="ml-2"
+        icon="pi pi-times"
+        rounded
+        size="10px"
+        v-tooltip.bottom="'Clear selection'">
+      </Button>
+    </template>
   </BulkSelectedCount>
 
   <BulkCommissionDialog
@@ -72,7 +93,7 @@ const cancelHandler = () => {
 
   <StoreCommissionSkeleton v-if="loadingConnections" />
 
-  <DataTable v-else :value="storeConnections" responsiveLayout="scroll" showGridlines :rowClass="isRowSelected">
+  <DataTable v-else :value="storeConnections" responsiveLayout="scroll" showGridlines :rowClass="isRowSelectedHandler">
     <template #empty>
       <div class="px-4 py-8 text-center">
         <h2 class="m-0">No stores found</h2>
@@ -85,7 +106,11 @@ const cancelHandler = () => {
 
     <Column header="" style="width: 3%">
       <template #body="{ data }">
-        <CheckboxWrapper :isChecked="isCheckboxSelected(data) === 'selected'" @onInput="onInputHandler(data)" v-if="data.platform.toLowerCase() === 'shopify'" />
+        <CheckboxWrapper
+          :isChecked="isCheckboxSelected(data, selectedStores) === 'selected'"
+          @onInput="onInputHandler(data, selectedStores)"
+          v-if="data.platform.toLowerCase() === 'shopify'">
+        </CheckboxWrapper>
       </template>
     </Column>
 
