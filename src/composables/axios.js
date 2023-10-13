@@ -1,6 +1,20 @@
 import axios from 'axios';
 import { toast } from 'vue3-toastify';
 
+const toastOptions = {
+  autoClose: 5000,
+  closeButton: false,
+  theme: 'dark',
+  transition: 'slide',
+  style: {
+    fontWeight: '600',
+    fontSize: '1.1rem',
+  },
+  progressStyle: {
+    backgroundColor: '#1ea97c',
+  }
+};
+
 class AxiosService {
   constructor() {
     this.https = axios.create({
@@ -13,8 +27,22 @@ class AxiosService {
 
   getCleanedParams(params) {
     return Object.fromEntries(
-      Object.entries(params).filter(([_, value]) => value !== null)
+      Object.entries(params).filter(([_, val]) => val !== null)
     );
+  };
+
+  async deleteData(url) {
+    this.https.defaults.headers.common['Authorization'] = `Bearer ${sessionStorage.getItem('ID_TOKEN_KEY')}`;
+    try {
+      const response = await this.https.delete(url);
+      const message = response?.data?.message ?? response?.message;
+      if(message) toast(message, { ...toastOptions, type: 'success' });
+      return response.data;
+    } catch (error) {
+      const message = error?.message;
+      if(message) toast(message, { ...toastOptions, type: 'error' });
+      throw error;
+    }
   };
 
   async getData(url, params = {}) {
@@ -23,20 +51,21 @@ class AxiosService {
     try {
       const cleanedParams = this.getCleanedParams(params);
       const response = await this.https.get(url, { params: cleanedParams });
-      toast("Wow so easy !", { autoClose: 1000 })
+      const message = response?.data?.message ?? response.message;
+      if(message) toast(message, { ...toastOptions, type: 'success' });
       return response.data;
     } catch (error) {
       console.error('Error:', error.message);
       throw error;
     }
-  }
+  };
 
   async postData(url, params = {}) {
     this.https.defaults.headers.common['Authorization'] = `Bearer ${sessionStorage.getItem('ID_TOKEN_KEY')}`;
     try {
       const cleanedParams = this.getCleanedParams(params);
       const response = await this.https.post(url, { ...cleanedParams });
-      toast("Wow so easy !", { autoClose: 1000 })
+      toast("Wow so easy !", { ...toastOptions, type: 'error' });
       return response.data;
     } catch (error) {
       console.error('Error:', error.message);

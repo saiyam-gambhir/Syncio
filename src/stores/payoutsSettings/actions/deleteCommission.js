@@ -1,8 +1,9 @@
 import { useConnectionsStore } from 'connections';
+import axiosService from '@/composables/axios';
 
 export const deleteCommission = {
   async deleteCommission(commissionId) {
-    const { data: { success } } = await this.$https.delete(`stores/commission-rate/${commissionId}`);
+    const { success } = await axiosService.deleteData(`stores/commission-rate/${commissionId}`);
     if(success) {
       switch (this.activeTabIndex) {
         case 1:
@@ -10,7 +11,7 @@ export const deleteCommission = {
           await connections.fetchConnections();
           break;
         case 2:
-          await this.fetchByProduct();
+          await this.fetchByProduct(this.storeProductsPagination?.current_page);
           break;
       }
     }
