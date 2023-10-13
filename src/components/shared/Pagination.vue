@@ -59,9 +59,9 @@ const setEntries = () => {
 
 <template>
   <div class="pagination flex align-items-center justify-content-between" v-if="pagination && pagination.total_count > 0">
-    <h5 class="m-0" v-if="pagination && showInfo">
+    <h4 class="m-0" v-if="pagination && showInfo">
       <span v-if="pagination.total_count > 0">{{ entriesStartingFrom }} - {{ entriesEndingAt }} of</span> {{ pagination.total_count }}
-    </h5>
+    </h4>
 
     <slot name="footer"></slot>
 

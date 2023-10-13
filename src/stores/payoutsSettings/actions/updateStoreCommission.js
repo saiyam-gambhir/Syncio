@@ -16,7 +16,7 @@ export const updateStoreCommission = {
 
     const response = await axiosService.postData(`stores/${storeId}/add-store-commission`, params);
     if(response.success) {
-      //this.products = response.products;
+      this.products = response.products;
     }
   }
 };

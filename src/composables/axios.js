@@ -7,12 +7,18 @@ const toastOptions = {
   theme: 'dark',
   transition: 'slide',
   style: {
-    fontWeight: '600',
     fontSize: '1.1rem',
+    fontWeight: '600',
+    right: 0,
+    top: 0,
   },
-  progressStyle: {
-    backgroundColor: '#1ea97c',
-  }
+  toastStyle: {
+    backgroundColor: '#0e3b4d',
+    lineHeight: '1.65rem',
+    marginBottom: '.5rem',
+  },
+  pauseOnHover: true,
+  dangerouslyHTMLString: true,
 };
 
 class AxiosService {
@@ -41,7 +47,6 @@ class AxiosService {
     } catch (error) {
       const message = error?.message;
       if(message) toast(message, { ...toastOptions, type: 'error' });
-      throw error;
     }
   };
 
@@ -55,8 +60,8 @@ class AxiosService {
       if(message) toast(message, { ...toastOptions, type: 'success' });
       return response.data;
     } catch (error) {
-      console.error('Error:', error.message);
-      throw error;
+      const message = error?.message;
+      if(message) toast(message, { ...toastOptions, type: 'error' });
     }
   };
 
@@ -65,11 +70,12 @@ class AxiosService {
     try {
       const cleanedParams = this.getCleanedParams(params);
       const response = await this.https.post(url, { ...cleanedParams });
-      toast("Wow so easy !", { ...toastOptions, type: 'error' });
+      const message = response?.data?.message ?? response.message;
+      if(message) toast(message.trim(), { ...toastOptions, type: 'success' });
       return response.data;
     } catch (error) {
-      console.error('Error:', error.message);
-      throw error;
+      const message = error?.message;
+      if(message) toast(message, { ...toastOptions, type: 'error' });
     }
   }
 }

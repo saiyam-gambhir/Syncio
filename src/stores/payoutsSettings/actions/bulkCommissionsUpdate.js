@@ -69,10 +69,8 @@ export const bulkCommissionsUpdate = {
       if(updateType === 'store') {
         const connections = useConnectionsStore();
         await connections.fetchConnections();
-        //this.selectedStores = [];
       } else if (updateType === 'product') {
         await this.fetchByProduct();
-        //this.selectedProducts = [];
       }
     }
     this.loadingBulkCommissions = false;
