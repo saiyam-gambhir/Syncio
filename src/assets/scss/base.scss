@@ -594,6 +594,14 @@ input.p-inputtext-lg {
 .line-height-3 {
   line-height: 1.65 !important;
 }
+
+.p-datatable.p-datatable-gridlines .p-datatable-tbody > .p-datatable-row-expansion > td {
+  padding: 0 !important;
+  border: {
+    left: 0;
+    right: 0;
+  };
+}
 /* ----- OVERRIDES ----- */
 
 .theme-light .primary-navigation .router-link-active:not(.disabled) {

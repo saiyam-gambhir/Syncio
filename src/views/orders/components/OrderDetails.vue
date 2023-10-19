@@ -34,6 +34,11 @@ const shippingCost = ref('');
 
 /* ----- Props ----- */
 const props = defineProps({
+  showControls: {
+    type: Boolean,
+    default: true,
+  },
+
   order: {
     type: Object,
     default: {},
@@ -89,21 +94,24 @@ const pushOrderHandler = async (targetStoreId) => {
     <template #header>
       <h1 class="text-4xl font-bold mb-0 flex align-items-center">
         Order Summary
-        <Button
-          :disabled="isPreviousOrderButtonDisabled"
-          @click="fetchPreviousOrderSummary"
-          class="p-button-sm ml-3"
-          label="Previous Order"
-          outlined>
-        </Button>
 
-        <Button
-          :disabled="isNextOrderButtonDisabled"
-          @click="fetchNextOrderSummary"
-          class="p-button-sm ml-3"
-          label="Next Order"
-          outlined>
-        </Button>
+        <template v-if="props.showControls">
+          <Button
+            :disabled="isPreviousOrderButtonDisabled"
+            @click="fetchPreviousOrderSummary"
+            class="p-button-sm ml-3"
+            label="Previous Order"
+            outlined>
+          </Button>
+
+          <Button
+            :disabled="isNextOrderButtonDisabled"
+            @click="fetchNextOrderSummary"
+            class="p-button-sm ml-3"
+            label="Next Order"
+            outlined>
+          </Button>
+        </template>
       </h1>
     </template>
 

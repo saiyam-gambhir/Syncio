@@ -10,7 +10,6 @@ const PayoutOrders = defineAsyncComponent(() => import('../payoutOrders/PayoutOr
 
 /* ----- Data ----- */
 const {
-  formatCommission,
   formatCurrency,
 } = useFilters();
 
@@ -73,9 +72,9 @@ onMounted(async () => {
       </Column>
 
       <Column header="Total commissions" style="width: 13%">
-        <template #body="{ data: { commission_type, total_commissions } }">
-          <span class="tabular-nums">
-            {{ formatCommission(commission_type, total_commissions) }}
+        <template #body="{ data: { total_commissions } }">
+          <span class="tabular-nums display-commission">
+            + {{ formatCurrency(total_commissions) }}
           </span>
         </template>
       </Column>

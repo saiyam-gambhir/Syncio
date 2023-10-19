@@ -37,6 +37,7 @@ const printHandler = () => {
     <div class="grid mt-4">
       <div class="col-12 md:col-12" v-if="payout">
         <PayoutDetails :payout="payout" />
+        <OrdersInvoiced :orders="payout.data" />
       </div>
     </div>
   </Sidebar>

@@ -13,7 +13,7 @@ export const fetchPayout = {
       if(success) {
         this.payout = {
           ...payout,
-          data: data[0][0],
+          data: data.flat(),
         };
       }
 

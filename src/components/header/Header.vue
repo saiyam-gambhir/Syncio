@@ -81,7 +81,8 @@ const quickActions = ref([
     icon: 'pi pi-percentage',
     command: () => {}
   }
-])
+]);
+const isForwardActionDisabled = ref(false);
 
 /* ----- Mounted ----- */
 onMounted(() => {
@@ -93,6 +94,15 @@ const goBackHandler = () => {
   const { history } = window;
   if (!history.state.back) return;
   window.history.length > 1 ? router.back() : router.go('/');
+};
+
+const goForwardHandler = () => {
+  const { history } = window;
+  if (!history.state.forward) {
+    isForwardActionDisabled.value = true;
+    return;
+  }
+  window.history.length > 1 ? router.forward() : router.go('/');
 };
 
 const toggleMenu = (event) => {
@@ -132,7 +142,7 @@ const connectNewStoreHandler = async () => {
         iconPos="left"
         outlined
         @click="goBackHandler"
-        v-tooltip.right="'Back'">
+        v-tooltip.left="'Go Back'">
       </Button>
     </div>
 

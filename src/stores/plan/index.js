@@ -75,13 +75,13 @@ export const usePlanStore = defineStore('plan', {
       const settingsAddon = plan?.active_addons.find(addon => addon.name.toLowerCase() === 'product settings');
 
       const isOrderModuleAvailable = !!ordersAddon;
-      const isOrderModulePaid = isOrderModuleAvailable && ordersAddon.price_per_month > 0;
+      const isOrderModulePaid = isOrderModuleAvailable && (ordersAddon.price_per_month > 0 || ordersAddon.usage_count_limit === -1);
 
       const isPayoutsModuleAvailable = !!payoutsAddon;
-      const isPayoutsModulePaid = isPayoutsModuleAvailable && payoutsAddon.price_per_month > 0;
+      const isPayoutsModulePaid = isPayoutsModuleAvailable && (payoutsAddon.price_per_month > 0 || payoutsAddon.usage_count_limit === -1);
 
       const isSettingsModuleAvailable = !!settingsAddon;
-      const isSettingsModulePaid = isSettingsModuleAvailable && settingsAddon.price_per_month > 0;
+      const isSettingsModulePaid = isSettingsModuleAvailable && (settingsAddon.price_per_month > 0 || settingsAddon.usage_count_limit === -1);
 
       return {
         isOrderModuleAvailable,
