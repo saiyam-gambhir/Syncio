@@ -44,6 +44,7 @@ export function usePayouts() {
   const fetchPayoutHandler = async (payoutId, targetStoreId) => {
     payouts.$patch({ isViewPayoutDetailsRequested: true });
     await payouts.fetchPayout(payoutId, targetStoreId);
+    await payouts.fetchPayoutEvents(payoutId);
   };
 
   const handleTabChange = async index => {

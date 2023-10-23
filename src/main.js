@@ -24,7 +24,6 @@ import Card from 'primevue/card';
 import Carousel from 'primevue/carousel';
 import Checkbox from 'primevue/checkbox';
 import Column from 'primevue/column';
-import ConfirmPopup from 'primevue/confirmpopup';
 import DataTable from 'primevue/dataTable';
 import Dialog from 'primevue/dialog';
 import Divider from 'primevue/divider';
@@ -146,7 +145,16 @@ const plan = usePlanStore();
 const products = useProductsStore();
 const productSettings = useProductSettingsStore();
 const usePayoutsSettings = usePayoutsSettingsStore();
-activityCenter.$https = auth.$https = connections.$https = marketPlace.$https = orders.$https = payouts.$https = plan.$https = productSettings.$https = usePayoutsSettings.$https = $https;
+
+activityCenter.$https =
+auth.$https =
+connections.$https =
+marketPlace.$https =
+orders.$https =
+payouts.$https =
+plan.$https =
+productSettings.$https =
+usePayoutsSettings.$https = $https;
 
 /* ----- Logout Handler ----- */
 const logout = () => {

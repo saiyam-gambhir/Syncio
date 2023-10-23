@@ -5,6 +5,7 @@ import deepmerge from 'deepmerge';
 import { fetchPaidPayouts } from './actions/fetchPaidPayouts';
 import { fetchPayableOrders } from './actions/fetchPayableOrders';
 import { fetchPayout } from './actions/fetchPayout';
+import { fetchPayoutEvents } from './actions/fetchPayoutEvents';
 import { fetchPayoutOrders } from './actions/fetchPayoutOrders';
 import { fetchPayoutPreview } from './actions/fetchPayoutPreview';
 import { fetchSourcePayouts } from './actions/fetchSourcePayouts';
@@ -32,6 +33,10 @@ export const usePayoutsStore = defineStore('payouts', {
       payableOrders: { items: [], loading: false, pagination: {} },
       payablePayouts: { items: [], loading: false, pagination: {} },
       payout: null,
+      payoutEvents: {
+        data: null,
+        pagination: null,
+      },
       payoutCreationDetails: null,
       payoutOrders: { items: [], loading: false, pagination: {} },
       selectedPayoutOrders: [],
@@ -62,6 +67,7 @@ export const usePayoutsStore = defineStore('payouts', {
     fetchPaidPayouts,
     fetchPayableOrders,
     fetchPayout,
+    fetchPayoutEvents,
     fetchPayoutOrders,
     fetchPayoutPreview,
     fetchSourcePayouts,

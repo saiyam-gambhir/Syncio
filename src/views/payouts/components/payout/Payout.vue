@@ -25,6 +25,7 @@ const printHandler = () => {
     <template #header>
       <h1 class="text-4xl font-bold mb-0 flex align-items-center justify-content-between">
         Payout {{ payout?.id }}
+
         <Button
           @click="printHandler"
           class="mr-6"
@@ -38,6 +39,7 @@ const printHandler = () => {
       <div class="col-12 md:col-12" v-if="payout">
         <PayoutDetails :payout="payout" />
         <OrdersInvoiced :orders="payout.data" />
+        <CommentsAndEvents />
       </div>
     </div>
   </Sidebar>

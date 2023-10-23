@@ -60,7 +60,7 @@ const fetchOrderHandler = async orderId => {
 
         <Column header="My Order #" style="width: 15%">
           <template #body="{ data: { order_id, order_number } }">
-            <a v-if="isDestinationStore" href="javascript:void(0);" class="btn-link" @click="fetchOrderHandler(order_id)">
+            <a v-if="isDestinationStore" href="javascript:void(0);" class="btn-link" @click="fetchOrderHandler(order_id)" v-tooltip.top="'View order'">
               {{ order_number }}
             </a>
             <span v-else>{{ order_number }}</span>
