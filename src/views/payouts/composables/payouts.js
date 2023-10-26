@@ -3,13 +3,10 @@ import { usePayoutsStore } from 'payouts';
 export function usePayouts() {
   const payouts = usePayoutsStore();
 
-  const fetchPayoutPreviewHandler = async (orderId) => {
-    if(!payouts.selectedPayoutOrders.includes(orderId)) {
-      payouts.selectedPayoutOrders.push(orderId);
-    };
-
-    await payouts.fetchPayoutPreview(orderId);
+  const fetchPayoutPreviewHandler = async () => {
+    const selectedPayoutOrders = payouts.selectedPayoutOrders.map(order => order.order_id);
     payouts.$patch({ isCreatePayoutDetailsRequested: true });
+    await payouts.fetchPayoutPreview(selectedPayoutOrders);
   };
 
   const fetchPayableOrdersHandler = async () => {

@@ -19,7 +19,7 @@ const {
 
       <DataTable :value="payoutEvents.data" responsiveLayout="scroll" showGridlines class="mt-5">
 
-        <Column header="Date created" style="width: 15%; padding-top: .75rem!; padding-bottom: .75rem !important;">
+        <Column header="Date created" style="width: 15%; padding-top: 1rem !important; padding-bottom: 1rem !important;">
           <template #body="{ data: { created_at } }">
             {{ formatDate(created_at).date }} {{ formatDate(created_at).time }}
           </template>

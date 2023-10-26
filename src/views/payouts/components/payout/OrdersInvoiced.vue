@@ -38,7 +38,7 @@ const props = defineProps({
 
 /* ----- Computed ----- */
 const totalProductsInAllOrders = computed(() => {
-  return props.orders.reduce((accumulator, order) => accumulator + order.line_item_count, 0);
+  return props.orders?.reduce((accumulator, order) => accumulator + order.line_item_count, 0);
 });
 
 /* ----- Methods ----- */
@@ -52,7 +52,7 @@ const fetchOrderHandler = async orderId => {
   <CardWrapper class="mt-5">
     <template #content>
       <h1 class="mb-0">Orders Invoiced</h1>
-      <h3 class="mb-0 mt-2 font-normal">{{ totalProductsInAllOrders }} products from {{ orders.length }} orders</h3>
+      <h3 class="mb-0 mt-2 font-normal">{{ totalProductsInAllOrders }} products from {{ orders?.length }} orders</h3>
 
       <DataTable v-model:expandedRows="expandedRows" :value="props.orders" responsiveLayout="scroll" showGridlines class="mt-5">
 

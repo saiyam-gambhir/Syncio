@@ -1,7 +1,8 @@
 <script setup>
+import { useCheckbox } from '@/composables/checkbox';
 import { useFilters } from '@/composables/filters';
-import { usePayoutsStore } from 'payouts';
 import { usePayouts } from '../../../composables/payouts';
+import { usePayoutsStore } from 'payouts';
 
 /* ----- Data ----- */
 const {
@@ -19,27 +20,89 @@ const {
   selectedPayoutOrders,
 } = toRefs(usePayoutsStore());
 
+const {
+  isCheckboxSelected,
+  onInputHandler,
+} = useCheckbox();
+
+/* ----- Computed ----- */
+const arePayoutOrdersSelected = computed(() => {
+  return selectedPayoutOrders.value?.length > 0;
+});
+
 /* ----- Methods ----- */
-const isSelected = (row) => {
-  if(selectedPayoutOrders.value.includes(row.order_id)) return 'selected';
-};
 
 const updateCurrentPageHandler = (page) => {
 
 };
+
+const clearSelectionHandler = () => {
+  selectedPayoutOrders.value = [];
+};
+
+const isRowSelectedHandler = (data) => {
+  return isCheckboxSelected(data, selectedPayoutOrders.value, 'order_id');
+};
 </script>
 
 <template>
+
+  <div class="py-4 flex">
+    <CardWrapper style="width: 12.5rem;">
+      <template #content>
+        <h2 class="m-0 font-semibold">{{ selectedPayoutOrders?.length }}</h2>
+        <h3 class="m-0 mt-2 font-normal">Orders selected</h3>
+      </template>
+    </CardWrapper>
+
+    <CardWrapper style="width: 15rem;" class="ml-4">
+      <template #content>
+        <h2 class="m-0 font-semibold">$0.00</h2>
+        <h3 class="m-0 mt-2 font-normal">Payout total</h3>
+      </template>
+    </CardWrapper>
+
+    <CardWrapper style="width: 15rem;" class="ml-4">
+      <template #content>
+        <h2 class="m-0 font-semibold">$0.00</h2>
+        <h3 class="m-0 mt-2 font-normal">Commissions</h3>
+      </template>
+    </CardWrapper>
+  </div>
+
+  <template v-if="arePayoutOrdersSelected">
+    <Button
+      @click="fetchPayoutPreviewHandler"
+      class="p-button-success mb-4"
+      style="align-self: flex-end; height: 50px; width: 29rem; font-size: 1.25rem;"
+      label="Create payout">
+    </Button>
+
+    <Button
+      @click="clearSelectionHandler"
+      class="ml-4"
+      icon="pi pi-times"
+      rounded
+      outlined
+      style="vertical-align: top !important; margin-top: .4rem;"
+      size="10px"
+      v-tooltip.bottom="'Clear selection'">
+    </Button>
+  </template>
+
   <PayoutOrdersSkeleton v-if="payoutOrders?.loading" />
 
-  <DataTable v-else :value="payoutOrders?.items" responsiveLayout="scroll" showGridlines :rowClass="isSelected">
+  <DataTable v-else :value="payoutOrders?.items" responsiveLayout="scroll" showGridlines :rowClass="isRowSelectedHandler">
     <template #header>
       <PayoutOrdersHeader />
     </template>
 
     <Column style="width: 5%">
       <template #body="{ data }">
-        <CheckboxWrapper />
+        <CheckboxWrapper
+          :isChecked="isCheckboxSelected(data, selectedPayoutOrders, 'order_id') === 'selected'"
+          @onInput="onInputHandler(data, selectedPayoutOrders, 'order_id')">
+        </CheckboxWrapper>
       </template>
     </Column>
 
@@ -84,6 +147,7 @@ const updateCurrentPageHandler = (page) => {
     <Column header="Actions" style="width: 17.5%" class="text-right">
       <template #body="{ data: { order_id } }">
         <Button
+          :disabled="arePayoutOrdersSelected"
           @click="fetchPayoutPreviewHandler(order_id)"
           class="p-button-sm p-button-success"
           label="Create payout">
