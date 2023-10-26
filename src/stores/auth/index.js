@@ -11,6 +11,11 @@ export const useAuthStore = defineStore('auth', {
   state: () => {
     return {
       currency: 'USD',
+      currencies: [
+        'USD',
+        'AUD',
+        'INR',
+      ],
       forgotPasswordForm: {
         email: '',
         emailNotFound: false,
@@ -46,7 +51,12 @@ export const useAuthStore = defineStore('auth', {
         token: '',
       },
       showLeavingPageDialog: false,
-      timeZone: 'Asia/Kolkata',
+      timeZone: 'Australia/Melbourne',
+      timeZones: [
+        'America/New_York',
+        'Australia/Melbourne',
+        'Asia/Kolkata',
+      ],
       upgradeDialogType: '',
       user: null,
     };

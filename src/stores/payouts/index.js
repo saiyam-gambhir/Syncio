@@ -85,7 +85,6 @@ export const usePayoutsStore = defineStore('payouts', {
         storage: sessionStorage,
         paths: [
           'activeTabIndex',
-          'arePayableOrdersVisible',
           'queries',
         ],
       },

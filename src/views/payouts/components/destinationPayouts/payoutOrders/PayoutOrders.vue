@@ -30,11 +30,16 @@ const arePayoutOrdersSelected = computed(() => {
   return selectedPayoutOrders.value?.length > 0;
 });
 
+const selectedPayoutsDetails = computed(() => {
+  const payoutDetails = {
+    payoutsTotal: selectedPayoutOrders.value.reduce((accumulator, order) => accumulator + +order.payout_amount, 0),
+    payoutsCommission: selectedPayoutOrders.value.reduce((accumulator, order) => accumulator + +order.commission, 0),
+  }
+  return payoutDetails;
+});
+
 /* ----- Methods ----- */
-
-const updateCurrentPageHandler = (page) => {
-
-};
+const updateCurrentPageHandler = (page) => {};
 
 const clearSelectionHandler = () => {
   selectedPayoutOrders.value = [];
@@ -57,14 +62,14 @@ const isRowSelectedHandler = (data) => {
 
     <CardWrapper style="width: 15rem;" class="ml-4">
       <template #content>
-        <h2 class="m-0 font-semibold">$0.00</h2>
+        <h2 class="m-0 font-semibold">{{ formatCurrency(selectedPayoutsDetails.payoutsTotal) }}</h2>
         <h3 class="m-0 mt-2 font-normal">Payout total</h3>
       </template>
     </CardWrapper>
 
     <CardWrapper style="width: 15rem;" class="ml-4">
       <template #content>
-        <h2 class="m-0 font-semibold">$0.00</h2>
+        <h2 class="m-0 font-semibold">{{ formatCurrency(selectedPayoutsDetails.payoutsCommission) }}</h2>
         <h3 class="m-0 mt-2 font-normal">Commissions</h3>
       </template>
     </CardWrapper>

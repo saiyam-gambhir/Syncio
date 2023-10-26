@@ -1,17 +1,46 @@
 <script setup>
+import { useAuthStore } from 'auth';
 import { useConnectionsStore } from 'connections';
 import { useFilters } from '@/composables/filters';
 import { useToasts } from '@/composables/toasts';
 
 /* ----- Data ----- */
-const { copyToClipBoard, formatDate } = useFilters();
-const { showToast } = useToasts();
-const { platform, storeCreationDate, storeKey, storeName, storeType } = useConnectionsStore();
+const {
+  copyToClipBoard,
+  formatDate,
+} = useFilters();
+
+const {
+  showToast
+} = useToasts();
+
+const {
+  platform,
+  storeCreationDate,
+  storeKey,
+  storeName,
+  storeType,
+} = useConnectionsStore();
+
+const {
+  currency,
+  currencies,
+  timeZone,
+  timeZones,
+}  = toRefs(useAuthStore());
 
 /* ----- Methods ----- */
 const copyStoreKeyHandler = async val => {
   await copyToClipBoard(val);
   showToast({ message: 'Store key copied successfully' });
+};
+
+const handleTimeZoneChange = (event) => {
+  timeZone.value = event.value;
+};
+
+const handleCurrencyChange = (event) => {
+  currency.value = event.value;
 };
 </script>
 
@@ -40,6 +69,34 @@ const copyStoreKeyHandler = async val => {
               icon="pi pi-copy">
             </Button>
           </h3>
+        </template>
+      </CardWrapper>
+
+      <CardWrapper
+        class="pb-3 mt-5"
+        description=""
+        icon=""
+        title="">
+        <template #content>
+          <h3>Timezone</h3>
+          <Dropdown
+            @change="handleTimeZoneChange"
+            class="w-100"
+            :autoOptionFocus="false"
+            :options="timeZones"
+            placeholder="Select timezone"
+            v-model="timeZone">
+          </Dropdown>
+
+          <h3 class="mt-5">Currency</h3>
+          <Dropdown
+            @change="handleCurrencyChange"
+            class="w-100 mb-2"
+            :autoOptionFocus="false"
+            :options="currencies"
+            placeholder="Select currency"
+            v-model="currency">
+          </Dropdown>
         </template>
       </CardWrapper>
     </section>

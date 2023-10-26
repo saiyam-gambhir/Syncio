@@ -39,7 +39,7 @@ const payoutReceiver = computed(() => {
     <template #content>
       <h3 class="grid mb-0">
         <div class="col-3">Created on</div>
-        <div class="col-9 font-normal">{{ formatDate(payout.updated_at).date }} at {{ formatDate(payout.updated_at).time }}</div>
+        <div class="col-9 font-normal">{{ formatDate(payout.updated_at).date }}</div>
       </h3>
 
       <Divider />
