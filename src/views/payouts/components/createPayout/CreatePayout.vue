@@ -17,11 +17,6 @@ const {
 } = useFilters();
 
 const {
-  updatePayoutHandler,
-} = usePayouts();
-
-const {
-  connectionFilterItems,
   isDestinationStore,
 } = toRefs(useConnectionsStore());
 
@@ -31,6 +26,11 @@ const props = defineProps({
     type: Object,
     default: {},
   },
+
+  payoutDetails: {
+    type: Object,
+    required: true
+  }
 });
 
 /* ----- Methods ----- */
@@ -68,7 +68,7 @@ const printHandler = () => {
 
             <h3 class="grid mb-0">
               <div class="col-3">Amount</div>
-              <!-- <div class="col-9 font-normal">
+              <div class="col-9 font-normal">
                 <div class="p-datatable p-component p-datatable-responsive-scroll p-datatable-gridlines" data-scrollselectors=".p-datatable-wrapper" data-pc-name="datatable" data-pc-section="root">
                   <div class="p-datatable-wrapper" data-pc-section="wrapper" style="overflow: auto;">
                     <table role="table" class="p-datatable-table" data-pc-section="table">
@@ -101,7 +101,7 @@ const printHandler = () => {
                             Subtotal
                           </td>
                           <td role="cell" data-pc-section="bodycell" data-pc-name="bodycell" data-p-selection-column="false" data-p-editable-column="false" data-p-cell-editing="false" class="text-right tabular-nums" style="padding: 1rem 0.75rem !important;">
-                            {{ formatCurrency(payout.sale_total) }}
+                            {{ formatCurrency(payoutDetails.salesTotal) }}
                           </td>
                         </tr>
 
@@ -115,11 +115,11 @@ const printHandler = () => {
                             </a>
                           </td>
                           <td role="cell" data-pc-section="bodycell" data-pc-name="bodycell" data-p-selection-column="false" data-p-editable-column="false" data-p-cell-editing="false" class="text-right tabular-nums" style="padding: 1rem 0.75rem !important;">
-                            -{{ formatCurrency(payout.commission_total) }}
+                            -{{ formatCurrency(payoutDetails.payoutsCommission) }}
                           </td>
                         </tr>
 
-                        <tr v-for="item in payout.payout_line_items" class="p-datatable-emptymessage" role="row" data-pc-section="emptymessage">
+                        <!-- <tr v-for="item in payout.payout_line_items" class="p-datatable-emptymessage" role="row" data-pc-section="emptymessage">
                           <td class="font-bold" role="cell" data-pc-section="bodycell" data-pc-name="bodycell" data-p-selection-column="false" data-p-editable-column="false" data-p-cell-editing="false" style="padding: 1rem 0.75rem !important;">
                             {{ item.name }}
                           </td>
@@ -129,7 +129,7 @@ const printHandler = () => {
                           <td role="cell" data-pc-section="bodycell" data-pc-name="bodycell" data-p-selection-column="false" data-p-editable-column="false" data-p-cell-editing="false" class="text-right tabular-nums" style="padding: 1rem 0.75rem !important;">
                             {{ formatCurrency(item.amount) }}
                           </td>
-                        </tr>
+                        </tr> -->
 
                         <tr class="p-datatable-emptymessage" role="row" data-pc-section="emptymessage">
                           <td class="font-bold" role="cell" data-pc-section="bodycell" data-pc-name="bodycell" data-p-selection-column="false" data-p-editable-column="false" data-p-cell-editing="false" style="padding: 1.5rem 0.75rem !important;"></td>
@@ -137,14 +137,14 @@ const printHandler = () => {
                             Amount due
                           </td>
                           <td role="cell" data-pc-section="bodycell" data-pc-name="bodycell" data-p-selection-column="false" data-p-editable-column="false" data-p-cell-editing="false" class="font-bold text-xl text-right tabular-nums" style="padding: 1.5rem 0.75rem !important;">
-                            {{ formatCurrency(payout.payout_total) }}
+                            {{ formatCurrency(payoutDetails.payoutsTotal) }}
                           </td>
                         </tr>
                       </tbody>
                     </table>
                   </div>
                 </div>
-              </div> -->
+              </div>
             </h3>
 
             <Divider />

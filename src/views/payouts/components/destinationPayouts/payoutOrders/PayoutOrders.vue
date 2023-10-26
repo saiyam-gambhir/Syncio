@@ -32,8 +32,9 @@ const arePayoutOrdersSelected = computed(() => {
 
 const selectedPayoutsDetails = computed(() => {
   const payoutDetails = {
-    payoutsTotal: selectedPayoutOrders.value.reduce((accumulator, order) => accumulator + +order.payout_amount, 0),
     payoutsCommission: selectedPayoutOrders.value.reduce((accumulator, order) => accumulator + +order.commission, 0),
+    payoutsTotal: selectedPayoutOrders.value.reduce((accumulator, order) => accumulator + +order.payout_amount, 0),
+    salesTotal: selectedPayoutOrders.value.reduce((accumulator, order) => accumulator + +order.sales, 0),
   }
   return payoutDetails;
 });
@@ -167,5 +168,5 @@ const isRowSelectedHandler = (data) => {
     v-if="payoutOrders?.pagination">
   </Pagination>
 
-  <CreatePayout v-if="isCreatePayoutDetailsRequested" />
+  <CreatePayout v-if="isCreatePayoutDetailsRequested" :payoutDetails="selectedPayoutsDetails" />
 </template>
