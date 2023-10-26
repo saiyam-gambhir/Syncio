@@ -119,7 +119,7 @@ const updateSettingsHandler = async () => {
   </PageHeader>
 
   <p v-if="isDestinationStore" class="m-0 pt-1">
-    For support with the following, contact our friendly team via the in-app chat: <strong>Tag Mirror </strong>(syncs Source store deletion of tags), <strong>sync of the Barcode field</strong>, <strong>disable Stock Sync</strong>, and <strong>broken SKU recovery</strong>.
+    For support with the following, contact our friendly team via the in-app chat: <strong>Tag Mirror </strong>(syncs Source store deletion of tags), <strong>sync of the Barcode field</strong> and <strong>disable Stock Sync</strong>.
   </p>
 
   <TabView v-model:activeIndex="activeTabIndex" @update:activeIndex="handleTabChange" class="mt-4 margin-bottom">

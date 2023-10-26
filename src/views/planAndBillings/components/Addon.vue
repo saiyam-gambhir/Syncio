@@ -86,15 +86,21 @@ const changeHandler = (addon) => {
             <label :for="option.module_id" class="ml-2 pointer">
               <template v-if="+option.price_per_month === 0">
                 <h4 class="uppercase m-0">Free</h4>
-                <p v-if="isOrdersAddon" class="my-2">5 Orders / month</p>
-                <p v-else-if="isProductSettingsAddon" class="my-2">Auto remove variant only</p>
-                <p v-else="isPayoutsAddon" class="my-2">5 Payouts / month</p>
+                <template v-if="isOrdersAddon">
+                  <p class="mb-0 mt-2">5 Orders / month</p>
+                  <p class="mb-3 mt-0">Manual push only</p>
+                </template>
+                <p v-else-if="isProductSettingsAddon" class="mt-2 mb-5 pb-2">Auto remove variant only</p>
+                <p v-else="isPayoutsAddon" class="mt-2 mb-5 pb-2">5 Payouts / month</p>
               </template>
               <template v-else>
                 <h4 class="uppercase m-0">Pro</h4>
-                <p v-if="isOrdersAddon" class="my-2">Unlimited</p>
-                <p v-else-if="isProductSettingsAddon" class="my-2">All product settings</p>
-                <p v-else="isPayoutsAddon" class="my-2">Unlimited</p>
+                <template v-if="isOrdersAddon">
+                  <p class="mb-0 mt-2">Unlimited</p>
+                  <p class="mb-3 mt-0">Includes Auto-push</p>
+                </template>
+                <p v-else-if="isProductSettingsAddon" class="mt-2 mb-5 pb-2">All product settings</p>
+                <p v-else="isPayoutsAddon" class="mt-2 mb-5 pb-2">Unlimited</p>
               </template>
               <h4 class="m-0">{{ formatCurrency(option.price_per_month) }} / month</h4>
             </label>
