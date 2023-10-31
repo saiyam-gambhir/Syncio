@@ -9,6 +9,8 @@ const {
   shopifyLogin,
 } = toRefs(useAuthStore());
 
+const auth = toRefs(useAuthStore());
+
 /* ----- Computed ----- */
 const isDevelopment = computed(() => {
   return import.meta.env.VITE_NODE_ENV === 'development';
@@ -26,7 +28,7 @@ const shopifyLoginHandler = async () => {
   //await shopifyLogin.value('shopify', 'test-saiyam-destination.myshopify.com');
   //await shopifyLogin.value('shopify', 'test-destination-5.myshopify.com');
   //await shopifyLogin.value('shopify', 'dev-destination-4.myshopify.com');
-  await shopifyLogin.value('shopify', 'test-nainesh-destination-3.myshopify.com');
+  await shopifyLogin.value('shopify', 'test-nainesh-destination-3.myshopify.com	');
   //await shopifyLogin.value('shopify', 'qa-shp-stag-dest2.myshopify.com');
 };
 </script>

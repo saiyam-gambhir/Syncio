@@ -53,30 +53,29 @@ const isRowSelectedHandler = (data) => {
 
 <template>
 
-  <div class="py-4 flex">
-    <CardWrapper style="width: 12.5rem;">
-      <template #content>
-        <h2 class="m-0 font-semibold">{{ selectedPayoutOrders?.length }}</h2>
-        <h3 class="m-0 mt-2 font-normal">Orders selected</h3>
-      </template>
-    </CardWrapper>
-
-    <CardWrapper style="width: 15rem;" class="ml-4">
-      <template #content>
-        <h2 class="m-0 font-semibold">{{ formatCurrency(selectedPayoutsDetails.payoutsTotal) }}</h2>
-        <h3 class="m-0 mt-2 font-normal">Payout total</h3>
-      </template>
-    </CardWrapper>
-
-    <CardWrapper style="width: 15rem;" class="ml-4">
-      <template #content>
-        <h2 class="m-0 font-semibold">{{ formatCurrency(selectedPayoutsDetails.payoutsCommission) }}</h2>
-        <h3 class="m-0 mt-2 font-normal">Commissions</h3>
-      </template>
-    </CardWrapper>
-  </div>
-
   <template v-if="arePayoutOrdersSelected">
+    <div class="py-4 flex">
+      <CardWrapper style="width: 12.5rem;">
+        <template #content>
+          <h2 class="m-0 font-semibold">{{ selectedPayoutOrders?.length }}</h2>
+          <h3 class="m-0 mt-2 font-normal">Orders selected</h3>
+        </template>
+      </CardWrapper>
+
+      <CardWrapper style="width: 15rem;" class="ml-4">
+        <template #content>
+          <h2 class="m-0 font-semibold">{{ formatCurrency(selectedPayoutsDetails.payoutsTotal) }}</h2>
+          <h3 class="m-0 mt-2 font-normal">Payout total</h3>
+        </template>
+      </CardWrapper>
+
+      <CardWrapper style="width: 15rem;" class="ml-4">
+        <template #content>
+          <h2 class="m-0 font-semibold">{{ formatCurrency(selectedPayoutsDetails.payoutsCommission) }}</h2>
+          <h3 class="m-0 mt-2 font-normal">Commissions</h3>
+        </template>
+      </CardWrapper>
+    </div>
     <Button
       @click="fetchPayoutPreviewHandler"
       class="p-button-success mb-4"

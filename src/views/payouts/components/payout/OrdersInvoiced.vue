@@ -34,6 +34,11 @@ const props = defineProps({
     type: Object,
     default: {},
   },
+
+  isPayoutCreate: {
+    type: Boolean,
+    default: false
+  },
 });
 
 /* ----- Computed ----- */

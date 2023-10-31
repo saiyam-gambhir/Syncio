@@ -20,6 +20,14 @@ const {
   isDestinationStore,
 } = toRefs(useConnectionsStore());
 
+const lineItems = ref([]);
+const payoutTotal = ref(0);
+
+/* ----- Mounted ----- */
+onMounted(() => {
+  getFinalPayoutValue();
+});
+
 /* ----- Props ----- */
 const props = defineProps({
   payout: {
@@ -36,6 +44,26 @@ const props = defineProps({
 /* ----- Methods ----- */
 const printHandler = () => {
   window.print();
+};
+
+const addLineItemHandler = () => {
+  lineItems.value.push({
+    name: '',
+    description: '',
+    amount: '',
+  });
+};
+
+const clearLineItemHandler = (index) => {
+  const LINE_ITEM = lineItems.value[index];
+  const INDEX = lineItems.value.indexOf(LINE_ITEM);
+  lineItems.value.splice(INDEX, 1);
+};
+
+const getFinalPayoutValue = () => {
+  const initialValue = 0;
+  const lineItemsSum = lineItems.value.reduce((accumulator, currentValue) => accumulator + Number(currentValue.amount), initialValue);
+  payoutTotal.value = props.payoutDetails.payoutsTotal + Number(Number(lineItemsSum).toFixed(2));
 };
 </script>
 
@@ -74,6 +102,7 @@ const printHandler = () => {
                     <table role="table" class="p-datatable-table" data-pc-section="table">
                       <thead class="p-datatable-thead" role="rowgroup" data-pc-section="thead" style="position: sticky;">
                         <tr role="row" data-pc-section="headerrow">
+                          <th></th>
                           <th class="" role="columnheader" data-pc-section="headercell" data-pc-name="headercell" data-p-resizable-column="false" data-p-filter-column="false" data-p-reorderable-column="false" style="width: 35%;">
                             <div class="p-column-header-content" data-pc-section="headercontent">
                               <span class="p-column-title" data-pc-section="headertitle">Item</span>
@@ -94,6 +123,7 @@ const printHandler = () => {
 
                       <tbody class="p-datatable-tbody" role="rowgroup" data-pc-section="tbody">
                         <tr class="p-datatable-emptymessage" role="row" data-pc-section="emptymessage">
+                          <td></td>
                           <td class="font-bold" role="cell" data-pc-section="bodycell" data-pc-name="bodycell" data-p-selection-column="false" data-p-editable-column="false" data-p-cell-editing="false" style="padding: 1rem 0.75rem !important;">
                             Sales value
                           </td>
@@ -106,6 +136,7 @@ const printHandler = () => {
                         </tr>
 
                         <tr class="p-datatable-emptymessage" role="row" data-pc-section="emptymessage">
+                          <td></td>
                           <td class="font-bold" role="cell" data-pc-section="bodycell" data-pc-name="bodycell" data-p-selection-column="false" data-p-editable-column="false" data-p-cell-editing="false" style="padding: 1rem 0.75rem !important;">
                             Commission
                           </td>
@@ -119,25 +150,64 @@ const printHandler = () => {
                           </td>
                         </tr>
 
-                        <!-- <tr v-for="item in payout.payout_line_items" class="p-datatable-emptymessage" role="row" data-pc-section="emptymessage">
+                        <tr v-for="(item, index) in lineItems" class="p-datatable-emptymessage" role="row" data-pc-section="emptymessage">
+                          <td>
+                            <Button
+                              @click="clearLineItemHandler(index)"
+                              class="p-button-sm"
+                              icon="pi pi-trash"
+                              rounded
+                              outlined
+                              style="width: 30px; height: 30px;"
+                              v-tooltip.bottom="'Delete lineitem'">
+                            </Button>
+                          </td>
                           <td class="font-bold" role="cell" data-pc-section="bodycell" data-pc-name="bodycell" data-p-selection-column="false" data-p-editable-column="false" data-p-cell-editing="false" style="padding: 1rem 0.75rem !important;">
-                            {{ item.name }}
+                            <InputText
+                              class="p-inputtext-sm w-full"
+                              placeholder="Enter item name"
+                              v-model="item.name">
+                            </InputText>
                           </td>
                           <td class="text-light" role="cell" data-pc-section="bodycell" data-pc-name="bodycell" data-p-selection-column="false" data-p-editable-column="false" data-p-cell-editing="false" style="padding: 1rem 0.75rem !important;">
-                            {{ item.description }}
+                            <InputText
+                              class="p-inputtext-sm w-full"
+                              placeholder="Enter description"
+                              v-model="item.description">
+                            </InputText>
                           </td>
                           <td role="cell" data-pc-section="bodycell" data-pc-name="bodycell" data-p-selection-column="false" data-p-editable-column="false" data-p-cell-editing="false" class="text-right tabular-nums" style="padding: 1rem 0.75rem !important;">
-                            {{ formatCurrency(item.amount) }}
+                            <InputText
+                              class="p-inputtext-sm w-50 text-right"
+                              placeholder="0.00"
+                              @input="getFinalPayoutValue"
+                              v-model="item.amount">
+                            </InputText>
                           </td>
-                        </tr> -->
+                        </tr>
 
                         <tr class="p-datatable-emptymessage" role="row" data-pc-section="emptymessage">
+                          <td></td>
+                          <td class="font-bold" role="cell" data-pc-section="bodycell" data-pc-name="bodycell" data-p-selection-column="false" data-p-editable-column="false" data-p-cell-editing="false" style="padding: 1rem 0.75rem !important;">
+                            <a href="#" class="btn-link font-normal inline-block" @click="addLineItemHandler">
+                              Add another line item
+                            </a>
+                          </td>
+                          <td class="text-light" role="cell" data-pc-section="bodycell" data-pc-name="bodycell" data-p-selection-column="false" data-p-editable-column="false" data-p-cell-editing="false" style="padding: 1rem 0.75rem !important;">
+                            e.g. taxes, shipping, deductions etc
+                          </td>
+                          <td role="cell" data-pc-section="bodycell" data-pc-name="bodycell" data-p-selection-column="false" data-p-editable-column="false" data-p-cell-editing="false" class="text-right tabular-nums" style="padding: 1rem 0.75rem !important;">
+                          </td>
+                        </tr>
+
+                        <tr class="p-datatable-emptymessage" role="row" data-pc-section="emptymessage">
+                          <td></td>
                           <td class="font-bold" role="cell" data-pc-section="bodycell" data-pc-name="bodycell" data-p-selection-column="false" data-p-editable-column="false" data-p-cell-editing="false" style="padding: 1.5rem 0.75rem !important;"></td>
                           <td class="font-bold text-xl" role="cell" data-pc-section="bodycell" data-pc-name="bodycell" data-p-selection-column="false" data-p-editable-column="false" data-p-cell-editing="false" style="padding: 1rem 0.75rem !important;">
                             Amount due
                           </td>
                           <td role="cell" data-pc-section="bodycell" data-pc-name="bodycell" data-p-selection-column="false" data-p-editable-column="false" data-p-cell-editing="false" class="font-bold text-xl text-right tabular-nums" style="padding: 1.5rem 0.75rem !important;">
-                            {{ formatCurrency(payoutDetails.payoutsTotal) }}
+                            {{ formatCurrency(payoutTotal) }}
                           </td>
                         </tr>
                       </tbody>
@@ -170,7 +240,8 @@ const printHandler = () => {
             </ul>
           </template>
         </CardWrapper>
-        <OrdersInvoiced :orders="payoutCreationDetails" />
+
+        <OrdersInvoiced :orders="payoutCreationDetails" isPayoutCreate />
       </div>
     </div>
   </Sidebar>

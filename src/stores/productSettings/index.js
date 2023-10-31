@@ -10,6 +10,7 @@ export const useProductSettingsStore = defineStore('productSettings', {
       activeTabIndex: 0,
       destinationProductSettings: [],
       destinationVariantSettings: [],
+      isMetaFieldsRequested: false,
       loading: false,
       settingsUpdated: false,
       sourceProductSettings: [],

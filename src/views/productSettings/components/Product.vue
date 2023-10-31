@@ -4,6 +4,9 @@ import { usePlanStore } from 'plan';
 import { useProductSettingsStore } from 'productSettings';
 import * as routes from '@/routes';
 
+/* ----- Components ----- */
+const MetafieldsDialog = defineAsyncComponent(() => import('./MetafieldsDialog.vue'));
+
 /* ----- Data ----- */
 const {
   addons,
@@ -16,6 +19,7 @@ const {
 
 const {
   destinationProductSettings,
+  isMetaFieldsRequested,
   settingsUpdated,
   sourceProductSettings,
   stringifyDestinationProductSettings,
@@ -43,17 +47,27 @@ const initialSyncSettings = computed(() => {
 
 const ongoingSyncSettings = computed(() => {
   const syncSetting = {
+    'd_sync_metafields': true,
     'product_publish_sync': true,
     'sync_hs_code_and_country_origin': true,
     'sync_product_description': true,
     'sync_product_images': true,
     'sync_product_tags': true,
     'sync_product_title': true,
+    'sync_product_type': true,
+    'sync_product_vendor': true,
     'unpublish_at_product_creation': true,
   };
 
   return destinationProductSettings.value?.filter(({ key }) => syncSetting[key]);
 });
+
+const onChangeHandler = ({ is_active, key }) => {
+  if(is_active) return;
+  if(key === 'd_sync_metafields' && !is_active) {
+    isMetaFieldsRequested.value = true;
+  }
+}
 </script>
 
 <template>
@@ -126,9 +140,32 @@ const ongoingSyncSettings = computed(() => {
                     If <strong class="font-semibold">Online Store Sales Channel</strong> setting is enabled, this setting will be
                     overridden whenever the Source store updates their products.
                   </span>
+                  <span v-else-if="setting.key === 'sync_product_vendor'">
+                    Ongoing sync of the Vendor field from the source product.
+                  </span>
+                  <span v-else-if="setting.key === 'sync_product_type'">
+                    Ongoing sync of product type field from the source product.
+                  </span>
+                  <span v-else-if="setting.key === 'd_sync_metafields'">
+                    Ongoing sync of product and variant metafields from connected Source stores.
+                    <br><br>
+                    What will be synced:
+                    <ul class="p-0 pl-3 m-0 mt-3">
+                      <li>All custom product and variant metafield data</li>
+                      <li>All metafields definitions</li>
+                      <li>All metaobjects</li>
+                    </ul>
+                  </span>
                 </p>
               </div>
-              <InputSwitch v-if="addons.isSettingsModulePaid" v-model="setting.is_active" />
+
+              <InputSwitch
+                :class="{ 'metafields-switch' : setting.key === 'd_sync_metafields' }"
+                @click="onChangeHandler(setting)"
+                v-if="addons.isSettingsModulePaid"
+                v-model="setting.is_active">
+              </InputSwitch>
+
               <i v-else class="pi pi-lock" style="font-size: 1.5rem"></i>
             </div>
           </li>
@@ -158,5 +195,7 @@ const ongoingSyncSettings = computed(() => {
       </div>
     </div>
   </section>
+
+  <MetafieldsDialog v-if="isMetaFieldsRequested" />
 
 </template>
