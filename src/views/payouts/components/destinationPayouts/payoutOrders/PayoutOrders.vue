@@ -31,13 +31,18 @@ const arePayoutOrdersSelected = computed(() => {
 });
 
 const selectedPayoutsDetails = computed(() => {
-  const payoutDetails = {
-    payoutsCommission: selectedPayoutOrders.value.reduce((accumulator, order) => accumulator + +order.commission, 0),
-    payoutsTotal: selectedPayoutOrders.value.reduce((accumulator, order) => accumulator + +order.payout_amount, 0),
-    salesTotal: selectedPayoutOrders.value.reduce((accumulator, order) => accumulator + +order.sales, 0),
-  }
-  return payoutDetails;
+  const initialValues = { payoutsCommission: 0, payoutsTotal: 0, salesTotal: 0, taxTotal: 0 };
+
+  return selectedPayoutOrders.value.reduce((accumulator, order) => {
+    return {
+      payoutsCommission: accumulator.payoutsCommission + +order.commission,
+      payoutsTotal: accumulator.payoutsTotal + +order.payout_amount,
+      salesTotal: accumulator.salesTotal + +order.sales,
+      taxTotal: accumulator.taxTotal + +order.tax,
+    };
+  }, initialValues);
 });
+
 
 /* ----- Methods ----- */
 const updateCurrentPageHandler = (page) => {};
@@ -58,7 +63,7 @@ const isRowSelectedHandler = (data) => {
       <CardWrapper style="width: 12.5rem;">
         <template #content>
           <h2 class="m-0 font-semibold">{{ selectedPayoutOrders?.length }}</h2>
-          <h3 class="m-0 mt-2 font-normal">Orders selected</h3>
+          <h3 class="m-0 mt-2 font-normal">{{ selectedPayoutOrders?.length > 1 ? 'Orders' : 'Order' }} selected</h3>
         </template>
       </CardWrapper>
 
@@ -89,7 +94,7 @@ const isRowSelectedHandler = (data) => {
       icon="pi pi-times"
       rounded
       outlined
-      style="vertical-align: top !important; margin-top: .4rem;"
+      style="vertical-align: top !important; margin-top: .45rem;"
       size="10px"
       v-tooltip.bottom="'Clear selection'">
     </Button>

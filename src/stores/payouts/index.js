@@ -2,6 +2,7 @@ import { useConnectionsStore } from 'connections';
 import deepmerge from 'deepmerge';
 
 /* ----- Actions ----- */
+import { createPayout } from './actions/createPayout';
 import { fetchPaidPayouts } from './actions/fetchPaidPayouts';
 import { fetchPayableOrders } from './actions/fetchPayableOrders';
 import { fetchPayout } from './actions/fetchPayout';
@@ -64,6 +65,7 @@ export const usePayoutsStore = defineStore('payouts', {
   },
 
   actions: deepmerge.all([
+    createPayout,
     fetchPaidPayouts,
     fetchPayableOrders,
     fetchPayout,

@@ -9,6 +9,18 @@ export function usePayouts() {
     await payouts.fetchPayoutPreview(selectedPayoutOrders);
   };
 
+  const createPayoutHandler = async (lineItems, payoutDetails, markAsPaid) => {
+    const { payoutsTotal, salesTotal, taxTotal } = payoutDetails;
+    const payload = {
+      payoutLineItems: lineItems,
+      payoutsTotal,
+      salesTotal,
+      taxTotal
+    }
+
+    await payouts.createPayout(payload, markAsPaid);
+  };
+
   const fetchPayableOrdersHandler = async () => {
     payouts.$patch({ queries: { ...payouts.queries, 'filters[status]': 'unpaid' } })
     await payouts.fetchPayableOrders();
@@ -68,6 +80,7 @@ export function usePayouts() {
   };
 
   return {
+    createPayoutHandler,
     fetchPaidPayoutsHandler,
     fetchPayableOrdersHandler,
     fetchPayablePayoutsHandler,

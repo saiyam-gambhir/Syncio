@@ -12,6 +12,10 @@ const {
 } = toRefs(usePayoutsStore());
 
 const {
+  createPayoutHandler,
+} = usePayouts();
+
+const {
   formatCurrency,
   formatDate,
 } = useFilters();
@@ -87,14 +91,14 @@ const getFinalPayoutValue = () => {
 
             <Divider />
 
-            <h3 class="grid mb-0">
+            <h3 class="grid mb-0 mt-1">
               <div class="col-3">Send to</div>
               <div class="col-9 font-normal">{{ selectedPayoutOrdersStoreName }}</div>
             </h3>
 
             <Divider />
 
-            <h3 class="grid mb-0">
+            <h3 class="grid mb-0 mt-1">
               <div class="col-3">Amount</div>
               <div class="col-9 font-normal">
                 <div class="p-datatable p-component p-datatable-responsive-scroll p-datatable-gridlines" data-scrollselectors=".p-datatable-wrapper" data-pc-name="datatable" data-pc-section="root">
@@ -159,7 +163,7 @@ const getFinalPayoutValue = () => {
                               rounded
                               outlined
                               style="width: 30px; height: 30px;"
-                              v-tooltip.bottom="'Delete lineitem'">
+                              v-tooltip.bottom="'Delete'">
                             </Button>
                           </td>
                           <td class="font-bold" role="cell" data-pc-section="bodycell" data-pc-name="bodycell" data-p-selection-column="false" data-p-editable-column="false" data-p-cell-editing="false" style="padding: 1rem 0.75rem !important;">
@@ -180,7 +184,7 @@ const getFinalPayoutValue = () => {
                             <InputText
                               class="p-inputtext-sm w-50 text-right"
                               placeholder="0.00"
-                              @input="getFinalPayoutValue"
+                              @blur="getFinalPayoutValue"
                               v-model="item.amount">
                             </InputText>
                           </td>
@@ -225,6 +229,7 @@ const getFinalPayoutValue = () => {
               </li>
               <li>
                 <Button
+                  @click="createPayoutHandler(lineItems, payoutDetails, false)"
                   style="height: 43px;"
                   outlined
                   class="p-button-success"
@@ -232,6 +237,7 @@ const getFinalPayoutValue = () => {
                 </Button>
 
                 <Button
+                  @click="createPayoutHandler(lineItems, payoutDetails, true)"
                   style="height: 43px;"
                   class="p-button-success ml-4"
                   label="Create and mark as paid">
