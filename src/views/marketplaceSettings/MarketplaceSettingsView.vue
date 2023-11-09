@@ -112,7 +112,10 @@ const placeHolderImages = computed(() => {
 
               <div class="col-6 flex flex-column gap-3">
                 <label for="typicalMarginPrecentage" class="font-semibold">Typical margin (Optional)</label>
-                <InputText type="number" min="0" id="typicalMarginPrecentage" v-model="profile.typicalMarginPrecentage" />
+                <div class="p-inputgroup">
+                  <InputText id="typicalMarginPrecentage" type="number" min="0" v-model="profile.typicalMarginPrecentage" />
+                  <span class="p-inputgroup-addon">%</span>
+                </div>
                 <span class="text-light text-sm line-height-3">If blank, your profile will read "Request pricing". You can provide product specific margins when another store initiates a connection request.</span>
               </div>
             </div>
@@ -123,7 +126,7 @@ const placeHolderImages = computed(() => {
       <Divider layout="vertical" />
 
       <section style="width: 45rem;">
-        <h2 class="pb-4">Profile images</h2>
+        <h2 class="pb-4 pt-2">Profile images</h2>
 
         <CardWrapper>
           <template #content>

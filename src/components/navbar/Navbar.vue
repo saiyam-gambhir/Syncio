@@ -94,7 +94,7 @@ const isSettingsPath = computed(() => {
             <NavLink :href="routes.PAYOUTS" iconClass="pi-dollar" linkText="Payouts" />
           </li>
           <li class="mt-1">
-            <NavLink :href="routes.SETTINGS" iconClass="pi-cog" linkText="Settings" />
+            <NavLink :href="routes.SETTINGS" iconClass="pi-cog" linkText="Settings" :class="{ 'router-link-active': isSettingsPath }" />
           </li>
         </ul>
       </div>
