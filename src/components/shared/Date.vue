@@ -10,11 +10,19 @@ const props = defineProps({
     type: String,
     required: true,
   },
+
+  horizontal: {
+    type: Boolean,
+    default: false,
+  }
 });
 </script>
 
 <template>
-  <div class="flex flex-column date">
+  <div v-if="horizontal">
+    <span>{{ formatDate(date).date }}</span>, <span>{{ formatDate(date).time }}</span>
+  </div>
+  <div v-else class="flex flex-column date">
     <span>{{ formatDate(date).date }}</span>
     <span class="text-sm mt-2">{{ formatDate(date).time }}</span>
   </div>

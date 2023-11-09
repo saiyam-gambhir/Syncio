@@ -24,7 +24,7 @@ export function useFilters() {
     if (!val) return 'Invalid Date';
     const date = DateTime.fromISO(val).setZone(timeZone);
     return {
-      date: `${date.toFormat('dd MMM, yyyy')}`,
+      date: `${date.toFormat('DD')}`,
       time: `${date.toFormat('hh:mm a')}`,
     };
   };
