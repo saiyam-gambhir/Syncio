@@ -4,7 +4,10 @@ import { useMarketPlaceStore } from 'marketPlace';
 import * as routes from '@/routes';
 
 /* ----- Data ----- */
-const { partnerStoreType } = toRefs(useConnectionsStore());
+const {
+  partnerStoreType
+} = toRefs(useConnectionsStore());
+
 const {
   categories,
   countries,

@@ -5,9 +5,9 @@ import * as routes from '@/routes';
 <template>
   <PageDetails title="Welcome, Let's get started!" content="Free 14 day trial for WooCommerce Destination accounts!" />
 
-  <aside class="auth-wrapper text-center" style="width: 150%; margin-left: -25%;">
+  <aside class="auth-wrapper text-center">
     <div class="grid">
-      <div class="col-4 py-0">
+      <div class="col-6 py-0">
         <router-link :to="routes.WOO_CREATE_ACCOUNT">
           <CardWrapper class="platform text-center">
             <template #content>
@@ -17,7 +17,7 @@ import * as routes from '@/routes';
           </CardWrapper>
         </router-link>
       </div>
-      <div class="col-4 py-0">
+      <div class="col-6 py-0">
         <CardWrapper class="platform text-center">
           <template #content>
             <img src="@/assets/images/shopify-logo-sm.png" alt="Shopify logo" style="height: 150px;" class="mt-3" />
@@ -25,14 +25,14 @@ import * as routes from '@/routes';
           </template>
         </CardWrapper>
       </div>
-      <div class="col-4 py-0">
+      <!-- <div class="col-4 py-0">
         <CardWrapper class="platform text-center">
           <template #content>
             <img src="@/assets/images/shopline_logo.png" alt="Shopify logo" style="height: 150px;" class="mt-3" />
             <h2 class="mt-5 mb-3">Shopline</h2>
           </template>
         </CardWrapper>
-      </div>
+      </div> -->
     </div>
   </aside>
 

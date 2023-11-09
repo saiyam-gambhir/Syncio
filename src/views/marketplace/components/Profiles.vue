@@ -2,7 +2,10 @@
 import { useMarketPlaceStore } from 'marketPlace';
 
 /* ----- Data ----- */
-const { loading, profiles } = toRefs(useMarketPlaceStore());
+const {
+  loading,
+  profiles,
+} = toRefs(useMarketPlaceStore());
 </script>
 
 <template>

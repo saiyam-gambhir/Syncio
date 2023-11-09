@@ -156,8 +156,15 @@ const isRowSelectedHandler = (data) => {
 
     <Column header="Actions" style="width: 17.5%" class="text-right">
       <template #body="{ data: { order_id } }">
+        <span v-if="arePayoutOrdersSelected" v-tooltip.top="'Bulk selection is active.'" class="inline-block">
+          <Button
+            disabled
+            class="p-button-sm p-button-success"
+            label="Create payout">
+          </Button>
+        </span>
         <Button
-          :disabled="arePayoutOrdersSelected"
+          v-else
           @click="fetchPayoutPreviewHandler(order_id)"
           class="p-button-sm p-button-success"
           label="Create payout">

@@ -11,7 +11,7 @@
     "format": "prettier --write \"./src/**/*.{js}\""
   },
   "dependencies": {
-    "@vuelidate/core": "^2.0.3",
+    "@formkit/vue": "^1.2.2",
     "@vuepic/vue-datepicker": "^4.2.3",
     "@vueuse/components": "^9.13.0",
     "@vueuse/core": "^8.9.4",

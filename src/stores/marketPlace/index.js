@@ -1,6 +1,8 @@
+import { useConnectionsStore } from 'connections';
 import deepmerge from 'deepmerge';
 
 /* ----- Actions ----- */
+import { fetchProfile } from './actions/fetchProfile';
 import { fetchProfiles } from './actions/fetchProfiles';
 import { sendMessage } from './actions/sendMessage';
 
@@ -233,9 +235,22 @@ export const useMarketPlaceStore = defineStore('marketPlace', {
       isConnectDialogVisible: false,
       isMessageDialogVisible: false,
       loading: false,
+      maxImagesAllowed: 6,
       message: null,
       pagination: {},
       profiles: null,
+      profile: {
+        brandName: null,
+        category: null,
+        cocoProfileImages: [],
+        images: [],
+        location: null,
+        numOfProducts: null,
+        shippingPolicyUrl: null,
+        socialMedia: null,
+        typicalMarginPrecentage: null,
+        website: null,
+      },
       productsRange: ['0-20', '21-50', '51-150', '151+'],
       queries: {
         'filters[category]': null,
@@ -250,9 +265,17 @@ export const useMarketPlaceStore = defineStore('marketPlace', {
     };
   },
 
+  getters: {
+    storeId() {
+      const { storeId } = useConnectionsStore();
+      return storeId;
+    },
+  },
+
   actions: deepmerge.all([
+    fetchProfile,
     fetchProfiles,
-    sendMessage
+    sendMessage,
   ]),
 
   persist: {

@@ -5,7 +5,11 @@ import { useMarketPlaceStore } from 'marketPlace';
 const MessageDialogs = defineAsyncComponent(() => import('./components/MessageDialogs.vue'));
 
 /* ----- Data ----- */
-const { fetchProfiles, isMessageDialogVisible, profiles } = toRefs(useMarketPlaceStore());
+const {
+  fetchProfiles,
+  isMessageDialogVisible,
+  profiles,
+} = toRefs(useMarketPlaceStore());
 
 /* ----- Mounted ----- */
 onMounted(async () => {
