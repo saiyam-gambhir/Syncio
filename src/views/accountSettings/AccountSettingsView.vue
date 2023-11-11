@@ -121,7 +121,7 @@ const handleCurrencyChange = (event) => {
             </li>
             <li class="py-4 border-bottom-1 surface-border">
               <h3 class="flex align-items-center justify-content-between my-1">
-                Store Name:
+                Store URL:
                 <Tag severity="info" class="ml-3">{{ storeName }}</Tag>
               </h3>
             </li>

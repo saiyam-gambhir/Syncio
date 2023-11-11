@@ -14,9 +14,11 @@ export const useProductSettingsStore = defineStore('productSettings', {
       loading: false,
       settingsUpdated: false,
       sourceProductSettings: [],
+      sourceVariantSettings: [],
       stringifyDestinationProductSettings: null,
       stringifyDestinationVariantSettings: null,
       stringifySourceProductSettings: null,
+      stringifySourceVariantSettings: null,
     };
   },
 

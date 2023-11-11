@@ -44,102 +44,131 @@ const placeHolderImages = computed(() => {
 
   <form class="mt-5">
     <article class="grid justify-content-between">
-      <section class="col-12 md:col-6 lg:col-6">
-        <h2 class="pb-3">Profile details</h2>
-
+      <section class="col-12">
         <CardWrapper>
           <template #content>
-            <div class="grid">
-              <div class="col-6 flex flex-column gap-3">
-                <label for="brandName" class="font-semibold">Brand Name</label>
-                <InputText type="text" id="brandName" v-model="profile.brandName" />
-              </div>
+            <div class="surface-section">
+              <div class="font-medium text-3xl mb-3">Profile details</div>
+              <ul class="list-none p-0 m-0">
+                <li class="flex align-items-center pb-3 pt-5 border-top-1 surface-border flex-wrap">
+                  <div class="w-3 font-bold">
+                    <label for="brandName" class="font-semibold">Brand Name</label>
+                  </div>
+                  <div class="text-900 w-9">
+                    <InputText type="text" id="brandName" class="w-66" v-model="profile.brandName" />
+                  </div>
+                </li>
 
-              <div class="col-6 flex flex-column gap-3">
-                <label for="instagram" class="font-semibold">Instagram (optional)</label>
-                <InputText type="text" id="instagram" v-model="profile.socialMedia" />
-              </div>
-            </div>
+                <li class="flex align-items-center py-3 flex-wrap">
+                  <div class="w-3 font-bold">
+                    <label for="instagram" class="font-semibold">Instagram (optional)</label>
+                  </div>
+                  <div class="text-900 w-9">
+                    <InputText type="text" id="instagram" class="w-66" v-model="profile.socialMedia" />
+                  </div>
+                </li>
 
-            <div class="grid mt-5">
-              <div class="col-6 flex flex-column gap-3">
-                <label for="website" class="font-semibold">Website</label>
-                <InputText type="text" id="website" v-model="profile.website" />
-              </div>
+                <li class="flex align-items-center py-3 flex-wrap">
+                  <div class="w-3 font-bold">
+                    <label for="website" class="font-semibold">Website</label>
+                  </div>
+                  <div class="text-900 w-9">
+                    <InputText type="text" id="website" class="w-66" v-model="profile.website" />
+                  </div>
+                </li>
 
-              <div class="col-6 flex flex-column gap-3">
-                <label for="location" class="font-semibold">Location</label>
-                <Dropdown
-                  :autoOptionFocus="false"
-                  :options="countries"
-                  class="w-full"
-                  editable placeholder="Select Country"
-                  inputId="location"
-                  showClear
-                  selectOnFocus
-                  v-model="profile.location">
-                </Dropdown>
-              </div>
-            </div>
+                <li class="flex align-items-center py-3 flex-wrap">
+                  <div class="w-3 font-bold">
+                    <label for="location" class="font-semibold">Location</label>
+                  </div>
+                  <div class="text-900 w-9">
+                    <Dropdown
+                      :autoOptionFocus="false"
+                      :options="countries"
+                      class="w-66"
+                      editable placeholder="Select Country"
+                      inputId="location"
+                      selectOnFocus
+                      v-model="profile.location">
+                    </Dropdown>
+                  </div>
+                </li>
 
-            <div class="grid mt-5">
-              <div class="col-6 flex flex-column gap-3">
-                <label for="category" class="font-semibold">Store category</label>
-                <Dropdown
-                  :autoOptionFocus="false"
-                  :options="categories"
-                  class="w-full"
-                  editable placeholder="Select category"
-                  inputId="category"
-                  showClear
-                  v-model="profile.category">
-                </Dropdown>
-                <span class="text-light text-sm">The primary category of products you sell</span>
-              </div>
+                <li class="flex align-items-center py-3 flex-wrap">
+                  <div class="w-3 font-bold">
+                    <label for="category" class="font-semibold">Store category</label>
+                    <p class="text-light text-sm font-normal mt-1 mb-0">The primary category of products you sell</p>
+                  </div>
+                  <div class="text-900 w-9">
+                    <Dropdown
+                      :autoOptionFocus="false"
+                      :options="categories"
+                      class="w-66"
+                      editable placeholder="Select category"
+                      inputId="category"
+                      v-model="profile.category">
+                    </Dropdown>
+                  </div>
+                </li>
 
-              <div class="col-6 flex flex-column gap-3">
-                <label for="numOfProducts" class="font-semibold">Number of products</label>
-                <InputText type="number" min="0" id="numOfProducts" v-model="profile.numOfProducts" />
-              </div>
-            </div>
+                <li class="flex align-items-center py-3 flex-wrap">
+                  <div class="w-3 font-bold">
+                    <label for="numOfProducts" class="font-semibold">Number of products</label>
+                  </div>
+                  <div class="text-900 w-9">
+                    <InputText type="number" min="0" id="numOfProducts" class="w-66" v-model="profile.numOfProducts" />
+                  </div>
+                </li>
 
-            <div v-if="isSourceStore" class="grid mt-5">
-              <div class="col-6 flex flex-column gap-3">
-                <label for="shippingPolicyUrl" class="font-semibold">Shipping policy URL (Optional)</label>
-                <InputText id="shippingPolicyUrl" v-model="profile.shippingPolicyUrl" />
-                <span class="text-light text-sm">If blank, your profile will read "Request policy"</span>
-              </div>
+                <li v-if="isSourceStore" class="flex align-items-center py-3 flex-wrap">
+                  <div class="w-3 font-bold">
+                    <label for="shippingPolicyUrl" class="font-semibold">Shipping policy URL (Optional)</label>
+                    <p class="text-light text-sm font-normal mt-1 mb-0">If blank, your profile will read "Request policy"</p>
+                  </div>
+                  <div class="text-900 w-9">
+                    <InputText id="shippingPolicyUrl" class="w-66" v-model="profile.shippingPolicyUrl" />
+                  </div>
+                </li>
 
-              <div class="col-6 flex flex-column gap-3">
-                <label for="typicalMarginPrecentage" class="font-semibold">Typical margin (Optional)</label>
-                <div class="p-inputgroup">
-                  <InputText id="typicalMarginPrecentage" type="number" min="0" v-model="profile.typicalMarginPrecentage" />
-                  <span class="p-inputgroup-addon">%</span>
-                </div>
-                <span class="text-light text-sm line-height-3">If blank, your profile will read "Request pricing". You can provide product specific margins when another store initiates a connection request.</span>
-              </div>
+                <li v-if="isSourceStore" class="flex align-items-center py-3 flex-wrap">
+                  <div class="w-3 font-bold">
+                    <label for="typicalMarginPrecentage" class="font-semibold">Typical margin (Optional)</label>
+                    <p class="text-light text-sm font-normal mt-1 mb-0">If blank, your profile will read "Request pricing". <br> You can provide product specific margins when <br> another store initiates a connection request.</p>
+                  </div>
+                  <div class="text-900 w-9">
+                    <div class="p-inputgroup w-66">
+                      <InputText id="typicalMarginPrecentage" type="number" min="0" v-model="profile.typicalMarginPrecentage" />
+                      <span class="p-inputgroup-addon">%</span>
+                    </div>
+                  </div>
+                </li>
+              </ul>
             </div>
           </template>
         </CardWrapper>
       </section>
 
-      <Divider layout="vertical" />
-
-      <section style="width: 45rem;">
-        <h2 class="pb-4 pt-2">Profile images</h2>
-
+      <section class="col-12 mt-4">
         <CardWrapper>
           <template #content>
-            <p class="text-light m-0">The order that images appear on your profile will be the same as the order here.</p>
-            <p class="text-light mb-0 mt-2">Include product images to give partner stores an understanding of what you sell.</p>
-
-            <div class="grid mt-2">
-              <div class="col-4" style="margin-top: 1rem;" v-for="image in profile.cocoProfileImages" :key="image.image_url">
-                <div :style="{ backgroundImage: `url(${image.image_url})` }" style="background-position: center; background-repeat: no-repeat; background-size: contain; background-color: #e5e5e5; height: 154px;"></div>
-              </div>
-              <div class="col-4" style="margin-top: 1rem;" v-for="image in placeHolderImages" :key="image">
-                <div class="image-placeholder"></div>
-              </div>
+            <div class="surface-section">
+              <div class="font-medium text-3xl mb-3">Profile images</div>
+              <div class="text-500">The order that images appear on your profile will be the same as the order here.</div>
+              <div class="text-500 mb-3 mt-2">Include product images to give partner stores an understanding of what you sell.</div>
+              <ul class="list-none p-0 m-0">
+                <li class="flex align-items-center pt-2 border-top-1 surface-border flex-wrap">
+                  <div class="w-100">
+                    <div class="grid">
+                      <div class="col-2" style="margin-top: 1rem;" v-for="image in profile.cocoProfileImages" :key="image.image_url">
+                        <div :style="{ backgroundImage: `url(${image.image_url})` }" style="background-position: center; background-repeat: no-repeat; background-size: contain; background-color: #e5e5e5; height: 154px;"></div>
+                      </div>
+                      <div class="col-2" style="margin-top: 1rem;" v-for="image in placeHolderImages" :key="image">
+                        <div class="image-placeholder"></div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
             </div>
           </template>
         </CardWrapper>

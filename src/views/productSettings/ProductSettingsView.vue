@@ -34,9 +34,11 @@ const {
   loading,
   settingsUpdated,
   sourceProductSettings,
+  sourceVariantSettings,
   stringifyDestinationProductSettings,
   stringifyDestinationVariantSettings,
   stringifySourceProductSettings,
+  stringifysourceVariantSettings,
   updateSettings,
 } = toRefs(useProductSettingsStore());
 
@@ -83,6 +85,7 @@ const leaveCurrentPageHandler = () => {
     destinationProductSettings.value = JSON.parse(stringifyDestinationProductSettings.value);
     destinationVariantSettings.value = JSON.parse(stringifyDestinationVariantSettings.value);
     sourceProductSettings.value = JSON.parse(stringifySourceProductSettings.value);
+    sourceVariantSettings.value = JSON.parse(stringifysourceVariantSettings.value);
   }
 };
 
@@ -91,7 +94,7 @@ const updateSettingsHandler = async () => {
   if(isDestinationStore.value) {
     payload = [...destinationProductSettings.value, ...destinationVariantSettings.value];
   } else if (isSourceStore.value) {
-    payload = [...sourceProductSettings.value];
+    payload = [...sourceProductSettings.value, ...sourceVariantSettings.value];
   }
 
   const configrations = payload.map(({ key, is_active }) => {

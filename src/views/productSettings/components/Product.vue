@@ -184,9 +184,7 @@ const onChangeHandler = ({ is_active, key }) => {
                 <p class="m-0 font-semibold text-lg">
                   {{ setting.label }}
                 </p>
-                <p class="mt-2 mb-0 text-lg">
-                  {{ setting.description }}
-                </p>
+                <p class="mt-2 mb-0 text-lg" v-html="setting.description"></p>
               </div>
               <InputSwitch v-model="setting.is_active" />
             </div>

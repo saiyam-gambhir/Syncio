@@ -28,6 +28,9 @@ export const fetchSettings = {
 
         this.sourceProductSettings = await this.filterSettings(configurations, 'product', 'source');
         this.stringifySourceProductSettings = JSON.stringify(this.sourceProductSettings);
+
+        this.sourceVariantSettings = await this.filterSettings(configurations, 'variant', 'source');
+        this.stringifySourceVariantSettings = JSON.stringify(this.sourceVariantSettings);
       }
     } catch (error) {
       throw new Error(error);
