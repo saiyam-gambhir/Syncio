@@ -46,15 +46,11 @@ const props = defineProps({
 });
 
 /* ----- Methods ----- */
-const printHandler = () => {
-  window.print();
-};
-
 const addLineItemHandler = () => {
   lineItems.value.push({
-    name: '',
-    description: '',
     amount: '',
+    description: '',
+    name: '',
   });
 };
 

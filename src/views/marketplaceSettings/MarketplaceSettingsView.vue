@@ -1,10 +1,12 @@
 <script setup>
 import { useConnectionsStore } from 'connections';
 import { useMarketPlaceStore } from 'marketPlace';
+import axiosService from '@/composables/axios';
 
 /* ----- Data ----- */
 const {
   isSourceStore,
+  storeId,
 } = toRefs(useConnectionsStore());
 
 const {
@@ -14,6 +16,9 @@ const {
   profile,
   fetchProfile,
 } = toRefs(useMarketPlaceStore());
+
+const fileSelectedForUpload = ref([]);
+const loading = ref(false);
 
 /* ----- Mounted ----- */
 onMounted(async () => {
@@ -25,6 +30,45 @@ const placeHolderImages = computed(() => {
   const uploadedImages = profile.value.cocoProfileImages?.length;
   return maxImagesAllowed.value - (uploadedImages);
 });
+
+/* ----- Methods ----- */
+const clickFileUploadButton = () => {
+  document.querySelector('.upload-btn').click();
+};
+
+const uploadFilesHandler = async () => {
+  try {
+    loading.value = true;
+    const promises = fileSelectedForUpload.value.map(async (file) => {
+      const formData = new FormData();
+      formData.append('image', file);
+      return await axiosService.uploadImage(`stores/${storeId.value}/coco-profiles/upload-image`, formData);
+    });
+
+    const res = await Promise.all(promises);
+    res.forEach(image => {
+      profile.value.cocoProfileImages = [...profile.value.cocoProfileImages, { image_url: image.url }];
+    });
+  } catch (err) {
+  } finally {
+    loading.value = false;
+  }
+};
+
+const fileUploadHandler = () => {
+  const files = fileSelectedForUpload.value.files;
+  const uploadedImages = profile.value.cocoProfileImages?.length;
+  const totalFiles = files.length + uploadedImages;
+  const totalFilesAllowed = maxImagesAllowed.value - uploadedImages;
+
+  if(totalFiles > maxImagesAllowed.value) {
+    alert(`You can add up to ${maxImagesAllowed.value} images`)
+    files.length = totalFilesAllowed;
+  }
+
+  fileSelectedForUpload.value = [...files];
+  uploadFilesHandler();
+};
 </script>
 
 <template>
@@ -120,28 +164,30 @@ const placeHolderImages = computed(() => {
                   </div>
                 </li>
 
-                <li v-if="isSourceStore" class="flex align-items-center py-3 flex-wrap">
-                  <div class="w-3 font-bold">
-                    <label for="shippingPolicyUrl" class="font-semibold">Shipping policy URL (Optional)</label>
-                    <p class="text-light text-sm font-normal mt-1 mb-0">If blank, your profile will read "Request policy"</p>
-                  </div>
-                  <div class="text-900 w-9">
-                    <InputText id="shippingPolicyUrl" class="w-66" v-model="profile.shippingPolicyUrl" />
-                  </div>
-                </li>
-
-                <li v-if="isSourceStore" class="flex align-items-center py-3 flex-wrap">
-                  <div class="w-3 font-bold">
-                    <label for="typicalMarginPrecentage" class="font-semibold">Typical margin (Optional)</label>
-                    <p class="text-light text-sm font-normal mt-1 mb-0">If blank, your profile will read "Request pricing". <br> You can provide product specific margins when <br> another store initiates a connection request.</p>
-                  </div>
-                  <div class="text-900 w-9">
-                    <div class="p-inputgroup w-66">
-                      <InputText id="typicalMarginPrecentage" type="number" min="0" v-model="profile.typicalMarginPrecentage" />
-                      <span class="p-inputgroup-addon">%</span>
+                <template v-if="isSourceStore">
+                  <li class="flex align-items-center py-3 flex-wrap">
+                    <div class="w-3 font-bold">
+                      <label for="shippingPolicyUrl" class="font-semibold">Shipping policy URL (Optional)</label>
+                      <p class="text-light text-sm font-normal mt-1 mb-0">If blank, your profile will read "Request policy"</p>
                     </div>
-                  </div>
-                </li>
+                    <div class="text-900 w-9">
+                      <InputText id="shippingPolicyUrl" class="w-66" v-model="profile.shippingPolicyUrl" />
+                    </div>
+                  </li>
+
+                  <li class="flex align-items-center py-3 flex-wrap">
+                    <div class="w-3 font-bold">
+                      <label for="typicalMarginPrecentage" class="font-semibold">Typical margin (Optional)</label>
+                      <p class="text-light text-sm font-normal mt-1 mb-0">If blank, your profile will read "Request pricing". <br> You can provide product specific margins when <br> another store initiates a connection request.</p>
+                    </div>
+                    <div class="text-900 w-9">
+                      <div class="p-inputgroup w-66">
+                        <InputText id="typicalMarginPrecentage" type="number" min="0" v-model="profile.typicalMarginPrecentage" />
+                        <span class="p-inputgroup-addon">%</span>
+                      </div>
+                    </div>
+                  </li>
+                </template>
               </ul>
             </div>
           </template>
@@ -151,18 +197,31 @@ const placeHolderImages = computed(() => {
       <section class="col-12 mt-4">
         <CardWrapper>
           <template #content>
-            <div class="surface-section">
-              <div class="font-medium text-3xl mb-3">Profile images</div>
+            <div class="surface-section relative">
+              <div class="font-medium text-3xl mb-3">Profile images - ({{ profile.cocoProfileImages?.length }}/{{ maxImagesAllowed }})</div>
               <div class="text-500">The order that images appear on your profile will be the same as the order here.</div>
               <div class="text-500 mb-3 mt-2">Include product images to give partner stores an understanding of what you sell.</div>
+              <div class="absolute right-0 top-0" v-if="profile.cocoProfileImages?.length < maxImagesAllowed">
+                <input
+                  @change="fileUploadHandler"
+                  accept="image/jpeg, image/png, image/jpg, image/webp, image/gif, image/ico"
+                  class="absolute upload-btn w-100 h-100 top-0 left-0"
+                  multiple
+                  ref="fileSelectedForUpload"
+                  type="file"
+                >
+                <Button @click="clickFileUploadButton" label="Upload Images" icon="pi pi-upload"></Button>
+                <p class="text-center mt-1 m-0 text-sm text-600">You can add upto {{ maxImagesAllowed }} images</p>
+              </div>
+              <!-- <FileUpload mode="basic" chooseLabel="Upload images" :multiple="true" accept="image/*" :maxFileSize="3000000" class="absolute right-0 top-0" /> -->
               <ul class="list-none p-0 m-0">
-                <li class="flex align-items-center pt-2 border-top-1 surface-border flex-wrap">
+                <li class="flex align-items-center pt-2 border-top-1 surface-border flex-wrap pt-5">
                   <div class="w-100">
                     <div class="grid">
-                      <div class="col-2" style="margin-top: 1rem;" v-for="image in profile.cocoProfileImages" :key="image.image_url">
-                        <div :style="{ backgroundImage: `url(${image.image_url})` }" style="background-position: center; background-repeat: no-repeat; background-size: contain; background-color: #e5e5e5; height: 154px;"></div>
+                      <div class="col-2" v-for="image in profile.cocoProfileImages" :key="image.image_url">
+                        <div class="image-placeholder" :style="{ backgroundImage: `url(${image.image_url})` }" style="background-position: center; background-repeat: no-repeat; background-size: contain;"></div>
                       </div>
-                      <div class="col-2" style="margin-top: 1rem;" v-for="image in placeHolderImages" :key="image">
+                      <div class="col-2" v-for="image in placeHolderImages" :key="image">
                         <div class="image-placeholder"></div>
                       </div>
                     </div>
@@ -180,6 +239,13 @@ const placeHolderImages = computed(() => {
 <style scoped>
 .image-placeholder {
   background: #e5e5e5;
-  height: 154px;
+  height: 12.5rem;
+}
+
+.upload-btn {
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 1;
 }
 </style>

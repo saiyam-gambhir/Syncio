@@ -77,6 +77,19 @@ class AxiosService {
       const message = error?.message;
       if(message) toast(message, { ...toastOptions, type: 'error' });
     }
+  };
+
+  async uploadImage(url, params) {
+    this.https.defaults.headers.common['Authorization'] = `Bearer ${sessionStorage.getItem('ID_TOKEN_KEY')}`;
+    try {
+      const response = await this.https.post(url, params);
+      const message = response?.data?.message ?? response.message;
+      if(message) toast(message.trim(), { ...toastOptions, type: 'success' });
+      return response.data;
+    } catch (error) {
+      const message = error?.message;
+      if(message) toast(message, { ...toastOptions, type: 'error' });
+    }
   }
 }
 

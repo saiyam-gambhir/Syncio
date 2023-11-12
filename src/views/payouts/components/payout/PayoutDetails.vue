@@ -32,6 +32,12 @@ const payoutReceiver = computed(() => {
   const receiver = connectionFilterItems.value.find(receiver => receiver.id === storeId);
   return receiver;
 });
+
+const getFinalPayoutAmount = () => {
+  const initialValue = 0;
+  const lineItemsSum = props.payout?.payout_line_items.reduce((accumulator, currentValue) => accumulator + Number(currentValue.amount), initialValue);
+  return props.payout?.payout_total + Number(Number(lineItemsSum).toFixed(2));
+};
 </script>
 
 <template>
@@ -122,7 +128,7 @@ const payoutReceiver = computed(() => {
                       Amount due
                     </td>
                     <td role="cell" data-pc-section="bodycell" data-pc-name="bodycell" data-p-selection-column="false" data-p-editable-column="false" data-p-cell-editing="false" class="font-bold text-xl text-right tabular-nums" style="padding: 1.5rem 0.75rem !important;">
-                      {{ formatCurrency(payout.payout_total) }}
+                      {{ formatCurrency(getFinalPayoutAmount()) }}
                     </td>
                   </tr>
                 </tbody>

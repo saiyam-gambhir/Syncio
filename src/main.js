@@ -29,6 +29,7 @@ import DataTable from 'primevue/dataTable';
 import Dialog from 'primevue/dialog';
 import Divider from 'primevue/divider';
 import Dropdown from 'primevue/dropdown';
+import FileUpload from 'primevue/fileupload';
 import InputNumber from 'primevue/inputnumber';
 import InputSwitch from 'primevue/inputswitch';
 import InputText from 'primevue/inputText';
@@ -109,6 +110,7 @@ app
   .component('Dialog', Dialog)
   .component('Divider', Divider)
   .component('Dropdown', Dropdown)
+  .component('FileUpload', FileUpload)
   .component('InputNumber', InputNumber)
   .component('InputSwitch', InputSwitch)
   .component('InputText', InputText)
