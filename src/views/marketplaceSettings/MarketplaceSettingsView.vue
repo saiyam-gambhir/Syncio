@@ -17,6 +17,7 @@ const {
   fetchProfile,
 } = toRefs(useMarketPlaceStore());
 
+const deletedImages = ref([]);
 const fileSelectedForUpload = ref([]);
 const loading = ref(false);
 
@@ -68,6 +69,15 @@ const fileUploadHandler = () => {
 
   fileSelectedForUpload.value = [...files];
   uploadFilesHandler();
+};
+
+const deleteFilesFromView = (image, index) => {
+  if(image && image.image_url) {
+    profile.value.cocoProfileImages.splice(index, 1);
+    deletedImages.value.push(image.image_url);
+  } else {
+    profile.value.cocoProfileImages.splice(index, 1);
+  }
 };
 </script>
 
@@ -213,13 +223,17 @@ const fileUploadHandler = () => {
                 <Button @click="clickFileUploadButton" label="Upload Images" icon="pi pi-upload"></Button>
                 <p class="text-center mt-1 m-0 text-sm text-600">You can add upto {{ maxImagesAllowed }} images</p>
               </div>
-              <!-- <FileUpload mode="basic" chooseLabel="Upload images" :multiple="true" accept="image/*" :maxFileSize="3000000" class="absolute right-0 top-0" /> -->
+
               <ul class="list-none p-0 m-0">
                 <li class="flex align-items-center pt-2 border-top-1 surface-border flex-wrap pt-5">
                   <div class="w-100">
                     <div class="grid">
-                      <div class="col-2" v-for="image in profile.cocoProfileImages" :key="image.image_url">
-                        <div class="image-placeholder" :style="{ backgroundImage: `url(${image.image_url})` }" style="background-position: center; background-repeat: no-repeat; background-size: contain;"></div>
+                      <div class="col-2" v-for="(image, index) in profile.cocoProfileImages" :key="image.image_url">
+                        <div class="image-placeholder relative" :style="{ backgroundImage: `url(${image.image_url})` }" style="background-position: center; background-repeat: no-repeat; background-size: contain;">
+                          <span class="absolute delete-image-btn" v-tooltip.top="'Delete'" @click="deleteFilesFromView(image, index)">
+                            <i class="pi pi-trash"></i>
+                          </span>
+                        </div>
                       </div>
                       <div class="col-2" v-for="image in placeHolderImages" :key="image">
                         <div class="image-placeholder"></div>
@@ -247,5 +261,22 @@ const fileUploadHandler = () => {
   opacity: 0;
   visibility: hidden;
   z-index: 1;
+}
+
+.delete-image-btn {
+  align-items: center;
+  background: #fff;
+  border-radius: 20px;
+  border: 1px solid #9b0d0d;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.03), 0px 0px 2px rgba(0, 0, 0, 0.06), 0px 2px 6px rgba(0, 0, 0, 0.12);
+  color: #9b0d0d;
+  cursor: pointer;
+  display: flex;
+  font-weight: bold;
+  height: 2rem;
+  justify-content: center;
+  right: -.9rem;
+  top: -.9rem;
+  width: 2rem;
 }
 </style>

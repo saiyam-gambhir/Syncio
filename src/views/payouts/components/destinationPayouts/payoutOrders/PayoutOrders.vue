@@ -156,7 +156,7 @@ const isRowSelectedHandler = (data) => {
 
     <Column header="Actions" style="width: 17.5%" class="text-right">
       <template #body="{ data: { order_id } }">
-        <span v-if="arePayoutOrdersSelected" v-tooltip.top="'Bulk selection is active.'" class="inline-block">
+        <span v-if="arePayoutOrdersSelected" v-tooltip.top="'Clear bulk selection to create single order payout.'" class="inline-block">
           <Button
             disabled
             class="p-button-sm p-button-success"
