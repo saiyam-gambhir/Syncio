@@ -13,17 +13,20 @@ const props = defineProps({
 });
 
 /* ----- Computed ----- */
+const instagramHandle = computed(() => {
+  return props.profile?.coco_social_media[0]?.url;
+});
+
 const profileImagesCount = computed(() => {
   return props.profile?.coco_profile_images?.length;
 });
 
-const publshedProducts = computed(() => {
-  return `${props.profile.num_of_products} published ${props.profile.num_of_products > 1 ? 'products' : 'product'
-    }`;
+const shippingPolicyUrl = computed(() => {
+  return props.profile?.shipping_policy_url;
 });
 
-const instagramHandle = computed(() => {
-  return props.profile?.coco_social_media[0]?.url;
+const typicalMarginPercentage = computed(() => {
+  return props.profile?.typical_margin_percentage;
 });
 
 /* ----- Methods ----- */
@@ -57,30 +60,40 @@ const showMessageDialogHandler = profile => {
           <IconNext />
         </template>
       </Carousel>
-      <div class="profile__details p-3 pb-7">
+      <div class="profile__details p-3 pb-4">
         <h3 class="mb-0 flex justify-content-between">
           <span class="pr-2">
-            {{ profile.brand_name }}
+            <AppLink :label="profile.brand_name" :link="profile.website" />
           </span>
           <a v-if="instagramHandle" :href="instagramHandle" target="_blank">
             <IconInstagram />
           </a>
         </h3>
-        <p class="mt-2 text-light">{{ profile.location?.country }}</p>
-        <p class="mt-2 mb-0">{{ publshedProducts }}</p>
-        <div class="mt-2 mb-0">
-          <AppLink label="Website" :link="profile.website" />
-        </div>
-
+        <p class="m-0 mt-2">
+          <span class="text-sm mr-1">Ships from</span>
+          <strong class="font-semibold primary-color">{{ profile.location?.country }}</strong>
+          (<a v-if="shippingPolicyUrl" :href="shippingPolicyUrl" class="btn-link">Policy</a>
+          <span v-else class="text-sm">Request policy</span>)
+        </p>
+        <p class="mb-0 m-0 mt-2">
+          <span class="text-sm mr-1">Published products</span>
+          <strong class="font-semibold primary-color">{{ profile.num_of_products }}</strong>
+        </p>
+        <p class="mb-0 m-0 mt-2">
+          <span class="text-sm mr-1">Typical margin</span>
+          <strong class="font-semibold primary-color">{{ typicalMarginPercentage ?? 'Request pricing' }}</strong>
+        </p>
         <Divider />
 
-        <Button
-          @click="showMessageDialogHandler(profile)"
-          class="absolute"
-          label="Message"
-          outlined
-          style="right: 2rem;">
-        </Button>
+        <div class="flex justify-content-end">
+          <Button
+            @click="showMessageDialogHandler(profile)"
+            class="p-button-success"
+            label="Invite to connect"
+            outlined
+            >
+          </Button>
+        </div>
       </div>
     </div>
   </div>

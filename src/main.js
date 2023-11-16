@@ -33,7 +33,6 @@ import FileUpload from 'primevue/fileupload';
 import InputNumber from 'primevue/inputnumber';
 import InputSwitch from 'primevue/inputswitch';
 import InputText from 'primevue/inputText';
-import Knob from 'primevue/knob';
 import Menu from 'primevue/menu';
 import Message from 'primevue/message';
 import MultiSelect from 'primevue/multiselect';
@@ -114,7 +113,7 @@ app
   .component('InputNumber', InputNumber)
   .component('InputSwitch', InputSwitch)
   .component('InputText', InputText)
-  .component('Knob', Knob)
+
   .component('Menu', Menu)
   .component('Message', Message)
   .component('MultiSelect', MultiSelect)

@@ -187,7 +187,7 @@ const isSelected = (row) => {
         <Button
           @click="fetchOrderHandler(id)"
           class="p-button-sm"
-          label="View Details"
+          label="View details"
           outlined>
         </Button>
       </template>
