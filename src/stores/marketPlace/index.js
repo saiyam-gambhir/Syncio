@@ -5,6 +5,7 @@ import deepmerge from 'deepmerge';
 import { fetchProfile } from './actions/fetchProfile';
 import { fetchProfiles } from './actions/fetchProfiles';
 import { sendMessage } from './actions/sendMessage';
+import { updateProfile } from './actions/updateProfile';
 
 export const useMarketPlaceStore = defineStore('marketPlace', {
   state: () => {
@@ -277,6 +278,7 @@ export const useMarketPlaceStore = defineStore('marketPlace', {
     fetchProfile,
     fetchProfiles,
     sendMessage,
+    updateProfile,
   ]),
 
   persist: {
