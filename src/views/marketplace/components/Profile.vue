@@ -62,7 +62,7 @@ const showMessageDialogHandler = profile => {
           <IconNext />
         </template>
       </Carousel>
-      <div class="profile__details p-3 pb-4">
+      <div class="profile__details p-3 pb-3">
         <h3 class="mb-0 flex justify-content-between">
           <span class="pr-2">
             <AppLink :label="profile.brand_name" :link="profile.website" />
@@ -91,9 +91,9 @@ const showMessageDialogHandler = profile => {
         <div class="flex">
           <Button
             @click="showMessageDialogHandler(profile)"
-            class="p-button-success"
+            class="p-button-success p-button-sm"
             label="Invite to connect"
-            outlined>
+            style="bottom: auto;">
           </Button>
         </div>
       </div>

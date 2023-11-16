@@ -1,10 +1,17 @@
+import axiosService from '@/composables/axios';
+
 export const sendMessage = {
-  async sendMessage({ storeId, message, target_store_id }) {
-    const response = await this.$https.post(`stores/${storeId}/coco-profiles/connection-request`,
-      {
-        message,
-        target_store_id,
-      }
-    );
+  async sendMessage({ message, target_store_id }) {
+    const params = {
+      message,
+      target_store_id,
+    };
+
+    const { success } = await axiosService.postData(`stores/${this.storeId}/coco-profiles/connection-request`, params);
+
+    if(success) {
+      this.isMessageDialogVisible = false;
+      this.isMessageSentDialogVisible = true;
+    }
   },
 };
