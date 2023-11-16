@@ -2,7 +2,10 @@
 import { useMarketPlaceStore } from 'marketPlace';
 
 /* ----- Data ----- */
-const { isMessageDialogVisible, selectedProfile } = toRefs(useMarketPlaceStore());
+const {
+  isMessageDialogVisible,
+  selectedProfile,
+} = toRefs(useMarketPlaceStore());
 
 /* ----- Props ----- */
 const props = defineProps({
@@ -13,21 +16,20 @@ const props = defineProps({
 });
 
 /* ----- Computed ----- */
-const instagramHandle = computed(() => {
-  return props.profile?.coco_social_media[0]?.url;
+const profileData = computed(() => {
+  const instagramHandle = props.profile?.coco_social_media[0]?.url;
+  const imagesCount = props.profile?.coco_profile_images?.length;
+  const shippingPolicyUrl = props.profile?.shipping_policy_url;
+  const typicalMarginPercentage = props.profile?.typical_margin_precentage;
+
+  return {
+    imagesCount,
+    instagramHandle,
+    shippingPolicyUrl,
+    typicalMarginPercentage,
+  };
 });
 
-const profileImagesCount = computed(() => {
-  return props.profile?.coco_profile_images?.length;
-});
-
-const shippingPolicyUrl = computed(() => {
-  return props.profile?.shipping_policy_url;
-});
-
-const typicalMarginPercentage = computed(() => {
-  return props.profile?.typical_margin_percentage;
-});
 
 /* ----- Methods ----- */
 const showMessageDialogHandler = profile => {
@@ -39,14 +41,14 @@ const showMessageDialogHandler = profile => {
 <template>
   <div class="profile col-3 relative">
     <div class="border-round shadow-2 surface-0 surface-border">
-      <div v-if="profileImagesCount === 0" class="profile__image">
+      <div v-if="profileData.imagesCount === 0" class="profile__image">
         <div class="image no-profile-image"></div>
       </div>
       <Carousel
         :numScroll="1"
         :numVisible="1"
-        :showIndicators="profileImagesCount > 1"
-        :showNavigators="profileImagesCount > 1"
+        :showIndicators="profileData.imagesCount > 1"
+        :showNavigators="profileData.imagesCount > 1"
         :value="profile.coco_profile_images" circular v-else>
         <template #previousicon>
           <IconPrevious />
@@ -65,14 +67,14 @@ const showMessageDialogHandler = profile => {
           <span class="pr-2">
             <AppLink :label="profile.brand_name" :link="profile.website" />
           </span>
-          <a v-if="instagramHandle" :href="instagramHandle" target="_blank">
+          <a v-if="profileData.instagramHandle" :href="profileData.instagramHandle" target="_blank">
             <IconInstagram />
           </a>
         </h3>
         <p class="m-0 mt-2">
           <span class="text-sm mr-1">Ships from</span>
           <strong class="font-semibold primary-color">{{ profile.location?.country }}</strong>
-          (<a v-if="shippingPolicyUrl" :href="shippingPolicyUrl" class="btn-link">Policy</a>
+          (<a v-if="profileData.shippingPolicyUrl" :href="profileData.shippingPolicyUrl" class="btn-link">Policy</a>
           <span v-else class="text-sm">Request policy</span>)
         </p>
         <p class="mb-0 m-0 mt-2">
@@ -81,17 +83,17 @@ const showMessageDialogHandler = profile => {
         </p>
         <p class="mb-0 m-0 mt-2">
           <span class="text-sm mr-1">Typical margin</span>
-          <strong class="font-semibold primary-color">{{ typicalMarginPercentage ?? 'Request pricing' }}</strong>
+          <strong v-if="profileData.typicalMarginPercentage" class="font-semibold primary-color">{{ `${profileData.typicalMarginPercentage}%` }}</strong>
+          <span v-else class="font-semibold primary-color">Request pricing</span>
         </p>
         <Divider />
 
-        <div class="flex justify-content-end">
+        <div class="flex">
           <Button
             @click="showMessageDialogHandler(profile)"
             class="p-button-success"
             label="Invite to connect"
-            outlined
-            >
+            outlined>
           </Button>
         </div>
       </div>

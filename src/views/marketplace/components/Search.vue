@@ -20,11 +20,11 @@ watch(searchString, async (newValue, oldValue) => {
 </script>
 
 <template>
-  <section class="search mb-5">
+  <section class="search mb-3">
     <div class="container">
-      <div class="search text-center mt-6 mb-6 pt-1">
-        <h2 class="text-3xl mb-6">Find your perfect match</h2>
-        <div class="p-input-icon-left w-50">
+      <div class="search mt-1 pt-1">
+        <h2 class="text-3xl">Find your perfect match</h2>
+        <div class="p-input-icon-left w-100">
           <i class="pi pi-search" />
           <InputText
             class="p-inputtext-lg w-full"

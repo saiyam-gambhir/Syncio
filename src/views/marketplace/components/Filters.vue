@@ -26,16 +26,7 @@ const updateCurrentPageHandler = page => {
 
 <template>
   <div class="filters-wrapper mb-4">
-    <div class="pt-4 flex align-items-center justify-content-between">
-      <h2 class="m-0 border-bottom">All {{ partnerStoreType }}s ({{ pagination?.total_count }})</h2>
-      <router-link :to="routes.MARKETPLACE_SETTINGS">
-        <Button label="Marketplace settings" outlined></Button>
-      </router-link>
-    </div>
-
-    <Divider></Divider>
-
-    <div class="grid filters mt-4">
+    <div class="grid filters mt-0">
       <div class="col-3">
         <Dropdown
           :autoOptionFocus="false"
@@ -83,6 +74,15 @@ const updateCurrentPageHandler = page => {
           class="border-0">
         </Pagination>
       </div>
+    </div>
+
+    <Divider />
+
+    <div class="pt-1">
+      <h2 class="m-0 border-bottom">All {{ partnerStoreType }}s ({{ pagination?.total_count }})</h2>
+      <!-- <router-link :to="routes.MARKETPLACE_SETTINGS">
+        <Button label="Marketplace settings" outlined></Button>
+      </router-link> -->
     </div>
   </div>
 </template>
