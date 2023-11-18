@@ -8,6 +8,7 @@ import * as routes from '@/routes';
 const {
   connections,
   isMultilocation,
+  destinationLocations,
 } = toRefs(useConnectionsStore());
 
 const {
@@ -68,6 +69,7 @@ const fetchProductsHandler = async (store) => {
 
     <Column header="Assigned Location" style="width: 25%">
       <template #body="{ data: connection }" v-if="isMultilocation">
+        <!-- {{ destinationLocations }} -->
       </template>
     </Column>
 

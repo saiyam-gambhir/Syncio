@@ -149,7 +149,6 @@ const productSettings = useProductSettingsStore();
 const usePayoutsSettings = usePayoutsSettingsStore();
 
 auth.$https =
-connections.$https =
 marketPlace.$https =
 orders.$https =
 payouts.$https =

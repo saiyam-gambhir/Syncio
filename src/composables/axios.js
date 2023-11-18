@@ -52,7 +52,6 @@ class AxiosService {
 
   async getData(url, params = {}) {
     this.https.defaults.headers.common['Authorization'] = `Bearer ${sessionStorage.getItem('ID_TOKEN_KEY')}`;
-
     try {
       const cleanedParams = this.getCleanedParams(params);
       const response = await this.https.get(url, { params: cleanedParams });
@@ -75,7 +74,12 @@ class AxiosService {
       return response.data;
     } catch (error) {
       const message = error?.message;
-      if(message) toast(message, { ...toastOptions, type: 'error' });
+      if(error?.response?.data?.errors[0]) {
+        const errorMessage = error?.response?.data?.errors[0];
+        toast(errorMessage, { ...toastOptions, type: 'error' });
+      } else {
+        if(message) toast(message, { ...toastOptions, type: 'error' });
+      }
     }
   };
 
