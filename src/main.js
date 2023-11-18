@@ -113,7 +113,6 @@ app
   .component('InputNumber', InputNumber)
   .component('InputSwitch', InputSwitch)
   .component('InputText', InputText)
-
   .component('Menu', Menu)
   .component('Message', Message)
   .component('MultiSelect', MultiSelect)
@@ -149,7 +148,6 @@ const products = useProductsStore();
 const productSettings = useProductSettingsStore();
 const usePayoutsSettings = usePayoutsSettingsStore();
 
-activityCenter.$https =
 auth.$https =
 connections.$https =
 marketPlace.$https =

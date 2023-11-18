@@ -80,10 +80,6 @@ const deleteFilesFromView = (image, index) => {
     profile.value.cocoProfileImages.splice(index, 1);
   }
 };
-
-const updateProfileHandler = async () => {
-  await updateProfile.value();
-}
 </script>
 
 <template>
@@ -97,7 +93,7 @@ const updateProfileHandler = async () => {
         <Date :date="profile.updatedAt" horizontal />
       </span>
       <Button label="Preview" outlined class="ml-3"></Button>
-      <Button @click="updateProfileHandler" label="Save" class="ml-3"></Button>
+      <Button @click="updateProfile" label="Save" class="ml-3"></Button>
     </template>
   </PageHeader>
 

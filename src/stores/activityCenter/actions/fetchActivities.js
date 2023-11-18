@@ -5,6 +5,7 @@
 
 import { useAuthStore } from 'auth';
 import { useFilters } from '@/composables/filters';
+import axiosService from '@/composables/axios';
 
 export const fetchActivities = {
   async fetchActivities(page) {
@@ -30,18 +31,18 @@ export const fetchActivities = {
       // Remove unwanted queries using the filterUnwantedQueries function
       filterUnwantedQueries(queries, 'all_events');
 
-      // Make the API request to fetch activities
-      const response = await this.$https(`user/${userId}/sync-events`, {
-        params: {
-          ...queries,
-          group: activeTab,
-          limiter: 25,
-          page: page ?? null
-        },
-      });
+      // Create params and make the API request to fetch activities
+      const params = {
+        ...queries,
+        group: activeTab,
+        limiter: 25,
+        page: page ?? null,
+      };
+
+      const response = await axiosService.getData(`user/${userId}/sync-events`, params);
 
       // Store the fetched activities in the appropriate tab
-      this[tab] = await response.data.data;
+      this[tab] = await response.data;
     } catch (error) {
       console.error('Error fetching activities:', error);
     } finally {

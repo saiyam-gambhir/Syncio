@@ -115,7 +115,7 @@ const isSelected = (row) => {
         <SelectButton v-model="orders.isAutoPushEnabled" :options="options" aria-labelledby="single" @change="toggleAutoPushHandler" />
       </div>
       <router-link :to="routes.ORDER_PUSH_SETTINGS">
-        <Button label="Settings" outlined class="ml-4"></Button>
+        <Button label="Orders settings" outlined class="ml-4"></Button>
       </router-link>
     </template>
   </PageHeader>
