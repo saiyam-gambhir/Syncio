@@ -2,7 +2,9 @@ import axiosService from '@/composables/axios';
 
 export const fetchProfile = {
   async fetchProfile() {
+    this.loadingProfile = true;
     const { profile, success } = await axiosService.getData(`stores/${this.storeId}/coco-profile`);
+    this.loadingProfile = false;
     if(success) {
       const {
         brand_name,

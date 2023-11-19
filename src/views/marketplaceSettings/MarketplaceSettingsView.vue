@@ -13,6 +13,7 @@ const {
   categories,
   countries,
   fetchProfile,
+  loadingProfile,
   maxImagesAllowed,
   profile,
   updateProfile,
@@ -93,7 +94,7 @@ const deleteFilesFromView = (image, index) => {
         <Date :date="profile.updatedAt" horizontal />
       </span>
       <Button label="Preview" outlined class="ml-3"></Button>
-      <Button @click="updateProfile" label="Save" class="ml-3"></Button>
+      <Button @click="updateProfile" :loading="loadingProfile" label="Save" class="ml-3"></Button>
     </template>
   </PageHeader>
 

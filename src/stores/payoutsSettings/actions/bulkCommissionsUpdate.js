@@ -1,4 +1,5 @@
 import { useConnectionsStore } from 'connections';
+import axiosService from '@/composables/axios';
 
 export const bulkCommissionsUpdate = {
   async bulkCommissionsUpdate(payload, updateType, isBulkUpdate = false) {
@@ -64,7 +65,7 @@ export const bulkCommissionsUpdate = {
       destination_store_id: this.storeId,
     };
 
-    const { data: { success } } = await this.$https.post(`stores/${this.storeId}/bulk-commission-rates-update`, { ...params });
+    const { success } = await axiosService.postData(`stores/${this.storeId}/bulk-commission-rates-update`, params);
     if(success) {
       if(updateType === 'store') {
         const connections = useConnectionsStore();

@@ -237,6 +237,7 @@ export const useMarketPlaceStore = defineStore('marketPlace', {
       isMessageDialogVisible: false,
       isMessageSentDialogVisible: false,
       loading: false,
+      loadingProfile: false,
       maxImagesAllowed: 6,
       message: null,
       pagination: {},

@@ -1,3 +1,5 @@
+import axiosService from '@/composables/axios';
+
 export const fetchByProduct = {
   async fetchByProduct(page) {
 
@@ -11,9 +13,7 @@ export const fetchByProduct = {
         search_str: this.searchString,
       };
 
-      const { data: { current_page, last_page, next_page_url, previous_page_url, products, total } } = await this.$https('products', {
-        params: { ...params }
-      });
+      const { current_page, last_page, next_page_url, previous_page_url, products, total } = await axiosService.getData('products', params);
 
       this.storeProductsPagination = {
         current_page,

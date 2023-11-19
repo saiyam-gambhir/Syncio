@@ -33,7 +33,11 @@ export const updateProfile = {
       website: website,
     };
 
+    this.loadingProfile = true;
+
     const { profile, success } = await axiosService.postData(`stores/${this.storeId}/coco-profile`, params);
+
+    this.loadingProfile = false;
 
     if(success) {
       const {
