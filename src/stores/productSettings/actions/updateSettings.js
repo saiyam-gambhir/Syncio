@@ -1,4 +1,5 @@
 import { useAuthStore } from 'auth';
+import axiosService from '@/composables/axios';
 
 export const updateSettings = {
   async filterSettings(configurations = [], groupName, storeType = 'destinations') {
@@ -11,10 +12,10 @@ export const updateSettings = {
     try {
       this.loading = true;
       const auth = useAuthStore();
-      const response = await this.$https.post(`configurations/${auth.userId}`, {
+      const params = {
         configurations: [...payload]
-      });
-      const { success, configurations } = response.data;
+      };
+      const { success, configurations } = await axiosService.postData(`configurations/${auth.userId}`, params);
       if (success) {
         this.destinationProductSettings = await this.filterSettings(configurations, 'product');
         this.stringifyDestinationProductSettings = JSON.stringify(this.destinationProductSettings);

@@ -151,7 +151,6 @@ const usePayoutsSettings = usePayoutsSettingsStore();
 auth.$https =
 orders.$https =
 payouts.$https =
-productSettings.$https =
 usePayoutsSettings.$https = $https;
 
 /* ----- Logout Handler ----- */
