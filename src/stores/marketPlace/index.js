@@ -272,6 +272,11 @@ export const useMarketPlaceStore = defineStore('marketPlace', {
       const { storeId } = useConnectionsStore();
       return storeId;
     },
+
+    storeType() {
+      const { storeType } = useConnectionsStore();
+      return storeType;
+    },
   },
 
   actions: deepmerge.all([

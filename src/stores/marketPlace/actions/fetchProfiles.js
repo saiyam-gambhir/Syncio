@@ -1,10 +1,9 @@
-import { useConnectionsStore } from 'connections';
+import axiosService from '@/composables/axios';
 
 export const fetchProfiles = {
   async fetchProfiles(page = 1) {
     this.loading = true;
-    const connections = useConnectionsStore();
-    let storeType = connections.storeType === 'destination' ? 'source' : 'destination';
+    let storeType = this.storeType === 'destination' ? 'source' : 'destination';
 
     for (let param in this.queries) {
       if (
@@ -18,13 +17,13 @@ export const fetchProfiles = {
     }
 
     this.searchQuery = `${new URLSearchParams(this.queries).toString()}`;
-    const { data: { profiles, success } } = await this.$https(`stores/coco-profiles?${this.searchQuery ? this.searchQuery : ''}`, {
-      params: {
-        'filters[excluded_store_ids]': connections.storeId,
-        'filters[store_type]': storeType,
-        page,
-      },
-    });
+    const params = {
+      'filters[excluded_store_ids]': this.storeId,
+      'filters[store_type]': storeType,
+      page,
+    };
+
+    const { profiles, success } = await axiosService.getData(`stores/coco-profiles?${this.searchQuery ? this.searchQuery : ''}`, params);
 
     if (success) {
       const { current_page, data, next_page_url, prev_page_url, total } = profiles;
