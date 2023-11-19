@@ -1,4 +1,5 @@
 import { useAuthStore } from 'auth';
+import axiosService from '@/composables/axios';
 
 export const fetchPlans = {
   async fetchPlans() {
@@ -6,8 +7,7 @@ export const fetchPlans = {
       if(this.plans) return;
       const { userId } = useAuthStore();
       this.loadingPlans = true;
-      const response = await this.$https(`user/${userId}/plans`);
-      const { plans, success } = response.data;
+      const { plans, success } = await axiosService.getData(`user/${userId}/plans`);
       if (success) this.plans = plans;
     } catch (error) {
       throw new Error(error);

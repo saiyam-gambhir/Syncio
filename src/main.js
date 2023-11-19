@@ -151,7 +151,6 @@ const usePayoutsSettings = usePayoutsSettingsStore();
 auth.$https =
 orders.$https =
 payouts.$https =
-plan.$https =
 productSettings.$https =
 usePayoutsSettings.$https = $https;
 
