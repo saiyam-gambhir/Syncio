@@ -1,5 +1,7 @@
+import axiosService from '@/composables/axios';
+
 export const toggleAutoPush = {
   async toggleAutoPush(storeId) {
-    const response = await this.$https.post(`stores/${this.storeId}/orders/auto-push`);
+    const response = await axiosService.postData(`stores/${this.storeId}/orders/auto-push`);
   }
 };

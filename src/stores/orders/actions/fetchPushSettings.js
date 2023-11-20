@@ -1,7 +1,11 @@
+import axiosService from '@/composables/axios';
+
 export const fetchPushSettings = {
   async fetchPushSettings(storeId) {
     if (this.pushSettings.length > 0) return;
-    const response = await this.$https.post(`stores/${this.storeId}/orders/push-settings`);
-    this.pushSettings = response.data?.settings;
+    const { settings, success } = await axiosService.postData(`stores/${this.storeId}/orders/push-settings`);
+    if(success) {
+      this.pushSettings = await settings;
+    }
   },
 };

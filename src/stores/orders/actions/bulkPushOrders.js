@@ -1,13 +1,17 @@
+import axiosService from '@/composables/axios';
+
 export const bulkPushOrders = {
   async bulkPushOrders() {
     this.loadingOrders = true;
-    const { data: { success } } = await this.$https.post(`stores/${this.storeId}/orders/bulk-order-push`, {
+
+    const params = {
       order_ref_ids: this.selectedOrders,
       shipping_cost: this.bulkPushShippingCost,
-    });
+    };
+    const { success } = await axiosService.postData(`stores/${this.storeId}/orders/bulk-order-push`, params);
 
     if(success) {
-      const { data: { bulk_push_count, bulk_push, success } } = await this.fetchOrders();
+      const { bulk_push_count, bulk_push, success } = await this.fetchOrders();
 
       if(success) {
         this.bulkPushCount = bulk_push_count;
