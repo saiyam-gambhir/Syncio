@@ -1,5 +1,4 @@
 import { useConnectionsStore } from 'connections';
-import axiosService from '@/composables/axios';
 
 export const bulkCommissionsUpdate = {
   async bulkCommissionsUpdate(payload, updateType, isBulkUpdate = false) {

@@ -1,5 +1,3 @@
-import axiosService from '@/composables/axios';
-
 export const fetchCurrentStore = {
   async fetchCurrentStore() {
     const { stores } = await axiosService.getData('stores');

@@ -1,5 +1,4 @@
 import { useAuthStore } from 'auth';
-import axiosService from '@/composables/axios';
 
 export const deleteActivity = {
   async deleteActivity(activityId) {

@@ -1,7 +1,6 @@
 import { useConnectionsStore } from 'connections';
 import { usePlanStore } from 'plan';
 import * as routes from '@/routes';
-import axiosService from '@/composables/axios';
 import router from '@/router';
 
 export const login = {

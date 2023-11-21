@@ -1,5 +1,3 @@
-import axiosService from '@/composables/axios';
-
 export const sendMessage = {
   async sendMessage({ message, target_store_id }) {
     const params = {

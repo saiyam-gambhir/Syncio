@@ -1,7 +1,6 @@
 <script setup>
 import { useConnectionsStore } from 'connections';
 import { useMarketPlaceStore } from 'marketPlace';
-import axiosService from '@/composables/axios';
 
 /* ----- Data ----- */
 const {

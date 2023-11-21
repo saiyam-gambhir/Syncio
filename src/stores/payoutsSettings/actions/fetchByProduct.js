@@ -1,5 +1,3 @@
-import axiosService from '@/composables/axios';
-
 export const fetchByProduct = {
   async fetchByProduct(page) {
 

@@ -1,5 +1,3 @@
-import axiosService from '@/composables/axios';
-
 export const fetchPayoutPreview = {
   async fetchPayoutPreview(orderIds) {
     try {

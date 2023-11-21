@@ -1,5 +1,3 @@
-import axiosService from '@/composables/axios';
-
 export const fetchPayout = {
   async fetchPayout(payoutId, targetStoreId) {
     try {

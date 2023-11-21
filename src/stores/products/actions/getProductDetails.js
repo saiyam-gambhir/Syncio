@@ -1,5 +1,4 @@
 import { useConnectionsStore } from 'connections';
-import axiosService from '@/composables/axios';
 
 export const getProductDetails = {
   async getProductDetails({ externalProductId, targetStoreId }) {

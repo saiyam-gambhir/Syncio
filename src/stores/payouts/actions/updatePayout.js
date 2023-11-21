@@ -1,5 +1,3 @@
-import axiosService from '@/composables/axios';
-
 export const updatePayout = {
   async updatePayout({ payoutId, status }) {
 

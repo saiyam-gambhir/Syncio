@@ -1,5 +1,3 @@
-import axiosService from '@/composables/axios';
-
 export const fetchProfiles = {
   async fetchProfiles(page = 1) {
     this.loading = true;

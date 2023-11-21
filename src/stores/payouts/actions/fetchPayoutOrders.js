@@ -1,5 +1,4 @@
 import { useFilters } from '@/composables/filters';
-import axiosService from '@/composables/axios';
 
 export const fetchPayoutOrders = {
   async fetchPayoutOrders({ page, targetStoreId }) {

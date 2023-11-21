@@ -1,5 +1,3 @@
-import axiosService from '@/composables/axios';
-
 export const bulkPushOrders = {
   async bulkPushOrders() {
     this.loadingOrders = true;

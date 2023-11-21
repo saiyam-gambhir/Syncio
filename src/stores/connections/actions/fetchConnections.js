@@ -1,5 +1,4 @@
 import { usePayoutsSettingsStore } from 'payoutsSettings';
-import axiosService from '@/composables/axios';
 
 export const fetchConnections = {
   async fetchConnections() {

@@ -1,5 +1,3 @@
-import axiosService from '@/composables/axios';
-
 export const connectPartnerStore = {
   async connectPartnerStore(storeIdentifier) {
     const params = {

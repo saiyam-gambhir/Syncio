@@ -1,5 +1,3 @@
-import axiosService from '@/composables/axios';
-
 export const pushOrder = {
   async pushOrder({ orderId, shippingCost, targetStoreId }) {
     try {

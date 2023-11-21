@@ -5,7 +5,6 @@
 
 import { useAuthStore } from 'auth';
 import { useFilters } from '@/composables/filters';
-import axiosService from '@/composables/axios';
 
 export const fetchActivities = {
   async fetchActivities(page) {

@@ -1,5 +1,3 @@
-import axiosService from '@/composables/axios';
-
 export const fetchUser = {
   async fetchUser(userID) {
     const { user } = await axiosService.getData(`user/${userID}`);

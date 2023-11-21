@@ -1,5 +1,3 @@
-import axiosService from '@/composables/axios';
-
 export const deleteConnection = {
   async deleteConnection(connectionId, keepingProducts = true) {
     const params = {

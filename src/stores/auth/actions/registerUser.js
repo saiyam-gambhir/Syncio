@@ -1,5 +1,3 @@
-import axiosService from '@/composables/axios';
-
 export const registerUser = {
   async registerUser() {
     const { email, name, passwordConfirmation, password } = this.registrationForm

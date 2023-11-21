@@ -1,5 +1,3 @@
-import axiosService from '@/composables/axios';
-
 export const fetchCurrentPlan = {
   async fetchCurrentPlan(userId) {
     const { plan } = await axiosService.getData(`user/${userId}/current-plan`);

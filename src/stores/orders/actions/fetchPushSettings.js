@@ -1,5 +1,3 @@
-import axiosService from '@/composables/axios';
-
 export const fetchPushSettings = {
   async fetchPushSettings(storeId) {
     if (this.pushSettings.length > 0) return;

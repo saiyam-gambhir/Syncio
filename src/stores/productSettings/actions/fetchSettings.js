@@ -1,5 +1,4 @@
 import { useAuthStore } from 'auth';
-import axiosService from '@/composables/axios';
 
 export const fetchSettings = {
   async filterSettings(configurations = [], groupName, storeType = 'destinations') {

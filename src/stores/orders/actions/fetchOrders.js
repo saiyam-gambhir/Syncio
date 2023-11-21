@@ -1,5 +1,3 @@
-import axiosService from '@/composables/axios';
-
 export const fetchOrders = {
   async fetchOrders(page = 1, isLoadMore = false) {
     !isLoadMore ? this.loadingOrders = true : this.loadingMoreOrders = true;

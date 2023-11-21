@@ -1,5 +1,3 @@
-import axiosService from '@/composables/axios';
-
 export const fetchMetadata = {
   async fetchMetadata() {
     const { data: { permission_link } } = await axiosService.getData(`stores/${this.storeId}/metadata`);

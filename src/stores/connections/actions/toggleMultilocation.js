@@ -1,5 +1,3 @@
-import axiosService from '@/composables/axios';
-
 export const toggleMultilocation = {
   async toggleMultilocation() {
     let toggleValue = this.isMultilocationEnabled === 'On';
