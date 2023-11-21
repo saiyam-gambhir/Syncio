@@ -6,16 +6,6 @@ import { plugin, defaultConfig } from '@formkit/vue'
 /* ----- Pinia ----- */
 import { createPinia } from 'pinia';
 import piniaPersist from 'pinia-plugin-persist';
-import { useActivityCenterStore } from 'activityCenter';
-import { useAuthStore } from 'auth';
-import { useConnectionsStore } from 'connections';
-import { useMarketPlaceStore } from 'marketPlace';
-import { useOrdersStore } from 'orders';
-import { usePayoutsStore } from 'payouts';
-import { usePlanStore } from 'plan';
-import { useProductSettingsStore } from 'productSettings';
-import { useProductsStore } from 'products';
-import { usePayoutsSettingsStore } from 'payoutsSettings';
 
 /* ----- Prime Vue ----- */
 import Button from 'primevue/button';
@@ -147,6 +137,8 @@ const payoutsSettings = usePayoutsSettingsStore();
 const plan = usePlanStore();
 const products = useProductsStore();
 const productSettings = useProductSettingsStore();
+
+auth.$https = $https;
 
 /* ----- Logout Handler ----- */
 const logout = () => {

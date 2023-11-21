@@ -1,7 +1,4 @@
 <script setup>
-import { useAuthStore } from 'auth';
-import { useConnectionsStore } from 'connections';
-import { useUpgradeDialog } from '@/composables/upgradeDialog';
 import * as routes from '@/routes';
 
 /* ----- Data ----- */

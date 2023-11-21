@@ -1,8 +1,8 @@
 <script setup>
-import { useConnectionsStore } from 'connections';
-
 /* ----- Data ----- */
-const { connectionFilterItems } = toRefs(useConnectionsStore());
+const {
+  connectionFilterItems
+} = toRefs(useConnectionsStore());
 
 /* ----- Props ----- */
 const props = defineProps({

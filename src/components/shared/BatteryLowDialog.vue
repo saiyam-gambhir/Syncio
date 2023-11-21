@@ -1,6 +1,4 @@
 <script setup>
-import { useAuthStore } from 'auth';
-
 /* ----- Data ----- */
 const auth = useAuthStore();
 

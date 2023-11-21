@@ -1,5 +1,4 @@
 <script setup>
-import { usePlanStore } from 'plan';
 import * as routes from '@/routes';
 
 /* ----- Data ----- */

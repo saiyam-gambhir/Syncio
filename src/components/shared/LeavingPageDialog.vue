@@ -1,8 +1,8 @@
 <script setup>
-import { useAuthStore } from 'auth';
-
 /* ----- Data ----- */
-const { showLeavingPageDialog } = toRefs(useAuthStore());
+const {
+  showLeavingPageDialog
+} = toRefs(useAuthStore());
 
 /* ----- Emits ----- */
 const emits = defineEmits(['leaveCurrentPage']);

@@ -1,8 +1,8 @@
 <script setup>
-import { useFilters } from '@/composables/filters';
-
 /* ----- Data ----- */
-const { formatDate } = useFilters();
+const {
+  formatDate
+} = useFilters();
 
 /* ----- Props ----- */
 const props = defineProps({

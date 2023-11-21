@@ -1,15 +1,4 @@
 <script setup>
-import { useActivityCenterStore } from 'activityCenter';
-import { useAuthStore } from 'auth';
-import { useConnectionsStore } from 'connections';
-import { useFilters } from '@/composables/filters';
-import { useMarketPlaceStore } from 'marketPlace';
-import { useOrdersStore } from 'orders';
-import { usePayoutsStore } from 'payouts';
-import { usePlanStore } from 'plan';
-import { useProductSettingsStore } from 'productSettings';
-import { useProductsStore } from 'products';
-import { useToasts } from '@/composables/toasts';
 import * as routes from '@/routes';
 
 /* ----- Components ----- */

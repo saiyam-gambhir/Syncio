@@ -14,7 +14,8 @@ export default defineConfig({
         'vue-router',
       ],
       dirs: [
-        './src/composables/**'
+        './src/composables/**',
+        './src/stores/**',
       ]
     }),
     Components({
