@@ -1,9 +1,4 @@
 <script setup>
-import { useAuthStore } from 'auth';
-import { useConnectionsStore } from 'connections';
-import { useFilters } from '@/composables/filters';
-import { useToasts } from '@/composables/toasts';
-
 /* ----- Data ----- */
 const {
   copyToClipBoard,

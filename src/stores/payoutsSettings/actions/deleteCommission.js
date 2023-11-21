@@ -1,5 +1,3 @@
-import { useConnectionsStore } from 'connections';
-
 export const deleteCommission = {
   async deleteCommission(commissionId) {
     const { success } = await axiosService.deleteData(`stores/commission-rate/${commissionId}`);

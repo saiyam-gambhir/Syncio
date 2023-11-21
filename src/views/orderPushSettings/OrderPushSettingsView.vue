@@ -1,6 +1,4 @@
 <script setup>
-import { useOrdersStore } from 'orders';
-
 /* ----- Components ----- */
 const EmailContact = defineAsyncComponent(() => import('./components/EmailContact.vue'));
 const ShippingRulesRates = defineAsyncComponent(() => import('./components/ShippingRulesRates.vue'));
@@ -9,7 +7,7 @@ const ShippingTypeTags = defineAsyncComponent(() => import('./components/Shippin
 /* ----- Data ----- */
 const {
   activeTabIndex,
-  fetchPushSettings
+  fetchPushSettings,
 } = toRefs(useOrdersStore());
 
 /* ----- Mounted ----- */

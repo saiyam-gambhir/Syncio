@@ -1,7 +1,5 @@
 <script setup>
 import { useConnections } from './composables/connections';
-import { useConnectionsStore } from 'connections';
-import { useProductsStore } from 'products';
 import * as routes from '@/routes';
 
 /* ----- Data ----- */

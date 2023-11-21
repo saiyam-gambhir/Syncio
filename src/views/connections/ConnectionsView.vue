@@ -1,6 +1,4 @@
 <script setup>
-import { useConnectionsStore } from 'connections';
-
 /* ----- Components ----- */
 const ConnectNewStoreDialog = defineAsyncComponent(() => import('./components/connect/ConnectNewStoreDialog.vue'));
 const DisableMultilocationDialog = defineAsyncComponent(() => import('./components/multiLocation/DisableMultilocationDialog.vue'));

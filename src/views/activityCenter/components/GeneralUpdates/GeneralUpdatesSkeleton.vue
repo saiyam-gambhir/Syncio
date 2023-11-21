@@ -1,6 +1,4 @@
 <script setup>
-import { useFilters } from '@/composables/filters';
-
 /* ----- Data ----- */
 const { randomInteger } = useFilters();
 </script>

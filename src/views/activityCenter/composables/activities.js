@@ -1,5 +1,3 @@
-import { useActivityCenterStore } from 'activityCenter';
-
 export function useActivities() {
   const activityCenter = useActivityCenterStore();
 

@@ -1,5 +1,3 @@
-import { usePayoutsSettingsStore } from 'payoutsSettings';
-
 export const fetchConnections = {
   async fetchConnections() {
     const { searchString, sortBy } = this.filters;

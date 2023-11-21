@@ -1,5 +1,3 @@
-import { useConnectionsStore } from 'connections';
-
 export const getProductDetails = {
   async getProductDetails({ externalProductId, targetStoreId }) {
     const { storeId } = useConnectionsStore();

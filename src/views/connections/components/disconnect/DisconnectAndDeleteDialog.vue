@@ -1,6 +1,4 @@
 <script setup>
-import { useConnectionsStore } from 'connections';
-
 /* ----- Data ----- */
 const {
   deleteConnection,
@@ -8,6 +6,7 @@ const {
   isDisconnectAndDeleteRequested,
   selectedConnection,
 } = toRefs(useConnectionsStore());
+
 const isChecked = ref(false);
 
 /* ----- Methods ----- */

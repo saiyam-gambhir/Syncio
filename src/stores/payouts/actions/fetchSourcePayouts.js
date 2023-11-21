@@ -1,5 +1,3 @@
-import { useFilters } from '@/composables/filters';
-
 export const fetchSourcePayouts = {
   async fetchSourcePayouts(page) {
     try {

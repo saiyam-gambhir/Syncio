@@ -1,10 +1,15 @@
 <script setup>
-import { useUpgradeDialog } from '@/composables/upgradeDialog';
 import { useUrlSearchParams } from '@vueuse/core';
 
 /* ----- Data ----- */
-const { showUpgradeDialogHandler } = useUpgradeDialog();
-const { showUpgrade, type } = useUrlSearchParams();
+const {
+  showUpgradeDialogHandler,
+} = useUpgradeDialog();
+
+const {
+  showUpgrade,
+  type,
+} = useUrlSearchParams();
 
 /* ----- Mounted ----- */
 onMounted(() => {

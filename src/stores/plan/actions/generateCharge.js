@@ -1,15 +1,16 @@
-import { useConnectionsStore } from 'connections';
-
 export const generateCharge = {
   async generateCharge() {
 
-    const { isDestinationStore, storeId } = useConnectionsStore();
+    const {
+      isDestinationStore,
+      storeId,
+    } = useConnectionsStore();
 
     const params = {
       is_onboarding: this.isOnboarding,
       option_ids: [...Object.values(this.selectedAddonIds)],
       plan_id: this.currentPlanId,
-    }
+    };
 
     this.loadingPayment = true;
     const { charge } = await axiosService.postData(`/shopify/store/${storeId}/generate-charge`, params);

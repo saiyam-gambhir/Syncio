@@ -1,5 +1,3 @@
-import { useConnectionsStore } from 'connections';
-import { usePlanStore } from 'plan';
 import * as routes from '@/routes';
 import router from '@/router';
 

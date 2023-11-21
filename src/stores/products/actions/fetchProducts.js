@@ -1,5 +1,3 @@
-import { useConnectionsStore } from 'connections';
-
 export const fetchProducts = {
   async fetchProducts(isStoreChanged = false) {
     if(this.products && !isStoreChanged) return;

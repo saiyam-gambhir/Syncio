@@ -1,6 +1,5 @@
 <script setup>
 import { useBattery, useOnline } from '@vueuse/core';
-import { useAuthStore } from 'auth';
 
 /* ----- Components ----- */
 import Loading from './Loading.vue';
@@ -19,7 +18,7 @@ watch(online, () => {
 });
 
 watch(level, () => {
-  if (level.value < 0.21 && !charging.value) {
+  if (level.value < 0.3 && !charging.value) {
     //auth.isBatteryLowDialogVisible = true;
   }
 });

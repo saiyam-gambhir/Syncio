@@ -1,9 +1,12 @@
 <script setup>
 import { useDebounceFn } from '@vueuse/core';
-import { useMarketPlaceStore } from 'marketPlace';
 
 /* ----- Data ----- */
-const { fetchProfiles, queries, searchString, } = toRefs(useMarketPlaceStore());
+const {
+  fetchProfiles,
+  queries,
+  searchString,
+} = toRefs(useMarketPlaceStore());
 
 /* ----- Methods -----*/
 const debouncedSearch = useDebounceFn(async () => {

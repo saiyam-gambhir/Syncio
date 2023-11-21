@@ -1,20 +1,17 @@
 <script setup>
-import { useConnectionsStore } from 'connections';
-import { useFilters } from '@/composables/filters';
-import { useToasts } from '@/composables/toasts';
 import * as routes from '@/routes';
 
 /* ----- Data ----- */
 const {
-  copyToClipBoard
+  copyToClipBoard,
 } = useFilters();
 
 const {
-  showToast
+  showToast,
 } = useToasts();
 
 const {
-  storeKey
+  storeKey,
 } = useConnectionsStore();
 
 /* ----- Methods ----- */

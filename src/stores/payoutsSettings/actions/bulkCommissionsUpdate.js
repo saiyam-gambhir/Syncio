@@ -1,5 +1,3 @@
-import { useConnectionsStore } from 'connections';
-
 export const bulkCommissionsUpdate = {
   async bulkCommissionsUpdate(payload, updateType, isBulkUpdate = false) {
     this.loadingBulkCommissions = true;

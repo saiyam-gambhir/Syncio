@@ -1,6 +1,4 @@
 <script setup>
-import { useMarketPlaceStore } from 'marketPlace';
-
 /* ----- Data ----- */
 const {
   isMessageSentDialogVisible,

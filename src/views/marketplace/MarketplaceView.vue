@@ -1,6 +1,4 @@
 <script setup>
-import { useMarketPlaceStore } from 'marketPlace';
-
 /* ----- Components ----- */
 const MessageDialog = defineAsyncComponent(() => import('./components/MessageDialog.vue'));
 const MessageSentDialog = defineAsyncComponent(() => import('./components/MessageSentDialog.vue'));

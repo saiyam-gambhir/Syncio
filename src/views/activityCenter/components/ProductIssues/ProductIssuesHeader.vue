@@ -1,6 +1,5 @@
 <script setup>
 import { useActivities } from '../../composables/activities';
-import { useActivityCenterStore } from 'activityCenter';
 
 /* ----- Data ----- */
 const {

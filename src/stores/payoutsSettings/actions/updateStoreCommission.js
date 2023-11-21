@@ -1,5 +1,3 @@
-import { useConnectionsStore } from 'connections';
-
 export const updateStoreCommission = {
   async updateStoreCommission() {
     const { type, value } = this.storeDefaultCommissionRate;

@@ -1,5 +1,4 @@
 <script setup>
-import { useAuthStore } from 'auth';
 import * as routes from '@/routes';
 
 /* ----- Data ----- */
@@ -8,8 +7,6 @@ const {
   loginForm,
   shopifyLogin,
 } = toRefs(useAuthStore());
-
-const auth = toRefs(useAuthStore());
 
 /* ----- Computed ----- */
 const isDevelopment = computed(() => {

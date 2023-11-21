@@ -1,6 +1,4 @@
 <script setup>
-import { useConnectionsStore } from 'connections';
-
 /* ----- Components ----- */
 const DisconnectAndDeleteDialog = defineAsyncComponent(() => import('./DisconnectAndDeleteDialog.vue'));
 const DisconnectAndKeepDialog = defineAsyncComponent(() => import('./DisconnectAndKeepDialog.vue'));

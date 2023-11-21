@@ -1,5 +1,3 @@
-import { useAuthStore } from 'auth';
-
 export const fetchSettings = {
   async filterSettings(configurations = [], groupName, storeType = 'destinations') {
     return configurations.filter(({ group, store_type }) => {

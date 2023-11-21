@@ -1,6 +1,5 @@
 <script setup>
 import { useConnections } from '../../composables/connections';
-import { useConnectionsStore } from 'connections';
 
 /* ----- Data ----- */
 const {
@@ -10,17 +9,19 @@ const {
   isInviteViaEmailRequested,
   isSendingInvitation,
 } = useConnections();
+
 const {
   isNewStoreConnectionRequested,
-  partnerStoreType
+  partnerStoreType,
 } = toRefs(useConnectionsStore());
+
 const emailAddress = ref('');
 const uniqueKey = ref('');
 
 /* ----- Methods ----- */
 const closeDialogHandler = () => {
-  isNewStoreConnectionRequested.value = false
-}
+  isNewStoreConnectionRequested.value = false;
+};
 </script>
 
 <template>

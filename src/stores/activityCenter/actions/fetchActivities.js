@@ -3,9 +3,6 @@
  * Applies filtering to remove unwanted queries before making the API request.
  */
 
-import { useAuthStore } from 'auth';
-import { useFilters } from '@/composables/filters';
-
 export const fetchActivities = {
   async fetchActivities(page) {
     try {

@@ -1,7 +1,4 @@
 <script setup>
-import { useConnectionsStore } from 'connections';
-import { useMarketPlaceStore } from 'marketPlace';
-
 /* ----- Data ----- */
 const {
   isSourceStore,

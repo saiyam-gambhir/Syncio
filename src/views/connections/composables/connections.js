@@ -1,5 +1,3 @@
-import { useConnectionsStore } from 'connections';
-
 export function useConnections() {
   const {
     connectPartnerStore,

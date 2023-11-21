@@ -1,6 +1,5 @@
 <script setup>
 import { useConnections } from './composables/connections';
-import { useConnectionsStore } from 'connections';
 
 /* ----- Data ----- */
 const {
@@ -10,7 +9,7 @@ const {
 } = toRefs(useConnectionsStore());
 
 const {
-  fetchConnectionsHandler
+  fetchConnectionsHandler,
 } = useConnections();
 
 /* ----- Methods ----- */
