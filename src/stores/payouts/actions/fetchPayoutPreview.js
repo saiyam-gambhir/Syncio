@@ -1,4 +1,4 @@
-import { useFilters } from '@/composables/filters';
+import axiosService from '@/composables/axios';
 
 export const fetchPayoutPreview = {
   async fetchPayoutPreview(orderIds) {
@@ -9,13 +9,11 @@ export const fetchPayoutPreview = {
         target_store_id: this.selectedPayoutOrdersStore,
       }
 
-      const { data: { data } } = await this.$https.post('stores/payout/get-preview-payout', { ...params });
+      const { data } = await axiosService.postData('stores/payout/get-preview-payout', params);
       this.payoutCreationDetails = data.flat();
 
     } catch (error) {
-
     } finally {
-
     }
   }
 };

@@ -11,8 +11,6 @@ import { fetchPayoutOrders } from './actions/fetchPayoutOrders';
 import { fetchPayoutPreview } from './actions/fetchPayoutPreview';
 import { fetchSourcePayouts } from './actions/fetchSourcePayouts';
 import { fetchUnpaidPayouts } from './actions/fetchUnpaidPayouts';
-import { setDateRangeFilter } from './actions/setDateRangeFilter';
-import { setStatusFilter } from './actions/setStatusFilter';
 import { updatePayout } from './actions/updatePayout';
 
 export const usePayoutsStore = defineStore('payouts', {
@@ -74,8 +72,6 @@ export const usePayoutsStore = defineStore('payouts', {
     fetchPayoutPreview,
     fetchSourcePayouts,
     fetchUnpaidPayouts,
-    setDateRangeFilter,
-    setStatusFilter,
     updatePayout,
   ]),
 

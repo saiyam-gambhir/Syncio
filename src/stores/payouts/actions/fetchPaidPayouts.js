@@ -1,4 +1,5 @@
 import { useFilters } from '@/composables/filters';
+import axiosService from '@/composables/axios';
 
 export const fetchPaidPayouts = {
   async fetchPaidPayouts(page) {
@@ -7,12 +8,11 @@ export const fetchPaidPayouts = {
       const { filterUnwantedQueries } = useFilters();
       filterUnwantedQueries(this.queries, '');
 
-      const { data: { current_page, last_page, next_page_url, payouts, previous_page_url, total } } = await this.$https(`stores/payout/all-payout-data/${this.storeId}?${new URLSearchParams(this.queries).toString()}`, {
-        params: {
-          limiter: this.limiter,
-          page: page ?? 1,
-        },
-      });
+      const params = {
+        limiter: this.limiter,
+        page: page ?? 1,
+      };
+      const { current_page, last_page, next_page_url, payouts, previous_page_url, total } = await axiosService.getData(`stores/payout/all-payout-data/${this.storeId}?${new URLSearchParams(this.queries).toString()}`, params);
 
       this.paidPayouts = {
         items: payouts,

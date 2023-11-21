@@ -1,3 +1,5 @@
+import axiosService from '@/composables/axios';
+
 export const updatePayout = {
   async updatePayout({ payoutId, status }) {
 
@@ -7,8 +9,7 @@ export const updatePayout = {
       status: status,
     };
 
-    const { data: { success } } = await this.$https.post('stores/payout/update-payout-status', { ...params });
-
+    const { success } = await axiosService.postData('stores/payout/update-payout-status', params);
     return success;
   }
 };

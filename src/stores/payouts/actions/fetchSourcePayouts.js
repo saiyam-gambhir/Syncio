@@ -1,4 +1,5 @@
 import { useFilters } from '@/composables/filters';
+import axiosService from '@/composables/axios';
 
 export const fetchSourcePayouts = {
   async fetchSourcePayouts(page) {
@@ -7,12 +8,11 @@ export const fetchSourcePayouts = {
 
       filterUnwantedQueries(this.queries, '');
 
-      const { data: { payouts: [ items, pagination ] } } = await this.$https(`stores/payout/source-payouts/${this.storeId}?${new URLSearchParams(this.queries).toString()}`, {
-        params: {
-          limiter: this.limiter,
-          page: page ?? 1,
-        },
-      });
+      const params = {
+        limiter: this.limiter,
+        page: page ?? 1,
+      };
+      const { payouts: [ items, pagination ] } = await axiosService.getData(`stores/payout/source-payouts/${this.storeId}?${new URLSearchParams(this.queries).toString()}`, params);
 
       switch (this.queries['filters[status]']) {
         case 'not_confirmed':

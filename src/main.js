@@ -148,8 +148,6 @@ const plan = usePlanStore();
 const products = useProductsStore();
 const productSettings = useProductSettingsStore();
 
-payouts.$https = $https;
-
 /* ----- Logout Handler ----- */
 const logout = () => {
   activityCenter.$reset();

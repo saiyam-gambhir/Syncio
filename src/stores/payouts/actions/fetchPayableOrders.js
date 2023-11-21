@@ -1,4 +1,5 @@
 import { useFilters } from '@/composables/filters';
+import axiosService from '@/composables/axios';
 
 export const fetchPayableOrders = {
   async fetchPayableOrders() {
@@ -7,7 +8,7 @@ export const fetchPayableOrders = {
       const { filterUnwantedQueries } = useFilters();
       filterUnwantedQueries(this.queries, '');
 
-      const { data: { payableOrders } } = await this.$https(`stores/payout/all-store-data/${this.storeId}?${new URLSearchParams(this.queries).toString()}`);
+      const { payableOrders } = await axiosService.getData(`stores/payout/all-store-data/${this.storeId}?${new URLSearchParams(this.queries).toString()}`);
       if(!payableOrders || Object.keys(payableOrders).length === 0) {
         this.payableOrders.items = [];
       } else {

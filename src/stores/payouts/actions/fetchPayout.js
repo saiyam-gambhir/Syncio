@@ -1,3 +1,5 @@
+import axiosService from '@/composables/axios';
+
 export const fetchPayout = {
   async fetchPayout(payoutId, targetStoreId) {
     try {
@@ -8,7 +10,7 @@ export const fetchPayout = {
         target_store_id: targetStoreId,
       }
 
-      const { data: { data, payout, success } } = await this.$https.post(`stores/payout/view-payout`, { ...params });
+      const { data, payout, success } = await axiosService.postData(`stores/payout/view-payout`, params);
 
       if(success) {
         this.payout = {
