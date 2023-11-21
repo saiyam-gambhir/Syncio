@@ -64,14 +64,14 @@ class AxiosService {
     }
   };
 
-  async postData(url, params = {}) {
+  async postData(url, params = {}, completeResponse = false) {
     this.https.defaults.headers.common['Authorization'] = `Bearer ${sessionStorage.getItem('ID_TOKEN_KEY')}`;
     try {
       const cleanedParams = this.getCleanedParams(params);
       const response = await this.https.post(url, { ...cleanedParams });
       const message = response?.data?.message ?? response.message;
       if(message) toast(message.trim(), { ...toastOptions, type: 'success' });
-      return response.data;
+      return completeResponse ? response : response.data;
     } catch (error) {
       const message = error?.message;
       if(error?.response?.data?.errors[0]) {

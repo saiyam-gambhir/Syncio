@@ -1,7 +1,8 @@
 import { useConnectionsStore } from 'connections';
 import { usePlanStore } from 'plan';
-import router from '@/router';
 import * as routes from '@/routes';
+import axiosService from '@/composables/axios';
+import router from '@/router';
 
 export const shopifyLogin = {
   async shopifyLogin(platform, storeName) {
@@ -9,15 +10,16 @@ export const shopifyLogin = {
     const { fetchCurrentStore } = useConnectionsStore();
     const { fetchCurrentPlan } = usePlanStore();
 
-    const response = await this.$https.post('user/platforms/login', {
+    const params = {
       platform: platform,
       store_name: storeName,
-    });
+    };
+    const { data: { success, user }, headers } = await axiosService.postData('user/platforms/login', params, true);
 
-    if (response.data.success) {
-      this.user = await response.data.user;
+    if (success) {
+      this.user = await user;
     }
-    window.sessionStorage.setItem('ID_TOKEN_KEY', response.headers['x-syncio-app-token']);
+    window.sessionStorage.setItem('ID_TOKEN_KEY', headers['x-syncio-app-token']);
     if (window.sessionStorage.getItem('ID_TOKEN_KEY')) {
       this.isAuthenticated = true;
       sessionStorage.setItem('USER_ID', this.user?.id);

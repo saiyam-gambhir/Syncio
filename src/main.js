@@ -1,7 +1,6 @@
 /* ----- Vue ----- */
 import { createApp } from 'vue';
 import App from './App.vue';
-import Vue3Toasity from 'vue3-toastify';
 import { plugin, defaultConfig } from '@formkit/vue'
 
 /* ----- Pinia ----- */
@@ -63,6 +62,7 @@ import axios from 'axios';
 import router from './router';
 
 /* ----- Third Party ----- */
+import Vue3Toasity from 'vue3-toastify';
 import VueDatePicker from '@vuepic/vue-datepicker';
 
 /* ----- Styles ----- */
@@ -143,23 +143,22 @@ const connections = useConnectionsStore();
 const marketPlace = useMarketPlaceStore();
 const orders = useOrdersStore();
 const payouts = usePayoutsStore();
+const payoutsSettings = usePayoutsSettingsStore();
 const plan = usePlanStore();
 const products = useProductsStore();
 const productSettings = useProductSettingsStore();
-const usePayoutsSettings = usePayoutsSettingsStore();
 
-auth.$https =
-payouts.$https =
-usePayoutsSettings.$https = $https;
+payouts.$https = $https;
 
 /* ----- Logout Handler ----- */
 const logout = () => {
-  //connections.$reset();
   activityCenter.$reset();
   auth.$reset();
+  connections.$reset();
   marketPlace.$reset();
   orders.$reset();
   payouts.$reset();
+  payoutsSettings.$reset();
   plan.$reset();
   products.$reset();
   productSettings.$reset();

@@ -1,15 +1,20 @@
+import axiosService from '@/composables/axios';
+
 export const forgotPassword = {
   async forgotPassword() {
     try {
       this.forgotPasswordForm.loading = true;
-      const response = await this.$https.post('forgot-password', {
+
+      const params = {
         email: this.forgotPasswordForm.email,
-      });
-      this.forgotPasswordForm.emailSent = response?.data.success ?? false;
-      if (!response) {
+      };
+      const { success } = await axiosService.postData('forgot-password', params);
+      this.forgotPasswordForm.emailSent = success ?? false;
+      if (!success) {
         this.forgotPasswordForm.emailNotFound = true;
       }
     } catch (error) {
+      this.forgotPasswordForm.emailNotFound = true;
       throw new Error(error);
     } finally {
       this.forgotPasswordForm.loading = false;

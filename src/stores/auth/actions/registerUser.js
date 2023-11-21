@@ -1,14 +1,17 @@
+import axiosService from '@/composables/axios';
+
 export const registerUser = {
   async registerUser() {
     const { email, name, passwordConfirmation, password } = this.registrationForm
     this.registrationForm.loading = true;
 
-    const { data: { success, user } } = await this.$https.post('user/register', {
+    const params = {
       email,
       name,
       password_confirmation: passwordConfirmation,
       password,
-    });
+    };
+    const { success, user } = await axiosService.postData('user/register', params);
 
     if (success) {
       this.user = await user;

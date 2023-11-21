@@ -1,6 +1,7 @@
 import { useConnectionsStore } from 'connections';
 import { usePlanStore } from 'plan';
 import * as routes from '@/routes';
+import axiosService from '@/composables/axios';
 import router from '@/router';
 
 export const login = {
@@ -8,8 +9,7 @@ export const login = {
     this.loginForm.loading = true;
     const connections = useConnectionsStore();
     const plan = usePlanStore();
-    const response = await this.$https.post('user/login', { ...payload });
-    const { success, user } = response.data;
+    const { success, user } = await axiosService.postData('user/login', payload);
     if (success) {
       this.user = await user;
     }
