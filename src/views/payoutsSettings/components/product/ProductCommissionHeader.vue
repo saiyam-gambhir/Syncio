@@ -1,7 +1,4 @@
 <script setup>
-import { useConnectionsStore } from 'connections';
-import { usePayoutsSettingsStore } from 'payoutsSettings';
-
 /* ----- Data ----- */
 const {
   connectionFilterItems,

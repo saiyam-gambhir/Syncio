@@ -1,6 +1,4 @@
 <script setup>
-import { usePayoutsStore } from 'payouts';
-
 /* ----- Data ----- */
 const {
   isViewPayoutDetailsRequested,

@@ -1,8 +1,5 @@
 <script setup>
-import { useCheckbox } from '@/composables/checkbox';
-import { useFilters } from '@/composables/filters';
 import { usePayouts } from '../../../composables/payouts';
-import { usePayoutsStore } from 'payouts';
 
 /* ----- Data ----- */
 const {

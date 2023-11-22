@@ -1,21 +1,18 @@
 <script setup>
-import { useConnectionsStore } from 'connections';
-import { useFilters } from '@/composables/filters';
 import { useOrders } from '../composables/orders';
-import { useOrdersStore } from 'orders';
 
 /* ----- Data ----- */
 const {
   fetchOrder,
   getFinancialStatus,
   getFulfillmentStatus,
-  getPushStatus
+  getPushStatus,
 } = useOrders();
 
 const {
   formatCurrency,
+  formatDate,
   formattedUnderscoreText,
-  formatDate
 } = useFilters();
 
 const {

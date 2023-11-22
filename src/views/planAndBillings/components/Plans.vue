@@ -1,8 +1,14 @@
 <script setup>
-import { usePlanStore } from 'plan';
-
 /* ----- Data ----- */
-const { activeAddons, isOnboarding, plan, plans, currentPlanId, selectedPlan, selectedAddonIds } = toRefs(usePlanStore());
+const {
+  activeAddons,
+  currentPlanId,
+  isOnboarding,
+  plan,
+  plans,
+  selectedAddonIds,
+  selectedPlan,
+} = toRefs(usePlanStore());
 
 /* ----- Methods ----- */
 const selectPlanHandler = (plan) => {

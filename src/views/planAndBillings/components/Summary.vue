@@ -1,13 +1,10 @@
 <script setup>
-import { usePlanStore } from 'plan';
-import { useFilters } from '@/composables/filters';
-
 /* ----- Components ----- */
 const AddonsDowngradeDialog = defineAsyncComponent(() => import('./AddonsDowngradeDialog.vue'));
 
 /* ----- Data ----- */
 const {
-  formatCurrency
+  formatCurrency,
 } = useFilters();
 
 const {

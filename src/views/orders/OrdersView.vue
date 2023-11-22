@@ -1,7 +1,5 @@
 <script setup>
 import { useOrders } from './composables/orders';
-import { useOrdersStore } from 'orders';
-import { usePlanStore } from 'plan';
 import * as routes from '@/routes';
 
 /* ----- Components ----- */
@@ -9,7 +7,7 @@ const OrderDetails = defineAsyncComponent(() => import('./components/OrderDetail
 
 /* ----- Data ----- */
 const {
-  addons
+  addons,
 } = toRefs(usePlanStore());
 
 const {

@@ -25,14 +25,6 @@ import * as routes from '@/routes';
           </template>
         </CardWrapper>
       </div>
-      <!-- <div class="col-4 py-0">
-        <CardWrapper class="platform text-center">
-          <template #content>
-            <img src="@/assets/images/shopline_logo.png" alt="Shopify logo" style="height: 150px;" class="mt-3" />
-            <h2 class="mt-5 mb-3">Shopline</h2>
-          </template>
-        </CardWrapper>
-      </div> -->
     </div>
   </aside>
 

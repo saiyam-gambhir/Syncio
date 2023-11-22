@@ -1,7 +1,4 @@
 <script setup>
-import { useConnectionsStore } from 'connections';
-import { usePlanStore } from 'plan';
-import { useProductSettingsStore } from 'productSettings';
 import * as routes from '@/routes';
 
 /* ----- Components ----- */

@@ -1,6 +1,4 @@
 <script setup>
-import { usePayoutsSettingsStore } from 'payoutsSettings';
-
 /* ----- Props ----- */
 const props = defineProps({
   items: {

@@ -1,6 +1,3 @@
-import { useConnectionsStore } from 'connections';
-import { useOrdersStore } from 'orders';
-
 export function useOrders() {
   const connections = useConnectionsStore();
   const orders = useOrdersStore();

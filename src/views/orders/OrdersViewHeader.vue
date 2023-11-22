@@ -1,6 +1,4 @@
 <script setup>
-import { useOrdersStore } from 'orders';
-
 /* ----- Data ----- */
 const {
   fetchOrders,

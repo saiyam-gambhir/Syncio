@@ -1,5 +1,3 @@
-import { usePayoutsStore } from 'payouts';
-
 export function usePayouts() {
   const payouts = usePayoutsStore();
 

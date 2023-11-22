@@ -1,6 +1,4 @@
 <script setup>
-import { useProductSettingsStore } from 'productSettings';
-
 /* ----- Data ----- */
 const {
   isMetaFieldsRequested,

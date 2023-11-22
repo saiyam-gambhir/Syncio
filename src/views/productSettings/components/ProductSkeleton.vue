@@ -1,6 +1,4 @@
 <script setup>
-import { useConnectionsStore } from 'connections';
-
 /* ----- Data ----- */
 const {
   isDestinationStore,

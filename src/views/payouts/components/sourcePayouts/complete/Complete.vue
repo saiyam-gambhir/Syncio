@@ -1,12 +1,10 @@
 <script setup>
-import { useFilters } from '@/composables/filters';
 import { usePayouts } from '../../../composables/payouts';
 
 /* ----- Data ----- */
 const {
   fetchSourcePayoutsHandler,
   payouts,
-  updatePayoutHandler,
 } = usePayouts();
 
 const {

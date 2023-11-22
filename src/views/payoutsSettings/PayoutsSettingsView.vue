@@ -1,6 +1,4 @@
 <script setup>
-import { usePayoutsSettingsStore } from 'payoutsSettings';
-
 /* ----- Components ----- */
 const DefaultStoreCommission = defineAsyncComponent(() => import('./components/DefaultStoreCommission.vue'));
 const ProductCommission = defineAsyncComponent(() => import('./components/product/ProductCommission.vue'));

@@ -1,9 +1,10 @@
 <script setup>
-import { useConnectionsStore } from 'connections';
 import * as routes from '@/routes';
 
 /* ----- Data ----- */
-const { isDestinationStore } = toRefs(useConnectionsStore());
+const {
+  isDestinationStore,
+} = toRefs(useConnectionsStore());
 </script>
 
 <template>

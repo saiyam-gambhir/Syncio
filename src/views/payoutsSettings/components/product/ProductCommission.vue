@@ -1,9 +1,4 @@
 <script setup>
-import { useCheckbox } from '@/composables/checkbox';
-import { useConnectionsStore } from 'connections';
-import { usePayoutsSettingsStore } from 'payoutsSettings';
-import { watch } from 'vue';
-
 /* ----- Components ----- */
 const BulkCommissionDialog = defineAsyncComponent(() => import('../BulkCommissionDialog.vue'));
 

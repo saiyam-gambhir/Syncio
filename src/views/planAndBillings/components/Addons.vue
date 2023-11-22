@@ -1,8 +1,11 @@
 <script setup>
-import { usePlanStore } from 'plan';
-
 /* ----- Data ----- */
-const { isOnboarding, plan, selectedPlan, activeAddons } = toRefs(usePlanStore());
+const {
+  activeAddons,
+  isOnboarding,
+  plan,
+  selectedPlan,
+} = toRefs(usePlanStore());
 
 /* ----- Mounted ----- */
 onMounted(() => {

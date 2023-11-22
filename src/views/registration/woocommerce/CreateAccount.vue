@@ -1,5 +1,4 @@
 <script setup>
-import { useAuthStore } from 'auth';
 import * as routes from '@/routes';
 
 /* ----- Data ----- */

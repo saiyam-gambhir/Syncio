@@ -1,13 +1,21 @@
 <script setup>
-import { useFilters } from '@/composables/filters';
 import { useOrders } from '../composables/orders';
-import { useOrdersStore } from 'orders';
 import * as routes from '@/routes';
 
 /* ----- Data ----- */
-const { formatCurrency } = useFilters();
-const { isEnableAutoPushRequested, pushSettings } = toRefs(useOrdersStore());
-const { setAutoPushStatus, toggleAutoPush } = useOrders();
+const {
+  formatCurrency,
+} = useFilters();
+
+const {
+  isEnableAutoPushRequested,
+  pushSettings,
+} = toRefs(useOrdersStore());
+
+const {
+  setAutoPushStatus,
+  toggleAutoPush,
+} = useOrders();
 
 /* ----- Computed ----- */
 const visiblePushSetting = computed(() => {

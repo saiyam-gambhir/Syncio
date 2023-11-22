@@ -1,6 +1,4 @@
 <script setup>
-import { usePlanStore } from 'plan';
-import { useProductSettingsStore } from 'productSettings';
 import * as routes from '@/routes';
 
 /* ----- Data ----- */
@@ -11,7 +9,7 @@ const {
 } = toRefs(useProductSettingsStore());
 
 const {
-  addons
+  addons,
 } = toRefs(usePlanStore());
 
 /* ----- Watcher ----- */

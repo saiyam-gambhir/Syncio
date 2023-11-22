@@ -1,7 +1,4 @@
 <script setup>
-import { useFilters } from '@/composables/filters';
-import { usePayoutsStore } from 'payouts';
-
 /* ----- Data ----- */
 const {
   payoutEvents,

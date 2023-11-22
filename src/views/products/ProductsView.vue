@@ -1,7 +1,4 @@
 <script setup>
-import { useConnectionsStore } from 'connections';
-import { useProductsStore } from 'products';
-
 /* ----- Data ----- */
 const { connections, fetchConnections, isDestinationStore, partnerStoreType } = toRefs(useConnectionsStore());
 const { fetchProducts, getProductDetails, products, selectedStoreId } = toRefs(useProductsStore());

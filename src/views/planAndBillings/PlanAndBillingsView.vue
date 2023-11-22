@@ -1,8 +1,11 @@
 <script setup>
-import { usePlanStore } from 'plan';
-
 /* ----- Data ----- */
-const { fetchPlans, loadingPlans, plan, selectedPlan } = toRefs(usePlanStore());
+const {
+  fetchPlans,
+  loadingPlans,
+  plan,
+  selectedPlan,
+} = toRefs(usePlanStore());
 
 /* ----- Mounted ----- */
 onMounted(async () => {

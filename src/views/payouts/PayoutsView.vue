@@ -1,8 +1,5 @@
 <script setup>
-import { useConnectionsStore } from 'connections';
 import { usePayouts } from './composables/payouts';
-import { usePayoutsStore } from 'payouts';
-import { usePlanStore } from 'plan';
 import * as routes from '@/routes';
 
 /* ----- Components ----- */

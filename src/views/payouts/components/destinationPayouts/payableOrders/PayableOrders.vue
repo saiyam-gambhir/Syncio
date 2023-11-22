@@ -1,7 +1,5 @@
 <script setup>
-import { useFilters } from '@/composables/filters';
 import { usePayouts } from '../../../composables/payouts';
-import { usePayoutsStore } from 'payouts';
 import * as routes from '@/routes';
 import DestinationPayoutsHeader from '../DestinationPayoutsHeader.vue';
 

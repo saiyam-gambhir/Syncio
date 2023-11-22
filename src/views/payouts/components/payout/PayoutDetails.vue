@@ -1,6 +1,4 @@
 <script setup>
-import { useConnectionsStore } from 'connections';
-import { useFilters } from '@/composables/filters';
 import { usePayouts } from '../../composables/payouts';
 
 /* ----- Data ----- */

@@ -1,8 +1,5 @@
 <script setup>
-import { useConnectionsStore } from 'connections';
-import { useFilters } from '@/composables/filters';
 import { useOrders } from '../../../orders/composables/orders';
-import { useOrdersStore } from 'orders';
 
 /* ----- Components ----- */
 const OrderDetails = defineAsyncComponent(() => import('../../../orders/components/OrderDetails.vue'));

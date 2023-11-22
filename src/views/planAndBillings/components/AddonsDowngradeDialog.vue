@@ -1,8 +1,10 @@
 <script setup>
-import { usePlanStore } from 'plan';
-
 /* ----- Data ----- */
-const { generateCharge, loadingPayment, shouldShowAddonsDowngradeDialog, } = toRefs(usePlanStore());
+const {
+  generateCharge,
+  loadingPayment,
+  shouldShowAddonsDowngradeDialog,
+} = toRefs(usePlanStore());
 
 /* ----- Methods ----- */
 const closeDialogHandler = () => {
