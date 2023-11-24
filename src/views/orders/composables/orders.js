@@ -42,7 +42,7 @@ export function useOrders() {
   };
 
   const fetchPushSettings = async () => {
-    await orders.fetchPushSettings(connections.storeId);
+    await orders.fetchPushSettings();
   };
 
   const setAutoPushStatus = () => {

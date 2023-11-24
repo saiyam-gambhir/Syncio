@@ -7,6 +7,7 @@ import { fetchOrders } from './actions/fetchOrders';
 import { fetchPushSettings } from './actions/fetchPushSettings';
 import { pushOrder } from './actions/pushOrder';
 import { toggleAutoPush } from './actions/toggleAutoPush';
+import { updatePushSettings } from './actions/updatePushSettings';
 
 export const useOrdersStore = defineStore('orders', {
   state: () => {
@@ -14,6 +15,8 @@ export const useOrdersStore = defineStore('orders', {
       activeTabIndex: 0,
       bulkPushCount: null,
       bulkPushShippingCost: null,
+      pushOrderEmailSettings: null,
+      stringifyPushOrderEmailSettings: null,
       filters: { searchStr: '', sortBy: 'DESC' },
       isAutoPushEnabled: 'Off',
       isBulkPushActive: false,
@@ -22,12 +25,14 @@ export const useOrdersStore = defineStore('orders', {
       loadingMoreOrders: false,
       loadingOrder: false,
       loadingOrders: false,
+      loadingSettings: false,
       order: {},
       orders: [],
       ordersCollection: [],
       pagination: {},
       pushSettings: [],
       selectedOrders: [],
+      selectedEmailContact: '',
       sortOptions: [
         {
           icon: 'pi pi-sort-numeric-up-alt',
@@ -62,6 +67,7 @@ export const useOrdersStore = defineStore('orders', {
     fetchPushSettings,
     pushOrder,
     toggleAutoPush,
+    updatePushSettings,
   ]),
 
   persist: {

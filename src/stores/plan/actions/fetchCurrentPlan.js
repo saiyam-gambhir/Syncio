@@ -1,7 +1,7 @@
 export const fetchCurrentPlan = {
   async fetchCurrentPlan(userId) {
-    const { plan } = await axiosService.getData(`user/${userId}/current-plan`);
-    this.plan = await plan;
+    const response = await axiosService.getData(`user/${userId}/current-plan`);
+    this.plan = await response?.plan;
     if(this.plan) {
       this.selectedPlan = JSON.parse(JSON.stringify(this.plan.syncio_plan));
     } else {

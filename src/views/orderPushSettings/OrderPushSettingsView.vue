@@ -8,11 +8,16 @@ const ShippingTypeTags = defineAsyncComponent(() => import('./components/Shippin
 const {
   activeTabIndex,
   fetchPushSettings,
+  pushOrderEmailSettings,
+  pushSettings,
+  selectedEmailContact,
+  stringifyPushOrderEmailSettings,
 } = toRefs(useOrdersStore());
 
 /* ----- Mounted ----- */
 onMounted(async () => {
   await fetchPushSettings.value();
+  selectedEmailContact.value = pushOrderEmailSettings.value?.value;
 });
 
 /* ----- Methods ----- */

@@ -48,7 +48,6 @@ import Tooltip from 'primevue/tooltip';
 
 /* ----- Router ----- */
 import * as routes from '@/routes';
-import axios from 'axios';
 import router from './router';
 
 /* ----- Third Party ----- */
@@ -64,15 +63,8 @@ import '/node_modules/primeflex/primeflex.css';
 import './assets/scss/main.scss';
 import 'vue3-toastify/dist/index.css';
 
-/* ----- Axios Instances ----- */
-const $https = axios.create({
-  baseURL: import.meta.env.VITE_BASE_URL,
-  timeout: 20000,
-});
-
-Object.assign($https.defaults.headers.common, {
-  'x-syncio-app-id': import.meta.env.VITE_APP_ID,
-});
+/* ----- Axios instance ----- */
+const _axiosService = axiosService;
 
 /* ----- Create app and use dependencies ----- */
 const pinia = createPinia();
@@ -138,10 +130,11 @@ const plan = usePlanStore();
 const products = useProductsStore();
 const productSettings = useProductSettingsStore();
 
-auth.$https = $https;
+auth.$https = _axiosService.https;
 
 /* ----- Logout Handler ----- */
 const logout = () => {
+  router.push({ name: routes.LOGIN });
   activityCenter.$reset();
   auth.$reset();
   connections.$reset();
@@ -154,15 +147,18 @@ const logout = () => {
   productSettings.$reset();
   sessionStorage.removeItem('ID_TOKEN_KEY');
   sessionStorage.removeItem('USER_ID');
-  router.push({ name: routes.LOGIN });
 };
 
 /* ----- Interceptors ----- */
-$https.interceptors.response.use(
+_axiosService.https.interceptors.response.use(
   response => {
     const { message, success, errors } = response?.data
-    if(message && success) connections.showToast(message);
-    else if(!success && errors[0]) connections.showToast(errors[0], 'error');
+    if(message && success) {
+      //connections.showToast(message);
+    }
+    else if(!success && errors[0]) {
+      //connections.showToast(errors[0], 'error');
+    }
     return response;
   },
   error => {
@@ -171,7 +167,9 @@ $https.interceptors.response.use(
       case 422:
       case 400: {
         const message = data.errors?.[0];
-        if (message) connections.showToast(message, 'error');
+        if (message) {
+          //connections.showToast(message, 'error');
+        }
         if(data.redirect_to === 'billing') {
           router.push({ name: routes.PLAN_AND_BILLINGS });
         }
@@ -181,10 +179,10 @@ $https.interceptors.response.use(
         logout();
         return Promise.reject(error);
       case 502:
-        connections.showToast('Bad Gateway: The server received an invalid response', 'error');
+        //connections.showToast('Bad Gateway: The server received an invalid response', 'error');
         break;
       case 500:
-        connections.showToast('Internal Server Error: An unexpected error occurred on the server', 'error');
+        //connections.showToast('Internal Server Error: An unexpected error occurred on the server', 'error');
         break;
       default:
         break;
@@ -204,7 +202,7 @@ router.beforeEach(async (to, from, next) => {
 
     auth.isAuthenticated = true;
 
-    Object.assign($https.defaults.headers.common, { Authorization: `Bearer ${ID_TOKEN_KEY}` });
+    Object.assign(_axiosService.https.defaults.headers.common, { Authorization: `Bearer ${ID_TOKEN_KEY}` });
 
     if (!auth.user) {
       const userId = sessionStorage.getItem('USER_ID');
