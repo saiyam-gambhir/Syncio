@@ -134,10 +134,9 @@ auth.$https = _axiosService.https;
 
 /* ----- Logout Handler ----- */
 const logout = () => {
-  router.push({ name: routes.LOGIN });
   activityCenter.$reset();
   auth.$reset();
-  connections.$reset();
+  //connections.$reset();
   marketPlace.$reset();
   orders.$reset();
   payouts.$reset();
@@ -147,6 +146,7 @@ const logout = () => {
   productSettings.$reset();
   sessionStorage.removeItem('ID_TOKEN_KEY');
   sessionStorage.removeItem('USER_ID');
+  router.push({ name: routes.LOGIN });
 };
 
 /* ----- Interceptors ----- */

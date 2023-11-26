@@ -37,7 +37,19 @@ const closeDialogHandler = () => {
       <div class="text-left">
         <div v-for="(setting, index) in visiblePushSetting" class="mt-3">
           <h3>{{ index + 1 }}: {{ setting.title }}</h3>
-          <p v-if="setting.key === 'push_order_email_option'" class="mt-1 mb-6 ml-3">Push order email with <strong>{{ setting.custom_value }}</strong></p>
+
+          <p v-if="setting.key === 'push_order_email_option'" class="mt-1 mb-6 ml-3">
+            <span v-if="setting.value === 'custom_email'">
+              Push order e-mail with {{ setting.custom_value }}
+            </span>
+            <span v-else-if="setting.value === 'destination_store_email'">
+              Push order email with destination store e-mail
+            </span>
+            <span v-else>
+              Push order with customer email from order.
+            </span>
+          </p>
+
           <ul v-if="setting.key === 'push_order_shipping_rules'" class="p-0 ml-5 m-0 mb-6">
             <li v-for="(shippingRule, index) in setting.value" :key="index" class="pl-0 mb-2">
               {{ formatCurrency(shippingRule.shipping_cost) }} for orders from
@@ -49,6 +61,7 @@ const closeDialogHandler = () => {
               </span>
             </li>
           </ul>
+
           <div v-if="setting.key === 'custom_shipping_tags'" class="ml-3">
             <Tag severity="info" rounded class="mr-2 mb-3" v-for="key in Object.keys(JSON.parse(setting.value))">{{ key }}</Tag>
           </div>

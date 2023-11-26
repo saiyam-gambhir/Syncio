@@ -73,9 +73,9 @@ const onChangeHandler = ({ is_active, key }) => {
     <div class="grid">
       <div class="col-5">
         <ul class="list-none p-0 m-0">
-          <li class="py-5 border-bottom-1 surface-border">
-            <h3 class="m-0 text-xl">Initial sync</h3>
-            <p class="mt-2 mb-0 text-lg">Syncs once, the first time you connect to a specific store</p>
+          <li class="py-4 flex align-items-center text-2xl">
+            <h3 class="m-0">Initial sync</h3>
+            <i class="pi pi-question-circle text-2xl ml-3" style="transform: translateY(1px);" v-tooltip.right="'Syncs once, the first time you connect to a specific store'"></i>
           </li>
           <li v-for="setting in initialSyncSettings" :key="setting.key" class="py-5 border-bottom-1 surface-border">
             <div class="flex align-items-center justify-content-between w-full">
@@ -101,9 +101,9 @@ const onChangeHandler = ({ is_active, key }) => {
 
       <div class="col-5 col-offset-1">
         <ul class="list-none p-0 m-0">
-          <li class="py-5 border-bottom-1 surface-border">
-            <h3 class="m-0 text-xl">Ongoing sync</h3>
-            <p class="mt-2 mb-0 text-lg">Syncs in real time on an ongoing basis</p>
+          <li class="py-4 flex align-items-center text-2xl">
+            <h3 class="m-0">Ongoing sync</h3>
+            <i class="pi pi-question-circle text-2xl ml-3" style="transform: translateY(1px);" v-tooltip.right="'Syncs in real time on an ongoing basis'"></i>
           </li>
           <li v-for="setting in ongoingSyncSettings" :key="setting.key" class="py-5 border-bottom-1 surface-border">
             <div class="flex align-items-center justify-content-between w-full">

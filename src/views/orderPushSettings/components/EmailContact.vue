@@ -1,13 +1,13 @@
 <script setup>
 /* ----- Data ----- */
 const emailAddress = ref('');
-const isSettingsChanged = ref(false);
 
 const {
   currentStore,
 } = toRefs(useConnectionsStore());
 
 const {
+  isPushOrderEmailSettingsChanged,
   loadingSettings,
   pushOrderEmailSettings,
   stringifyPushOrderEmailSettings,
@@ -18,13 +18,13 @@ const {
 watch(pushOrderEmailSettings, (newValue, oldValue) => {
   emailAddress.value = newValue?.custom_value;
   if(newValue) {
-    isSettingsChanged.value = JSON.stringify(newValue) !== JSON.stringify(stringifyPushOrderEmailSettings.value);
+    isPushOrderEmailSettingsChanged.value = JSON.stringify(newValue) !== stringifyPushOrderEmailSettings.value;
   }
 }, { deep: true });
 
 /* ----- Methods ----- */
 const cancelHandler = () => {
-  pushOrderEmailSettings.value = JSON.parse(JSON.stringify(stringifyPushOrderEmailSettings.value));
+  pushOrderEmailSettings.value = JSON.parse(stringifyPushOrderEmailSettings.value);
 };
 
 const updatePushSettingsHandler = async () => {
@@ -33,18 +33,17 @@ const updatePushSettingsHandler = async () => {
 
   emailAddress ? data = `${value}:${emailAddress.value}` : data = value;
   await updatePushSettings.value(data, id);
-  isSettingsChanged.value = false;
+  isPushOrderEmailSettingsChanged.value = false;
 };
 </script>
 
 <template>
+  <p class="line-height-3 mb-5 mt-1 px-3 text-lg">
+    Select which email to be pushed with an order.<br>
+    The selected e-mail will receive any relevant notification e-mails from the source store, including when an order is fulfilled.
+  </p>
   <CardWrapper v-if="pushOrderEmailSettings">
     <template #content>
-      <p class="line-height-3 mb-4 mt-0">
-        Select which email to be pushed with an order.<br>
-        The selected e-mail will receive any relevant notification e-mails from the source store, including when an order is fulfilled.
-      </p>
-
       <ul class="list-none p-0 m-0">
         <li class="flex align-items-center py-4 flex-wrap">
           <RadioButton v-model="pushOrderEmailSettings.value" inputId="store-email" name="email" value="destination_store_email" />
@@ -73,8 +72,8 @@ const updatePushSettingsHandler = async () => {
       <Divider />
 
       <div class="flex">
-        <Button label="Cancel" @click="cancelHandler" :disabled="!isSettingsChanged" outlined></Button>
-        <Button :loading="loadingSettings" label="Save" @click="updatePushSettingsHandler" :disabled="!isSettingsChanged" class="ml-3"></Button>
+        <Button label="Cancel" @click="cancelHandler" :disabled="!isPushOrderEmailSettingsChanged" outlined></Button>
+        <Button :loading="loadingSettings" label="Save" @click="updatePushSettingsHandler" :disabled="!isPushOrderEmailSettingsChanged" class="ml-3"></Button>
       </div>
     </template>
   </CardWrapper>

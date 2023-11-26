@@ -9,9 +9,7 @@ const {
   activeTabIndex,
   fetchPushSettings,
   pushOrderEmailSettings,
-  pushSettings,
   selectedEmailContact,
-  stringifyPushOrderEmailSettings,
 } = toRefs(useOrdersStore());
 
 /* ----- Mounted ----- */
