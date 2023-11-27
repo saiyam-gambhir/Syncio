@@ -82,7 +82,7 @@ const addShippingRuleHandler = () => {
               :useGrouping="false"
               class="w-50"
               min="0"
-              placeholder="A$ 0.00"
+              placeholder="A$ Min"
               v-model="newShipping.value">
             </InputNumber>
           </div>

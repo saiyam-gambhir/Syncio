@@ -12,7 +12,15 @@ export const fetchPushSettings = {
       this.stringifyPushOrderShippingRules = JSON.stringify(this.pushOrderShippingRules);
 
       this.pushOrderShippingTags = await this.pushSettings.find(setting => setting.key === 'custom_shipping_tags');
-      this.stringifyPushOrderShippingTags = JSON.stringify(this.pushOrderShippingTags);
+      this.shippingTags = [];
+      for(var tag of Object.entries(JSON.parse(this.pushOrderShippingTags.value))) {
+        this.shippingTags.push({
+          editMode: false,
+          key: tag[0],
+          value: tag[1][0],
+        });
+      };
+      this.stringifyPushOrderShippingTags = JSON.stringify(this.shippingTags);
 
       this.loadingSettings = false;
     }
