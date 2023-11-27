@@ -121,9 +121,9 @@ const addShippingRuleHandler = () => {
         </li>
       </ul>
 
-      <Divider class="mt-0" />
+      <Divider class="m-0" />
 
-      <div class="flex">
+      <div class="flex justify-content-end pt-6">
         <Button label="Cancel" @click="cancelHandler" :disabled="!isPushOrderShippingRulesChanged" outlined></Button>
         <Button :loading="loadingSettings" label="Save" @click="updatePushSettingsHandler" :disabled="!isPushOrderShippingRulesChanged" class="ml-3"></Button>
       </div>

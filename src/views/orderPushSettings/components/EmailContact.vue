@@ -69,9 +69,9 @@ const updatePushSettingsHandler = async () => {
         </li>
       </ul>
 
-      <Divider />
+      <Divider class="m-0" />
 
-      <div class="flex">
+      <div class="flex justify-content-end pt-6">
         <Button label="Cancel" @click="cancelHandler" :disabled="!isPushOrderEmailSettingsChanged" outlined></Button>
         <Button :loading="loadingSettings" label="Save" @click="updatePushSettingsHandler" :disabled="!isPushOrderEmailSettingsChanged" class="ml-3"></Button>
       </div>
