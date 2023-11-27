@@ -87,7 +87,21 @@ const addShippingRuleHandler = () => {
             </InputNumber>
           </div>
           <div class="w-2 text-right">
-            <Button :disabled="!newShipping.rate || !newShipping.value" label="Add" @click="addShippingRuleHandler" class="p-button-success p-button-sm" style="width: 66.5px;"></Button>
+            <span v-if="!newShipping.rate || !newShipping.value" v-tooltip.left="'To add new rule please fill shipping rate and order value fields.'" class="inline-block">
+              <Button
+                :disabled="!newShipping.rate || !newShipping.value"
+                class="p-button-success p-button-sm"
+                label="Add"
+                style="width: 66.5px;">
+              </Button>
+            </span>
+            <Button
+              v-else
+              @click="addShippingRuleHandler"
+              class="p-button-success p-button-sm"
+              label="Add"
+              style="width: 66.5px;">
+            </Button>
           </div>
         </li>
 
