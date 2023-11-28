@@ -1,22 +1,42 @@
 <script setup>
+/* ----- Components ----- */
+const BulkMapperDialog = defineAsyncComponent(() => import('./components/BulkMapperDialog.vue'));
+
 /* ----- Data ----- */
-const { connections, fetchConnections, isDestinationStore, partnerStoreType } = toRefs(useConnectionsStore());
-const { fetchProducts, getProductDetails, products, selectedStoreId } = toRefs(useProductsStore());
+const {
+  connections,
+  fetchConnections,
+  isDestinationStore,
+  partnerStoreType
+} = toRefs(useConnectionsStore());
+
+const {
+  fetchProducts,
+  getProductDetails,
+  isBulkMapperDialogRequested,
+  products,
+  selectedStoreId,
+} = toRefs(useProductsStore());
+
 const statusOptions = {
   'Not synced': 'info',
   'pending': 'warning',
   'attention': 'warning',
   'synced': 'success',
 };
+
 const syncedActions = ref([
   { label: 'View sync', command: () => {} },
   { label: 'Resync', command: () => {} },
   { label: 'Unsync', command: () => {} },
 ]);
+
 const unSyncedActions = ref([
   { label: 'Map', command: () => {} },
   { label: 'Sync', command: () => {} },
 ]);
+
+const selectedProduct = ref();
 
 /* ----- Mounted ----- */
 onMounted(async () => {
@@ -36,8 +56,6 @@ const storeFilterHandler = async storeId => {
 const fetchProductsHandler = async () => {
   await fetchProducts.value(true);
 }
-
-const onInputHandler = () => {};
 
 const getProductSyncStatus = product => {
   const { product_status, mapper_id, is_sync_failed, external_product_id } = product;
@@ -83,6 +101,7 @@ const getProductSyncStatus = product => {
       </StoresFilter>
 
       <Button
+        @click="isBulkMapperDialogRequested = true"
         class="ml-5 bulk-mapper-btn"
         label="Bulk Mapper"
         outlined
@@ -92,7 +111,7 @@ const getProductSyncStatus = product => {
   </PageHeader>
 
   <article class="mt-4">
-    <DataTable :value="products" responsiveLayout="scroll" showGridlines>
+    <DataTable v-model:selection="selectedProduct" :value="products" responsiveLayout="scroll" showGridlines>
       <template #empty>
         <div class="px-4 py-8 text-center">
           <h2 class="m-0">No products found</h2>
@@ -128,11 +147,13 @@ const getProductSyncStatus = product => {
         </div>
       </template> -->
 
-      <Column header="" style="width: 3%">
+      <!-- <Column header="" style="width: 3%">
         <template #body="{ data }">
           <CheckboxWrapper @onInput="onInputHandler(data)" />
         </template>
-      </Column>
+      </Column> -->
+
+      <Column selectionMode="multiple" headerStyle="width: 5%"></Column>
 
       <Column header="Product" style="width: 36%">
         <template #body="{ data: { default_image_url, title } }">
@@ -178,6 +199,9 @@ const getProductSyncStatus = product => {
       </Column>
     </DataTable>
   </article>
+
+  <!----- Bulk Mapper ----->
+  <BulkMapperDialog v-if="isBulkMapperDialogRequested" />
 </template>
 
 <style scoped>

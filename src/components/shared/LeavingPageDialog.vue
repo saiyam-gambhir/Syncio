@@ -18,7 +18,7 @@ const leaveCurrentPageHandler = () => {
 </script>
 
 <template>
-  <DialogWrapper :isVisible="showLeavingPageDialog" title="Unsaved changes" width="500px" @closeDialog="closeDialogHandler">
+  <DialogWrapper :isVisible="showLeavingPageDialog" title="Unsaved changes" width="500px" @closeDialog="closeDialogHandler" :closable="false">
     <template #body>
       <p class="text-xl m-0 py-3" style="line-height: 2rem;">Leaving this page without saving changes may result in the loss of unsaved data.</p>
     </template>

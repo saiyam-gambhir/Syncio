@@ -36,6 +36,7 @@ onMounted(async () => {
   selectedEmailContact.value = pushOrderEmailSettings.value?.value;
 });
 
+/* ----- Before Route Leave ----- */
 onBeforeRouteLeave((to, from, next) => {
   if((isPushOrderEmailSettingsChanged.value || isPushOrderShippingRulesChanged.value || isPushOrderShippingTagsChanged.value) && !forceLeavingPage.value) {
     showLeavingPageDialog.value = true;

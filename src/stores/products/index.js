@@ -3,10 +3,13 @@ import deepmerge from 'deepmerge';
 /* ----- Actions ----- */
 import { fetchProducts } from './actions/fetchProducts';
 import { getProductDetails } from './actions/getProductDetails';
+import { startBulkMapper } from './actions/startBulkMapper';
 
 export const useProductsStore = defineStore('products', {
   state: () => {
     return {
+      isBulkMapperDialogRequested: false,
+      loadingBulkMapper: false,
       productDetails: null,
       products: null,
       selectedStoreId: null,
@@ -16,13 +19,14 @@ export const useProductsStore = defineStore('products', {
         'meta_fields[vendor]': null,
         'sort_by_desc': null,
         'sort_by': null,
-      }
+      },
     };
   },
 
   actions: deepmerge.all([
     fetchProducts,
     getProductDetails,
+    startBulkMapper,
   ]),
 
   getters: {

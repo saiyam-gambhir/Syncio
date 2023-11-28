@@ -135,7 +135,7 @@ const connectNewStoreHandler = async () => {
       </Button>
     </div>
 
-    <SpeedDial
+    <!-- <SpeedDial
       :model="quickActions"
       :radius="80"
       :style="{ left: 'calc(50% - 2rem)', top: '.65rem' }"
@@ -144,7 +144,7 @@ const connectNewStoreHandler = async () => {
       buttonClass="p-button-outlined"
       direction="down"
       type="semi-circle">
-    </SpeedDial>
+    </SpeedDial> -->
 
     <div class="header-right flex align-items-center">
       <Tag
