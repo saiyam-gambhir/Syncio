@@ -9,9 +9,13 @@ export const useProductsStore = defineStore('products', {
   state: () => {
     return {
       isBulkMapperDialogRequested: false,
+      isProductDetailsDialogRequested: false,
+      loading: false,
       loadingBulkMapper: false,
+      loadingProductDetails: false,
       productDetails: null,
       products: null,
+      selectedProducts: null,
       selectedStoreId: null,
       queries: {
         'filters': [],

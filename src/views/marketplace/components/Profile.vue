@@ -28,7 +28,6 @@ const profileData = computed(() => {
   };
 });
 
-
 /* ----- Methods ----- */
 const showMessageDialogHandler = profile => {
   isMessageDialogVisible.value = true;

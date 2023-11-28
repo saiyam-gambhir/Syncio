@@ -1,3 +1,13 @@
+.btn-link-parent {
+  &:hover {
+    .btn-link {
+      &:before {
+        @extend .w-100;
+      }
+    }
+  }
+}
+
 .btn-link {
   @extend .position-relative;
   color: var(--link) !important;
@@ -50,6 +60,11 @@
 .theme-light {
   .btn-link {
     color: var(--link) !important;
+
+    &.text-blue-500 {
+      color: #3b82f6 !important;
+      font-weight: 500;
+    }
 
     &:before {
       background: var(--link) !important;

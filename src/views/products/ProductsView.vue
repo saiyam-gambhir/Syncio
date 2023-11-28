@@ -1,6 +1,7 @@
 <script setup>
 /* ----- Components ----- */
 const BulkMapperDialog = defineAsyncComponent(() => import('./components/BulkMapperDialog.vue'));
+const ProductDetailsDialog = defineAsyncComponent(() => import('./components/ProductDetailsDialog.vue'));
 
 /* ----- Data ----- */
 const {
@@ -14,7 +15,9 @@ const {
   fetchProducts,
   getProductDetails,
   isBulkMapperDialogRequested,
+  isProductDetailsDialogRequested,
   products,
+  selectedProducts,
   selectedStoreId,
 } = toRefs(useProductsStore());
 
@@ -26,17 +29,13 @@ const statusOptions = {
 };
 
 const syncedActions = ref([
-  { label: 'View sync', command: () => {} },
   { label: 'Resync', command: () => {} },
   { label: 'Unsync', command: () => {} },
 ]);
 
 const unSyncedActions = ref([
   { label: 'Map', command: () => {} },
-  { label: 'Sync', command: () => {} },
 ]);
-
-const selectedProduct = ref();
 
 /* ----- Mounted ----- */
 onMounted(async () => {
@@ -111,7 +110,7 @@ const getProductSyncStatus = product => {
   </PageHeader>
 
   <article class="mt-4">
-    <DataTable v-model:selection="selectedProduct" :value="products" responsiveLayout="scroll" showGridlines>
+    <DataTable v-model:selection="selectedProducts" :value="products" responsiveLayout="scroll" showGridlines>
       <template #empty>
         <div class="px-4 py-8 text-center">
           <h2 class="m-0">No products found</h2>
@@ -156,31 +155,33 @@ const getProductSyncStatus = product => {
       <Column selectionMode="multiple" headerStyle="width: 5%"></Column>
 
       <Column header="Product" style="width: 36%">
-        <template #body="{ data: { default_image_url, title } }">
-          <div class="flex align-items-center">
+        <template #body="{ data: { default_image_url, external_product_id, store_id, title } }">
+          <div class="flex align-items-center pointer btn-link-parent" @click="getProductDetails({ externalProductId: external_product_id, targetStoreId: store_id })">
             <figure class="m-0" style="width: 42px; height: 42px; padding: 4px; border: 1px solid rgb(231, 231, 231); flex-shrink: 0;">
               <div class="w-full h-full" style="background-size: contain; background-repeat: no-repeat; background-position: center;" :style="{ backgroundImage: `url(${default_image_url})` }"></div>
             </figure>
-            <div class="flex flex-column ml-3">
+            <div class="flex flex-column ml-3 pointer btn-link text-blue-500">
               {{ title }}
             </div>
           </div>
         </template>
       </Column>
 
-      <Column header="Inventory" style="width: 10%;" class="text-center">
+      <Column header="Inventory" style="width: 13.5%;">
         <template #body="{ data: { total_inventory_quantity } }">
-          <Tag severity="info">{{ total_inventory_quantity }}</Tag>
+          <strong class="font-semibold">{{ total_inventory_quantity }}</strong>
         </template>
       </Column>
 
-      <Column header="Status" style="width: 11%">
+      <Column header="Status" style="width: 12.5%">
         <template #body="{ data }">
-          <Tag :severity="statusOptions[getProductSyncStatus(data)]" rounded>{{ getProductSyncStatus(data).replace('_', ' ') }}</Tag>
+          <Tag :severity="statusOptions[getProductSyncStatus(data)]" rounded>
+            {{ getProductSyncStatus(data).replace('_', ' ') }}
+          </Tag>
         </template>
       </Column>
 
-      <Column header="Sales channel visibility" style="width: 20%">
+      <Column header="Sales channel visibility" style="width: 18%">
         <template #body="{ data: { published_at } }">
           <span v-if="published_at">Online store</span>
           <span v-else>Unavailable</span>
@@ -188,12 +189,12 @@ const getProductSyncStatus = product => {
       </Column>
 
       <Column header="Actions" style="width: 15%" class="text-right">
-        <template #body="{ data: { external_product_id, mapper_id, store_id } }" v-if="isDestinationStore">
+        <template #body="{ data: { mapper_id } }" v-if="isDestinationStore">
           <div v-if="mapper_id">
-            <SplitButton label="View details" class="p-button-sm" outlined :model="syncedActions" @click="getProductDetails({ externalProductId: external_product_id, targetStoreId: store_id })" />
+            <SplitButton label="View sync" class="p-button-sm" outlined :model="syncedActions" @click="" />
           </div>
           <div v-else>
-            <SplitButton label="View details" class="p-button-sm" outlined :model="unSyncedActions" @click="getProductDetails({ externalProductId: external_product_id, targetStoreId: store_id })" />
+            <SplitButton label="Sync" class="p-button-sm" outlined :model="unSyncedActions" @click="" />
           </div>
         </template>
       </Column>
@@ -202,6 +203,9 @@ const getProductSyncStatus = product => {
 
   <!----- Bulk Mapper ----->
   <BulkMapperDialog v-if="isBulkMapperDialogRequested" />
+
+  <!----- Product Details ----->
+  <ProductDetailsDialog v-if="isProductDetailsDialogRequested" />
 </template>
 
 <style scoped>

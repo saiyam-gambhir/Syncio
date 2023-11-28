@@ -598,6 +598,10 @@ input.p-inputtext-lg {
     right: 0;
   };
 }
+
+.p-datatable .p-datatable-tbody>tr.p-highlight {
+  background-color: aliceblue;
+}
 /* ----- OVERRIDES ----- */
 
 .theme-light .primary-navigation .router-link-active:not(.disabled) {
