@@ -1,15 +1,15 @@
 <script setup>
 /* ----- Data ----- */
 const {
+  isDestinationStore,
+} = toRefs(useConnectionsStore());
+
+const {
   isProductDetailsDialogRequested,
   productDetails,
 } = toRefs(useProductsStore());
 
 /* ----- Computed ----- */
-// const product = computed(() => {
-//   return productDetails.value?.sourceProduct;
-// });
-
 const product = computed(() => {
   const data = productDetails.value?.sourceProduct;
   const imagesCount = productDetails.value?.sourceProduct.images.length;
@@ -57,48 +57,80 @@ const closeDialogHandler = () => {
         </Carousel>
       </div>
 
-      <div class="col-8">
-        <h2 class="text-4xl">{{ product.data?.title }}</h2>
+      <div class="col-8" v-if="product.data">
+        <h2 class="text-4xl">{{ product.data.title }}</h2>
 
         <ul class="list-none p-0 m-0">
-          <li class="flex align-items-top pb-3 pt-5 border-top-1 surface-border flex-wrap">
+          <li class="flex align-items-top py-3 flex-wrap">
             <div class="w-3 font-bold">
               <label for="brandName" class="font-semibold">Product ID</label>
             </div>
-            <div class="text-900 w-9">
-              {{ product.data?.ref_id }}
+            <div class="text-900 w-9 text-lg">
+              {{ product.data.ref_id }}
             </div>
           </li>
           <li class="flex align-items-top py-3 flex-wrap">
             <div class="w-3 font-bold">
               <label for="brandName" class="font-semibold">Product Status</label>
             </div>
-            <div class="text-900 w-9 capitalize">
-              {{ product.data?.status }}
+            <div class="text-900 w-9 capitalize text-lg">
+              {{ product.data.status }}
             </div>
           </li>
           <li class="flex align-items-top py-3 flex-wrap">
             <div class="w-3 font-bold">
               <label for="brandName" class="font-semibold">Vendor</label>
             </div>
-            <div class="text-900 w-9">
-              {{ product.data?.meta_fields?.vendor ?? '-' }}
+            <div class="text-900 w-9 text-lg">
+              {{ product.data.meta_fields?.vendor ?? 'Vendor not available' }}
             </div>
           </li>
           <li class="flex align-items-top py-3 flex-wrap">
             <div class="w-3 font-bold">
               <label for="brandName" class="font-semibold">Tags</label>
             </div>
-            <div class="text-900 w-9">
-              <Tag severity="info" rounded class="mr-2 mb-3" v-for="tag in product.data?.tags">{{ tag }}</Tag>
+            <div class="text-900 w-9 text-lg">
+              <Tag v-if="product.data.tags.length > 0" severity="info" rounded class="mr-2 mb-3" v-for="tag in product.data?.tags">{{ tag }}</Tag>
+              <span v-else>Tags not available</span>
             </div>
           </li>
         </ul>
 
         <Divider />
 
-        <h2>Description</h2>
-        <div class="text-lg description" v-html="product.data?.description"></div>
+        <div class="py-2">
+          <h2>Description</h2>
+          <div class="text-lg description" v-html="product.data?.description"></div>
+        </div>
+
+        <Divider />
+
+        <div class="py-2">
+          <h2>Variants count: <Tag severity="info" class="ml-2" style="transform: translateY(-2px);">{{ product.data.variants?.length }}</Tag></h2>
+          <DataTable :value="product.data.variants" responsiveLayout="scroll" showGridlines>
+            <Column header="Title" style="width: 40%;">
+              <template #body="{ data: { title } }">
+                <strong class="font-semibold py-2 block">{{ title }}</strong>
+              </template>
+            </Column>
+
+            <Column header="SKU" style="width: 40%;">
+              <template #body="{ data: { sku } }">
+                {{ sku }}
+              </template>
+            </Column>
+
+            <Column style="width: 20%;">
+              <template #header>
+                Quantity
+                <i v-if="isDestinationStore" class="pi pi-question-circle ml-3 text-xl pointer" v-tooltip.top="'Quantities are from Shopify totals. Synced Stock Buffer and locations may not be applied.'"></i>
+              </template>
+              <template #body="{ data: { inventory_quantity } }">
+                {{ inventory_quantity }}
+              </template>
+            </Column>
+          </DataTable>
+        </div>
       </div>
     </div>
 
@@ -152,7 +184,8 @@ const closeDialogHandler = () => {
 
   .description {
     p {
-      line-height: 1.75rem;
+      line-height: 2rem;
+      margin-bottom: 0;
     }
   }
 </style>

@@ -57,7 +57,7 @@ const updateCurrentPageHandler = page => {
     <Column header="Order" style="width: 25%">
       <template #body="{ data }">
         <div class="flex flex-column ml-2 pointer" @click="searchHandler(data.data?.name)">
-          <span class="font-semibold text-blue-500">{{ data.data.name }}</span>
+          <span class="text-blue-500" style="font-weight: 500;">{{ data.data.name }}</span>
           <span class="mt-2">{{ data.data.store_name }}</span>
         </div>
       </template>

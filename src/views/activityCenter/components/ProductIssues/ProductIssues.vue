@@ -61,7 +61,7 @@ const updateCurrentPageHandler = page => {
             <img v-if="data.data?.image" :src="data.data.image" :alt="data.data.name" style="width: 32px; padding: 2px; border: 1px solid rgb(231, 231, 231);" />
           </figure>
           <div class="flex flex-column ml-2">
-            <span v-if="data.data?.name" class="font-semibold text-blue-500">{{ data.data.name }}</span>
+            <span v-if="data.data?.name" class="text-blue-500" style="font-weight: 500;">{{ data.data.name }}</span>
             <span v-if="data.data?.store_name" class="mt-2">{{ data.data.store_name }}</span>
           </div>
         </div>
