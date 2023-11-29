@@ -13,7 +13,7 @@ const {
 
 const {
   fetchProducts,
-  getProductDetails,
+  fetchProductDetails,
   isBulkMapperDialogRequested,
   isProductDetailsDialogRequested,
   products,
@@ -29,12 +29,25 @@ const statusOptions = {
 };
 
 const syncedActions = ref([
-  { label: 'Resync', command: () => {} },
-  { label: 'Unsync', command: () => {} },
+  {
+    label: 'Resync',
+    command: () => {},
+  },
+  {
+    label: 'Unsync',
+    command: () => {},
+  },
 ]);
 
 const unSyncedActions = ref([
-  { label: 'Map', command: () => {} },
+  {
+    label: 'Map',
+    command: () => {},
+  },
+  {
+    label: 'Map',
+    command: () => {},
+  },
 ]);
 
 /* ----- Mounted ----- */
@@ -80,8 +93,7 @@ const getProductSyncStatus = product => {
   // }
 
   return 'Not synced';
-}
-
+};
 </script>
 
 <template>
@@ -117,46 +129,18 @@ const getProductSyncStatus = product => {
         </div>
       </template>
 
-      <!-- <template #header>
-        <div class="flex align-items-center justify-content-between">
-          <div class="p-inputgroup w-35">
-            <SearchFilter
-              @update:modelValue="searchHandler"
-              placeholder="Search by exact order number (eg: #1234)"
-              v-model="filters.searchString">
-            </SearchFilter>
-          </div>
+      <template #header>
+        <ProductsViewHeader />
+      </template>
 
-          <Dropdown
-            :loading="loadingOrders"
-            :options="sortOptions"
-            @change="fetchOrdersHandler"
-            optionLabel="label"
-            placeholder="Sort by"
-            optionValue="sortBy"
-            v-model="filters.sortBy">
-            <template #value>Sort by</template>
-            <template #option="{ option }">
-              <div class="flex align-items-center justify-content-between">
-                {{ option.label }}
-                <i :class="option.icon" class="ml-2"></i>
-              </div>
-            </template>
-          </Dropdown>
-        </div>
-      </template> -->
-
-      <!-- <Column header="" style="width: 3%">
-        <template #body="{ data }">
-          <CheckboxWrapper @onInput="onInputHandler(data)" />
-        </template>
-      </Column> -->
-
-      <Column selectionMode="multiple" headerStyle="width: 5%"></Column>
+      <Column
+        headerStyle="width: 4%"
+        selectionMode="multiple">
+      </Column>
 
       <Column header="Product" style="width: 36%">
         <template #body="{ data: { default_image_url, external_product_id, store_id, title } }">
-          <div class="flex align-items-center pointer btn-link-parent" @click="getProductDetails({ externalProductId: external_product_id, targetStoreId: store_id })">
+          <div class="flex align-items-center pointer btn-link-parent" @click="fetchProductDetails({ externalProductId: external_product_id, targetStoreId: store_id }, true)">
             <figure class="m-0" style="width: 42px; height: 42px; padding: 4px; border: 1px solid rgb(231, 231, 231); flex-shrink: 0;">
               <div class="w-full h-full" style="background-size: contain; background-repeat: no-repeat; background-position: center;" :style="{ backgroundImage: `url(${default_image_url})` }"></div>
             </figure>
@@ -167,9 +151,9 @@ const getProductSyncStatus = product => {
         </template>
       </Column>
 
-      <Column header="Inventory" style="width: 13.5%;">
-        <template #body="{ data: { total_inventory_quantity } }">
-          <strong class="font-semibold">{{ total_inventory_quantity }}</strong>
+      <Column header="Inventory" style="width: 15.5%;">
+        <template #body="{ data: { total_inventory_quantity, variants } }">
+          <span class="font-semi">{{ total_inventory_quantity }}</span> for <span class="font-semi">{{ variants.length }}</span> {{ variants.length > 1 ? 'variants' : 'variant' }}
         </template>
       </Column>
 
@@ -181,17 +165,17 @@ const getProductSyncStatus = product => {
         </template>
       </Column>
 
-      <Column header="Sales channel visibility" style="width: 18%">
+      <Column header="Sales channel visibility" style="width: 16%">
         <template #body="{ data: { published_at } }">
           <span v-if="published_at">Online store</span>
           <span v-else>Unavailable</span>
         </template>
       </Column>
 
-      <Column header="Actions" style="width: 15%" class="text-right">
-        <template #body="{ data: { mapper_id } }" v-if="isDestinationStore">
+      <Column header="Actions" style="width: 16%" class="text-right">
+        <template #body="{ data: { external_product_id, mapper_id, store_id } }" v-if="isDestinationStore">
           <div v-if="mapper_id">
-            <SplitButton label="View sync" class="p-button-sm" outlined :model="syncedActions" @click="" />
+            <SplitButton label="View sync" class="p-button-sm" outlined :model="syncedActions" @click="fetchProductDetails({ externalProductId: external_product_id, targetStoreId: store_id }, false)" />
           </div>
           <div v-else>
             <SplitButton label="Sync" class="p-button-sm" outlined :model="unSyncedActions" @click="" />

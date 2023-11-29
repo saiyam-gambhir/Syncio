@@ -1,8 +1,8 @@
 import deepmerge from 'deepmerge';
 
 /* ----- Actions ----- */
+import { fetchProductDetails } from './actions/fetchProductDetails';
 import { fetchProducts } from './actions/fetchProducts';
-import { getProductDetails } from './actions/getProductDetails';
 import { startBulkMapper } from './actions/startBulkMapper';
 
 export const useProductsStore = defineStore('products', {
@@ -10,9 +10,11 @@ export const useProductsStore = defineStore('products', {
     return {
       isBulkMapperDialogRequested: false,
       isProductDetailsDialogRequested: false,
+      isViewDetailsRequested: true,
       loading: false,
       loadingBulkMapper: false,
       loadingProductDetails: false,
+      pagination: null,
       productDetails: null,
       products: null,
       selectedProducts: null,
@@ -28,8 +30,8 @@ export const useProductsStore = defineStore('products', {
   },
 
   actions: deepmerge.all([
+    fetchProductDetails,
     fetchProducts,
-    getProductDetails,
     startBulkMapper,
   ]),
 

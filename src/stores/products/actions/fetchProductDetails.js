@@ -1,7 +1,8 @@
-export const getProductDetails = {
-  async getProductDetails({ externalProductId, targetStoreId }) {
+export const fetchProductDetails = {
+  async fetchProductDetails({ externalProductId, targetStoreId }, isViewDetailsRequested) {
     const { storeId } = useConnectionsStore();
     this.isProductDetailsDialogRequested = true;
+    this.isViewDetailsRequested = isViewDetailsRequested;
     this.loadingProductDetails = true;
 
     const params = {
