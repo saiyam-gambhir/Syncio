@@ -53,8 +53,8 @@ const destinationProduct = computed(() => {
         <div class="col-5" style="width: 47.5%;">
           <ProductStoreInfo
             :backgroundInfo="'background: rgba(252, 176, 87, .15);'"
-            :platform="selectedStore[0].platform"
-            :storeName="selectedStore[0].store_domain"
+            :platform="selectedStore.platform"
+            :storeName="selectedStore.store_domain"
             :styleInfo="'background: rgba(252, 176, 87, .75); color: #0e3b4d; width: 6rem;'"
             title="From">
           </ProductStoreInfo>

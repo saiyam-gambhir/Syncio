@@ -22,7 +22,7 @@ const closeDialogHandler = () => {
 
       <div class="py-5 text-center">
         <Tag severity="info" :pt="{root: { style: { fontSize: '1.1rem !important' } }}">
-          {{ selectedStore[0]?.store_domain }}
+          {{ selectedStore?.store_domain }}
         </Tag>
       </div>
 

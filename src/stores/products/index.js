@@ -3,6 +3,7 @@ import deepmerge from 'deepmerge';
 /* ----- Actions ----- */
 import { fetchProductDetails } from './actions/fetchProductDetails';
 import { fetchProducts } from './actions/fetchProducts';
+import { syncProduct } from './actions/syncProduct';
 import { startBulkMapper } from './actions/startBulkMapper';
 
 export const useProductsStore = defineStore('products', {
@@ -19,6 +20,7 @@ export const useProductsStore = defineStore('products', {
       products: null,
       selectedProducts: null,
       selectedStoreId: null,
+      syncProductsQueue: [],
       queries: {
         'filters': [],
         'limiter': 25,
@@ -32,13 +34,14 @@ export const useProductsStore = defineStore('products', {
   actions: deepmerge.all([
     fetchProductDetails,
     fetchProducts,
+    syncProduct,
     startBulkMapper,
   ]),
 
   getters: {
     selectedStore({ selectedStoreId }) {
       const { connections } = useConnectionsStore();
-      return connections.filter(connection => connection.id === selectedStoreId);
+      return connections.find(connection => connection.id === selectedStoreId);
     },
   },
 
@@ -49,7 +52,6 @@ export const useProductsStore = defineStore('products', {
         key: 'products',
         storage: sessionStorage,
         paths: [
-          'products',
           'selectedStoreId',
         ],
       },

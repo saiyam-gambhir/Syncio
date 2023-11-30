@@ -4,7 +4,7 @@ export const startBulkMapper = {
 
     const params = {
       destination_store_id: storeId,
-      source_store_id: this.selectedStore[0].id,
+      source_store_id: this.selectedStore.id,
     };
 
     this.loadingBulkMapper = true;

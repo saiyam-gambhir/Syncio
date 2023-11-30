@@ -51,7 +51,6 @@ class AxiosService {
   };
 
   async getData(url, params = {}) {
-    //this.https.defaults.headers.common['Authorization'] = `Bearer ${sessionStorage.getItem('ID_TOKEN_KEY')}`;
     try {
       const cleanedParams = this.getCleanedParams(params);
       const response = await this.https.get(url, { params: cleanedParams });
@@ -65,7 +64,6 @@ class AxiosService {
   };
 
   async postData(url, params = {}, completeResponse = false) {
-    //this.https.defaults.headers.common['Authorization'] = `Bearer ${sessionStorage.getItem('ID_TOKEN_KEY')}`;
     try {
       const cleanedParams = this.getCleanedParams(params);
       const response = await this.https.post(url, { ...cleanedParams });
@@ -84,7 +82,6 @@ class AxiosService {
   };
 
   async uploadImage(url, params) {
-    //this.https.defaults.headers.common['Authorization'] = `Bearer ${sessionStorage.getItem('ID_TOKEN_KEY')}`;
     try {
       const response = await this.https.post(url, params);
       const message = response?.data?.message ?? response.message;
