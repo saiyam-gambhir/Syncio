@@ -4,12 +4,11 @@ const BulkMapperDialog = defineAsyncComponent(() => import('./components/BulkMap
 const ProductDetailsDialog = defineAsyncComponent(() => import('./components/ProductDetailsDialog.vue'));
 
 /* ----- Data ----- */
-let count = ref(0);
 const {
   connections,
   fetchConnections,
   isDestinationStore,
-  partnerStoreType
+  partnerStoreType,
 } = toRefs(useConnectionsStore());
 
 const {
@@ -18,17 +17,20 @@ const {
   isBulkMapperDialogRequested,
   isProductDetailsDialogRequested,
   products,
+  resyncProduct,
   selectedProducts,
   selectedStoreId,
+  syncedProducts,
   syncProduct,
   syncProductsQueue,
+  unsyncedProducts,
   unsyncProduct,
 } = toRefs(useProductsStore());
 
 const statusOptions = {
-  'Not Synced': 'info',
-  'pending': 'warning',
   'attention': 'warning',
+  'Not Synced': 'danger',
+  'pending': 'warning',
   'synced': 'success',
 };
 
@@ -76,13 +78,17 @@ const getProductSyncStatus = product => {
   return 'Not Synced';
 };
 
+const updateProductStatus = (product, id) => {
+  const syncedProductIndex = syncProductsQueue.value.indexOf(id);
+  syncProductsQueue.value.splice(syncedProductIndex, 1);
+  getProductSyncStatus(product);
+};
+
 const syncProductHandler = async (product) => {
   const response = await syncProduct.value(product.external_product_id);
   if(response.success) {
     product.mapper_id = await response.mapper.id;
-    const syncedProductIndex = syncProductsQueue.value.indexOf(product.external_product_id);
-    syncProductsQueue.value.splice(syncedProductIndex, 1);
-    getProductSyncStatus(product);
+    updateProductStatus(product, product.external_product_id);
   }
 };
 
@@ -91,10 +97,45 @@ const unsyncProductHandler = async (product) => {
   mapperIds.push(product.mapper_id);
   const response = await unsyncProduct.value(mapperIds);
   if(response.success) {
-    const syncedProductIndex = syncProductsQueue.value.indexOf(product.mapper_id);
-    syncProductsQueue.value.splice(syncedProductIndex, 1);
-    getProductSyncStatus(product);
+    updateProductStatus(product, product.mapper_id);
     product.mapper_id = null;
+  }
+};
+
+const resyncProductHandler = async (product) => {
+  const mapperIds = [];
+  mapperIds.push(product.mapper_id);
+  const response = await resyncProduct.value(mapperIds);
+  if(response.success) {
+    updateProductStatus(product, product.mapper_id);
+  }
+};
+
+const selectAllRowsHandler = (rows) => {
+  syncedProducts.value = rows.data.filter(row => row.mapper_id).map(row => row.mapper_id);
+  unsyncedProducts.value = rows.data.filter(row => !row.mapper_id).map(row => row.external_product_id);
+};
+
+const rowSelectHandler = (row) => {
+  if(row.data.mapper_id) {
+    syncedProducts.value.push(row.data.mapper_id);
+  } else {
+    unsyncedProducts.value.push(row.data.external_product_id);
+  }
+};
+
+const unselectAllRowsHandler = (rows) => {
+  syncedProducts.value = [];
+  unsyncedProducts.value = [];
+};
+
+const rowUnselectHandler = (row) => {
+  if(row.data.mapper_id) {
+    const rowIndex = syncedProducts.value.indexOf(row.data.mapper_id);
+    syncedProducts.value.splice(rowIndex, 1);
+  } else {
+    const rowIndex = unsyncedProducts.value.indexOf(row.data.external_product_id);
+    unsyncedProducts.value.splice(rowIndex, 1);
   }
 };
 </script>
@@ -117,15 +158,26 @@ const unsyncProductHandler = async (product) => {
       <Button
         @click="isBulkMapperDialogRequested = true"
         class="ml-5 bulk-mapper-btn"
-        label="Bulk Mapper"
+        label="Bulk mapper"
         outlined
         v-if="selectedStoreId">
       </Button>
     </template>
   </PageHeader>
 
+  {{ syncedProducts }} - {{ unsyncedProducts }}
+
   <article class="mt-4">
-    <DataTable v-model:selection="selectedProducts" :value="products" responsiveLayout="scroll" showGridlines>
+    <DataTable
+      :value="products"
+      @rowSelect="rowSelectHandler"
+      @rowSelectAll="selectAllRowsHandler"
+      @rowUnselect="rowUnselectHandler"
+      @rowUnselectAll="unselectAllRowsHandler"
+      responsiveLayout="scroll"
+      showGridlines
+      v-model:selection="selectedProducts">
+
       <template #empty>
         <div class="px-4 py-8 text-center">
           <h2 class="m-0">No products found</h2>
@@ -178,20 +230,46 @@ const unsyncProductHandler = async (product) => {
       <Column header="Actions" style="width: 16%" class="text-right">
         <template #body="{ data }" v-if="isDestinationStore">
           <div v-if="data.mapper_id">
+            <span v-if="syncedProducts.length > 0 || unsyncedProducts.length > 0" v-tooltip.top="'Clear bulk selection to access this button.'" class="inline-block">
+              <SplitButton
+                disabled
+                class="p-button-sm"
+                label="View sync"
+                outlined>
+              </SplitButton>
+            </span>
             <SplitButton
+              v-else
               @click="fetchProductDetails({ externalProductId: data.external_product_id, targetStoreId: data.store_id }, false)"
               class="p-button-sm"
               label="View sync"
-              outlined
               :model="[
-                  { label: 'Resync', command: () => {} },
+                  { label: 'Resync', command: () => resyncProductHandler(data) },
                   { label: 'Unsync', command: () => unsyncProductHandler(data) }
               ]"
-              @dropdownClick="unsyncProductHandler(data)">
+              outlined>
             </SplitButton>
+
           </div>
           <div v-else>
-            <SplitButton :loading="true" label="Sync" class="p-button-sm" outlined :model="unSyncedActions" @click="syncProductHandler(data)" />
+            <span v-if="syncedProducts.length > 0 || unsyncedProducts.length > 0" v-tooltip.top="'Clear bulk selection to access this button.'" class="inline-block">
+              <SplitButton
+                disabled
+                class="p-button-sm"
+                label="Sync"
+                outlined>
+              </SplitButton>
+            </span>
+            <SplitButton
+              v-else
+              @click="syncProductHandler(data)"
+              class="p-button-sm"
+              label="Sync"
+              :model="[
+                { label: 'Map', command: () => {} }
+              ]"
+              outlined>
+            </SplitButton>
           </div>
         </template>
       </Column>

@@ -24,11 +24,11 @@ const router = useRouter();
 
 /* ----- Methods ----- */
 const fetchProductsHandler = async (store) => {
+  await router.push({ name: routes.PRODUCTS });
   selectedStoreId.value = store.id;
   loadingProductsRoute.value = true;
   await fetchProducts.value(true);
   loadingProductsRoute.value = false;
-  await router.push({ name: routes.PRODUCTS });
 }
 </script>
 
@@ -73,21 +73,15 @@ const fetchProductsHandler = async (store) => {
 
     <Column header="Actions" style="width: 20%" class="text-right">
       <template #body="{ data: connection }">
-        <Button
-          :disabled="loadingProductsRoute"
-          :loading="loadingProductsRoute"
+        <SplitButton
           @click="fetchProductsHandler(connection)"
           class="p-button-sm"
-          label="Products"
+          label="View products"
+          :model="[
+              { label: 'Disconnect', command: () => showDisconnectStoreDialog(connection) },
+          ]"
           outlined>
-        </Button>
-        <Button
-          @click="showDisconnectStoreDialog(connection)"
-          class="ml-2 p-button-sm"
-          label="Disconnect"
-          outlined
-          severity="danger">
-        </Button>
+        </SplitButton>
       </template>
     </Column>
   </DataTable>
