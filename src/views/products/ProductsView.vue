@@ -15,13 +15,14 @@ const {
 const {
   fetchProductDetails,
   fetchProducts,
-  syncProduct,
-  syncProductsQueue,
   isBulkMapperDialogRequested,
   isProductDetailsDialogRequested,
   products,
   selectedProducts,
   selectedStoreId,
+  syncProduct,
+  syncProductsQueue,
+  unsyncProduct,
 } = toRefs(useProductsStore());
 
 const statusOptions = {
@@ -31,22 +32,7 @@ const statusOptions = {
   'synced': 'success',
 };
 
-const syncedActions = ref([
-  {
-    label: 'Resync',
-    command: () => {},
-  },
-  {
-    label: 'Unsync',
-    command: () => {},
-  },
-]);
-
 const unSyncedActions = ref([
-  {
-    label: 'Map',
-    command: () => {},
-  },
   {
     label: 'Map',
     command: () => {},
@@ -71,6 +57,10 @@ const fetchProductsHandler = async () => {
 const getProductSyncStatus = product => {
   const { product_status, mapper_id, is_sync_failed, external_product_id } = product;
 
+  if(syncProductsQueue.value.includes(external_product_id) || syncProductsQueue.value.includes(mapper_id)) {
+    return 'pending';
+  }
+
   if (mapper_id) {
     return 'synced';
   }
@@ -83,19 +73,29 @@ const getProductSyncStatus = product => {
     return 'attention';
   }
 
-  if(syncProductsQueue.value.includes(external_product_id)) {
-    return 'pending';
-  }
-
   return 'Not Synced';
 };
 
 const syncProductHandler = async (product) => {
   const response = await syncProduct.value(product.external_product_id);
-  product.mapper_id = await response.mapper.id;
-  const syncedProductIndex = syncProductsQueue.value.indexOf(product.external_product_id);
-  syncProductsQueue.value.splice(syncedProductIndex, 1);
-  getProductSyncStatus(product);
+  if(response.success) {
+    product.mapper_id = await response.mapper.id;
+    const syncedProductIndex = syncProductsQueue.value.indexOf(product.external_product_id);
+    syncProductsQueue.value.splice(syncedProductIndex, 1);
+    getProductSyncStatus(product);
+  }
+};
+
+const unsyncProductHandler = async (product) => {
+  const mapperIds = [];
+  mapperIds.push(product.mapper_id);
+  const response = await unsyncProduct.value(mapperIds);
+  if(response.success) {
+    const syncedProductIndex = syncProductsQueue.value.indexOf(product.mapper_id);
+    syncProductsQueue.value.splice(syncedProductIndex, 1);
+    getProductSyncStatus(product);
+    product.mapper_id = null;
+  }
 };
 </script>
 
@@ -178,7 +178,17 @@ const syncProductHandler = async (product) => {
       <Column header="Actions" style="width: 16%" class="text-right">
         <template #body="{ data }" v-if="isDestinationStore">
           <div v-if="data.mapper_id">
-            <SplitButton label="View sync" class="p-button-sm" outlined :model="syncedActions" @click="fetchProductDetails({ externalProductId: data.external_product_id, targetStoreId: data.store_id }, false)" />
+            <SplitButton
+              @click="fetchProductDetails({ externalProductId: data.external_product_id, targetStoreId: data.store_id }, false)"
+              class="p-button-sm"
+              label="View sync"
+              outlined
+              :model="[
+                  { label: 'Resync', command: () => {} },
+                  { label: 'Unsync', command: () => unsyncProductHandler(data) }
+              ]"
+              @dropdownClick="unsyncProductHandler(data)">
+            </SplitButton>
           </div>
           <div v-else>
             <SplitButton :loading="true" label="Sync" class="p-button-sm" outlined :model="unSyncedActions" @click="syncProductHandler(data)" />

@@ -3,8 +3,9 @@ import deepmerge from 'deepmerge';
 /* ----- Actions ----- */
 import { fetchProductDetails } from './actions/fetchProductDetails';
 import { fetchProducts } from './actions/fetchProducts';
-import { syncProduct } from './actions/syncProduct';
 import { startBulkMapper } from './actions/startBulkMapper';
+import { syncProduct } from './actions/syncProduct';
+import { unsyncProduct } from './actions/unsyncProduct';
 
 export const useProductsStore = defineStore('products', {
   state: () => {
@@ -25,8 +26,8 @@ export const useProductsStore = defineStore('products', {
         'filters': [],
         'limiter': 25,
         'meta_fields[vendor]': null,
-        'sort_by_desc': null,
-        'sort_by': null,
+        'sort_by_desc': true,
+        'sort_by': 'title',
       },
     };
   },
@@ -34,8 +35,9 @@ export const useProductsStore = defineStore('products', {
   actions: deepmerge.all([
     fetchProductDetails,
     fetchProducts,
-    syncProduct,
     startBulkMapper,
+    syncProduct,
+    unsyncProduct,
   ]),
 
   getters: {
@@ -53,6 +55,7 @@ export const useProductsStore = defineStore('products', {
         storage: sessionStorage,
         paths: [
           'selectedStoreId',
+          'syncProductsQueue',
         ],
       },
     ],
