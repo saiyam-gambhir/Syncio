@@ -67,7 +67,10 @@ const updateCurrentPageHandler = page => {
 
     <Column header="Payment Status" style="width: 15%">
       <template #body="{ data: { status } }">
-        <Tag severity="warning" rounded>{{ status === 'payout_created' ? 'Unpaid' : '' }}</Tag>
+        <Tag severity="warning" rounded>
+          <StatusIcon />
+          {{ status === 'payout_created' ? 'Unpaid' : '' }}
+        </Tag>
       </template>
     </Column>
 

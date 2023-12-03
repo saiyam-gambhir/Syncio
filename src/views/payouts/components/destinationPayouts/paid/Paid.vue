@@ -67,7 +67,10 @@ const updateCurrentPageHandler = page => {
 
     <Column header="Payment Status" style="width: 15%">
       <template #body="{ data: { status } }">
-        <Tag severity="success" rounded>{{ status }}</Tag>
+        <Tag severity="success" rounded>
+          <StatusIcon />
+          {{ status }}
+        </Tag>
       </template>
     </Column>
 

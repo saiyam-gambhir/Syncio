@@ -90,6 +90,14 @@ p {
   text-transform: capitalize !important;
 }
 
+.p-divider.p-divider-horizontal {
+  margin: 0;
+  padding: {
+    bottom: 1.25rem;
+    top: 1.25rem;
+  };
+}
+
 .p-speeddial {
   .p-speeddial-button {
     width: 3rem !important;

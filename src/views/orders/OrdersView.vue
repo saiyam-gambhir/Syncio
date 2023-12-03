@@ -165,9 +165,15 @@ const isSelected = (row) => {
     <Column header="Push Status" style="width: 15%">
       <template #body="{ data: { order_fail_reason, order_ref_id, push_status } }">
         <div class="flex align-items-center">
-          <Tag v-if="getOrderPushStatus(order_ref_id, push_status)" severity="warning" rounded>Pending</Tag>
+          <Tag v-if="getOrderPushStatus(order_ref_id, push_status)" severity="warning" rounded>
+            <StatusIcon />
+            Pending
+          </Tag>
           <template v-else>
-            <Tag :severity="getOrderStatus(push_status)" rounded>{{ push_status.replace('_', ' ') }}</Tag>
+            <Tag :severity="getOrderStatus(push_status)" rounded>
+              <StatusIcon />
+              {{ push_status.replace('_', ' ') }}
+            </Tag>
             <i v-if="order_fail_reason" class="pi pi-question-circle ml-3 text-xl" v-tooltip.right="order_fail_reason"></i>
           </template>
         </div>

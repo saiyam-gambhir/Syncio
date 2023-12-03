@@ -7,7 +7,7 @@ export const syncProduct = {
       };
 
       this.syncProductsQueue.push(sourceProductId);
-      const response = await axiosService.postData('products/import-now', params, true);
+      const response = await axiosService.postData('products/import-now', params);
       if(response) return response;
     } catch (error) {
       debugger

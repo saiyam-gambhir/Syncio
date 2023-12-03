@@ -39,7 +39,10 @@ onMounted(async () => {
 
     <Column header="Payment Status" style="width: 14%">
       <template #body="{ data: { status } }">
-        <Tag v-if="status === 'payment_confirmed'" severity="success" rounded>Received</Tag>
+        <Tag v-if="status === 'payment_confirmed'" severity="success" rounded>
+          <StatusIcon />
+          Received
+        </Tag>
       </template>
     </Column>
 

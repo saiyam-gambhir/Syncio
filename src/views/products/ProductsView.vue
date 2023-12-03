@@ -251,6 +251,7 @@ const rowUnselectHandler = (row) => {
         <template #body="{ data }">
           <a v-tooltip.right="'Open link'" href="https://help.syncio.co/en/articles/5958687-attention-status-for-product-imports" target="_blank" v-if="getProductSyncStatus(data) === 'attention'">
             <Tag :severity="statusOptions[getProductSyncStatus(data)]" rounded>
+              <StatusIcon />
               <span>
                 {{ getProductSyncStatus(data).replace('_', ' ') }}
               </span>
@@ -258,12 +259,14 @@ const rowUnselectHandler = (row) => {
             </Tag>
           </a>
           <Tag :severity="statusOptions[getProductSyncStatus(data)]" rounded v-else-if="getProductSyncStatus(data) === 'not synced'" :pt="{root: { style: { background: '#eee', color: '#333', border: '1px solid #333' }}}">
+            <StatusIcon />
             <span>
               {{ getProductSyncStatus(data).replace('_', ' ') }}
             </span>
           </Tag>
           <Tag :severity="statusOptions[getProductSyncStatus(data)]" rounded v-else>
             <i v-if="getProductSyncStatus(data) === 'pending'" class="pi pi-spin pi-sync"></i>
+            <StatusIcon v-else />
             <span :class="{ 'ml-2': getProductSyncStatus(data) === 'pending' }" style="transition: margin .25s;">
               {{ getProductSyncStatus(data).replace('_', ' ') }}
             </span>

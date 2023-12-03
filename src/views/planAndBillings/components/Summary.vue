@@ -79,9 +79,9 @@ const generateChargeHandler = async () => {
     <template #content>
       <Tag severity="warning" style="text-transform: uppercase !important;" class="mb-3">Step 3: Review and approve subscription</Tag>
       <p class="m-0">For paid plans, cancel any time within your <strong>14 day free trial</strong> period and you won't be charged. Free plans are free forever.</p>
-      <h2 class="mt-3">Plan Summary</h2>
+      <h2 class="mt-3 mb-0">Plan Summary</h2>
       <Divider />
-      <h4 class="uppercase">Base Plan</h4>
+      <h4 class="uppercase mt-0">Base Plan</h4>
       <div v-if="plan?.syncio_plan" class="flex justify-content-between uppercase font-semibold" :class="{ 'strike-through': plan?.syncio_plan.id !== selectedPlan?.id }">
         <span>{{ plan.syncio_plan.name }} <span v-if="!plan.syncio_plan.is_active" class="legacy">(legacy)</span></span>
         <span class="tabular-nums">{{ formatCurrency(plan.syncio_plan?.price_per_month) }}</span>
@@ -94,7 +94,7 @@ const generateChargeHandler = async () => {
 
       <Divider />
 
-      <h4 class="uppercase">Add-ons</h4>
+      <h4 class="uppercase mt-0">Add-ons</h4>
       <div v-for="(addon, key) in selectedPlan?.addonsSummary" :key="key">
         <div v-if="addon" class="flex justify-content-between uppercase font-semibold mb-3">
           <div>
@@ -112,7 +112,7 @@ const generateChargeHandler = async () => {
       <Divider />
 
       <div class="flex justify-content-between uppercase font-semibold">
-        <h2 class="mb-0">Total</h2>
+        <h2 class="my-0">Total</h2>
         <h2 class="mb-0 tabular-nums">{{ formatCurrency(totalCartValue) }} <span class="text-base lowercase">/ month</span></h2>
       </div>
 

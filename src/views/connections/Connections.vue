@@ -61,7 +61,10 @@ const fetchProductsHandler = async (store) => {
 
     <Column header="Status" style="width: 12.5%">
       <template #body="{ data: connection }">
-        <Tag :severity="getStoreStatus(connection.status)" rounded>{{ connection.status }}</Tag>
+        <Tag :severity="getStoreStatus(connection.status)" rounded>
+          <StatusIcon />
+          {{ connection.status }}
+        </Tag>
       </template>
     </Column>
 

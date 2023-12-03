@@ -2,10 +2,9 @@ import { toast } from 'vue3-toastify';
 import axios from 'axios';
 
 const toastOptions = {
-  autoClose: 5000,
+  autoClose: 4000,
   closeButton: false,
   dangerouslyHTMLString: true,
-  multiple: false,
   pauseOnFocusLoss: false,
   pauseOnHover: true,
   style: {
@@ -35,9 +34,13 @@ class AxiosService {
     this.https.interceptors.response.use(
       response => {
         const message = response?.data?.message ?? response.message;
+        if(response?.request?.responseURL.includes('products/unsync')) {
+          toastOptions.multiple = false;
+        }
         if(message) {
           toast(message, { ...toastOptions, type: 'success' });
         }
+        toastOptions.multiple = true;
         return response;
       },
       error => {
