@@ -7,21 +7,21 @@ import { plugin, defaultConfig } from '@formkit/vue'
 import { createPinia } from 'pinia';
 import piniaPersist from 'pinia-plugin-persist';
 
-/* ----- Prime Vue ----- */
+/* ----- Prime Vue Components ----- */
 import Button from 'primevue/button';
 import Calendar from 'primevue/calendar';
 import Card from 'primevue/card';
 import Carousel from 'primevue/carousel';
 import Checkbox from 'primevue/checkbox';
 import Column from 'primevue/column';
-import DataTable from 'primevue/dataTable';
+import DataTable from 'primevue/datatable';
 import Dialog from 'primevue/dialog';
 import Divider from 'primevue/divider';
 import Dropdown from 'primevue/dropdown';
 import FileUpload from 'primevue/fileupload';
 import InputNumber from 'primevue/inputnumber';
 import InputSwitch from 'primevue/inputswitch';
-import InputText from 'primevue/inputText';
+import InputText from 'primevue/inputtext';
 import Menu from 'primevue/menu';
 import Message from 'primevue/message';
 import MultiSelect from 'primevue/multiselect';
@@ -62,9 +62,6 @@ import 'primeicons/primeicons.css';
 import '/node_modules/primeflex/primeflex.css';
 import './assets/scss/main.scss';
 import 'vue3-toastify/dist/index.css';
-
-/* ----- Axios instance ----- */
-const _axiosService = axiosService;
 
 /* ----- Create app and use dependencies ----- */
 const pinia = createPinia();
@@ -118,77 +115,10 @@ app
   .directive('ripple', Ripple)
   .directive('tooltip', Tooltip);
 
-/* ----- Binding to the Vue instance ----- */
-const activityCenter = useActivityCenterStore();
+/* ----- Store Imports ----- */
 const auth = useAuthStore();
 const connections = useConnectionsStore();
-const marketPlace = useMarketPlaceStore();
-const orders = useOrdersStore();
-const payouts = usePayoutsStore();
-const payoutsSettings = usePayoutsSettingsStore();
 const plan = usePlanStore();
-const products = useProductsStore();
-const productSettings = useProductSettingsStore();
-
-auth.$https = _axiosService.https;
-
-/* ----- Logout Handler ----- */
-const logout = () => {
-  activityCenter.$reset();
-  auth.$reset();
-  //connections.$reset();
-  marketPlace.$reset();
-  orders.$reset();
-  payouts.$reset();
-  payoutsSettings.$reset();
-  plan.$reset();
-  products.$reset();
-  productSettings.$reset();
-  sessionStorage.removeItem('ID_TOKEN_KEY');
-  sessionStorage.removeItem('USER_ID');
-  router.push({ name: routes.LOGIN });
-};
-
-/* ----- Interceptors ----- */
-_axiosService.https.interceptors.response.use(
-  response => {
-    const { message, success, errors } = response?.data
-    if(message && success) {
-      //connections.showToast(message);
-    }
-    else if(!success && errors[0]) {
-      //connections.showToast(errors[0], 'error');
-    }
-    return response;
-  },
-  error => {
-    const { status, data } = error.response || {};
-    switch (status) {
-      case 422:
-      case 400: {
-        const message = data.errors?.[0];
-        if (message) {
-          //connections.showToast(message, 'error');
-        }
-        if(data.redirect_to === 'billing') {
-          router.push({ name: routes.PLAN_AND_BILLINGS });
-        }
-        break;
-      }
-      case 403:
-        logout();
-        return Promise.reject(error);
-      case 502:
-        //connections.showToast('Bad Gateway: The server received an invalid response', 'error');
-        break;
-      case 500:
-        //connections.showToast('Internal Server Error: An unexpected error occurred on the server', 'error');
-        break;
-      default:
-        break;
-    }
-  }
-);
 
 /* ----- Actions before each route ----- */
 router.beforeEach(async (to, from, next) => {
@@ -201,8 +131,6 @@ router.beforeEach(async (to, from, next) => {
     }
 
     auth.isAuthenticated = true;
-
-    Object.assign(_axiosService.https.defaults.headers.common, { Authorization: `Bearer ${ID_TOKEN_KEY}` });
 
     if (!auth.user) {
       const userId = sessionStorage.getItem('USER_ID');
@@ -222,9 +150,9 @@ sessionStorage.setItem('theme', 'theme-light');
 document.querySelector('html').classList.add(sessionStorage.getItem('theme'));
 
 /* ----- Intercom ----- */
-// (function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',w.intercomSettings);}else{var d=document;var i=function(){i.c(arguments);};i.q=[];i.c=function(args){i.q.push(args);};w.Intercom=i;var l=function(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/'+import.meta.env.VITE_INTERCOM_APP_ID;var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);};if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})();
-// window.intercomSettings = {
-//   app_id: import.meta.env.VITE_INTERCOM_APP_ID,
-//   custom_launcher_selector: '.intercom-custom-launcher'
-// };
-// window.Intercom('update', window.intercomSettings);
+(function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',w.intercomSettings);}else{var d=document;var i=function(){i.c(arguments);};i.q=[];i.c=function(args){i.q.push(args);};w.Intercom=i;var l=function(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/'+import.meta.env.VITE_INTERCOM_APP_ID;var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);};if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})();
+window.intercomSettings = {
+  app_id: import.meta.env.VITE_INTERCOM_APP_ID,
+  custom_launcher_selector: '.intercom-custom-launcher'
+};
+window.Intercom('update', window.intercomSettings);

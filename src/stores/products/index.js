@@ -1,6 +1,7 @@
 import deepmerge from 'deepmerge';
 
 /* ----- Actions ----- */
+import { bulkSyncProducts } from './actions/bulkSyncProducts';
 import { fetchProductDetails } from './actions/fetchProductDetails';
 import { fetchProducts } from './actions/fetchProducts';
 import { resyncProduct } from './actions/resyncProduct';
@@ -36,6 +37,7 @@ export const useProductsStore = defineStore('products', {
   },
 
   actions: deepmerge.all([
+    bulkSyncProducts,
     fetchProductDetails,
     fetchProducts,
     resyncProduct,

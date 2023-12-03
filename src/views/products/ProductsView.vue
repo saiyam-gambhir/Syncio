@@ -12,6 +12,7 @@ const {
 } = toRefs(useConnectionsStore());
 
 const {
+  bulkSyncProducts,
   fetchProductDetails,
   fetchProducts,
   isBulkMapperDialogRequested,
@@ -29,22 +30,16 @@ const {
 
 const statusOptions = {
   'attention': 'warning',
-  'Not Synced': 'danger',
+  'unsynced': 'danger',
   'pending': 'warning',
   'synced': 'success',
 };
-
-const unSyncedActions = ref([
-  {
-    label: 'Map',
-    command: () => {},
-  },
-]);
 
 /* ----- Mounted ----- */
 onMounted(async () => {
   if (connections.value.length === 0) await fetchConnections.value();
   await fetchProductsHandler(true);
+
 });
 
 /* ----- Methods ----- */
@@ -54,28 +49,33 @@ const storeFilterHandler = async storeId => {
 
 const fetchProductsHandler = async () => {
   await fetchProducts.value(true);
+  unselectAllRowsHandler();
 }
 
 const getProductSyncStatus = product => {
   const { product_status, mapper_id, is_sync_failed, external_product_id } = product;
 
-  if(syncProductsQueue.value.includes(external_product_id) || syncProductsQueue.value.includes(mapper_id)) {
+  if((syncProductsQueue.value.includes(external_product_id) || syncProductsQueue.value.includes(mapper_id))) {
     return 'pending';
-  }
-
-  if (mapper_id) {
-    return 'synced';
   }
 
   if (product_status === 'replaced' && mapper_id) {
     return 'replaced';
   }
 
+  if (mapper_id) {
+    return 'synced';
+  }
+
   if (is_sync_failed && !mapper_id) {
     return 'attention';
   }
 
-  return 'Not Synced';
+  if(!mapper_id && !is_sync_failed) {
+    return 'not synced';
+  }
+
+  return 'not synced';
 };
 
 const updateProductStatus = (product, id) => {
@@ -86,9 +86,19 @@ const updateProductStatus = (product, id) => {
 
 const syncProductHandler = async (product) => {
   const response = await syncProduct.value(product.external_product_id);
-  if(response.success) {
+  if(response?.success) {
     product.mapper_id = await response.mapper.id;
-    updateProductStatus(product, product.external_product_id);
+  }
+  updateProductStatus(product, product.external_product_id);
+};
+
+const bulkSyncProductsHandler = async () => {
+  const sourceProductIds = unsyncedProducts.value.map(product => product.external_product_id);
+  const response = await bulkSyncProducts.value(sourceProductIds);
+  if(response?.success) {
+    products.value.forEach(product => {
+      getProductSyncStatus(product);
+    });
   }
 };
 
@@ -96,45 +106,53 @@ const unsyncProductHandler = async (product) => {
   const mapperIds = [];
   mapperIds.push(product.mapper_id);
   const response = await unsyncProduct.value(mapperIds);
-  if(response.success) {
+  if(response?.success) {
     updateProductStatus(product, product.mapper_id);
     product.mapper_id = null;
   }
+};
+
+const bulkUnsyncProductsHandler = () => {
+  syncedProducts.value.forEach(async product => {
+    await unsyncProductHandler(product);
+  });
+  unselectAllRowsHandler();
 };
 
 const resyncProductHandler = async (product) => {
   const mapperIds = [];
   mapperIds.push(product.mapper_id);
   const response = await resyncProduct.value(mapperIds);
-  if(response.success) {
+  if(response?.success) {
     updateProductStatus(product, product.mapper_id);
   }
 };
 
 const selectAllRowsHandler = (rows) => {
-  syncedProducts.value = rows.data.filter(row => row.mapper_id).map(row => row.mapper_id);
-  unsyncedProducts.value = rows.data.filter(row => !row.mapper_id).map(row => row.external_product_id);
+  syncedProducts.value = rows.data.filter(row => row.mapper_id);
+  unsyncedProducts.value = rows.data.filter(row => !row.mapper_id);
 };
 
 const rowSelectHandler = (row) => {
   if(row.data.mapper_id) {
-    syncedProducts.value.push(row.data.mapper_id);
+    syncedProducts.value.push(row.data)
   } else {
-    unsyncedProducts.value.push(row.data.external_product_id);
+    unsyncedProducts.value.push(row.data);
   }
 };
 
-const unselectAllRowsHandler = (rows) => {
+const unselectAllRowsHandler = () => {
+  selectedProducts.value = [];
   syncedProducts.value = [];
   unsyncedProducts.value = [];
 };
 
 const rowUnselectHandler = (row) => {
   if(row.data.mapper_id) {
-    const rowIndex = syncedProducts.value.indexOf(row.data.mapper_id);
+    const rowIndex = syncedProducts.value.findIndex(_row => _row.mapper_id == row.data.mapper_id);
     syncedProducts.value.splice(rowIndex, 1);
   } else {
-    const rowIndex = unsyncedProducts.value.indexOf(row.data.external_product_id);
+    const rowIndex = unsyncedProducts.value.findIndex(_row => _row.external_product_id == row.data.external_product_id);
     unsyncedProducts.value.splice(rowIndex, 1);
   }
 };
@@ -165,7 +183,24 @@ const rowUnselectHandler = (row) => {
     </template>
   </PageHeader>
 
-  {{ syncedProducts }} - {{ unsyncedProducts }}
+  <div v-if="syncedProducts.length > 0 || unsyncedProducts.length > 0" class="flex align-items-center py-2">
+    <h3 class="m-0">{{ selectedProducts?.length }} products selected</h3>
+
+    <Button
+      :disabled="unsyncedProducts?.length === 0"
+      :label="`Sync ${unsyncedProducts?.length} products`"
+      @click="bulkSyncProductsHandler"
+      class="p-button-success ml-4">
+    </Button>
+
+    <Button
+      :disabled="syncedProducts?.length === 0"
+      :label="`Unsync ${syncedProducts?.length} products`"
+      @click="bulkUnsyncProductsHandler"
+      class="p-button-danger ml-3"
+      outlined>
+    </Button>
+  </div>
 
   <article class="mt-4">
     <DataTable
@@ -214,8 +249,24 @@ const rowUnselectHandler = (row) => {
 
       <Column header="Status" style="width: 12.5%">
         <template #body="{ data }">
-          <Tag :severity="statusOptions[getProductSyncStatus(data)]" rounded>
-            {{ getProductSyncStatus(data).replace('_', ' ') }}
+          <a v-tooltip.right="'Open link'" href="https://help.syncio.co/en/articles/5958687-attention-status-for-product-imports" target="_blank" v-if="getProductSyncStatus(data) === 'attention'">
+            <Tag :severity="statusOptions[getProductSyncStatus(data)]" rounded>
+              <span>
+                {{ getProductSyncStatus(data).replace('_', ' ') }}
+              </span>
+              <i v-if="getProductSyncStatus(data) === 'attention'" class="pi pi-external-link ml-2"></i>
+            </Tag>
+          </a>
+          <Tag :severity="statusOptions[getProductSyncStatus(data)]" rounded v-else-if="getProductSyncStatus(data) === 'not synced'" :pt="{root: { style: { background: '#eee', color: '#333', border: '1px solid #333' }}}">
+            <span>
+              {{ getProductSyncStatus(data).replace('_', ' ') }}
+            </span>
+          </Tag>
+          <Tag :severity="statusOptions[getProductSyncStatus(data)]" rounded v-else>
+            <i v-if="getProductSyncStatus(data) === 'pending'" class="pi pi-spin pi-sync"></i>
+            <span :class="{ 'ml-2': getProductSyncStatus(data) === 'pending' }" style="transition: margin .25s;">
+              {{ getProductSyncStatus(data).replace('_', ' ') }}
+            </span>
           </Tag>
         </template>
       </Column>
@@ -240,6 +291,7 @@ const rowUnselectHandler = (row) => {
             </span>
             <SplitButton
               v-else
+              :disabled="getProductSyncStatus(data) === 'pending'"
               @click="fetchProductDetails({ externalProductId: data.external_product_id, targetStoreId: data.store_id }, false)"
               class="p-button-sm"
               label="View sync"
@@ -262,6 +314,7 @@ const rowUnselectHandler = (row) => {
             </span>
             <SplitButton
               v-else
+              :disabled="getProductSyncStatus(data) === 'pending'"
               @click="syncProductHandler(data)"
               class="p-button-sm"
               label="Sync"

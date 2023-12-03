@@ -15,7 +15,7 @@ export const login = {
     if (window.sessionStorage.getItem('ID_TOKEN_KEY')) {
       this.isAuthenticated = true;
       sessionStorage.setItem('USER_ID', this.user?.id);
-      this.$https.defaults.headers.common['Authorization'] = `Bearer ${sessionStorage.getItem('ID_TOKEN_KEY')}`;
+      axiosService.https.defaults.headers.common['Authorization'] = `Bearer ${sessionStorage.getItem('ID_TOKEN_KEY')}`;
       await connections.fetchCurrentStore();
       await plan.fetchCurrentPlan(sessionStorage.getItem('USER_ID'));
       router.replace({ name: routes.DASHBOARD });

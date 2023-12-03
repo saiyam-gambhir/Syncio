@@ -77,9 +77,9 @@ const toggleMultilocationHandler = async event => {
   <article class="mt-4">
     <ConnectionsViewSkeleton v-if="loadingConnections" />
     <Connections v-else />
-
-    <ConnectNewStoreDialog v-if="isNewStoreConnectionRequested" />
-    <DisconnectDialog v-if="isConnectionDisconnectRequested" />
-    <DisableMultilocationDialog v-if="isDisableMultilocationRequested" />
   </article>
+
+  <ConnectNewStoreDialog v-if="isNewStoreConnectionRequested" />
+  <DisconnectDialog v-if="isConnectionDisconnectRequested" />
+  <DisableMultilocationDialog v-if="isDisableMultilocationRequested" />
 </template>
