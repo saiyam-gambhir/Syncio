@@ -1,7 +1,6 @@
 /* ----- Vue ----- */
 import { createApp } from 'vue';
 import App from './App.vue';
-import { plugin, defaultConfig } from '@formkit/vue'
 
 /* ----- Pinia ----- */
 import { createPinia } from 'pinia';
@@ -73,7 +72,6 @@ app
   .use(PrimeVue, { ripple: true })
   .use(ToastService)
   .use(Vue3Toasity)
-  .use(plugin, defaultConfig)
   .mount('#app');
 
 /* ----- Prime Vue Components ----- */

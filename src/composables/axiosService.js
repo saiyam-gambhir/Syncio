@@ -34,13 +34,14 @@ class AxiosService {
     this.https.interceptors.response.use(
       response => {
         const message = response?.data?.message ?? response.message;
-        if(response?.request?.responseURL.includes('products/unsync')) {
-          toastOptions.multiple = false;
-        }
         if(message) {
-          toast(message, { ...toastOptions, type: 'success' });
+          if(response?.request?.responseURL.includes('products/unsync')) {
+            const options = { ...toastOptions, multiple: false }
+            toast(message, { ...options, type: 'success' });
+          } else {
+            toast(message, { ...toastOptions, type: 'success' });
+          }
         }
-        toastOptions.multiple = true;
         return response;
       },
       error => {
@@ -96,6 +97,7 @@ class AxiosService {
       const response = await this.https.get(url, { params: cleanedParams });
       return response.data;
     } catch (error) {
+      throw new Error(error);
     }
   };
 
@@ -106,6 +108,7 @@ class AxiosService {
       const response = await this.https.post(url, { ...cleanedParams });
       return completeResponse ? response : response.data;
     } catch (error) {
+      throw new Error(error);
     }
   };
 
@@ -115,10 +118,10 @@ class AxiosService {
       const response = await this.https.post(url, params);
       return response.data;
     } catch (error) {
+      throw new Error(error);
     }
   }
 }
 
 const axiosService = new AxiosService();
-
 export default axiosService;

@@ -26,7 +26,7 @@ const props = defineProps({
   <Divider />
 
   <div class="py-2" v-if="product?.data">
-    <h2>Variants count: <Tag severity="info" class="ml-2" style="transform: translateY(-2px);">{{ product.data.variants?.length }}</Tag></h2>
+    <h2>Variants</h2>
     <DataTable :value="product.data.variants" responsiveLayout="scroll" showGridlines>
       <Column header="Title" style="width: 40%;">
         <template #body="{ data: { title } }">

@@ -5,6 +5,10 @@ const ProductDetailsDialog = defineAsyncComponent(() => import('./components/Pro
 
 /* ----- Data ----- */
 const {
+  userId,
+} = toRefs(useAuthStore());
+
+const {
   connections,
   fetchConnections,
   isDestinationStore,
@@ -27,6 +31,10 @@ const {
   unsyncedProducts,
   unsyncProduct,
 } = toRefs(useProductsStore());
+
+const {
+  fetchCurrentPlan,
+} = toRefs(usePlanStore());
 
 const statusOptions = {
   'attention': 'warning',
@@ -90,6 +98,9 @@ const syncProductHandler = async (product) => {
     product.mapper_id = await response.mapper.id;
   }
   updateProductStatus(product, product.external_product_id);
+  setTimeout(() => {
+    fetchCurrentPlan.value(userId.value);
+  }, 500);
 };
 
 const bulkSyncProductsHandler = async () => {
@@ -102,19 +113,30 @@ const bulkSyncProductsHandler = async () => {
   }
 };
 
-const unsyncProductHandler = async (product) => {
+const unsyncProductHandler = async (product, loadCurrentPlan = true) => {
   const mapperIds = [];
   mapperIds.push(product.mapper_id);
   const response = await unsyncProduct.value(mapperIds);
   if(response?.success) {
     updateProductStatus(product, product.mapper_id);
     product.mapper_id = null;
+    if(loadCurrentPlan) {
+      setTimeout(() => {
+        fetchCurrentPlan.value(userId.value);
+      }, 500);
+    }
   }
 };
 
 const bulkUnsyncProductsHandler = () => {
-  syncedProducts.value.forEach(async product => {
-    await unsyncProductHandler(product);
+  const syncedProductsLength = syncedProducts.value.length;
+  syncedProducts.value.forEach(async (product, index) => {
+    await unsyncProductHandler(product, false);
+    if((index + 1) === syncedProductsLength) {
+      setTimeout(() => {
+        fetchCurrentPlan.value(userId.value);
+      }, 1000);
+    }
   });
   unselectAllRowsHandler();
 };
@@ -126,6 +148,7 @@ const resyncProductHandler = async (product) => {
   if(response?.success) {
     updateProductStatus(product, product.mapper_id);
   }
+  await fetchCurrentPlan.value(userId.value);
 };
 
 const selectAllRowsHandler = (rows) => {
@@ -160,7 +183,7 @@ const rowUnselectHandler = (row) => {
 
 <template>
   <PageHeader
-    content="Sync and manage your inventory"
+    content="Sync and manage your inventory. <a href='https://help.syncio.co/en/articles/3285405-syncing-products' target='_blank' class='btn-link'>Read about syncing products</a>"
     title="Products"
     withActions>
     <template #actions>

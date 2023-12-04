@@ -73,27 +73,36 @@ const leaveCurrentPageHandler = () => {
     <TabView v-model:activeIndex="activeTabIndex" @update:activeIndex="handleTabChange" class="mt-4 margin-bottom">
       <TabPanel>
         <template #header>
-          <div class="flex align-items-center">
+          <div v-if="isPushOrderEmailSettingsChanged" class="flex align-items-center" v-tooltip.top="'Unsaved changes on this tab'">
             Email Contact Method
-            <i v-if="isPushOrderEmailSettingsChanged" class="pi pi-exclamation-triangle ml-3 text-xl" style="color: rgb(255, 137, 0);" v-tooltip.top="'Unsaved changes'"></i>
+            <i  class="pi pi-exclamation-triangle ml-3 text-xl" style="color: rgb(255, 137, 0);"></i>
+          </div>
+          <div v-else class="flex align-items-center">
+            Email Contact Method
           </div>
         </template>
         <EmailContact v-if="activeTabIndex === 0" />
       </TabPanel>
       <TabPanel>
         <template #header>
-          <div class="flex align-items-center">
+          <div v-if="isPushOrderShippingRulesChanged" class="flex align-items-center" v-tooltip.top="'Unsaved changes on this tab'">
             Shipping Rate Rules
-            <i v-if="isPushOrderShippingRulesChanged" class="pi pi-exclamation-triangle ml-3 text-xl" style="color: rgb(255, 137, 0);" v-tooltip.top="'Unsaved changes'"></i>
+            <i class="pi pi-exclamation-triangle ml-3 text-xl" style="color: rgb(255, 137, 0);"></i>
+          </div>
+          <div v-else class="flex align-items-center">
+            Shipping Rate Rules
           </div>
         </template>
         <ShippingRulesRates v-if="activeTabIndex === 1" />
       </TabPanel>
       <TabPanel>
         <template #header>
-          <div class="flex align-items-center">
+          <div v-if="isPushOrderShippingTagsChanged" class="flex align-items-center" v-tooltip.top="'Unsaved changes on this tab'">
             Shipping Type Tags
-            <i v-if="isPushOrderShippingTagsChanged" class="pi pi-exclamation-triangle ml-3 text-xl" style="color: rgb(255, 137, 0);" v-tooltip.top="'Unsaved changes'"></i>
+            <i class="pi pi-exclamation-triangle ml-3 text-xl" style="color: rgb(255, 137, 0);"></i>
+          </div>
+          <div v-else class="flex align-items-center">
+            Shipping Type Tags
           </div>
         </template>
         <ShippingTypeTags v-if="activeTabIndex === 2" />

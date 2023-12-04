@@ -14,7 +14,6 @@ export const pushOrder = {
         await this.fetchOrders();
       }
     } catch(error) {
-      console.log(error)
     } finally {
       this.loadingOrder = false;
     }
