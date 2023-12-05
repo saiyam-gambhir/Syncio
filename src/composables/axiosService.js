@@ -76,18 +76,16 @@ class AxiosService {
             const marketPlace = useMarketPlaceStore();
             const orders = useOrdersStore();
             const payouts = usePayoutsStore();
-            const payoutsSettings = usePayoutsSettings();
             const plan = usePlanStore();
             const products = useProductsStore();
             const productSettings = useProductSettingsStore();
 
             activityCenter.$reset();
             auth.$reset();
-            connections.$reset();
+            //connections.$reset();
             marketPlace.$reset();
             orders.$reset();
             payouts.$reset();
-            payoutsSettings.$reset();
             plan.$reset();
             products.$reset();
             productSettings.$reset();

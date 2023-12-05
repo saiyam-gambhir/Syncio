@@ -15,6 +15,8 @@ export const fetchProducts = {
     const {
       filters,
       limiter,
+      page,
+      search_str,
       sort_by_desc,
       sort_by,
     } = this.queries;
@@ -30,6 +32,9 @@ export const fetchProducts = {
       filters,
       limiter,
       origin: storeType,
+      page,
+      page: page,
+      search_str,
       sort_by_desc,
       sort_by,
       source_store_id: id,

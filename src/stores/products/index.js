@@ -2,6 +2,7 @@ import deepmerge from 'deepmerge';
 
 /* ----- Actions ----- */
 import { bulkSyncProducts } from './actions/bulkSyncProducts';
+import { fetchMetaFields } from './actions/fetchMetaFields';
 import { fetchProductDetails } from './actions/fetchProductDetails';
 import { fetchProducts } from './actions/fetchProducts';
 import { resyncProduct } from './actions/resyncProduct';
@@ -30,15 +31,19 @@ export const useProductsStore = defineStore('products', {
       queries: {
         'filters': [],
         'limiter': 25,
+        'meta_fields[product_type]': null,
         'meta_fields[vendor]': null,
-        'sort_by_desc': true,
-        'sort_by': 'title',
+        'page': 1,
+        'search_str': null,
+        'sort_by_desc': null,
+        'sort_by': null,
       },
     };
   },
 
   actions: deepmerge.all([
     bulkSyncProducts,
+    fetchMetaFields,
     fetchProductDetails,
     fetchProducts,
     resyncProduct,

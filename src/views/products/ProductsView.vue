@@ -18,6 +18,7 @@ const {
 
 const {
   bulkSyncProducts,
+  fetchMetaFields,
   fetchProductDetails,
   fetchProducts,
   isBulkMapperDialogRequested,
@@ -50,6 +51,7 @@ const statusOptions = {
 onMounted(async () => {
   if (connections.value.length === 0) await fetchConnections.value();
   await fetchProductsHandler();
+  await fetchMetaFields.value();
 });
 
 /* ----- Methods ----- */
@@ -273,7 +275,7 @@ const rowUnselectHandler = (row) => {
 
         <Column header="Inventory" style="width: 15.5%;">
           <template #body="{ data: { total_inventory_quantity, variants } }">
-            <span class="font-semi">{{ total_inventory_quantity }}</span> for <span class="font-semi">{{ variants.length }}</span> {{ variants.length > 1 ? 'variants' : 'variant' }}
+            <span>{{ total_inventory_quantity }}</span> for <span>{{ variants.length }}</span> {{ variants.length > 1 ? 'variants' : 'variant' }}
           </template>
         </Column>
 
