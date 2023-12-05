@@ -21,7 +21,7 @@ const handleTabChange = async index => {
     title="Payouts Settings">
   </PageHeader>
 
-  <article class="mt-4">
+  <article class="mt-2">
     <p class="text-lg line-height-4">
       Commissions will be calculated on sales value; the total amount your customers pay for the product. <br>
       If no Product commissions are set, Syncio will use the Store commission in Payouts calculations for that product. <br>

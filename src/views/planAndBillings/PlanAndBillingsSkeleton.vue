@@ -1,5 +1,5 @@
 <template>
-  <article class="mt-5 pt-1">
+  <article class="mt-3 pt-1">
     <section class="grid">
       <div class="col-12 md:col-12 lg:col-9">
         <div class="pr-2">

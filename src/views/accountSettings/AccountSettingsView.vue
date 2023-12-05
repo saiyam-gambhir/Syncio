@@ -45,7 +45,7 @@ const handleCurrencyChange = (event) => {
     title="Account Details">
   </PageHeader>
 
-  <article class="grid mt-4">
+  <article class="grid mt-2">
     <section class="col-12 md:col-5 lg:col-3">
       <h2 class="pb-2">The essentials</h2>
       <CardWrapper

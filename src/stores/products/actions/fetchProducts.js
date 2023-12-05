@@ -1,11 +1,28 @@
 export const fetchProducts = {
-  async fetchProducts(isStoreChanged = false) {
-    //if(this.products && !isStoreChanged) return;
+  async fetchProducts() {
+    if(!this.selectedStore) {
+      this.loading = false;
+      return;
+    }
 
     this.loading = true;
-    const { connection_id, id } = this.selectedStore;
-    const { filters, limiter, sort_by_desc, sort_by } = this.queries;
-    const { storeId, storeType } = useConnectionsStore();
+
+    const {
+      connection_id,
+      id,
+    } = this.selectedStore;
+
+    const {
+      filters,
+      limiter,
+      sort_by_desc,
+      sort_by,
+    } = this.queries;
+
+    const {
+      storeId,
+      storeType,
+    } = useConnectionsStore();
 
     const params = {
       connection_id: connection_id,

@@ -1,7 +1,8 @@
 <script setup>
 /* ----- Components ----- */
 const BulkMapperDialog = defineAsyncComponent(() => import('./components/BulkMapperDialog.vue'));
-const ProductDetailsDialog = defineAsyncComponent(() => import('./components/ProductDetailsDialog.vue'));
+const DuplicateSkuDialog = defineAsyncComponent(() => import('./components/DuplicateSkuDialog.vue'));
+const ProductDetailsDialog = defineAsyncComponent(() => import('./components/ProductDetailsdialog.vue'));
 
 /* ----- Data ----- */
 const {
@@ -20,7 +21,9 @@ const {
   fetchProductDetails,
   fetchProducts,
   isBulkMapperDialogRequested,
+  isDuplicateSkuFound,
   isProductDetailsDialogRequested,
+  loading,
   products,
   resyncProduct,
   selectedProducts,
@@ -46,8 +49,7 @@ const statusOptions = {
 /* ----- Mounted ----- */
 onMounted(async () => {
   if (connections.value.length === 0) await fetchConnections.value();
-  await fetchProductsHandler(true);
-
+  await fetchProductsHandler();
 });
 
 /* ----- Methods ----- */
@@ -56,7 +58,7 @@ const storeFilterHandler = async storeId => {
 };
 
 const fetchProductsHandler = async () => {
-  await fetchProducts.value(true);
+  await fetchProducts.value();
   unselectAllRowsHandler();
 }
 
@@ -67,19 +69,19 @@ const getProductSyncStatus = product => {
     return 'pending';
   }
 
-  if (product_status === 'replaced' && mapper_id) {
+  else if (product_status === 'replaced' && mapper_id) {
     return 'replaced';
   }
 
-  if (mapper_id) {
+  else if (mapper_id) {
     return 'synced';
   }
 
-  if (is_sync_failed && !mapper_id) {
+  else if (is_sync_failed && !mapper_id) {
     return 'attention';
   }
 
-  if(!mapper_id && !is_sync_failed) {
+  else if(!mapper_id && !is_sync_failed) {
     return 'not synced';
   }
 
@@ -193,6 +195,7 @@ const rowUnselectHandler = (row) => {
         @change="fetchProductsHandler()"
         @update:modelValue="storeFilterHandler"
         customPlaceholder
+        style="width: 25rem;"
         v-model="selectedStoreId">
       </StoresFilter>
 
@@ -206,160 +209,168 @@ const rowUnselectHandler = (row) => {
     </template>
   </PageHeader>
 
-  <div v-if="syncedProducts.length > 0 || unsyncedProducts.length > 0" class="flex align-items-center py-2">
-    <h3 class="m-0">{{ selectedProducts?.length }} products selected</h3>
+  <ProductsViewSkeleton v-if="loading" />
+  <template v-else>
+    <div v-if="syncedProducts.length > 0 || unsyncedProducts.length > 0" class="flex align-items-center py-2">
+      <h3 class="m-0">{{ selectedProducts?.length }} products selected</h3>
 
-    <Button
-      :disabled="unsyncedProducts?.length === 0"
-      :label="`Sync ${unsyncedProducts?.length} products`"
-      @click="bulkSyncProductsHandler"
-      class="p-button-success ml-4">
-    </Button>
+      <Button
+        :disabled="unsyncedProducts?.length === 0"
+        :label="`Sync ${unsyncedProducts?.length} products`"
+        @click="bulkSyncProductsHandler"
+        class="p-button-success ml-4">
+      </Button>
 
-    <Button
-      :disabled="syncedProducts?.length === 0"
-      :label="`Unsync ${syncedProducts?.length} products`"
-      @click="bulkUnsyncProductsHandler"
-      class="p-button-danger ml-3"
-      outlined>
-    </Button>
-  </div>
+      <Button
+        :disabled="syncedProducts?.length === 0"
+        :label="`Unsync ${syncedProducts?.length} products`"
+        @click="bulkUnsyncProductsHandler"
+        class="p-button-danger ml-3"
+        outlined>
+      </Button>
+    </div>
 
-  <article class="mt-4">
-    <DataTable
-      :value="products"
-      @rowSelect="rowSelectHandler"
-      @rowSelectAll="selectAllRowsHandler"
-      @rowUnselect="rowUnselectHandler"
-      @rowUnselectAll="unselectAllRowsHandler"
-      responsiveLayout="scroll"
-      showGridlines
-      v-model:selection="selectedProducts">
+    <article class="mt-2">
+      <DataTable
+        :value="products"
+        @rowSelect="rowSelectHandler"
+        @rowSelectAll="selectAllRowsHandler"
+        @rowUnselect="rowUnselectHandler"
+        @rowUnselectAll="unselectAllRowsHandler"
+        responsiveLayout="scroll"
+        showGridlines
+        v-model:selection="selectedProducts">
 
-      <template #empty>
-        <div class="px-4 py-8 text-center">
-          <h2 class="m-0">No products found</h2>
-        </div>
-      </template>
-
-      <template #header>
-        <ProductsViewHeader />
-      </template>
-
-      <Column
-        headerStyle="width: 4%"
-        selectionMode="multiple">
-      </Column>
-
-      <Column header="Product" style="width: 36%">
-        <template #body="{ data: { default_image_url, external_product_id, store_id, title } }">
-          <div class="flex align-items-center pointer btn-link-parent" @click="fetchProductDetails({ externalProductId: external_product_id, targetStoreId: store_id }, true)">
-            <figure class="m-0" style="width: 42px; height: 42px; padding: 4px; border: 1px solid rgb(231, 231, 231); flex-shrink: 0;">
-              <div class="w-full h-full" style="background-size: contain; background-repeat: no-repeat; background-position: center;" :style="{ backgroundImage: `url(${default_image_url})` }"></div>
-            </figure>
-            <div class="flex flex-column ml-3 pointer btn-link text-blue-500">
-              {{ title }}
-            </div>
+        <template #empty>
+          <div class="px-4 py-8 text-center" v-if="!loading">
+            <h2 class="m-0 line-height-3" v-if="selectedStoreId">No products found</h2>
+            <h2 v-else class="line-height-3">Select a {{ partnerStoreType }} from the dropdown menu at the <br> top right to browse available products.</h2>
           </div>
-        </template>
-      </Column>
 
-      <Column header="Inventory" style="width: 15.5%;">
-        <template #body="{ data: { total_inventory_quantity, variants } }">
-          <span class="font-semi">{{ total_inventory_quantity }}</span> for <span class="font-semi">{{ variants.length }}</span> {{ variants.length > 1 ? 'variants' : 'variant' }}
         </template>
-      </Column>
 
-      <Column header="Status" style="width: 12.5%">
-        <template #body="{ data }">
-          <a v-tooltip.right="'Open link'" href="https://help.syncio.co/en/articles/5958687-attention-status-for-product-imports" target="_blank" v-if="getProductSyncStatus(data) === 'attention'">
-            <Tag :severity="statusOptions[getProductSyncStatus(data)]" rounded>
+        <template #header>
+          <ProductsViewHeader />
+        </template>
+
+        <Column
+          headerStyle="width: 4%"
+          selectionMode="multiple">
+        </Column>
+
+        <Column header="Product" style="width: 36%">
+          <template #body="{ data: { default_image_url, external_product_id, store_id, title } }">
+            <div class="flex align-items-center pointer btn-link-parent" @click="fetchProductDetails({ externalProductId: external_product_id, targetStoreId: store_id }, true)">
+              <figure class="m-0" style="width: 42px; height: 42px; padding: 4px; border: 1px solid rgb(231, 231, 231); flex-shrink: 0;">
+                <div class="w-full h-full" style="background-size: contain; background-repeat: no-repeat; background-position: center;" :style="{ backgroundImage: `url(${default_image_url})` }"></div>
+              </figure>
+              <div class="flex flex-column ml-3 pointer btn-link text-blue-500">
+                {{ title }}
+              </div>
+            </div>
+          </template>
+        </Column>
+
+        <Column header="Inventory" style="width: 15.5%;">
+          <template #body="{ data: { total_inventory_quantity, variants } }">
+            <span class="font-semi">{{ total_inventory_quantity }}</span> for <span class="font-semi">{{ variants.length }}</span> {{ variants.length > 1 ? 'variants' : 'variant' }}
+          </template>
+        </Column>
+
+        <Column header="Status" style="width: 12.5%">
+          <template #body="{ data }">
+            <a v-tooltip.right="'Open link'" href="https://help.syncio.co/en/articles/5958687-attention-status-for-product-imports" target="_blank" v-if="getProductSyncStatus(data) === 'attention'">
+              <Tag :severity="statusOptions[getProductSyncStatus(data)]" rounded>
+                <StatusIcon />
+                <span>
+                  {{ getProductSyncStatus(data).replace('_', ' ') }}
+                </span>
+                <i v-if="getProductSyncStatus(data) === 'attention'" class="pi pi-external-link ml-2"></i>
+              </Tag>
+            </a>
+            <Tag :severity="statusOptions[getProductSyncStatus(data)]" rounded v-else-if="getProductSyncStatus(data) === 'not synced'" :pt="{root: { style: { background: '#eee', color: '#333', border: '1px solid #333' }}}">
               <StatusIcon />
               <span>
                 {{ getProductSyncStatus(data).replace('_', ' ') }}
               </span>
-              <i v-if="getProductSyncStatus(data) === 'attention'" class="pi pi-external-link ml-2"></i>
             </Tag>
-          </a>
-          <Tag :severity="statusOptions[getProductSyncStatus(data)]" rounded v-else-if="getProductSyncStatus(data) === 'not synced'" :pt="{root: { style: { background: '#eee', color: '#333', border: '1px solid #333' }}}">
-            <StatusIcon />
-            <span>
-              {{ getProductSyncStatus(data).replace('_', ' ') }}
-            </span>
-          </Tag>
-          <Tag :severity="statusOptions[getProductSyncStatus(data)]" rounded v-else>
-            <i v-if="getProductSyncStatus(data) === 'pending'" class="pi pi-spin pi-sync"></i>
-            <StatusIcon v-else />
-            <span :class="{ 'ml-2': getProductSyncStatus(data) === 'pending' }" style="transition: margin .25s;">
-              {{ getProductSyncStatus(data).replace('_', ' ') }}
-            </span>
-          </Tag>
-        </template>
-      </Column>
+            <Tag :severity="statusOptions[getProductSyncStatus(data)]" rounded v-else>
+              <i v-if="getProductSyncStatus(data) === 'pending'" class="pi pi-spin pi-sync"></i>
+              <StatusIcon v-else />
+              <span :class="{ 'ml-2': getProductSyncStatus(data) === 'pending' }" style="transition: margin .25s;">
+                {{ getProductSyncStatus(data).replace('_', ' ') }}
+              </span>
+            </Tag>
+          </template>
+        </Column>
 
-      <Column header="Sales channel visibility" style="width: 16%">
-        <template #body="{ data: { published_at } }">
-          <span v-if="published_at">Online store</span>
-          <span v-else>Unavailable</span>
-        </template>
-      </Column>
+        <Column header="Sales channel visibility" style="width: 16%">
+          <template #body="{ data: { published_at } }">
+            <span v-if="published_at">Online store</span>
+            <span v-else>Unavailable</span>
+          </template>
+        </Column>
 
-      <Column header="Actions" style="width: 16%" class="text-right">
-        <template #body="{ data }" v-if="isDestinationStore">
-          <div v-if="data.mapper_id">
-            <span v-if="syncedProducts.length > 0 || unsyncedProducts.length > 0" v-tooltip.top="'Clear bulk selection to access this button.'" class="inline-block">
+        <Column header="Actions" style="width: 16%" class="text-right">
+          <template #body="{ data }" v-if="isDestinationStore">
+            <div v-if="data.mapper_id">
+              <span v-if="syncedProducts.length > 0 || unsyncedProducts.length > 0" v-tooltip.top="'Clear bulk selection to access this button.'" class="inline-block">
+                <SplitButton
+                  disabled
+                  class="p-button-sm"
+                  label="View sync"
+                  outlined>
+                </SplitButton>
+              </span>
               <SplitButton
-                disabled
+                v-else
+                :disabled="getProductSyncStatus(data) === 'pending'"
+                @click="fetchProductDetails({ externalProductId: data.external_product_id, targetStoreId: data.store_id }, false)"
                 class="p-button-sm"
                 label="View sync"
+                :model="[
+                    { label: 'Resync', command: () => resyncProductHandler(data) },
+                    { label: 'Unsync', command: () => unsyncProductHandler(data) }
+                ]"
                 outlined>
               </SplitButton>
-            </span>
-            <SplitButton
-              v-else
-              :disabled="getProductSyncStatus(data) === 'pending'"
-              @click="fetchProductDetails({ externalProductId: data.external_product_id, targetStoreId: data.store_id }, false)"
-              class="p-button-sm"
-              label="View sync"
-              :model="[
-                  { label: 'Resync', command: () => resyncProductHandler(data) },
-                  { label: 'Unsync', command: () => unsyncProductHandler(data) }
-              ]"
-              outlined>
-            </SplitButton>
 
-          </div>
-          <div v-else>
-            <span v-if="syncedProducts.length > 0 || unsyncedProducts.length > 0" v-tooltip.top="'Clear bulk selection to access this button.'" class="inline-block">
+            </div>
+            <div v-else>
+              <span v-if="syncedProducts.length > 0 || unsyncedProducts.length > 0" v-tooltip.top="'Clear bulk selection to access this button.'" class="inline-block">
+                <SplitButton
+                  disabled
+                  class="p-button-sm"
+                  label="Sync"
+                  outlined>
+                </SplitButton>
+              </span>
               <SplitButton
-                disabled
+                v-else
+                :disabled="getProductSyncStatus(data) === 'pending'"
+                @click="syncProductHandler(data)"
                 class="p-button-sm"
                 label="Sync"
+                :model="[
+                  { label: 'Map', command: () => {} }
+                ]"
                 outlined>
               </SplitButton>
-            </span>
-            <SplitButton
-              v-else
-              :disabled="getProductSyncStatus(data) === 'pending'"
-              @click="syncProductHandler(data)"
-              class="p-button-sm"
-              label="Sync"
-              :model="[
-                { label: 'Map', command: () => {} }
-              ]"
-              outlined>
-            </SplitButton>
-          </div>
-        </template>
-      </Column>
-    </DataTable>
-  </article>
+            </div>
+          </template>
+        </Column>
+      </DataTable>
+    </article>
 
-  <!----- Bulk Mapper ----->
-  <BulkMapperDialog v-if="isBulkMapperDialogRequested" />
+    <!----- Bulk Mapper ----->
+    <BulkMapperDialog v-if="isBulkMapperDialogRequested" />
 
-  <!----- Product Details ----->
-  <ProductDetailsDialog v-if="isProductDetailsDialogRequested" />
+    <!-- Duplicate Sku -->
+    <DuplicateSkuDialog v-if="isDuplicateSkuFound" />
+
+    <!----- Product Details ----->
+    <ProductDetailsDialog v-if="isProductDetailsDialogRequested" />
+  </template>
 </template>
 
 <style scoped>

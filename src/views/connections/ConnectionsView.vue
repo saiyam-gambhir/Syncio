@@ -74,7 +74,7 @@ const toggleMultilocationHandler = async event => {
     </template>
   </PageHeader>
 
-  <article class="mt-4">
+  <article class="mt-2">
     <ConnectionsViewSkeleton v-if="loadingConnections" />
     <Connections v-else />
   </article>

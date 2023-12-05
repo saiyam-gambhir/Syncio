@@ -22,6 +22,8 @@ const toastOptions = {
   transition: 'slide',
 };
 
+const router = useRouter();
+
 class AxiosService {
   constructor() {
     this.https = axios.create({
@@ -50,20 +52,55 @@ class AxiosService {
           case 422:
           case 400: {
             const message = data.errors?.[0];
+
+            if(data?.is_duplicate_sku_found) {
+              const products = useProductsStore();
+              products.$patch({ isDuplicateSkuFound: true });
+              return data;
+            }
+
             if (message) {
               toast(message, { ...toastOptions, type: 'error' });
             }
             if(data.redirect_to === 'billing') {
               router.push({ name: routes.PLAN_AND_BILLINGS });
             }
-            break;
+
+            return data;
           }
+
           case 403:
-            logout();
+            const activityCenter = useActivityCenterStore();
+            const auth = useAuthStore();
+            const connections = useConnectionsStore();
+            const marketPlace = useMarketPlaceStore();
+            const orders = useOrdersStore();
+            const payouts = usePayoutsStore();
+            const payoutsSettings = usePayoutsSettings();
+            const plan = usePlanStore();
+            const products = useProductsStore();
+            const productSettings = useProductSettingsStore();
+
+            activityCenter.$reset();
+            auth.$reset();
+            connections.$reset();
+            marketPlace.$reset();
+            orders.$reset();
+            payouts.$reset();
+            payoutsSettings.$reset();
+            plan.$reset();
+            products.$reset();
+            productSettings.$reset();
+            sessionStorage.removeItem('ID_TOKEN_KEY');
+            sessionStorage.removeItem('USER_ID');
+            router.push({ name: routes.LOGIN });
+
             return Promise.reject(error);
+
           case 502:
             toast('Bad Gateway: The server received an invalid response', { ...toastOptions, type: 'error' });
             break;
+
           case 500:
             toast('Internal Server Error: An unexpected error occurred on the server', { ...toastOptions, type: 'error' });
             break;

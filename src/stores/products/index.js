@@ -13,9 +13,10 @@ export const useProductsStore = defineStore('products', {
   state: () => {
     return {
       isBulkMapperDialogRequested: false,
+      isDuplicateSkuFound: false,
       isProductDetailsDialogRequested: false,
       isViewDetailsRequested: true,
-      loading: false,
+      loading: true,
       loadingBulkMapper: false,
       loadingProductDetails: false,
       pagination: null,

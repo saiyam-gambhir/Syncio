@@ -25,7 +25,7 @@ onMounted(() => {
     title="Welcome">
   </PageHeader>
 
-  <article class="grid mt-4">
+  <article class="grid mt-2">
     <DashboardLeft />
     <DashboardRight />
   </article>

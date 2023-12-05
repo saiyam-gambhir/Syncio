@@ -32,8 +32,7 @@
 
     <Column header="Actions" style="width: 20%" class="text-right">
       <template #body>
-        <Skeleton width="95px" height="31.5px" style="float: right" class="ml-2" />
-        <Skeleton width="80px" height="31.5px" style="float: right" />
+        <Skeleton width="148.82px" height="33.06px" style="float: right" borderRadius="6px" />
       </template>
     </Column>
   </DataTable>

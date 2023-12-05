@@ -27,7 +27,7 @@ const fetchProductsHandler = async (store) => {
   await router.push({ name: routes.PRODUCTS });
   selectedStoreId.value = store.id;
   loadingProductsRoute.value = true;
-  await fetchProducts.value(true);
+  await fetchProducts.value();
   loadingProductsRoute.value = false;
 }
 </script>

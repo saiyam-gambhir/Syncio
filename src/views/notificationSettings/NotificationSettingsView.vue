@@ -4,6 +4,6 @@
     title="Notification settings">
   </PageHeader>
 
-  <article class="grid mt-4">
+  <article class="grid mt-2">
   </article>
 </template>
