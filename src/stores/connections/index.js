@@ -41,13 +41,11 @@ export const useConnectionsStore = defineStore('connections', {
       },
       sortOptions: [
         {
-          icon: 'pi pi-sort-alpha-up',
           key: 'store_domain',
           label: 'A-Z',
           sortByDesc: false,
         },
         {
-          icon: 'pi pi-sort-alpha-up-alt',
           key: 'store_domain',
           label: 'Z-A',
           sortByDesc: true,

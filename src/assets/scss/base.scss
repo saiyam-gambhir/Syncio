@@ -247,6 +247,10 @@ td {
   }
 }
 
+.p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight {
+  background: aliceblue !important;
+}
+
 .p-button {
   &.p-button-lg .p-button-icon {
     font-size: 1.3rem;
@@ -608,7 +612,7 @@ input.p-inputtext-lg {
 }
 
 .p-datatable .p-datatable-tbody>tr.p-highlight {
-  background-color: aliceblue;
+  background-color: aliceblue !important;
 }
 /* ----- OVERRIDES ----- */
 

@@ -183,9 +183,13 @@ const rowUnselectHandler = (row) => {
 
 <template>
   <PageHeader
-    content="Sync and manage your inventory. <a href='https://help.syncio.co/en/articles/3285405-syncing-products' target='_blank' class='btn-link'>Read about syncing products</a>"
     title="Products"
-    withActions>
+    withActions
+    withLink>
+    <template #header>
+      Sync and manage your inventory.
+      <AppLink link="https://help.syncio.co/en/articles/3285405-syncing-products" label="Read about syncing products" />
+    </template>
     <template #actions>
       <StoresFilter
         :customPlaceholderText="`Select a ${partnerStoreType}`"

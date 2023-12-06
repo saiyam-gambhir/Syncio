@@ -23,19 +23,43 @@ export const useProductsStore = defineStore('products', {
       pagination: null,
       productDetails: null,
       products: null,
+      productTypeOptions: null,
       selectedProducts: null,
       selectedStoreId: null,
       syncedProducts: [],
       syncProductsQueue: [],
       unsyncedProducts: [],
+      vendorOptions: null,
 
       /* ----- Filters ----- */
       statusOption: null,
       visibilityOption: null,
-      statusOptions:  [
+      statusOptions: [
         { key: 'All', value: 'all' },
         { key: 'Synced', value: 'synced' },
         { key: 'Not Synced', value: 'unsynced' },
+      ],
+      sortOptions: [
+        {
+          key: 'title',
+          label: 'A-Z',
+          sortByDesc: false,
+        },
+        {
+          key: 'title',
+          label: 'Z-A',
+          sortByDesc: true,
+        },
+        {
+          key: 'published_at',
+          label: 'Newest to Oldest',
+          sortByDesc: true,
+        },
+        {
+          key: 'published_at',
+          label: 'Oldest to Newest',
+          sortByDesc: false,
+        },
       ],
       visibilityOptions:  [
         { key: 'All', value: 'all' },
@@ -45,12 +69,11 @@ export const useProductsStore = defineStore('products', {
       queries: {
         'filters': [],
         'limiter': 25,
-        'meta_fields[product_type]': null,
-        'meta_fields[vendor]': null,
         'page': 1,
+        'productType': null,
         'search_str': null,
-        'sort_by_desc': null,
-        'sort_by': null,
+        'sortBy': null,
+        'vendor': null,
       },
     };
   },
@@ -80,6 +103,7 @@ export const useProductsStore = defineStore('products', {
         key: 'products',
         storage: sessionStorage,
         paths: [
+          'queries',
           'selectedStoreId',
           'statusOption',
           'syncProductsQueue',

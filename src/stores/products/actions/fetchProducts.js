@@ -16,9 +16,10 @@ export const fetchProducts = {
       filters,
       limiter,
       page,
+      productType,
       search_str,
-      sort_by_desc,
-      sort_by,
+      sortBy,
+      vendor,
     } = this.queries;
 
     const {
@@ -27,6 +28,8 @@ export const fetchProducts = {
     } = useConnectionsStore();
 
     const params = {
+      'meta_fields[product_type]': productType,
+      'meta_fields[vendor]': vendor,
       connection_id: connection_id,
       destination_store_id: storeId,
       filters,
@@ -35,8 +38,8 @@ export const fetchProducts = {
       page,
       page: page,
       search_str,
-      sort_by_desc,
-      sort_by,
+      sort_by_desc: sortBy?.sortByDesc,
+      sort_by: sortBy?.key,
       source_store_id: id,
     };
 
