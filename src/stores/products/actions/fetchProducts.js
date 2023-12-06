@@ -43,9 +43,18 @@ export const fetchProducts = {
       source_store_id: id,
     };
 
-    const { products, success } = await axiosService.getData('products', params);
-    if(success) {
+    const response = await axiosService.getData('products', params);
+    if(response?.success) {
+      const { current_page, next_page_url, previous_page_url, products, total } = response
+
       this.products = await products;
+      this.pagination = {
+        current_page: current_page,
+        next_page_url: next_page_url,
+        per_page: limiter,
+        previous_page_url: previous_page_url,
+        total_count: total,
+      };
       this.loading = false;
     }
   }

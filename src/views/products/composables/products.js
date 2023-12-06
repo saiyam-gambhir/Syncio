@@ -27,6 +27,11 @@ export function useProducts() {
     }
   };
 
+  const updateCurrentPageHandler = async page => {
+    queries.value.page = page;
+    await fetchProducts.value();
+  };
+
   const fetchProductsHandler = async () => {
     applyFilters();
     await fetchProducts.value();
@@ -36,5 +41,6 @@ export function useProducts() {
   return {
     fetchProductsHandler,
     unselectAllRowsHandler,
+    updateCurrentPageHandler,
   };
 };

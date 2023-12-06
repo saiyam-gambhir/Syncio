@@ -21,6 +21,7 @@ export const useProductsStore = defineStore('products', {
       loadingBulkMapper: false,
       loadingProductDetails: false,
       pagination: null,
+      pagination: null,
       productDetails: null,
       products: null,
       productTypeOptions: null,
@@ -40,26 +41,10 @@ export const useProductsStore = defineStore('products', {
         { key: 'Not Synced', value: 'unsynced' },
       ],
       sortOptions: [
-        {
-          key: 'title',
-          label: 'A-Z',
-          sortByDesc: false,
-        },
-        {
-          key: 'title',
-          label: 'Z-A',
-          sortByDesc: true,
-        },
-        {
-          key: 'published_at',
-          label: 'Newest to Oldest',
-          sortByDesc: true,
-        },
-        {
-          key: 'published_at',
-          label: 'Oldest to Newest',
-          sortByDesc: false,
-        },
+        { key: 'title', label: 'A-Z', sortByDesc: false },
+        { key: 'title', label: 'Z-A', sortByDesc: true },
+        { key: 'published_at', label: 'Newest to Oldest', sortByDesc: true },
+        { key: 'published_at', label: 'Oldest to Newest', sortByDesc: false },
       ],
       visibilityOptions:  [
         { key: 'All', value: 'all' },

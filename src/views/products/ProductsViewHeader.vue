@@ -43,18 +43,13 @@ const searchHandler = searchText => {
           :autoOptionFocus="false"
           :loading="loading"
           :options="sortOptions"
+          :optionValue="key+label"
           @change="fetchProductsHandler"
           class="w-full"
           optionLabel="label"
+          placeholder="Sort Products"
           showClear
           v-model="queries.sortBy">
-          <template #value>Sort Products</template>
-            <template #option="{ option }">
-              <div class="flex align-items-center justify-content-between">
-                {{ option.label }}
-                <i :class="option.icon"></i>
-              </div>
-            </template>
         </Dropdown>
       </div>
     </div>

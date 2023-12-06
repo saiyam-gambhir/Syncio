@@ -10,6 +10,7 @@ const ProductDetailsDialog = defineAsyncComponent(() => import('./components/Pro
 const {
   fetchProductsHandler,
   unselectAllRowsHandler,
+  updateCurrentPageHandler,
 } = useProducts();
 
 const {
@@ -31,6 +32,7 @@ const {
   isDuplicateSkuFound,
   isProductDetailsDialogRequested,
   loading,
+  pagination,
   products,
   resyncProduct,
   selectedProducts,
@@ -56,10 +58,18 @@ const statusOptions = {
 /* ----- Mounted ----- */
 onMounted(async () => {
   if (connections.value.length === 0) await fetchConnections.value();
-  if(products.value?.length > 0) return;
+  if(products?.value?.length > 0) return;
+
   await fetchProductsHandler();
-  await fetchMetaFields.value();
+  if(selectedStoreId.value) await fetchMetaFields.value();
 });
+
+/* ----- Watch ----- */
+watch(selectedStoreId, (newValue, oldValue) => {
+  if((newValue !== oldValue)) {
+    fetchMetaFields.value();
+  }
+}, { deep: true });
 
 /* ----- Methods ----- */
 const storeFilterHandler = async storeId => {
@@ -362,6 +372,12 @@ const rowUnselectHandler = (row) => {
           </template>
         </Column>
       </DataTable>
+
+      <Pagination
+        :pagination="pagination"
+        @updateCurrentPage="updateCurrentPageHandler"
+        v-if="pagination">
+      </Pagination>
     </article>
 
     <!----- Bulk Mapper ----->
