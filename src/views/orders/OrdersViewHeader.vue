@@ -15,31 +15,36 @@ const searchHandler = async (searchText) => {
 </script>
 
 <template>
-  <div class="flex align-items-center justify-content-between">
-    <div class="p-inputgroup w-35">
-      <SearchFilter
-        :loading="loadingOrders"
-        @update:modelValue="searchHandler"
-        placeholder="Search by exact order number (eg: #1234)"
-        v-model="filters.searchString">
-      </SearchFilter>
+  <div class="grid">
+    <div class="col-10">
+      <div class="p-inputgroup w-100">
+        <SearchFilter
+          :loading="loadingOrders"
+          @update:modelValue="searchHandler"
+          placeholder="Search by exact order number (eg: #1234)"
+          v-model="filters.searchString">
+        </SearchFilter>
+      </div>
     </div>
-
-    <Dropdown
-      :loading="loadingOrders"
-      :options="sortOptions"
-      @change="fetchOrders"
-      optionLabel="label"
-      placeholder="Sort by"
-      optionValue="sortBy"
-      v-model="filters.sortBy">
-      <template #value>Sort by</template>
-      <template #option="{ option }">
-        <div class="flex align-items-center justify-content-between">
-          {{ option.label }}
-          <i :class="option.icon" class="ml-2"></i>
-        </div>
-      </template>
-    </Dropdown>
+    <div class="col-2">
+      <div class="p-inputgroup w-100">
+        <Dropdown
+          :loading="loadingOrders"
+          :options="sortOptions"
+          @change="fetchOrders"
+          optionLabel="label"
+          placeholder="Sort by"
+          optionValue="sortBy"
+          v-model="filters.sortBy">
+          <template #value>Sort by</template>
+          <template #option="{ option }">
+            <div class="flex align-items-center justify-content-between">
+              {{ option.label }}
+              <i :class="option.icon" class="ml-2"></i>
+            </div>
+          </template>
+        </Dropdown>
+      </div>
+    </div>
   </div>
 </template>

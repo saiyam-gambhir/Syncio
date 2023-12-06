@@ -1,26 +1,20 @@
 <script setup>
+import { useProducts } from './composables/products';
+
 const {
-  fetchProducts,
+  fetchProductsHandler,
+} = useProducts();
+
+const {
+  loading,
   queries,
+  statusOption,
+  statusOptions,
+  visibilityOption,
+  visibilityOptions,
 } = toRefs(useProductsStore());
 
-const visiblityOption = ref(null);
-
-const visibilityOptions = [
-  { key: 'All', value: 'all' },
-  { key: 'Online Store', value: 'published' },
-  { key: 'Unavailable', value: 'unpublished' },
-];
-
 /* ----- Methods ----- */
-const fetchProductsHandler = async () => {
-  queries.value.filters = [];
-  if(visiblityOption.value) {
-    queries.value.filters.push(visiblityOption.value);
-  }
-  await fetchProducts.value();
-};
-
 const searchHandler = searchText => {
   queries.value.search_str = searchText;
   fetchProductsHandler();
@@ -32,6 +26,7 @@ const searchHandler = searchText => {
     <div class="col-9">
       <div class="p-inputgroup w-100">
         <SearchFilter
+          :loading="loading"
           @update:modelValue="searchHandler"
           placeholder="Search products by name, ID, tag or SKU"
           v-model="queries.search_str">
@@ -39,17 +34,18 @@ const searchHandler = searchText => {
       </div>
     </div>
     <div class="col-3">
-      <Dropdown
+      <!-- <Dropdown
         :autoOptionFocus="false"
         :options="visibilityOptions"
         @change="fetchProductsHandler"
+        :loading="loading"
         class="w-full"
         optionLabel="key"
         optionValue="value"
         placeholder="Sort products"
         showClear
-        v-model="visiblityOption">
-      </Dropdown>
+        v-model="visibilityOption">
+      </Dropdown> -->
     </div>
   </div>
 
@@ -63,13 +59,13 @@ const searchHandler = searchText => {
           class="w-full"
           optionLabel="key"
           optionValue="value"
-          placeholder="Sales channel visibility"
+          placeholder="`Sales channel visibility"
           showClear
-          v-model="visiblityOption">
+          v-model="visibilityOption">
         </Dropdown>
       </div>
     </div>
-    <div class="col-3">
+    <!-- <div class="col-3">
       <div class="p-inputgroup w-100">
         <Dropdown
           :autoOptionFocus="false"
@@ -80,11 +76,11 @@ const searchHandler = searchText => {
           optionValue="value"
           placeholder="Product type"
           showClear
-          v-model="visiblityOption">
+          v-model="visibilityOption">
         </Dropdown>
       </div>
-    </div>
-    <div class="col-3">
+    </div> -->
+    <!-- <div class="col-3">
       <div class="p-inputgroup w-100">
         <Dropdown
           :autoOptionFocus="false"
@@ -95,22 +91,22 @@ const searchHandler = searchText => {
           optionValue="value"
           placeholder="Vendor"
           showClear
-          v-model="visiblityOption">
+          v-model="visibilityOption">
         </Dropdown>
       </div>
-    </div>
+    </div> -->
     <div class="col-3">
       <div class="p-inputgroup w-100">
         <Dropdown
           :autoOptionFocus="false"
-          :options="visibilityOptions"
+          :options="statusOptions"
           @change="fetchProductsHandler"
           class="w-full"
           optionLabel="key"
           optionValue="value"
           placeholder="Status"
           showClear
-          v-model="visiblityOption">
+          v-model="statusOption">
         </Dropdown>
       </div>
     </div>

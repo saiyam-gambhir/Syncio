@@ -28,6 +28,20 @@ export const useProductsStore = defineStore('products', {
       syncedProducts: [],
       syncProductsQueue: [],
       unsyncedProducts: [],
+
+      /* ----- Filters ----- */
+      statusOption: null,
+      visibilityOption: null,
+      statusOptions:  [
+        { key: 'All', value: 'all' },
+        { key: 'Synced', value: 'synced' },
+        { key: 'Not Synced', value: 'unsynced' },
+      ],
+      visibilityOptions:  [
+        { key: 'All', value: 'all' },
+        { key: 'Online Store', value: 'published' },
+        { key: 'Unavailable', value: 'unpublished' },
+      ],
       queries: {
         'filters': [],
         'limiter': 25,
@@ -67,7 +81,9 @@ export const useProductsStore = defineStore('products', {
         storage: sessionStorage,
         paths: [
           'selectedStoreId',
+          'statusOption',
           'syncProductsQueue',
+          'visibilityOption',
         ],
       },
     ],

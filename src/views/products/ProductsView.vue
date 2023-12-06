@@ -1,10 +1,17 @@
 <script setup>
+import { useProducts } from './composables/products';
+
 /* ----- Components ----- */
 const BulkMapperDialog = defineAsyncComponent(() => import('./components/BulkMapperDialog.vue'));
 const DuplicateSkuDialog = defineAsyncComponent(() => import('./components/DuplicateSkuDialog.vue'));
 const ProductDetailsDialog = defineAsyncComponent(() => import('./components/ProductDetailsdialog.vue'));
 
 /* ----- Data ----- */
+const {
+  fetchProductsHandler,
+  unselectAllRowsHandler,
+} = useProducts();
+
 const {
   userId,
 } = toRefs(useAuthStore());
@@ -20,7 +27,6 @@ const {
   bulkSyncProducts,
   fetchMetaFields,
   fetchProductDetails,
-  fetchProducts,
   isBulkMapperDialogRequested,
   isDuplicateSkuFound,
   isProductDetailsDialogRequested,
@@ -50,6 +56,7 @@ const statusOptions = {
 /* ----- Mounted ----- */
 onMounted(async () => {
   if (connections.value.length === 0) await fetchConnections.value();
+  if(products.value?.length > 0) return;
   await fetchProductsHandler();
   await fetchMetaFields.value();
 });
@@ -58,11 +65,6 @@ onMounted(async () => {
 const storeFilterHandler = async storeId => {
   selectedStoreId.value = storeId;
 };
-
-const fetchProductsHandler = async () => {
-  await fetchProducts.value();
-  unselectAllRowsHandler();
-}
 
 const getProductSyncStatus = product => {
   const { product_status, mapper_id, is_sync_failed, external_product_id } = product;
@@ -166,12 +168,6 @@ const rowSelectHandler = (row) => {
   } else {
     unsyncedProducts.value.push(row.data);
   }
-};
-
-const unselectAllRowsHandler = () => {
-  selectedProducts.value = [];
-  syncedProducts.value = [];
-  unsyncedProducts.value = [];
 };
 
 const rowUnselectHandler = (row) => {

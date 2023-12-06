@@ -1,6 +1,4 @@
 <script setup>
-import * as routes from '@/routes';
-
 /* ----- Data ----- */
 const {
   partnerStoreType
