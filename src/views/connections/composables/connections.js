@@ -6,6 +6,7 @@ export function useConnections() {
     isConnectionDisconnectRequested,
     isNewStoreConnectionRequested,
     selectedConnection,
+    updateLocation,
   } = toRefs(useConnectionsStore());
 
   const isConnectViaStoreKeyRequested = ref(false);
@@ -25,26 +26,6 @@ export function useConnections() {
     isConnectionDisconnectRequested.value = true;
   };
 
-  // const locationChangeHandler = async () => {
-  //   const payload = {
-  //     d_inventory_reference:
-  //       connections.selectedLocation?.external_reference_id,
-  //     destination_store_id: connections.storeId,
-  //     is_default: true,
-  //     name: connections.selectedLocation.name,
-  //     s_inventory_reference:
-  //       connections.selectedConnection?.source_default_inventory_location,
-  //     source_store_id: connections.selectedConnection?.id,
-  //     store_type: connections.storeType,
-  //     sync_option: 'keep',
-  //   };
-
-  //   connections.loadingLocationChange = true;
-  //   await connections.updateLocation(payload);
-  //   connections.loadingLocationChange = false;
-  //   isLocationChanged.value = true;
-  // };
-
   const connectPartnerStoreHandler = async (storeIdentifier) => {
     try {
       isSendingInvitation.value = true;
@@ -55,7 +36,7 @@ export function useConnections() {
     } finally {
       isSendingInvitation.value = false;
     }
-  }
+  };
 
   const invitePartnerStoreHandler = async (partnerStoreEmail) => {
     try {
@@ -67,7 +48,11 @@ export function useConnections() {
     } finally {
       isSendingInvitation.value = false;
     }
-  }
+  };
+
+  const updateLocationHandler = () => {
+    updateLocation.value();
+  };
 
   return {
     connectPartnerStoreHandler,
@@ -77,6 +62,7 @@ export function useConnections() {
     isConnectViaStoreKeyRequested,
     isInviteViaEmailRequested,
     isSendingInvitation,
+    updateLocationHandler,
     showDisconnectStoreDialog,
   };
 }

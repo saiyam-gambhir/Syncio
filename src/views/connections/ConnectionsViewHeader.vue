@@ -1,6 +1,4 @@
 <script setup>
-import { useConnections } from './composables/connections';
-
 /* ----- Data ----- */
 const {
   filters,

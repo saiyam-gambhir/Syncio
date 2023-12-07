@@ -1,4 +1,5 @@
 import { toast } from 'vue3-toastify';
+import * as routes from '@/routes';
 import axios from 'axios';
 
 const toastOptions = {
@@ -72,7 +73,6 @@ class AxiosService {
           case 403:
             const activityCenter = useActivityCenterStore();
             const auth = useAuthStore();
-            const connections = useConnectionsStore();
             const marketPlace = useMarketPlaceStore();
             const orders = useOrdersStore();
             const payouts = usePayoutsStore();
@@ -82,7 +82,6 @@ class AxiosService {
 
             activityCenter.$reset();
             auth.$reset();
-            //connections.$reset();
             marketPlace.$reset();
             orders.$reset();
             payouts.$reset();
@@ -120,9 +119,7 @@ class AxiosService {
     try {
       const response = await this.https.delete(url);
       return response.data;
-    } catch (error) {
-      throw new Error(error);
-    }
+    } catch (error) {}
   };
 
   async getData(url, params = {}) {
@@ -131,9 +128,7 @@ class AxiosService {
       const cleanedParams = this.getCleanedParams(params);
       const response = await this.https.get(url, { params: cleanedParams });
       return response.data;
-    } catch (error) {
-      throw new Error(error);
-    }
+    } catch (error) {}
   };
 
   async postData(url, params = {}, completeResponse = false) {
@@ -152,9 +147,7 @@ class AxiosService {
     try {
       const response = await this.https.post(url, params);
       return response.data;
-    } catch (error) {
-      throw new Error(error);
-    }
+    } catch (error) {}
   }
 }
 

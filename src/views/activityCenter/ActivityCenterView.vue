@@ -1,6 +1,4 @@
 <script setup>
-import { useActivities } from './composables/activities';
-
 /* ----- Components ----- */
 const GeneralUpdates = defineAsyncComponent(() => import('@/views/activityCenter/components/GeneralUpdates/GeneralUpdates.vue'));
 const OrderIssues = defineAsyncComponent(() => import('@/views/activityCenter/components/OrderIssues/OrderIssues.vue'));

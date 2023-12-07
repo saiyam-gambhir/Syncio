@@ -31,7 +31,7 @@ export const fetchProducts = {
       'meta_fields[product_type]': productType,
       'meta_fields[vendor]': vendor,
       connection_id: connection_id,
-      destination_store_id: storeId,
+      destination_store_id: storeType === 'destination' ? storeId : id,
       filters,
       limiter,
       origin: storeType,
@@ -40,7 +40,7 @@ export const fetchProducts = {
       search_str,
       sort_by_desc: sortBy?.sortByDesc,
       sort_by: sortBy?.key,
-      source_store_id: id,
+      source_store_id: storeType === 'destination' ? id : storeId,
     };
 
     const response = await axiosService.getData('products', params);

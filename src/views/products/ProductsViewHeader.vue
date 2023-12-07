@@ -1,6 +1,4 @@
 <script setup>
-import { useProducts } from './composables/products';
-
 const {
   fetchProductsHandler,
 } = useProducts();

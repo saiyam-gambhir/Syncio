@@ -1,5 +1,12 @@
 <script setup>
-const { randomInteger } = useFilters();
+/* ----- Data ----- */
+const {
+  randomInteger,
+} = useFilters();
+
+const {
+  isDestinationStore,
+} = toRefs(useConnectionsStore());
 </script>
 
 <template>
@@ -49,7 +56,7 @@ const { randomInteger } = useFilters();
         </template>
       </Column>
 
-      <Column header="Actions" style="width: 16%" class="text-right">
+      <Column header="Actions" style="width: 16%" class="text-right" v-if="isDestinationStore">
         <template #body>
           <Skeleton height="33.06px" width="100px" style="float: right" borderRadius="6px" />
         </template>

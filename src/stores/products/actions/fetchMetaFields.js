@@ -13,13 +13,19 @@ function removeDuplicates(arr, key) {
     return 0;
   });
 
-  // uniqueArray.unshift({ key: null, value: 'All' });
   return uniqueArray;
 }
 
 export const fetchMetaFields = {
   async fetchMetaFields() {
-    const response = await axiosService.getData(`stores/${this.selectedStoreId}/get-product-meta-fields`);
+    const {
+      storeId,
+      storeType,
+    } = useConnectionsStore();
+
+    const storeID = storeType === 'destination' ? this.selectedStoreId : storeId;
+
+    const response = await axiosService.getData(`stores/${storeID}/get-product-meta-fields`);
     if(response.success) {
       this.productTypeOptions = removeDuplicates(response.meta_fields.product_type?.filter(field => field.value !== null), 'value');
       this.vendorOptions = removeDuplicates(response.meta_fields.vendor?.filter(field => field.value !== null), 'value');

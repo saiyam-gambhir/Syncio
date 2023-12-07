@@ -1,5 +1,4 @@
 <script setup>
-import { useOrders } from './composables/orders';
 import * as routes from '@/routes';
 
 /* ----- Components ----- */

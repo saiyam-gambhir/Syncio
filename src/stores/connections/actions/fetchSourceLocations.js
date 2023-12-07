@@ -5,6 +5,7 @@ export const fetchSourceLocations = {
 
     if(response.success) {
       this.sourceLocations = await response.inventories;
+      this.sourceLocations.unshift({ id: 0, name: 'All Locations' });
       this.loadingInventory = false;
     }
   }

@@ -15,6 +15,7 @@ export default defineConfig({
       ],
       dirs: [
         './src/composables/**',
+        './src/views/*/composables/**',
         './src/stores/**',
       ]
     }),
@@ -27,7 +28,6 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
       'activityCenter': fileURLToPath(new URL('./src/stores/activityCenter', import.meta.url)),
       'auth': fileURLToPath(new URL('./src/stores/auth', import.meta.url)),
-      'connections': fileURLToPath(new URL('./src/stores/connections', import.meta.url)),
       'marketPlace': fileURLToPath(new URL('./src/stores/marketPlace', import.meta.url)),
       'orders': fileURLToPath(new URL('./src/stores/orders', import.meta.url)),
       'payouts': fileURLToPath(new URL('./src/stores/payouts', import.meta.url)),

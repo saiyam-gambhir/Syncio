@@ -1,6 +1,4 @@
 <script setup>
-import { useProducts } from './composables/products';
-
 /* ----- Components ----- */
 const BulkMapperDialog = defineAsyncComponent(() => import('./components/BulkMapperDialog.vue'));
 const DuplicateSkuDialog = defineAsyncComponent(() => import('./components/DuplicateSkuDialog.vue'));
@@ -323,8 +321,8 @@ const rowUnselectHandler = (row) => {
           </template>
         </Column>
 
-        <Column header="Actions" style="width: 16%" class="text-right">
-          <template #body="{ data }" v-if="isDestinationStore">
+        <Column header="Actions" style="width: 16%" class="text-right" v-if="isDestinationStore">
+          <template #body="{ data }">
             <div v-if="data.mapper_id">
               <span v-if="syncedProducts.length > 0 || unsyncedProducts.length > 0" v-tooltip.top="'Clear bulk selection to access this button.'" class="inline-block">
                 <SplitButton

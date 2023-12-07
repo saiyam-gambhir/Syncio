@@ -1,5 +1,4 @@
 <script setup>
-import { usePayouts } from './composables/payouts';
 import * as routes from '@/routes';
 
 /* ----- Components ----- */
