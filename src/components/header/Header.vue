@@ -162,6 +162,6 @@ const connectNewStoreHandler = async () => {
       <Menu ref="menu" id="overlay_menu" :model="items" :popup="true" />
     </div>
 
-    <ShopifyPermissionsDialog v-if="shopifyPermissions.showPermissionsDialog" />
+    <ShopifyPermissionsDialog v-if="shopifyPermissions.showDialog" />
   </header>
 </template>

@@ -8,6 +8,7 @@ import { fetchConnections } from './actions/fetchConnections';
 import { fetchCurrentStore } from './actions/fetchCurrentStore';
 import { fetchDestinationLocations } from './actions/fetchDestinationLocations';
 import { fetchMetadata } from './actions/fetchMetadata';
+import { fetchSourceLocations } from './actions/fetchSourceLocations';
 import { invitePartnerStore } from './actions/invitePartnerStore';
 import { showToast } from './actions/showToast';
 import { toggleMultilocation } from './actions/toggleMultilocation';
@@ -32,25 +33,19 @@ export const useConnectionsStore = defineStore('connections', {
       isDisconnectAndKeepRequested: false,
       isMultilocationEnabled: 'Off',
       loadingConnections: false,
+      loadingInventory: false,
       loadingLocationChange: false,
       selectedConnection: {},
       toast: useToast(),
       shopifyPermissions: {
-        showPermissionsDialog: false,
         link: null,
+        showDialog: false,
       },
       sortOptions: [
-        {
-          key: 'store_domain',
-          label: 'A-Z',
-          sortByDesc: false,
-        },
-        {
-          key: 'store_domain',
-          label: 'Z-A',
-          sortByDesc: true,
-        },
+        { key: 'store_domain', label: 'A-Z', sortByDesc: false },
+        { key: 'store_domain', label: 'Z-A', sortByDesc: true },
       ],
+      sourceLocations: null,
     };
   },
 
@@ -115,6 +110,7 @@ export const useConnectionsStore = defineStore('connections', {
     fetchCurrentStore,
     fetchDestinationLocations,
     fetchMetadata,
+    fetchSourceLocations,
     invitePartnerStore,
     showToast,
     toggleMultilocation,

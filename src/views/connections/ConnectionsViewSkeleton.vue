@@ -24,7 +24,7 @@
       </template>
     </Column>
 
-    <Column header="Assigned Location" style="width: 25%">
+    <Column header="Location" style="width: 25%">
       <template #body>
         <Skeleton height="31px" />
       </template>

@@ -5,8 +5,9 @@ import * as routes from '@/routes';
 /* ----- Data ----- */
 const {
   connections,
+  isDestinationStore,
   isMultilocation,
-  destinationLocations,
+  isSourceStore,
 } = toRefs(useConnectionsStore());
 
 const {
@@ -19,16 +20,13 @@ const {
   selectedStoreId
 } = toRefs(useProductsStore());
 
-const loadingProductsRoute = ref(false);
 const router = useRouter();
 
 /* ----- Methods ----- */
 const fetchProductsHandler = async (store) => {
-  await router.push({ name: routes.PRODUCTS });
   selectedStoreId.value = store.id;
-  loadingProductsRoute.value = true;
+  await router.push({ name: routes.PRODUCTS });
   await fetchProducts.value();
-  loadingProductsRoute.value = false;
 }
 </script>
 
@@ -48,6 +46,7 @@ const fetchProductsHandler = async (store) => {
       <template #body="{ data: connection }">
         <IconShopify v-if="connection.platform === 'shopify'" />
         <IconWoo v-if="connection.platform === 'woocommerce'" />
+        <span class="font-semibold" v-if="connection.platform === 'shopline'">SL</span>
       </template>
     </Column>
 
@@ -68,9 +67,15 @@ const fetchProductsHandler = async (store) => {
       </template>
     </Column>
 
-    <Column header="Assigned Location" style="width: 25%">
+    <Column header="Assigned Location" style="width: 25%" v-if="isDestinationStore">
       <template #body="{ data: connection }" v-if="isMultilocation">
-        <!-- {{ destinationLocations }} -->
+        <DestinationLocationDropdown :connection="connection" />
+      </template>
+    </Column>
+
+    <Column header="Inventory Location" style="width: 25%" v-if="isSourceStore">
+      <template #body="{ data: connection }">
+        <SourceInventoryDropdown :connection="connection" />
       </template>
     </Column>
 
@@ -81,7 +86,7 @@ const fetchProductsHandler = async (store) => {
           class="p-button-sm"
           label="View products"
           :model="[
-              { label: 'Disconnect', command: () => showDisconnectStoreDialog(connection) },
+            { label: 'Disconnect', command: () => showDisconnectStoreDialog(connection) },
           ]"
           outlined>
         </SplitButton>

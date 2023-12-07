@@ -45,7 +45,7 @@ export const fetchProducts = {
 
     const response = await axiosService.getData('products', params);
     if(response?.success) {
-      const { current_page, next_page_url, previous_page_url, products, total } = response
+      const { current_page, next_page_url, previous_page_url, products, total } = response;
 
       this.products = await products;
       this.pagination = {

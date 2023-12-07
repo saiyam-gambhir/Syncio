@@ -11,14 +11,12 @@ export const fetchConnections = {
     };
 
     const { stores } = await axiosService.getData('stores/connections', params);
-
     this.connections = await stores;
 
     const { storeConnections } = toRefs(usePayoutsSettingsStore());
     storeConnections.value = await stores;
 
     this.connectionFilterItems = await stores;
-
     this.loadingConnections = false;
   },
 };

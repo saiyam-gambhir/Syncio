@@ -11,7 +11,7 @@ const reviewPermissionsHandler = () => {
 </script>
 
 <template>
-  <DialogWrapper :isVisible="shopifyPermissions.showPermissionsDialog" title="Review and approve permissions" width="500px" :closable="false">
+  <DialogWrapper :isVisible="shopifyPermissions.showDialog" title="Review and approve permissions" width="500px" :closable="false">
     <template #body>
       <p class="text-xl m-0 pb-3 line-height-3">
         We've made some improvements to the Syncio app, which require your permissions approval in <strong>Shopify</strong>.

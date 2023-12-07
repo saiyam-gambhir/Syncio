@@ -9,11 +9,13 @@ const {
   connections,
   fetchConnections,
   fetchDestinationLocations,
+  fetchSourceLocations,
   isConnectionDisconnectRequested,
   isDestinationStore,
   isDisableMultilocationRequested,
   isMultilocationEnabled,
   isNewStoreConnectionRequested,
+  isSourceStore,
   isStoreMultilocation,
   loadingConnections,
   toggleMultilocation,
@@ -25,7 +27,8 @@ const options = ref(['Off', 'On']);
 onMounted(async () => {
   if (connections.value.length === 0) {
     await fetchConnections.value();
-    if (isStoreMultilocation.value) await fetchDestinationLocations.value();
+    if (isStoreMultilocation.value && isDestinationStore.value) await fetchDestinationLocations.value();
+    if(isSourceStore) await fetchSourceLocations.value();
   }
 });
 
