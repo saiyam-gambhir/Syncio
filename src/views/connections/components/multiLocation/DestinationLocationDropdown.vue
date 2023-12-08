@@ -4,8 +4,10 @@ const inventoryReferenceId = ref(null);
 
 const {
   destinationLocations,
+  isLocationChangeRequested,
   isMultilocation,
   loadingInventory,
+  location,
   storeId,
   storeType,
   updateLocation,
@@ -26,7 +28,7 @@ onMounted(() => {
 });
 
 /* ----- Computed ----- */
-const location = computed(() => {
+const selectedLocation = computed(() => {
   return destinationLocations?.value?.find(location => location.id === +inventoryReferenceId.value);
 });
 
@@ -34,18 +36,27 @@ const location = computed(() => {
 const updateInventoryHandler = async inventoryId => {
   if(inventoryId.value === +props.connection.destination_default_inventory_location?.external_reference_id) return;
 
+  const { destination_default_inventory_location, store_domain } = props.connection;
+  location.value = {
+    current: destination_default_inventory_location,
+    new: selectedLocation.value,
+    store: store_domain,
+  };
+
+  isLocationChangeRequested.value = true;
+
   const payload = {
     d_inventory_reference: +inventoryId.value,
     destination_store_id: storeId.value,
     is_default: true,
-    name: location?.value.name,
+    name: selectedLocation?.value.name,
     s_inventory_reference: null,
     source_store_id: +props.connection?.id,
     store_type: storeType.value,
     sync_option: 'keep',
   };
 
-  await updateLocation.value(payload);
+  //await updateLocation.value(payload);
 };
 </script>
 
@@ -63,5 +74,5 @@ const updateInventoryHandler = async inventoryId => {
     v-model="inventoryReferenceId">
   </Dropdown>
 
-  <span v-else style="padding-left: .85rem;">{{ location?.name }}</span>
+  <span v-else style="padding-left: .85rem;">{{ selectedLocation?.name }}</span>
 </template>

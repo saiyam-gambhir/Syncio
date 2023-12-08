@@ -3,6 +3,7 @@
 const ConnectNewStoreDialog = defineAsyncComponent(() => import('./components/connect/ConnectNewStoreDialog.vue'));
 const DisableMultilocationDialog = defineAsyncComponent(() => import('./components/multiLocation/DisableMultilocationDialog.vue'));
 const DisconnectDialog = defineAsyncComponent(() => import('./components/disconnect/DisconnectDialog.vue'));
+const LocationChangeConfirmationDialog = defineAsyncComponent(() => import('./components/multiLocation/LocationChangeConfirmationDialog.vue'));
 
 /* ----- Data ----- */
 const {
@@ -13,11 +14,13 @@ const {
   isConnectionDisconnectRequested,
   isDestinationStore,
   isDisableMultilocationRequested,
+  isLocationChangeRequested,
   isMultilocationEnabled,
   isNewStoreConnectionRequested,
   isSourceStore,
   isStoreMultilocation,
   loadingConnections,
+  location,
   toggleMultilocation,
 } = toRefs(useConnectionsStore());
 
@@ -86,4 +89,5 @@ const toggleMultilocationHandler = async event => {
   <ConnectNewStoreDialog v-if="isNewStoreConnectionRequested" />
   <DisconnectDialog v-if="isConnectionDisconnectRequested" />
   <DisableMultilocationDialog v-if="isDisableMultilocationRequested" />
+  <LocationChangeConfirmationDialog v-if="isLocationChangeRequested" />
 </template>
