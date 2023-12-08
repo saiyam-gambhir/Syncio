@@ -63,6 +63,7 @@ class AxiosService {
             if (message) {
               toast(message, { ...toastOptions, type: 'error' });
             }
+
             if(data.redirect_to === 'billing') {
               router.push({ name: routes.PLAN_AND_BILLINGS });
             }

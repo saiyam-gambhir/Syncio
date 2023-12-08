@@ -10,7 +10,6 @@ const {
   location,
   storeId,
   storeType,
-  updateLocation,
 } = toRefs(useConnectionsStore());
 
 /* ----- Props ----- */
@@ -56,7 +55,7 @@ const updateInventoryHandler = async inventoryId => {
     sync_option: 'keep',
   };
 
-  //await updateLocation.value(payload);
+  location.value.params = payload;
 };
 </script>
 

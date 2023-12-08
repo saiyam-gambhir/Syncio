@@ -3,11 +3,12 @@
 const inventoryReferenceId = ref(0);
 
 const {
+  isLocationChangeRequested,
+  location,
   loadingInventory,
   sourceLocations,
   storeId,
   storeType,
-  updateLocation,
 } = toRefs(useConnectionsStore());
 
 /* ----- Props ----- */
@@ -30,6 +31,15 @@ const updateInventoryHandler = async inventoryId => {
 
   const selectedInventory = sourceLocations.value.find(inventory => inventory.id === inventoryId.value);
 
+  const { source_default_inventory_location, store_domain } = props.connection;
+  location.value = {
+    current: source_default_inventory_location ?? { id: 0, name: 'All Locations' },
+    new: selectedInventory,
+    store: store_domain,
+  }
+
+  isLocationChangeRequested.value = true;
+
   const payload = {
     d_inventory_reference: +props.connection?.destination_default_inventory_location?.external_reference_id,
     destination_store_id: +props.connection?.id,
@@ -41,7 +51,7 @@ const updateInventoryHandler = async inventoryId => {
     sync_option: 'keep',
   };
 
-  await updateLocation.value(payload);
+  location.value.params = payload;
 };
 </script>
 

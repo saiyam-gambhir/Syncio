@@ -30,6 +30,7 @@ export const useConnectionsStore = defineStore('connections', {
       isDisableMultilocationRequested: false,
       isDisconnectAndDeleteRequested: false,
       isDisconnectAndKeepRequested: false,
+      isLocationChanged: false,
       isLocationChangeRequested: false,
       isMultilocationEnabled: 'Off',
       isNewStoreConnectionRequested: false,
@@ -39,6 +40,7 @@ export const useConnectionsStore = defineStore('connections', {
       location: {
         current: null,
         new: null,
+        params: null,
         store: null,
       },
       selectedConnection: {},
