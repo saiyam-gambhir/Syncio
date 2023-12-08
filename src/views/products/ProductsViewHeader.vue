@@ -25,7 +25,7 @@ const searchHandler = searchText => {
 
 <template>
   <section v-if="selectedStoreId">
-    <div class="grid my-0">
+    <div class="grid grid-sm my-0">
       <div class="col-9">
         <div class="p-inputgroup w-100">
           <SearchFilter
@@ -52,8 +52,8 @@ const searchHandler = searchText => {
       </div>
     </div>
 
-    <div class="grid my-0">
-      <div class="col-3">
+    <div class="grid grid-sm my-0">
+      <div class="col-3 pb-0">
         <div class="p-inputgroup w-100">
           <Dropdown
             :autoOptionFocus="false"
@@ -69,7 +69,7 @@ const searchHandler = searchText => {
           </Dropdown>
         </div>
       </div>
-      <div class="col-3">
+      <div class="col-3 pb-0">
         <div class="p-inputgroup w-100">
           <Dropdown
             :autoOptionFocus="false"
@@ -85,7 +85,7 @@ const searchHandler = searchText => {
           </Dropdown>
         </div>
       </div>
-      <div class="col-3">
+      <div class="col-3 pb-0">
         <div class="p-inputgroup w-100">
           <Dropdown
             :autoOptionFocus="false"
@@ -101,20 +101,25 @@ const searchHandler = searchText => {
           </Dropdown>
         </div>
       </div>
-      <div class="col-3">
-        <div class="p-inputgroup w-100">
-          <Dropdown
-            :autoOptionFocus="false"
-            :loading="loading"
-            :options="statusOptions"
-            @change="fetchProductsHandler"
-            class="w-full"
-            optionLabel="key"
-            optionValue="value"
-            placeholder="Status"
-            showClear
-            v-model="statusOption">
-          </Dropdown>
+      <div class="col-3 pb-0">
+        <div class="grid">
+          <div class="col-6 pl-3">
+            <div class="p-inputgroup w-100">
+              <Dropdown
+                :autoOptionFocus="false"
+                :loading="loading"
+                :options="statusOptions"
+                @change="fetchProductsHandler"
+                class="w-full"
+                optionLabel="key"
+                optionValue="value"
+                placeholder="Status"
+                showClear
+                v-model="statusOption">
+              </Dropdown>
+            </div>
+          </div>
+          <div class="col-6"></div>
         </div>
       </div>
     </div>

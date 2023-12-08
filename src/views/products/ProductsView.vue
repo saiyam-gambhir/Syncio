@@ -195,7 +195,8 @@ const rowUnselectHandler = (row) => {
     withActions
     withLink>
     <template #header>
-      Sync and manage your inventory.
+      <span v-if="isDestinationStore">Sync and manage your inventory. </span>
+      <span v-else>View inventory and product sync status for connected Destination stores. </span>
       <AppLink link="https://help.syncio.co/en/articles/3285405-syncing-products" label="Read about syncing products" />
     </template>
     <template #actions>
@@ -214,14 +215,14 @@ const rowUnselectHandler = (row) => {
         class="ml-5 bulk-mapper-btn"
         label="Bulk mapper"
         outlined
-        v-if="selectedStoreId">
+        v-if="selectedStoreId && isDestinationStore">
       </Button>
     </template>
   </PageHeader>
 
   <ProductsViewSkeleton v-if="loading" />
   <template v-else>
-    <div v-if="syncedProducts.length > 0 || unsyncedProducts.length > 0" class="flex align-items-center py-2">
+    <div v-if="(syncedProducts.length > 0 || unsyncedProducts.length > 0) && isDestinationStore" class="flex align-items-center py-2">
       <h3 class="m-0">{{ selectedProducts?.length }} products selected</h3>
 
       <Button
@@ -265,7 +266,8 @@ const rowUnselectHandler = (row) => {
 
         <Column
           headerStyle="width: 4%"
-          selectionMode="multiple">
+          selectionMode="multiple"
+          v-if="isDestinationStore">
         </Column>
 
         <Column header="Product" style="width: 36%">

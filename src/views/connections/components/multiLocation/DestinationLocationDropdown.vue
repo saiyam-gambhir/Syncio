@@ -6,6 +6,9 @@ const {
   destinationLocations,
   isMultilocation,
   loadingInventory,
+  storeId,
+  storeType,
+  updateLocation,
 } = toRefs(useConnectionsStore());
 
 /* ----- Props ----- */
@@ -21,6 +24,29 @@ onMounted(() => {
   const defaultInventoryReferenceId = props.connection?.destination_default_inventory_location?.external_reference_id;
   inventoryReferenceId.value = +defaultInventoryReferenceId;
 });
+
+/* ----- Computed ----- */
+const location = computed(() => {
+  return destinationLocations?.value?.find(location => location.id === +inventoryReferenceId.value);
+});
+
+/* ----- Methods ----- */
+const updateInventoryHandler = async inventoryId => {
+  if(inventoryId.value === +props.connection.destination_default_inventory_location?.external_reference_id) return;
+
+  const payload = {
+    d_inventory_reference: +inventoryId.value,
+    destination_store_id: storeId.value,
+    is_default: true,
+    name: location?.value.name,
+    s_inventory_reference: null,
+    source_store_id: +props.connection?.id,
+    store_type: storeType.value,
+    sync_option: 'keep',
+  };
+
+  await updateLocation.value(payload);
+};
 </script>
 
 <template>
@@ -28,12 +54,14 @@ onMounted(() => {
     :autoOptionFocus="false"
     :loading="loadingInventory"
     :options="destinationLocations"
-    @change=""
+    @change="updateInventoryHandler"
     class="w-full"
     optionLabel="name"
     optionValue="id"
     placeholder="Select Location"
-    v-if="isMultilocation"
+    v-if="isMultilocation && connection.platform === 'shopify'"
     v-model="inventoryReferenceId">
   </Dropdown>
+
+  <span v-else style="padding-left: .85rem;">{{ location?.name }}</span>
 </template>

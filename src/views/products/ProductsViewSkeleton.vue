@@ -22,7 +22,8 @@ const {
 
       <Column
         headerStyle="width: 4%"
-        selectionMode="multiple">
+        selectionMode="multiple"
+        v-if="isDestinationStore">
       </Column>
 
       <Column header="Product" style="width: 36%">

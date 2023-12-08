@@ -27,9 +27,10 @@ const options = ref(['Off', 'On']);
 onMounted(async () => {
   if (connections.value.length === 0) {
     await fetchConnections.value();
-    if (isStoreMultilocation.value && isDestinationStore.value) await fetchDestinationLocations.value();
-    if(isSourceStore) await fetchSourceLocations.value();
   }
+
+  if(isStoreMultilocation.value && isDestinationStore.value) await fetchDestinationLocations.value();
+  if(isSourceStore.value) await fetchSourceLocations.value();
 });
 
 /* ----- Methods ----- */

@@ -77,6 +77,20 @@ p {
       right: $gutter;
     }
   }
+
+  &.grid-sm {
+    margin: {
+      left: -.5rem;
+      right: -.5rem;
+    };
+
+    [class*='col-'] {
+      padding: {
+        left: .5rem;
+        right: .5rem;
+      }
+    }
+  }
 }
 
 .theme-light .surface-ground {
@@ -614,6 +628,8 @@ input.p-inputtext-lg {
 .p-datatable .p-datatable-tbody>tr.p-highlight {
   background-color: aliceblue !important;
 }
+
+
 /* ----- OVERRIDES ----- */
 
 .theme-light .primary-navigation .router-link-active:not(.disabled) {

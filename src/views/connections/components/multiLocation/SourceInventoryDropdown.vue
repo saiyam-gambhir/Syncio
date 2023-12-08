@@ -24,6 +24,7 @@ onMounted(() => {
   inventoryReferenceId.value = sourceInventoryReferenceId ? +sourceInventoryReferenceId : 0;
 });
 
+/* ----- Methods ----- */
 const updateInventoryHandler = async inventoryId => {
   if(inventoryId.value === +props.connection.source_default_inventory_location?.external_reference_id) return;
 
