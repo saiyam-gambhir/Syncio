@@ -24,6 +24,7 @@ const {
 
 const {
   bulkSyncProducts,
+  clickedProduct,
   fetchMetaFields,
   fetchProductDetails,
   isBulkMapperDialogRequested,
@@ -107,6 +108,7 @@ const updateProductStatus = (product, id) => {
 };
 
 const syncProductHandler = async (product) => {
+  clickedProduct.value = product;
   const response = await syncProduct.value(product.external_product_id);
   if(response?.success) {
     product.mapper_id = await response.mapper.id;
@@ -186,6 +188,11 @@ const rowUnselectHandler = (row) => {
     const rowIndex = unsyncedProducts.value.findIndex(_row => _row.external_product_id == row.data.external_product_id);
     unsyncedProducts.value.splice(rowIndex, 1);
   }
+};
+
+const fetchProductDetailsHandler = (product) => {
+  clickedProduct.value = product;
+  fetchProductDetails.value({ externalProductId: product.external_product_id, targetStoreId: product.store_id }, false);
 };
 </script>
 
@@ -364,7 +371,7 @@ const rowUnselectHandler = (row) => {
                 class="p-button-sm"
                 label="Sync"
                 :model="[
-                  { label: 'Map', command: () => {} }
+                  { label: 'Map', command: () => fetchProductDetailsHandler(data) }
                 ]"
                 outlined>
               </SplitButton>

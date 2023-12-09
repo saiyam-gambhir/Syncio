@@ -126,7 +126,7 @@ const searchHandler = searchText => {
               inputId="hide-zero-stock"
               v-model="excludeZeroStock">
             </InputSwitch>
-            <label class="pointer font-semibold ml-3" for="hide-zero-stock">Hide 0 <br> stock products</label>
+            <label class="pointer font-semi ml-3" for="hide-zero-stock">Hide 0 <br> stock products</label>
           </div>
         </div>
       </div>

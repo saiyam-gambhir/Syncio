@@ -13,6 +13,7 @@ import { unsyncProduct } from './actions/unsyncProduct';
 export const useProductsStore = defineStore('products', {
   state: () => {
     return {
+      clickedProduct: null,
       isBulkMapperDialogRequested: false,
       isDuplicateSkuFound: false,
       isProductDetailsDialogRequested: false,
@@ -89,6 +90,7 @@ export const useProductsStore = defineStore('products', {
         key: 'products',
         storage: sessionStorage,
         paths: [
+          'excludeZeroStock',
           'queries',
           'selectedStoreId',
           'statusOption',

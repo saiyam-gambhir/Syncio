@@ -5,12 +5,20 @@ const {
 } = toRefs(useConnectionsStore());
 
 const {
-  isDuplicateSkuFound
+  clickedProduct,
+  fetchProductDetails,
+  isDuplicateSkuFound,
 } = toRefs(useProductsStore());
 
 /* ----- Methods ----- */
 const closeDialogHandler = () => {
   isDuplicateSkuFound.value = false;
+};
+
+const fetchProductDetailsHandler = () => {
+  closeDialogHandler();
+  const { external_product_id, store_id } = clickedProduct.value;
+  fetchProductDetails.value({ externalProductId: external_product_id, targetStoreId: store_id }, false);
 };
 </script>
 
@@ -33,6 +41,7 @@ const closeDialogHandler = () => {
         </Button>
 
         <Button
+          @click="fetchProductDetailsHandler"
           class="mr-0"
           label="Map">
         </Button>
