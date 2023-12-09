@@ -7,15 +7,11 @@ const {
 } = toRefs(useConnectionsStore());
 
 /* ----- Methods ----- */
-const closeDialogHandler = () => {
+const closeDialogHandler = async () => {
   isLocationChanged.value = false;
   location.value = null;
-};
-
-const okHandler = async () => {
-  isLocationChanged.value = false;
   await fetchConnections.value();
-}
+};
 </script>
 
 <template>
@@ -37,7 +33,7 @@ const okHandler = async () => {
 
     <template #footer>
       <div class="flex justify-content-end">
-        <Button label="Ok" class="mr-1" @click="okHandler"></Button>
+        <Button label="Ok" class="mr-1" @click="closeDialogHandler"></Button>
       </div>
     </template>
   </DialogWrapper>

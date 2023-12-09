@@ -12,8 +12,8 @@
   },
   "dependencies": {
     "@vuepic/vue-datepicker": "^4.2.3",
-    "@vueuse/components": "^9.13.0",
-    "@vueuse/core": "^8.9.4",
+    "@vueuse/components": "^10.7.0",
+    "@vueuse/core": "^10.7.0",
     "animated-number-vue": "^1.0.0",
     "axios": "^0.27.2",
     "deepmerge": "^4.2.2",
