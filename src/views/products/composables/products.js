@@ -1,5 +1,6 @@
 export function useProducts() {
   const {
+    excludeZeroStock,
     fetchProducts,
     queries,
     selectedProducts,
@@ -24,6 +25,10 @@ export function useProducts() {
 
     if(statusOption.value && statusOption.value !== 'all') {
       queries.value.filters.push(statusOption.value);
+    }
+
+    if(excludeZeroStock.value) {
+      queries.value.filters.push('exclude_zero_stock');
     }
   };
 

@@ -14,6 +14,7 @@ const {
   vendorOptions,
   visibilityOption,
   visibilityOptions,
+  excludeZeroStock,
 } = toRefs(useProductsStore());
 
 /* ----- Methods ----- */
@@ -119,7 +120,14 @@ const searchHandler = searchText => {
               </Dropdown>
             </div>
           </div>
-          <div class="col-6"></div>
+          <div class="col-6 flex align-items-center">
+            <InputSwitch
+              @change="fetchProductsHandler"
+              inputId="hide-zero-stock"
+              v-model="excludeZeroStock">
+            </InputSwitch>
+            <label class="pointer font-semibold ml-3" for="hide-zero-stock">Hide 0 <br> stock products</label>
+          </div>
         </div>
       </div>
     </div>

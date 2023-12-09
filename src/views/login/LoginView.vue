@@ -24,8 +24,8 @@ const shopifyLoginHandler = async () => {
   //await shopifyLogin.value('shopify', 'test-saiyam-destination.myshopify.com');
   //await shopifyLogin.value('shopify', 'zac-destination-3.myshopify.com'); // Navbar add-ons dialogs
   //await shopifyLogin.value('shopify', 'dev-destination-1.myshopify.com'); // Update add-on plan dialogs
-  //await shopifyLogin.value('shopify', 'test-nainesh-destination-3.myshopify.com	');
-  await shopifyLogin.value('shopify', 'test-nainesh-source-2.myshopify.com');
+  await shopifyLogin.value('shopify', 'test-nainesh-destination-3.myshopify.com	');
+  //await shopifyLogin.value('shopify', 'test-nainesh-source-2.myshopify.com');
 };
 </script>
 

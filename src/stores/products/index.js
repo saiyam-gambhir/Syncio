@@ -33,6 +33,7 @@ export const useProductsStore = defineStore('products', {
       vendorOptions: null,
 
       /* ----- Filters ----- */
+      excludeZeroStock: false,
       statusOption: null,
       visibilityOption: null,
       statusOptions: [
