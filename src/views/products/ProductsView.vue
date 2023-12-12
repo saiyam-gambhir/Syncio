@@ -22,6 +22,7 @@ const {
   connections,
   fetchConnections,
   isDestinationStore,
+  isSourceStore,
   partnerStoreType,
 } = toRefs(useConnectionsStore());
 
@@ -239,7 +240,14 @@ const viewSyncHander = (product) => {
         <template #empty>
           <div class="px-4 py-8 text-center" v-if="!loading">
             <h2 class="m-0 line-height-3" v-if="selectedStoreId">No products found</h2>
-            <h2 v-else class="line-height-3">Select a {{ partnerStoreType }} from the dropdown menu at the <br> top right to browse available products.</h2>
+            <h2 v-else class="line-height-3 font-semi">
+              Select a {{ partnerStoreType }} from the dropdown menu at the <br> top right to browse available products.
+              <span v-if="isSourceStore" class="block mt-4">
+                Import and sync of products is managed by Destination stores. <br>
+                Log in to your Destination store or contact the Destination <br>
+                store owner to import and sync products.
+              </span>
+            </h2>
           </div>
 
         </template>

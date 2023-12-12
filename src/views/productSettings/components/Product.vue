@@ -181,7 +181,20 @@ const onChangeHandler = ({ is_active, key }) => {
                 <p class="m-0 font-semibold text-lg">
                   {{ setting.label }}
                 </p>
-                <p class="mt-2 mb-0 text-lg" v-html="setting.description"></p>
+                <p class="mt-2 mb-0 text-lg">
+                  <span v-if="setting.key === 'sync_cost_per_item'">
+                    Allow connected stores to sync the "Cost Per Item" field.
+                  </span>
+                  <span v-else-if="setting.key === 's_sync_metafields'">
+                    Allow Destination stores to sync product and variant Custom metafields. <br><br>
+                    What connected Destination stores will have permission to sync:
+                    <ul class="p-0 pl-3 m-0 mt-3">
+                      <li>All custom product and variant metafield data</li>
+                      <li>All metafields definitions</li>
+                      <li>All metaobjects</li>
+                    </ul>
+                  </span>
+                </p>
               </div>
               <InputSwitch v-model="setting.is_active" />
             </div>
@@ -191,6 +204,7 @@ const onChangeHandler = ({ is_active, key }) => {
     </div>
   </section>
 
+  <!----- Meta Fields ----->
   <MetafieldsDialog v-if="isMetaFieldsRequested" />
 
 </template>

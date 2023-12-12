@@ -60,7 +60,7 @@ export const useProductsStore = defineStore('products', {
       ],
       queries: {
         'filters': [],
-        'limiter': 25,
+        'limiter': 10,
         'page': 1,
         'productType': null,
         'search_str': null,
