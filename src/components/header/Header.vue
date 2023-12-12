@@ -24,6 +24,7 @@ const {
 
 const activityCenter = useActivityCenterStore();
 const auth = useAuthStore();
+const connections = useConnectionsStore();
 const marketPlace = useMarketPlaceStore();
 const menu = ref();
 const orders = useOrdersStore();
@@ -101,6 +102,7 @@ const toggleMenu = (event) => {
 const logout = () => {
   activityCenter.$reset();
   auth.$reset();
+  connections.$reset();
   marketPlace.$reset();
   orders.$reset();
   payouts.$reset();

@@ -43,7 +43,6 @@ import TabView from 'primevue/tabview';
 import Tag from 'primevue/tag';
 import Textarea from 'primevue/textarea';
 import Toast from 'primevue/toast';
-import ToastService from 'primevue/toastservice';
 import Tooltip from 'primevue/tooltip';
 
 /* ----- Router ----- */
@@ -71,7 +70,6 @@ app
   .use(pinia)
   .use(router)
   .use(PrimeVue, { ripple: true })
-  .use(ToastService)
   .use(Vue3Toasity)
   .mount('#app');
 

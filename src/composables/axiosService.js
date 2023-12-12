@@ -49,6 +49,16 @@ class AxiosService {
       },
       error => {
         const { status, data } = error.response || {};
+        const activityCenter = useActivityCenterStore();
+        const auth = useAuthStore();
+        const connections = useConnectionsStore();
+        const marketPlace = useMarketPlaceStore();
+        const orders = useOrdersStore();
+        const payouts = usePayoutsStore();
+        const plan = usePlanStore();
+        const products = useProductsStore();
+        const productSettings = useProductSettingsStore();
+
         switch (status) {
           case 422:
           case 400: {
@@ -72,17 +82,9 @@ class AxiosService {
           }
 
           case 403:
-            const activityCenter = useActivityCenterStore();
-            const auth = useAuthStore();
-            const marketPlace = useMarketPlaceStore();
-            const orders = useOrdersStore();
-            const payouts = usePayoutsStore();
-            const plan = usePlanStore();
-            const products = useProductsStore();
-            const productSettings = useProductSettingsStore();
-
             activityCenter.$reset();
             auth.$reset();
+            connections.$reset();
             marketPlace.$reset();
             orders.$reset();
             payouts.$reset();

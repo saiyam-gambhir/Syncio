@@ -1,4 +1,3 @@
-import { useToast } from 'primevue/usetoast';
 import deepmerge from 'deepmerge';
 
 /* ----- Actions ----- */
@@ -10,7 +9,6 @@ import { fetchDestinationLocations } from './actions/fetchDestinationLocations';
 import { fetchMetadata } from './actions/fetchMetadata';
 import { fetchSourceLocations } from './actions/fetchSourceLocations';
 import { invitePartnerStore } from './actions/invitePartnerStore';
-import { showToast } from './actions/showToast';
 import { toggleMultilocation } from './actions/toggleMultilocation';
 import { updateLocation } from './actions/updateLocation';
 
@@ -19,13 +17,10 @@ export const useConnectionsStore = defineStore('connections', {
     return {
       connectionFilterItems: [],
       connections: [],
+      currentLocation: {},
       currentStore: null,
       destinationLocations: null,
-      filters: {
-        searchString: null,
-        sortBy: null,
-      },
-      currentLocation: {},
+      filters: { searchString: null, sortBy: null },
       isConnectionDisconnectRequested: false,
       isDisableMultilocationRequested: false,
       isDisconnectAndDeleteRequested: false,
@@ -37,18 +32,9 @@ export const useConnectionsStore = defineStore('connections', {
       loadingConnections: false,
       loadingInventory: false,
       loadingLocationChange: false,
-      location: {
-        current: null,
-        new: null,
-        params: null,
-        store: null,
-      },
+      location: { current: null, new: null, params: null, store: null },
       selectedConnection: {},
-      toast: useToast(),
-      shopifyPermissions: {
-        link: null,
-        showDialog: false,
-      },
+      shopifyPermissions: { link: null, showDialog: false },
       sortOptions: [
         { key: 'store_domain', label: 'A-Z', sortByDesc: false },
         { key: 'store_domain', label: 'Z-A', sortByDesc: true },
@@ -103,11 +89,11 @@ export const useConnectionsStore = defineStore('connections', {
     },
 
     isDestinationStore() {
-      return this.storeType.toLowerCase() === 'destination';
+      return this.storeType?.toLowerCase() === 'destination';
     },
 
     isSourceStore() {
-      return this.storeType.toLowerCase() === 'source';
+      return this.storeType?.toLowerCase() === 'source';
     },
   },
 
@@ -120,7 +106,6 @@ export const useConnectionsStore = defineStore('connections', {
     fetchMetadata,
     fetchSourceLocations,
     invitePartnerStore,
-    showToast,
     toggleMultilocation,
     updateLocation,
   ]),

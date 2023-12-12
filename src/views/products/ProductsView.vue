@@ -2,7 +2,7 @@
 /* ----- Components ----- */
 const BulkMapperDialog = defineAsyncComponent(() => import('./components/BulkMapperDialog.vue'));
 const DuplicateSkuDialog = defineAsyncComponent(() => import('./components/DuplicateSkuDialog.vue'));
-const ProductDetailsDialog = defineAsyncComponent(() => import('./components/ProductDetailsdialog.vue'));
+const ProductDetailsDialog = defineAsyncComponent(() => import('./components/ProductDetailsDialog.vue'));
 
 /* ----- Data ----- */
 const {
@@ -60,14 +60,7 @@ onMounted(async () => {
   if(products?.value?.length > 0) return;
 
   await fetchProductsHandler();
-  products.value.forEach(product => {
-    const { mapper_id, is_sync_failed, external_product_id } = product;
-
-    if(syncProductsQueue.value.includes(external_product_id) && mapper_id && !is_sync_failed) {
-      const productIndex = syncProductsQueue.value.findIndex(item => +item === +external_product_id);
-      syncProductsQueue.value.splice(productIndex, 1);
-    }
-  });
+  checkProductStatusOnLoad(products.value);
 
   if(selectedStoreId.value) await fetchMetaFields.value();
 });
@@ -80,6 +73,16 @@ watch(selectedStoreId, (newValue, oldValue) => {
 }, { deep: true });
 
 /* ----- Methods ----- */
+const checkProductStatusOnLoad = (products) => {
+  products.forEach(({ mapper_id, is_sync_failed, external_product_id }) => {
+
+    if((syncProductsQueue.value.includes(external_product_id) || syncProductsQueue.value.includes(mapper_id)) && mapper_id && !is_sync_failed) {
+      const productIndex = syncProductsQueue.value.findIndex(item => +item === +external_product_id);
+      syncProductsQueue.value.splice(productIndex, 1);
+    }
+  });
+};
+
 const storeFilterHandler = async storeId => {
   selectedStoreId.value = storeId;
 };
