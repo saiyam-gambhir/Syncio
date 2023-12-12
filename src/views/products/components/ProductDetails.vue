@@ -1,9 +1,6 @@
 <script setup>
-import ProductDescriptionAndVariants from './ProductDescriptionAndVariants.vue';
-
 /* ----- Data ----- */
 const {
-  isDestinationStore,
   platform,
 } = toRefs(useConnectionsStore());
 
@@ -24,6 +21,7 @@ const props = defineProps({
   <div class="grid pt-5">
     <div class="col-4">
       <Carousel
+        v-if="product.imagesCount > 1"
         :numScroll="1"
         :numVisible="1"
         :showIndicators="product.imagesCount > 1"
@@ -42,6 +40,7 @@ const props = defineProps({
           <IconNext />
         </template>
       </Carousel>
+      <img v-else :src="product?.data?.image" class="w-100" />
     </div>
 
     <div class="col-8" v-if="product.data">

@@ -60,6 +60,15 @@ onMounted(async () => {
   if(products?.value?.length > 0) return;
 
   await fetchProductsHandler();
+  products.value.forEach(product => {
+    const { mapper_id, is_sync_failed, external_product_id } = product;
+
+    if(syncProductsQueue.value.includes(external_product_id) && mapper_id && !is_sync_failed) {
+      const productIndex = syncProductsQueue.value.findIndex(item => +item === +external_product_id);
+      syncProductsQueue.value.splice(productIndex, 1);
+    }
+  });
+
   if(selectedStoreId.value) await fetchMetaFields.value();
 });
 
@@ -82,19 +91,19 @@ const getProductSyncStatus = product => {
     return 'pending';
   }
 
-  else if (product_status === 'replaced' && mapper_id) {
+  if (product_status === 'replaced' && mapper_id) {
     return 'replaced';
   }
 
-  else if (mapper_id) {
+  if (mapper_id) {
     return 'synced';
   }
 
-  else if (is_sync_failed && !mapper_id) {
+  if (is_sync_failed && !mapper_id) {
     return 'attention';
   }
 
-  else if(!mapper_id && !is_sync_failed) {
+  if(!mapper_id && !is_sync_failed) {
     return 'not synced';
   }
 
@@ -348,8 +357,8 @@ const fetchProductDetailsHandler = (product) => {
                 class="p-button-sm"
                 label="View sync"
                 :model="[
-                    { label: 'Resync', command: () => resyncProductHandler(data) },
-                    { label: 'Unsync', command: () => unsyncProductHandler(data) }
+                  { label: 'Resync', command: () => resyncProductHandler(data) },
+                  { label: 'Unsync', command: () => unsyncProductHandler(data) },
                 ]"
                 outlined>
               </SplitButton>

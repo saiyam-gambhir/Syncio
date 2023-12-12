@@ -1,6 +1,7 @@
 <script setup>
 /* ----- Data ----- */
 const {
+  fetchConnections,
   isDestinationStore,
   isLocationChangeRequested,
   isSourceStore,
@@ -10,9 +11,10 @@ const {
 } = toRefs(useConnectionsStore());
 
 /* ----- Methods ----- */
-const closeDialogHandler = () => {
+const closeDialogHandler = async () => {
   isLocationChangeRequested.value = false;
   location.value = null;
+  await fetchConnections.value();
 };
 
 const updateLocationHandler = () => {

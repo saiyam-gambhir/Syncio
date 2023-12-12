@@ -7,6 +7,7 @@ import { createPinia } from 'pinia';
 import piniaPersist from 'pinia-plugin-persist';
 
 /* ----- Prime Vue Components ----- */
+import AutoComplete from 'primevue/autocomplete';
 import Button from 'primevue/button';
 import Calendar from 'primevue/calendar';
 import Card from 'primevue/card';
@@ -76,6 +77,7 @@ app
 
 /* ----- Prime Vue Components ----- */
 app
+  .component('AutoComplete', AutoComplete)
   .component('Button', Button)
   .component('Calendar', Calendar)
   .component('Card', Card)

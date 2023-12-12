@@ -30,7 +30,8 @@ const updateCurrentPageHandler = page => {
           :options="countries"
           @change="fetchProfiles"
           class="w-full"
-          editable placeholder="Location"
+          editable
+          placeholder="Location"
           showClear
           v-model="queries['filters[country_name]']">
         </Dropdown>

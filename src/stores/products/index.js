@@ -6,6 +6,8 @@ import { fetchMetaFields } from './actions/fetchMetaFields';
 import { fetchProductDetails } from './actions/fetchProductDetails';
 import { fetchProducts } from './actions/fetchProducts';
 import { resyncProduct } from './actions/resyncProduct';
+import { searchProduct } from './actions/searchProduct';
+import { searchStoreProducts } from './actions/searchStoreProducts';
 import { startBulkMapper } from './actions/startBulkMapper';
 import { syncProduct } from './actions/syncProduct';
 import { unsyncProduct } from './actions/unsyncProduct';
@@ -26,6 +28,7 @@ export const useProductsStore = defineStore('products', {
       productDetails: null,
       products: null,
       productTypeOptions: null,
+      searchedProducts: [],
       selectedProducts: null,
       selectedStoreId: null,
       syncedProducts: [],
@@ -71,6 +74,8 @@ export const useProductsStore = defineStore('products', {
     fetchProductDetails,
     fetchProducts,
     resyncProduct,
+    searchProduct,
+    searchStoreProducts,
     startBulkMapper,
     syncProduct,
     unsyncProduct,

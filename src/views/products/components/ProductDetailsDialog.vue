@@ -1,5 +1,10 @@
 <script setup>
+import { useDebounceFn } from '@vueuse/core';
+
 /* ----- Data ----- */
+const searchString = ref(null);
+const loadingProduct = ref(false);
+
 const {
   platform,
   storeName,
@@ -9,6 +14,9 @@ const {
   isProductDetailsDialogRequested,
   isViewDetailsRequested,
   productDetails,
+  searchedProducts,
+  searchProduct,
+  searchStoreProducts,
   selectedStore,
 } = toRefs(useProductsStore());
 
@@ -32,6 +40,15 @@ const destinationProduct = computed(() => {
     imagesCount,
   };
 });
+
+/* ----- Methods -----*/
+const debouncedSearchProducts = async () => {
+  await searchStoreProducts.value(searchString.value);
+};
+
+const searchProductHandler = async ($event) => {
+  await searchProduct.value($event.value?.ref_id);
+};
 </script>
 
 <template>
@@ -58,7 +75,8 @@ const destinationProduct = computed(() => {
             :styleInfo="'background: rgba(252, 176, 87, .75); color: #0e3b4d; width: 6rem;'"
             title="From">
           </ProductStoreInfo>
-          <ProductDetails :product="sourceProduct" />
+          <div></div>
+          <ProductDetails :product="sourceProduct" style="margin-top: 5.5rem;" />
         </div>
         <div class="col-2" style="width: 5%;">
           <Divider layout="vertical" class="m-0" />
@@ -71,7 +89,32 @@ const destinationProduct = computed(() => {
             :styleInfo="'background: rgba(250, 117, 123, .75); color: #0e3b4d; width: 6rem;'"
             title="To">
           </ProductStoreInfo>
-          <ProductDetails :product="destinationProduct" />
+
+          <!----- Mapper ----->
+          <div class="w-full my-4">
+            <AutoComplete
+              @item-select="searchProductHandler($event)"
+              dropdown
+              :suggestions="searchedProducts"
+              @complete="debouncedSearchProducts"
+              class="p-inputtext-lg w-100"
+              optionLabel="title"
+              placeholder="Search using Title or Product ID"
+              v-model="searchString">
+            </AutoComplete>
+          </div>
+
+          <div v-if="!destinationProduct.data" class="text-center text-light text-xl font-semi line-height-3 py-8 px-2">
+            <span v-if="!searchString && !loadingProduct">
+              Search for the Destination store <br> product you wish to map the <br> Source store product to
+            </span>
+
+            <span v-if="loadingProduct">
+            </span>
+          </div>
+          <!----- Mapper ----->
+
+          <ProductDetails :product="destinationProduct" v-if="destinationProduct.data" />
         </div>
       </div>
     </template>

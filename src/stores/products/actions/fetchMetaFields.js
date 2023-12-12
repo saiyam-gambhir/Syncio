@@ -1,6 +1,6 @@
 function removeDuplicates(arr, key) {
   const uniqueValues = new Map();
-  arr.forEach(item => {
+  arr?.forEach(item => {
     const value = item[key];
     if (!uniqueValues.has(value)) {
       uniqueValues.set(value, item);
