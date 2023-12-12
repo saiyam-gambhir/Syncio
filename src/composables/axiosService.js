@@ -94,7 +94,6 @@ class AxiosService {
             sessionStorage.removeItem('ID_TOKEN_KEY');
             sessionStorage.removeItem('USER_ID');
             router.push({ name: routes.LOGIN });
-
             return Promise.reject(error);
 
           case 502:

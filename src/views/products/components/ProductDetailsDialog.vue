@@ -1,6 +1,4 @@
 <script setup>
-import { useDebounceFn } from '@vueuse/core';
-
 /* ----- Data ----- */
 const searchString = ref(null);
 const loadingProduct = ref(false);
@@ -13,6 +11,8 @@ const {
 const {
   isProductDetailsDialogRequested,
   isViewDetailsRequested,
+  loadingMapProduct,
+  mapProduct,
   productDetails,
   searchedProducts,
   searchProduct,
@@ -91,17 +91,29 @@ const searchProductHandler = async ($event) => {
           </ProductStoreInfo>
 
           <!----- Mapper ----->
-          <div class="w-full my-4">
-            <AutoComplete
-              @item-select="searchProductHandler($event)"
-              dropdown
-              :suggestions="searchedProducts"
-              @complete="debouncedSearchProducts"
-              class="p-inputtext-lg w-100"
-              optionLabel="title"
-              placeholder="Search using Title or Product ID"
-              v-model="searchString">
-            </AutoComplete>
+          <div class="grid my-4">
+            <div class="col-9">
+              <AutoComplete
+                @item-select="searchProductHandler($event)"
+                dropdown
+                :suggestions="searchedProducts"
+                @complete="debouncedSearchProducts"
+                class="p-inputtext-lg w-100"
+                optionLabel="title"
+                placeholder="Search using Title or Product ID"
+                v-model="searchString">
+              </AutoComplete>
+            </div>
+
+            <div class="col-3">
+              <Button
+                :loading="loadingMapProduct"
+                :disabled="!destinationProduct.data"
+                @click="mapProduct"
+                class="w-100 h-100"
+                label="Map product">
+              </Button>
+            </div>
           </div>
 
           <div v-if="!destinationProduct.data" class="text-center text-light text-xl font-semi line-height-3 py-8 px-2">

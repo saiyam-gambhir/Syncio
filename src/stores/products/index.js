@@ -5,6 +5,7 @@ import { bulkSyncProducts } from './actions/bulkSyncProducts';
 import { fetchMetaFields } from './actions/fetchMetaFields';
 import { fetchProductDetails } from './actions/fetchProductDetails';
 import { fetchProducts } from './actions/fetchProducts';
+import { mapProduct } from './actions/mapProduct';
 import { resyncProduct } from './actions/resyncProduct';
 import { searchProduct } from './actions/searchProduct';
 import { searchStoreProducts } from './actions/searchStoreProducts';
@@ -22,6 +23,7 @@ export const useProductsStore = defineStore('products', {
       isViewDetailsRequested: true,
       loading: true,
       loadingBulkMapper: false,
+      loadingMapProduct: false,
       loadingProductDetails: false,
       pagination: null,
       pagination: null,
@@ -73,6 +75,7 @@ export const useProductsStore = defineStore('products', {
     fetchMetaFields,
     fetchProductDetails,
     fetchProducts,
+    mapProduct,
     resyncProduct,
     searchProduct,
     searchStoreProducts,

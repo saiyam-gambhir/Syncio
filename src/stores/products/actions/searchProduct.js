@@ -10,8 +10,7 @@ export const searchProduct = {
 
     const response = await axiosService.getData('products/search-by-id', params);
     if(response.success) {
-      this.productDetails = response;
-      //this.loadingProductDetails = false;
+      this.productDetails.destinationProduct = response.sourceProduct;
     }
   }
 };
