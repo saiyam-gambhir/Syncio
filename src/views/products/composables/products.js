@@ -8,7 +8,17 @@ export function useProducts() {
     syncedProducts,
     unsyncedProducts,
     visibilityOption,
+    resyncProduct,
+    syncProductsQueue,
   } = toRefs(useProductsStore());
+
+  const {
+    fetchCurrentPlan,
+  } = toRefs(usePlanStore());
+
+  const {
+    userId,
+  } = toRefs(useAuthStore());
 
   const unselectAllRowsHandler = () => {
     selectedProducts.value = [];
@@ -43,9 +53,54 @@ export function useProducts() {
     unselectAllRowsHandler();
   };
 
+  const resyncProductHandler = async (product) => {
+    const mapperIds = [];
+    mapperIds.push(product.mapper_id);
+    const response = await resyncProduct.value(mapperIds);
+    if(response?.success) {
+      updateProductStatus(product, product.mapper_id);
+    }
+    await fetchCurrentPlan.value(userId.value);
+  };
+
+  const getProductSyncStatus = product => {
+    const { product_status, mapper_id, is_sync_failed, external_product_id } = product;
+
+    if((syncProductsQueue.value.includes(external_product_id) || syncProductsQueue.value.includes(mapper_id))) {
+      return 'pending';
+    }
+
+    if (product_status === 'replaced' && mapper_id) {
+      return 'replaced';
+    }
+
+    if (mapper_id) {
+      return 'synced';
+    }
+
+    if (is_sync_failed && !mapper_id) {
+      return 'attention';
+    }
+
+    if(!mapper_id && !is_sync_failed) {
+      return 'not synced';
+    }
+
+    return 'not synced';
+  };
+
+  const updateProductStatus = (product, id) => {
+    const syncedProductIndex = syncProductsQueue.value.indexOf(id);
+    syncProductsQueue.value.splice(syncedProductIndex, 1);
+    getProductSyncStatus(product);
+  };
+
   return {
     fetchProductsHandler,
+    getProductSyncStatus,
+    resyncProductHandler,
     unselectAllRowsHandler,
     updateCurrentPageHandler,
+    updateProductStatus,
   };
 };

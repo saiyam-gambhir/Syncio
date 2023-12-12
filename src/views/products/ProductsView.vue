@@ -7,8 +7,11 @@ const ProductDetailsDialog = defineAsyncComponent(() => import('./components/Pro
 /* ----- Data ----- */
 const {
   fetchProductsHandler,
+  getProductSyncStatus,
+  resyncProductHandler,
   unselectAllRowsHandler,
   updateCurrentPageHandler,
+  updateProductStatus,
 } = useProducts();
 
 const {
@@ -33,7 +36,6 @@ const {
   loading,
   pagination,
   products,
-  resyncProduct,
   selectedProducts,
   selectedStoreId,
   syncedProducts,
@@ -74,7 +76,7 @@ watch(selectedStoreId, (newValue, oldValue) => {
 
 /* ----- Methods ----- */
 const checkProductStatusOnLoad = (products) => {
-  products.forEach(({ mapper_id, is_sync_failed, external_product_id }) => {
+  products?.forEach(({ mapper_id, is_sync_failed, external_product_id }) => {
 
     if((syncProductsQueue.value.includes(external_product_id) || syncProductsQueue.value.includes(mapper_id)) && mapper_id && !is_sync_failed) {
       const productIndex = syncProductsQueue.value.findIndex(item => +item === +external_product_id);
@@ -85,38 +87,6 @@ const checkProductStatusOnLoad = (products) => {
 
 const storeFilterHandler = async storeId => {
   selectedStoreId.value = storeId;
-};
-
-const getProductSyncStatus = product => {
-  const { product_status, mapper_id, is_sync_failed, external_product_id } = product;
-
-  if((syncProductsQueue.value.includes(external_product_id) || syncProductsQueue.value.includes(mapper_id))) {
-    return 'pending';
-  }
-
-  if (product_status === 'replaced' && mapper_id) {
-    return 'replaced';
-  }
-
-  if (mapper_id) {
-    return 'synced';
-  }
-
-  if (is_sync_failed && !mapper_id) {
-    return 'attention';
-  }
-
-  if(!mapper_id && !is_sync_failed) {
-    return 'not synced';
-  }
-
-  return 'not synced';
-};
-
-const updateProductStatus = (product, id) => {
-  const syncedProductIndex = syncProductsQueue.value.indexOf(id);
-  syncProductsQueue.value.splice(syncedProductIndex, 1);
-  getProductSyncStatus(product);
 };
 
 const syncProductHandler = async (product) => {
@@ -169,16 +139,6 @@ const bulkUnsyncProductsHandler = () => {
   unselectAllRowsHandler();
 };
 
-const resyncProductHandler = async (product) => {
-  const mapperIds = [];
-  mapperIds.push(product.mapper_id);
-  const response = await resyncProduct.value(mapperIds);
-  if(response?.success) {
-    updateProductStatus(product, product.mapper_id);
-  }
-  await fetchCurrentPlan.value(userId.value);
-};
-
 const selectAllRowsHandler = (rows) => {
   syncedProducts.value = rows.data.filter(row => row.mapper_id);
   unsyncedProducts.value = rows.data.filter(row => !row.mapper_id);
@@ -206,6 +166,11 @@ const fetchProductDetailsHandler = (product) => {
   clickedProduct.value = product;
   fetchProductDetails.value({ externalProductId: product.external_product_id, targetStoreId: product.store_id }, false);
 };
+
+const viewSyncHander = (product) => {
+  clickedProduct.value = product;
+  fetchProductDetails.value({ externalProductId: product.external_product_id, targetStoreId: product.store_id }, false);
+}
 </script>
 
 <template>
@@ -302,13 +267,13 @@ const fetchProductDetailsHandler = (product) => {
           </template>
         </Column>
 
-        <Column header="Inventory" style="width: 15.5%;">
+        <Column header="Inventory" style="width: 14%;">
           <template #body="{ data: { total_inventory_quantity, variants } }">
             <span>{{ total_inventory_quantity }}</span> for <span>{{ variants.length }}</span> {{ variants.length > 1 ? 'variants' : 'variant' }}
           </template>
         </Column>
 
-        <Column header="Status" style="width: 12.5%">
+        <Column header="Status" style="width: 14.5%">
           <template #body="{ data }">
             <a v-tooltip.right="'Open link'" href="https://help.syncio.co/en/articles/5958687-attention-status-for-product-imports" target="_blank" v-if="getProductSyncStatus(data) === 'attention'">
               <Tag :severity="statusOptions[getProductSyncStatus(data)]" rounded>
@@ -356,7 +321,7 @@ const fetchProductDetailsHandler = (product) => {
               <SplitButton
                 v-else
                 :disabled="getProductSyncStatus(data) === 'pending'"
-                @click="fetchProductDetails({ externalProductId: data.external_product_id, targetStoreId: data.store_id }, false)"
+                @click="viewSyncHander(data)"
                 class="p-button-sm"
                 label="View sync"
                 :model="[
@@ -376,6 +341,7 @@ const fetchProductDetailsHandler = (product) => {
                   outlined>
                 </SplitButton>
               </span>
+
               <SplitButton
                 v-else
                 :disabled="getProductSyncStatus(data) === 'pending'"

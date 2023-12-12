@@ -1,7 +1,11 @@
 <script setup>
 /* ----- Data ----- */
-const searchString = ref(null);
 const loadingProduct = ref(false);
+const searchString = ref(null);
+
+const {
+  resyncProductHandler,
+} = useProducts();
 
 const {
   platform,
@@ -9,6 +13,7 @@ const {
 } = toRefs(useConnectionsStore());
 
 const {
+  clickedProduct,
   isProductDetailsDialogRequested,
   isViewDetailsRequested,
   loadingMapProduct,
@@ -56,7 +61,15 @@ const searchProductHandler = async ($event) => {
     <template #header>
       <h1 class="text-4xl font-bold mb-0 flex align-items-center justify-content-between">
         <span v-if="isViewDetailsRequested">Product details</span>
-        <span v-else>Map with Existing</span>
+        <span v-else class="flex align-items-center justify-content-between w-100 pr-6">
+          Map with Existing
+          <Button
+            @click="resyncProductHandler(clickedProduct)"
+            class="p-button-success"
+            label="Resync product"
+            v-if="clickedProduct.mapper_id">
+          </Button>
+        </span>
       </h1>
     </template>
 
@@ -76,7 +89,7 @@ const searchProductHandler = async ($event) => {
             title="From">
           </ProductStoreInfo>
           <div></div>
-          <ProductDetails :product="sourceProduct" style="margin-top: 5.5rem;" />
+          <ProductDetails :product="sourceProduct" style="margin-top: 6.5rem;" />
         </div>
         <div class="col-2" style="width: 5%;">
           <Divider layout="vertical" class="m-0" />

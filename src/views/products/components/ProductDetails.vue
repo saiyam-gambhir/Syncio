@@ -13,6 +13,11 @@ const props = defineProps({
   product: {
     required: true,
     type: Object,
+  },
+
+  productAction: {
+    required: true,
+    type: String,
   }
 });
 </script>

@@ -39,13 +39,13 @@ const {
         </template>
       </Column>
 
-      <Column header="Inventory" style="width: 15.5%;">
+      <Column header="Inventory" style="width: 14%;">
         <template #body>
           <Skeleton height="15.5px" width="50%" />
         </template>
       </Column>
 
-      <Column header="Status" style="width: 12.5%">
+      <Column header="Status" style="width: 14.5%">
         <template #body>
           <Skeleton height="29.04px" width="101px" borderRadius="20px" />
         </template>
