@@ -40,9 +40,10 @@ const isFormDisabled = computed(() => {
         :disabled="isFormDisabled"
         :loading="forgotPasswordForm.loading"
         @click="forgotPassword()"
-        class="w-full p-button-lg mt-2"
+        class="w-full mt-2"
         iconPos="right"
-        label="Reset Password">
+        label="Reset Password"
+        style="height: 46px;">
       </Button>
     </form>
   </aside>

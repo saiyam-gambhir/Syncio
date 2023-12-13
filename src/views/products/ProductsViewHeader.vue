@@ -58,7 +58,6 @@ const searchHandler = searchText => {
           :autoOptionFocus="false"
           :loading="loading"
           :options="sortOptions"
-          :optionValue="key+label"
           @change="fetchProductsHandler"
           class="w-full"
           optionLabel="label"

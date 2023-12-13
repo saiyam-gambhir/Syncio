@@ -5,12 +5,27 @@ const {
 } = useFilters();
 
 const {
+  fetchProductsHandler,
+} = useProducts();
+
+const {
+  syncProductsQueue,
+} = toRefs(useProductsStore());
+
+const {
   isDestinationStore,
 } = toRefs(useConnectionsStore());
 </script>
 
 <template>
   <article class="mt-2">
+    <div v-if="isDestinationStore && syncProductsQueue.length > 0" class="flex align-items-center pb-4 pt-1">
+      <Tag @click="fetchProductsHandler" class="pointer flex" severity="warning">
+        <i class="pi pi-spin pi-sync mr-2"></i>
+        {{ syncProductsQueue.length }} sync in progress | CLICK to refresh
+      </Tag>
+    </div>
+
     <DataTable
       :value="[{}, {}, {}, {}]"
       responsiveLayout="scroll"

@@ -64,29 +64,31 @@ export function useProducts() {
   };
 
   const getProductSyncStatus = product => {
-    const { product_status, mapper_id, is_sync_failed, external_product_id } = product;
+    if(product) {
+      const { is_sync_failed, external_product_id, mapper_id, product_status } = product;
 
-    if((syncProductsQueue.value.includes(external_product_id) || syncProductsQueue.value.includes(mapper_id))) {
-      return 'pending';
-    }
+      if((syncProductsQueue.value.includes(external_product_id) || syncProductsQueue.value.includes(mapper_id))) {
+        return 'pending';
+      }
 
-    if (product_status === 'replaced' && mapper_id) {
-      return 'replaced';
-    }
+      if (product_status === 'replaced' && mapper_id) {
+        return 'replaced';
+      }
 
-    if (mapper_id) {
-      return 'synced';
-    }
+      if (mapper_id) {
+        return 'synced';
+      }
 
-    if (is_sync_failed && !mapper_id) {
-      return 'attention';
-    }
+      if (is_sync_failed && !mapper_id) {
+        return 'attention';
+      }
 
-    if(!mapper_id && !is_sync_failed) {
+      if(!mapper_id && !is_sync_failed) {
+        return 'not synced';
+      }
+
       return 'not synced';
     }
-
-    return 'not synced';
   };
 
   const updateProductStatus = (product, id) => {

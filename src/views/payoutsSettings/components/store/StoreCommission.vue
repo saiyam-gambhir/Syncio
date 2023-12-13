@@ -136,7 +136,7 @@ const isRowSelectedHandler = (data) => {
           placeholder="Select type"
           v-model="connection.store_commission_rate.type">
         </Dropdown>
-        <span v-else>Not supported</span>
+        <span v-else class="font-semi">Not supported</span>
       </template>
     </Column>
 
@@ -154,7 +154,6 @@ const isRowSelectedHandler = (data) => {
           </InputNumber>
           <span class="p-inputgroup-addon">{{ getDefaultCommissionType(connection.store_commission_rate.type) }}</span>
         </div>
-        <span v-if="connection.platform === 'woocommerce'">Not supported</span>
       </template>
     </Column>
 

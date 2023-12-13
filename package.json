@@ -4,6 +4,7 @@
   "scripts": {
     "dev": "vite --host",
     "build": "vite build",
+    "deploy-staging": "vite build && aws s3 rm s3://staging-app-v3.syncio.io --recursive && aws s3 sync ./dist s3://staging-app-v3.syncio.io",
     "preview": "vite preview --port 4173",
     "test:unit": "vitest --environment jsdom",
     "test:e2e": "start-server-and-test preview http://localhost:4173/ 'cypress open --e2e'",
@@ -15,6 +16,7 @@
     "@vueuse/components": "^10.7.0",
     "@vueuse/core": "^10.7.0",
     "animated-number-vue": "^1.0.0",
+    "aws-s3": "^2.0.5",
     "axios": "^0.27.2",
     "deepmerge": "^4.2.2",
     "json-server": "^0.17.0",
@@ -32,7 +34,6 @@
   "devDependencies": {
     "@vitejs/plugin-vue": "^3.0.1",
     "@vue/test-utils": "^2.0.2",
-    "cypress": "^4.2.0",
     "jsdom": "^20.0.0",
     "start-server-and-test": "^1.14.0",
     "unplugin-auto-import": "^0.16.6",

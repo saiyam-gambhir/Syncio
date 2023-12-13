@@ -79,7 +79,7 @@ watch(selectedStoreId, (newValue, oldValue) => {
 const checkProductStatusOnLoad = (products) => {
   products?.forEach(({ mapper_id, is_sync_failed, external_product_id }) => {
 
-    if((syncProductsQueue.value.includes(external_product_id) || syncProductsQueue.value.includes(mapper_id)) && mapper_id && !is_sync_failed) {
+    if((syncProductsQueue.value.includes(external_product_id) || syncProductsQueue.value.includes(mapper_id)) || (mapper_id && !is_sync_failed)) {
       const productIndex = syncProductsQueue.value.findIndex(item => +item === +external_product_id);
       syncProductsQueue.value.splice(productIndex, 1);
     }
@@ -206,24 +206,40 @@ const viewSyncHander = (product) => {
   </PageHeader>
 
   <ProductsViewSkeleton v-if="loading" />
+
   <template v-else>
-    <div v-if="(syncedProducts.length > 0 || unsyncedProducts.length > 0) && isDestinationStore" class="flex align-items-center py-2">
-      <h3 class="m-0">{{ selectedProducts?.length }} products selected</h3>
 
-      <Button
-        :disabled="unsyncedProducts?.length === 0"
-        :label="`Sync ${unsyncedProducts?.length} products`"
-        @click="bulkSyncProductsHandler"
-        class="p-button-success ml-4">
-      </Button>
+    <div v-if="isDestinationStore">
+      <div v-if="(syncedProducts.length > 0 || unsyncedProducts.length > 0) && syncProductsQueue.length === 0" class="flex align-items-center pb-3 pt-1">
 
-      <Button
-        :disabled="syncedProducts?.length === 0"
-        :label="`Unsync ${syncedProducts?.length} products`"
-        @click="bulkUnsyncProductsHandler"
-        class="p-button-danger ml-3"
-        outlined>
-      </Button>
+      </div>
+    </div>
+
+    <div v-if="isDestinationStore" class="flex align-items-center pb-3 pt-1">
+      <template>
+        <h3 class="m-0">{{ selectedProducts?.length }} products selected</h3>
+
+        <Button
+          :disabled="unsyncedProducts?.length === 0"
+          :label="`Sync ${unsyncedProducts?.length} products`"
+          @click="bulkSyncProductsHandler"
+          class="p-button-success ml-4">
+        </Button>
+
+        <Button
+          :disabled="syncedProducts?.length === 0"
+          :label="`Unsync ${syncedProducts?.length} products`"
+          @click="bulkUnsyncProductsHandler"
+          class="p-button-danger ml-3"
+          outlined>
+        </Button>
+      </template>
+
+
+      <Tag @click="fetchProductsHandler" class="pointer flex" severity="warning" v-if="syncProductsQueue.length > 0">
+        <i class="pi pi-spin pi-sync mr-2"></i>
+        {{ syncProductsQueue.length }} sync in progress | CLICK to refresh
+      </Tag>
     </div>
 
     <article class="mt-2">
