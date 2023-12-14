@@ -2,6 +2,7 @@ import deepmerge from 'deepmerge';
 
 /* ----- Actions ----- */
 import { bulkSyncProducts } from './actions/bulkSyncProducts';
+import { fetchInventory } from './actions/fetchInventory';
 import { fetchMetaFields } from './actions/fetchMetaFields';
 import { fetchProductDetails } from './actions/fetchProductDetails';
 import { fetchProducts } from './actions/fetchProducts';
@@ -25,6 +26,7 @@ export const useProductsStore = defineStore('products', {
       isBulkMapperDialogRequested: false,
       isDuplicateSkuFound: false,
       isProductDetailsDialogRequested: false,
+      isUnsyncRequested: false,
       isViewDetailsRequested: true,
       loading: true,
       loadingBulkMapper: false,
@@ -77,6 +79,7 @@ export const useProductsStore = defineStore('products', {
 
   actions: deepmerge.all([
     bulkSyncProducts,
+    fetchInventory,
     fetchMetaFields,
     fetchProductDetails,
     fetchProducts,

@@ -4,6 +4,7 @@ const BulkMapperDialog = defineAsyncComponent(() => import('./components/BulkMap
 const BulkSyncDialog = defineAsyncComponent(() => import('./components/BulkSyncDialog.vue'));
 const DuplicateSkuDialog = defineAsyncComponent(() => import('./components/DuplicateSkuDialog.vue'));
 const ProductDetailsDialog = defineAsyncComponent(() => import('./components/ProductDetailsDialog.vue'));
+const UnsyncDialog = defineAsyncComponent(() => import('./components/unSync/UnsyncDialog.vue'));
 
 /* ----- Data ----- */
 const {
@@ -36,14 +37,15 @@ const {
   isBulkMapperDialogRequested,
   isDuplicateSkuFound,
   isProductDetailsDialogRequested,
+  isUnsyncRequested,
   loading,
   pagination,
   products,
   selectedProducts,
+  selectedStore,
   selectedStoreId,
   syncedProducts,
   syncProduct,
-  syncProductsQueue,
   unsyncedProducts,
   unsyncProduct,
 } = toRefs(useProductsStore());
@@ -102,30 +104,20 @@ const bulkSyncProductsHandler = async () => {
   }
 };
 
-const unsyncProductHandler = async (product, loadCurrentPlan = true) => {
-  const mapperIds = [];
-  mapperIds.push(product.mapper_id);
-  const response = await unsyncProduct.value(mapperIds);
-  if(response?.success) {
-    updateProductStatus(product, product.mapper_id);
-    product.mapper_id = null;
-    if(loadCurrentPlan) {
-      setTimeout(() => {
-        fetchCurrentPlan.value(userId.value);
-      }, 500);
-    }
-  }
+const unsyncProductHandler = async (product) => {
+  clickedProduct.value = product;
+  isUnsyncRequested.value = true;
 };
 
 const bulkUnsyncProductsHandler = () => {
   const syncedProductsLength = syncedProducts.value.length;
   syncedProducts.value.forEach(async (product, index) => {
-    await unsyncProductHandler(product, false);
-    if((index + 1) === syncedProductsLength) {
-      setTimeout(() => {
-        fetchCurrentPlan.value(userId.value);
-      }, 1000);
-    }
+    // await unsyncProductHandler(product, false);
+    // if((index + 1) === syncedProductsLength) {
+    //   setTimeout(() => {
+    //     fetchCurrentPlan.value(userId.value);
+    //   }, 1500);
+    // }
   });
   unselectAllRowsHandler();
 };
@@ -198,7 +190,7 @@ const viewSyncHander = (product) => {
   <ProductsViewSkeleton v-if="loading" />
 
   <template v-else>
-    <div v-if="isDestinationStore && (syncedProducts.length > 0 || unsyncedProducts.length > 0)" class="flex align-items-center pb-3 pt-1">
+    <div class="flex align-items-center" style="padding-bottom: .65rem;" v-if="isDestinationStore && (syncedProducts.length > 0 || unsyncedProducts.length > 0)">
       <h3 class="m-0">{{ selectedProducts?.length }} products selected</h3>
 
       <Button
@@ -217,7 +209,7 @@ const viewSyncHander = (product) => {
       </Button>
     </div>
 
-    <div v-if="bulkSync.isOngoing" class="flex align-items-center pb-3 pt-1">
+    <div v-if="bulkSync.isOngoing" class="flex align-items-center" style="padding-bottom: .65rem;">
       <Tag @click="fetchProductsHandler" class="pointer" severity="warning">
         <i class="pi pi-spin pi-sync mr-2"></i>
         {{ bulkSync?.count }} sync in progress | CLICK to refresh
@@ -274,8 +266,13 @@ const viewSyncHander = (product) => {
         </Column>
 
         <Column header="Inventory" style="width: 14%;">
-          <template #body="{ data: { total_inventory_quantity, variants } }">
-            <span>{{ total_inventory_quantity }}</span> for <span>{{ variants.length }}</span> {{ variants.length > 1 ? 'variants' : 'variant' }}
+          <template #body="{ data: { external_product_id, total_inventory_quantity, variants } }">
+            <span v-if="selectedStore?.source_default_inventory_location">
+              <InventoryCounter :productId="external_product_id" :variantsCount="variants?.length" />
+            </span>
+            <template v-else>
+              <span>{{ total_inventory_quantity }}</span> for <span>{{ variants.length }}</span> {{ variants.length > 1 ? 'variants' : 'variant' }}
+            </template>
           </template>
         </Column>
 
@@ -382,6 +379,9 @@ const viewSyncHander = (product) => {
 
     <!----- Product Details ----->
     <ProductDetailsDialog v-if="isProductDetailsDialogRequested" />
+
+    <!----- Unsync ----->
+    <UnsyncDialog v-if="isUnsyncRequested" />
   </template>
 </template>
 

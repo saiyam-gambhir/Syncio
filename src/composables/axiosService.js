@@ -95,16 +95,15 @@ class AxiosService {
             sessionStorage.removeItem('USER_ID');
             router.push({ name: routes.LOGIN });
             //return Promise.reject(error);
+            return;
 
           case 502:
             toast('Bad Gateway: The server received an invalid response', { ...toastOptions, type: 'error' });
-            break;
+            return;
 
           case 500:
             toast('Internal Server Error: An unexpected error occurred on the server', { ...toastOptions, type: 'error' });
-            break;
-          default:
-            break;
+            return;
         }
       }
     );

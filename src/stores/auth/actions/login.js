@@ -6,9 +6,9 @@ export const login = {
     this.loginForm.loading = true;
     const connections = useConnectionsStore();
     const plan = usePlanStore();
-    const { success, user } = await axiosService.postData('user/login', payload);
-    if (success) {
-      this.user = await user;
+    const response = await axiosService.postData('user/login', payload, true);
+    if (response.data.success) {
+      this.user = await response.data.user;
     }
 
     window.sessionStorage.setItem('ID_TOKEN_KEY', response.headers['x-syncio-app-token']);
