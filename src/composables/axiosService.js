@@ -94,7 +94,7 @@ class AxiosService {
             sessionStorage.removeItem('ID_TOKEN_KEY');
             sessionStorage.removeItem('USER_ID');
             router.push({ name: routes.LOGIN });
-            return Promise.reject(error);
+            //return Promise.reject(error);
 
           case 502:
             toast('Bad Gateway: The server received an invalid response', { ...toastOptions, type: 'error' });

@@ -48,6 +48,7 @@ export const fetchProducts = {
       const { current_page, next_page_url, previous_page_url, products, total } = response;
 
       this.products = await products;
+
       this.pagination = {
         current_page: current_page,
         next_page_url: next_page_url,
@@ -55,6 +56,13 @@ export const fetchProducts = {
         previous_page_url: previous_page_url,
         total_count: total,
       };
+
+      this.bulkSync = {
+        ...this.bulkSync,
+        count: +response['bulk-sync-count'],
+        isOngoing: response.bulk_sync,
+      };
+
       this.loading = false;
     }
   }

@@ -7,6 +7,10 @@ export const bulkSyncProducts = {
 
     this.syncProductsQueue = [...this.syncProductsQueue, ...sourceProductIds];
     const response = await axiosService.postData('products/import', params);
-    if(response) return response;
+
+    if(response.success) {
+      this.bulkSync.showDialog = true;
+      return response;
+    };
   }
 };

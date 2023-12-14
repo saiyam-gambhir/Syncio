@@ -1,6 +1,7 @@
 <script setup>
 /* ----- Components ----- */
 const BulkMapperDialog = defineAsyncComponent(() => import('./components/BulkMapperDialog.vue'));
+const BulkSyncDialog = defineAsyncComponent(() => import('./components/BulkSyncDialog.vue'));
 const DuplicateSkuDialog = defineAsyncComponent(() => import('./components/DuplicateSkuDialog.vue'));
 const ProductDetailsDialog = defineAsyncComponent(() => import('./components/ProductDetailsDialog.vue'));
 
@@ -27,6 +28,7 @@ const {
 } = toRefs(useConnectionsStore());
 
 const {
+  bulkSync,
   bulkSyncProducts,
   clickedProduct,
   fetchMetaFields,
@@ -63,8 +65,6 @@ onMounted(async () => {
   if(products?.value?.length > 0) return;
 
   await fetchProductsHandler();
-  checkProductStatusOnLoad(products.value);
-
   if(selectedStoreId.value) await fetchMetaFields.value();
 });
 
@@ -76,16 +76,6 @@ watch(selectedStoreId, (newValue, oldValue) => {
 }, { deep: true });
 
 /* ----- Methods ----- */
-const checkProductStatusOnLoad = (products) => {
-  products?.forEach(({ mapper_id, is_sync_failed, external_product_id }) => {
-
-    if((syncProductsQueue.value.includes(external_product_id) || syncProductsQueue.value.includes(mapper_id)) || (mapper_id && !is_sync_failed)) {
-      const productIndex = syncProductsQueue.value.findIndex(item => +item === +external_product_id);
-      syncProductsQueue.value.splice(productIndex, 1);
-    }
-  });
-};
-
 const storeFilterHandler = async storeId => {
   selectedStoreId.value = storeId;
 };
@@ -208,37 +198,29 @@ const viewSyncHander = (product) => {
   <ProductsViewSkeleton v-if="loading" />
 
   <template v-else>
+    <div v-if="isDestinationStore && (syncedProducts.length > 0 || unsyncedProducts.length > 0)" class="flex align-items-center pb-3 pt-1">
+      <h3 class="m-0">{{ selectedProducts?.length }} products selected</h3>
 
-    <div v-if="isDestinationStore">
-      <div v-if="(syncedProducts.length > 0 || unsyncedProducts.length > 0) && syncProductsQueue.length === 0" class="flex align-items-center pb-3 pt-1">
+      <Button
+        :disabled="unsyncedProducts?.length === 0"
+        :label="`Sync ${unsyncedProducts?.length} products`"
+        @click="bulkSyncProductsHandler"
+        class="p-button-success ml-4">
+      </Button>
 
-      </div>
+      <Button
+        :disabled="syncedProducts?.length === 0"
+        :label="`Unsync ${syncedProducts?.length} products`"
+        @click="bulkUnsyncProductsHandler"
+        class="p-button-danger ml-3"
+        outlined>
+      </Button>
     </div>
 
-    <div v-if="isDestinationStore" class="flex align-items-center pb-3 pt-1">
-      <template>
-        <h3 class="m-0">{{ selectedProducts?.length }} products selected</h3>
-
-        <Button
-          :disabled="unsyncedProducts?.length === 0"
-          :label="`Sync ${unsyncedProducts?.length} products`"
-          @click="bulkSyncProductsHandler"
-          class="p-button-success ml-4">
-        </Button>
-
-        <Button
-          :disabled="syncedProducts?.length === 0"
-          :label="`Unsync ${syncedProducts?.length} products`"
-          @click="bulkUnsyncProductsHandler"
-          class="p-button-danger ml-3"
-          outlined>
-        </Button>
-      </template>
-
-
-      <Tag @click="fetchProductsHandler" class="pointer flex" severity="warning" v-if="syncProductsQueue.length > 0">
+    <div v-if="bulkSync.isOngoing" class="flex align-items-center pb-3 pt-1">
+      <Tag @click="fetchProductsHandler" class="pointer" severity="warning">
         <i class="pi pi-spin pi-sync mr-2"></i>
-        {{ syncProductsQueue.length }} sync in progress | CLICK to refresh
+        {{ bulkSync?.count }} sync in progress | CLICK to refresh
       </Tag>
     </div>
 
@@ -391,6 +373,9 @@ const viewSyncHander = (product) => {
 
     <!----- Bulk Mapper ----->
     <BulkMapperDialog v-if="isBulkMapperDialogRequested" />
+
+    <!----- Bulk Sync ----->
+    <BulkSyncDialog v-if="bulkSync.showDialog" />
 
     <!-- Duplicate Sku -->
     <DuplicateSkuDialog v-if="isDuplicateSkuFound" />

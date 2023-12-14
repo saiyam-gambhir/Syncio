@@ -1,6 +1,8 @@
 <script setup>
 /* ----- Data ----- */
-const { randomInteger } = useFilters();
+const {
+  randomInteger,
+} = useFilters();
 </script>
 
 <template>

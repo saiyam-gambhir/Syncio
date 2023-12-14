@@ -2,14 +2,15 @@ export function useProducts() {
   const {
     excludeZeroStock,
     fetchProducts,
+    products,
     queries,
+    resyncProduct,
     selectedProducts,
     statusOption,
     syncedProducts,
+    syncProductsQueue,
     unsyncedProducts,
     visibilityOption,
-    resyncProduct,
-    syncProductsQueue,
   } = toRefs(useProductsStore());
 
   const {
@@ -47,9 +48,20 @@ export function useProducts() {
     await fetchProducts.value();
   };
 
+  const checkProductStatusOnRefresh = () => {
+    products.value?.forEach(product => {
+      if(product.mapper_id && !product.is_sync_failed) {
+        const productIndex = syncProductsQueue.value.findIndex(item => +item === +product.external_product_id);
+        syncProductsQueue.value.splice(productIndex, 1);
+      }
+      getProductSyncStatus(product);
+    });
+  };
+
   const fetchProductsHandler = async () => {
     applyFilters();
     await fetchProducts.value();
+    checkProductStatusOnRefresh();
     unselectAllRowsHandler();
   };
 

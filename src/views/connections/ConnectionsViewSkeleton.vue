@@ -1,3 +1,10 @@
+<script setup>
+/* ----- Data ----- */
+const {
+  randomInteger
+} = useFilters();
+</script>
+
 <template>
   <DataTable :value="[{}, {}, {}, {}]" responsiveLayout="scroll" showGridlines>
     <template #header>
@@ -14,25 +21,25 @@
 
     <Column header="Store" style="width: 37.5%">
       <template #body>
-        <Skeleton height="26px" />
+        <Skeleton height="21px" :width="`${randomInteger()}%`" />
       </template>
     </Column>
 
     <Column header="Status" style="width: 12.5%">
       <template #body>
-        <Skeleton width="62px" height="26px" borderRadius="20px" />
+        <Skeleton width="75px" height="29px" borderRadius="20px" />
       </template>
     </Column>
 
     <Column header="Location" style="width: 25%">
       <template #body>
-        <Skeleton height="31px" />
+        <Skeleton height="39px" />
       </template>
     </Column>
 
     <Column header="Actions" style="width: 20%" class="text-right">
       <template #body>
-        <Skeleton width="148.82px" height="33.06px" style="float: right" borderRadius="6px" />
+        <Skeleton width="148.82px" height="33px" style="float: right" borderRadius="6px" />
       </template>
     </Column>
   </DataTable>

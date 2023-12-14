@@ -16,6 +16,11 @@ import { unsyncProduct } from './actions/unsyncProduct';
 export const useProductsStore = defineStore('products', {
   state: () => {
     return {
+      bulkSync: {
+        count: null,
+        isOngoing: false,
+        showDialog: false,
+      },
       clickedProduct: null,
       isBulkMapperDialogRequested: false,
       isDuplicateSkuFound: false,
@@ -60,7 +65,7 @@ export const useProductsStore = defineStore('products', {
       ],
       queries: {
         'filters': [],
-        'limiter': 10,
+        'limiter': 25,
         'page': 1,
         'productType': null,
         'search_str': null,

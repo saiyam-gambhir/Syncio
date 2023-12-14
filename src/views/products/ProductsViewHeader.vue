@@ -27,7 +27,17 @@ const searchHandler = searchText => {
 <template>
   <section v-if="selectedStoreId">
     <div class="grid grid-sm my-0">
-      <div class="col-8">
+      <div class="col-10 flex align-items-center">
+        <Button
+          @click="fetchProductsHandler"
+          aria-label="Refresh"
+          class="mr-3"
+          icon="pi pi-refresh"
+          outlined
+          style="background: #fff; border: 1px solid #ced4da;"
+          v-tooltip.top="'Refresh'">
+        </Button>
+
         <div class="p-inputgroup w-100">
           <SearchFilter
             :loading="loading"
@@ -35,22 +45,6 @@ const searchHandler = searchText => {
             placeholder="Search products by name, ID, tag or SKU"
             v-model="queries.search_str">
           </SearchFilter>
-        </div>
-      </div>
-      <div class="col-2 pb-0">
-        <div class="p-inputgroup w-100">
-          <Dropdown
-            :autoOptionFocus="false"
-            :loading="loading"
-            :options="visibilityOptions"
-            @change="fetchProductsHandler"
-            class="w-full"
-            optionLabel="key"
-            optionValue="value"
-            placeholder="Sales channel visibility"
-            showClear
-            v-model="visibilityOption">
-          </Dropdown>
         </div>
       </div>
       <div class="col-2">
@@ -69,6 +63,22 @@ const searchHandler = searchText => {
     </div>
 
     <div class="grid grid-sm my-0">
+      <div class="col-2 pb-0">
+        <div class="p-inputgroup w-100">
+          <Dropdown
+            :autoOptionFocus="false"
+            :loading="loading"
+            :options="visibilityOptions"
+            @change="fetchProductsHandler"
+            class="w-full"
+            optionLabel="key"
+            optionValue="value"
+            placeholder="Sales channel visibility"
+            showClear
+            v-model="visibilityOption">
+          </Dropdown>
+        </div>
+      </div>
       <div class="col-2 pb-0">
         <div class="p-inputgroup w-100">
           <Dropdown
@@ -117,7 +127,7 @@ const searchHandler = searchText => {
           </Dropdown>
         </div>
       </div>
-      <div class="col-6 pb-0 flex align-items-center">
+      <div class="col-4 pb-0 flex align-items-center">
         <InputSwitch
           @change="fetchProductsHandler"
           inputId="hide-zero-stock"
