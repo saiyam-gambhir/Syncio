@@ -126,7 +126,7 @@ const isSelected = (row) => {
   <OrdersViewSkeleton v-if="loadingOrders" />
 
   <!-- Orders Table -->
-  <DataTable v-else :value="orders.orders" responsiveLayout="scroll" showGridlines class="mt-4" :rowClass="isSelected">
+  <DataTable v-else :value="orders.orders" responsiveLayout="scroll" showGridlines class="mt-2" :rowClass="isSelected">
     <template #empty>
       <div class="px-4 py-8 text-center">
         <h2 class="m-0">No orders found</h2>

@@ -18,6 +18,11 @@ const props = defineProps({
     type: String,
   },
 
+  rowIndex: {
+    required: true,
+    type: Number,
+  },
+
   variantsCount: {
     required: true,
     type: Number,
@@ -26,7 +31,9 @@ const props = defineProps({
 
 /* ----- Mounted ----- */
 onMounted(() => {
-  fetchInventoryHandler();
+  setTimeout(() => {
+    fetchInventoryHandler();
+  }, props.rowIndex * 1000);
 });
 
 /* ----- Methods ----- */
@@ -46,8 +53,8 @@ const fetchInventoryHandler = async () => {
 </script>
 
 <template>
-  <i v-if="inventoryCount === null" class="pi pi-spin pi-spinner" style="font-size: 1.25rem"></i>
+  <Skeleton v-if="inventoryCount === null" height="15.5px" width="50%" />
   <template v-else>
-    <span>{{ inventoryCount }} for </span> <span>{{ props.variantsCount }}</span> {{ variantsCount > 1 ? 'variants' : 'variant' }}
+    <span class="line-height-3">{{ inventoryCount }} assigned for </span> <span>{{ props.variantsCount }}</span> {{ variantsCount > 1 ? 'variants' : 'variant' }}
   </template>
 </template>

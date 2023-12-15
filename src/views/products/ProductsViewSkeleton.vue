@@ -27,7 +27,7 @@ const {
     </div>
 
     <DataTable
-      :value="[{}, {}, {}, {}, {}, {}, {}]"
+      :value="[{}, {}, {}, {}]"
       responsiveLayout="scroll"
       showGridlines>
 

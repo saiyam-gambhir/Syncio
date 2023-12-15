@@ -102,7 +102,7 @@ class AxiosService {
             return;
 
           case 500:
-            toast('Internal Server Error: An unexpected error occurred on the server', { ...toastOptions, type: 'error' });
+            //toast('Internal Server Error: An unexpected error occurred on the server', { ...toastOptions, type: 'error' });
             return;
         }
       }

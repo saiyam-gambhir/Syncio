@@ -266,9 +266,13 @@ const viewSyncHander = (product) => {
         </Column>
 
         <Column header="Inventory" style="width: 14%;">
-          <template #body="{ data: { external_product_id, total_inventory_quantity, variants } }">
+          <template #body="{ data: { external_product_id, total_inventory_quantity, variants }, index }">
             <span v-if="selectedStore?.source_default_inventory_location">
-              <InventoryCounter :productId="external_product_id" :variantsCount="variants?.length" />
+              <InventoryCounter
+                :productId="external_product_id"
+                :rowIndex="index"
+                :variantsCount="variants?.length">
+              </InventoryCounter>
             </span>
             <template v-else>
               <span>{{ total_inventory_quantity }}</span> for <span>{{ variants.length }}</span> {{ variants.length > 1 ? 'variants' : 'variant' }}

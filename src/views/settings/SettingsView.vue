@@ -4,6 +4,7 @@ import * as routes from '@/routes';
 /* ----- Data ----- */
 const {
   isDestinationStore,
+  isShopify,
 } = toRefs(useConnectionsStore());
 </script>
 
@@ -17,53 +18,54 @@ const {
     <div class="surface-white">
       <div class="grid">
         <Setting
-          description="Find specific information about your account with Syncio, including your store type, Syncio connection key and how to uninstall Syncio"
           :href="routes.ACCOUNT_SETTINGS"
+          description="Find specific information about your account with Syncio, including your store type, Syncio connection key and how to uninstall Syncio"
           icon="pi-user"
           title="Account details">
         </Setting>
 
         <Setting
-          v-if="isDestinationStore"
-          description="Manage and upgrade your base plan and add-ons"
           :href="routes.PLAN_AND_BILLINGS"
+          description="Manage and upgrade your base plan and add-ons"
           icon="pi-credit-card"
-          title="Plan and billing">
+          title="Plan and billing"
+          v-if="isDestinationStore">
         </Setting>
 
         <Setting
-          description="Manage what attributes sync across your connected stores"
           :href="routes.PRODUCT_SETTINGS"
+          description="Manage what attributes sync across your connected stores"
           icon="pi-wrench"
-          title="Product settings">
+          title="Product settings"
+          v-if="isShopify">
         </Setting>
 
         <Setting
-          v-if="isDestinationStore"
-          description="Set commissions at store, vendor or product/SKU level"
           :href="routes.PAYOUTS_SETTINGS"
+          description="Set commissions at store, vendor or product/SKU level"
           icon="pi-dollar"
-          title="Payouts settings">
+          title="Payouts settings"
+          v-if="isDestinationStore && isShopify">
         </Setting>
 
         <Setting
-          description="Manage your Marketplace profile and settings"
           :href="routes.MARKETPLACE_SETTINGS"
+          description="Manage your Marketplace profile and settings"
           icon="pi-shopping-bag"
           title="Marketplace settings">
         </Setting>
 
         <Setting
-          v-if="isDestinationStore"
-          description="Manage order push settings like email, shipping rate and shipping tags."
           :href="routes.ORDER_PUSH_SETTINGS"
+          description="Manage order push settings like email, shipping rate and shipping tags."
           icon="pi-file"
-          title="Order push settings">
+          title="Order push settings"
+          v-if="isDestinationStore && isShopify">
         </Setting>
 
         <Setting
-          description="Choose how you'd like to receive communications and customise what type of alerts we send you"
           :href="routes.NOTIFICATION_SETTINGS"
+          description="Choose how you'd like to receive communications and customise what type of alerts we send you"
           icon="pi-bell"
           title="Notifications">
         </Setting>

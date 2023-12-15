@@ -3,9 +3,10 @@ export const fetchDestinationLocations = {
     this.loadingInventory = true;
     const response = await axiosService.getData(`stores/${this.storeId}/destination-locations`);
 
-    if(response.success) {
+    if(response?.success) {
       this.destinationLocations = await response.inventories;
-      this.loadingInventory = false;
     }
+
+    this.loadingInventory = false;
   }
 };

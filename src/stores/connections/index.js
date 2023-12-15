@@ -48,6 +48,10 @@ export const useConnectionsStore = defineStore('connections', {
       return currentStore?.platform;
     },
 
+    isShopify() {
+      return this.platform?.toLowerCase() === 'shopify';
+    },
+
     storeCreationDate({ currentStore }) {
       return currentStore?.created_at;
     },

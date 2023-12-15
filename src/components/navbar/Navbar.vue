@@ -17,6 +17,7 @@ const {
 const {
   isConnectionStatusPending,
   isDestinationStore,
+  isShopify,
   isSourceStore,
 } = toRefs(useConnectionsStore());
 
@@ -28,7 +29,6 @@ const isSettingsPath = computed(() => {
   const settingsPaths = [ACCOUNT_SETTINGS, MARKETPLACE_SETTINGS, NOTIFICATION_SETTINGS, PAYOUTS_SETTINGS, PLAN_AND_BILLINGS, ORDER_PUSH_SETTINGS];
   return settingsPaths.includes(route.name);
 });
-
 </script>
 
 <template>
@@ -53,13 +53,13 @@ const isSettingsPath = computed(() => {
           <li class="mt-1">
             <NavLink :href="routes.PRODUCTS" iconClass="pi-list" linkText="Products" />
           </li>
-          <li class="mt-1">
+          <li class="mt-1" v-if="isShopify">
             <NavLink :href="routes.PRODUCT_SETTINGS" iconClass="pi-wrench" linkText="Product Settings" />
           </li>
-          <li class="mt-1">
+          <li class="mt-1" v-if="isShopify">
             <NavLink :href="routes.ORDERS" iconClass="pi-file" linkText="Orders" />
           </li>
-          <li class="mt-1">
+          <li class="mt-1" v-if="isShopify">
             <NavLink :href="routes.PAYOUTS" iconClass="pi-dollar" linkText="Payouts" />
           </li>
           <li class="mt-1">
@@ -84,10 +84,10 @@ const isSettingsPath = computed(() => {
           <li class="mt-1">
             <NavLink :href="routes.PRODUCTS" iconClass="pi-list" linkText="Products" />
           </li>
-          <li class="mt-1">
+          <li class="mt-1" v-if="isShopify">
             <NavLink :href="routes.PRODUCT_SETTINGS" iconClass="pi-wrench" linkText="Product Settings" />
           </li>
-          <li class="mt-1">
+          <li class="mt-1" v-if="isShopify">
             <NavLink :href="routes.PAYOUTS" iconClass="pi-dollar" linkText="Payouts" />
           </li>
           <li class="mt-1">

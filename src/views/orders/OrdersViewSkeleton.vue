@@ -4,7 +4,7 @@ const { randomInteger } = useFilters();
 </script>
 
 <template>
-  <DataTable :value="[{}, {}, {}, {}]" responsiveLayout="scroll" showGridlines class="mt-4">
+  <DataTable :value="[{}, {}, {}, {}]" responsiveLayout="scroll" showGridlines class="mt-2">
     <template #header>
       <OrdersViewHeader />
     </template>

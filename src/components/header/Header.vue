@@ -76,7 +76,7 @@ const isForwardActionDisabled = ref(false);
 
 /* ----- Mounted ----- */
 onMounted(() => {
-  fetchMetadata.value();
+  //fetchMetadata.value();
 });
 
 /* ----- Methods ----- */

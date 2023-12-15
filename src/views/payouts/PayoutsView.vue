@@ -59,7 +59,7 @@ onMounted(async () => {
   </PageHeader>
 
   <!-- Destination Payouts -->
-  <TabView v-if="isDestinationStore" v-model:activeIndex="activeTabIndex" @update:activeIndex="handleTabChange" class="mt-4">
+  <TabView v-if="isDestinationStore" v-model:activeIndex="activeTabIndex" @update:activeIndex="handleTabChange">
     <TabPanel header="Payable Orders">
       <template v-if="activeTabIndex === 0">
         <PayableOrders />
