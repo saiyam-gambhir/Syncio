@@ -8,6 +8,7 @@ const ShopifyPermissionsDialog = defineAsyncComponent(() => import('./components
 const {
   fetchMetadata,
   isNewStoreConnectionRequested,
+  isShopify,
   shopifyPermissions,
   storeKey,
   storeName,
@@ -76,7 +77,9 @@ const isForwardActionDisabled = ref(false);
 
 /* ----- Mounted ----- */
 onMounted(() => {
-  //fetchMetadata.value();
+  if(isShopify.value) {
+    fetchMetadata.value();
+  }
 });
 
 /* ----- Methods ----- */

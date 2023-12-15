@@ -56,9 +56,11 @@ const {
 
 const statusOptions = {
   'attention': 'warning',
-  'unsynced': 'danger',
   'pending': 'warning',
+  'replaced': 'danger',
   'synced': 'success',
+  'unsupported': 'info',
+  'unsynced': 'danger',
 };
 
 /* ----- Mounted ----- */
@@ -173,6 +175,7 @@ const viewSyncHander = (product) => {
         @change="fetchProductsHandler()"
         @update:modelValue="storeFilterHandler"
         customPlaceholder
+        editable
         style="width: 25rem;"
         v-model="selectedStoreId">
       </StoresFilter>
@@ -253,14 +256,18 @@ const viewSyncHander = (product) => {
         </Column>
 
         <Column header="Product" style="width: 36%">
-          <template #body="{ data: { default_image_url, external_product_id, store_id, title } }">
-            <div class="flex align-items-center pointer btn-link-parent" @click="fetchProductDetails({ externalProductId: external_product_id, targetStoreId: store_id }, true)">
+          <template #body="{ data: { default_image_url, external_product_id, product_status, store_id, title } }">
+            <div class="flex align-items-center pointer btn-link-parent" @click.prevent="fetchProductDetails({ externalProductId: external_product_id, targetStoreId: store_id }, true)">
               <figure class="m-0" style="width: 42px; height: 42px; padding: 4px; border: 1px solid rgb(231, 231, 231); flex-shrink: 0;">
                 <div class="w-full h-full" style="background-size: contain; background-repeat: no-repeat; background-position: center;" :style="{ backgroundImage: `url(${default_image_url})` }"></div>
               </figure>
               <div class="flex flex-column ml-3 pointer btn-link text-blue-500">
                 {{ title }}
               </div>
+            </div>
+            <div v-if="isDestinationStore && product_status === 'replaced'" style="padding-left: 4.3rem; padding-bottom: 1rem;" class="text-sm">
+              Replaced by Source store.
+              <AppLink label="What to do" link="https://help.syncio.co/en/articles/6958498-what-is-a-replaced-product-and-what-do-i-do-with-it" class="text-sm" />
             </div>
           </template>
         </Column>
@@ -288,7 +295,14 @@ const viewSyncHander = (product) => {
                 <span>
                   {{ getProductSyncStatus(data).replace('_', ' ') }}
                 </span>
-                <i v-if="getProductSyncStatus(data) === 'attention'" class="pi pi-external-link ml-2"></i>
+                <i class="pi pi-external-link ml-2"></i>
+              </Tag>
+            </a>
+            <a v-tooltip.right="'Open link'" href="https://help.syncio.co/en/articles/6958447-woocommerce-supported-product-types" target="_blank" v-if="getProductSyncStatus(data) === 'unsupported'">
+              <Tag :severity="statusOptions[getProductSyncStatus(data)]" rounded>
+                <StatusIcon />
+                <span>Not supported</span>
+                <i class="pi pi-external-link ml-2"></i>
               </Tag>
             </a>
             <Tag :severity="statusOptions[getProductSyncStatus(data)]" rounded v-else-if="getProductSyncStatus(data) === 'not synced'" :pt="{root: { style: { background: '#eee', color: '#333', border: '1px solid #333' }}}">
@@ -326,7 +340,7 @@ const viewSyncHander = (product) => {
                 </SplitButton>
               </span>
               <SplitButton
-                v-else
+                v-else-if="data.product_status !== 'replaced'"
                 :disabled="getProductSyncStatus(data) === 'pending'"
                 @click="viewSyncHander(data)"
                 class="p-button-sm"
@@ -337,7 +351,17 @@ const viewSyncHander = (product) => {
                 ]"
                 outlined>
               </SplitButton>
-
+              <SplitButton
+                v-else-if="data.product_status === 'replaced'"
+                :disabled="getProductSyncStatus(data) === 'pending'"
+                @click="viewSyncHander(data)"
+                class="p-button-sm"
+                label="View sync"
+                :model="[
+                  { label: 'Unsync', command: () => unsyncProductHandler(data) },
+                ]"
+                outlined>
+              </SplitButton>
             </div>
             <div v-else>
               <span v-if="syncedProducts.length > 0 || unsyncedProducts.length > 0" v-tooltip.top="'Clear bulk selection to access this button.'" class="inline-block">

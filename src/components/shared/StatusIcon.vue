@@ -11,6 +11,6 @@ const props = defineProps({
   <i
     class="pi"
     :class="fill ? 'pi-circle-fill' : 'pi-circle'"
-    style="font-size: .5rem; margin-right: .33rem;">
+    style="font-size: .45rem; margin-right: .35rem;">
   </i>
 </template>

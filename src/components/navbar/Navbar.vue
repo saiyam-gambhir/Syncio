@@ -62,7 +62,7 @@ const isSettingsPath = computed(() => {
           <li class="mt-1" v-if="isShopify">
             <NavLink :href="routes.PAYOUTS" iconClass="pi-dollar" linkText="Payouts" />
           </li>
-          <li class="mt-1">
+          <li class="mt-1" v-if="isShopify">
             <NavLink :href="routes.ACTIVITY_CENTER" iconClass="pi-bell" linkText="Activity Center" />
           </li>
           <li class="mt-1">

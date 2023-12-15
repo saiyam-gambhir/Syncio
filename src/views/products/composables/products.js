@@ -95,8 +95,12 @@ export function useProducts() {
         return 'attention';
       }
 
-      if(!mapper_id && !is_sync_failed) {
+      if(!mapper_id && !is_sync_failed && product_status !== 'unsupported') {
         return 'not synced';
+      }
+
+      if(product_status === 'unsupported') {
+        return 'unsupported';
       }
 
       return 'not synced';
