@@ -74,6 +74,26 @@ export const useProductsStore = defineStore('products', {
         'sortBy': null,
         'vendor': null,
       },
+
+      /* ----- Filters for large stores */
+      searchAttribute: null,
+      searchOptions: [
+        { label: 'Barcode', value: 'barcode' },
+        { label: 'Product ID', value: 'product_id' },
+        { label: 'SKU', value: 'sku' },
+        { label: 'Tags', value: 'tags' },
+        { label: 'Title', value: 'title' },
+      ],
+      storesWithNewFilters: [
+        '260-sample-sale.myshopify.com',
+        'blue-bungalow-nz.myshopify.com',
+        'dressbarnonline-dev.myshopify.com',
+        'lirumlarumleg.myshopify.com',
+        'lirumlarumlegno.myshopify.com',
+        'pccha-eu.myshopify.com',
+        'solado-eu.myshopify.com',
+      ],
+      totalProductCount: null,
     };
   },
 
@@ -108,6 +128,7 @@ export const useProductsStore = defineStore('products', {
         paths: [
           'excludeZeroStock',
           'queries',
+          'searchAttribute',
           'selectedStoreId',
           'statusOption',
           'syncProductsQueue',

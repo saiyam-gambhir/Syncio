@@ -4,37 +4,99 @@ const {
 } = useProducts();
 
 const {
+  storeName,
+} = toRefs(useConnectionsStore());
+
+const {
+  excludeZeroStock,
   loading,
   productTypeOptions,
   queries,
+  searchAttribute,
+  searchOptions,
   selectedStoreId,
   sortOptions,
   statusOption,
   statusOptions,
+  storesWithNewFilters,
+  totalProductCount,
   vendorOptions,
   visibilityOption,
   visibilityOptions,
-  excludeZeroStock,
 } = toRefs(useProductsStore());
+
+/* ----- Computed ----- */
+const enableNewFilters = computed(() => {
+  return storesWithNewFilters.value.includes(storeName.value) || +totalProductCount.value > 30000;
+});
 
 /* ----- Methods ----- */
 const searchHandler = searchText => {
   queries.value.search_str = searchText;
   fetchProductsHandler();
 };
+
+const searchAttributeHandler = ($event) => {
+  if(!$event.value) {
+    queries.value.search_str = null;
+    fetchProductsHandler();
+  }
+};
 </script>
 
 <template>
   <section v-if="selectedStoreId">
     <div class="grid grid-sm my-0">
-      <div class="col-10 flex align-items-center">
+
+      <div v-if="enableNewFilters" class="col-10 flex align-items-center">
+        <div class="grid grid-sm w-100">
+          <div class="col-3 flex align-items-center">
+            <Button
+              @click="fetchProductsHandler"
+              aria-label="Refresh"
+              class="mr-3"
+              icon="pi pi-refresh"
+              outlined
+              style="background: #fff; border: 1px solid #ced4da; flex-shrink: inherit; height: 39px;"
+              v-tooltip.top="'Refresh'">
+            </Button>
+
+            <div class="p-inputgroup w-100">
+              <Dropdown
+                :autoOptionFocus="false"
+                :loading="loading"
+                :options="searchOptions"
+                @change="searchAttributeHandler"
+                class="w-full"
+                optionLabel="label"
+                placeholder="Search products by"
+                showClear
+                v-model="searchAttribute">
+              </Dropdown>
+            </div>
+          </div>
+          <div class="col-9 flex align-items-center">
+            <div class="p-inputgroup w-100">
+              <SearchFilter
+                :disabled="!searchAttribute"
+                :loading="loading"
+                @update:modelValue="searchHandler"
+                placeholder="Your search query"
+                v-model="queries.search_str">
+              </SearchFilter>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div v-if="!enableNewFilters" class="col-10 flex align-items-center">
         <Button
           @click="fetchProductsHandler"
           aria-label="Refresh"
           class="mr-3"
           icon="pi pi-refresh"
           outlined
-          style="background: #fff; border: 1px solid #ced4da;"
+          style="background: #fff; border: 1px solid #ced4da; flex-shrink: inherit; height: 39px;"
           v-tooltip.top="'Refresh'">
         </Button>
 
@@ -55,7 +117,7 @@ const searchHandler = searchText => {
           @change="fetchProductsHandler"
           class="w-full"
           optionLabel="label"
-          placeholder="Sort Products"
+          placeholder="Sort products"
           showClear
           v-model="queries.sortBy">
         </Dropdown>

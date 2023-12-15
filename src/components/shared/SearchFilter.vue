@@ -4,6 +4,11 @@ const searchText = ref(props.modelValue);
 
 /* ----- Props ----- */
 const props = defineProps({
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
+
   loading: {
     type: Boolean,
     required: false,
@@ -30,6 +35,17 @@ const handleSearch = () => {
 </script>
 
 <template>
-  <InputText :placeholder="placeholder" @keyup.enter="handleSearch" v-model="searchText" />
-  <Button :disabled="!searchText" :loading="loading" @click="handleSearch" icon="pi pi-search" />
+  <InputText
+    :disabled="disabled"
+    :placeholder="placeholder"
+    @keyup.enter="handleSearch"
+    v-model="searchText">
+  </InputText>
+
+  <Button
+    :disabled="!searchText"
+    :loading="loading"
+    @click="handleSearch"
+    icon="pi pi-search">
+  </Button>
 </template>

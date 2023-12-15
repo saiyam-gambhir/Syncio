@@ -37,6 +37,7 @@ export const fetchProducts = {
       origin: storeType,
       page,
       page: page,
+      search_attribute: this.searchAttribute?.value,
       search_str,
       sort_by_desc: sortBy?.sortByDesc,
       sort_by: sortBy?.key,
@@ -45,9 +46,10 @@ export const fetchProducts = {
 
     const response = await axiosService.getData('products', params);
     if(response?.success) {
-      const { current_page, next_page_url, previous_page_url, products, total } = response;
+      const { current_page, next_page_url, previous_page_url, products, total, total_product_count, } = response;
 
       this.products = await products;
+      this.totalProductCount = total_product_count;
 
       this.pagination = {
         current_page: current_page,

@@ -25,6 +25,7 @@ const {
   fetchConnections,
   isDestinationStore,
   isSourceStore,
+  isWoocommerce,
   partnerStoreType,
 } = toRefs(useConnectionsStore());
 
@@ -41,9 +42,11 @@ const {
   loading,
   pagination,
   products,
+  queries,
   selectedProducts,
   selectedStore,
   selectedStoreId,
+  statusOptions,
   syncedProducts,
   syncProduct,
   unsyncedProducts,
@@ -54,7 +57,7 @@ const {
   fetchCurrentPlan,
 } = toRefs(usePlanStore());
 
-const statusOptions = {
+const statusOptionsTag = {
   'attention': 'warning',
   'pending': 'warning',
   'replaced': 'danger',
@@ -70,6 +73,12 @@ onMounted(async () => {
 
   await fetchProductsHandler();
   if(selectedStoreId.value) await fetchMetaFields.value();
+
+  if(isDestinationStore.value && isWoocommerce.value) {
+    statusOptions.value.push({ key: 'Replaced', value: 'replaced' });
+  } else if(isSourceStore.value && isWoocommerce.value) {
+    statusOptions.value.push({ key: 'Unsupported', value: 'unsupported' });
+  }
 });
 
 /* ----- Watch ----- */
@@ -155,7 +164,12 @@ const fetchProductDetailsHandler = (product) => {
 const viewSyncHander = (product) => {
   clickedProduct.value = product;
   fetchProductDetails.value({ externalProductId: product.external_product_id, targetStoreId: product.store_id }, false);
-}
+};
+
+const storeChangeHandler = () => {
+  queries.value.page = 1;
+  fetchProductsHandler();
+};
 </script>
 
 <template>
@@ -172,7 +186,7 @@ const viewSyncHander = (product) => {
       <StoresFilter
         :customPlaceholderText="`Select a ${partnerStoreType}`"
         :showClear="false"
-        @change="fetchProductsHandler()"
+        @change="storeChangeHandler()"
         @update:modelValue="storeFilterHandler"
         customPlaceholder
         editable
@@ -289,8 +303,9 @@ const viewSyncHander = (product) => {
 
         <Column header="Status" style="width: 14.5%">
           <template #body="{ data }">
-            <a v-tooltip.right="'Open link'" href="https://help.syncio.co/en/articles/5958687-attention-status-for-product-imports" target="_blank" v-if="getProductSyncStatus(data) === 'attention'">
-              <Tag :severity="statusOptions[getProductSyncStatus(data)]" rounded>
+
+            <a v-if="getProductSyncStatus(data) === 'attention'" v-tooltip.right="'Open link'" href="https://help.syncio.co/en/articles/5958687-attention-status-for-product-imports" target="_blank">
+              <Tag :severity="statusOptionsTag[getProductSyncStatus(data)]" rounded>
                 <StatusIcon />
                 <span>
                   {{ getProductSyncStatus(data).replace('_', ' ') }}
@@ -298,20 +313,23 @@ const viewSyncHander = (product) => {
                 <i class="pi pi-external-link ml-2"></i>
               </Tag>
             </a>
-            <a v-tooltip.right="'Open link'" href="https://help.syncio.co/en/articles/6958447-woocommerce-supported-product-types" target="_blank" v-if="getProductSyncStatus(data) === 'unsupported'">
-              <Tag :severity="statusOptions[getProductSyncStatus(data)]" rounded>
+
+            <a v-else-if="getProductSyncStatus(data) === 'unsupported'" v-tooltip.right="'Open link'" href="https://help.syncio.co/en/articles/6958447-woocommerce-supported-product-types" target="_blank">
+              <Tag :severity="statusOptionsTag[getProductSyncStatus(data)]" rounded>
                 <StatusIcon />
-                <span>Not supported</span>
+                <span>Unsupported</span>
                 <i class="pi pi-external-link ml-2"></i>
               </Tag>
             </a>
-            <Tag :severity="statusOptions[getProductSyncStatus(data)]" rounded v-else-if="getProductSyncStatus(data) === 'not synced'" :pt="{root: { style: { background: '#eee', color: '#333', border: '1px solid #333' }}}">
+
+            <Tag v-else-if="getProductSyncStatus(data) === 'not synced'" :severity="statusOptionsTag[getProductSyncStatus(data)]" rounded :pt="{root: { style: { background: '#eee', color: '#333', border: '1px solid #333' }}}">
               <StatusIcon />
               <span>
                 {{ getProductSyncStatus(data).replace('_', ' ') }}
               </span>
             </Tag>
-            <Tag :severity="statusOptions[getProductSyncStatus(data)]" rounded v-else>
+
+            <Tag v-else :severity="statusOptionsTag[getProductSyncStatus(data)]" rounded>
               <i v-if="getProductSyncStatus(data) === 'pending'" class="pi pi-spin pi-sync"></i>
               <StatusIcon v-else />
               <span :class="{ 'ml-2': getProductSyncStatus(data) === 'pending' }" style="transition: margin .25s;">
