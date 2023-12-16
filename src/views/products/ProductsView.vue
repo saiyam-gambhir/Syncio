@@ -36,6 +36,7 @@ const {
   fetchMetaFields,
   fetchProductDetails,
   isBulkMapperDialogRequested,
+  isBulkUnsyncAction,
   isDuplicateSkuFound,
   isProductDetailsDialogRequested,
   isUnsyncRequested,
@@ -121,16 +122,8 @@ const unsyncProductHandler = async (product) => {
 };
 
 const bulkUnsyncProductsHandler = () => {
-  const syncedProductsLength = syncedProducts.value.length;
-  syncedProducts.value.forEach(async (product, index) => {
-    // await unsyncProductHandler(product, false);
-    // if((index + 1) === syncedProductsLength) {
-    //   setTimeout(() => {
-    //     fetchCurrentPlan.value(userId.value);
-    //   }, 1500);
-    // }
-  });
-  unselectAllRowsHandler();
+  isBulkUnsyncAction.value = true;
+  isUnsyncRequested.value = true;
 };
 
 const selectAllRowsHandler = (rows) => {
@@ -195,11 +188,12 @@ const storeChangeHandler = () => {
       </StoresFilter>
 
       <Button
+        :disabled="!selectedStoreId"
         @click="isBulkMapperDialogRequested = true"
         class="ml-5 bulk-mapper-btn"
         label="Bulk mapper"
         outlined
-        v-if="selectedStoreId && isDestinationStore">
+        v-if="isDestinationStore">
       </Button>
     </template>
   </PageHeader>
@@ -269,13 +263,13 @@ const storeChangeHandler = () => {
           v-if="isDestinationStore">
         </Column>
 
-        <Column header="Product" style="width: 36%">
+        <Column header="Product" style="width: 36%;">
           <template #body="{ data: { default_image_url, external_product_id, product_status, store_id, title } }">
             <div class="flex align-items-center pointer btn-link-parent" @click.prevent="fetchProductDetails({ externalProductId: external_product_id, targetStoreId: store_id }, true)">
               <figure class="m-0" style="width: 42px; height: 42px; padding: 4px; border: 1px solid rgb(231, 231, 231); flex-shrink: 0;">
                 <div class="w-full h-full" style="background-size: contain; background-repeat: no-repeat; background-position: center;" :style="{ backgroundImage: `url(${default_image_url})` }"></div>
               </figure>
-              <div class="flex flex-column ml-3 pointer btn-link text-blue-500">
+              <div class="flex flex-column ml-3 pointer btn-link text-blue-500 truncate-text">
                 {{ title }}
               </div>
             </div>
@@ -427,7 +421,7 @@ const storeChangeHandler = () => {
     <ProductDetailsDialog v-if="isProductDetailsDialogRequested" />
 
     <!----- Unsync ----->
-    <UnsyncDialog v-if="isUnsyncRequested" />
+    <UnsyncDialog v-if="isUnsyncRequested" :isBulk="isBulkUnsyncAction" />
   </template>
 </template>
 

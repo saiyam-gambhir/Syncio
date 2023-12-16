@@ -24,6 +24,7 @@ export const useProductsStore = defineStore('products', {
       },
       clickedProduct: null,
       isBulkMapperDialogRequested: false,
+      isBulkUnsyncAction: false,
       isDuplicateSkuFound: false,
       isProductDetailsDialogRequested: false,
       isUnsyncRequested: false,

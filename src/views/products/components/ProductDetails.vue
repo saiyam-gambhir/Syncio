@@ -93,7 +93,7 @@ const props = defineProps({
           <div class="text-900 w-8 text-lg" v-if="platform === 'shopify'">
             {{ product.data.meta_fields?.product_type || 'Type not available' }}
           </div>
-          <div class="text-900 w-9 text-lg" v-else>
+          <div class="text-900 w-8 text-lg" v-else>
             {{ product.data?.product_type || 'Type not available' }}
           </div>
         </li>

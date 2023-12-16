@@ -45,7 +45,7 @@ const searchAttributeHandler = ($event) => {
 </script>
 
 <template>
-  <section v-if="selectedStoreId">
+  <section>
     <div class="grid grid-sm my-0">
 
       <div v-if="enableNewFilters" class="col-10 flex align-items-center">

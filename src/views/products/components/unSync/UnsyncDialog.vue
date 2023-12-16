@@ -36,25 +36,30 @@ const {
 
 const {
   clickedProduct,
+  isBulkUnsyncAction,
   isUnsyncRequested,
+  syncedProducts,
   unsyncProduct,
 } = toRefs(useProductsStore());
 
 const {
+  unselectAllRowsHandler,
   updateProductStatus,
 } = useProducts();
 
 /* ----- Methods ----- */
 const closeDialogHandler = () => {
+  isBulkUnsyncAction.value = false;
   isUnsyncRequested.value = false;
 };
 
-const unsyncProductHandler = async (product, loadCurrentPlan = true) => {
+const unsyncSingleProduct = async (product, loadCurrentPlan = true) => {
   const mapperIds = [];
   mapperIds.push(product.mapper_id);
   loadingUnsyncAction.value = true;
   const response = await unsyncProduct.value(mapperIds);
   if(response?.success) {
+    isBulkUnsyncAction.value = false;
     isUnsyncRequested.value = false;
     loadingUnsyncAction.value = false;
     updateProductStatus(product, product.mapper_id);
@@ -64,6 +69,28 @@ const unsyncProductHandler = async (product, loadCurrentPlan = true) => {
         fetchCurrentPlan.value(userId.value);
       }, 1000);
     }
+  }
+};
+
+const bulkUnsyncHandler = async () => {
+  const syncedProductsLength = syncedProducts.value.length;
+  syncedProducts.value.forEach(async (product, index) => {
+    await unsyncSingleProduct(product, false);
+    if((index + 1) === syncedProductsLength) {
+      setTimeout(() => {
+        fetchCurrentPlan.value(userId.value);
+      }, 1500);
+    }
+  });
+
+  unselectAllRowsHandler();
+};
+
+const unsyncProductHandler = () => {
+  if(!isBulkUnsyncAction.value) {
+    unsyncSingleProduct(clickedProduct.value);
+  } else {
+    bulkUnsyncHandler()
   }
 };
 </script>
