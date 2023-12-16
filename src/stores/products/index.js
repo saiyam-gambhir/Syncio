@@ -27,6 +27,7 @@ export const useProductsStore = defineStore('products', {
       isBulkUnsyncAction: false,
       isDuplicateSkuFound: false,
       isProductDetailsDialogRequested: false,
+      isUnsyncAndDeleteRequested: false,
       isUnsyncRequested: false,
       isViewDetailsRequested: true,
       loading: true,

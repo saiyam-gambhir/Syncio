@@ -1,27 +1,6 @@
 <script setup>
 /* ----- Components ----- */
-// const DisconnectAndDeleteDialog = defineAsyncComponent(() => import('./DisconnectAndDeleteDialog.vue'));
-// const DisconnectAndKeepDialog = defineAsyncComponent(() => import('./DisconnectAndKeepDialog.vue'));
-
-/* ----- Data ----- */
-// const {
-//   isConnectionDisconnectRequested,
-//   isDisconnectAndDeleteRequested,
-//   isDisconnectAndKeepRequested,
-// } = toRefs(useConnectionsStore());
-
-/* ----- Methods ----- */
-// const closeDialogHandler = () => {
-//   isConnectionDisconnectRequested.value = false;
-// };
-
-// const showDisconnectAndDeleteDialog = () => {
-//   isDisconnectAndDeleteRequested.value = true;
-// };
-
-// const showDisconnectAndKeepDialog = () => {
-//   isDisconnectAndKeepRequested.value = true;
-// };
+const UnsyncAndDeleteDialog = defineAsyncComponent(() => import('./UnsyncAndDeleteDialog.vue'));
 
 /* ----- Data ----- */
 const loadingUnsyncAction = ref(false);
@@ -37,6 +16,7 @@ const {
 const {
   clickedProduct,
   isBulkUnsyncAction,
+  isUnsyncAndDeleteRequested,
   isUnsyncRequested,
   syncedProducts,
   unsyncProduct,
@@ -59,9 +39,7 @@ const unsyncSingleProduct = async (product, loadCurrentPlan = true) => {
   loadingUnsyncAction.value = true;
   const response = await unsyncProduct.value(mapperIds);
   if(response?.success) {
-    isBulkUnsyncAction.value = false;
-    isUnsyncRequested.value = false;
-    loadingUnsyncAction.value = false;
+    isBulkUnsyncAction.value = isUnsyncRequested.value = loadingUnsyncAction.value = false;
     updateProductStatus(product, product.mapper_id);
     product.mapper_id = null;
     if(loadCurrentPlan) {
@@ -87,11 +65,11 @@ const bulkUnsyncHandler = async () => {
 };
 
 const unsyncProductHandler = () => {
-  if(!isBulkUnsyncAction.value) {
-    unsyncSingleProduct(clickedProduct.value);
-  } else {
-    bulkUnsyncHandler()
-  }
+  isBulkUnsyncAction.value ? bulkUnsyncHandler() : unsyncSingleProduct(clickedProduct.value);
+};
+
+const showUnsyncAndDeleteDialogHandler = () => {
+  isUnsyncAndDeleteRequested.value = true;
 };
 </script>
 
@@ -125,7 +103,7 @@ const unsyncProductHandler = () => {
             <h2 class="mb-3 mt-4">Unsync and Delete</h2>
             <p class="mt-0">Unsync and delete the product from your destination store.</p>
             <Button
-              @click=""
+              @click="showUnsyncAndDeleteDialogHandler"
               class="p-button-lg block w-100 mt-6"
               label="Unsync and Delete"
               outlined
@@ -137,8 +115,7 @@ const unsyncProductHandler = () => {
     </template>
   </DialogWrapper>
 
-  <!-- <DisconnectAndDeleteDialog v-if="isDisconnectAndDeleteRequested" />
-  <DisconnectAndKeepDialog v-if="isDisconnectAndKeepRequested" /> -->
+  <UnsyncAndDeleteDialog v-if="isUnsyncAndDeleteRequested" />
 </template>
 
 <style scoped>
