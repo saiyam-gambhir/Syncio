@@ -36,7 +36,7 @@ const {
       </template>
 
       <Column
-        headerStyle="width: 4%"
+        style="width: 3rem; min-width: 42.5px"
         selectionMode="multiple"
         v-if="isDestinationStore">
       </Column>

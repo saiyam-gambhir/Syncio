@@ -51,7 +51,6 @@ const {
   syncedProducts,
   syncProduct,
   unsyncedProducts,
-  unsyncProduct,
 } = toRefs(useProductsStore());
 
 const {
@@ -103,7 +102,7 @@ const syncProductHandler = async (product) => {
   updateProductStatus(product, product.external_product_id);
   setTimeout(() => {
     fetchCurrentPlan.value(userId.value);
-  }, 500);
+  }, 1000);
 };
 
 const bulkSyncProductsHandler = async () => {
@@ -258,7 +257,7 @@ const storeChangeHandler = () => {
         </template>
 
         <Column
-          headerStyle="width: 4%"
+          style="width: 3rem; min-width: 42.5px"
           selectionMode="multiple"
           v-if="isDestinationStore">
         </Column>

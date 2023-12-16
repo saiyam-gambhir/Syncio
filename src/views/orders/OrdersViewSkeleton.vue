@@ -21,20 +21,20 @@ const { randomInteger } = useFilters();
       </template>
     </Column>
 
-    <Column header="Date" style="width: 20%">
+    <Column header="Date" style="width: 17.5%">
       <template #body>
         <Skeleton height="14px" width="75px" />
         <Skeleton height="14px" width="50px" class="mt-2" />
       </template>
     </Column>
 
-    <Column header="Customer" style="width: 30%">
+    <Column header="Customer" style="width: 25%">
       <template #body>
         <Skeleton height="14px" :width="`${randomInteger()}%`" />
       </template>
     </Column>
 
-    <Column header="Push Status" style="width: 15%">
+    <Column header="Push Status" style="width: 22.5%">
       <template #body>
         <Skeleton width="68px" height="27px" borderRadius="20px" />
       </template>

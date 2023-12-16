@@ -149,31 +149,38 @@ const isSelected = (row) => {
       </template>
     </Column>
 
-    <Column header="Date" style="width: 20%">
+    <Column header="Date" style="width: 17.5%">
       <template #body="{ data: { created_at } }">
         <Date :date="created_at" />
       </template>
     </Column>
 
-    <Column header="Customer" style="width: 30%">
+    <Column header="Customer" style="width: 25%">
       <template #body="{ data: { customer_name } }">
         {{ customer_name ?? 'Customer name not available' }}
       </template>
     </Column>
 
-    <Column header="Push Status" style="width: 15%">
+    <Column header="Push Status" style="width: 22.5%">
       <template #body="{ data: { order_fail_reason, order_ref_id, push_status } }">
         <div class="flex align-items-center">
           <Tag v-if="getOrderPushStatus(order_ref_id, push_status)" severity="warning" rounded>
             <StatusIcon />
             Pending
           </Tag>
+          <template v-else-if="push_status === 'not_pushed'">
+            <Tag :severity="getOrderStatus(push_status)" rounded :pt="{root: { style: { background: '#eee', color: '#333', border: '1px solid #333' }}}">
+              <StatusIcon />
+              {{ push_status.replace('_', ' ') }}
+            </Tag>
+            <i v-if="order_fail_reason" class="pi pi-question-circle ml-3 text-xl pointer" v-tooltip.right="order_fail_reason"></i>
+          </template>
           <template v-else>
             <Tag :severity="getOrderStatus(push_status)" rounded>
               <StatusIcon />
               {{ push_status.replace('_', ' ') }}
             </Tag>
-            <i v-if="order_fail_reason" class="pi pi-question-circle ml-3 text-xl" v-tooltip.right="order_fail_reason"></i>
+            <i v-if="order_fail_reason" class="pi pi-question-circle ml-3 text-xl pointer" v-tooltip.right="order_fail_reason"></i>
           </template>
         </div>
       </template>
