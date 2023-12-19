@@ -1,4 +1,5 @@
 <script setup>
+import { useRouter } from 'vue-router';
 import * as routes from '@/routes';
 
 /* ----- Components ----- */
@@ -44,7 +45,7 @@ onMounted(async () => {
     return;
   }
 
-  if (connections.value.length === 0) await fetchConnections.value();
+  if (connections.value?.length === 0) await fetchConnections.value();
 });
 </script>
 

@@ -38,7 +38,7 @@ export const fetchActivities = {
       const response = await axiosService.getData(`user/${userId}/sync-events`, params);
 
       // Store the fetched activities in the appropriate tab
-      this[tab] = await response.data;
+      this[tab] = await response?.data;
     } catch (error) {
       console.error('Error fetching activities:', error);
     } finally {

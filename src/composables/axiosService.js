@@ -1,6 +1,7 @@
 import { toast } from 'vue3-toastify';
 import * as routes from '@/routes';
 import axios from 'axios';
+import router from '../router';
 
 const toastOptions = {
   autoClose: 4000,
@@ -23,8 +24,6 @@ const toastOptions = {
   transition: 'slide',
 };
 
-const router = useRouter();
-
 class AxiosService {
   constructor() {
     this.https = axios.create({
@@ -39,7 +38,7 @@ class AxiosService {
         const message = response?.data?.message ?? response.message;
         if(message) {
           if(response?.request?.responseURL.includes('products/unsync')) {
-            const options = { ...toastOptions, multiple: false }
+            const options = { ...toastOptions, multiple: false };
             toast(message, { ...options, type: 'success' });
           } else {
             toast(message, { ...toastOptions, type: 'success' });
@@ -70,12 +69,13 @@ class AxiosService {
               return data;
             }
 
-            if (message) {
-              toast(message, { ...toastOptions, type: 'error' });
+            if(data?.redirect_to === 'billing') {
+              router.push({ name: routes.PLAN_AND_BILLINGS });
             }
 
-            if(data.redirect_to === 'billing') {
-              router.push({ name: routes.PLAN_AND_BILLINGS });
+            if (message) {
+              const options = { ...toastOptions, multiple: true };
+              toast(message, { ...options, type: 'error' });
             }
 
             return data;
@@ -94,8 +94,7 @@ class AxiosService {
             sessionStorage.removeItem('ID_TOKEN_KEY');
             sessionStorage.removeItem('USER_ID');
             router.push({ name: routes.LOGIN });
-            //return Promise.reject(error);
-            return;
+            return Promise.reject(error);
 
           case 502:
             toast('Bad Gateway: The server received an invalid response', { ...toastOptions, type: 'error' });

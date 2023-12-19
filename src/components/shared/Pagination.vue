@@ -9,7 +9,7 @@ const props = defineProps({
   showInfo: {
     type: Boolean,
     default: true
-  }
+  },
 });
 
 /* ----- Data ----- */

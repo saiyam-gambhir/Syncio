@@ -2,6 +2,8 @@
 import * as routes from '@/routes';
 
 /* ----- Data ----- */
+const shopifyStore = ref('test-saiyam-destination.myshopify.com');
+
 const {
   login,
   loginForm,
@@ -24,7 +26,7 @@ const shopifyLoginHandler = async () => {
   //await shopifyLogin.value('shopify', 'test-saiyam-destination.myshopify.com');
   //await shopifyLogin.value('shopify', 'zac-destination-3.myshopify.com'); // Navbar add-ons dialogs
   //await shopifyLogin.value('shopify', 'dev-destination-1.myshopify.com'); // Update add-on plan dialogs
-  await shopifyLogin.value('shopify', 'test-nainesh-destination-3.myshopify.com	');
+  const response = await shopifyLogin.value('shopify', (shopifyStore.value ?? 'test-nainesh-destination-3.myshopify.com'));
   //await shopifyLogin.value('shopify', 'test-nainesh-source-2.myshopify.com');
 };
 </script>
@@ -84,15 +86,29 @@ const shopifyLoginHandler = async () => {
         label="Login">
       </Button>
 
-      <Button
-        v-if="isDevelopment"
-        :loading="loginForm.loading"
-        @click="shopifyLoginHandler"
-        class="w-full p-button-lg mt-4"
-        icon="pi pi-user"
-        iconPos="right"
-        label="Shopify Login">
-      </Button>
+      <div v-if="isDevelopment" class="flex mt-4">
+        <div class="col-6 pl-0">
+          <InputText
+            autocomplete="email"
+            class="w-full"
+            id="email"
+            placeholder="Store URL"
+            style="height: 54px"
+            type="text"
+            v-model="shopifyStore">
+          </InputText>
+        </div>
+        <div class="col-6 pr-0">
+          <Button
+            :loading="loginForm.loading"
+            @click="shopifyLoginHandler"
+            class="w-full p-button-lg"
+            icon="pi pi-user"
+            iconPos="right"
+            label="Shopify Login">
+          </Button>
+        </div>
+      </div>
     </form>
   </aside>
 

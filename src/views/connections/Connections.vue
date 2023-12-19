@@ -1,4 +1,5 @@
 <script setup>
+import { useRouter } from 'vue-router';
 import * as routes from '@/routes';
 
 /* ----- Data ----- */

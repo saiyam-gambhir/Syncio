@@ -1,4 +1,6 @@
 <script setup>
+import { onBeforeRouteLeave, useRouter } from 'vue-router';
+
 /* ----- Components ----- */
 const EmailContact = defineAsyncComponent(() => import('./components/EmailContact.vue'));
 const LeavingPageDialog = defineAsyncComponent(() => import('@/components/shared/LeavingPageDialog.vue'));
@@ -27,7 +29,7 @@ const {
 } = toRefs(useAuthStore());
 
 const forceLeavingPage = ref(false);
-const router = useRouter();;
+const router = useRouter();
 const routeTo = ref(null)
 
 /* ----- Mounted ----- */

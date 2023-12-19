@@ -10,13 +10,15 @@ export const fetchConnections = {
       sort_by: sortBy?.key,
     };
 
-    const { stores } = await axiosService.getData('stores/connections', params);
-    this.connections = await stores;
+    const response = await axiosService.getData('stores/connections', params);
+    this.connections = await response?.stores;
 
+    /* ----- Payouts settings ----- */
     const { storeConnections } = toRefs(usePayoutsSettingsStore());
-    storeConnections.value = await stores;
+    storeConnections.value = await response?.stores;
 
-    this.connectionFilterItems = await stores;
+    /* ----- Stores dropdown filter ----- */
+    this.connectionFilterItems = await response?.stores;
     this.loadingConnections = false;
   },
 };

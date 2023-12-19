@@ -11,10 +11,10 @@ export const shopifyLogin = {
       platform: platform,
       store_name: storeName,
     };
-    const { data: { success, user }, headers } = await axiosService.postData('user/platforms/login', params, true);
+    const { data, headers } = await axiosService.postData('user/platforms/login', params, true);
 
-    if (success) {
-      this.user = await user;
+    if (data.success) {
+      this.user = await data.user;
     }
     window.sessionStorage.setItem('ID_TOKEN_KEY', headers['x-syncio-app-token']);
     if (window.sessionStorage.getItem('ID_TOKEN_KEY')) {
@@ -26,5 +26,7 @@ export const shopifyLogin = {
       router.replace({ name: routes.DASHBOARD });
       this.loginForm.loading = false;
     }
+
+    return data;
   },
 };

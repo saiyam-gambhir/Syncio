@@ -5,6 +5,7 @@ import * as routes from '@/routes';
 import DashboardView from '@/views/dashboard/DashboardView.vue';
 import LoggedIn from '@/layouts/LoggedIn.vue';
 import LoggedOut from '@/layouts/LoggedOut.vue';
+import Onboarding from '@/layouts/Onboarding.vue';
 
 /* ----- Data ----- */
 const meta = {
@@ -29,6 +30,27 @@ const router = createRouter({
       path: routes.PLATFORM_SELECTION,
     },
 
+    /* ----- Shopify ----- */
+    {
+      // component: () => import('@/views/registration/shopify/SelectStoreType.vue'),
+      meta: { layout: Onboarding },
+      name: '',
+      path: '/shopify',
+      children: [
+        {
+          path: '',
+          name: 'shopify',
+          component: () => import('@/views/registration/shopify/EmptyBase.vue'),
+        },
+        {
+          path: '/shopify/select-store-type',
+          name: '/shopify/select-store-type',
+          component: () => import('@/views/registration/shopify/SelectStoreType.vue'),
+        }
+      ]
+    },
+    /* ----- Shopify ----- */
+
     /* ----- Woocommerce ----- */
     {
       component: () => import('@/views/registration/woocommerce/CreateAccount.vue'),
@@ -49,12 +71,6 @@ const router = createRouter({
       meta: { layout: LoggedOut },
       name: routes.RESET_PASSWORD,
       path: routes.RESET_PASSWORD,
-    },
-    {
-      component: () => import('@/views/registration/woocommerce/SelectStoreType.vue'),
-      meta: { layout: LoggedOut },
-      name: routes.SELECT_STORE_TYPE,
-      path: routes.SELECT_STORE_TYPE,
     },
     {
       component: DashboardView,

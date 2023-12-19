@@ -1,4 +1,5 @@
 <script setup>
+import { useRouter } from 'vue-router';
 import * as routes from '@/routes';
 
 /* ----- Components ----- */
@@ -78,7 +79,7 @@ const isForwardActionDisabled = ref(false);
 /* ----- Mounted ----- */
 onMounted(() => {
   if(isShopify.value) {
-    fetchMetadata.value();
+    //fetchMetadata.value();
   }
 });
 

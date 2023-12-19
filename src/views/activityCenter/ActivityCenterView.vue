@@ -1,13 +1,26 @@
 <script setup>
+import { useRouter } from 'vue-router';
+
 /* ----- Components ----- */
 const GeneralUpdates = defineAsyncComponent(() => import('@/views/activityCenter/components/GeneralUpdates/GeneralUpdates.vue'));
 const OrderIssues = defineAsyncComponent(() => import('@/views/activityCenter/components/OrderIssues/OrderIssues.vue'));
 const ProductIssues = defineAsyncComponent(() => import('@/views/activityCenter/components/ProductIssues/ProductIssues.vue'));
 
 /* ----- Data ----- */
-const { activeTabIndex } = toRefs(useActivityCenterStore());
-const { connections, fetchConnections, isDestinationStore } = toRefs(useConnectionsStore());
-const { fetchActivitiesHandler } = useActivities();
+const {
+  activeTabIndex,
+} = toRefs(useActivityCenterStore());
+
+const {
+  connections,
+  fetchConnections,
+  isDestinationStore,
+} = toRefs(useConnectionsStore());
+
+const {
+  fetchActivitiesHandler,
+} = useActivities();
+
 const router = useRouter();
 
 /* ----- Mounted ----- */
@@ -18,7 +31,7 @@ onMounted(async () => {
   }
 
   fetchActivitiesHandler();
-  if (connections.value.length === 0) await fetchConnections.value();
+  if (connections.value?.length === 0) await fetchConnections.value();
 });
 
 /* ----- Methods ----- */

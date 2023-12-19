@@ -117,7 +117,7 @@ export const useProductsStore = defineStore('products', {
   getters: {
     selectedStore({ selectedStoreId }) {
       const { connections } = useConnectionsStore();
-      return connections.find(connection => connection.id === selectedStoreId);
+      return connections?.find(connection => connection.id === selectedStoreId);
     },
   },
 

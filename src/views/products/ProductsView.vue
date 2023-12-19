@@ -68,7 +68,7 @@ const statusOptionsTag = {
 
 /* ----- Mounted ----- */
 onMounted(async () => {
-  if (connections.value.length === 0) await fetchConnections.value();
+  if (connections.value?.length === 0) await fetchConnections.value();
   if(products?.value?.length > 0) return;
 
   await fetchProductsHandler();

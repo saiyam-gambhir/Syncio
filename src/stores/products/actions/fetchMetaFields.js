@@ -27,8 +27,8 @@ export const fetchMetaFields = {
 
     const response = await axiosService.getData(`stores/${storeID}/get-product-meta-fields`);
     if(response.success) {
-      this.productTypeOptions = removeDuplicates(response.meta_fields.product_type?.filter(field => field.value !== null), 'value');
-      this.vendorOptions = removeDuplicates(response.meta_fields.vendor?.filter(field => field.value !== null), 'value');
+      this.productTypeOptions = removeDuplicates(response.meta_fields.product_type?.filter(field => field.value), 'value');
+      this.vendorOptions = removeDuplicates(response.meta_fields.vendor?.filter(field => field.value), 'value');
     }
   }
 };

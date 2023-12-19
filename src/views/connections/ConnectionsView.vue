@@ -29,7 +29,7 @@ const options = ref(['Off', 'On']);
 
 /* ----- Mounted ----- */
 onMounted(async () => {
-  if (connections.value.length === 0) {
+  if (connections.value?.length === 0) {
     await fetchConnections.value();
   }
 
