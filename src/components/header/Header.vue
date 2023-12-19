@@ -37,44 +37,13 @@ const productSettings = useProductSettingsStore();
 const router = useRouter();
 const items = ref([
   {
-    label: '',
+    label: null,
     items: [
-      { label: 'Logout', icon: 'pi pi-logout', command: () => logout() },
+      { label: 'Settings', icon: 'pi pi-cog', command: () => router.push({ name: routes.SETTINGS }) },
+      { label: 'Logout', icon: 'pi pi-sign-out', command: () => logout() },
     ]
   },
 ]);
-const quickActions = ref([
-  {
-    label: 'Connect new store',
-    icon: 'pi pi-plus',
-    command: () => {
-      connectNewStoreHandler();
-    }
-  },
-  {
-    label: 'Toggle multilocation',
-    icon: 'pi pi-map-marker',
-    command: () => {}
-  },
-  {
-    label: 'Copy store key',
-    icon: 'pi pi-copy',
-    command: () => {
-      copyStoreKeyHandler();
-    }
-  },
-  {
-    label: 'Toggle auto push',
-    icon: 'pi pi-fast-forward',
-    command: () => {}
-  },
-  {
-    label: 'Set default commission',
-    icon: 'pi pi-percentage',
-    command: () => {}
-  }
-]);
-const isForwardActionDisabled = ref(false);
 
 /* ----- Mounted ----- */
 onMounted(() => {
@@ -88,15 +57,6 @@ const goBackHandler = () => {
   const { history } = window;
   if (!history.state.back) return;
   window.history.length > 1 ? router.back() : router.go('/');
-};
-
-const goForwardHandler = () => {
-  const { history } = window;
-  if (!history.state.forward) {
-    isForwardActionDisabled.value = true;
-    return;
-  }
-  window.history.length > 1 ? router.forward() : router.go('/');
 };
 
 const toggleMenu = (event) => {
@@ -140,17 +100,6 @@ const connectNewStoreHandler = async () => {
         v-tooltip.left="'Go Back'">
       </Button>
     </div>
-
-    <!-- <SpeedDial
-      :model="quickActions"
-      :radius="80"
-      :style="{ left: 'calc(50% - 2rem)', top: '.65rem' }"
-      :tooltipOptions="{ position: 'bottom' }"
-      :transitionDelay="50"
-      buttonClass="p-button-outlined"
-      direction="down"
-      type="semi-circle">
-    </SpeedDial> -->
 
     <div class="header-right flex align-items-center">
       <Tag

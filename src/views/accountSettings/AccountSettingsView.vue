@@ -67,7 +67,7 @@ const handleCurrencyChange = (event) => {
         </template>
       </CardWrapper>
 
-      <CardWrapper
+      <!-- <CardWrapper
         class="pb-3 mt-5"
         description=""
         icon=""
@@ -93,7 +93,7 @@ const handleCurrencyChange = (event) => {
             v-model="currency">
           </Dropdown>
         </template>
-      </CardWrapper>
+      </CardWrapper> -->
     </section>
 
     <section class="col-12 md:col-7 lg:col-9">

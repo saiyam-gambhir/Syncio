@@ -632,14 +632,46 @@ input.p-inputtext-lg {
 
 /* ----- OVERRIDES ----- */
 
-.theme-light .primary-navigation .router-link-active:not(.disabled) {
-  background: linear-gradient(
-    90deg,
-    rgba(252, 176, 87, 0.5) 33.33%,
-    rgba(250, 117, 123, 0.5) 66.66%
-  );
-  color: $primary !important;
-  font-weight: $fontMedium;
+.theme-light .primary-navigation {
+  .router-link-active:not(.disabled) {
+    color: $primary !important;
+    font-weight: $fontMedium;
+    transition: .33s;
+  }
+
+  &.destination {
+    .router-link-active:not(.disabled) {
+      background: linear-gradient(
+        90deg,
+        #f8f9fa,
+        rgba(250, 117, 123, .75) 100%
+      );
+      &:hover {
+        background: linear-gradient(
+          90deg,
+          #f8f9fa,
+          rgba(250, 117, 123, .75) 100%
+        );
+      }
+    }
+  }
+
+  &.source {
+    .router-link-active:not(.disabled) {
+      background: linear-gradient(
+        90deg,
+        #f8f9fa,
+        rgba(252, 176, 87, .75)
+      );
+      &:hover {
+        background: linear-gradient(
+          90deg,
+          #f8f9fa,
+          rgba(252, 176, 87, .75)
+        );
+      }
+    }
+  }
 }
 
 .nav-wrapper {

@@ -4,7 +4,9 @@ const {
   fetchPlans,
   loadingPlans,
   plan,
+  plans,
   selectedPlan,
+  selectedAddonIds,
 } = toRefs(usePlanStore());
 
 /* ----- Mounted ----- */
@@ -18,8 +20,19 @@ const setSelectedPlan = () => {
   if(plan.value && !selectedPlan.value) {
     selectedPlan.value = JSON.parse(JSON.stringify(plan.value.syncio_plan));
     return;
+  } else if(!plan.value && !selectedPlan.value) {
+    selectedPlan.value = JSON.parse(JSON.stringify(plans.value[0]));
+    return;
   }
 };
+
+// watch(selectedAddonIds, (newValue, oldValue) => {
+//   Object.keys(newValue).forEach(key => {
+//     newValue[key] = selectedPlan.value.addonsSummary[key].module_id;
+//   });
+
+//   selectedAddonIds.value = newValue
+// });
 
 const fetchPlansHandler = async () => {
   await fetchPlans.value();

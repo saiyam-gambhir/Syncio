@@ -62,6 +62,17 @@ export const usePlanStore = defineStore('plan', {
         }
       });
 
+      if(!plan) {
+        const avaialbleAddons = this.plans[0]?.available_addons;
+        const addons = {
+          order: avaialbleAddons.order[0],
+          payout: avaialbleAddons.payout[0],
+          product: avaialbleAddons.product[0],
+        };
+
+        return addons;
+      }
+
       return {
         order,
         payout,

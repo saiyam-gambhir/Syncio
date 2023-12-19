@@ -8,6 +8,7 @@ const OrderDetails = defineAsyncComponent(() => import('./components/OrderDetail
 /* ----- Data ----- */
 const {
   addons,
+  isOrderModulePaid,
 } = toRefs(usePlanStore());
 
 const {
@@ -104,13 +105,19 @@ const isSelected = (row) => {
 <template>
   <PageHeader content="Push your orders with synced products to connected source stores" title="Orders" withActions>
     <template #actions>
-      <div class="flex align-items-center justify-content-between">
+      <div class="flex align-items-center justify-content-between" v-if="isOrderModulePaid">
         <h4 class="my-0 mr-4">
           Automated Push
           <br />
           <AppLink link="https://help.syncio.co/en/articles/4163480-orders-add-on" label="Read More" class="mt-1" />
         </h4>
         <SelectButton v-model="orders.isAutoPushEnabled" :options="options" aria-labelledby="single" @change="toggleAutoPushHandler" />
+      </div>
+      <div class="flex justify-content-between" v-else>
+        <h4 class="my-0 mr-4 ml-2">
+          Automated Push <i class="pi pi-lock ml-2 text-lg"></i>
+          <span class="block font-semi" style="margin-top: .35rem;">Pro feature - <router-link :to="routes.PLAN_AND_BILLINGS" class="btn-link">Upgrade</router-link></span>
+        </h4>
       </div>
       <router-link :to="routes.ORDER_PUSH_SETTINGS">
         <Button label="Orders settings" outlined class="ml-4"></Button>

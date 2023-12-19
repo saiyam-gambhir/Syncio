@@ -46,7 +46,7 @@ class AxiosService {
         }
         return response;
       },
-      error => {
+      async error => {
         const { status, data } = error.response || {};
         const activityCenter = useActivityCenterStore();
         const auth = useAuthStore();
@@ -70,12 +70,14 @@ class AxiosService {
             }
 
             if(data?.redirect_to === 'billing') {
-              router.push({ name: routes.PLAN_AND_BILLINGS });
+               await router.push({ name: routes.PLAN_AND_BILLINGS });
+               const options = { ...toastOptions, multiple: true };
+               toast(message, { ...options, type: 'error' });
+               return data;
             }
 
             if (message) {
-              const options = { ...toastOptions, multiple: true };
-              toast(message, { ...options, type: 'error' });
+              toast(message, { ...toastOptions, type: 'error' });
             }
 
             return data;

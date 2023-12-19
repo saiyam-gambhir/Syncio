@@ -1,9 +1,12 @@
 <script setup>
+import { watch } from 'vue';
+
 /* ----- Data ----- */
 const {
   activeAddons,
   isOnboarding,
   plan,
+  plans,
   selectedPlan,
 } = toRefs(usePlanStore());
 
@@ -13,6 +16,19 @@ onMounted(() => {
     selectedPlan.value.addonsSummary = structuredClone(activeAddons?.value);
   }
 });
+
+// watch(selectedPlan, (newValue, oldValue) => {
+//   if(!oldValue) {
+//     const avaialbleAddons = plans?.value[0].available_addons;
+//     const _activeAddons = {
+//       order: avaialbleAddons.order[0],
+//       payout: avaialbleAddons.payout[0],
+//       product: avaialbleAddons.product[0],
+//     };
+
+//     selectedPlan.value.addonsSummary = { ..._activeAddons };
+//   }
+// }, { deep: true })
 </script>
 
 <template>
