@@ -37,6 +37,7 @@ const initialSyncSettings = computed(() => {
   const syncSetting = {
     'sync_product_handler': true,
     'sync_product_metafield': true,
+    'unpublish_at_product_creation': true,
   };
 
   return destinationProductSettings.value?.filter(({ key }) => syncSetting[key]);
@@ -53,7 +54,6 @@ const ongoingSyncSettings = computed(() => {
     'sync_product_title': true,
     'sync_product_type': true,
     'sync_product_vendor': true,
-    'unpublish_at_product_creation': true,
   };
 
   return destinationProductSettings.value?.filter(({ key }) => syncSetting[key]);
@@ -89,6 +89,10 @@ const onChangeHandler = ({ is_active, key }) => {
                   </span>
                   <span v-else-if="setting.key === 'sync_product_metafield'">
                     Copy from Source store, including Page title and Description.
+                  </span>
+                  <span v-else-if="setting.key === 'unpublish_at_product_creation'">
+                    If <strong class="font-semibold">Online Store Sales Channel</strong> setting is enabled, this setting will be
+                    overridden whenever the Source store updates their products.
                   </span>
                 </p>
               </div>
@@ -132,10 +136,6 @@ const onChangeHandler = ({ is_active, key }) => {
                   <span v-else-if="setting.key === 'product_publish_sync'">
                     Found in Shopify under Sales Channels and Apps.
                     It's not possible to set sales channel availability for individual product variants.
-                  </span>
-                  <span v-else-if="setting.key === 'unpublish_at_product_creation'">
-                    If <strong class="font-semibold">Online Store Sales Channel</strong> setting is enabled, this setting will be
-                    overridden whenever the Source store updates their products.
                   </span>
                   <span v-else-if="setting.key === 'sync_product_vendor'">
                     Ongoing sync of the Vendor field from the source product.

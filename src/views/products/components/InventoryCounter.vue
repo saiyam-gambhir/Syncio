@@ -3,6 +3,8 @@
 const inventoryCount = ref(null);
 
 const {
+  isDestinationStore,
+  storeId,
   storeType,
 } = toRefs(useConnectionsStore());
 
@@ -42,7 +44,7 @@ const fetchInventoryHandler = async () => {
     location_id: selectedStore?.value.source_default_inventory_location.external_reference_id,
     origin: storeType.value,
     product_id: props.productId,
-    source_store_id: selectedStore.value.id,
+    source_store_id: isDestinationStore.value ? selectedStore.value.id : storeId.value,
   };
 
   const response = await fetchInventory.value(params);

@@ -6,7 +6,6 @@ const {
   plan,
   plans,
   selectedPlan,
-  selectedAddonIds,
 } = toRefs(usePlanStore());
 
 /* ----- Mounted ----- */
@@ -25,14 +24,6 @@ const setSelectedPlan = () => {
     return;
   }
 };
-
-// watch(selectedAddonIds, (newValue, oldValue) => {
-//   Object.keys(newValue).forEach(key => {
-//     newValue[key] = selectedPlan.value.addonsSummary[key].module_id;
-//   });
-
-//   selectedAddonIds.value = newValue
-// });
 
 const fetchPlansHandler = async () => {
   await fetchPlans.value();

@@ -136,8 +136,8 @@ router.beforeEach(async (to, from, next) => {
       await plan.fetchCurrentPlan(userId);
       await connections.fetchCurrentStore();
     }
-  } else if (to.name === 'login' && ID_TOKEN_KEY) {
-    return next({ path: from.fullPath });
+  } else if ((to.path === '/login' || to.path === '/') && ID_TOKEN_KEY) {
+    return next({ path: routes.DASHBOARD });
   }
 
   next();

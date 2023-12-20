@@ -2,7 +2,7 @@
 import * as routes from '@/routes';
 
 /* ----- Data ----- */
-const shopifyStore = ref('test-saiyam-destination.myshopify.com');
+const shopifyStore = ref(null);
 
 const {
   login,
@@ -26,7 +26,7 @@ const shopifyLoginHandler = async () => {
   //await shopifyLogin.value('shopify', 'test-saiyam-destination.myshopify.com');
   //await shopifyLogin.value('shopify', 'zac-destination-3.myshopify.com'); // Navbar add-ons dialogs
   //await shopifyLogin.value('shopify', 'dev-destination-1.myshopify.com'); // Update add-on plan dialogs
-  const response = await shopifyLogin.value('shopify', (shopifyStore.value ?? 'test-nainesh-destination-3.myshopify.com'));
+  const response = await shopifyLogin.value('shopify', shopifyStore.value);
   //await shopifyLogin.value('shopify', 'test-nainesh-source-2.myshopify.com');
 };
 </script>
@@ -100,6 +100,7 @@ const shopifyLoginHandler = async () => {
         </div>
         <div class="col-6 pr-0">
           <Button
+            :disabled="!shopifyStore"
             :loading="loginForm.loading"
             @click="shopifyLoginHandler"
             class="w-full p-button-lg"
