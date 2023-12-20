@@ -403,7 +403,7 @@ const storeChangeHandler = () => {
       <Pagination
         :pagination="pagination"
         @updateCurrentPage="updateCurrentPageHandler"
-        per-page
+        perPage
         v-if="pagination">
       </Pagination>
     </article>

@@ -6,15 +6,15 @@ const props = defineProps({
     required: true,
   },
 
+  perPage: {
+    type: Boolean,
+    default: false,
+  },
+
   showInfo: {
     type: Boolean,
     default: true
   },
-
-  perPage: {
-    type: Boolean,
-    default: false,
-  }
 });
 
 /* ----- Data ----- */
@@ -66,8 +66,14 @@ const setEntries = () => {
 <template>
   <div class="pagination flex align-items-center justify-content-between" v-if="pagination && pagination.total_count > 0">
     <h4 class="m-0" v-if="pagination && showInfo">
+      <Dropdown
+        class="p-inputtext-sm mr-3"
+        :options="perPageOptions"
+        @change="goToFirstPage"
+        v-if="perPage"
+        v-model="pagination.per_page">
+      </Dropdown>
       <span v-if="pagination.total_count > 0">{{ entriesStartingFrom }} - {{ entriesEndingAt }} of</span> {{ pagination.total_count }}
-      <Dropdown v-if="perPage" v-model="pagination.per_page" :options="perPageOptions" @change="goToFirstPage" />
     </h4>
 
     <slot name="footer"></slot>
