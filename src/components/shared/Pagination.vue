@@ -6,6 +6,11 @@ const props = defineProps({
     required: true,
   },
 
+  perPage: {
+    type: Boolean,
+    default: false,
+  },
+
   showInfo: {
     type: Boolean,
     default: true
@@ -15,6 +20,7 @@ const props = defineProps({
 /* ----- Data ----- */
 const entriesEndingAt = ref(null);
 const entriesStartingFrom = ref(null);
+const perPageOptions = [25, 50, 100];
 
 /* ----- Emits ----- */
 const emits = defineEmits(['updateCurrentPage']);
@@ -29,19 +35,19 @@ watch(() => props.pagination, (newValue, oldValue) => {
 
 /* ----- Methods ----- */
 const goToFirstPage = () => {
-  emits('updateCurrentPage', 1);
+  emits('updateCurrentPage', 1, props.pagination.per_page);
 };
 
 const goToLastPage = () => {
-  emits('updateCurrentPage', Math.ceil(props.pagination.total_count / props.pagination.per_page));
+  emits('updateCurrentPage', Math.ceil(props.pagination.total_count / props.pagination.per_page), props.pagination.per_page);
 };
 
 const goToPrevPage = () => {
-  emits('updateCurrentPage', +props.pagination.current_page - 1);
+  emits('updateCurrentPage', +props.pagination.current_page - 1, props.pagination.per_page);
 };
 
 const goToNextPage = () => {
-  emits('updateCurrentPage', +props.pagination.current_page + 1);
+  emits('updateCurrentPage', +props.pagination.current_page + 1, props.pagination.per_page);
 };
 
 const setEntries = () => {
@@ -60,6 +66,13 @@ const setEntries = () => {
 <template>
   <div class="pagination flex align-items-center justify-content-between" v-if="pagination && pagination.total_count > 0">
     <h4 class="m-0" v-if="pagination && showInfo">
+      <Dropdown
+        class="p-inputtext-sm mr-3"
+        :options="perPageOptions"
+        @change="goToFirstPage"
+        v-if="perPage"
+        v-model="pagination.per_page">
+      </Dropdown>
       <span v-if="pagination.total_count > 0">{{ entriesStartingFrom }} - {{ entriesEndingAt }} of</span> {{ pagination.total_count }}
     </h4>
 
