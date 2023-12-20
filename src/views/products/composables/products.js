@@ -43,8 +43,9 @@ export function useProducts() {
     }
   };
 
-  const updateCurrentPageHandler = async page => {
+  const updateCurrentPageHandler = async (page, perPage) => {
     queries.value.page = page;
+    queries.value.limiter = perPage;
     await fetchProducts.value();
   };
 
