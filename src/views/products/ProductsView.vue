@@ -401,6 +401,7 @@ const storeChangeHandler = () => {
       </DataTable>
 
       <Pagination
+        :disablePerPage="syncedProducts.length > 0 || unsyncedProducts.length > 0"
         :pagination="pagination"
         @updateCurrentPage="updateCurrentPageHandler"
         perPage

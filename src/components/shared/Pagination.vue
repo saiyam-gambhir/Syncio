@@ -1,6 +1,11 @@
 <script setup>
 /* ----- Props ----- */
 const props = defineProps({
+  disablePerPage: {
+    type: Boolean,
+    default: false,
+  },
+
   pagination: {
     type: Object,
     required: true,
@@ -67,9 +72,10 @@ const setEntries = () => {
   <div class="pagination flex align-items-center justify-content-between" v-if="pagination && pagination.total_count > 0">
     <h4 class="m-0" v-if="pagination && showInfo">
       <Dropdown
-        class="p-inputtext-sm mr-3"
+        :disabled="disablePerPage"
         :options="perPageOptions"
         @change="goToFirstPage"
+        class="p-inputtext-sm mr-3"
         v-if="perPage"
         v-model="pagination.per_page">
       </Dropdown>

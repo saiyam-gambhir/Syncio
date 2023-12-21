@@ -12,10 +12,11 @@ const destinationAnnouncements = ref([
   {
     className: 'a-woo-shopify',
     description: [
-      'Use Syncio to connect to Woo stores. Simply connect as you normally would through the stores page.',
+      'Use Syncio to connect to Woo <br> Commerce based stores.',
+      'To start sharing inventory, <br> simply connect as you normally <br> would on the Stores page.',
     ],
     externalLink: true,
-    href: '',
+    href: 'https://help.syncio.co/en/articles/7171444-woocommerce-overview',
     image: `${WooShopifyImageUrl}`,
     title: 'Sell in more places',
     features: [
@@ -27,8 +28,8 @@ const destinationAnnouncements = ref([
   {
     className: 'a-marketplace',
     description: [
-      'Syncio Marketplace is coming soon.',
-      'Find new products and form long term connections with reliable, like-minded partners.',
+      "Syncio Marketplace is now in testing and we'd love your feedback.",
+      "If you'd like to join 500+ Syncio stores and get early access to connect with awesome partners, simply <strong class='font-semibold'>create a profile.</strong>",
     ],
     externalLink: false,
     href: '/marketplace',
@@ -75,7 +76,8 @@ const sourceAnnouncements = ref([
                   <li v-for="item in data.description" :key="item" v-html="item"></li>
                 </ul>
                 <a v-if="data.externalLink" :href="data.href" target="_blank" class="p-button font-bold mt-5">Learn more</a>
-                <router-link v-else :to="data.href" class="p-button font-bold mt-5">Learn more</router-link>
+                <router-link v-else-if="data.className !== 'a-marketplace'" :to="data.href" class="p-button font-bold mt-5">Learn more</router-link>
+                <router-link v-else to="settings/marketplace-settings" class="p-button font-bold mt-5">Create profile</router-link>
               </div>
 
               <div class="col-4 justify-content-center flex" :class="{ 'col-6': !data.features }">

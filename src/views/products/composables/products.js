@@ -50,12 +50,21 @@ export function useProducts() {
   };
 
   const checkProductStatusOnRefresh = () => {
-    products.value?.forEach(product => {
-      if(product.mapper_id && !product.is_sync_failed) {
-        const productIndex = syncProductsQueue.value.findIndex(item => +item === +product.external_product_id);
-        syncProductsQueue.value.splice(productIndex, 1);
+    const productsToProcess = products.value?.filter(product => product.mapper_id && !product.is_sync_failed);
+
+    const productsToRemove = [];
+
+    productsToProcess?.forEach(product => {
+      const productIndex = syncProductsQueue.value.findIndex(item => +item === +product.external_product_id);
+      if (productIndex !== -1) {
+        productsToRemove.push(productIndex);
       }
       getProductSyncStatus(product);
+    });
+
+    // Remove items from syncProductsQueue outside the loop to avoid modifying it while iterating
+    productsToRemove.forEach(index => {
+      syncProductsQueue.value.splice(index, 1);
     });
   };
 
@@ -77,35 +86,31 @@ export function useProducts() {
   };
 
   const getProductSyncStatus = product => {
-    if(product) {
-      const { is_sync_failed, external_product_id, mapper_id, product_status } = product;
+    if (!product) return;
 
-      if((syncProductsQueue.value.includes(external_product_id) || syncProductsQueue.value.includes(mapper_id))) {
-        return 'pending';
-      }
+    const { is_sync_failed, external_product_id, mapper_id, product_status } = product;
 
-      if (product_status === 'replaced' && mapper_id) {
-        return 'replaced';
-      }
-
-      if (mapper_id) {
-        return 'synced';
-      }
-
-      if (is_sync_failed && !mapper_id) {
-        return 'attention';
-      }
-
-      if(!mapper_id && !is_sync_failed && product_status !== 'unsupported') {
-        return 'not synced';
-      }
-
-      if(product_status === 'unsupported') {
-        return 'unsupported';
-      }
-
-      return 'not synced';
+    if (syncProductsQueue.value.includes(external_product_id) || syncProductsQueue.value.includes(mapper_id)) {
+      return 'pending';
     }
+
+    if (product_status === 'replaced' && mapper_id) {
+      return 'replaced';
+    }
+
+    if (mapper_id) {
+      return 'synced';
+    }
+
+    if (is_sync_failed) {
+      return 'attention';
+    }
+
+    if (product_status === 'unsupported') {
+      return 'unsupported';
+    }
+
+    return 'not synced';
   };
 
   const updateProductStatus = (product, id) => {
