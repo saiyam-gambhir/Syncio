@@ -3,34 +3,36 @@ import * as routes from '@/routes';
 </script>
 
 <template>
-  <PageDetails title="Welcome, Let's get started!" content="Free 14 day trial for WooCommerce Destination accounts!" />
+  <section class="mx-auto" style="width: 700px;">
+    <PageDetails title="Welcome, Let's get started!" content="Free 14 day trial for WooCommerce Destination accounts!" />
 
-  <aside class="auth-wrapper text-center">
-    <div class="grid">
-      <div class="col-6 py-0">
-        <router-link :to="routes.WOO_CREATE_ACCOUNT">
+    <aside class="auth-wrapper text-center">
+      <div class="grid">
+        <div class="col-6 py-0">
+          <router-link :to="routes.WOO_CREATE_ACCOUNT">
+            <CardWrapper class="platform text-center">
+              <template #content>
+                <img src="@/assets/images/wo-logo-sm.png" alt="Woocommerce logo" style="height: 150px;" class="mt-3" />
+                <h2 class="mt-5 mb-3">Woocommerce</h2>
+              </template>
+            </CardWrapper>
+          </router-link>
+        </div>
+        <div class="col-6 py-0">
           <CardWrapper class="platform text-center">
             <template #content>
-              <img src="@/assets/images/wo-logo-sm.png" alt="Woocommerce logo" style="height: 150px;" class="mt-3" />
-              <h2 class="mt-5 mb-3">Woocommerce</h2>
+              <img src="@/assets/images/shopify-logo-sm.png" alt="Shopify logo" style="height: 150px;" class="mt-3" />
+              <h2 class="mt-5 mb-3">Shopify</h2>
             </template>
           </CardWrapper>
-        </router-link>
+        </div>
       </div>
-      <div class="col-6 py-0">
-        <CardWrapper class="platform text-center">
-          <template #content>
-            <img src="@/assets/images/shopify-logo-sm.png" alt="Shopify logo" style="height: 150px;" class="mt-3" />
-            <h2 class="mt-5 mb-3">Shopify</h2>
-          </template>
-        </CardWrapper>
-      </div>
-    </div>
-  </aside>
+    </aside>
 
-  <div class="text-center">
-    <router-link :to="routes.LOGIN">
-      <Button label="Already have an account? Login here" outlined raised class="p-button-lg outlined-button-hover w-75 mt-6"></Button>
-    </router-link>
-  </div>
+    <div class="text-center">
+      <router-link :to="routes.LOGIN">
+        <Button label="Already have an account? Login here" outlined raised class="p-button-lg outlined-button-hover w-75 mt-6"></Button>
+      </router-link>
+    </div>
+  </section>
 </template>
