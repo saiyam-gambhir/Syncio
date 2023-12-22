@@ -103,7 +103,7 @@ class AxiosService {
             return;
 
           case 500:
-            //toast('Internal Server Error: An unexpected error occurred on the server', { ...toastOptions, type: 'error' });
+            toast('Internal Server Error: An unexpected error occurred on the server', { ...toastOptions, type: 'error' });
             return;
         }
       }
@@ -139,9 +139,7 @@ class AxiosService {
       const cleanedParams = this.getCleanedParams(params);
       const response = await this.https.post(url, { ...cleanedParams });
       return completeResponse ? response : response.data;
-    } catch (error) {
-      throw new Error(error);
-    }
+    } catch (error) {}
   };
 
   async uploadImage(url, params) {

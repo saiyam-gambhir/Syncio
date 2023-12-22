@@ -719,23 +719,9 @@ input.p-inputtext-lg {
 }
 
 .login-screen {
-  background: linear-gradient(
-    90deg,
-    rgba(252, 176, 87, 0.5) 33.33%,
-    rgba(250, 117, 123, 0.5) 66.66%
-  );
+  background: var(--primary-color);
+  color: var(--white);
   position: relative;
-
-  &:before {
-    background: rgba(255, 255, 255, 0);
-    content: '';
-    height: 100%;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 100%;
-    z-index: 1;
-  }
 }
 
 .p-inputtext:enabled:focus {
@@ -881,4 +867,14 @@ input.p-inputtext-lg {
 
 .font-semi {
   font-weight: 500;
+}
+
+/* ----- Onboarding ----- */
+.platform {
+  background: rgba(255, 255, 255, .5) !important;
+  transition: .25s background;
+
+  &:hover {
+    background: rgba(255, 255, 255, 1) !important;
+  }
 }

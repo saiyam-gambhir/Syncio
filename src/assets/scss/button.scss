@@ -87,10 +87,15 @@
 }
 
 .outlined-button-hover {
-  background: rgba(255, 255, 255, .5) !important;
+  background: var(--white) !important;
+  height: 60px;
+  margin: 4rem 0;
+  transition: .35s background-color;
 
   &:hover {
-    background: rgba(255, 255, 255, 1) !important;
+    background: rgba(15, 15, 15, 1) !important;
+    border-color: rgba(15, 15, 15, 1) !important;
+    color: var(--white) !important;
   }
 }
 

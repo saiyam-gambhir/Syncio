@@ -34,14 +34,3 @@ import * as routes from '@/routes';
     </router-link>
   </div>
 </template>
-
-<style scoped>
-.platform {
-  background: rgba(255, 255, 255, .5) !important;
-  transition: .25s background;
-
-  &:hover {
-    background: rgba(255, 255, 255, 1) !important;
-  }
-}
-</style>

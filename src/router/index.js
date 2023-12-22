@@ -32,8 +32,7 @@ const router = createRouter({
 
     /* ----- Shopify ----- */
     {
-      // component: () => import('@/views/registration/shopify/SelectStoreType.vue'),
-      meta: { layout: Onboarding },
+      meta: { layout: LoggedOut },
       name: '',
       path: '/shopify',
       children: [

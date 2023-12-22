@@ -120,7 +120,7 @@ const isSelected = (row) => {
         </h4>
       </div>
       <router-link :to="routes.ORDER_PUSH_SETTINGS">
-        <Button label="Orders settings" outlined class="ml-4"></Button>
+        <Button label="Push settings" outlined class="ml-4"></Button>
       </router-link>
     </template>
   </PageHeader>

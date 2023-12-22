@@ -56,6 +56,10 @@ export const useConnectionsStore = defineStore('connections', {
       return this.platform?.toLowerCase() === 'woocommerce';
     },
 
+    isShopline() {
+      return this.platform?.toLowerCase() === 'shopline';
+    },
+
     storeCreationDate({ currentStore }) {
       return currentStore?.created_at;
     },

@@ -32,6 +32,7 @@ const shopifyLoginHandler = async () => {
 </script>
 
 <template>
+  <section class="mx-auto" style="width: 700px;">
   <div class="text-center">
     <h1 class="text-5xl line-height-3 my-6 font-bold">
       Login to your account
@@ -39,13 +40,11 @@ const shopifyLoginHandler = async () => {
   </div>
   <aside class="auth-wrapper">
     <div class="flex justify-content-between login-platforms">
-      <Button
-        class="active-btn mr-2 w-6 font-bold border-1 surface-border surface-0 p-button-lg p-component text-900 inline-flex align-items-center justify-content-center">
+      <Button class="active-btn mr-2 w-6 font-bold border-1 surface-border surface-0 p-button-lg p-component text-900 inline-flex align-items-center justify-content-center">
         <img src="@/assets/images/wo-logo-sm.png" alt="shopify logo" class="mr-2" />
         <span class="ml-2">WooCommerce</span>
       </Button>
-      <Button
-        class="ml-2 w-6 font-bold border-1 surface-border surface-0 p-button-lg p-component text-600 inline-flex align-items-center justify-content-center">
+      <Button class="ml-2 w-6 font-bold border-1 surface-border surface-0 p-button-lg p-component text-600 inline-flex align-items-center justify-content-center">
         <img src="@/assets/images/shopify-logo-sm.png" alt="shopify logo" class="mr-2" />
         <span class="ml-2">Shopify</span>
       </Button>
@@ -86,7 +85,7 @@ const shopifyLoginHandler = async () => {
         label="Login">
       </Button>
 
-      <div v-if="isDevelopment" class="flex mt-4">
+      <div v-if="!isDevelopment" class="flex mt-4">
         <div class="col-6 pl-0">
           <InputText
             autocomplete="email"
@@ -115,7 +114,8 @@ const shopifyLoginHandler = async () => {
 
   <div class="text-center">
     <router-link :to="routes.PLATFORM_SELECTION">
-      <Button label="Dont't have an account? Register for Syncio" outlined raised class="p-button-lg outlined-button-hover w-75 mt-6"></Button>
+      <Button label="Don't have an account? Register for Syncio" outlined raised class="p-button-lg outlined-button-hover w-75 mt-6"></Button>
     </router-link>
   </div>
+  </section>
 </template>
