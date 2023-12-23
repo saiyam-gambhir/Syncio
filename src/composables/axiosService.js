@@ -46,6 +46,7 @@ class AxiosService {
         }
         return response;
       },
+
       async error => {
         const { status, data } = error.response || {};
         const activityCenter = useActivityCenterStore();
@@ -118,37 +119,29 @@ class AxiosService {
 
   async deleteData(url) {
     this.https.defaults.headers.common['Authorization'] = `Bearer ${sessionStorage.getItem('ID_TOKEN_KEY')}`;
-    try {
-      const response = await this.https.delete(url);
-      return response.data;
-    } catch (error) {}
+    const response = await this.https.delete(url);
+    return response.data;
   };
 
   async getData(url, params = {}) {
     this.https.defaults.headers.common['Authorization'] = `Bearer ${sessionStorage.getItem('ID_TOKEN_KEY')}`;
-    try {
-      const cleanedParams = this.getCleanedParams(params);
-      const response = await this.https.get(url, { params: cleanedParams });
-      return response.data;
-    } catch (error) {}
+    const cleanedParams = this.getCleanedParams(params);
+    const response = await this.https.get(url, { params: cleanedParams });
+    return response.data;
   };
 
   async postData(url, params = {}, completeResponse = false) {
     this.https.defaults.headers.common['Authorization'] = `Bearer ${sessionStorage.getItem('ID_TOKEN_KEY')}`;
-    try {
-      const cleanedParams = this.getCleanedParams(params);
-      const response = await this.https.post(url, { ...cleanedParams });
-      return completeResponse ? response : response.data;
-    } catch (error) {}
+    const cleanedParams = this.getCleanedParams(params);
+    const response = await this.https.post(url, { ...cleanedParams });
+    return completeResponse ? response : response.data;
   };
 
   async uploadImage(url, params) {
     this.https.defaults.headers.common['Authorization'] = `Bearer ${sessionStorage.getItem('ID_TOKEN_KEY')}`;
-    try {
-      const response = await this.https.post(url, params);
-      return response.data;
-    } catch (error) {}
-  }
+    const response = await this.https.post(url, params);
+    return response.data;
+  };
 }
 
 const axiosService = new AxiosService();

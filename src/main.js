@@ -115,8 +115,6 @@ app
 
 /* ----- Store Imports ----- */
 const auth = useAuthStore();
-const connections = useConnectionsStore();
-const plan = usePlanStore();
 
 /* ----- Actions before each route ----- */
 router.beforeEach(async (to, from, next) => {
@@ -133,8 +131,14 @@ router.beforeEach(async (to, from, next) => {
     if (!auth.user) {
       const userId = sessionStorage.getItem('USER_ID');
       await auth.fetchUser(userId);
-      await plan.fetchCurrentPlan(userId);
-      await connections.fetchCurrentStore();
+
+      if(!to.path.toLowerCase().includes('/registration/')) {
+        const connections = useConnectionsStore();
+        const plan = usePlanStore();
+
+        await plan.fetchCurrentPlan(userId);
+        await connections.fetchCurrentStore();
+      }
     }
   } else if ((to.path === '/login' || to.path === '/') && ID_TOKEN_KEY) {
     return next({ path: routes.DASHBOARD });

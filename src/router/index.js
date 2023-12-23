@@ -57,6 +57,12 @@ const router = createRouter({
       name: routes.WOO_CREATE_ACCOUNT,
       path: routes.WOO_CREATE_ACCOUNT,
     },
+    {
+      component: () => import('@/views/registration/woocommerce/SelectStoreType.vue'),
+      meta: { layout: LoggedOut, requireAuth: true, },
+      name: routes.WOO_SELECT_STORE_TYPE,
+      path: routes.WOO_SELECT_STORE_TYPE,
+    },
     /* ----- Woocommerce ----- */
 
     {
