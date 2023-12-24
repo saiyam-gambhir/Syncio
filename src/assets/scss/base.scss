@@ -1,7 +1,7 @@
 :root {
   /* ----- Dimensions ----- */
   --banner-height: 536px;
-  --border-radius: 8px;
+  --border-radius: 6px !important;
   --font-size: 13px;
   --image-placeholder-height: 224px;
   --container-width: 1240px;
@@ -33,6 +33,7 @@ html {
   font-size: var(--font-size);
   font-weight: $fontNormal;
   letter-spacing: 0.025rem;
+  min-width: 1024px;
 
   &:not(.theme-light) {
     .logo-path {
@@ -226,7 +227,7 @@ td {
   }
 
   .p-button {
-    border-radius: var(--border-radius);
+    border-radius: var(--border-radius) !important;
 
     &:hover {
       background: $primaryButtonHover;

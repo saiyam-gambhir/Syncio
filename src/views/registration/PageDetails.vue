@@ -14,7 +14,7 @@ const props = defineProps({
 
 <template>
   <div class="text-center">
-    <h1 class="text-5xl line-height-3 m-0 font-bold" v-html="title"></h1>
+    <h1 class="text-5xl line-height-3 m-0 font-semibold" v-html="title" style="letter-spacing: 1.5px;"></h1>
     <p class="font-semibold text-2xl line-height-3 mt-1 mb-6" v-html="content"></p>
   </div>
 </template>

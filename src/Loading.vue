@@ -1,7 +1,3 @@
-<script setup>
-import Logo from '@/icons/Logo.vue';
-</script>
-
 <template>
   <section class="loading-page flex align-items-center justify-content-center">
     <LogoDark />

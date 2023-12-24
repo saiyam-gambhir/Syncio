@@ -1,13 +1,26 @@
 <script setup>
+import router from '@/router';
+import * as routes from '@/routes';
+
+const setWooStoreType = (storeType) => {
+  window.sessionStorage.setItem('woo-store-type', storeType);
+  router.push({ name: routes.WOO_VERIFY_STORE_URL });
+};
 </script>
 
 <template>
+  <ul class="fixed list-none p-0 m-0 flex flex-row" style="top: 1.5rem; left: 50%; transform: translateX(-50%); width: 900px;">
+    <Step title="Store Type" subTitle="Source or destination?" :isCurrent="true" />
+    <Step title="Connect Store" subTitle="Verify your store" />
+    <Step title="Permissions" subTitle="Review store access" :isLast="true" />
+  </ul>
+
   <section class="mx-auto" style="width: 900px;">
-    <PageDetails title="Select store type" content="" />
+    <PageDetails title="Select store type" />
 
     <aside class="auth-wrapper text-900">
       <div class="grid">
-        <div class="col-6 py-0">
+        <div class="col-6 pb-0">
           <CardWrapper class="font-semibold">
             <template #content>
               <div class="flex align-items-end justify-content-center" style="height: 80px;">
@@ -25,11 +38,11 @@
                 <li class="mt-1">A brand store</li>
               </ul>
               <Divider />
-              <Button label="Select store type" class="p-button-lg w-100 mt-2"></Button>
+              <Button label="Select store type" class="p-button-lg w-100 mt-2" @click="setWooStoreType('source')"></Button>
             </template>
           </CardWrapper>
         </div>
-        <div class="col-6 py-0">
+        <div class="col-6 pb-0">
           <CardWrapper class="font-semibold">
             <template #content>
               <div class="store-image flex align-items-end justify-content-center" style="height: 80px;">
@@ -47,7 +60,7 @@
                 <li class="mt-1">Extra sales channel to the source</li>
               </ul>
               <Divider />
-              <Button label="Select store type" class="p-button-lg w-100 mt-2"></Button>
+              <Button label="Select store type" class="p-button-lg w-100 mt-2" @click="setWooStoreType('destination')"></Button>
             </template>
           </CardWrapper>
         </div>

@@ -63,6 +63,12 @@ const router = createRouter({
       name: routes.WOO_SELECT_STORE_TYPE,
       path: routes.WOO_SELECT_STORE_TYPE,
     },
+    {
+      component: () => import('@/views/registration/woocommerce/VerifyStoreUrl.vue'),
+      meta: { layout: LoggedOut, requireAuth: true, },
+      name: routes.WOO_VERIFY_STORE_URL,
+      path: routes.WOO_VERIFY_STORE_URL,
+    },
     /* ----- Woocommerce ----- */
 
     {

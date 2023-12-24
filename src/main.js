@@ -7,6 +7,8 @@ import { createPinia } from 'pinia';
 import piniaPersist from 'pinia-plugin-persist';
 
 /* ----- Prime Vue Components ----- */
+import Accordion from 'primevue/accordion';
+import AccordionTab from 'primevue/accordiontab';
 import AutoComplete from 'primevue/autocomplete';
 import Button from 'primevue/button';
 import Calendar from 'primevue/calendar';
@@ -32,7 +34,7 @@ import ProgressBar from 'primevue/progressbar';
 import ProgressSpinner from 'primevue/progressspinner';
 import RadioButton from 'primevue/radiobutton';
 import Ripple from 'primevue/ripple';
-import Row from 'primevue/row';                   // optional
+import Row from 'primevue/row'; // optional
 import SelectButton from 'primevue/selectbutton';
 import Sidebar from 'primevue/sidebar';
 import Skeleton from 'primevue/skeleton';
@@ -75,12 +77,14 @@ app
 
 /* ----- Prime Vue Components ----- */
 app
+  .component('Accordion', Accordion)
+  .component('AccordionTab', AccordionTab)
   .component('AutoComplete', AutoComplete)
   .component('Button', Button)
   .component('Calendar', Calendar)
   .component('Card', Card)
-  .component('Checkbox', Checkbox)
   .component('Carousel', Carousel)
+  .component('Checkbox', Checkbox)
   .component('Column', Column)
   .component('DataTable', DataTable)
   .component('Dialog', Dialog)
@@ -100,10 +104,10 @@ app
   .component('RadioButton', RadioButton)
   .component('Row', Row)
   .component('SelectButton', SelectButton)
-  .component('SplitButton', SplitButton)
   .component('Sidebar', Sidebar)
   .component('Skeleton', Skeleton)
   .component('SpeedDial', SpeedDial)
+  .component('SplitButton', SplitButton)
   .component('TabPanel', TabPanel)
   .component('TabView', TabView)
   .component('Tag', Tag)
