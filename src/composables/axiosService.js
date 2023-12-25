@@ -142,6 +142,11 @@ class AxiosService {
     const response = await this.https.post(url, params);
     return response.data;
   };
+
+  async verifyURL(url) {
+    const response = await axios.head(url, { mode: 'no-cors' });
+    return response;
+  };
 }
 
 const axiosService = new AxiosService();

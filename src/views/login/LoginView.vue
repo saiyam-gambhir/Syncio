@@ -85,7 +85,7 @@ const shopifyLoginHandler = async () => {
           label="Login">
         </Button>
 
-        <div v-if="!isDevelopment" class="flex mt-4">
+        <div v-if="isDevelopment" class="flex mt-4">
           <div class="col-6 pl-0">
             <InputText
               autocomplete="email"

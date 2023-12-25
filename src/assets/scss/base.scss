@@ -42,6 +42,10 @@ html {
   }
 }
 
+#app {
+  min-width: 1280px;
+}
+
 .p-component {
   font-family: 'Inter Tight', sans-serif;
 }
@@ -227,7 +231,7 @@ td {
   }
 
   .p-button {
-    border-radius: var(--border-radius) !important;
+    border-radius: var(--border-radius);
 
     &:hover {
       background: $primaryButtonHover;

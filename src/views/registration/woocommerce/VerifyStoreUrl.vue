@@ -2,18 +2,47 @@
 import router from '@/router';
 import * as routes from '@/routes';
 
+const isURLValid = ref(false);
+const loading = ref(false);
 const storeURL = ref(null);
+
+const verifyStoreURLHandler = () => {
+  loading.value = true;
+  let config = {
+    method: "HEAD",
+    mode: "no-cors"
+  };
+  const pingRequest = new Request(storeURL.value, config);
+  fetch(pingRequest)
+  .then(response => {
+    if(response.status === 0) {
+      isURLValid.value = true;
+    } else {
+      isURLValid.value = false;
+    }
+
+    loading.value = false;
+  })
+  .catch(e => {
+    isURLValid.value = false;
+    loading.value = false;
+  });
+};
 </script>
 
 <template>
-  <ul class="fixed list-none p-0 m-0 flex flex-row" style="top: 1.5rem; left: 50%; transform: translateX(-50%); width: 900px;">
-    <Step title="Store Type" subTitle="Source or destination?" :isComplete="true" />
-    <Step title="Connect Store" subTitle="Verify your store" :isCurrent="true" />
-    <Step title="Permissions" subTitle="Review store access" :isLast="true" />
-  </ul>
 
-  <section class="mx-auto" style="width: 900px;">
-    <PageDetails title="Connect your WooCommerce store" content="Enter your WooCommerce Store's Admin URL to start the verification process" />
+  <section class="mx-auto relative" style="width: 900px;">
+    <ul class="list-none p-0 m-0 mb-8 flex flex-row" style="">
+      <Step title="Store Type" subTitle="Source or destination?" :isComplete="true" />
+      <Step title="Connect Store" subTitle="Verify your store" :isCurrent="true" />
+      <Step title="Permissions" subTitle="Review store access" :isLast="true" />
+    </ul>
+
+    <PageDetails
+      content="Enter your WooCommerce Store's Admin URL to start the verification process"
+      title="Connect your WooCommerce store">
+    </PageDetails>
 
     <aside class="auth-wrapper text-900">
       <div class="grid">
@@ -22,6 +51,7 @@ const storeURL = ref(null);
             type="url"
             size="large"
             class="w-100"
+            clear
             placeholder="Store URL"
             v-model="storeURL">
           </InputText>
@@ -30,16 +60,20 @@ const storeURL = ref(null);
         <div class="col-3 pb-0">
           <Button
             :disabled="!storeURL"
+            :loading="loading"
+            @click="verifyStoreURLHandler"
             class="w-100"
             label="Link URL"
-            style="height: 45px">
+            style="height: 45px"
+            v-if="!isURLValid">
           </Button>
+          <Tag severity="success" style="height: 45px; font-size: 1.25rem !important;" v-else class="w-100">URL linked</Tag>
         </div>
       </div>
 
       <Divider />
 
-      <Accordion expandIcon="pi pi-plus" collapseIcon="pi pi-minus" selectOnFocus="true">
+      <Accordion v-if="!isURLValid" expandIcon="pi pi-plus" collapseIcon="pi pi-minus" selectOnFocus="true">
         <AccordionTab header="Where can I find my WooCommerce account URL?">
           <div class="text-900">
             <p class="m-0">Syncio requires the URL associated with the WordPress admin tied to your WooCommerce plugin.</p>
@@ -54,6 +88,16 @@ const storeURL = ref(null);
           </div>
         </AccordionTab>
       </Accordion>
+
+      <div v-else class="text-center text-lg">
+        <h3 class="text-xl mt-3">Next step is to approve permissions in Woo</h3>
+        <p class="m-0 mt-4">In order to send and receive stock and updates between the stores you've connected to, <br> Syncio requires Read & Write permissions for an API Key and Webhooks.</p>
+        <p class="m-0 mt-4">Syncio will only use these permissions to perform essential product and order updates.</p>
+        <p class="m-0 mt-4">On the next step, make sure you login to your admin account with:</p>
+        <h3 class="m-0 mt-2 text-xl">Read and Write permissions</h3>
+        <Button label="Continue to permission approval" class="w-100 p-button-lg mt-5"></Button>
+      </div>
+
     </aside>
   </section>
 </template>
