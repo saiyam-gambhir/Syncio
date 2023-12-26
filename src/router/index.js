@@ -5,7 +5,6 @@ import * as routes from '@/routes';
 import DashboardView from '@/views/dashboard/DashboardView.vue';
 import LoggedIn from '@/layouts/LoggedIn.vue';
 import LoggedOut from '@/layouts/LoggedOut.vue';
-import Onboarding from '@/layouts/Onboarding.vue';
 
 /* ----- Data ----- */
 const meta = {
@@ -37,15 +36,23 @@ const router = createRouter({
       path: '/shopify',
       children: [
         {
-          path: '',
-          name: 'shopify',
           component: () => import('@/views/registration/shopify/EmptyBase.vue'),
+          meta: { requireAuth: true },
+          name: 'shopify',
+          path: '',
         },
         {
-          path: '/shopify/select-store-type',
-          name: '/shopify/select-store-type',
           component: () => import('@/views/registration/shopify/SelectStoreType.vue'),
-        }
+          meta: { requireAuth: true },
+          name: routes.SHOPIFY_SELECT_STORE_TYPE,
+          path: routes.SHOPIFY_SELECT_STORE_TYPE,
+        },
+        {
+          component: () => import('@/views/registration/shopify/InstallationComplete.vue'),
+          meta: { requireAuth: true },
+          name: routes.SHOPIFY_INSTALLATION_COMPLETE,
+          path: routes.SHOPIFY_INSTALLATION_COMPLETE,
+        },
       ]
     },
     /* ----- Shopify ----- */

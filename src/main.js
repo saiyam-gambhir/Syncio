@@ -140,8 +140,23 @@ router.beforeEach(async (to, from, next) => {
         const connections = useConnectionsStore();
         const plan = usePlanStore();
 
-        await plan.fetchCurrentPlan(userId);
-        await connections.fetchCurrentStore();
+        const { stores } = await connections.fetchCurrentStore();
+
+        // if(to.path.includes('/shopify/') && ID_TOKEN_KEY) {
+        //   return next({ path: routes.DASHBOARD });
+        // }
+
+        // if(stores[0].type === 'none' && stores[0].platform === 'shopify') {
+        //   return next({ name: routes.SHOPIFY_SELECT_STORE_TYPE });
+        // }
+
+        if(stores.length > 0) {
+          await plan.fetchCurrentPlan(userId);
+        } else {
+          sessionStorage.removeItem('ID_TOKEN_KEY');
+          sessionStorage.removeItem('USER_ID');
+          return next({ name: routes.LOGIN });
+        }
       }
     }
   } else if ((to.path === '/login' || to.path === '/') && ID_TOKEN_KEY) {

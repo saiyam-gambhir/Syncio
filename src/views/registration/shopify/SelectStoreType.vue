@@ -1,16 +1,35 @@
 <script setup>
-import * as routes from '@/routes';
+import { useRoute } from 'vue-router';
 
 /* ----- Data ----- */
+const loading = ref(false);
+
+const {
+  saveShopifyToken,
+  updateStoreType,
+} = toRefs(useAuthStore());
+
+const route = useRoute();
+
+/* ----- Mounted ----- */
+onMounted(async () => {
+  let params = route.query;
+  params.store_id = params.shop;
+
+  loading.value = true;
+  await saveShopifyToken.value(params);
+  loading.value = false;
+});
 </script>
 
 <template>
-  <section class="mx-auto" style="width: 900px;">
+  <Loading v-if="loading" />
+  <section v-else class="mx-auto" style="width: 900px;">
     <PageDetails title="Select store type" content="" />
 
     <aside class="auth-wrapper text-900">
       <div class="grid">
-        <div class="col-6 py-0">
+        <div class="col-6 pb-0">
           <CardWrapper class="font-semibold">
             <template #content>
               <div class="flex align-items-end justify-content-center" style="height: 80px;">
@@ -28,11 +47,11 @@ import * as routes from '@/routes';
                 <li class="mt-1">A brand store</li>
               </ul>
               <Divider />
-              <Button label="Select store type" class="p-button-lg w-100 mt-2"></Button>
+              <Button label="Select store type" class="p-button-lg w-100 mt-2" @click="updateStoreType('source')"></Button>
             </template>
           </CardWrapper>
         </div>
-        <div class="col-6 py-0">
+        <div class="col-6 pb-0">
           <CardWrapper class="font-semibold">
             <template #content>
               <div class="store-image flex align-items-end justify-content-center" style="height: 80px;">
@@ -50,7 +69,7 @@ import * as routes from '@/routes';
                 <li class="mt-1">Extra sales channel to the source</li>
               </ul>
               <Divider />
-              <Button label="Select store type" class="p-button-lg w-100 mt-2"></Button>
+              <Button label="Select store type" class="p-button-lg w-100 mt-2" @click="updateStoreType('destination')"></Button>
             </template>
           </CardWrapper>
         </div>

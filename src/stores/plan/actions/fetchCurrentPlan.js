@@ -7,5 +7,7 @@ export const fetchCurrentPlan = {
     } else {
       this.isOnboarding = true;
     }
+
+    return response;
   },
 };

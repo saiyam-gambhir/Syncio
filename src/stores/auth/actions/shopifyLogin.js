@@ -13,17 +13,31 @@ export const shopifyLogin = {
     };
     const { data, headers } = await axiosService.postData('user/platforms/login', params, true);
 
+    if(data.success && typeof data.redirect_url !== 'undefined') {
+      let redirectURL = data.redirect_url;
+      if(data.is_onboarding) {
+        redirectURL += import.meta.env.VITE_SHOPIFY_RESPONSE_REDIRECT_URL;
+      }
+      window.location.href = redirectURL;
+      return;
+    }
+
     if (data.success) {
       this.user = await data.user;
     }
+
     window.sessionStorage.setItem('ID_TOKEN_KEY', headers['x-syncio-app-token']);
     if (window.sessionStorage.getItem('ID_TOKEN_KEY')) {
       this.isAuthenticated = true;
       sessionStorage.setItem('USER_ID', this.user?.id);
       axiosService.https.defaults.headers.common['Authorization'] = `Bearer ${sessionStorage.getItem('ID_TOKEN_KEY')}`;
-      await fetchCurrentStore();
+      const response = await fetchCurrentStore();
       await fetchCurrentPlan(sessionStorage.getItem('USER_ID'));
-      router.replace({ name: routes.DASHBOARD });
+      if(response?.stores[0]?.type === 'none') {
+        router.replace({ name: routes.SHOPIFY_SELECT_STORE_TYPE});
+      } else {
+        router.replace({ name: routes.DASHBOARD });
+      }
       this.loginForm.loading = false;
     }
 

@@ -3,7 +3,7 @@ import router from '@/router';
 
 export const login = {
   async login(payload) {
-    const storeId = null;
+    let storeId = null;
     this.loginForm.loading = true;
     const response = await axiosService.postData('user/login', payload, true);
     if (response.data.success) {
