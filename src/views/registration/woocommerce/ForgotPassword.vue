@@ -16,7 +16,7 @@ const isFormDisabled = computed(() => {
 <template>
   <PageDetails
     content="Enter your Syncio account's email to reset your password. <br /> We'll send you an email with a link and instruction."
-    title="Reset my passsword">
+    title="Reset my password">
   </PageDetails>
 
   <aside class="auth-wrapper">
