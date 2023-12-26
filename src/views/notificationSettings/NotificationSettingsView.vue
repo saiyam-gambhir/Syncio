@@ -9,7 +9,7 @@ const {
 const currentStoreEmail = ref('');
 
 /* ----- Computed ----- */
-const isEmailModified = computed(() => {
+const isEmailUnchanged = computed(() => {
   return currentStore.value.email === currentStoreEmail.value || currentStoreEmail.value === ''
 });
 
@@ -42,7 +42,7 @@ const updateEmailHandler = async () => {
         <div>
           <InputText class="mr-5 w-6" size="large" type="email" v-model="currentStoreEmail" />
           <Button 
-          :disabled="isEmailModified" 
+          :disabled="isEmailUnchanged" 
           :loading="loadingEmail" 
           label="Update email"
           size="large" 
