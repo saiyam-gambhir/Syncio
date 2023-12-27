@@ -4,8 +4,10 @@ import * as routes from '@/routes';
 
 /* ----- Data ----- */
 const {
+  clickedStore,
   connections,
   isDestinationStore,
+  isLocationPendingDialogRequested,
   isMultilocation,
   isSourceStore,
 } = toRefs(useConnectionsStore());
@@ -24,6 +26,11 @@ const router = useRouter();
 
 /* ----- Methods ----- */
 const fetchProductsHandler = async (store) => {
+  clickedStore.value = store;
+  if(store.status === 'pending') {
+    isLocationPendingDialogRequested.value = true;
+    return;
+  }
   selectedStoreId.value = store.id;
   await router.push({ name: routes.PRODUCTS });
   await fetchProducts.value();

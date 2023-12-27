@@ -1,30 +1,36 @@
 <script setup>
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
+import * as routes from '@/routes';
 
 /* ----- Data ----- */
-const loading = ref(false);
-
 const {
+  isAuthenticated,
   saveShopifyToken,
   updateStoreType,
 } = toRefs(useAuthStore());
 
 const route = useRoute();
+const router = useRouter();
 
 /* ----- Mounted ----- */
 onMounted(async () => {
   let params = route.query;
   params.store_id = params.shop;
-
-  loading.value = true;
-  await saveShopifyToken.value(params);
-  loading.value = false;
+  if(params.store_id) await saveShopifyToken.value(params);
 });
+
+/* ----- Methods ----- */
+const updateStoreTypeHandler = async (storeType) => {
+  const response = await updateStoreType.value(storeType);
+  if(response?.success) {
+    await router.push({ name: routes.SHOPIFY_CONNECT_OR_INVITE_STORE });
+    isAuthenticated.value = true;
+  }
+};
 </script>
 
 <template>
-  <Loading v-if="loading" />
-  <section v-else class="mx-auto" style="width: 900px;">
+  <section class="mx-auto" style="width: 900px;">
     <PageDetails title="Select store type" content="" />
 
     <aside class="auth-wrapper text-900">
@@ -47,7 +53,7 @@ onMounted(async () => {
                 <li class="mt-1">A brand store</li>
               </ul>
               <Divider />
-              <Button label="Select store type" class="p-button-lg w-100 mt-2" @click="updateStoreType('source')"></Button>
+              <Button label="Select store type" class="p-button-lg w-100 mt-2" @click="updateStoreTypeHandler('source')"></Button>
             </template>
           </CardWrapper>
         </div>
@@ -69,7 +75,7 @@ onMounted(async () => {
                 <li class="mt-1">Extra sales channel to the source</li>
               </ul>
               <Divider />
-              <Button label="Select store type" class="p-button-lg w-100 mt-2" @click="updateStoreType('destination')"></Button>
+              <Button label="Select store type" class="p-button-lg w-100 mt-2" @click="updateStoreTypeHandler('destination')"></Button>
             </template>
           </CardWrapper>
         </div>

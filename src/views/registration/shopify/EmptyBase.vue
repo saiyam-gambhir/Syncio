@@ -21,7 +21,5 @@ const shopifyLoginHandler = async () => {
 </script>
 
 <template>
-  <div class="text-center">
-    <Loading />
-  </div>
+  <div class="text-center"></div>
 </template>

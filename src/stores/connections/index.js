@@ -15,6 +15,7 @@ import { updateLocation } from './actions/updateLocation';
 export const useConnectionsStore = defineStore('connections', {
   state: () => {
     return {
+      clickedStore: null,
       connectionFilterItems: [],
       connections: [],
       currentLocation: {},
@@ -27,6 +28,7 @@ export const useConnectionsStore = defineStore('connections', {
       isDisconnectAndKeepRequested: false,
       isLocationChanged: false,
       isLocationChangeRequested: false,
+      isLocationPendingDialogRequested: false,
       isMultilocationEnabled: 'Off',
       isNewStoreConnectionRequested: false,
       loadingConnections: false,

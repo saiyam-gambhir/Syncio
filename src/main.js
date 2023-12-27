@@ -142,14 +142,6 @@ router.beforeEach(async (to, from, next) => {
 
         const { stores } = await connections.fetchCurrentStore();
 
-        // if(to.path.includes('/shopify/') && ID_TOKEN_KEY) {
-        //   return next({ path: routes.DASHBOARD });
-        // }
-
-        // if(stores[0].type === 'none' && stores[0].platform === 'shopify') {
-        //   return next({ name: routes.SHOPIFY_SELECT_STORE_TYPE });
-        // }
-
         if(stores.length > 0) {
           await plan.fetchCurrentPlan(userId);
         } else {

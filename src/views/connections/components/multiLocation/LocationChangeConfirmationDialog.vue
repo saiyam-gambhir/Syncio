@@ -35,9 +35,9 @@ const updateLocationHandler = () => {
           <span class="block mt-2" v-if="isSourceStore">You are about to change the inventory location of:</span> <br>
           <Tag class="mb-3" severity="info" style="font-size: 1.15rem !important;">{{ location.store }}</Tag> <br>
           <Strong class="inline-block" style="width: 4rem;">FROM:</Strong> <br>
-          <Tag class="my-3" style="font-size: 1.15rem !important;" severity="info">{{ location?.current.name }}</Tag> <br>
+          <Tag class="my-3" style="font-size: 1.15rem !important;" severity="info">{{ location?.current?.name ?? 'Location Unassigned' }}</Tag> <br>
           <Strong class="inline-block" style="width: 4rem;">TO:</Strong> <br>
-          <Tag class="mt-3 mb-2" severity="info" style="font-size: 1.15rem !important;">{{ location?.new.name }}</Tag>
+          <Tag class="mt-3 mb-2" severity="info" style="font-size: 1.15rem !important;">{{ location?.new?.name }}</Tag>
         </p>
       </section>
     </template>

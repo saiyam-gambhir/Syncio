@@ -31,29 +31,28 @@ const router = createRouter({
 
     /* ----- Shopify ----- */
     {
+      component: () => import('@/views/registration/shopify/EmptyBase.vue'),
       meta: { layout: LoggedOut },
       name: '',
       path: '/shopify',
-      children: [
-        {
-          component: () => import('@/views/registration/shopify/EmptyBase.vue'),
-          meta: { requireAuth: true },
-          name: 'shopify',
-          path: '',
-        },
-        {
-          component: () => import('@/views/registration/shopify/SelectStoreType.vue'),
-          meta: { requireAuth: true },
-          name: routes.SHOPIFY_SELECT_STORE_TYPE,
-          path: routes.SHOPIFY_SELECT_STORE_TYPE,
-        },
-        {
-          component: () => import('@/views/registration/shopify/InstallationComplete.vue'),
-          meta: { requireAuth: true },
-          name: routes.SHOPIFY_INSTALLATION_COMPLETE,
-          path: routes.SHOPIFY_INSTALLATION_COMPLETE,
-        },
-      ]
+    },
+    {
+      component: () => import('@/views/registration/shopify/SelectStoreType.vue'),
+      meta: { layout: LoggedOut },
+      name: routes.SHOPIFY_SELECT_STORE_TYPE,
+      path: routes.SHOPIFY_SELECT_STORE_TYPE,
+    },
+    {
+      component: () => import('@/views/registration/shopify/SelectStoreType.vue'),
+      meta: { layout: LoggedOut },
+      name: routes.SHOPIFY_SELECT_STORE_TYPE,
+      path: routes.SHOPIFY_SELECT_STORE_TYPE,
+    },
+    {
+      component: () => import('@/views/registration/shopify/ConnectOrInviteStore.vue'),
+      meta: { layout: LoggedOut },
+      name: routes.SHOPIFY_CONNECT_OR_INVITE_STORE,
+      path: routes.SHOPIFY_CONNECT_OR_INVITE_STORE,
     },
     /* ----- Shopify ----- */
 
@@ -65,7 +64,7 @@ const router = createRouter({
       path: routes.WOO_CREATE_ACCOUNT,
     },
     {
-      component: () => import('@/views/registration/woocommerce/SelectStoreType.vue'),
+      component: () => import('@/views/registration/woocommerce/SelectWooStoreType.vue'),
       meta: { layout: LoggedOut, requireAuth: true, },
       name: routes.WOO_SELECT_STORE_TYPE,
       path: routes.WOO_SELECT_STORE_TYPE,
