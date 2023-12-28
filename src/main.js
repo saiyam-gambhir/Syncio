@@ -16,6 +16,8 @@ import Card from 'primevue/card';
 import Carousel from 'primevue/carousel';
 import Checkbox from 'primevue/checkbox';
 import Column from 'primevue/column';
+import ConfirmationService from 'primevue/confirmationservice';
+import ConfirmPopup from 'primevue/confirmpopup';
 import DataTable from 'primevue/datatable';
 import Dialog from 'primevue/dialog';
 import Divider from 'primevue/divider';
@@ -72,6 +74,7 @@ app
   .use(pinia)
   .use(router)
   .use(PrimeVue, { ripple: true })
+  .use(ConfirmationService)
   .use(Vue3Toasity)
   .mount('#app');
 
@@ -86,6 +89,7 @@ app
   .component('Carousel', Carousel)
   .component('Checkbox', Checkbox)
   .component('Column', Column)
+  .component('ConfirmPopup', ConfirmPopup)
   .component('DataTable', DataTable)
   .component('Dialog', Dialog)
   .component('Divider', Divider)

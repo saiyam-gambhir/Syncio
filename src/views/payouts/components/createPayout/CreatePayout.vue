@@ -55,6 +55,7 @@ const clearLineItemHandler = (index) => {
   const LINE_ITEM = lineItems.value[index];
   const INDEX = lineItems.value.indexOf(LINE_ITEM);
   lineItems.value.splice(INDEX, 1);
+  getFinalPayoutValue();
 };
 
 const getFinalPayoutValue = () => {
@@ -211,6 +212,7 @@ const getFinalPayoutValue = () => {
                     </table>
                   </div>
                 </div>
+                <p v-if="isDestinationStore" class="text-light mb-2">You still need to pay the supplier using your chosen payment method outside of Syncio.</p>
               </div>
             </h3>
 

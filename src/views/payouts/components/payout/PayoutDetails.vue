@@ -1,11 +1,19 @@
 <script setup>
+import { useConfirm } from 'primevue/useconfirm';
 import { usePayouts } from '../../composables/payouts';
 
 /* ----- Data ----- */
+const confirm = useConfirm();
+
 const {
   formatCurrency,
   formatDate,
 } = useFilters();
+
+const {
+  deletePayout,
+  loadingDeletePayout,
+} = toRefs(usePayoutsStore());
 
 const {
   updatePayoutHandler,
@@ -35,6 +43,19 @@ const getFinalPayoutAmount = () => {
   const initialValue = 0;
   const lineItemsSum = props.payout?.payout_line_items.reduce((accumulator, currentValue) => accumulator + Number(currentValue.amount), initialValue);
   return props.payout?.payout_total + Number(Number(lineItemsSum).toFixed(2));
+};
+
+const confirmDeletePayoutHandler = (event) => {
+  confirm.require({
+    target: event.currentTarget,
+    message: 'Do you want to delete this payout?',
+    icon: 'pi pi-info-circle',
+    acceptClass: 'p-button-danger p-button-sm',
+    accept: () => {
+      deletePayout.value(props.payout.id);
+    },
+    reject: () => {}
+  });
 };
 </script>
 
@@ -133,6 +154,7 @@ const getFinalPayoutAmount = () => {
               </table>
             </div>
           </div>
+          <p v-if="isDestinationStore" class="text-light mb-2">You still need to pay the supplier using your chosen payment method outside of Syncio.</p>
         </div>
       </h3>
 
@@ -140,7 +162,10 @@ const getFinalPayoutAmount = () => {
 
       <ul class="flex justify-content-between list-none p-0 m-0" v-if="isDestinationStore">
         <li>
+          <ConfirmPopup></ConfirmPopup>
           <Button
+            :loading="loadingDeletePayout"
+            @click="confirmDeletePayoutHandler($event)"
             class="p-button-danger"
             label="Delete">
           </Button>

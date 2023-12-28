@@ -2,6 +2,7 @@ import deepmerge from 'deepmerge';
 
 /* ----- Actions ----- */
 import { createPayout } from './actions/createPayout';
+import { deletePayout } from './actions/deletePayout';
 import { fetchPaidPayouts } from './actions/fetchPaidPayouts';
 import { fetchPayableOrders } from './actions/fetchPayableOrders';
 import { fetchPayout } from './actions/fetchPayout';
@@ -21,6 +22,7 @@ export const usePayoutsStore = defineStore('payouts', {
       isCreatePayoutDetailsRequested: false,
       isViewPayoutDetailsRequested: false,
       limiter: 10,
+      loadingDeletePayout: false,
       loadingPayout: false,
       openPayouts: { items: [], loading: false, pagination: {} },
       paidPayouts: { items: [], loading: false, pagination: {} },
@@ -40,7 +42,7 @@ export const usePayoutsStore = defineStore('payouts', {
       selectedPayoutOrders: [],
       selectedPayoutOrdersStore: null,
       queries: {
-        'filters[date_range]': '2021-06-28 to 2023-12-31',
+        'filters[date_range]': '2023-09-30 to 2023-12-29',
         'filters[status]': null,
         'filters[target_store]': null,
       },
@@ -63,6 +65,7 @@ export const usePayoutsStore = defineStore('payouts', {
 
   actions: deepmerge.all([
     createPayout,
+    deletePayout,
     fetchPaidPayouts,
     fetchPayableOrders,
     fetchPayout,
