@@ -15,7 +15,14 @@ export const PLATFORM_SELECTION = '/registration';
 export const PRODUCT_SETTINGS = '/settings/product-settings';
 export const PRODUCTS = '/products';
 export const RESET_PASSWORD = '/reset-password';
-export const SHOPIFY_SELECT_STORE_TYPE = '/shopify/select-store-type';
 export const SETTINGS = '/settings';
 export const STORES = '/stores';
+
+/* ----- Shopify Onboarding ----- */
+export const SHOPIFY_CONNECT_OR_INVITE_STORE = '/shopify/connect-or-invite-store';
+export const SHOPIFY_SELECT_STORE_TYPE = '/shopify/select-store-type';
+
+/* ----- Woocommerce Onboarding ----- */
 export const WOO_CREATE_ACCOUNT = '/registration/woocommerce/create-account';
+export const WOO_SELECT_STORE_TYPE = '/registration/woocommerce/select-store-type';
+export const WOO_VERIFY_STORE_URL = '/registration/woocommerce/verify-store-url';

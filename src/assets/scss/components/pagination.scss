@@ -58,14 +58,25 @@
 .marketplace {
   .pagination {
     background: transparent;
+    border: 0;
     padding: 0;
+
+    .pagination__first {
+      border-top-left-radius: 6px;
+      border-bottom-left-radius: 6px;
+    }
+
+    .pagination__last {
+      border-top-right-radius: 6px;
+      border-bottom-right-radius: 6px;
+    }
 
     &__actions {
       width: 100%;
     }
 
     .page {
-      height: 39.5px;
+      height: 41px;
     }
   }
 }

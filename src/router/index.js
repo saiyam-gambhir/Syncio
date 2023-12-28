@@ -5,7 +5,6 @@ import * as routes from '@/routes';
 import DashboardView from '@/views/dashboard/DashboardView.vue';
 import LoggedIn from '@/layouts/LoggedIn.vue';
 import LoggedOut from '@/layouts/LoggedOut.vue';
-import Onboarding from '@/layouts/Onboarding.vue';
 
 /* ----- Data ----- */
 const meta = {
@@ -32,22 +31,28 @@ const router = createRouter({
 
     /* ----- Shopify ----- */
     {
-      // component: () => import('@/views/registration/shopify/SelectStoreType.vue'),
-      meta: { layout: Onboarding },
+      component: () => import('@/views/registration/shopify/EmptyBase.vue'),
+      meta: { layout: LoggedOut },
       name: '',
       path: '/shopify',
-      children: [
-        {
-          path: '',
-          name: 'shopify',
-          component: () => import('@/views/registration/shopify/EmptyBase.vue'),
-        },
-        {
-          path: '/shopify/select-store-type',
-          name: '/shopify/select-store-type',
-          component: () => import('@/views/registration/shopify/SelectStoreType.vue'),
-        }
-      ]
+    },
+    {
+      component: () => import('@/views/registration/shopify/SelectStoreType.vue'),
+      meta: { layout: LoggedOut },
+      name: routes.SHOPIFY_SELECT_STORE_TYPE,
+      path: routes.SHOPIFY_SELECT_STORE_TYPE,
+    },
+    {
+      component: () => import('@/views/registration/shopify/SelectStoreType.vue'),
+      meta: { layout: LoggedOut },
+      name: routes.SHOPIFY_SELECT_STORE_TYPE,
+      path: routes.SHOPIFY_SELECT_STORE_TYPE,
+    },
+    {
+      component: () => import('@/views/registration/shopify/ConnectOrInviteStore.vue'),
+      meta: { layout: LoggedOut },
+      name: routes.SHOPIFY_CONNECT_OR_INVITE_STORE,
+      path: routes.SHOPIFY_CONNECT_OR_INVITE_STORE,
     },
     /* ----- Shopify ----- */
 
@@ -57,6 +62,18 @@ const router = createRouter({
       meta: { layout: LoggedOut },
       name: routes.WOO_CREATE_ACCOUNT,
       path: routes.WOO_CREATE_ACCOUNT,
+    },
+    {
+      component: () => import('@/views/registration/woocommerce/SelectWooStoreType.vue'),
+      meta: { layout: LoggedOut, requireAuth: true, },
+      name: routes.WOO_SELECT_STORE_TYPE,
+      path: routes.WOO_SELECT_STORE_TYPE,
+    },
+    {
+      component: () => import('@/views/registration/woocommerce/VerifyStoreUrl.vue'),
+      meta: { layout: LoggedOut, requireAuth: true, },
+      name: routes.WOO_VERIFY_STORE_URL,
+      path: routes.WOO_VERIFY_STORE_URL,
     },
     /* ----- Woocommerce ----- */
 

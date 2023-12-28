@@ -1,37 +1,22 @@
 <script setup>
-import { useRoute, useRouter } from 'vue-router';
+import router from '@/router';
 import * as routes from '@/routes';
 
-/* ----- Data ----- */
-const {
-  isAuthenticated,
-  saveShopifyToken,
-  updateStoreType,
-} = toRefs(useAuthStore());
-
-const route = useRoute();
-const router = useRouter();
-
-/* ----- Mounted ----- */
-onMounted(async () => {
-  let params = route.query;
-  params.store_id = params.shop;
-  if(params.store_id) await saveShopifyToken.value(params);
-});
-
-/* ----- Methods ----- */
-const updateStoreTypeHandler = async (storeType) => {
-  const response = await updateStoreType.value(storeType);
-  if(response?.success) {
-    await router.push({ name: routes.SHOPIFY_CONNECT_OR_INVITE_STORE });
-    isAuthenticated.value = true;
-  }
+const setWooStoreType = (storeType) => {
+  window.sessionStorage.setItem('woo-store-type', storeType);
+  router.push({ name: routes.WOO_VERIFY_STORE_URL });
 };
 </script>
 
 <template>
+  <ul class="fixed list-none p-0 m-0 flex flex-row" style="top: 1.5rem; left: 50%; transform: translateX(-50%); width: 900px;">
+    <Step title="Store Type" subTitle="Source or destination?" :isCurrent="true" />
+    <Step title="Connect Store" subTitle="Verify your store" />
+    <Step title="Permissions" subTitle="Review store access" :isLast="true" />
+  </ul>
+
   <section class="mx-auto" style="width: 900px;">
-    <PageDetails title="Select store type" content="" />
+    <PageDetails title="Select store type" />
 
     <aside class="auth-wrapper text-900">
       <div class="grid">
@@ -53,7 +38,7 @@ const updateStoreTypeHandler = async (storeType) => {
                 <li class="mt-1">A brand store</li>
               </ul>
               <Divider />
-              <Button label="Select store type" class="p-button-lg w-100 mt-2" @click="updateStoreTypeHandler('source')"></Button>
+              <Button label="Select store type" class="p-button-lg w-100 mt-2" @click="setWooStoreType('source')"></Button>
             </template>
           </CardWrapper>
         </div>
@@ -75,7 +60,7 @@ const updateStoreTypeHandler = async (storeType) => {
                 <li class="mt-1">Extra sales channel to the source</li>
               </ul>
               <Divider />
-              <Button label="Select store type" class="p-button-lg w-100 mt-2" @click="updateStoreTypeHandler('destination')"></Button>
+              <Button label="Select store type" class="p-button-lg w-100 mt-2" @click="setWooStoreType('destination')"></Button>
             </template>
           </CardWrapper>
         </div>

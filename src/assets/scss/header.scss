@@ -46,7 +46,6 @@ header {
 
 .auth {
   &-container {
-    max-width: 700px;
     position: relative;
     width: 100%;
     z-index: 2;
@@ -57,9 +56,9 @@ header {
       left: auto;
       right: auto;
     }
-    background: rgba(255, 255, 255, .35);
+    background: rgb(233, 236, 239) !important;
     border-radius: var(--border-radius);
-    box-shadow: 0 0 4px rgba(255, 255, 255, .5);
+    border: 2px solid var(--white);
     padding: 3rem !important;
   }
 

@@ -1,7 +1,7 @@
 :root {
   /* ----- Dimensions ----- */
   --banner-height: 536px;
-  --border-radius: 8px;
+  --border-radius: 6px !important;
   --font-size: 13px;
   --image-placeholder-height: 224px;
   --container-width: 1240px;
@@ -33,12 +33,17 @@ html {
   font-size: var(--font-size);
   font-weight: $fontNormal;
   letter-spacing: 0.025rem;
+  min-width: 1024px;
 
   &:not(.theme-light) {
     .logo-path {
       fill: $cardBackground;
     }
   }
+}
+
+#app {
+  min-width: 1280px;
 }
 
 .p-component {
@@ -719,23 +724,9 @@ input.p-inputtext-lg {
 }
 
 .login-screen {
-  background: linear-gradient(
-    90deg,
-    rgba(252, 176, 87, 0.5) 33.33%,
-    rgba(250, 117, 123, 0.5) 66.66%
-  );
+  background: var(--primary-color);
+  color: rgb(233, 236, 239);
   position: relative;
-
-  &:before {
-    background: rgba(255, 255, 255, 0);
-    content: '';
-    height: 100%;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 100%;
-    z-index: 1;
-  }
 }
 
 .p-inputtext:enabled:focus {
@@ -881,4 +872,14 @@ input.p-inputtext-lg {
 
 .font-semi {
   font-weight: 500;
+}
+
+/* ----- Onboarding ----- */
+.platform {
+  background: rgba(255, 255, 255, .5) !important;
+  transition: .25s background;
+
+  &:hover {
+    background: rgba(255, 255, 255, 1) !important;
+  }
 }

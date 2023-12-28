@@ -32,90 +32,90 @@ const shopifyLoginHandler = async () => {
 </script>
 
 <template>
-  <div class="text-center">
-    <h1 class="text-5xl line-height-3 my-6 font-bold">
-      Login to your account
-    </h1>
-  </div>
-  <aside class="auth-wrapper">
-    <div class="flex justify-content-between login-platforms">
-      <Button
-        class="active-btn mr-2 w-6 font-bold border-1 surface-border surface-0 p-button-lg p-component text-900 inline-flex align-items-center justify-content-center">
-        <img src="@/assets/images/wo-logo-sm.png" alt="shopify logo" class="mr-2" />
-        <span class="ml-2">WooCommerce</span>
-      </Button>
-      <Button
-        class="ml-2 w-6 font-bold border-1 surface-border surface-0 p-button-lg p-component text-600 inline-flex align-items-center justify-content-center">
-        <img src="@/assets/images/shopify-logo-sm.png" alt="shopify logo" class="mr-2" />
-        <span class="ml-2">Shopify</span>
-      </Button>
+  <section class="mx-auto" style="width: 700px;">
+    <div class="text-center">
+      <h1 class="text-5xl line-height-3 my-6 font-bold">
+        Login to your account
+      </h1>
     </div>
-
-    <form class="mt-6" autocomplete="current-password">
-      <div class="field">
-        <InputText
-          class="p-inputtext-lg mb-3 w-full"
-          id="email"
-          placeholder="Email address"
-          type="text"
-          v-model="loginForm.email" autocomplete="email">
-        </InputText>
+    <aside class="auth-wrapper">
+      <div class="flex justify-content-between login-platforms">
+        <Button class="active-btn mr-2 w-6 font-bold border-1 surface-border surface-0 p-button-lg p-component text-900 inline-flex align-items-center justify-content-center">
+          <img src="@/assets/images/wo-logo-sm.png" alt="shopify logo" class="mr-2" />
+          <span class="ml-2">WooCommerce</span>
+        </Button>
+        <Button class="ml-2 w-6 font-bold border-1 surface-border surface-0 p-button-lg p-component text-600 inline-flex align-items-center justify-content-center">
+          <img src="@/assets/images/shopify-logo-sm.png" alt="shopify logo" class="mr-2" />
+          <span class="ml-2">Shopify</span>
+        </Button>
       </div>
 
-      <div class="field">
-        <Password
-          :feedback="false"
-          autocomplete="new-password"
-          class="mb-3 w-full p-inputtext-lg"
-          id="password"
-          placeholder="Password"
-          toggleMask
-          v-model="loginForm.password">
-        </Password>
-      </div>
-
-      <div class="flex align-items-center mb-6">
-        <router-link :to="routes.FORGOT_PASSWORD" class="btn-link hovered text-xl">Forgot password?</router-link>
-      </div>
-
-      <Button
-        :loading="loginForm.loading"
-        @click="loginHandler"
-        class="w-full p-button-lg"
-        iconPos="right"
-        label="Login">
-      </Button>
-
-      <div v-if="isDevelopment" class="flex mt-4">
-        <div class="col-6 pl-0">
+      <form class="mt-6" autocomplete="current-password">
+        <div class="field">
           <InputText
-            autocomplete="email"
-            class="w-full"
+            class="p-inputtext-lg mb-3 w-full"
             id="email"
-            placeholder="Store URL"
-            style="height: 54px"
+            placeholder="Email address"
             type="text"
-            v-model="shopifyStore">
+            v-model="loginForm.email" autocomplete="email">
           </InputText>
         </div>
-        <div class="col-6 pr-0">
-          <Button
-            :disabled="!shopifyStore"
-            :loading="loginForm.loading"
-            @click="shopifyLoginHandler"
-            class="w-full p-button-lg"
-            icon="pi pi-user"
-            iconPos="right"
-            label="Shopify Login">
-          </Button>
-        </div>
-      </div>
-    </form>
-  </aside>
 
-  <div class="text-center">
-    <router-link :to="routes.PLATFORM_SELECTION">
-      <Button label="Dont't have an account? Register for Syncio" outlined raised class="p-button-lg outlined-button-hover w-75 mt-6"></Button>
-    </router-link>
-  </div>
+        <div class="field">
+          <Password
+            :feedback="false"
+            autocomplete="new-password"
+            class="mb-3 w-full p-inputtext-lg"
+            id="password"
+            placeholder="Password"
+            toggleMask
+            v-model="loginForm.password">
+          </Password>
+        </div>
+
+        <div class="flex align-items-center mb-6">
+          <router-link :to="routes.FORGOT_PASSWORD" class="btn-link hovered text-xl">Forgot password?</router-link>
+        </div>
+
+        <Button
+          :loading="loginForm.loading"
+          @click="loginHandler"
+          class="w-full p-button-lg"
+          iconPos="right"
+          label="Login">
+        </Button>
+
+        <div v-if="isDevelopment" class="flex mt-4">
+          <div class="col-6 pl-0">
+            <InputText
+              autocomplete="email"
+              class="w-full"
+              id="email"
+              placeholder="Store URL"
+              style="height: 54px"
+              type="text"
+              v-model="shopifyStore">
+            </InputText>
+          </div>
+          <div class="col-6 pr-0">
+            <Button
+              :disabled="!shopifyStore"
+              :loading="loginForm.loading"
+              @click="shopifyLoginHandler"
+              class="w-full p-button-lg"
+              icon="pi pi-user"
+              iconPos="right"
+              label="Shopify Login">
+            </Button>
+          </div>
+        </div>
+      </form>
+    </aside>
+
+    <div class="text-center">
+      <router-link :to="routes.PLATFORM_SELECTION">
+        <Button label="Don't have an account? Register for Syncio" outlined raised class="p-button-lg outlined-button-hover w-75 mt-6"></Button>
+      </router-link>
+    </div>
+  </section>
 </template>

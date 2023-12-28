@@ -7,6 +7,8 @@ import { createPinia } from 'pinia';
 import piniaPersist from 'pinia-plugin-persist';
 
 /* ----- Prime Vue Components ----- */
+import Accordion from 'primevue/accordion';
+import AccordionTab from 'primevue/accordiontab';
 import AutoComplete from 'primevue/autocomplete';
 import Button from 'primevue/button';
 import Calendar from 'primevue/calendar';
@@ -32,7 +34,7 @@ import ProgressBar from 'primevue/progressbar';
 import ProgressSpinner from 'primevue/progressspinner';
 import RadioButton from 'primevue/radiobutton';
 import Ripple from 'primevue/ripple';
-import Row from 'primevue/row';                   // optional
+import Row from 'primevue/row'; // optional
 import SelectButton from 'primevue/selectbutton';
 import Sidebar from 'primevue/sidebar';
 import Skeleton from 'primevue/skeleton';
@@ -75,12 +77,14 @@ app
 
 /* ----- Prime Vue Components ----- */
 app
+  .component('Accordion', Accordion)
+  .component('AccordionTab', AccordionTab)
   .component('AutoComplete', AutoComplete)
   .component('Button', Button)
   .component('Calendar', Calendar)
   .component('Card', Card)
-  .component('Checkbox', Checkbox)
   .component('Carousel', Carousel)
+  .component('Checkbox', Checkbox)
   .component('Column', Column)
   .component('DataTable', DataTable)
   .component('Dialog', Dialog)
@@ -100,10 +104,10 @@ app
   .component('RadioButton', RadioButton)
   .component('Row', Row)
   .component('SelectButton', SelectButton)
-  .component('SplitButton', SplitButton)
   .component('Sidebar', Sidebar)
   .component('Skeleton', Skeleton)
   .component('SpeedDial', SpeedDial)
+  .component('SplitButton', SplitButton)
   .component('TabPanel', TabPanel)
   .component('TabView', TabView)
   .component('Tag', Tag)
@@ -115,8 +119,6 @@ app
 
 /* ----- Store Imports ----- */
 const auth = useAuthStore();
-const connections = useConnectionsStore();
-const plan = usePlanStore();
 
 /* ----- Actions before each route ----- */
 router.beforeEach(async (to, from, next) => {
@@ -133,8 +135,21 @@ router.beforeEach(async (to, from, next) => {
     if (!auth.user) {
       const userId = sessionStorage.getItem('USER_ID');
       await auth.fetchUser(userId);
-      await plan.fetchCurrentPlan(userId);
-      await connections.fetchCurrentStore();
+
+      if(!to.path.toLowerCase().includes('/registration/')) {
+        const connections = useConnectionsStore();
+        const plan = usePlanStore();
+
+        const { stores } = await connections.fetchCurrentStore();
+
+        if(stores.length > 0) {
+          await plan.fetchCurrentPlan(userId);
+        } else {
+          sessionStorage.removeItem('ID_TOKEN_KEY');
+          sessionStorage.removeItem('USER_ID');
+          return next({ name: routes.LOGIN });
+        }
+      }
     }
   } else if ((to.path === '/login' || to.path === '/') && ID_TOKEN_KEY) {
     return next({ path: routes.DASHBOARD });

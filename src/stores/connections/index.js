@@ -16,6 +16,7 @@ import { updateEmail } from './actions/updateEmail';
 export const useConnectionsStore = defineStore('connections', {
   state: () => {
     return {
+      clickedStore: null,
       connectionFilterItems: [],
       connections: [],
       currentLocation: {},
@@ -28,12 +29,14 @@ export const useConnectionsStore = defineStore('connections', {
       isDisconnectAndKeepRequested: false,
       isLocationChanged: false,
       isLocationChangeRequested: false,
+      isLocationPendingDialogRequested: false,
       isMultilocationEnabled: 'Off',
       isNewStoreConnectionRequested: false,
       loadingConnections: false,
       loadingEmail: false,
       loadingInventory: false,
       loadingLocationChange: false,
+      loadingTestStoreConnection: false,
       location: { current: null, new: null, params: null, store: null },
       selectedConnection: {},
       shopifyPermissions: { link: null, showDialog: false },
@@ -56,6 +59,10 @@ export const useConnectionsStore = defineStore('connections', {
 
     isWoocommerce() {
       return this.platform?.toLowerCase() === 'woocommerce';
+    },
+
+    isShopline() {
+      return this.platform?.toLowerCase() === 'shopline';
     },
 
     storeCreationDate({ currentStore }) {

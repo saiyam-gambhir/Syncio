@@ -14,45 +14,49 @@ const isFormDisabled = computed(() => {
 </script>
 
 <template>
-  <PageDetails
-    content="Enter your Syncio account's email to reset your password. <br /> We'll send you an email with a link and instruction."
-    title="Reset my password">
-  </PageDetails>
+  <section class="mx-auto" style="width: 700px;">
+    <PageDetails
+      content="Enter your Syncio account's email to reset your password. <br /> We'll send you an email with a link and instruction."
+      title="Reset my passsword">
+    </PageDetails>
 
-  <aside class="auth-wrapper">
-    <Message v-if="forgotPasswordForm.emailSent" severity="success" :closable="false" class="p-message-lg mt-1 mb-0">
-      Email sent to {{ forgotPasswordForm.email }} <br />
-      Check your inbox shortly for instructions.
-    </Message>
+    <aside class="auth-wrapper">
+      <Message v-if="forgotPasswordForm.emailSent" severity="success" :closable="false" class="p-message-lg mt-1 mb-0">
+        Email sent to {{ forgotPasswordForm.email }} <br />
+        Check your inbox shortly for instructions.
+      </Message>
 
-    <form v-else autocomplete="off" @submit.prevent="forgotPassword">
-      <div class="field">
-        <InputText
-          class="p-inputtext-lg mb-2 w-full"
-          id="email"
-          placeholder="Email address"
-          type="text"
-          v-model="forgotPasswordForm.email">
-        </InputText>
-      </div>
+      <form v-else autocomplete="off" @submit.prevent="forgotPassword">
+        <div class="field">
+          <InputText
+            class="p-inputtext-lg mb-2 w-full"
+            id="email"
+            placeholder="Email address"
+            type="text"
+            v-model="forgotPasswordForm.email">
+          </InputText>
+        </div>
 
-      <Button
-        :disabled="isFormDisabled"
-        :loading="forgotPasswordForm.loading"
-        @click="forgotPassword()"
-        class="w-full mt-2"
-        iconPos="right"
-        label="Reset Password"
-        style="height: 46px;">
-      </Button>
-    </form>
-  </aside>
+        <Button
+          :disabled="isFormDisabled"
+          :loading="forgotPasswordForm.loading"
+          @click="forgotPassword()"
+          class="w-full mt-2"
+          iconPos="right"
+          label="Reset Password"
+          style="height: 46px;">
+        </Button>
+      </form>
+    </aside>
 
-  <div class="text-center mt-6">
-    <p v-if="!forgotPasswordForm.emailSent" class="text-xl mb-5">
-      If you still need help contact
-      <a href="mailto:support@syncio.co" class="btn-link text-xl">support@syncio.co</a>
-    </p>
-    <router-link :to="routes.LOGIN" class="btn-link hovered text-xl">Go back</router-link>
-  </div>
+    <div class="text-center mt-6">
+      <p v-if="!forgotPasswordForm.emailSent" class="text-xl mb-5">
+        If you still need help contact
+        <a href="mailto:support@syncio.co" class="btn-link btn-link-dark text-xl">support@syncio.co</a>
+      </p>
+      <router-link :to="routes.LOGIN">
+        <Button label="Go back" outlined raised class="p-button-lg outlined-button-hover w-25" style="margin-top: 0 !important;"></Button>
+      </router-link>
+    </div>
+  </section>
 </template>

@@ -25,7 +25,7 @@ const props = defineProps({
 /* ----- Data ----- */
 const entriesEndingAt = ref(null);
 const entriesStartingFrom = ref(null);
-const perPageOptions = [25, 50, 100];
+const perPageOptions = [25, 50];
 
 /* ----- Emits ----- */
 const emits = defineEmits(['updateCurrentPage']);

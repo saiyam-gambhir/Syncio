@@ -11,7 +11,7 @@ import { resyncProduct } from './actions/resyncProduct';
 import { searchProduct } from './actions/searchProduct';
 import { searchStoreProducts } from './actions/searchStoreProducts';
 import { startBulkMapper } from './actions/startBulkMapper';
-import { syncProduct } from './actions/syncProduct';
+import { SYNC_PRODUCT } from './actions/syncProduct';
 import { unsyncProduct } from './actions/unsyncProduct';
 
 export const useProductsStore = defineStore('products', {
@@ -110,7 +110,7 @@ export const useProductsStore = defineStore('products', {
     searchProduct,
     searchStoreProducts,
     startBulkMapper,
-    syncProduct,
+    SYNC_PRODUCT,
     unsyncProduct,
   ]),
 

@@ -7,5 +7,7 @@ export const fetchCurrentStore = {
     if(this.currentStore) {
       Boolean(+this.currentStore.is_multi_locations) ? (this.isMultilocationEnabled = 'On') : (this.isMultilocationEnabled = 'Off');
     }
+
+    return response;
   }
 }
