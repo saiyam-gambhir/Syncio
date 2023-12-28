@@ -12,23 +12,23 @@ const {
 
 /* ----- Mounted ----- */
 onMounted(() => {
-  if(selectedPlan.value) {
+  if(selectedPlan.value && !selectedPlan.value.addonsSummary) {
     selectedPlan.value.addonsSummary = structuredClone(activeAddons?.value);
   }
 });
 
-// watch(selectedPlan, (newValue, oldValue) => {
-//   if(!oldValue) {
-//     const avaialbleAddons = plans?.value[0].available_addons;
-//     const _activeAddons = {
-//       order: avaialbleAddons.order[0],
-//       payout: avaialbleAddons.payout[0],
-//       product: avaialbleAddons.product[0],
-//     };
+watch(selectedPlan, (newValue, oldValue) => {
+  if(!oldValue) {
+    const avaialbleAddons = plans?.value[0].available_addons;
+    const _activeAddons = {
+      order: avaialbleAddons.order[0],
+      payout: avaialbleAddons.payout[0],
+      product: avaialbleAddons.product[0],
+    };
 
-//     selectedPlan.value.addonsSummary = { ..._activeAddons };
-//   }
-// }, { deep: true })
+    selectedPlan.value.addonsSummary = { ..._activeAddons };
+  }
+}, { deep: true })
 </script>
 
 <template>

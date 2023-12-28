@@ -7,11 +7,8 @@ export const fetchProducts = {
 
     this.loading = true;
 
-    const {
-      connection_id,
-      id,
-    } = this.selectedStore;
-
+    const { connection_id, id } = this.selectedStore;
+    const { storeId, storeType } = useConnectionsStore();
     const {
       filters,
       limiter,
@@ -21,11 +18,6 @@ export const fetchProducts = {
       sortBy,
       vendor,
     } = this.queries;
-
-    const {
-      storeId,
-      storeType,
-    } = useConnectionsStore();
 
     const params = {
       'meta_fields[product_type]': productType,

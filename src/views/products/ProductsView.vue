@@ -22,6 +22,7 @@ const {
   isSourceStore,
   isWoocommerce,
   partnerStoreType,
+  connectionFilterItems,
 } = toRefs(useConnectionsStore());
 
 const {
@@ -99,12 +100,12 @@ const bulkUnsyncProductsHandler = () => {
   isUnsyncRequested.value = true;
 };
 
-const storeChangeHandler = () => {
+const storeChangeHandler = async () => {
   const isPending = isLocationIsPending();
   if(isPending) return;
 
   queries.value.page = 1;
-  fetchProductsHandler();
+  await fetchProductsHandler();
 };
 </script>
 

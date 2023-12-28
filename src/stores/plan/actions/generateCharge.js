@@ -16,9 +16,12 @@ export const generateCharge = {
     const { charge } = await axiosService.postData(`/shopify/store/${storeId}/generate-charge`, params);
     this.loadingPayment = false;
 
+    debugger
+
     if(!charge) {
+      const { userId } = useAuthStore();
       this.loadingPlans = true;
-      await this.fetchCurrentPlan(this.userId);
+      await this.fetchCurrentPlan(userId);
       this.loadingPlans = false;
       return;
     }

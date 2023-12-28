@@ -23,13 +23,13 @@ const updateEmailHandler = async () => {
   await updateEmail.value(currentStoreEmail.value);
   await fetchCurrentStore.value();
 };
-
 </script>
+
 <template>
   <PageHeader content="Choose how you'd like to receive communications for your account" title="Notification settings">
   </PageHeader>
 
-  <article class="grid">
+  <article class="grid mt-1">
     <div class="col col-6">
       <h4 class="font-medium text-2xl mt-0">Preferred contact method</h4>
       <h5 class="font-medium text-xl mb-0">Email</h5>
