@@ -71,8 +71,8 @@ const leaveCurrentPageHandler = () => {
 <template>
   <PageHeader content="Manage order push settings" title="Order Push Settings" />
 
-  <section class="mt-4">
-    <TabView v-model:activeIndex="activeTabIndex" @update:activeIndex="handleTabChange" class="mt-4 margin-bottom">
+  <section>
+    <TabView v-model:activeIndex="activeTabIndex" @update:activeIndex="handleTabChange" class="margin-bottom">
       <TabPanel>
         <template #header>
           <div v-if="isPushOrderEmailSettingsChanged" class="flex align-items-center" v-tooltip.top="'Unsaved changes on this tab'">
