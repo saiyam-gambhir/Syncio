@@ -11,6 +11,7 @@ export default defineConfig({
       imports: [
         { pinia: ['defineStore'] },
         { vue: ['computed', 'defineAsyncComponent', 'onMounted', 'ref', 'toRaw', 'toRefs', 'watch'] },
+        'vue-router',
       ],
       dirs: [
         './src/composables/**',

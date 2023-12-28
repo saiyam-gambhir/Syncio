@@ -9,6 +9,7 @@ const LocationPendingDialog = defineAsyncComponent(() => import('./components/mu
 
 /* ----- Data ----- */
 const {
+  clickedStore,
   connections,
   fetchConnections,
   fetchDestinationLocations,
@@ -31,6 +32,8 @@ const options = ref(['Off', 'On']);
 
 /* ----- Mounted ----- */
 onMounted(async () => {
+  isLocationPendingDialogRequested.value = false;
+
   if (connections.value?.length === 0) {
     await fetchConnections.value();
   }
@@ -94,5 +97,5 @@ const toggleMultilocationHandler = async event => {
   <DisconnectDialog v-if="isConnectionDisconnectRequested" />
   <LocationChangeConfirmationDialog v-if="isLocationChangeRequested" />
   <LocationChangedDialog v-if="isLocationChanged" />
-  <LocationPendingDialog v-if="isLocationPendingDialogRequested" />
+  <LocationPendingDialog :store="clickedStore" v-if="isLocationPendingDialogRequested" />
 </template>

@@ -8,5 +8,6 @@ export const connectPartnerStore = {
     const { success } = await axiosService.postData('stores/connect', params);
 
     if(success) await this.fetchConnections();
+    return success;
   }
 };

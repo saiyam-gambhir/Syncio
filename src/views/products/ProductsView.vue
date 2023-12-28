@@ -3,6 +3,7 @@
 const BulkMapperDialog = defineAsyncComponent(() => import('./components/BulkMapperDialog.vue'));
 const BulkSyncDialog = defineAsyncComponent(() => import('./components/BulkSyncDialog.vue'));
 const DuplicateSkuDialog = defineAsyncComponent(() => import('./components/DuplicateSkuDialog.vue'));
+const LocationPendingDialog = defineAsyncComponent(() => import('../connections/components/multiLocation/LocationPendingDialog.vue'));
 const ProductDetailsDialog = defineAsyncComponent(() => import('./components/ProductDetailsDialog.vue'));
 const UnsyncDialog = defineAsyncComponent(() => import('./components/unSync/UnsyncDialog.vue'));
 
@@ -17,6 +18,7 @@ const {
   connections,
   fetchConnections,
   isDestinationStore,
+  isLocationPendingDialogRequested,
   isSourceStore,
   isWoocommerce,
   partnerStoreType,
@@ -36,6 +38,7 @@ const {
   products,
   queries,
   selectedProducts,
+  selectedStore,
   selectedStoreId,
   statusOptions,
   syncedProducts,
@@ -44,6 +47,9 @@ const {
 
 /* ----- Mounted ----- */
 onMounted(async () => {
+  const isPending = isLocationIsPending();
+  if(isPending) return;
+
   if (connections.value?.length === 0) await fetchConnections.value();
   if(products?.value?.length > 0) return;
 
@@ -65,6 +71,15 @@ watch(selectedStoreId, (newValue, oldValue) => {
 }, { deep: true });
 
 /* ----- Methods ----- */
+const isLocationIsPending = () => {
+  if(selectedStore?.value?.status === 'pending') {
+    isLocationPendingDialogRequested.value = true;
+    return true;
+  }
+
+  return false;
+};
+
 const storeFilterHandler = async storeId => {
   selectedStoreId.value = storeId;
 };
@@ -85,6 +100,9 @@ const bulkUnsyncProductsHandler = () => {
 };
 
 const storeChangeHandler = () => {
+  const isPending = isLocationIsPending();
+  if(isPending) return;
+
   queries.value.page = 1;
   fetchProductsHandler();
 };
@@ -152,7 +170,7 @@ const storeChangeHandler = () => {
       </Tag>
     </div>
 
-    <article class="mt-2">
+    <article class="mt-2" v-if="!isLocationIsPending()">
       <Products />
 
       <Pagination
@@ -172,6 +190,9 @@ const storeChangeHandler = () => {
 
     <!-- Duplicate Sku -->
     <DuplicateSkuDialog v-if="isDuplicateSkuFound" />
+
+    <!----- Location Pending ----->
+    <LocationPendingDialog v-if="isLocationPendingDialogRequested" :store="selectedStore" isRouterLink />
 
     <!----- Product Details ----->
     <ProductDetailsDialog v-if="isProductDetailsDialogRequested" />

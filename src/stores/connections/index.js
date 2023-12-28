@@ -34,6 +34,7 @@ export const useConnectionsStore = defineStore('connections', {
       loadingConnections: false,
       loadingInventory: false,
       loadingLocationChange: false,
+      loadingTestStoreConnection: false,
       location: { current: null, new: null, params: null, store: null },
       selectedConnection: {},
       shopifyPermissions: { link: null, showDialog: false },
