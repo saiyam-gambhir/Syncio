@@ -11,6 +11,7 @@ import { fetchSourceLocations } from './actions/fetchSourceLocations';
 import { invitePartnerStore } from './actions/invitePartnerStore';
 import { toggleMultilocation } from './actions/toggleMultilocation';
 import { updateLocation } from './actions/updateLocation';
+import { updateEmail } from './actions/updateEmail';
 
 export const useConnectionsStore = defineStore('connections', {
   state: () => {
@@ -32,6 +33,7 @@ export const useConnectionsStore = defineStore('connections', {
       isMultilocationEnabled: 'Off',
       isNewStoreConnectionRequested: false,
       loadingConnections: false,
+      loadingEmail: false,
       loadingInventory: false,
       loadingLocationChange: false,
       loadingTestStoreConnection: false,
@@ -123,6 +125,7 @@ export const useConnectionsStore = defineStore('connections', {
     invitePartnerStore,
     toggleMultilocation,
     updateLocation,
+    updateEmail,
   ]),
 
   persist: {
