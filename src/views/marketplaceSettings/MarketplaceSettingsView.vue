@@ -1,4 +1,7 @@
 <script setup>
+/* ----- Components ----- */
+const ProfilePreviewDialog = defineAsyncComponent(() => import('./components/ProfilePreviewDialog.vue'));
+
 /* ----- Data ----- */
 const {
   isSourceStore,
@@ -9,6 +12,7 @@ const {
   categories,
   countries,
   fetchProfile,
+  isPreviewProfileDialogVisible,
   loadingProfile,
   maxImagesAllowed,
   profile,
@@ -89,7 +93,7 @@ const deleteFilesFromView = (image, index) => {
         <span class="font-bold">Last saved: </span>
         <Date :date="profile.updatedAt" horizontal />
       </span>
-      <Button label="Preview" outlined class="ml-3"></Button>
+      <Button @click="isPreviewProfileDialogVisible = true" label="Preview" outlined class="ml-3"></Button>
       <Button @click="updateProfile" :loading="loadingProfile" label="Save" class="ml-3"></Button>
     </template>
   </PageHeader>
@@ -246,6 +250,26 @@ const deleteFilesFromView = (image, index) => {
       </section>
     </article>
   </form>
+
+  <ProfilePreviewDialog v-if="isPreviewProfileDialogVisible" />
+
+  <!-- <DialogWrapper :isVisible="showPreviewDialog" @closeDialog="dialogHandler" title="Profile Preview" width="750px" :showFooter="false">
+    <template #body>
+      <div class="grid">
+        <div class="col col-6">
+          <p class="text-lg m-0 pb-3 line-height-3">
+            This is how your profile will appear on the marketplace.
+          </p>
+          <p class="text-lg m-0 line-height-3">
+            When other stores message you, you'll receive an email with their details and an optional personal message.
+          </p>
+        </div>
+        <div class="col col-6">
+          <ProfilePreview :profile="profile" />
+        </div>
+      </div>
+    </template>
+  </DialogWrapper> -->
 </template>
 
 <style scoped>

@@ -77,9 +77,6 @@ const updateCurrentPageHandler = page => {
 
     <div class="pt-1">
       <h2 class="m-0 border-bottom">All {{ partnerStoreType }}s ({{ pagination?.total_count }})</h2>
-      <!-- <router-link :to="routes.MARKETPLACE_SETTINGS">
-        <Button label="Marketplace settings" outlined></Button>
-      </router-link> -->
     </div>
   </div>
 </template>
