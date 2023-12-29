@@ -18,6 +18,7 @@ const {
 const deletedImages = ref([]);
 const fileSelectedForUpload = ref([]);
 const loading = ref(false);
+const showPreviewDialog = ref(false);
 
 /* ----- Mounted ----- */
 onMounted(async () => {
@@ -77,6 +78,10 @@ const deleteFilesFromView = (image, index) => {
     profile.value.cocoProfileImages.splice(index, 1);
   }
 };
+
+const dialogHandler = () => {
+  showPreviewDialog.value = !showPreviewDialog.value;
+}
 </script>
 
 <template>
@@ -89,7 +94,7 @@ const deleteFilesFromView = (image, index) => {
         <span class="font-bold">Last saved: </span>
         <Date :date="profile.updatedAt" horizontal />
       </span>
-      <Button label="Preview" outlined class="ml-3"></Button>
+      <Button @click="dialogHandler" label="Preview" outlined class="ml-3"></Button>
       <Button @click="updateProfile" :loading="loadingProfile" label="Save" class="ml-3"></Button>
     </template>
   </PageHeader>
@@ -246,6 +251,25 @@ const deleteFilesFromView = (image, index) => {
       </section>
     </article>
   </form>
+
+  <DialogWrapper :isVisible="showPreviewDialog" @closeDialog="dialogHandler" title="Profile Preview" width="750px"
+    :showFooter="false">
+    <template #body>
+      <div class="grid">
+        <div class="col col-6">
+          <p class="text-lg m-0 pb-3 line-height-3">
+            This is how your profile will appear on the marketplace.
+          </p>
+          <p class="text-lg m-0 line-height-3">
+            When other stores message you, you'll receive an email with their details and an optional personal message.
+          </p>
+        </div>
+        <div class="col col-6">
+          <ProfilePreview :profile="profile" />
+        </div>
+      </div>
+    </template>
+  </DialogWrapper>
 </template>
 
 <style scoped>
