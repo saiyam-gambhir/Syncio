@@ -136,6 +136,12 @@ router.beforeEach(async (to, from, next) => {
 
     auth.isAuthenticated = true;
 
+    if(from.fullPath.includes('/shopify/installation-complete')) {
+      const userId = sessionStorage.getItem('USER_ID');
+      const plan = usePlanStore();
+      await plan.fetchCurrentPlan(userId);
+    }
+
     if (!auth.user) {
       const userId = sessionStorage.getItem('USER_ID');
       await auth.fetchUser(userId);
