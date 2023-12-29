@@ -79,7 +79,7 @@ const setEntries = () => {
         v-if="perPage"
         v-model="pagination.per_page">
       </Dropdown>
-      <span v-if="pagination.total_count > 0">{{ entriesStartingFrom }} - {{ entriesEndingAt }} of</span> {{ pagination.total_count }}
+      <span v-if="pagination.total_count > 0">{{ entriesStartingFrom }} - {{ entriesEndingAt }} of</span> {{ pagination.total_count }} Entries
     </h4>
 
     <slot name="footer"></slot>

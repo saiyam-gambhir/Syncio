@@ -17,8 +17,9 @@ export const generateCharge = {
     this.loadingPayment = false;
 
     if(!charge) {
+      const { userId } = useAuthStore();
       this.loadingPlans = true;
-      await this.fetchCurrentPlan(this.userId);
+      await this.fetchCurrentPlan(userId);
       this.loadingPlans = false;
       return;
     }

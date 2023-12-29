@@ -1,6 +1,7 @@
 import deepmerge from 'deepmerge';
 
 /* ----- Actions ----- */
+import { activateCharge } from './actions/activateCharge';
 import { fetchCurrentPlan } from './actions/fetchCurrentPlan';
 import { fetchPlans } from './actions/fetchPlans';
 import { generateCharge } from './actions/generateCharge';
@@ -110,6 +111,7 @@ export const usePlanStore = defineStore('plan', {
   },
 
   actions: deepmerge.all([
+    activateCharge,
     fetchCurrentPlan,
     fetchPlans,
     generateCharge,

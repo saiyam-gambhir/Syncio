@@ -14,7 +14,7 @@ const {
     title="Settings">
   </PageHeader>
 
-  <section class="settings mt-4">
+  <section class="settings">
     <div class="surface-white">
       <div class="grid">
         <Setting

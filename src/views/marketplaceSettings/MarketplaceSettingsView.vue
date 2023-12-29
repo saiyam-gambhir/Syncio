@@ -94,7 +94,7 @@ const deleteFilesFromView = (image, index) => {
     </template>
   </PageHeader>
 
-  <form class="mt-3">
+  <form class="mt-2">
     <article class="grid justify-content-between">
       <section class="col-12">
         <CardWrapper>

@@ -1,3 +1,94 @@
+<script setup>
+import * as routes from '@/routes';
+
+/* ----- Data ----- */
+const loading = ref(false);
+
+const {
+  isDestinationStore,
+  partnerStoreType,
+} = toRefs(useConnectionsStore());
+
+const {
+  activateCharge,
+} = toRefs(usePlanStore());
+
+const route = useRoute();
+
+/* ----- OnMounted ----- */
+onMounted(async () => {
+  loading.value = true;
+  const params = route.query;
+  const response = await activateCharge.value(params);
+  if(response.success) {
+    loading.value = false;
+  }
+});
+
+/* ----- Methods ----- */
+</script>
+
 <template>
-  <h1>Hello</h1>
+  <Loading v-if="loading" />
+  <section v-else class="mx-auto" style="width: 1000px;">
+    <PageDetails title="Installation Complete!" content="Here are a few guides to help you Sync your first product!" />
+
+    <aside class="auth-wrapper text-900 text-center">
+
+      <div class="grid mb-4">
+        <div class="col-4">
+          <a href="https://www.notion.so/syncio/Syncing-your-first-product-3b831d7cc38640ffb82393dbdcfaa662" target="_blank" class="block text-900">
+            <CardWrapper>
+              <template #content>
+                <div class="flex align-items-center justify-content-between">
+                  <h3 class="text-xl m-0">Guide to Syncing</h3>
+                  <i class="pi pi-external-link"></i>
+                </div>
+                <p class="text-left mb-0 mt-4">Read our step by step guide to sync your first product!</p>
+              </template>
+            </CardWrapper>
+          </a>
+        </div>
+
+        <div class="col-4">
+          <a href="https://www.notion.so/syncio/Tips-for-a-healthy-sync-8afc765c9b3f476c93f02422ebc59511" target="_blank" class="block text-900">
+            <CardWrapper>
+              <template #content>
+                <div class="flex align-items-center justify-content-between">
+                  <h3 class="text-xl m-0">Best Practices</h3>
+                  <i class="pi pi-external-link"></i>
+                </div>
+                <p class="text-left mb-0 mt-4">Six steps to ensure your inventory syncs properly.</p>
+              </template>
+            </CardWrapper>
+          </a>
+        </div>
+
+        <div class="col-4">
+          <a href="https://www.notion.so/syncio/Use-Cases-8eb098b60bae4aa083e2d04d8c936476" target="_blank" class="block text-900">
+            <CardWrapper>
+              <template #content>
+                <div class="flex align-items-center justify-content-between">
+                  <h3 class="text-xl m-0">Use Cases</h3>
+                  <i class="pi pi-external-link"></i>
+                </div>
+                <p class="text-left mb-0 mt-4">See how other companies use <br> Syncio!</p>
+              </template>
+            </CardWrapper>
+          </a>
+        </div>
+      </div>
+
+      <Divider />
+
+      <router-link :to="routes.DASHBOARD">
+        <Button
+          label="Continue to dashboard"
+          class="mt-4 font-bold justify-content-center p-button-lg w-50"
+          icon="pi pi-arrow-right"
+          iconPos="right">
+        </Button>
+      </router-link>
+    </aside>
+  </section>
 </template>

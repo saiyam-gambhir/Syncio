@@ -8,7 +8,6 @@ const OrderDetails = defineAsyncComponent(() => import('./components/OrderDetail
 /* ----- Data ----- */
 const {
   addons,
-  isOrderModulePaid,
 } = toRefs(usePlanStore());
 
 const {
@@ -105,7 +104,7 @@ const isSelected = (row) => {
 <template>
   <PageHeader content="Push your orders with synced products to connected source stores" title="Orders" withActions>
     <template #actions>
-      <div class="flex align-items-center justify-content-between" v-if="isOrderModulePaid">
+      <div class="flex align-items-center justify-content-between" v-if="addons.isOrderModulePaid">
         <h4 class="my-0 mr-4">
           Automated Push
           <br />

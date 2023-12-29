@@ -54,6 +54,12 @@ const router = createRouter({
       name: routes.SHOPIFY_CONNECT_OR_INVITE_STORE,
       path: routes.SHOPIFY_CONNECT_OR_INVITE_STORE,
     },
+    {
+      component: () => import('@/views/registration/shopify/InstallationComplete.vue'),
+      meta: { layout: LoggedOut },
+      name: routes.SHOPIFY_INSTALLATION_COMPLETE,
+      path: routes.SHOPIFY_INSTALLATION_COMPLETE,
+    },
     /* ----- Shopify ----- */
 
     /* ----- Woocommerce ----- */

@@ -43,7 +43,7 @@ watch(selectedAddonIds, () => {
 
 /* ----- Computed ----- */
 const allowToProceed = computed(() => {
-  return (isBasePlanChanged.value || areAddonsChanged.value) && !isOnboarding.value;
+  return (isBasePlanChanged.value || areAddonsChanged.value) && !isOnboarding.value || !plan.value;
 });
 
 /* ----- Methods ----- */
@@ -61,11 +61,11 @@ const calculateTotalCartValue = () => {
 };
 
 const generateChargeHandler = async () => {
-  const paidAddonModuleIds = plan.value.active_addons.filter(addon => +addon.price_per_month > 0).map(addon => addon.module_id);
+  const paidAddonModuleIds = plan?.value?.active_addons.filter(addon => +addon.price_per_month > 0).map(addon => addon.module_id);
   const selectedAddonsIdsList = Object.values(selectedAddonIds.value);
-  const areAllPaidAddonsSelected = paidAddonModuleIds.every(id => selectedAddonsIdsList.includes(id));
+  const areAllPaidAddonsSelected = paidAddonModuleIds?.every(id => selectedAddonsIdsList.includes(id));
 
-  if(!areAllPaidAddonsSelected) {
+  if(!areAllPaidAddonsSelected && plan.value) {
     shouldShowAddonsDowngradeDialog.value = true;
     return;
   }

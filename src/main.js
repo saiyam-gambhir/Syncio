@@ -16,6 +16,8 @@ import Card from 'primevue/card';
 import Carousel from 'primevue/carousel';
 import Checkbox from 'primevue/checkbox';
 import Column from 'primevue/column';
+import ConfirmationService from 'primevue/confirmationservice';
+import ConfirmPopup from 'primevue/confirmpopup';
 import DataTable from 'primevue/datatable';
 import Dialog from 'primevue/dialog';
 import Divider from 'primevue/divider';
@@ -72,6 +74,7 @@ app
   .use(pinia)
   .use(router)
   .use(PrimeVue, { ripple: true })
+  .use(ConfirmationService)
   .use(Vue3Toasity)
   .mount('#app');
 
@@ -86,6 +89,7 @@ app
   .component('Carousel', Carousel)
   .component('Checkbox', Checkbox)
   .component('Column', Column)
+  .component('ConfirmPopup', ConfirmPopup)
   .component('DataTable', DataTable)
   .component('Dialog', Dialog)
   .component('Divider', Divider)
@@ -132,6 +136,12 @@ router.beforeEach(async (to, from, next) => {
 
     auth.isAuthenticated = true;
 
+    if(from.fullPath.includes('/shopify/installation-complete')) {
+      const userId = sessionStorage.getItem('USER_ID');
+      const plan = usePlanStore();
+      await plan.fetchCurrentPlan(userId);
+    }
+
     if (!auth.user) {
       const userId = sessionStorage.getItem('USER_ID');
       await auth.fetchUser(userId);
@@ -151,7 +161,7 @@ router.beforeEach(async (to, from, next) => {
         }
       }
     }
-  } else if ((to.path === '/login' || to.path === '/') && ID_TOKEN_KEY) {
+  } else if ((to.path === '/login' || to.path === '/') && ID_TOKEN_KEY) { // check onboarding routes pending
     return next({ path: routes.DASHBOARD });
   }
 

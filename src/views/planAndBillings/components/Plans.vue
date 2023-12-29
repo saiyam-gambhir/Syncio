@@ -13,7 +13,7 @@ const {
 /* ----- Methods ----- */
 const selectPlanHandler = (plan) => {
   selectedPlan.value = plan;
-  selectedPlan.value.addonsSummary = structuredClone(activeAddons.value);
+  selectedPlan.value.addonsSummary = { ...activeAddons.value };
   document.getElementById('addons-wrapper').scrollIntoView({ behavior: 'smooth' });
 
   /* Setting the selectedPlan active addons module id to selectedAddonIds */
