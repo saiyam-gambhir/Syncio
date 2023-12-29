@@ -28,8 +28,8 @@ const fetchProfilesHandler = async () => {
 </script>
 
 <template>
-  <section class="marketplace">
-    <div class="row flex ml-0 mb-4">
+  <section class="marketplace mt-2">
+    <div class="grid">
       <div class="col col-6">
         <UserProfile :profile="profile" />
       </div>
@@ -37,9 +37,25 @@ const fetchProfilesHandler = async () => {
         <Survey />
       </div>
     </div>
-    <Search />
+
+    <div class="sticky-section">
+      <Search />
+      <Filters />
+    </div>
+
     <Profiles />
     <MessageDialog v-if="isMessageDialogVisible" />
     <MessageSentDialog v-if="isMessageSentDialogVisible" />
   </section>
 </template>
+
+<style scoped>
+.sticky-section {
+  background: var(--white);
+  margin: 0 -2rem;
+  padding: 1.5rem 2rem .5rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+</style>

@@ -9,7 +9,6 @@ const {
 <template>
   <section class="profiles mx-auto mb-4">
     <div class="container">
-      <Filters />
       <div class="grid" v-if="loading">
         <ProfileSkeleton />
       </div>

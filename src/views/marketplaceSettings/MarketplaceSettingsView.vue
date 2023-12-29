@@ -1,4 +1,7 @@
 <script setup>
+/* ----- Components ----- */
+const ProfilePreviewDialog = defineAsyncComponent(() => import('./components/ProfilePreviewDialog.vue'));
+
 /* ----- Data ----- */
 const {
   isSourceStore,
@@ -9,6 +12,7 @@ const {
   categories,
   countries,
   fetchProfile,
+  isPreviewProfileDialogVisible,
   loadingProfile,
   maxImagesAllowed,
   profile,
@@ -18,7 +22,6 @@ const {
 const deletedImages = ref([]);
 const fileSelectedForUpload = ref([]);
 const loading = ref(false);
-const showPreviewDialog = ref(false);
 
 /* ----- Mounted ----- */
 onMounted(async () => {
@@ -78,10 +81,6 @@ const deleteFilesFromView = (image, index) => {
     profile.value.cocoProfileImages.splice(index, 1);
   }
 };
-
-const dialogHandler = () => {
-  showPreviewDialog.value = !showPreviewDialog.value;
-}
 </script>
 
 <template>
@@ -94,7 +93,7 @@ const dialogHandler = () => {
         <span class="font-bold">Last saved: </span>
         <Date :date="profile.updatedAt" horizontal />
       </span>
-      <Button @click="dialogHandler" label="Preview" outlined class="ml-3"></Button>
+      <Button @click="isPreviewProfileDialogVisible = true" label="Preview" outlined class="ml-3"></Button>
       <Button @click="updateProfile" :loading="loadingProfile" label="Save" class="ml-3"></Button>
     </template>
   </PageHeader>
@@ -252,8 +251,9 @@ const dialogHandler = () => {
     </article>
   </form>
 
-  <DialogWrapper :isVisible="showPreviewDialog" @closeDialog="dialogHandler" title="Profile Preview" width="750px"
-    :showFooter="false">
+  <ProfilePreviewDialog v-if="isPreviewProfileDialogVisible" />
+
+  <!-- <DialogWrapper :isVisible="showPreviewDialog" @closeDialog="dialogHandler" title="Profile Preview" width="750px" :showFooter="false">
     <template #body>
       <div class="grid">
         <div class="col col-6">
@@ -269,7 +269,7 @@ const dialogHandler = () => {
         </div>
       </div>
     </template>
-  </DialogWrapper>
+  </DialogWrapper> -->
 </template>
 
 <style scoped>
