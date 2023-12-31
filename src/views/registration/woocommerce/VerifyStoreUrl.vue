@@ -1,7 +1,4 @@
 <script setup>
-import router from '@/router';
-import * as routes from '@/routes';
-
 const isURLValid = ref(false);
 const loading = ref(false);
 const storeURL = ref(null);
@@ -28,6 +25,11 @@ const verifyStoreURLHandler = () => {
     loading.value = false;
   });
 };
+
+const clearStoreUrlHandler = () => {
+  isURLValid.value = false;
+  storeURL.value = null;
+};
 </script>
 
 <template>
@@ -47,14 +49,17 @@ const verifyStoreURLHandler = () => {
     <aside class="auth-wrapper text-900">
       <div class="grid">
         <div class="col-9 pb-0">
-          <InputText
-            type="url"
-            size="large"
-            class="w-100"
-            clear
-            placeholder="Store URL"
-            v-model="storeURL">
-          </InputText>
+          <div class="relative">
+            <InputText
+              type="url"
+              size="large"
+              class="w-100"
+              clear
+              placeholder="Store URL"
+              v-model="storeURL">
+            </InputText>
+            <i v-if="storeURL" @click="clearStoreUrlHandler" class="pi pi-times absolute pointer text-700" style="right: 1rem; top: 1.33rem;"></i>
+          </div>
           <small class="block mt-2 pl-1 text-700 font-semi text-sm" id="username-help">You'll need to add https:// to the URL</small>
         </div>
         <div class="col-3 pb-0">

@@ -1,22 +1,43 @@
 <script setup>
-import { useConnections } from '../../composables/connections';
+import { useForm } from 'vee-validate';
+import * as yup from 'yup';
 
 /* ----- Data ----- */
 const {
   connectPartnerStoreHandler,
   invitePartnerStoreHandler,
-  isConnectViaStoreKeyRequested,
-  isInviteViaEmailRequested,
   isSendingInvitation,
 } = useConnections();
 
 const {
+  isConnectViaStoreKeyRequested,
+  isInviteViaEmailRequested,
   isNewStoreConnectionRequested,
   partnerStoreType,
 } = toRefs(useConnectionsStore());
 
-const emailAddress = ref('');
-const uniqueKey = ref('');
+/* ----- Validations ----- */
+const { errors: emailErrors, meta: emailMeta, defineField: emailDefinedField } = useForm({
+  validationSchema: yup.object({
+    emailAddress: yup.string().email().required(),
+  }),
+});
+const [emailAddress, emailAddressAttrs] = emailDefinedField('emailAddress');
+
+const { errors: uniqueKeyErrors, meta: uniqueKeyMeta, defineField: uniqueKeyDefinedField } = useForm({
+  validationSchema: yup.object({
+    uniqueKey: yup.string().required(),
+  }),
+});
+const [uniqueKey, uniqueKeyAttrs] = uniqueKeyDefinedField('uniqueKey');
+
+/* ----- Props ----- */
+const props = defineProps({
+  enableBackBtn: {
+    type: Boolean,
+    default: true
+  }
+});
 
 /* ----- Methods ----- */
 const closeDialogHandler = () => {
@@ -58,9 +79,11 @@ const closeDialogHandler = () => {
         <p class="mt-1">This email will include your <strong>Syncio Key</strong> and <strong>installation instructions</strong>.</p>
         <InputText
           v-model="emailAddress"
+          v-bind="emailAddressAttrs"
           :placeholder="`Enter ${partnerStoreType} email address`"
-          class="p-inputtext-lg w-75 my-4">
+          class="p-inputtext-lg w-75 mt-4">
         </InputText>
+        <span class="mt-3 block text-error" v-if="emailErrors">{{ emailErrors.emailAddress }}</span>
       </div>
 
       <div class="text-center" v-if="isConnectViaStoreKeyRequested">
@@ -69,21 +92,24 @@ const closeDialogHandler = () => {
         <p class="mt-1">Once connected you can immediately start syncing products from that store.</p>
         <InputText
           v-model="uniqueKey"
+          v-bind="uniqueKeyAttrs"
           :placeholder="`Enter ${partnerStoreType} unique key`"
-          class="p-inputtext-lg w-75 my-4">
+          class="p-inputtext-lg w-75 mt-4">
         </InputText>
+        <span class="mt-3 block text-error font-semi" style="letter-spacing: 1px;" v-if="uniqueKeyErrors">{{ uniqueKeyErrors.uniqueKey }}</span>
       </div>
     </template>
 
     <template #footer>
-      <div v-if="isInviteViaEmailRequested" class="flex align-items-center justify-content-between">
+      <div v-if="isInviteViaEmailRequested" class="flex align-items-center" :class="{ 'justify-content-end' : !enableBackBtn, 'justify-content-between' : enableBackBtn }">
         <Button
           @click="isInviteViaEmailRequested = false"
           class="p-button-secondary"
-          label="Go back">
+          label="Go back"
+          v-if="enableBackBtn">
         </Button>
         <Button
-          :disabled="!emailAddress"
+          :disabled="!emailMeta.valid"
           :loading="isSendingInvitation"
           @click="invitePartnerStoreHandler(emailAddress)"
           class="mr-0"
@@ -91,14 +117,15 @@ const closeDialogHandler = () => {
         </Button>
       </div>
 
-      <div v-if="isConnectViaStoreKeyRequested" class="flex align-items-center justify-content-between">
+      <div v-if="isConnectViaStoreKeyRequested" class="flex align-items-center" :class="{ 'justify-content-end' : !enableBackBtn, 'justify-content-between' : enableBackBtn }">
         <Button
           @click="isConnectViaStoreKeyRequested = false"
           class="p-button-secondary"
-          label="Go back">
+          label="Go back"
+          v-if="enableBackBtn">
         </Button>
         <Button
-          :disabled="!uniqueKey"
+          :disabled="!uniqueKeyMeta.valid"
           :loading="isSendingInvitation"
           @click="connectPartnerStoreHandler(uniqueKey)"
           class="mr-0"

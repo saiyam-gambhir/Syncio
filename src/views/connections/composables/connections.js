@@ -9,8 +9,6 @@ export function useConnections() {
     updateLocation,
   } = toRefs(useConnectionsStore());
 
-  const isConnectViaStoreKeyRequested = ref(false);
-  const isInviteViaEmailRequested = ref(false);
   const isSendingInvitation = ref(false);
 
   const fetchConnectionsHandler = async () => {
@@ -59,8 +57,6 @@ export function useConnections() {
     fetchConnectionsHandler,
     getStoreStatus,
     invitePartnerStoreHandler,
-    isConnectViaStoreKeyRequested,
-    isInviteViaEmailRequested,
     isSendingInvitation,
     updateLocationHandler,
     showDisconnectStoreDialog,

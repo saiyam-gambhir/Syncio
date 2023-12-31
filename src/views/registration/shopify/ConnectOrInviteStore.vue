@@ -1,20 +1,22 @@
 <script setup>
-import { useRoute, useRouter } from 'vue-router';
 import * as routes from '@/routes';
+
+const ConnectNewStoreDialog = defineAsyncComponent(() => import('../../connections/components/connect/ConnectNewStoreDialog.vue'));
 
 /* ----- Data ----- */
 const isTestStoreConnected = ref(false);
+const loading = ref(false);
 
 const {
   connectPartnerStore,
+  isConnectViaStoreKeyRequested,
   isDestinationStore,
+  isInviteViaEmailRequested,
+  isNewStoreConnectionRequested,
   loadingTestStoreConnection,
   partnerStoreType,
   storeKey,
 } = toRefs(useConnectionsStore());
-
-const route = useRoute();
-const router = useRouter();
 
 /* ----- Methods ----- */
 const connectPartnerStoreHandler = async () => {
@@ -24,6 +26,18 @@ const connectPartnerStoreHandler = async () => {
     isTestStoreConnected.value = true;
     loadingTestStoreConnection.value = false;
   }
+};
+
+const showInviteViaEmailHandler = () => {
+  isConnectViaStoreKeyRequested.value = false;
+  isNewStoreConnectionRequested.value = true;
+  isInviteViaEmailRequested.value = true;
+};
+
+const showConnectViaKeyHandler = () => {
+  isInviteViaEmailRequested.value = false;
+  isNewStoreConnectionRequested.value = true;
+  isConnectViaStoreKeyRequested.value = true;
 };
 </script>
 
@@ -38,10 +52,10 @@ const connectPartnerStoreHandler = async () => {
       <p class="text-lg line-height-3 mt-1">This unique key can also be found on your dashboard after completing this setup process.</p>
       <div class="grid pt-4 pb-3">
         <div class="col-6">
-          <Button icon="pi pi-arrow-right" iconPos="right" label="Share your key via e-mail" class="p-button-lg w-100"></Button>
+          <Button @click="showInviteViaEmailHandler" icon="pi pi-arrow-right" iconPos="right" label="Share your key via e-mail" class="p-button-lg w-100"></Button>
         </div>
         <div class="col-6">
-          <Button outlined icon="pi pi-arrow-right" iconPos="right" label="I received a source store key" class="p-button-lg w-100"></Button>
+          <Button @click="showConnectViaKeyHandler" outlined icon="pi pi-arrow-right" iconPos="right" label="I received a source store key" class="p-button-lg w-100"></Button>
         </div>
       </div>
 
@@ -65,8 +79,10 @@ const connectPartnerStoreHandler = async () => {
 
     <div class="text-center">
       <router-link :to="routes.PLAN_AND_BILLINGS">
-        <Button label="Skip for now" class="my-6 font-bold justify-content-center p-button-lg"></Button>
+        <Button @click="loading = true" :loading="loading" label="Skip for now" class="my-6 font-bold justify-content-center p-button-lg"></Button>
       </router-link>
     </div>
   </section>
+
+  <ConnectNewStoreDialog v-if="isNewStoreConnectionRequested" :enableBackBtn="false" />
 </template>

@@ -78,7 +78,7 @@ const generateChargeHandler = async () => {
   <CardWrapper style="position: sticky; top: 2rem;">
     <template #content>
       <Tag severity="warning" style="text-transform: uppercase !important;" class="mb-3">Step 3: Review and approve subscription</Tag>
-      <p class="m-0">For paid plans, cancel any time within your <strong>14 day free trial</strong> period and you won't be charged. Free plans are free forever.</p>
+      <p class="m-0">For paid plans, cancel any time within your <strong>14 day free trial</strong> period and you won't be charged. <br> Free plans are free forever.</p>
       <h2 class="mt-3 mb-0">Plan Summary</h2>
       <Divider />
       <h4 class="uppercase mt-0">Base Plan</h4>

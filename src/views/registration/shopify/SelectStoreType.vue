@@ -3,6 +3,9 @@ import { useRoute, useRouter } from 'vue-router';
 import * as routes from '@/routes';
 
 /* ----- Data ----- */
+const loading = ref(false);
+const loadingStoreType = ref(false);
+
 const {
   isAuthenticated,
   saveShopifyToken,
@@ -14,23 +17,30 @@ const router = useRouter();
 
 /* ----- Mounted ----- */
 onMounted(async () => {
+  loading.value = true;
   let params = route.query;
   params.store_id = params.shop;
-  if(params.store_id) await saveShopifyToken.value(params);
+  if(params.store_id) {
+    await saveShopifyToken.value(params);
+    loading.value = false;
+  }
 });
 
 /* ----- Methods ----- */
 const updateStoreTypeHandler = async (storeType) => {
+  loadingStoreType.value = true;
   const response = await updateStoreType.value(storeType);
   if(response?.success) {
     await router.push({ name: routes.SHOPIFY_CONNECT_OR_INVITE_STORE });
     isAuthenticated.value = true;
+    loadingStoreType.value = true;
   }
 };
 </script>
 
 <template>
-  <section class="mx-auto" style="width: 900px;">
+  <Loading v-if="loading" />
+  <section v-else class="mx-auto" style="width: 900px;">
     <PageDetails title="Select store type" content="" />
 
     <aside class="auth-wrapper text-900">
@@ -53,7 +63,7 @@ const updateStoreTypeHandler = async (storeType) => {
                 <li class="mt-1">A brand store</li>
               </ul>
               <Divider />
-              <Button label="Select store type" class="p-button-lg w-100 mt-2" @click="updateStoreTypeHandler('source')"></Button>
+              <Button :loading="loadingStoreType" label="Select store type" class="p-button-lg w-100 mt-2" @click="updateStoreTypeHandler('source')"></Button>
             </template>
           </CardWrapper>
         </div>
@@ -75,7 +85,7 @@ const updateStoreTypeHandler = async (storeType) => {
                 <li class="mt-1">Extra sales channel to the source</li>
               </ul>
               <Divider />
-              <Button label="Select store type" class="p-button-lg w-100 mt-2" @click="updateStoreTypeHandler('destination')"></Button>
+              <Button :loading="loadingStoreType" label="Select store type" class="p-button-lg w-100 mt-2" @click="updateStoreTypeHandler('destination')"></Button>
             </template>
           </CardWrapper>
         </div>

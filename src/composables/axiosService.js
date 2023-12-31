@@ -97,7 +97,7 @@ class AxiosService {
             sessionStorage.removeItem('ID_TOKEN_KEY');
             sessionStorage.removeItem('USER_ID');
             await router.push({ name: routes.LOGIN });
-            toast(error.response.data?.errors[0], { ...toastOptions, type: 'error' });
+            toast('Your session has expired. Please login again to continue.', { ...toastOptions, type: 'error' });
             return Promise.reject(error);
 
           case 502:

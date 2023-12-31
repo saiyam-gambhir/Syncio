@@ -28,9 +28,11 @@
     "primeicons": "^6.0.1",
     "primevue": "^3.32.2",
     "sass": "^1.53.0",
+    "vee-validate": "^4.12.4",
     "vue": "^3.3.4",
     "vue-router": "^4.2.2",
-    "vue3-toastify": "^0.1.12"
+    "vue3-toastify": "^0.1.12",
+    "yup": "^1.3.3"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^3.0.1",
