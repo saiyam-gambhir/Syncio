@@ -32,7 +32,6 @@ export const fetchPayoutOrders = {
       };
 
     } catch (error) {
-      throw new Error(error);
     } finally {
       this.payoutOrders.loading = false;
     }

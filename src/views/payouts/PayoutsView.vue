@@ -1,5 +1,4 @@
 <script setup>
-import { useRouter } from 'vue-router';
 import * as routes from '@/routes';
 
 /* ----- Components ----- */
@@ -81,7 +80,7 @@ onMounted(async () => {
   </TabView>
 
   <!-- Source Payouts -->
-  <TabView v-if="isSourceStore" v-model:activeIndex="activeTabIndex" @update:activeIndex="handleTabChange" class="mt-4">
+  <TabView v-if="isSourceStore" v-model:activeIndex="activeTabIndex" @update:activeIndex="handleTabChange">
     <TabPanel header="Open">
       <Open v-if="activeTabIndex === 0" />
     </TabPanel>

@@ -14,7 +14,6 @@ export const fetchPayableOrders = {
         }) ?? [];
       }
     } catch (error) {
-      throw new Error(error);
     } finally {
       this.payableOrders.loading = false;
     }

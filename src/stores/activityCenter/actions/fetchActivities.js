@@ -40,7 +40,6 @@ export const fetchActivities = {
       // Store the fetched activities in the appropriate tab
       this[tab] = await response?.data;
     } catch (error) {
-      console.error('Error fetching activities:', error);
     } finally {
       // Set the loading flag to false to indicate that activities have been fetched or an error occurred
       this.loadingActivities = false;

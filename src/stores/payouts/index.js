@@ -1,6 +1,7 @@
 import deepmerge from 'deepmerge';
 
 /* ----- Actions ----- */
+import { confirmPayout } from './actions/confirmPayout';
 import { createPayout } from './actions/createPayout';
 import { deletePayout } from './actions/deletePayout';
 import { fetchPaidPayouts } from './actions/fetchPaidPayouts';
@@ -22,9 +23,14 @@ export const usePayoutsStore = defineStore('payouts', {
       isCreatePayoutDetailsRequested: false,
       isViewPayoutDetailsRequested: false,
       limiter: 10,
+      loadingCreatePayout: false,
       loadingDeletePayout: false,
       loadingPayout: false,
       openPayouts: { items: [], loading: false, pagination: {} },
+      openPayoutsStatusOptions: [
+        { value: 'paid', label: 'Paid' },
+        { value: 'payment_created', label: 'Unpaid' },
+      ],
       paidPayouts: { items: [], loading: false, pagination: {} },
       paidPayoutsStatusOptions: [
         { value: 'paid', label: 'Paid' },
@@ -42,9 +48,14 @@ export const usePayoutsStore = defineStore('payouts', {
       selectedPayoutOrders: [],
       selectedPayoutOrdersStore: null,
       queries: {
-        'filters[date_range]': '2023-09-30 to 2023-12-29',
+        'filters[date_range]': '2023-09-30 to 2024-02-10',
         'filters[status]': null,
         'filters[target_store]': null,
+      },
+      sourceQueries: {
+        'filters[date_range]': '2023-09-30 to 2024-01-01',
+        'filters[origin_store]': null,
+        'filters[status]': null,
       },
       unpaidPayouts: { items: [], loading: false, pagination: {} },
     };
@@ -64,6 +75,7 @@ export const usePayoutsStore = defineStore('payouts', {
   },
 
   actions: deepmerge.all([
+    confirmPayout,
     createPayout,
     deletePayout,
     fetchPaidPayouts,

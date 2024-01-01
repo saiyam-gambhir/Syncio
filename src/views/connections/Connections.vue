@@ -53,7 +53,7 @@ const fetchProductsHandler = async (store) => {
       <template #body="{ data: connection }">
         <IconShopify v-if="connection.platform === 'shopify'" />
         <IconWoo v-if="connection.platform === 'woocommerce'" />
-        <span class="font-semibold" v-if="connection.platform === 'shopline'">SL</span>
+        <img src="@/assets/images/shopline_logo.png" v-if="connection.platform === 'shopline'" alt="Shopline" style="width: 28px;">
       </template>
     </Column>
 

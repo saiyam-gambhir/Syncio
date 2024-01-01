@@ -24,7 +24,6 @@ export const fetchUnpaidPayouts = {
       };
 
     } catch (error) {
-      throw new Error(error);
     } finally {
       this.unpaidPayouts.loading = false;
     }

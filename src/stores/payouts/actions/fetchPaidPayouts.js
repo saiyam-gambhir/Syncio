@@ -24,7 +24,6 @@ export const fetchPaidPayouts = {
       };
 
     } catch (error) {
-      throw new Error(error);
     } finally {
       this.paidPayouts.loading = false;
     }

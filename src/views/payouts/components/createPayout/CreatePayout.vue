@@ -4,6 +4,7 @@ import { usePayouts } from '../../composables/payouts';
 /* ----- Data ----- */
 const {
   isCreatePayoutDetailsRequested,
+  loadingCreatePayout,
   payoutCreationDetails,
   selectedPayoutOrdersStoreName,
 } = toRefs(usePayoutsStore());
@@ -224,18 +225,20 @@ const getFinalPayoutValue = () => {
               </li>
               <li>
                 <Button
+                  :loading="loadingCreatePayout"
                   @click="createPayoutHandler(lineItems, payoutDetails, false)"
-                  style="height: 43px;"
-                  outlined
                   class="p-button-success"
-                  label="Create">
+                  label="Create"
+                  outlined
+                  style="height: 43px;">
                 </Button>
 
                 <Button
+                  :loading="loadingCreatePayout"
                   @click="createPayoutHandler(lineItems, payoutDetails, true)"
-                  style="height: 43px;"
                   class="p-button-success ml-4"
-                  label="Create and mark as paid">
+                  label="Create and mark as paid"
+                  style="height: 43px;">
                 </Button>
               </li>
             </ul>

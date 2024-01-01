@@ -1,7 +1,7 @@
 <script setup>
-import { useRoute } from 'vue-router';
-
 /* ----- Data ----- */
+const loading = ref(false);
+
 const {
   shopifyLogin,
 } = toRefs(useAuthStore());
@@ -15,11 +15,13 @@ onMounted(() => {
 
 /* ----- Methods ----- */
 const shopifyLoginHandler = async () => {
+  loading.value = true;
   const storeName = route.query?.shop;
   await shopifyLogin.value('shopify', storeName);
+  loading.value = false;
 };
 </script>
 
 <template>
-  <div class="text-center"></div>
+  <Loading />
 </template>

@@ -18,7 +18,6 @@ export const fetchPayout = {
       }
 
     } catch (error) {
-      throw new Error(error);
     } finally {
       this.loadingPayout = false;
     }

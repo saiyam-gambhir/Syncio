@@ -44,7 +44,7 @@ export function usePayouts() {
   };
 
   const fetchSourcePayoutsHandler = async (status) => {
-    payouts.$patch({ queries: { ...payouts.queries, 'filters[status]': status } })
+    payouts.$patch({ sourceQueries: { ...payouts.sourceQueries, 'filters[status]': status } })
     await payouts.fetchSourcePayouts();
   };
 

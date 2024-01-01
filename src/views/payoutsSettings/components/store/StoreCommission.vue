@@ -114,6 +114,7 @@ const isRowSelectedHandler = (data) => {
       <template #body="{ data: connection }">
         <IconShopify v-if="connection.platform === 'shopify'" />
         <IconWoo v-if="connection.platform === 'woocommerce'" style="padding: .79rem 0" />
+        <img src="@/assets/images/shopline_logo.png" v-if="connection.platform === 'shopline'" alt="Shopline" style="width: 28px;">
       </template>
     </Column>
 

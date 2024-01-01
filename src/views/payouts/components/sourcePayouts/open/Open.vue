@@ -1,12 +1,15 @@
 <script setup>
-import { usePayouts } from '../../../composables/payouts';
-
 /* ----- Data ----- */
 const {
+  fetchPayoutHandler,
   fetchSourcePayoutsHandler,
   payouts,
-  updatePayoutHandler,
 } = usePayouts();
+
+const {
+  openPayouts,
+  confirmPayout,
+} = toRefs(usePayoutsStore());
 
 const {
   formatCurrency,
@@ -16,10 +19,27 @@ const {
 onMounted(async () => {
   await fetchSourcePayoutsHandler('not_confirmed');
 });
+
+/* ----- Methods ----- */
+const updateCurrentPageHandler = page => {
+  fetchSourcePayoutsHandler()
+};
 </script>
 
 <template>
-  <DataTable :value="payouts.openPayouts?.items" responsiveLayout="scroll" showGridlines>
+  <DataTable :value="openPayouts?.items" responsiveLayout="scroll" showGridlines>
+    <template #empty>
+      <div class="px-4 py-8 text-center">
+        <h2 class="mt-0 mb-4">You have no payouts to review at this time.</h2>
+        <p>Payouts will show when you mark a pushed order as fulfilled and <br> when your destination store partner creates a payout.</p>
+        <AppLink link="https://help.syncio.co/en/articles/6402438-payouts-add-on-source-store-side" label="Learn more about payouts" />
+      </div>
+    </template>
+
+    <template #header>
+      <SourcePayoutsHeader />
+    </template>
+
     <Column header="Date" style="width: 10%">
       <template #body="{ data: { date } }">
         {{ date }}
@@ -60,14 +80,15 @@ onMounted(async () => {
     </Column>
 
     <Column header="Actions" style="width: 22.5%" class="text-right">
-      <template #body="{ data: { payout_id } }">
+      <template #body="{ data: { payout_id, target_store_id } }">
         <Button
-          @click="updatePayoutHandler(payout_id, 'payment_received')"
+          @click="confirmPayout(payout_id)"
           class="p-button-sm p-button-success"
           label="Mark as received">
         </Button>
 
         <Button
+          @click="fetchPayoutHandler(payout_id, target_store_id)"
           class="p-button-sm ml-2"
           label="View payout"
           outlined>
@@ -75,4 +96,10 @@ onMounted(async () => {
       </template>
     </Column>
   </DataTable>
+
+  <Pagination
+    :pagination="openPayouts.pagination"
+    @updateCurrentPage="updateCurrentPageHandler"
+    v-if="openPayouts?.pagination">
+  </Pagination>
 </template>

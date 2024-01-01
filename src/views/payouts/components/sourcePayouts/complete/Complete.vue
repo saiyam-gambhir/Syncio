@@ -19,6 +19,14 @@ onMounted(async () => {
 
 <template>
   <DataTable :value="payouts.completePayouts?.items" responsiveLayout="scroll" showGridlines>
+    <template #empty>
+      <div class="px-4 py-8 text-center">
+        <h2 class="mt-0 mb-4">You have no payouts to review at this time.</h2>
+        <p>Payouts will show when you mark a pushed order as fulfilled and <br> when your destination store partner creates a payout.</p>
+        <AppLink link="https://help.syncio.co/en/articles/6402438-payouts-add-on-source-store-side" label="Learn more about payouts" />
+      </div>
+    </template>
+
     <Column header="Date" style="width: 10%">
       <template #body="{ data: { date } }">
         {{ date }}
