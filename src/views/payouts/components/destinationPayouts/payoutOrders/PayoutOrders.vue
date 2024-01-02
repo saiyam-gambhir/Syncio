@@ -150,7 +150,7 @@ const isRowSelectedHandler = (data) => {
     </Column>
 
     <Column header="Actions" style="width: 17.5%" class="text-right">
-      <template #body="{ data: { order_id } }">
+      <template #body="{ data }">
         <span v-if="arePayoutOrdersSelected" v-tooltip.top="'Clear bulk selection to create single order payout.'" class="inline-block">
           <Button
             disabled
@@ -160,7 +160,7 @@ const isRowSelectedHandler = (data) => {
         </span>
         <Button
           v-else
-          @click="fetchPayoutPreviewHandler(order_id)"
+          @click="fetchPayoutPreviewHandler(data)"
           class="p-button-sm p-button-success"
           label="Create payout">
         </Button>

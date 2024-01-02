@@ -1,13 +1,14 @@
 export function usePayouts() {
   const payouts = usePayoutsStore();
 
-  const fetchPayoutPreviewHandler = async (orderId = null) => {
+  const fetchPayoutPreviewHandler = async (order = null) => {
     let selectedPayoutOrders = [];
-    if(orderId) {
-      selectedPayoutOrders.push(orderId);
-    } else {
-      selectedPayoutOrders = payouts.selectedPayoutOrders.map(order => order.order_id);
+
+    if(order) {
+      payouts.selectedPayoutOrders.push(order)
     }
+
+    selectedPayoutOrders = payouts.selectedPayoutOrders.map(order => order.order_id);
 
     payouts.$patch({ isCreatePayoutDetailsRequested: true });
     await payouts.fetchPayoutPreview(selectedPayoutOrders);
