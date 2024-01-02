@@ -1,7 +1,5 @@
 <script setup>
-import { usePayouts } from '../../../composables/payouts';
 import * as routes from '@/routes';
-import DestinationPayoutsHeader from '../DestinationPayoutsHeader.vue';
 
 /* ----- Components ----- */
 const PayoutOrders = defineAsyncComponent(() => import('../payoutOrders/PayoutOrders.vue'));

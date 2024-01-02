@@ -1,6 +1,4 @@
 <script setup>
-import { usePayouts } from '../../composables/payouts';
-
 /* ----- Data ----- */
 const {
   isCreatePayoutDetailsRequested,

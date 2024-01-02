@@ -1,6 +1,5 @@
 <script setup>
 import { useConfirm } from 'primevue/useconfirm';
-import { usePayouts } from '../../composables/payouts';
 
 /* ----- Data ----- */
 const confirm = useConfirm();
@@ -158,10 +157,10 @@ const confirmDeletePayoutHandler = (event) => {
         </div>
       </h3>
 
-      <Divider />
+      <Divider v-if="payout.status !== 'payment_confirmed'" />
 
       <ul class="flex justify-content-between list-none p-0 m-0" v-if="isDestinationStore">
-        <li>
+        <li v-if="payout.status !== 'payment_confirmed'">
           <ConfirmPopup></ConfirmPopup>
           <Button
             :loading="loadingDeletePayout"

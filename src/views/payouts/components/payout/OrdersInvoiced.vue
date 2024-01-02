@@ -1,6 +1,4 @@
 <script setup>
-import { useOrders } from '../../../orders/composables/orders';
-
 /* ----- Components ----- */
 const OrderDetails = defineAsyncComponent(() => import('../../../orders/components/OrderDetails.vue'));
 

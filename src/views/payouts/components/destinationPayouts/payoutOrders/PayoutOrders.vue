@@ -1,6 +1,4 @@
 <script setup>
-import { usePayouts } from '../../../composables/payouts';
-
 /* ----- Data ----- */
 const {
   formatCommission,
@@ -79,7 +77,7 @@ const isRowSelectedHandler = (data) => {
       </CardWrapper>
     </div>
     <Button
-      @click="fetchPayoutPreviewHandler"
+      @click="fetchPayoutPreviewHandler(null)"
       class="p-button-success mb-4"
       style="align-self: flex-end; height: 50px; width: 29rem; font-size: 1.25rem;"
       label="Create payout">

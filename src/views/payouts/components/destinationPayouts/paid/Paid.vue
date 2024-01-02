@@ -67,17 +67,19 @@ const updateCurrentPageHandler = page => {
       <template #body="{ data: { status } }">
         <Tag severity="success" rounded>
           <StatusIcon />
-          {{ status }}
+          <span v-if="status === 'payment_confirmed'">received</span>
+          <span v-else>{{ status }}</span>
         </Tag>
       </template>
     </Column>
 
     <Column header="Actions" style="width: 20%" class="text-right">
-      <template #body="{ data: { payout_id, target_store_id } }">
+      <template #body="{ data: { payout_id, status, target_store_id } }">
         <Button
           @click="updatePayoutHandler(payout_id, 'unpaid')"
           class="p-button-sm p-button-warning"
-          label="Mark as unpaid">
+          label="Mark as unpaid"
+          v-if="status !== 'payment_confirmed'">
         </Button>
 
         <Button

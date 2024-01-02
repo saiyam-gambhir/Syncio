@@ -1,6 +1,4 @@
 <script setup>
-import { watch } from 'vue';
-
 /* ----- Data ----- */
 const {
   activeAddons,
