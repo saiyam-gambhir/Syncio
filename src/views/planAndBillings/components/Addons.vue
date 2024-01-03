@@ -39,7 +39,7 @@ watch(selectedPlan, (newValue, oldValue) => {
       <Message v-if="!plan?.syncio_plan.is_active && !isOnboarding" severity="info" :closable="false" class="mt-5 block message-warning">
         <h3 class="mb-2">To access free plans for add-ons, first select a base plan above.</h3>
         <h4 class="line-height-3 m-0 font-normal" style="text-transform: none !important;">
-          Once a base plan is selected, you’ll see the free plan options below.
+          Once a base plan is selected, you'll see the free plan options below.
         </h4>
       </Message>
 

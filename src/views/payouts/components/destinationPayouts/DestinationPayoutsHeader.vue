@@ -39,9 +39,14 @@ const fetchPaidPayoutsHandler = async (event) => {
   if(!event.value) {
     queries.value['filters[status]'] = 'paid_received';
   }
-
   await fetchPaidPayouts.value(1);
 }
+
+const onSelectDateHandler = async ({ startDate, endDate }) => {
+  debugger
+  queries.value['filters[date_range]'] = `${startDate} to ${endDate}`;
+  await fetchPayableOrders.value();
+};
 </script>
 
 <template>
@@ -53,6 +58,11 @@ const fetchPaidPayoutsHandler = async (event) => {
           @update:modelValue="storeFilterHandler"
           v-model="queries['filters[target_store]']">
         </StoresFilter>
+      </div>
+
+      <div class="p-inputgroup w-25 ml-4">
+        <!-- <Calendar selectionMode="range" v-model="queries['filters[date_range]']" :numberOfMonths="2" placeholder="Select range" /> -->
+        <DateRangeFilter @onSelectDate="onSelectDateHandler" />
       </div>
 
       <div class="p-inputgroup w-35 ml-4">

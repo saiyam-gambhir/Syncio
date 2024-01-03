@@ -1,5 +1,9 @@
 <script setup>
+import * as routes from '@/routes';
+
 /* ----- Data ----- */
+const route = useRoute();
+
 const inventoryCount = ref(null);
 
 const {
@@ -46,6 +50,8 @@ const fetchInventoryHandler = async () => {
     product_id: props.productId,
     source_store_id: isDestinationStore.value ? selectedStore.value.id : storeId.value,
   };
+
+  if(route.name !== routes.PRODUCTS) return;
 
   const response = await fetchInventory.value(params);
   if(response.success) {

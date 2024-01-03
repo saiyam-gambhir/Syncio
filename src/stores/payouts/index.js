@@ -48,7 +48,7 @@ export const usePayoutsStore = defineStore('payouts', {
       selectedPayoutOrders: [],
       selectedPayoutOrdersStore: null,
       queries: {
-        'filters[date_range]': '2023-09-30 to 2024-02-10',
+        'filters[date_range]': '',
         'filters[status]': null,
         'filters[target_store]': null,
       },
