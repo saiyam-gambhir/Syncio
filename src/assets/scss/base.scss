@@ -885,7 +885,62 @@ input.p-inputtext-lg {
   }
 }
 
+/* ----- Date Picker ----- */
+.p-inputgroup .dp__main {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
+}
 
-.dp__theme_light {
-  //--dp-background-color: red;
+.p-inputgroup .dp__input_reg {
+  height: 41px !important;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  opacity: 0;
+}
+
+.p-inputgroup .dp__preset_ranges {
+  padding: 0;
+}
+
+.p-inputgroup .dp__preset_ranges .dp__preset_range {
+  white-space: nowrap;
+  padding: .75rem 1.25rem;
+  font-weight: 500;
+}
+
+.p-inputgroup .dp__action_button {
+  border-radius: 6px;
+  height: 42px;
+  padding: .5rem 1.5rem !important;
+  line-height: normal;
+  box-sizing: border-box;
+}
+
+.dp__action_select {
+  background: rgb(14, 59, 77);
+  margin-left: 1rem;
+}
+
+.dp__action_select:hover {
+  background: rgb(14, 59, 77, .75);
+}
+
+.dp__range_start,
+.dp__range_end {
+  background: rgb(14, 59, 77);
+}
+
+.dp__range_between {
+  background: rgb(242, 242, 242);
+}
+
+.dp__selection_preview {
+  font-size: .9rem;
+  padding-left: .25rem;
 }
