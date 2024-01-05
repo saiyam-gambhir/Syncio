@@ -9,6 +9,7 @@ export const fetchPayoutOrders = {
 
       const URL = `stores/payout/payout-orders/${this.storeId}/${targetStoreId}?${new URLSearchParams(this.queries).toString()}`;
       const params = {
+        'filters[order_number]': this.payoutOrdersSearchString,
         limiter: this.limiter,
         page: page ?? 1,
       };

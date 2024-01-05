@@ -98,6 +98,12 @@ const isRowSelectedHandler = (data) => {
   <PayoutOrdersSkeleton v-if="payoutOrders?.loading" />
 
   <DataTable v-else :value="payoutOrders?.items" responsiveLayout="scroll" showGridlines :rowClass="isRowSelectedHandler">
+    <template #empty>
+      <div class="px-4 py-8 text-center">
+        <h2 class="mt-0 mb-4">Payouts Not Found!</h2>
+      </div>
+    </template>
+
     <template #header>
       <PayoutOrdersHeader />
     </template>

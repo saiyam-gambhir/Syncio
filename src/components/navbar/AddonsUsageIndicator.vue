@@ -18,7 +18,7 @@ const route = useRoute();
 </script>
 
 <template>
-  <div class="mt-auto pt-4 px-4" :class="{ 'pb-4': route.name !== 'planAndBillings' }" style="background: #f8f9fa;">
+  <div class="mt-auto p-3" style="background: #f8f9fa;">
     <CardWrapper>
       <template #content>
         <AddonUsage v-if="plan" title="Products Synced" :limitUsed="productsSynced" :limitAvailable="productsSyncedLimit"></AddonUsage>

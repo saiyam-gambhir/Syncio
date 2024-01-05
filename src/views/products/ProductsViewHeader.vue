@@ -125,7 +125,7 @@ const searchAttributeHandler = ($event) => {
     </div>
 
     <div class="grid grid-sm my-0">
-      <div class="col-2 pb-0">
+      <div class="col-2">
         <div class="p-inputgroup w-100">
           <Dropdown
             :autoOptionFocus="false"
@@ -141,7 +141,7 @@ const searchAttributeHandler = ($event) => {
           </Dropdown>
         </div>
       </div>
-      <div class="col-2 pb-0">
+      <div class="col-2">
         <div class="p-inputgroup w-100">
           <Dropdown
             :autoOptionFocus="false"
@@ -157,7 +157,7 @@ const searchAttributeHandler = ($event) => {
           </Dropdown>
         </div>
       </div>
-      <div class="col-2 pb-0">
+      <div class="col-2">
         <div class="p-inputgroup w-100">
           <Dropdown
             :autoOptionFocus="false"
@@ -173,7 +173,7 @@ const searchAttributeHandler = ($event) => {
           </Dropdown>
         </div>
       </div>
-      <div class="col-2 pb-0">
+      <div class="col-2">
         <div class="p-inputgroup w-100">
           <Dropdown
             :autoOptionFocus="false"
@@ -189,7 +189,7 @@ const searchAttributeHandler = ($event) => {
           </Dropdown>
         </div>
       </div>
-      <div class="col-4 pb-0 flex align-items-center">
+      <div class="col-4 flex align-items-center">
         <InputSwitch
           @change="fetchProductsHandler"
           inputId="hide-zero-stock"
