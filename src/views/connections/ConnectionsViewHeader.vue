@@ -18,8 +18,8 @@ const searchHandler = async (searchText) => {
 </script>
 
 <template>
-  <div class="grid">
-    <div class="col-9">
+  <div class="grid grid-sm">
+    <div class="col-10 pb-0">
       <div class="p-inputgroup w-100">
         <SearchFilter
           :loading="loadingConnections"
@@ -29,7 +29,7 @@ const searchHandler = async (searchText) => {
         </SearchFilter>
       </div>
     </div>
-    <div class="col-3">
+    <div class="col-2 pb-0">
       <div class="p-inputgroup w-100">
         <Dropdown
           :loading="loadingConnections"

@@ -8,7 +8,9 @@ const {
 </script>
 
 <template>
-  <div class="text-lg p-2 flex align-items-center">
+  <DestinationPayoutsHeader />
+  <Divider class="pb-2" />
+  <div class="text-lg pl-1 py-1 flex align-items-center">
     <span class="pr-3 pointer flex align-items-center" @click="arePayableOrdersVisible = true">
       <i class="pi pi-arrow-left mr-2"></i> Stores
     </span>

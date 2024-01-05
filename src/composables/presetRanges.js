@@ -10,6 +10,7 @@ const startOfLastWeek = today.minus({ days: 6 }).endOf('day');
 const endOfLastFifteenDays = today.minus({ days: 14 }).endOf('day');
 const startOfLastThirtyDays = today.minus({ days: 29 }).endOf('day');
 const startOfLastSixtyDays = today.minus({ days: 59 }).endOf('day');
+const startOfLastNintyDays = today.minus({ days: 89 }).endOf('day');
 const maxDate = endOfToday;
 
 const presetRanges = [
@@ -18,7 +19,8 @@ const presetRanges = [
   { label: 'Last 7 Days', range: [startOfLastWeek, endOfToday] },
   { label: 'Last 15 Days', range: [endOfLastFifteenDays, endOfToday] },
   { label: 'Last 30 Days', range: [startOfLastThirtyDays, endOfToday] },
-  { label: 'Last 60 Days', range: [startOfLastSixtyDays, endOfToday] }
+  { label: 'Last 60 Days', range: [startOfLastSixtyDays, endOfToday] },
+  { label: 'Last 90 Days', range: [startOfLastNintyDays, endOfToday] },
 ];
 
 export const MAX_DATE = maxDate;
