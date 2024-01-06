@@ -50,9 +50,9 @@ export function usePayouts() {
     await payouts.fetchPaidPayouts(page);
   };
 
-  const fetchSourcePayoutsHandler = async (status) => {
+  const fetchSourcePayoutsHandler = async (status, page = 1) => {
     payouts.$patch({ sourceQueries: { ...payouts.sourceQueries, 'filters[status]': status } })
-    await payouts.fetchSourcePayouts();
+    await payouts.fetchSourcePayouts(page);
   };
 
   const fetchPayoutHandler = async (payoutId, targetStoreId) => {

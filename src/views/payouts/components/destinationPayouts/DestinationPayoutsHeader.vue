@@ -24,6 +24,16 @@ const {
   fetchPayoutOrdersHandler,
 } = usePayouts();
 
+onMounted(() => {
+  if(!destinationPayoutsDateRange.value) {
+    const startDate = new Date(ranges.START_OF_LAST_THIRTY_DAYS);
+    const endDate = new Date(ranges.END_OF_TODAY);
+
+    destinationPayoutsDateRange.value = [startDate, endDate];
+    queries.value['filters[date_range]'] = getFormattedDateRange(startDate, endDate);
+  }
+});
+
 /* ----- Computed ----- */
 const isLoading = computed(() => {
   return paidPayouts.value.loading || payableOrders.value.loading || unpaidPayouts.value.loading;
@@ -97,8 +107,8 @@ const getDateRangeLabel = (startDate, endDate) => {
     label = 'Last 60 days';
     break;
 
-    case 89:
-    label = 'Last 90 days';
+    default:
+    label = 'Custom dates';
     break;
   }
 
@@ -109,6 +119,7 @@ const onSelectDateHandler = async ([startDate, endDate]) => {
   datePickerLabel.value = getDateRangeLabel(startDate, endDate);
   queries.value['filters[date_range]'] = destinationPayoutsDateRange.value = getFormattedDateRange(startDate, endDate);
   fetchActiveTabPayouts();
+
 };
 
 const searchHandler = async (searchText) => {
@@ -151,7 +162,7 @@ const searchHandler = async (searchText) => {
           :clearable="false"
           :enable-time-picker="false"
           :ignore-time-validation="true"
-          :max-date="ranges.MAX_DATE"
+          :max-date="String(ranges.END_OF_TODAY)"
           :month-change-on-scroll="false"
           :no-today="true"
           :partial-range="false"

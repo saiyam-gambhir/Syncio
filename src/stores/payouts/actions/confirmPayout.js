@@ -8,6 +8,7 @@ export const confirmPayout = {
 
     const { success } = await axiosService.postData('stores/payout/confirm-payment', params);
     if(success) {
+      this.isViewPayoutDetailsRequested = false;
       this.activeTabIndex = 1;
     }
   }

@@ -10,6 +10,7 @@ const {
 } = useFilters();
 
 const {
+  confirmPayout,
   deletePayout,
   loadingDeletePayout,
 } = toRefs(usePayoutsStore());
@@ -21,6 +22,7 @@ const {
 const {
   connectionFilterItems,
   isDestinationStore,
+  isSourceStore,
 } = toRefs(useConnectionsStore());
 
 /* ----- Props ----- */
@@ -154,6 +156,7 @@ const confirmDeletePayoutHandler = (event) => {
             </div>
           </div>
           <p v-if="isDestinationStore" class="text-light mb-2">You still need to pay the supplier using your chosen payment method outside of Syncio.</p>
+          <p v-if="isSourceStore" class="text-light mb-2">This is a record of payout only. You'll need to check you've received payment outside of Syncio.</p>
         </div>
       </h3>
 
@@ -182,6 +185,17 @@ const confirmDeletePayoutHandler = (event) => {
             @click="updatePayoutHandler(payout.id, 'unpaid')"
             class="p-button-warning"
             label="Mark as unpaid">
+          </Button>
+        </li>
+      </ul>
+
+      <ul class="flex justify-content-end list-none p-0 m-0" v-if="isSourceStore">
+        <li>
+          <Button
+            v-if="payout.status === 'payout_created'"
+            @click="confirmPayout(payout.id)"
+            class="p-button-success"
+            label="Payment received">
           </Button>
         </li>
       </ul>

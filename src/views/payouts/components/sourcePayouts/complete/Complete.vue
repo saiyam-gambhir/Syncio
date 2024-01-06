@@ -1,6 +1,7 @@
 <script setup>
 /* ----- Data ----- */
 const {
+  fetchPayoutHandler,
   fetchSourcePayoutsHandler,
   payouts,
 } = usePayouts();
@@ -13,6 +14,11 @@ const {
 onMounted(async () => {
   await fetchSourcePayoutsHandler('payment_confirmed');
 });
+
+/* ----- Methods ----- */
+const updateCurrentPageHandler = async page => {
+  await fetchSourcePayoutsHandler('payment_confirmed', page);
+};
 </script>
 
 <template>
@@ -61,8 +67,9 @@ onMounted(async () => {
     </Column>
 
     <Column header="Actions" style="width: 22.5%" class="text-right">
-      <template #body="{ data: { payout_id } }">
+      <template #body="{ data: { payout_id, target_store_id } }">
         <Button
+          @click="fetchPayoutHandler(payout_id, target_store_id)"
           class="p-button-sm ml-2"
           label="View payout"
           outlined>
@@ -70,4 +77,10 @@ onMounted(async () => {
       </template>
     </Column>
   </DataTable>
+
+  <Pagination
+    :pagination="payouts.completePayouts.pagination"
+    @updateCurrentPage="updateCurrentPageHandler"
+    v-if="payouts.completePayouts?.pagination">
+  </Pagination>
 </template>
