@@ -14,6 +14,8 @@ export const fetchSourcePayouts = {
 
       switch (this.sourceQueries['filters[status]']) {
         case 'not_confirmed':
+        case 'paid':
+        case 'payout_created':
           this.openPayouts.items = await items;
           this.openPayouts.pagination = await pagination;
           this.openPayouts.pagination = {

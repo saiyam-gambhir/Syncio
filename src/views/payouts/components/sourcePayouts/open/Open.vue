@@ -20,13 +20,15 @@ onMounted(async () => {
 });
 
 /* ----- Methods ----- */
-const updateCurrentPageHandler = page => {
-  fetchSourcePayoutsHandler()
+const updateCurrentPageHandler = async page => {
+  await fetchSourcePayoutsHandler('not_confirmed', page);
 };
 </script>
 
 <template>
-  <DataTable :value="openPayouts?.items" responsiveLayout="scroll" showGridlines>
+  <OpenSkeleton v-if="openPayouts?.loading" />
+
+  <DataTable v-else :value="openPayouts?.items" responsiveLayout="scroll" showGridlines>
     <template #empty>
       <div class="px-4 py-8 text-center">
         <h2 class="mt-0 mb-4">You have no payouts to review at this time.</h2>
@@ -39,25 +41,25 @@ const updateCurrentPageHandler = page => {
       <SourcePayoutsHeader />
     </template>
 
-    <Column header="Date" style="width: 10%">
+    <Column header="Date" style="width: 12.5%">
       <template #body="{ data: { date } }">
         {{ date }}
       </template>
     </Column>
 
-    <Column header="Payout Id" style="width: 10%" class="text-center">
+    <Column header="Payout Id" style="width: 12.5%" class="text-center">
       <template #body="{ data: { payout_id } }">
         <strong>{{ payout_id }}</strong>
       </template>
     </Column>
 
-    <Column header="Store" style="width: 20%">
+    <Column header="Store" style="width: 30%">
       <template #body="{ data: { store_name } }">
         {{ store_name }}
       </template>
     </Column>
 
-    <Column header="Payment Status" style="width: 14%">
+    <Column header="Payment Status" style="width: 10%">
       <template #body="{ data: { status } }">
         <Tag v-if="status === 'paid'" severity="success" rounded>
           <StatusIcon />
@@ -70,7 +72,7 @@ const updateCurrentPageHandler = page => {
       </template>
     </Column>
 
-    <Column header="Amount" style="width: 8%" class="text-right">
+    <Column header="Amount" style="width: 10%">
       <template #body="{ data: { payout_total } }">
         <span class="tabular-nums">
           {{ formatCurrency(payout_total) }}
@@ -78,14 +80,13 @@ const updateCurrentPageHandler = page => {
       </template>
     </Column>
 
-    <Column header="Actions" style="width: 22.5%" class="text-right">
+    <Column header="Actions" style="width: 25%" class="text-right">
       <template #body="{ data: { payout_id, target_store_id } }">
         <Button
           @click="confirmPayout(payout_id)"
           class="p-button-sm p-button-success"
-          label="Mark as received">
+          label="Payment received">
         </Button>
-
         <Button
           @click="fetchPayoutHandler(payout_id, target_store_id)"
           class="p-button-sm ml-2"

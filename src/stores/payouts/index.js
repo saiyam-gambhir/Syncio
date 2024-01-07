@@ -30,7 +30,7 @@ export const usePayoutsStore = defineStore('payouts', {
       openPayouts: { items: [], loading: false, pagination: {} },
       openPayoutsStatusOptions: [
         { value: 'paid', label: 'Paid' },
-        { value: 'payment_created', label: 'Unpaid' },
+        { value: 'payout_created', label: 'Unpaid' },
       ],
       paidPayouts: { items: [], loading: false, pagination: {} },
       paidPayoutsStatusOptions: [
@@ -53,10 +53,11 @@ export const usePayoutsStore = defineStore('payouts', {
       },
       destinationPayoutsDateRange: null,
       sourceQueries: {
-        'filters[date_range]': '2023-12-08 to 2024-01-07',
+        'filters[date_range]': null,
         'filters[origin_store]': null,
         'filters[status]': null,
       },
+      sourcePayoutsDateRange: null,
       unpaidPayouts: { items: [], loading: false, pagination: {} },
     };
   },

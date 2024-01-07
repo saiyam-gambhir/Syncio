@@ -162,28 +162,28 @@ const confirmDeletePayoutHandler = (event) => {
 
       <Divider v-if="payout.status !== 'payment_confirmed'" />
 
-      <ul class="flex justify-content-between list-none p-0 m-0" v-if="isDestinationStore">
+      <ul class="flex align-items-center justify-content-between list-none p-0 m-0" v-if="isDestinationStore">
         <li v-if="payout.status !== 'payment_confirmed'">
           <ConfirmPopup></ConfirmPopup>
           <Button
             :loading="loadingDeletePayout"
             @click="confirmDeletePayoutHandler($event)"
             class="p-button-danger"
-            label="Delete">
+            label="Delete payout">
           </Button>
         </li>
         <li>
           <Button
             v-if="payout.status === 'payout_created' || payout.status === 'unpaid'"
             @click="updatePayoutHandler(payout.id, 'paid')"
-            class="p-button-success"
+            class="p-button-success p-button-lg"
             label="Mark as paid">
           </Button>
 
           <Button
             v-if="payout.status === 'paid'"
             @click="updatePayoutHandler(payout.id, 'unpaid')"
-            class="p-button-warning"
+            class="p-button-warning p-button-lg"
             label="Mark as unpaid">
           </Button>
         </li>
@@ -192,9 +192,9 @@ const confirmDeletePayoutHandler = (event) => {
       <ul class="flex justify-content-end list-none p-0 m-0" v-if="isSourceStore">
         <li>
           <Button
-            v-if="payout.status === 'payout_created'"
+            v-if="payout.status === 'payout_created' || payout.status === 'paid'"
             @click="confirmPayout(payout.id)"
-            class="p-button-success"
+            class="p-button-success p-button-lg"
             label="Payment received">
           </Button>
         </li>

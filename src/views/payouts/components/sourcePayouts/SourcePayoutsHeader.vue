@@ -4,71 +4,31 @@ import * as ranges from '@/composables/presetRanges';
 /* ----- Data ----- */
 const {
   activeTabIndex,
-  arePayableOrdersVisible,
   datePickerLabel,
-  destinationPayoutsDateRange,
-  fetchPaidPayouts,
-  fetchPayableOrders,
-  fetchUnpaidPayouts,
-  paidPayouts,
-  paidPayoutsStatusOptions,
-  payableOrders,
-  payoutOrders,
-  payoutOrdersSearchString,
-  queries,
-  selectedPayoutOrdersStore,
-  unpaidPayouts,
+  fetchSourcePayouts,
+  openPayoutsStatusOptions,
+  sourcePayoutsDateRange,
+  sourceQueries,
 } = toRefs(usePayoutsStore());
-
-const {
-  fetchPayoutOrdersHandler,
-} = usePayouts();
 
 /* ----- Mounted ----- */
 onMounted(() => {
-  if(!destinationPayoutsDateRange.value) {
+  if(!sourcePayoutsDateRange.value) {
     const startDate = new Date(ranges.START_OF_LAST_THIRTY_DAYS);
     const endDate = new Date(ranges.END_OF_TODAY);
 
-    destinationPayoutsDateRange.value = [startDate, endDate];
-    queries.value['filters[date_range]'] = getFormattedDateRange(startDate, endDate);
+    sourcePayoutsDateRange.value = [startDate, endDate];
+    sourceQueries.value['filters[date_range]'] = getFormattedDateRange(startDate, endDate);
   }
-});
-
-/* ----- Computed ----- */
-const isLoading = computed(() => {
-  return paidPayouts.value.loading || payableOrders.value.loading || unpaidPayouts.value.loading;
 });
 
 /* ----- Methods ----- */
-const fetchActiveTabPayouts = async () => {
-  switch (activeTabIndex.value) {
-    case 0:
-      arePayableOrdersVisible.value ? await fetchPayableOrders.value() : await fetchPayoutOrdersHandler(selectedPayoutOrdersStore.value);
-      break;
-
-    case 1:
-      await fetchUnpaidPayouts.value();
-      break;
-
-    case 2:
-      await fetchPaidPayouts.value();
-      break;
-  }
-};
-
 const storeFilterHandler = async storeId => {
-  queries.value['filters[target_store]'] = storeId;
-  fetchActiveTabPayouts();
+  sourceQueries.value['filters[origin_store]'] = storeId;
+  await fetchSourcePayouts.value(1);
 };
 
-const fetchPaidPayoutsHandler = async (event) => {
-  if(!event.value) {
-    queries.value['filters[status]'] = 'paid_received';
-  }
-  await fetchPaidPayouts.value(1);
-};
-
+/* Todo: Helper method */
 const getFormattedDateRange = (startDate, endDate) => {
   const startDay = startDate.getDate();
   const startMonth = startDate.getMonth() + 1;
@@ -81,6 +41,7 @@ const getFormattedDateRange = (startDate, endDate) => {
   return `${startYear}-${startMonth}-${startDay} to ${endYear}-${endMonth}-${endDay}`
 };
 
+/* Todo: Helper method */
 const getDateRangeLabel = (startDate, endDate) => {
   const _endDate = new Date(endDate);
   const _startDate = new Date(startDate);
@@ -118,36 +79,19 @@ const getDateRangeLabel = (startDate, endDate) => {
 
 const onSelectDateHandler = async ([startDate, endDate]) => {
   datePickerLabel.value = getDateRangeLabel(startDate, endDate);
-  queries.value['filters[date_range]'] = destinationPayoutsDateRange.value = getFormattedDateRange(startDate, endDate);
-  fetchActiveTabPayouts();
-};
-
-const searchHandler = async (searchText) => {
-  payoutOrdersSearchString.value = searchText;
-  await fetchPayoutOrdersHandler(selectedPayoutOrdersStore.value);
+  sourceQueries.value['filters[date_range]'] = sourcePayoutsDateRange.value = getFormattedDateRange(startDate, endDate);
+  fetchSourcePayouts.value(1)
 };
 </script>
 
 <template>
   <div class="grid grid-sm">
-    <div class="col col-3 pb-0" v-if="arePayableOrdersVisible">
+    <div class="col col-3 pb-0">
       <div class="p-inputgroup">
         <StoresFilter
-          :loading="isLoading"
           @update:modelValue="storeFilterHandler"
-          v-model="queries['filters[target_store]']">
+          v-model="sourceQueries['filters[origin_store]']">
         </StoresFilter>
-      </div>
-    </div>
-
-    <div class="col-4 pb-0" v-if="!arePayableOrdersVisible">
-      <div class="p-inputgroup w-100">
-        <SearchFilter
-          :loading="payoutOrders.loading"
-          @update:modelValue="searchHandler"
-          placeholder="Order Number (Press Enter to Search)"
-          v-model="payoutOrdersSearchString">
-        </SearchFilter>
       </div>
     </div>
 
@@ -170,23 +114,24 @@ const searchHandler = async (searchText) => {
           @update:model-value="onSelectDateHandler"
           multi-calendars
           range
-          v-model="destinationPayoutsDateRange">
+          v-model="sourcePayoutsDateRange">
         </VueDatePicker>
       </div>
     </div>
 
-    <div class="col col-2 pb-0" v-if="activeTabIndex === 2">
+    <div class="col col-2 pb-0" v-if="activeTabIndex === 0">
       <div class="p-inputgroup">
         <Dropdown
           :autoOptionFocus="false"
           :loading="isLoading"
-          :options="paidPayoutsStatusOptions"
-          @change="fetchPaidPayoutsHandler($event)"
-          optionLabel="key"
+          :options="openPayoutsStatusOptions"
+          @change="fetchSourcePayouts(1)"
+          optionLabel="label"
           optionValue="value"
           placeholder="Payment status"
           showClear
-          v-model="queries['filters[status]']">
+          v-if="activeTabIndex === 0"
+          v-model="sourceQueries['filters[status]']">
         </Dropdown>
       </div>
     </div>
