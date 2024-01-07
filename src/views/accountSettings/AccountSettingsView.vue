@@ -17,12 +17,12 @@ const {
   storeType,
 } = useConnectionsStore();
 
-const {
-  currency,
-  currencies,
-  timeZone,
-  timeZones,
-}  = toRefs(useAuthStore());
+// const {
+//   currency,
+//   currencies,
+//   timeZone,
+//   timeZones,
+// }  = toRefs(useAuthStore());
 
 /* ----- Methods ----- */
 const copyStoreKeyHandler = async val => {
@@ -30,13 +30,13 @@ const copyStoreKeyHandler = async val => {
   showToast({ message: 'Store key copied successfully' });
 };
 
-const handleTimeZoneChange = (event) => {
-  timeZone.value = event.value;
-};
+// const handleTimeZoneChange = (event) => {
+//   timeZone.value = event.value;
+// };
 
-const handleCurrencyChange = (event) => {
-  currency.value = event.value;
-};
+// const handleCurrencyChange = (event) => {
+//   currency.value = event.value;
+// };
 </script>
 
 <template>

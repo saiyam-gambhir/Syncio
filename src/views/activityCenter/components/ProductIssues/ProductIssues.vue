@@ -1,6 +1,4 @@
 <script setup>
-import { useActivities } from '../../composables/activities';
-
 /* ----- Data ----- */
 const {
   deleteActivityHandler,

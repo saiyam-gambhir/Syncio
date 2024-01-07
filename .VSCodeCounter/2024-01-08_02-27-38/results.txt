@@ -1,0 +1,423 @@
+Date : 2024-01-08 02:27:38
+Directory : /Users/mac/Documents/projects/Syncio/FE-app-3.0/src
+Total : 270 files,  15912 codes, 166 comments, 2265 blanks, all 18343 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| Vue        |        167 |     11,044 |         76 |      1,539 |     12,659 |
+| JavaScript |         90 |      3,403 |         75 |        471 |      3,949 |
+| SCSS       |          8 |      1,214 |         15 |        250 |      1,479 |
+| XML        |          4 |        250 |          0 |          4 |        254 |
+| CSS        |          1 |          1 |          0 |          1 |          2 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++-----------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                                                    | files      | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                                       |        270 |     15,912 |        166 |      2,265 |     18,343 |
+| . (Files)                                                                                                                               |          5 |        225 |         20 |         35 |        280 |
+| assets                                                                                                                                  |         12 |      1,464 |         15 |        254 |      1,733 |
+| assets/images                                                                                                                           |          4 |        250 |          0 |          4 |        254 |
+| assets/scss                                                                                                                             |          8 |      1,214 |         15 |        250 |      1,479 |
+| assets/scss (Files)                                                                                                                     |          6 |      1,076 |         15 |        220 |      1,311 |
+| assets/scss/components                                                                                                                  |          1 |         68 |          0 |         15 |         83 |
+| assets/scss/marketPlace                                                                                                                 |          1 |         70 |          0 |         15 |         85 |
+| components                                                                                                                              |         21 |        897 |          4 |        124 |      1,025 |
+| components/header                                                                                                                       |          2 |        135 |          0 |         19 |        154 |
+| components/header (Files)                                                                                                               |          1 |        108 |          0 |         15 |        123 |
+| components/header/components                                                                                                            |          1 |         27 |          0 |          4 |         31 |
+| components/navbar                                                                                                                       |          4 |        260 |          4 |         27 |        291 |
+| components/shared                                                                                                                       |         15 |        502 |          0 |         78 |        580 |
+| composables                                                                                                                             |          7 |        300 |          1 |         55 |        356 |
+| icons                                                                                                                                   |         17 |        393 |          0 |         20 |        413 |
+| layouts                                                                                                                                 |          3 |         48 |          0 |          7 |         55 |
+| router                                                                                                                                  |          1 |        177 |          7 |          8 |        192 |
+| stores                                                                                                                                  |         75 |      2,424 |         47 |        321 |      2,792 |
+| stores/activityCenter                                                                                                                   |          3 |        107 |         13 |         16 |        136 |
+| stores/activityCenter (Files)                                                                                                           |          1 |         71 |          1 |          6 |         78 |
+| stores/activityCenter/actions                                                                                                           |          2 |         36 |         12 |         10 |         58 |
+| stores/auth                                                                                                                             |          8 |        235 |         22 |         34 |        291 |
+| stores/auth (Files)                                                                                                                     |          1 |         87 |         13 |          9 |        109 |
+| stores/auth/actions                                                                                                                     |          7 |        148 |          9 |         25 |        182 |
+| stores/connections                                                                                                                      |         12 |        248 |          3 |         45 |        296 |
+| stores/connections (Files)                                                                                                              |          1 |        127 |          1 |         21 |        149 |
+| stores/connections/actions                                                                                                              |         11 |        121 |          2 |         24 |        147 |
+| stores/marketPlace                                                                                                                      |          5 |        438 |          1 |         27 |        466 |
+| stores/marketPlace (Files)                                                                                                              |          1 |        296 |          1 |          7 |        304 |
+| stores/marketPlace/actions                                                                                                              |          4 |        142 |          0 |         20 |        162 |
+| stores/orders                                                                                                                           |          8 |        198 |          1 |         25 |        224 |
+| stores/orders (Files)                                                                                                                   |          1 |         88 |          1 |          7 |         96 |
+| stores/orders/actions                                                                                                                   |          7 |        110 |          0 |         18 |        128 |
+| stores/payouts                                                                                                                          |         13 |        379 |          1 |         50 |        430 |
+| stores/payouts (Files)                                                                                                                  |          1 |        102 |          1 |          7 |        110 |
+| stores/payouts/actions                                                                                                                  |         12 |        277 |          0 |         43 |        320 |
+| stores/payoutsSettings                                                                                                                  |          5 |        190 |          1 |         25 |        216 |
+| stores/payoutsSettings (Files)                                                                                                          |          1 |         60 |          1 |          6 |         67 |
+| stores/payoutsSettings/actions                                                                                                          |          4 |        130 |          0 |         19 |        149 |
+| stores/plan                                                                                                                             |          5 |        183 |          1 |         33 |        217 |
+| stores/plan (Files)                                                                                                                     |          1 |        110 |          1 |         22 |        133 |
+| stores/plan/actions                                                                                                                     |          4 |         73 |          0 |         11 |         84 |
+| stores/productSettings                                                                                                                  |          3 |         98 |          1 |         16 |        115 |
+| stores/productSettings (Files)                                                                                                          |          1 |         37 |          1 |          5 |         43 |
+| stores/productSettings/actions                                                                                                          |          2 |         61 |          0 |         11 |         72 |
+| stores/products                                                                                                                         |         13 |        348 |          3 |         50 |        401 |
+| stores/products (Files)                                                                                                                 |          1 |        132 |          3 |          8 |        143 |
+| stores/products/actions                                                                                                                 |         12 |        216 |          0 |         42 |        258 |
+| theme                                                                                                                                   |          1 |          1 |          0 |          1 |          2 |
+| views                                                                                                                                   |        128 |      9,983 |         72 |      1,440 |     11,495 |
+| views/accountSettings                                                                                                                   |          1 |        113 |         27 |         15 |        155 |
+| views/activityCenter                                                                                                                    |         12 |        587 |          0 |         98 |        685 |
+| views/activityCenter (Files)                                                                                                            |          1 |         51 |          0 |         11 |         62 |
+| views/activityCenter/components                                                                                                         |         10 |        522 |          0 |         83 |        605 |
+| views/activityCenter/components (Files)                                                                                                 |          1 |         13 |          0 |          2 |         15 |
+| views/activityCenter/components/GeneralUpdates                                                                                          |          3 |        145 |          0 |         25 |        170 |
+| views/activityCenter/components/OrderIssues                                                                                             |          3 |        176 |          0 |         28 |        204 |
+| views/activityCenter/components/ProductIssues                                                                                           |          3 |        188 |          0 |         28 |        216 |
+| views/activityCenter/composables                                                                                                        |          1 |         14 |          0 |          4 |         18 |
+| views/connections                                                                                                                       |         15 |        907 |          0 |        128 |      1,035 |
+| views/connections (Files)                                                                                                               |          4 |        267 |          0 |         38 |        305 |
+| views/connections/components                                                                                                            |         10 |        584 |          0 |         81 |        665 |
+| views/connections/components/connect                                                                                                    |          1 |        132 |          0 |         14 |        146 |
+| views/connections/components/disconnect                                                                                                 |          3 |        151 |          0 |         22 |        173 |
+| views/connections/components/multiLocation                                                                                              |          6 |        301 |          0 |         45 |        346 |
+| views/connections/composables                                                                                                           |          1 |         56 |          0 |          9 |         65 |
+| views/dashboard                                                                                                                         |          3 |        205 |          0 |         25 |        230 |
+| views/dashboard (Files)                                                                                                                 |          1 |         27 |          0 |          6 |         33 |
+| views/dashboard/components                                                                                                              |          2 |        178 |          0 |         19 |        197 |
+| views/login                                                                                                                             |          1 |        109 |          0 |         13 |        122 |
+| views/marketplace                                                                                                                       |         10 |        447 |          0 |         44 |        491 |
+| views/marketplace (Files)                                                                                                               |          1 |         54 |          0 |          8 |         62 |
+| views/marketplace/components                                                                                                            |          9 |        393 |          0 |         36 |        429 |
+| views/marketplaceSettings                                                                                                               |          2 |        350 |         17 |         34 |        401 |
+| views/marketplaceSettings (Files)                                                                                                       |          1 |        259 |         17 |         29 |        305 |
+| views/marketplaceSettings/components                                                                                                    |          1 |         91 |          0 |          5 |         96 |
+| views/notificationSettings                                                                                                              |          1 |         53 |          0 |          7 |         60 |
+| views/orderPushSettings                                                                                                                 |          4 |        401 |          0 |         55 |        456 |
+| views/orderPushSettings (Files)                                                                                                         |          1 |        116 |          0 |         15 |        131 |
+| views/orderPushSettings/components                                                                                                      |          3 |        285 |          0 |         40 |        325 |
+| views/orders                                                                                                                            |          7 |        834 |          9 |        116 |        959 |
+| views/orders (Files)                                                                                                                    |          3 |        292 |          6 |         45 |        343 |
+| views/orders/components                                                                                                                 |          3 |        467 |          3 |         60 |        530 |
+| views/orders/composables                                                                                                                |          1 |         75 |          0 |         11 |         86 |
+| views/payouts                                                                                                                           |         21 |      1,918 |          5 |        323 |      2,246 |
+| views/payouts (Files)                                                                                                                   |          1 |         75 |          4 |         16 |         95 |
+| views/payouts/components                                                                                                                |         19 |      1,759 |          1 |        289 |      2,049 |
+| views/payouts/components/createPayout                                                                                                   |          1 |        224 |          0 |         27 |        251 |
+| views/payouts/components/destinationPayouts                                                                                             |          9 |        738 |          0 |        132 |        870 |
+| views/payouts/components/destinationPayouts (Files)                                                                                     |          1 |        166 |          0 |         29 |        195 |
+| views/payouts/components/destinationPayouts/paid                                                                                        |          2 |        132 |          0 |         23 |        155 |
+| views/payouts/components/destinationPayouts/payableOrders                                                                               |          2 |        122 |          0 |         23 |        145 |
+| views/payouts/components/destinationPayouts/payoutOrders                                                                                |          3 |        234 |          0 |         42 |        276 |
+| views/payouts/components/destinationPayouts/unpaid                                                                                      |          1 |         84 |          0 |         15 |         99 |
+| views/payouts/components/payout                                                                                                         |          4 |        417 |          1 |         64 |        482 |
+| views/payouts/components/sourcePayouts                                                                                                  |          5 |        380 |          0 |         66 |        446 |
+| views/payouts/components/sourcePayouts (Files)                                                                                          |          1 |        119 |          0 |         21 |        140 |
+| views/payouts/components/sourcePayouts/complete                                                                                         |          2 |        124 |          0 |         22 |        146 |
+| views/payouts/components/sourcePayouts/open                                                                                             |          2 |        137 |          0 |         23 |        160 |
+| views/payouts/composables                                                                                                               |          1 |         84 |          0 |         18 |        102 |
+| views/payoutsSettings                                                                                                                   |          8 |        663 |          4 |        104 |        771 |
+| views/payoutsSettings (Files)                                                                                                           |          1 |         38 |          0 |          6 |         44 |
+| views/payoutsSettings/components                                                                                                        |          7 |        625 |          4 |         98 |        727 |
+| views/payoutsSettings/components (Files)                                                                                                |          2 |        136 |          0 |         21 |        157 |
+| views/payoutsSettings/components/product                                                                                                |          3 |        273 |          4 |         43 |        320 |
+| views/payoutsSettings/components/store                                                                                                  |          2 |        216 |          0 |         34 |        250 |
+| views/planAndBillings                                                                                                                   |          8 |        549 |          0 |         91 |        640 |
+| views/planAndBillings (Files)                                                                                                           |          2 |        161 |          0 |         31 |        192 |
+| views/planAndBillings/components                                                                                                        |          6 |        388 |          0 |         60 |        448 |
+| views/productSettings                                                                                                                   |          6 |        564 |          1 |         59 |        624 |
+| views/productSettings (Files)                                                                                                           |          1 |        127 |          0 |         18 |        145 |
+| views/productSettings/components                                                                                                        |          5 |        437 |          1 |         41 |        479 |
+| views/products                                                                                                                          |         15 |      1,522 |          9 |        222 |      1,753 |
+| views/products (Files)                                                                                                                  |          4 |        682 |          6 |         86 |        774 |
+| views/products/components                                                                                                               |         10 |        736 |          3 |        114 |        853 |
+| views/products/components (Files)                                                                                                       |          8 |        541 |          3 |         87 |        631 |
+| views/products/components/unSync                                                                                                        |          2 |        195 |          0 |         27 |        222 |
+| views/products/composables                                                                                                              |          1 |        104 |          0 |         22 |        126 |
+| views/registration                                                                                                                      |         12 |        655 |          0 |         90 |        745 |
+| views/registration (Files)                                                                                                              |          3 |        101 |          0 |         13 |        114 |
+| views/registration/shopify                                                                                                              |          4 |        266 |          0 |         42 |        308 |
+| views/registration/woocommerce                                                                                                          |          5 |        288 |          0 |         35 |        323 |
+| views/settings                                                                                                                          |          2 |        106 |          0 |         16 |        122 |
+| views/settings (Files)                                                                                                                  |          1 |         66 |          0 |         10 |         76 |
+| views/settings/components                                                                                                               |          1 |         40 |          0 |          6 |         46 |
++-----------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-----------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                                                                                                | language   | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/App.vue                                                                             | Vue        |         26 |          0 |          6 |         32 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/Loading.vue                                                                         | Vue        |         27 |          0 |          5 |         32 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/PageNotFound.vue                                                                    | Vue        |          3 |          0 |          1 |          4 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/assets/images/marketplace.svg                                                       | XML        |         69 |          0 |          1 |         70 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/assets/images/multilocation.svg                                                     | XML        |         39 |          0 |          1 |         40 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/assets/images/waitlist.svg                                                          | XML        |         82 |          0 |          1 |         83 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/assets/images/woo-shopify.svg                                                       | XML        |         60 |          0 |          1 |         61 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/assets/scss/base.scss                                                               | SCSS       |        791 |          9 |        157 |        957 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/assets/scss/button.scss                                                             | SCSS       |         94 |          0 |         19 |        113 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/assets/scss/components/pagination.scss                                              | SCSS       |         68 |          0 |         15 |         83 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/assets/scss/header.scss                                                             | SCSS       |         81 |          1 |         14 |         96 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/assets/scss/main.scss                                                               | SCSS       |          7 |          0 |          2 |          9 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/assets/scss/marketPlace/profiles.scss                                               | SCSS       |         70 |          0 |         15 |         85 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/assets/scss/utilities.scss                                                          | SCSS       |         81 |          3 |         24 |        108 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/assets/scss/variables.scss                                                          | SCSS       |         22 |          2 |          4 |         28 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/components/header/Header.vue                                                        | Vue        |        108 |          0 |         15 |        123 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/components/header/components/ShopifyPermissionsDialog.vue                           | Vue        |         27 |          0 |          4 |         31 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/components/navbar/AddonUsage.vue                                                    | Vue        |         56 |          0 |          6 |         62 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/components/navbar/AddonsUsageIndicator.vue                                          | Vue        |         30 |          0 |          4 |         34 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/components/navbar/NavLink.vue                                                       | Vue        |         46 |          0 |          3 |         49 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/components/navbar/Navbar.vue                                                        | Vue        |        128 |          4 |         14 |        146 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/components/shared/AppLink.vue                                                       | Vue        |         22 |          0 |          2 |         24 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/components/shared/BatteryLowDialog.vue                                              | Vue        |         33 |          0 |          4 |         37 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/components/shared/BulkSelectedCount.vue                                             | Vue        |         24 |          0 |          2 |         26 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/components/shared/CardWrapper.vue                                                   | Vue        |         29 |          0 |          2 |         31 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/components/shared/CheckboxWrapper.vue                                               | Vue        |         28 |          0 |          5 |         33 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/components/shared/Date.vue                                                          | Vue        |         26 |          0 |          4 |         30 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/components/shared/DialogWrapper.vue                                                 | Vue        |         51 |          0 |          9 |         60 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/components/shared/LeavingPageDialog.vue                                             | Vue        |         28 |          0 |          6 |         34 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/components/shared/NetworkDialog.vue                                                 | Vue        |         29 |          0 |          4 |         33 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/components/shared/PageHeader.vue                                                    | Vue        |         37 |          0 |          2 |         39 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/components/shared/Pagination.vue                                                    | Vue        |         88 |          0 |         18 |        106 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/components/shared/SearchFilter.vue                                                  | Vue        |         43 |          0 |          9 |         52 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/components/shared/StatusIcon.vue                                                    | Vue        |         15 |          0 |          2 |         17 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/components/shared/StoresFilter.vue                                                  | Vue        |         44 |          0 |          8 |         52 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/components/shared/Strong.vue                                                        | Vue        |          5 |          0 |          1 |          6 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/composables/axiosService.js                                                         | JavaScript |        134 |          0 |         21 |        155 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/composables/checkbox.js                                                             | JavaScript |         22 |          0 |          5 |         27 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/composables/filters.js                                                              | JavaScript |         54 |          0 |         11 |         65 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/composables/presetRanges.js                                                         | JavaScript |         21 |          1 |          4 |         26 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/composables/toasts.js                                                               | JavaScript |         29 |          0 |          5 |         34 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/composables/upgradeDialog.js                                                        | JavaScript |         29 |          0 |          6 |         35 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/composables/useEmailValidation.js                                                   | JavaScript |         11 |          0 |          3 |         14 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/icons/IconDashboardEmpty.vue                                                        | Vue        |         89 |          0 |          1 |         90 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/icons/IconInstagram.vue                                                             | Vue        |          7 |          0 |          1 |          8 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/icons/IconLinkOff.vue                                                               | Vue        |          6 |          0 |          1 |          7 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/icons/IconMessageSent.vue                                                           | Vue        |         30 |          0 |          1 |         31 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/icons/IconNext.vue                                                                  | Vue        |         10 |          0 |          1 |         11 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/icons/IconPageFirst.vue                                                             | Vue        |          7 |          0 |          1 |          8 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/icons/IconPageLast.vue                                                              | Vue        |          7 |          0 |          1 |          8 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/icons/IconPageNext.vue                                                              | Vue        |          7 |          0 |          1 |          8 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/icons/IconPagePrev.vue                                                              | Vue        |          7 |          0 |          1 |          8 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/icons/IconPrevious.vue                                                              | Vue        |          7 |          0 |          1 |          8 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/icons/IconProducts.vue                                                              | Vue        |         45 |          0 |          1 |         46 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/icons/IconSendMessage.vue                                                           | Vue        |         22 |          0 |          1 |         23 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/icons/IconShopify.vue                                                               | Vue        |         26 |          0 |          4 |         30 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/icons/IconWoo.vue                                                                   | Vue        |         12 |          0 |          1 |         13 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/icons/Logo.vue                                                                      | Vue        |         45 |          0 |          1 |         46 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/icons/LogoDark.vue                                                                  | Vue        |         45 |          0 |          1 |         46 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/icons/LogoSmall.vue                                                                 | Vue        |         21 |          0 |          1 |         22 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/layouts/loggedIn.vue                                                                | Vue        |         18 |          0 |          3 |         21 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/layouts/loggedOut.vue                                                               | Vue        |         15 |          0 |          2 |         17 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/layouts/onboarding.vue                                                              | Vue        |         15 |          0 |          2 |         17 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/main.js                                                                             | JavaScript |        144 |         18 |         20 |        182 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/router/index.js                                                                     | JavaScript |        177 |          7 |          8 |        192 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/routes.js                                                                           | JavaScript |         25 |          2 |          3 |         30 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/activityCenter/actions/deleteActivity.js                                     | JavaScript |          8 |          0 |          1 |          9 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/activityCenter/actions/fetchActivities.js                                    | JavaScript |         28 |         12 |          9 |         49 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/activityCenter/index.js                                                      | JavaScript |         71 |          1 |          6 |         78 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/auth/actions/fetchUser.js                                                    | JavaScript |          7 |          0 |          1 |          8 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/auth/actions/forgotPassword.js                                               | JavaScript |         20 |          0 |          2 |         22 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/auth/actions/login.js                                                        | JavaScript |         23 |          9 |          5 |         37 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/auth/actions/registerUser.js                                                 | JavaScript |         30 |          0 |          5 |         35 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/auth/actions/saveShopifyToken.js                                             | JavaScript |         13 |          0 |          3 |         16 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/auth/actions/shopifyLogin.js                                                 | JavaScript |         40 |          0 |          7 |         47 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/auth/actions/updateStoreType.js                                              | JavaScript |         15 |          0 |          2 |         17 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/auth/index.js                                                                | JavaScript |         87 |         13 |          9 |        109 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/connections/actions/connectPartnerStore.js                                   | JavaScript |         11 |          0 |          3 |         14 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/connections/actions/deleteConnection.js                                      | JavaScript |         10 |          0 |          2 |         12 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/connections/actions/fetchConnections.js                                      | JavaScript |         18 |          2 |          5 |         25 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/connections/actions/fetchCurrentStore.js                                     | JavaScript |         12 |          0 |          2 |         14 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/connections/actions/fetchDestinationLocations.js                             | JavaScript |         10 |          0 |          3 |         13 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/connections/actions/fetchMetadata.js                                         | JavaScript |          9 |          0 |          1 |         10 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/connections/actions/fetchSourceLocations.js                                  | JavaScript |         11 |          0 |          3 |         14 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/connections/actions/invitePartnerStore.js                                    | JavaScript |          9 |          0 |          2 |         11 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/connections/actions/toggleMultilocation.js                                   | JavaScript |         11 |          0 |          1 |         12 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/connections/actions/updateEmail.js                                           | JavaScript |         10 |          0 |          1 |         11 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/connections/actions/updateLocation.js                                        | JavaScript |         10 |          0 |          1 |         11 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/connections/index.js                                                         | JavaScript |        127 |          1 |         21 |        149 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/marketPlace/actions/fetchProfile.js                                          | JavaScript |         33 |          0 |          2 |         35 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/marketPlace/actions/fetchProfiles.js                                         | JavaScript |         36 |          0 |          6 |         42 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/marketPlace/actions/sendMessage.js                                           | JavaScript |         13 |          0 |          3 |         16 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/marketPlace/actions/updateProfile.js                                         | JavaScript |         60 |          0 |          9 |         69 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/marketPlace/index.js                                                         | JavaScript |        296 |          1 |          7 |        304 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/orders/actions/bulkPushOrders.js                                             | JavaScript |         17 |          0 |          4 |         21 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/orders/actions/fetchOrder.js                                                 | JavaScript |          8 |          0 |          1 |          9 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/orders/actions/fetchOrders.js                                                | JavaScript |         18 |          0 |          1 |         19 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/orders/actions/fetchPushSettings.js                                          | JavaScript |         24 |          0 |          5 |         29 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/orders/actions/pushOrder.js                                                  | JavaScript |         19 |          0 |          3 |         22 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/orders/actions/toggleAutoPush.js                                             | JavaScript |          5 |          0 |          1 |          6 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/orders/actions/updatePushSettings.js                                         | JavaScript |         19 |          0 |          3 |         22 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/orders/index.js                                                              | JavaScript |         88 |          1 |          7 |         96 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/payouts/actions/confirmPayout.js                                             | JavaScript |         13 |          0 |          3 |         16 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/payouts/actions/createPayout.js                                              | JavaScript |         28 |          0 |          4 |         32 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/payouts/actions/deletePayout.js                                              | JavaScript |         19 |          0 |          1 |         20 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/payouts/actions/fetchPaidPayouts.js                                          | JavaScript |         28 |          0 |          4 |         32 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/payouts/actions/fetchPayableOrders.js                                        | JavaScript |         20 |          0 |          2 |         22 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/payouts/actions/fetchPayout.js                                               | JavaScript |         25 |          0 |          6 |         31 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/payouts/actions/fetchPayoutEvents.js                                         | JavaScript |         16 |          0 |          1 |         17 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/payouts/actions/fetchPayoutOrders.js                                         | JavaScript |         35 |          0 |          6 |         41 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/payouts/actions/fetchPayoutPreview.js                                        | JavaScript |         15 |          0 |          3 |         18 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/payouts/actions/fetchSourcePayouts.js                                        | JavaScript |         39 |          0 |          6 |         45 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/payouts/actions/fetchUnpaidPayouts.js                                        | JavaScript |         28 |          0 |          4 |         32 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/payouts/actions/updatePayout.js                                              | JavaScript |         11 |          0 |          3 |         14 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/payouts/index.js                                                             | JavaScript |        102 |          1 |          7 |        110 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/payoutsSettings/actions/bulkCommissionsUpdate.js                             | JavaScript |         69 |          0 |          9 |         78 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/payoutsSettings/actions/deleteCommission.js                                  | JavaScript |         16 |          0 |          1 |         17 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/payoutsSettings/actions/fetchByProduct.js                                    | JavaScript |         28 |          0 |          6 |         34 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/payoutsSettings/actions/updateStoreCommission.js                             | JavaScript |         17 |          0 |          3 |         20 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/payoutsSettings/index.js                                                     | JavaScript |         60 |          1 |          6 |         67 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/plan/actions/activateCharge.js                                               | JavaScript |         18 |          0 |          3 |         21 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/plan/actions/fetchCurrentPlan.js                                             | JavaScript |         12 |          0 |          2 |         14 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/plan/actions/fetchPlans.js                                                   | JavaScript |         15 |          0 |          1 |         16 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/plan/actions/generateCharge.js                                               | JavaScript |         28 |          0 |          5 |         33 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/plan/index.js                                                                | JavaScript |        110 |          1 |         22 |        133 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/productSettings/actions/fetchSettings.js                                     | JavaScript |         32 |          0 |          7 |         39 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/productSettings/actions/updateSettings.js                                    | JavaScript |         29 |          0 |          4 |         33 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/productSettings/index.js                                                     | JavaScript |         37 |          1 |          5 |         43 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/products/actions/bulkSyncProducts.js                                         | JavaScript |         14 |          0 |          3 |         17 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/products/actions/fetchInventory.js                                           | JavaScript |         12 |          0 |          2 |         14 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/products/actions/fetchMetaFields.js                                          | JavaScript |         29 |          0 |          6 |         35 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/products/actions/fetchProductDetails.js                                      | JavaScript |         18 |          0 |          3 |         21 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/products/actions/fetchProducts.js                                            | JavaScript |         55 |          0 |          9 |         64 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/products/actions/mapProduct.js                                               | JavaScript |         14 |          0 |          3 |         17 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/products/actions/resyncProduct.js                                            | JavaScript |         10 |          0 |          2 |         12 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/products/actions/searchProduct.js                                            | JavaScript |         14 |          0 |          3 |         17 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/products/actions/searchStoreProducts.js                                      | JavaScript |         13 |          0 |          3 |         16 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/products/actions/startBulkMapper.js                                          | JavaScript |         15 |          0 |          4 |         19 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/products/actions/syncProduct.js                                              | JavaScript |         11 |          0 |          2 |         13 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/products/actions/unsyncProduct.js                                            | JavaScript |         11 |          0 |          2 |         13 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/stores/products/index.js                                                            | JavaScript |        132 |          3 |          8 |        143 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/theme/theme-light.css                                                               | CSS        |          1 |          0 |          1 |          2 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/accountSettings/AccountSettingsView.vue                                       | Vue        |        113 |         27 |         15 |        155 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/activityCenter/ActivityCenterView.vue                                         | Vue        |         51 |          0 |         11 |         62 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/activityCenter/components/EmptyTable.vue                                      | Vue        |         13 |          0 |          2 |         15 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/activityCenter/components/GeneralUpdates/GeneralUpdates.vue                   | Vue        |         66 |          0 |         12 |         78 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/activityCenter/components/GeneralUpdates/GeneralUpdatesHeader.vue             | Vue        |         40 |          0 |          6 |         46 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/activityCenter/components/GeneralUpdates/GeneralUpdatesSkeleton.vue           | Vue        |         39 |          0 |          7 |         46 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/activityCenter/components/OrderIssues/OrderIssues.vue                         | Vue        |         85 |          0 |         14 |         99 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/activityCenter/components/OrderIssues/OrderIssuesHeader.vue                   | Vue        |         50 |          0 |          7 |         57 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/activityCenter/components/OrderIssues/OrderIssuesSkeleton.vue                 | Vue        |         41 |          0 |          7 |         48 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/activityCenter/components/ProductIssues/ProductIssues.vue                     | Vue        |         90 |          0 |         14 |        104 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/activityCenter/components/ProductIssues/ProductIssuesHeader.vue               | Vue        |         50 |          0 |          7 |         57 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/activityCenter/components/ProductIssues/ProductIssuesSkeleton.vue             | Vue        |         48 |          0 |          7 |         55 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/activityCenter/composables/activities.js                                      | JavaScript |         14 |          0 |          4 |         18 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/connections/Connections.vue                                                   | Vue        |         90 |          0 |         14 |        104 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/connections/ConnectionsView.vue                                               | Vue        |         89 |          0 |         13 |        102 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/connections/ConnectionsViewHeader.vue                                         | Vue        |         48 |          0 |          4 |         52 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/connections/ConnectionsViewSkeleton.vue                                       | Vue        |         40 |          0 |          7 |         47 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/connections/components/connect/ConnectNewStoreDialog.vue                      | Vue        |        132 |          0 |         14 |        146 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/connections/components/disconnect/DisconnectAndDeleteDialog.vue               | Vue        |         48 |          0 |          7 |         55 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/connections/components/disconnect/DisconnectAndKeepDialog.vue                 | Vue        |         44 |          0 |          6 |         50 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/connections/components/disconnect/DisconnectDialog.vue                        | Vue        |         59 |          0 |          9 |         68 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/connections/components/multiLocation/DestinationLocationDropdown.vue          | Vue        |         66 |          0 |         12 |         78 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/connections/components/multiLocation/DisableMultilocationDialog.vue           | Vue        |         42 |          0 |          5 |         47 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/connections/components/multiLocation/LocationChangeConfirmationDialog.vue     | Vue        |         48 |          0 |          5 |         53 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/connections/components/multiLocation/LocationChangedDialog.vue                | Vue        |         37 |          0 |          4 |         41 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/connections/components/multiLocation/LocationPendingDialog.vue                | Vue        |         46 |          0 |          7 |         53 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/connections/components/multiLocation/SourceInventoryDropdown.vue              | Vue        |         62 |          0 |         12 |         74 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/connections/composables/connections.js                                        | JavaScript |         56 |          0 |          9 |         65 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/dashboard/DashboardView.vue                                                   | Vue        |         27 |          0 |          6 |         33 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/dashboard/components/DashboardLeft.vue                                        | Vue        |         62 |          0 |         11 |         73 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/dashboard/components/DashboardRight.vue                                       | Vue        |        116 |          0 |          8 |        124 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/login/LoginView.vue                                                           | Vue        |        109 |          0 |         13 |        122 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/marketplace/MarketplaceView.vue                                               | Vue        |         54 |          0 |          8 |         62 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/marketplace/components/Filters.vue                                            | Vue        |         74 |          0 |          9 |         83 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/marketplace/components/MessageDialog.vue                                      | Vue        |         43 |          0 |          4 |         47 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/marketplace/components/MessageSentDialog.vue                                  | Vue        |         30 |          0 |          4 |         34 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/marketplace/components/Profile.vue                                            | Vue        |         93 |          0 |          7 |        100 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/marketplace/components/ProfileSkeleton.vue                                    | Vue        |         10 |          0 |          1 |         11 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/marketplace/components/Profiles.vue                                           | Vue        |         23 |          0 |          2 |         25 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/marketplace/components/Search.vue                                             | Vue        |         37 |          0 |          5 |         42 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/marketplace/components/Survey.vue                                             | Vue        |         13 |          0 |          1 |         14 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/marketplace/components/UserProfile.vue                                        | Vue        |         70 |          0 |          3 |         73 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/marketplaceSettings/MarketplaceSettingsView.vue                               | Vue        |        259 |         17 |         29 |        305 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/marketplaceSettings/components/ProfilePreviewDialog.vue                       | Vue        |         91 |          0 |          5 |         96 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/notificationSettings/NotificationSettingsView.vue                             | Vue        |         53 |          0 |          7 |         60 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/orderPushSettings/OrderPushSettingsView.vue                                   | Vue        |        116 |          0 |         15 |        131 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/orderPushSettings/components/EmailContact.vue                                 | Vue        |         71 |          0 |         10 |         81 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/orderPushSettings/components/ShippingRulesRates.vue                           | Vue        |        117 |          0 |         16 |        133 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/orderPushSettings/components/ShippingTypeTags.vue                             | Vue        |         97 |          0 |         14 |        111 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/orders/OrdersView.vue                                                         | Vue        |        197 |          6 |         33 |        236 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/orders/OrdersViewHeader.vue                                                   | Vue        |         48 |          0 |          3 |         51 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/orders/OrdersViewSkeleton.vue                                                 | Vue        |         47 |          0 |          9 |         56 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/orders/components/EnableAutoPushDialog.vue                                    | Vue        |         76 |          0 |         11 |         87 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/orders/components/OrderDetails.vue                                            | Vue        |        259 |          3 |         42 |        304 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/orders/components/OrderDetailsSkeleton.vue                                    | Vue        |        132 |          0 |          7 |        139 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/orders/composables/orders.js                                                  | JavaScript |         75 |          0 |         11 |         86 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/payouts/PayoutsView.vue                                                       | Vue        |         75 |          4 |         16 |         95 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/payouts/components/createPayout/CreatePayout.vue                              | Vue        |        224 |          0 |         27 |        251 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/payouts/components/destinationPayouts/DestinationPayoutsHeader.vue            | Vue        |        166 |          0 |         29 |        195 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/payouts/components/destinationPayouts/paid/Paid.vue                           | Vue        |         86 |          0 |         15 |        101 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/payouts/components/destinationPayouts/paid/PaidSkeleton.vue                   | Vue        |         46 |          0 |          8 |         54 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/payouts/components/destinationPayouts/payableOrders/PayableOrders.vue         | Vue        |         85 |          0 |         16 |        101 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/payouts/components/destinationPayouts/payableOrders/PayableOrdersSkeleton.vue | Vue        |         37 |          0 |          7 |         44 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/payouts/components/destinationPayouts/payoutOrders/PayoutOrders.vue           | Vue        |        156 |          0 |         29 |        185 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/payouts/components/destinationPayouts/payoutOrders/PayoutOrdersHeader.vue     | Vue        |         18 |          0 |          3 |         21 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/payouts/components/destinationPayouts/payoutOrders/PayoutOrdersSkeleton.vue   | Vue        |         60 |          0 |         10 |         70 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/payouts/components/destinationPayouts/unpaid/Unpaid.vue                       | Vue        |         84 |          0 |         15 |         99 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/payouts/components/payout/CommentsAndEvents.vue                               | Vue        |         39 |          0 |          8 |         47 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/payouts/components/payout/OrdersInvoiced.vue                                  | Vue        |        143 |          1 |         27 |        171 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/payouts/components/payout/Payout.vue                                          | Vue        |         53 |          0 |          6 |         59 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/payouts/components/payout/PayoutDetails.vue                                   | Vue        |        182 |          0 |         23 |        205 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/payouts/components/sourcePayouts/SourcePayoutsHeader.vue                      | Vue        |        119 |          0 |         21 |        140 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/payouts/components/sourcePayouts/complete/Complete.vue                        | Vue        |         79 |          0 |         14 |         93 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/payouts/components/sourcePayouts/complete/CompleteSkeleton.vue                | Vue        |         45 |          0 |          8 |         53 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/payouts/components/sourcePayouts/open/Open.vue                                | Vue        |         91 |          0 |         15 |        106 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/payouts/components/sourcePayouts/open/OpenSkeleton.vue                        | Vue        |         46 |          0 |          8 |         54 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/payouts/composables/payouts.js                                                | JavaScript |         84 |          0 |         18 |        102 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/payoutsSettings/PayoutsSettingsView.vue                                       | Vue        |         38 |          0 |          6 |         44 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/payoutsSettings/components/BulkCommissionDialog.vue                           | Vue        |         69 |          0 |         10 |         79 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/payoutsSettings/components/DefaultStoreCommission.vue                         | Vue        |         67 |          0 |         11 |         78 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/payoutsSettings/components/product/ProductCommission.vue                      | Vue        |        186 |          0 |         28 |        214 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/payoutsSettings/components/product/ProductCommissionHeader.vue                | Vue        |         34 |          4 |          6 |         44 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/payoutsSettings/components/product/ProductCommissionSkeleton.vue              | Vue        |         53 |          0 |          9 |         62 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/payoutsSettings/components/store/StoreCommission.vue                          | Vue        |        171 |          0 |         26 |        197 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/payoutsSettings/components/store/StoreCommissionSkeleton.vue                  | Vue        |         45 |          0 |          8 |         53 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/planAndBillings/PlanAndBillingsSkeleton.vue                                   | Vue        |         84 |          0 |         14 |         98 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/planAndBillings/PlanAndBillingsView.vue                                       | Vue        |         77 |          0 |         17 |         94 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/planAndBillings/components/Addon.vue                                          | Vue        |        116 |          0 |         20 |        136 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/planAndBillings/components/Addons.vue                                         | Vue        |         47 |          0 |          7 |         54 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/planAndBillings/components/AddonsDowngradeDialog.vue                          | Vue        |         49 |          0 |          4 |         53 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/planAndBillings/components/Plan.vue                                           | Vue        |         23 |          0 |          3 |         26 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/planAndBillings/components/Plans.vue                                          | Vue        |         48 |          0 |          6 |         54 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/planAndBillings/components/Summary.vue                                        | Vue        |        105 |          0 |         20 |        125 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/productSettings/ProductSettingsView.vue                                       | Vue        |        127 |          0 |         18 |        145 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/productSettings/components/MetafieldsDialog.vue                               | Vue        |         36 |          0 |          5 |         41 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/productSettings/components/Product.vue                                        | Vue        |        191 |          1 |         19 |        211 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/productSettings/components/ProductSkeleton.vue                                | Vue        |         69 |          0 |          3 |         72 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/productSettings/components/Variant.vue                                        | Vue        |         84 |          0 |         13 |         97 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/productSettings/components/VariantSkeleton.vue                                | Vue        |         57 |          0 |          1 |         58 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/products/Products.vue                                                         | Vue        |        245 |          0 |         28 |        273 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/products/ProductsView.vue                                                     | Vue        |        176 |          6 |         33 |        215 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/products/ProductsViewHeader.vue                                               | Vue        |        191 |          0 |         12 |        203 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/products/ProductsViewSkeleton.vue                                             | Vue        |         70 |          0 |         13 |         83 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/products/components/BulkMapperDialog.vue                                      | Vue        |         48 |          0 |          7 |         55 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/products/components/BulkSyncDialog.vue                                        | Vue        |         34 |          0 |          5 |         39 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/products/components/DuplicateSkuDialog.vue                                    | Vue        |         44 |          0 |          8 |         52 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/products/components/InventoryCounter.vue                                      | Vue        |         56 |          0 |         13 |         69 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/products/components/ProductDescriptionAndVariants.vue                         | Vue        |         47 |          0 |          8 |         55 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/products/components/ProductDetails.vue                                        | Vue        |        111 |          0 |         13 |        124 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/products/components/ProductDetailsDialog.vue                                  | Vue        |        165 |          3 |         27 |        195 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/products/components/ProductStoreInfo.vue                                      | Vue        |         36 |          0 |          6 |         42 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/products/components/unSync/UnsyncAndDeleteDialog.vue                          | Vue        |         83 |          0 |         11 |         94 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/products/components/unSync/UnsyncDialog.vue                                   | Vue        |        112 |          0 |         16 |        128 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/products/composables/products.js                                              | JavaScript |        104 |          0 |         22 |        126 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/registration/PageDetails.vue                                                  | Vue        |         18 |          0 |          3 |         21 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/registration/PlatformSelection.vue                                            | Vue        |         47 |          0 |          4 |         51 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/registration/Step.vue                                                         | Vue        |         36 |          0 |          6 |         42 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/registration/shopify/ConnectOrInviteStore.vue                                 | Vue        |         75 |          0 |         14 |         89 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/registration/shopify/EmptyBase.vue                                            | Vue        |         22 |          0 |          6 |         28 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/registration/shopify/InstallationComplete.vue                                 | Vue        |         81 |          0 |         14 |         95 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/registration/shopify/SelectStoreType.vue                                      | Vue        |         88 |          0 |          8 |         96 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/registration/woocommerce/CreateAccount.vue                                    | Vue        |         69 |          0 |          9 |         78 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/registration/woocommerce/ForgotPassword.vue                                   | Vue        |         55 |          0 |          8 |         63 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/registration/woocommerce/ResetPassword.vue                                    | Vue        |          1 |          0 |          1 |          2 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/registration/woocommerce/SelectWooStoreType.vue                               | Vue        |         66 |          0 |          5 |         71 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/registration/woocommerce/VerifyStoreUrl.vue                                   | Vue        |         97 |          0 |         12 |        109 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/settings/SettingsView.vue                                                     | Vue        |         66 |          0 |         10 |         76 |
+| /Users/mac/Documents/projects/Syncio/FE-app-3.0/src/views/settings/components/Setting.vue                                               | Vue        |         40 |          0 |          6 |         46 |
+| Total                                                                                                                                   |            |     15,912 |        166 |      2,265 |     18,343 |
++-----------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
