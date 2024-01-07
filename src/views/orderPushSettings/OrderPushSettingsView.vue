@@ -1,5 +1,5 @@
 <script setup>
-import { onBeforeRouteLeave, useRouter } from 'vue-router';
+import * as routes from '@/routes';
 
 /* ----- Components ----- */
 const EmailContact = defineAsyncComponent(() => import('./components/EmailContact.vue'));
@@ -28,12 +28,23 @@ const {
   showLeavingPageDialog
 } = toRefs(useAuthStore());
 
+const {
+  isSourceStore,
+} = toRefs(useConnectionsStore());
+
 const forceLeavingPage = ref(false);
 const router = useRouter();
 const routeTo = ref(null)
 
 /* ----- Mounted ----- */
 onMounted(async () => {
+  if (isSourceStore.value) {
+    router.push({
+      path: routes.DASHBOARD,
+    });
+    return;
+  }
+
   await fetchPushSettings.value();
   selectedEmailContact.value = pushOrderEmailSettings.value?.value;
 });

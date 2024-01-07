@@ -347,7 +347,10 @@ td {
 
 .p-skeleton {
   background: $skeletonBackground;
-  animation: none;
+
+  &:after {
+    animation: none !important;
+  }
 }
 
 .p-message {

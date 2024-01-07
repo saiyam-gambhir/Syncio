@@ -5,6 +5,11 @@ const {
   openPayoutsStatusOptions,
   sourceQueries
 } = toRefs(usePayoutsStore());
+
+const storeFilterHandler = async storeId => {
+  sourceQueries.value['filters[origin_store]'] = storeId;
+  await fetchSourcePayouts.value(1);
+};
 </script>
 
 <template>
@@ -12,7 +17,7 @@ const {
     <div class="flex w-50 align-items-center">
       <div class="p-inputgroup w-50">
         <StoresFilter
-          @update:modelValue="fetchSourcePayouts(1)"
+          @update:modelValue="storeFilterHandler"
           v-model="sourceQueries['filters[origin_store]']">
         </StoresFilter>
       </div>

@@ -1,4 +1,6 @@
 <script setup>
+import * as routes from '@/routes';
+
 /* ----- Data ----- */
 const {
   fetchPlans,
@@ -8,20 +10,31 @@ const {
   selectedPlan,
 } = toRefs(usePlanStore());
 
+const {
+  isSourceStore,
+} = toRefs(useConnectionsStore());
+
+const router = useRouter();
+
 /* ----- Mounted ----- */
 onMounted(async () => {
+  if (isSourceStore.value) {
+    router.push({
+      path: routes.DASHBOARD,
+    });
+    return;
+  }
+
   await fetchPlansHandler();
   setSelectedPlan();
 });
 
 /* ----- Methods ----- */
 const setSelectedPlan = () => {
-  if(plan.value && !selectedPlan.value) {
-    selectedPlan.value = JSON.parse(JSON.stringify(plan.value.syncio_plan));
-    return;
-  } else if(!plan.value && !selectedPlan.value) {
-    selectedPlan.value = JSON.parse(JSON.stringify(plans.value[0]));
-    return;
+  // Check if selectedPlan.value doesn't exist
+  if (!selectedPlan.value) {
+    // Assign the value based on whether plan.value exists
+    selectedPlan.value = plan.value ? JSON.parse(JSON.stringify(plan.value.syncio_plan)) : JSON.parse(JSON.stringify(plans.value[0]));
   }
 };
 

@@ -1,6 +1,7 @@
 export const fetchSourcePayouts = {
   async fetchSourcePayouts(page = 1) {
     try {
+      this.activeTabIndex === 1 ? this.completePayouts.loading = true : this.openPayouts.loading = true;
       const { filterUnwantedQueries } = useFilters();
 
       filterUnwantedQueries(this.sourceQueries, '');
@@ -35,7 +36,7 @@ export const fetchSourcePayouts = {
 
     } catch (error) {
     } finally {
-      this.openPayouts.loading = false;
+      this.openPayouts.loading = this.completePayouts.loading = false;
     }
   }
 };

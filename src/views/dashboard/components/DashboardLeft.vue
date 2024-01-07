@@ -11,6 +11,7 @@ const {
 } = useToasts();
 
 const {
+  isDestinationStore,
   storeKey,
 } = useConnectionsStore();
 
@@ -47,7 +48,7 @@ const copyStoreKeyHandler = async val => {
           <p class="text-sm mt-1 mb-0">Manage account and notification settings</p>
         </div>
 
-        <div class="pt-3">
+        <div class="pt-3" v-if="isDestinationStore">
           <router-link :to="routes.PLAN_AND_BILLINGS" class="btn-link">Plan and billing</router-link>
           <p class="text-sm mt-1 mb-0">Manage your plan and billing details</p>
         </div>

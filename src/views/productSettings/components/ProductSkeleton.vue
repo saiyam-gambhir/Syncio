@@ -56,6 +56,15 @@ const {
             <InputSwitch />
           </div>
         </li>
+        <li class="py-5 border-bottom-1 surface-border">
+          <div class="flex align-items-center justify-content-between w-full">
+            <div>
+              <Skeleton height="18.5px" width="125px" />
+              <Skeleton height="18.5px" width="500px" class="mt-2" />
+            </div>
+            <InputSwitch />
+          </div>
+        </li>
       </ul>
     </div>
   </div>

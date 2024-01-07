@@ -22,7 +22,9 @@ const updateCurrentPageHandler = async page => {
 </script>
 
 <template>
-  <DataTable :value="payouts.completePayouts?.items" responsiveLayout="scroll" showGridlines>
+  <CompleteSkeleton v-if="payouts.completePayouts?.loading" />
+
+  <DataTable v-else :value="payouts.completePayouts?.items" responsiveLayout="scroll" showGridlines>
     <template #empty>
       <div class="px-4 py-8 text-center">
         <h2 class="mt-0 mb-4">You have no payouts to review at this time.</h2>
@@ -31,25 +33,29 @@ const updateCurrentPageHandler = async page => {
       </div>
     </template>
 
-    <Column header="Date" style="width: 10%">
+    <template #header>
+      <SourcePayoutsHeader />
+    </template>
+
+    <Column header="Date" style="width: 12.5%">
       <template #body="{ data: { date } }">
         {{ date }}
       </template>
     </Column>
 
-    <Column header="Payout Id" style="width: 10%" class="text-center">
+    <Column header="Payout Id" style="width: 12.5%" class="text-center">
       <template #body="{ data: { payout_id } }">
         <strong>{{ payout_id }}</strong>
       </template>
     </Column>
 
-    <Column header="Store" style="width: 20%">
+    <Column header="Store" style="width: 30%">
       <template #body="{ data: { store_name } }">
         {{ store_name }}
       </template>
     </Column>
 
-    <Column header="Payment Status" style="width: 14%">
+    <Column header="Payment Status" style="width: 15%">
       <template #body="{ data: { status } }">
         <Tag v-if="status === 'payment_confirmed'" severity="success" rounded>
           <StatusIcon />
@@ -58,7 +64,7 @@ const updateCurrentPageHandler = async page => {
       </template>
     </Column>
 
-    <Column header="Amount" style="width: 8%" class="text-right">
+    <Column header="Amount" style="width: 15%">
       <template #body="{ data: { payout_total } }">
         <span class="tabular-nums">
           {{ formatCurrency(payout_total) }}
@@ -66,7 +72,7 @@ const updateCurrentPageHandler = async page => {
       </template>
     </Column>
 
-    <Column header="Actions" style="width: 22.5%" class="text-right">
+    <Column header="Actions" style="width: 15%" class="text-right">
       <template #body="{ data: { payout_id, target_store_id } }">
         <Button
           @click="fetchPayoutHandler(payout_id, target_store_id)"
