@@ -5,6 +5,10 @@ const {
   profile,
 } = toRefs(useMarketPlaceStore());
 
+const {
+  isSourceStore,
+} = toRefs(useConnectionsStore());
+
 /* ----- Methods ----- */
 const closeDialogHandler = () => {
   isPreviewProfileDialogVisible.value = false;
@@ -64,19 +68,19 @@ const closeDialogHandler = () => {
                 <p class="m-0 mt-2">
                   <span class="text-sm mr-1">Ships from</span>
                   <strong class="font-semibold primary-color">{{ profile.location }}</strong>
-                  (<a v-if="profile.shippingPolicyUrl" :href="profile.shippingPolicyUrl" class="btn-link">Policy</a>
-                  <span v-else class="text-sm">Request policy</span>)
+                  <a v-if="profile.shippingPolicyUrl" :href="profile.shippingPolicyUrl" class="btn-link"> (Policy)</a>
+                  <span v-else-if="!profile.shippingPolicyUrl && isSourceStore" class="text-sm"> (Request policy)</span>
                 </p>
                 <p class="mb-0 m-0 mt-2">
                   <span class="text-sm mr-1">Published products</span>
                   <strong class="font-semibold primary-color">{{ profile.numOfProducts }}</strong>
                 </p>
-                <p class="mb-0 m-0 mt-2">
+                <p class="mb-0 m-0 mt-2" v-if="isSourceStore">
                   <span class="text-sm mr-1">Typical margin</span>
                   <strong v-if="profile.typicalMarginPrecentage" class="font-semibold primary-color">
                     {{ `${profile.typicalMarginPrecentage}%` }}
                   </strong>
-                  <span v-else class="font-semibold primary-color">Request pricing</span>
+                  <span v-else-if="!profile.typicalMarginPrecentage && isSourceStore" class="font-semibold primary-color">Request pricing</span>
                 </p>
 
                 <Divider />
