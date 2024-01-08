@@ -35,7 +35,7 @@ const {
   stringifyDestinationProductSettings,
   stringifyDestinationVariantSettings,
   stringifySourceProductSettings,
-  stringifysourceVariantSettings,
+  stringifySourceVariantSettings,
   updateSettings,
 } = toRefs(useProductSettingsStore());
 
@@ -82,7 +82,7 @@ const leaveCurrentPageHandler = () => {
     destinationProductSettings.value = JSON.parse(stringifyDestinationProductSettings.value);
     destinationVariantSettings.value = JSON.parse(stringifyDestinationVariantSettings.value);
     sourceProductSettings.value = JSON.parse(stringifySourceProductSettings.value);
-    sourceVariantSettings.value = JSON.parse(stringifysourceVariantSettings.value);
+    sourceVariantSettings.value = JSON.parse(stringifySourceVariantSettings.value);
   }
 };
 
@@ -94,10 +94,10 @@ const updateSettingsHandler = async () => {
     payload = [...sourceProductSettings.value, ...sourceVariantSettings.value];
   }
 
-  const configrations = payload.map(({ key, is_active }) => {
+  const configurations = payload.map(({ key, is_active }) => {
     return { key, is_active };
   });
-  await updateSettings.value(configrations);
+  await updateSettings.value(configurations);
   resetLeavePageConfigs();
 }
 </script>

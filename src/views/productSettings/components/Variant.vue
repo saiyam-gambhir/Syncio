@@ -1,11 +1,17 @@
 <script setup>
 import * as routes from '@/routes';
 
+/* ----- Components ----- */
+const SyncedStockDialog = defineAsyncComponent(() => import('./SyncedStockDialog.vue'));
+
 /* ----- Data ----- */
 const {
   destinationVariantSettings,
+  isSyncedStockDialogVisible,
+  sourceVariantSettings,
   settingsUpdated,
   stringifyDestinationVariantSettings,
+  stringifySourceVariantSettings,
 } = toRefs(useProductSettingsStore());
 
 const {
@@ -17,10 +23,22 @@ const {
   addons,
 } = toRefs(usePlanStore());
 
+const quantity = ref(null);
+
+
+/* ----- Methods ----- */
+const changeSwitchHandler = () => {
+  isSyncedStockDialogVisible.value = true;
+};
+
 /* ----- Watcher ----- */
 watch(destinationVariantSettings, (newSettings, oldSettings) => {
   settingsUpdated.value = stringifyDestinationVariantSettings.value !== JSON.stringify(newSettings);
-},{ deep: true });
+}, { deep: true });
+
+watch(sourceVariantSettings, (newSettings, oldSettings) => {
+  settingsUpdated.value = stringifySourceVariantSettings.value !== JSON.stringify(newSettings);
+}, { deep: true });
 </script>
 
 <template>
@@ -82,7 +100,8 @@ watch(destinationVariantSettings, (newSettings, oldSettings) => {
                   </span>
                 </p>
               </div>
-              <InputSwitch v-if="addons.isSettingsModulePaid || setting.key === 'auto_remove_product_variant'" v-model="setting.is_active" />
+              <InputSwitch v-if="addons.isSettingsModulePaid || setting.key === 'auto_remove_product_variant'"
+                v-model="setting.is_active" />
               <i v-else class="pi pi-lock" style="font-size: 1.5rem"></i>
             </div>
           </li>
@@ -92,5 +111,51 @@ watch(destinationVariantSettings, (newSettings, oldSettings) => {
   </section>
 
   <section v-if="isSourceStore">
+    <p class="text-lg">Switch on any product attributes that you would like to sync across all connected source stores.
+    </p>
+    <div class="grid">
+      <div class="col-5">
+        <ul class="list-none p-0 m-0">
+          <li v-for="setting in sourceVariantSettings" :key="setting.key" class="py-5 border-bottom-1 surface-border">
+            <div class="flex align-items-center justify-content-between w-full">
+              <div class="w-85">
+                <p class="m-0 font-semibold text-lg">
+                  {{ setting.label }}
+                </p>
+                <div v-if="setting.key === 'inventory_safety_net_sync'" class="mt-2 mb-0 text-lg">
+                  <p>
+                    Note: Synced Stock Buffer will only apply to Shopify connections.
+                  </p>
+                  <p>
+                    Set a quantity of stock that you want to reserve for your own store. The synced stock buffer quantity
+                    will not be made available to connected Destination stores.
+                  </p>
+                  <p>
+                    This helps prevent oversell and ensures you have enough stock to sell through your own store.
+                  </p>
+                  <p>
+                    For example, if you have a product with 100 qty in your store and you apply a synced stock buffer of
+                    5, then connected Destination stores will see 95 units available.
+                  </p>
+                  <p>
+                    Saving any changes to this setting will trigger a full re-sync of synced products.
+                  </p>
+                </div>
+              </div>
+              <div class="col-4">
+                <InputSwitch @change="changeSwitchHandler" v-model="setting.is_active" />
+                <div class="mt-4" v-if="setting.key === 'inventory_safety_net_sync' && setting.is_active">
+                  <InputText placeholder="Enter quantity" v-model="quantity">
+                  </InputText>
+                  <p>Quantity entered will be removed from stock made available to connected Destination stores.</p>
+                  <p>Changes usually take effect within 24 hours.</p>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
   </section>
+  <SyncedStockDialog v-if="isSyncedStockDialogVisible" />
 </template>

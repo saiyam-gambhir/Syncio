@@ -11,6 +11,7 @@ export const useProductSettingsStore = defineStore('productSettings', {
       destinationProductSettings: [],
       destinationVariantSettings: [],
       isMetaFieldsRequested: false,
+      isSyncedStockDialogVisible: false,
       loading: false,
       settingsUpdated: false,
       sourceProductSettings: [],
