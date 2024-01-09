@@ -1,6 +1,10 @@
 <script setup>
 /* ----- Data ----- */
 const {
+  isDestinationStore,
+} = toRefs(useConnectionsStore());
+
+const {
   randomInteger
 } = useFilters();
 </script>
@@ -25,7 +29,7 @@ const {
       </template>
     </Column>
 
-    <Column header="Status" style="width: 12.5%">
+    <Column header="Status" style="width: 12.5%" v-if="isDestinationStore">
       <template #body>
         <Skeleton width="75px" height="29px" borderRadius="20px" />
       </template>

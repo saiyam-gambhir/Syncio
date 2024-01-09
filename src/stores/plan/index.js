@@ -17,6 +17,7 @@ export const usePlanStore = defineStore('plan', {
       selectedAddonIds: null,
       selectedPlan: null,
       shouldShowAddonsDowngradeDialog: false,
+      showProductSyncLimitDialog: false,
     };
   },
 
