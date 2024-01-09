@@ -29,23 +29,28 @@ const fetchProfilesHandler = async () => {
 
 <template>
   <section class="marketplace mt-2">
-    <div class="grid">
-      <div class="col col-6">
-        <UserProfile :profile="profile" />
-      </div>
-      <div class="col col-6">
-        <Survey />
-      </div>
+    <div v-if="!profile.updatedAt">
+      <Banner />
     </div>
+    <div v-else>
+      <div class="grid">
+        <div class="col col-6">
+          <UserProfile :profile="profile" />
+        </div>
+        <div class="col col-6">
+          <Survey />
+        </div>
+      </div>
 
-    <div class="sticky-section">
-      <Search />
-      <Filters />
+      <div class="sticky-section">
+        <Search />
+        <Filters />
+      </div>
+
+      <Profiles />
+      <MessageDialog v-if="isMessageDialogVisible" />
+      <MessageSentDialog v-if="isMessageSentDialogVisible" />
     </div>
-
-    <Profiles />
-    <MessageDialog v-if="isMessageDialogVisible" />
-    <MessageSentDialog v-if="isMessageSentDialogVisible" />
   </section>
 </template>
 

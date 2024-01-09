@@ -94,7 +94,7 @@ const deleteFilesFromView = (image, index) => {
         <Date :date="profile.updatedAt" horizontal />
       </span>
       <Button @click="isPreviewProfileDialogVisible = true" label="Preview" outlined class="ml-3"></Button>
-      <Button @click="updateProfile" :loading="loadingProfile" label="Save" class="ml-3"></Button>
+      <Button @click="updateProfile" :loading="loadingProfile" :label="profile.updatedAt ? 'Save' : 'Create'" class="ml-3"></Button>
     </template>
   </PageHeader>
 
