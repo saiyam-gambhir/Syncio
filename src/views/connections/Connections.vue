@@ -1,5 +1,4 @@
 <script setup>
-import { useRouter } from 'vue-router';
 import * as routes from '@/routes';
 
 /* ----- Data ----- */
@@ -65,7 +64,7 @@ const fetchProductsHandler = async (store) => {
       </template>
     </Column>
 
-    <Column header="Status" style="width: 12.5%">
+    <Column header="Status" style="width: 12.5%" v-if="isDestinationStore">
       <template #body="{ data: connection }">
         <Tag :severity="getStoreStatus(connection.status)" rounded>
           <StatusIcon />

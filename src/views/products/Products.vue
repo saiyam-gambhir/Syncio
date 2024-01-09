@@ -1,4 +1,7 @@
 <script setup>
+/* ----- Components ----- */
+const ProductSyncLimitDialog = defineAsyncComponent(() => import('./components/ProductSyncLimitDialog.vue'));
+
 /* ----- Data ----- */
 const {
   getProductSyncStatus,
@@ -26,13 +29,16 @@ const {
   selectedProducts,
   selectedStore,
   selectedStoreId,
-  syncedProducts,
   SYNC_PRODUCT,
+  syncedProducts,
   unsyncedProducts,
 } = toRefs(useProductsStore());
 
 const {
   fetchCurrentPlan,
+  productsSynced,
+  productsSyncedLimit,
+  showProductSyncLimitDialog,
 } = toRefs(usePlanStore());
 
 const statusOptionsTag = {
@@ -46,6 +52,11 @@ const statusOptionsTag = {
 
 /* ----- Methods ----- */
 const syncProductHandler = async (product) => {
+  if(productsSynced.value >= productsSyncedLimit.value) {
+    showProductSyncLimitDialog.value = true;
+    return;
+  }
+
   clickedProduct.value = product;
   const response = await SYNC_PRODUCT.value(product.external_product_id);
   if(response?.success) {
@@ -269,4 +280,6 @@ const viewSyncHander = (product) => {
       </template>
     </Column>
   </DataTable>
+
+  <ProductSyncLimitDialog v-if="showProductSyncLimitDialog" :selectedProducts="1" />
 </template>

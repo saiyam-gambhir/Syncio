@@ -201,7 +201,10 @@ td {
   }
 
   .p-dialog {
+
     .p-dialog-header {
+      background: var(--pagination);
+      color: var(--primary-color);
       padding: 1rem 1.5rem;
 
       .p-dialog-title {

@@ -11,6 +11,10 @@ const {
 const closeDialogHandler = () => {
   isBulkMapperDialogRequested.value = false;
 };
+
+const startBulkMapperHandler = async () => {
+  await startBulkMapper.value();
+};
 </script>
 
 <template>
@@ -44,7 +48,7 @@ const closeDialogHandler = () => {
 
         <Button
           :loading="loadingBulkMapper"
-          @click="startBulkMapper"
+          @click="startBulkMapperHandler"
           class="mr-0"
           label="Start bulk mapper">
         </Button>
