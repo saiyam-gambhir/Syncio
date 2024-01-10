@@ -65,7 +65,7 @@ const fileUploadHandler = () => {
   const totalFilesAllowed = maxImagesAllowed.value - uploadedImages;
 
   if(totalFiles > maxImagesAllowed.value) {
-    alert(`You can add up to ${maxImagesAllowed.value} images`)
+    alert(`You can add up to ${maxImagesAllowed.value} images`);
     files.length = totalFilesAllowed;
   }
 
@@ -94,7 +94,7 @@ const deleteFilesFromView = (image, index) => {
         <Date :date="profile.updatedAt" horizontal />
       </span>
       <Button @click="isPreviewProfileDialogVisible = true" label="Preview" outlined class="ml-3"></Button>
-      <Button @click="updateProfile" :loading="loadingProfile" :label="profile.updatedAt ? 'Save' : 'Create'" class="ml-3"></Button>
+      <Button @click="updateProfile" :loading="loadingProfile" :label="profile.updatedAt ? 'Save' : 'Create profile'" class="ml-3"></Button>
     </template>
   </PageHeader>
 

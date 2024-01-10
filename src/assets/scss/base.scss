@@ -957,3 +957,11 @@ input.p-inputtext-lg {
     border-top: solid 1px var(--dp-border-color);
   }
 }
+
+svg[data-pc-section="showicon"],
+svg[data-pc-section="hideicon"] {
+  cursor: pointer;
+  path {
+    fill: var(--primary-color);
+  }
+}

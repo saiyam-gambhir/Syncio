@@ -2,17 +2,18 @@ import * as routes from '@/routes';
 import router from '@/router';
 
 export const registerUser = {
-  async registerUser() {
+  async registerUser(payload) {
     try {
-      const { email, name, passwordConfirmation, password } = this.registrationForm;
+      const { emailAddress, name, passwordConfirmation, password } = payload;
       this.registrationForm.loading = true;
 
       const params = {
-        email,
-        name,
-        password_confirmation: passwordConfirmation,
-        password,
+        email: emailAddress.value || 'Saiyam',
+        name: name.value,
+        password_confirmation: passwordConfirmation.value || 'Saiyam12',
+        password: password.value || 'Saiyam12',
       };
+
       const response = await axiosService.postData('user/register', params, true);
 
       if(response.data.success) {

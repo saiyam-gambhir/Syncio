@@ -37,12 +37,7 @@ export const useAuthStore = defineStore('auth', {
         submitted: false
       },
       registrationForm: {
-        email: 'saiyam+vue1@syncio.co',
         loading: false,
-        name: 'saiyam1',
-        password: 'Saiyam@1234',
-        passwordConfirmation: 'Saiyam@1234',
-        submitted: false,
       },
       resetPasswordForm: {
         email: '',
