@@ -11,6 +11,8 @@ const {
   isMessageSentDialogVisible,
   profile,
   profiles,
+  loading,
+  loadingProfile,
 } = toRefs(useMarketPlaceStore());
 
 /* ----- Mounted ----- */
@@ -29,7 +31,10 @@ const fetchProfilesHandler = async () => {
 
 <template>
   <section class="marketplace mt-2">
-    <div v-if="!profile.updatedAt">
+    <div v-if="loading || loadingProfile">
+      <MarketplaceViewSkeleton />
+    </div>
+    <div v-else-if="!profile.updatedAt && !loading && !loadingProfile">
       <Banner />
     </div>
     <div v-else>
@@ -48,10 +53,12 @@ const fetchProfilesHandler = async () => {
       </div>
 
       <Profiles />
-      <MessageDialog v-if="isMessageDialogVisible" />
-      <MessageSentDialog v-if="isMessageSentDialogVisible" />
     </div>
   </section>
+
+  <!----- Dialogs ----->
+  <MessageDialog v-if="isMessageDialogVisible" />
+  <MessageSentDialog v-if="isMessageSentDialogVisible" />
 </template>
 
 <style scoped>

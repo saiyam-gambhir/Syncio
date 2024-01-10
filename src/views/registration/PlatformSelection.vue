@@ -3,12 +3,12 @@ import * as routes from '@/routes';
 </script>
 
 <template>
-  <section class="mx-auto" style="width: 1050px;">
+  <section class="mx-auto" style="width: 700px;">
     <PageDetails title="Welcome, Let's get started!" content="Free 14 day trial for WooCommerce Destination accounts!" />
 
     <aside class="auth-wrapper text-center">
       <div class="grid">
-        <div class="col-4 py-0">
+        <div class="col-6 pb-0">
           <router-link :to="routes.WOO_CREATE_ACCOUNT" class="text-900">
             <CardWrapper class="platform text-center">
               <template #content>
@@ -18,7 +18,7 @@ import * as routes from '@/routes';
             </CardWrapper>
           </router-link>
         </div>
-        <div class="col-4 py-0">
+        <div class="col-6 pb-0">
           <a href="https://apps.shopify.com/syncio" class="text-900">
             <CardWrapper class="platform text-center">
               <template #content>
@@ -28,7 +28,7 @@ import * as routes from '@/routes';
             </CardWrapper>
           </a>
         </div>
-        <div class="col-4 py-0">
+        <!-- <div class="col-4 py-0">
           <a href="/" class="text-900">
             <CardWrapper class="platform text-center">
               <template #content>
@@ -37,13 +37,13 @@ import * as routes from '@/routes';
               </template>
             </CardWrapper>
           </a>
-        </div>
+        </div> -->
       </div>
     </aside>
 
     <div class="text-center">
       <router-link :to="routes.LOGIN">
-        <Button label="Already have an account? Login here" outlined raised class="p-button-lg outlined-button-hover w-50"></Button>
+        <Button label="Already have an account? Login here" outlined raised class="p-button-lg outlined-button-hover w-75"></Button>
       </router-link>
     </div>
   </section>

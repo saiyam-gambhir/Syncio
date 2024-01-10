@@ -1,5 +1,6 @@
 <script setup>
 import { useForm } from 'vee-validate';
+import * as validationMessages from '@/validationMessages';
 import * as yup from 'yup';
 
 /* ----- Data ----- */
@@ -19,16 +20,17 @@ const {
 /* ----- Validations ----- */
 const { errors: emailErrors, meta: emailMeta, defineField: emailDefinedField } = useForm({
   validationSchema: yup.object({
-    emailAddress: yup.string().email().required(),
+    emailAddress: yup.string().email(validationMessages.EMAIL).required(validationMessages.REQUIRED),
   }),
 });
-const [emailAddress, emailAddressAttrs] = emailDefinedField('emailAddress');
 
 const { errors: uniqueKeyErrors, meta: uniqueKeyMeta, defineField: uniqueKeyDefinedField } = useForm({
   validationSchema: yup.object({
-    uniqueKey: yup.string().required(),
+    uniqueKey: yup.string().required(validationMessages.REQUIRED),
   }),
 });
+
+const [emailAddress, emailAddressAttrs] = emailDefinedField('emailAddress');
 const [uniqueKey, uniqueKeyAttrs] = uniqueKeyDefinedField('uniqueKey');
 
 /* ----- Props ----- */

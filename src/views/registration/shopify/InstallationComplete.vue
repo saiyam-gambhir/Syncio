@@ -3,6 +3,7 @@ import * as routes from '@/routes';
 
 /* ----- Data ----- */
 const loading = ref(false);
+const loadingToDashboard = ref(false);
 
 const {
   isDestinationStore,
@@ -17,11 +18,13 @@ const route = useRoute();
 
 /* ----- OnMounted ----- */
 onMounted(async () => {
-  loading.value = true;
-  const params = route.query;
-  const response = await activateCharge.value(params);
-  if(response.success) {
-    loading.value = false;
+  if(isDestinationStore.value) {
+    loading.value = true;
+    const params = route.query;
+    const response = await activateCharge.value(params);
+    if(response.success) {
+      loading.value = false;
+    }
   }
 });
 
@@ -81,12 +84,13 @@ onMounted(async () => {
 
       <Divider />
 
-      <router-link :to="routes.DASHBOARD">
+      <router-link :to="routes.DASHBOARD" @click="loadingToDashboard = true;">
         <Button
-          label="Continue to dashboard"
+          :loading="loadingToDashboard"
           class="mt-4 font-bold justify-content-center p-button-lg w-50"
           icon="pi pi-arrow-right"
-          iconPos="right">
+          iconPos="right"
+          label="Continue to dashboard">
         </Button>
       </router-link>
     </aside>

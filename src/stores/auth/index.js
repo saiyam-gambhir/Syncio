@@ -5,6 +5,7 @@ import { fetchUser } from './actions/fetchUser';
 import { forgotPassword } from './actions/forgotPassword';
 import { login } from './actions/login';
 import { registerUser } from './actions/registerUser';
+import { registerWooStore } from './actions/registerWooStore';
 import { saveShopifyToken } from './actions/saveShopifyToken';
 import { shopifyLogin } from './actions/shopifyLogin';
 import { updateStoreType } from './actions/updateStoreType';
@@ -37,12 +38,7 @@ export const useAuthStore = defineStore('auth', {
         submitted: false
       },
       registrationForm: {
-        email: 'saiyam+vue1@syncio.co',
         loading: false,
-        name: 'saiyam1',
-        password: 'Saiyam@1234',
-        passwordConfirmation: 'Saiyam@1234',
-        submitted: false,
       },
       resetPasswordForm: {
         email: '',
@@ -88,21 +84,9 @@ export const useAuthStore = defineStore('auth', {
     forgotPassword,
     login,
     registerUser,
+    registerWooStore,
     saveShopifyToken,
     shopifyLogin,
     updateStoreType,
   ]),
-
-  // persist: {
-  //   enabled: true,
-  //   strategies: [
-  //     {
-  //       key: 'auth',
-  //       storage: sessionStorage,
-  //       paths: [
-  //         'user'
-  //       ],
-  //     },
-  //   ],
-  // },
 });

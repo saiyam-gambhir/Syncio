@@ -31,7 +31,7 @@ onMounted(async () => {
 /* ----- Computed ----- */
 const placeHolderImages = computed(() => {
   const uploadedImages = profile.value.cocoProfileImages?.length;
-  return maxImagesAllowed.value - (uploadedImages);
+  return uploadedImages ? maxImagesAllowed.value - (uploadedImages) : maxImagesAllowed.value;
 });
 
 /* ----- Methods ----- */
@@ -65,7 +65,7 @@ const fileUploadHandler = () => {
   const totalFilesAllowed = maxImagesAllowed.value - uploadedImages;
 
   if(totalFiles > maxImagesAllowed.value) {
-    alert(`You can add up to ${maxImagesAllowed.value} images`)
+    alert(`You can add up to ${maxImagesAllowed.value} images`);
     files.length = totalFilesAllowed;
   }
 
@@ -89,12 +89,12 @@ const deleteFilesFromView = (image, index) => {
     title="Marketplace settings"
     withActions>
     <template #actions>
-      <span class="text-light flex">
+      <span v-if="profile.updatedAt" class="text-light flex">
         <span class="font-bold">Last saved: </span>
         <Date :date="profile.updatedAt" horizontal />
       </span>
       <Button @click="isPreviewProfileDialogVisible = true" label="Preview" outlined class="ml-3"></Button>
-      <Button @click="updateProfile" :loading="loadingProfile" :label="profile.updatedAt ? 'Save' : 'Create'" class="ml-3"></Button>
+      <Button @click="updateProfile" :loading="loadingProfile" :label="profile.updatedAt ? 'Save' : 'Create profile'" class="ml-3"></Button>
     </template>
   </PageHeader>
 
@@ -210,7 +210,7 @@ const deleteFilesFromView = (image, index) => {
         <CardWrapper>
           <template #content>
             <div class="surface-section relative">
-              <div class="font-medium text-3xl mb-3">Profile images - ({{ profile.cocoProfileImages?.length }}/{{ maxImagesAllowed }})</div>
+              <div class="font-medium text-3xl mb-3">Profile images - ({{ profile.cocoProfileImages?.length ?? 0 }}/{{ maxImagesAllowed }})</div>
               <div class="text-500">The order that images appear on your profile will be the same as the order here.</div>
               <div class="text-500 mb-3 mt-2">Include product images to give partner stores an understanding of what you sell.</div>
               <div class="absolute right-0 top-0" v-if="profile.cocoProfileImages?.length < maxImagesAllowed">

@@ -1,8 +1,27 @@
 <script setup>
+import { useForm } from 'vee-validate';
+import * as validationMessages from '@/validationMessages';
+import * as yup from 'yup';
+
+/* ----- Data ----- */
+const {
+  registerWooStore,
+  user,
+} = toRefs(useAuthStore());
+
 const isURLValid = ref(false);
 const loading = ref(false);
-const storeURL = ref(null);
 
+/* ----- Validations ----- */
+const { errors, meta, defineField } = useForm({
+  validationSchema: yup.object({
+    storeURL: yup.string().url(validationMessages.URL_VERIFICATION).required(validationMessages.REQUIRED),
+  }),
+});
+
+const [storeURL] = defineField('storeURL');
+
+/* ----- Methods ----- */
 const verifyStoreURLHandler = () => {
   loading.value = true;
   let config = {
@@ -30,10 +49,32 @@ const clearStoreUrlHandler = () => {
   isURLValid.value = false;
   storeURL.value = null;
 };
+
+const registerStore = async () => {
+  let withoutHttps, shopType;
+  withoutHttps = storeURL.value.replace(/^http(s)*:\/\//, '');
+  withoutHttps = withoutHttps.replace(/\/$/, "");
+  shopType = window.sessionStorage.getItem('woo-store-type');
+  const params = {
+    platform_api_version: 'v3',
+    platform: 'woocommerce',
+    type: shopType,
+    url: withoutHttps,
+    user_id: user.value.id,
+  };
+
+  try {
+    const response = await registerWooStore.value(params);
+    let redirectUrl = response?.redirect_url;
+    redirectUrl += import.meta.env.VITE_WOO_REDIRECT_URL + '?store=' + withoutHttps + '&type=' + shopType;
+    window.location.href = redirectUrl;
+  } catch (error) {
+    //storeAlreadyUsedError = error.data.errors[0]
+  }
+};
 </script>
 
 <template>
-
   <section class="mx-auto relative" style="width: 900px;">
     <ul class="list-none p-0 m-0 mb-8 flex flex-row" style="">
       <Step title="Store Type" subTitle="Source or destination?" :isComplete="true" />
@@ -51,20 +92,21 @@ const clearStoreUrlHandler = () => {
         <div class="col-9 pb-0">
           <div class="relative">
             <InputText
-              type="url"
-              size="large"
+              :class="{ 'mb-3 p-invalid' : errors.storeURL }"
               class="w-100"
-              clear
               placeholder="Store URL"
+              size="large"
+              type="url"
               v-model="storeURL">
             </InputText>
             <i v-if="storeURL" @click="clearStoreUrlHandler" class="pi pi-times absolute pointer text-700" style="right: 1rem; top: 1.33rem;"></i>
           </div>
-          <small class="block mt-2 pl-1 text-700 font-semi text-sm" id="username-help">You'll need to add https:// to the URL</small>
+          <ValidationMessage :error="errors.storeURL" />
+          <small v-if="!errors.storeURL" class="block mt-2 pl-1 text-700 font-semi text-sm" id="username-help">You'll need to add https:// to the URL</small>
         </div>
         <div class="col-3 pb-0">
           <Button
-            :disabled="!storeURL"
+            :disabled="!meta.valid"
             :loading="loading"
             @click="verifyStoreURLHandler"
             class="w-100"
@@ -100,7 +142,7 @@ const clearStoreUrlHandler = () => {
         <p class="m-0 mt-4">Syncio will only use these permissions to perform essential product and order updates.</p>
         <p class="m-0 mt-4">On the next step, make sure you login to your admin account with:</p>
         <h3 class="m-0 mt-2 text-xl">Read and Write permissions</h3>
-        <Button label="Continue to permission approval" class="w-100 p-button-lg mt-5"></Button>
+        <Button label="Continue to permission approval" @click="registerStore" class="w-100 p-button-lg mt-5"></Button>
       </div>
 
     </aside>

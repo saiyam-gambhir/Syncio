@@ -1,5 +1,4 @@
 <script setup>
-import { useRouter } from 'vue-router';
 import * as routes from '@/routes';
 
 /* ----- Components ----- */
@@ -8,10 +7,8 @@ const ShopifyPermissionsDialog = defineAsyncComponent(() => import('./components
 /* ----- Data ----- */
 const {
   fetchMetadata,
-  isNewStoreConnectionRequested,
   isShopify,
   shopifyPermissions,
-  storeKey,
   storeName,
   storeType,
 } = toRefs(useConnectionsStore());
@@ -21,7 +18,7 @@ const {
 } = useFilters();
 
 const {
-  showToast
+  showToast,
 } = useToasts();
 
 const activityCenter = useActivityCenterStore();
@@ -78,15 +75,10 @@ const logout = () => {
   router.push({ name: routes.LOGIN });
 };
 
-const copyStoreKeyHandler = () => {
-  copyToClipBoard(storeKey.value);
-  showToast({ message: 'Store key copied successfully' });
+const copyStoreNameHandler = async val => {
+  await copyToClipBoard(val);
+  showToast({ message: 'Store name copied successfully' });
 };
-
-const connectNewStoreHandler = async () => {
-  await router.push({ name: routes.STORES });
-  isNewStoreConnectionRequested.value = true;
-}
 </script>
 
 <template>
@@ -102,11 +94,11 @@ const connectNewStoreHandler = async () => {
     </div>
 
     <div class="header-right flex align-items-center">
-      <Tag
-        :value="`${storeType} store`"
-        :class="storeType"
-        v-tooltip.left="storeName">
+      <Tag severity="info" class="pointer text-900" :class="`tag-${storeType}`" @click="copyStoreNameHandler(storeName)">
+        {{ storeName }}
+        <span :class="storeType" class="font-bold">{{ storeType }}</span>
       </Tag>
+
       <Button
         @click="toggleMenu"
         class="ml-4"

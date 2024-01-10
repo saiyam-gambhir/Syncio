@@ -1,6 +1,7 @@
 <script setup>
 import * as routes from '@/routes';
 
+/* ----- Components ----- */
 const ConnectNewStoreDialog = defineAsyncComponent(() => import('../../connections/components/connect/ConnectNewStoreDialog.vue'));
 
 /* ----- Data ----- */
@@ -59,9 +60,8 @@ const showConnectViaKeyHandler = () => {
         </div>
       </div>
 
-      <Divider />
-
-      <template v-if="!isTestStoreConnected">
+      <template v-if="!isTestStoreConnected && isDestinationStore">
+        <Divider />
         <p class="text-lg line-height-3 mt-3 mb-0">Haven't received a unique key?</p>
         <p class="text-lg line-height-3 mt-1">Why not try out our awesome features with our test store instead?</p>
         <Button
@@ -78,7 +78,7 @@ const showConnectViaKeyHandler = () => {
     </aside>
 
     <div class="text-center">
-      <router-link :to="routes.PLAN_AND_BILLINGS">
+      <router-link :to="isDestinationStore ? routes.PLAN_AND_BILLINGS : routes.SHOPIFY_INSTALLATION_COMPLETE">
         <Button @click="loading = true" :loading="loading" label="Skip for now" class="my-6 font-bold justify-content-center p-button-lg"></Button>
       </router-link>
     </div>
