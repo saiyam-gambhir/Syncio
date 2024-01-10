@@ -60,7 +60,7 @@ const toggleMultilocationHandler = async event => {
     title="Stores"
     withActions>
     <template #actions>
-      <div v-if="isDestinationStore" class="flex align-items-center justify-content-between">
+      <div v-if="isDestinationStore && isShopify" class="flex align-items-center justify-content-between">
         <h4 class="my-0 mr-4">
           Multi-Location
           <br />

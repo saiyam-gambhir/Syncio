@@ -58,7 +58,7 @@ export const updateProfile = {
         location: location?.country,
         numOfProducts: num_of_products,
         shippingPolicyUrl: shipping_policy_url,
-        socialMedia: coco_social_media[0]?.url,
+        socialMedia: coco_social_media && coco_social_media[0] && coco_social_media[0].url,
         typicalMarginPrecentage: typical_margin_precentage,
         updatedAt: updated_at,
         website,
