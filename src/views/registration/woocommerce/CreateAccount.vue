@@ -53,7 +53,7 @@ const registerUserHandler = async () => {
 
         <div class="field">
           <InputText
-            :class="{ 'p-invalid' : errors.emailAddress }"
+            :class="{ 'p-invalid': errors.emailAddress }"
             class="p-inputtext-lg mb-3 w-full"
             id="email"
             placeholder="Email address"
@@ -66,7 +66,7 @@ const registerUserHandler = async () => {
 
         <div class="field">
           <Password
-            :class="{ 'p-invalid' : errors.password }"
+            :class="{ 'p-invalid': errors.password }"
             :feedback="false"
             autocomplete="new-password"
             class="mb-3 w-full p-inputtext-lg"
@@ -81,7 +81,7 @@ const registerUserHandler = async () => {
 
         <div class="field">
           <Password
-            :class="{ 'p-invalid' : errors.passwordConfirmation }"
+            :class="{ 'p-invalid': errors.passwordConfirmation }"
             :feedback="false"
             autocomplete="new-password"
             class="mb-3 w-full p-inputtext-lg"

@@ -30,7 +30,7 @@ onMounted(async () => {
 
 /* ----- Computed ----- */
 const placeHolderImages = computed(() => {
-  const uploadedImages = profile.value.cocoProfileImages?.length;
+  const uploadedImages = profile.value.cocoProfileImages?.length ?? 0;
   return uploadedImages ? maxImagesAllowed.value - (uploadedImages) : maxImagesAllowed.value;
 });
 
@@ -59,8 +59,9 @@ const uploadFilesHandler = async () => {
 };
 
 const fileUploadHandler = () => {
+  debugger
   const files = fileSelectedForUpload.value.files;
-  const uploadedImages = profile.value.cocoProfileImages?.length;
+  const uploadedImages = profile.value.cocoProfileImages?.length ?? 0;
   const totalFiles = files.length + uploadedImages;
   const totalFilesAllowed = maxImagesAllowed.value - uploadedImages;
 
@@ -213,7 +214,7 @@ const deleteFilesFromView = (image, index) => {
               <div class="font-medium text-3xl mb-3">Profile images - ({{ profile.cocoProfileImages?.length ?? 0 }}/{{ maxImagesAllowed }})</div>
               <div class="text-500">The order that images appear on your profile will be the same as the order here.</div>
               <div class="text-500 mb-3 mt-2">Include product images to give partner stores an understanding of what you sell.</div>
-              <div class="absolute right-0 top-0" v-if="profile.cocoProfileImages?.length < maxImagesAllowed">
+              <div class="absolute right-0 top-0" v-if="profile.cocoProfileImages.length < maxImagesAllowed">
                 <input
                   @change="fileUploadHandler"
                   accept="image/jpeg, image/png, image/jpg, image/webp, image/gif, image/ico"

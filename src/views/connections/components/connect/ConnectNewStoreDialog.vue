@@ -80,12 +80,13 @@ const closeDialogHandler = () => {
         <p class="mb-1">Sending an email invitation to <strong>{{ partnerStoreType }}</strong> that you want to connect to.</p>
         <p class="mt-1">This email will include your <strong>Syncio Key</strong> and <strong>installation instructions</strong>.</p>
         <InputText
+          :class="{ 'mb-3 p-invalid': emailErrors.emailAddress }"
           v-model="emailAddress"
           v-bind="emailAddressAttrs"
           :placeholder="`Enter ${partnerStoreType} email address`"
           class="p-inputtext-lg w-75 mt-4">
         </InputText>
-        <span class="mt-3 block text-error" v-if="emailErrors">{{ emailErrors.emailAddress }}</span>
+        <ValidationMessage :error="emailErrors.emailAddress" style="padding-bottom: 0 !important;" />
       </div>
 
       <div class="text-center" v-if="isConnectViaStoreKeyRequested">
@@ -93,12 +94,13 @@ const closeDialogHandler = () => {
         <p class="mb-1">Enter the Syncio Key for the <strong>{{ partnerStoreType }}</strong> that you want to connect to below.</p>
         <p class="mt-1">Once connected you can immediately start syncing products from that store.</p>
         <InputText
+        :class="{ 'mb-3 p-invalid': uniqueKeyErrors.uniqueKey }"
           v-model="uniqueKey"
           v-bind="uniqueKeyAttrs"
           :placeholder="`Enter ${partnerStoreType} unique key`"
           class="p-inputtext-lg w-75 mt-4">
         </InputText>
-        <span class="mt-3 block text-error font-semi" style="letter-spacing: 1px;" v-if="uniqueKeyErrors">{{ uniqueKeyErrors.uniqueKey }}</span>
+        <ValidationMessage :error="uniqueKeyErrors.uniqueKey" style="padding-bottom: 0 !important;" />
       </div>
     </template>
 

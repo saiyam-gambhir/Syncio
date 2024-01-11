@@ -8,6 +8,7 @@ const {
   isDestinationStore,
   isLocationPendingDialogRequested,
   isMultilocation,
+  isShopify,
   isSourceStore,
 } = toRefs(useConnectionsStore());
 
@@ -26,7 +27,7 @@ const router = useRouter();
 /* ----- Methods ----- */
 const fetchProductsHandler = async (store) => {
   clickedStore.value = store;
-  if(store.status === 'pending') {
+  if(store.status === 'pending' && isDestinationStore.value && isShopify.value) {
     isLocationPendingDialogRequested.value = true;
     return;
   }

@@ -19,10 +19,10 @@ const {
   fetchConnections,
   isDestinationStore,
   isLocationPendingDialogRequested,
+  isShopify,
   isSourceStore,
   isWoocommerce,
   partnerStoreType,
-  connectionFilterItems,
 } = toRefs(useConnectionsStore());
 
 const {
@@ -48,8 +48,10 @@ const {
 
 /* ----- Mounted ----- */
 onMounted(async () => {
-  const isPending = isLocationIsPending();
-  if(isPending) return;
+  if(isDestinationStore.value && isShopify.value) {
+    const isPending = isLocationIsPending();
+    if(isPending) return;
+  }
 
   if (connections.value?.length === 0) await fetchConnections.value();
   if(products?.value?.length > 0) return;
@@ -73,7 +75,7 @@ watch(selectedStoreId, (newValue, oldValue) => {
 
 /* ----- Methods ----- */
 const isLocationIsPending = () => {
-  if(selectedStore?.value?.status === 'pending') {
+  if(selectedStore?.value?.status === 'pending' && isDestinationStore.value && isShopify.value) {
     isLocationPendingDialogRequested.value = true;
     return true;
   }
