@@ -22,6 +22,7 @@ const {
   isLocationPendingDialogRequested,
   isMultilocationEnabled,
   isNewStoreConnectionRequested,
+  isShopify,
   isSourceStore,
   isStoreMultilocation,
   loadingConnections,

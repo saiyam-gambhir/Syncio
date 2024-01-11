@@ -45,6 +45,10 @@ const registerStore = async () => {
 }
 </script>
 
+<template>
+  <!-- <h1 v-if="arePermissionsApproved">Approved</h1>
+  <h1 v-else>Denied</h1> -->
+</template>
 
 <!-- <script>
 import { CheckCircleIcon } from '@/icons'
