@@ -1,6 +1,4 @@
 <script setup>
-import { useOrders } from '../composables/orders';
-
 /* ----- Data ----- */
 const {
   fetchOrder,
@@ -20,14 +18,11 @@ const {
   loadingOrder,
   order,
   ordersCollection,
-  pushOrder,
 } = toRefs(useOrdersStore());
 
 const {
   storeName,
 } = useConnectionsStore();
-
-const shippingCost = ref('');
 
 /* ----- Props ----- */
 const props = defineProps({
@@ -75,14 +70,22 @@ const fetchNextOrderSummary = () => {
   fetchOrderSummary(-1)
 };
 
-const pushOrderHandler = async (targetStoreId) => {
-  const payload = {
-    orderId: props.order.syncio_order_id,
-    shippingCost: shippingCost.value,
-    targetStoreId: targetStoreId,
-  };
+const onOrderPushHandler = () => {
+  fetchOrder(props.order.syncio_order_id);
+};
 
-  await pushOrder.value(payload);
+const getPushedDate = (date) => {
+  const inputDate = new Date(date);
+  const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const day = inputDate.getDate();
+  const month = monthNames[inputDate.getMonth()];
+  const year = inputDate.getFullYear();
+  const hours = (inputDate.getHours() % 12) || 12;
+  const minutes = inputDate.getMinutes();
+  const paddedMinutes = (minutes < 10 ? '0' : '') + minutes;
+  const period = (inputDate.getHours() >= 12) ? 'PM' : 'AM';
+  const formattedDate = `${day} ${month} ${year} at ${hours}:${paddedMinutes} ${period}`;
+  return formattedDate;
 };
 </script>
 
@@ -167,16 +170,9 @@ const pushOrderHandler = async (targetStoreId) => {
               </h2>
 
               <div class="text-right">
-                <template v-if="store.push_status !== 'pushed' && store.push_status !== 'blocked' && order.push_status !== 'invalid' && !store.is_mapper_deleted && !store.store_disconnected">
-                  <InputText v-if="!!order.customer || !!order.shipping_address" placeholder="$ Enter a shipping fee" v-model="shippingCost" />
-                </template>
 
-                <template v-if="store.push_status !== 'blocked'">
-                  <Button class="ml-3" :disabled="!shippingCost" v-if="order.customer !== null && order.shipping_address !== null && store.push_status !== 'pushed' && !store.is_mapper_deleted && !store.store_disconnected" @click="pushOrderHandler(store.target_store_id, storeName)" style="transform: translateY(-1px);">
-                    <span v-if="store.push_status === 'failed'">Repush Order</span>
-                    <span v-else>Push Order</span>
-                  </Button>
-                </template>
+                <!----- Push Order ----->
+                <PushOrder :store="store" :order="order" @onOrderPush="onOrderPushHandler" />
 
                 <template v-if="store.push_status === 'failed' && !store.is_mapper_deleted">
                   <p class="mb-0 mt-2 text-error font-semibold">An error has occurred while pushing your order to one or more source stores. <br> Please click 'Repush Order' to try again.</p>
@@ -186,7 +182,7 @@ const pushOrderHandler = async (targetStoreId) => {
                 <template v-if="store.push_status === 'pushed'">
                   <Tag severity="success" :value="store.push_status" rounded />
                   <!-- TODO: Change date format from BE -->
-                  <p class="mb-0 mt-2" v-if="store.pushed_at">on {{ formatDate(store.pushed_at).date }} at {{ formatDate(store.pushed_at).time }}</p>
+                  <p class="mb-0 mt-3 font-semi" v-if="store.pushed_at">On {{ getPushedDate(store.pushed_at) }} (AEST)</p>
                 </template>
 
                 <!-- If store is disconnected -->
