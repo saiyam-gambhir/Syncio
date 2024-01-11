@@ -1,5 +1,6 @@
 <script setup>
 import * as routes from '@/routes';
+import { onMounted } from 'vue';
 
 /* ----- Components ----- */
 const SyncedStockDialog = defineAsyncComponent(() => import('./SyncedStockDialog.vue'));
@@ -7,9 +8,11 @@ const SyncedStockDialog = defineAsyncComponent(() => import('./SyncedStockDialog
 /* ----- Data ----- */
 const {
   destinationVariantSettings,
+  isSafetyNetModified,
   isSyncedStockDialogVisible,
-  sourceVariantSettings,
+  safetyNetQuantity,
   settingsUpdated,
+  sourceVariantSettings,
   stringifyDestinationVariantSettings,
   stringifySourceVariantSettings,
 } = toRefs(useProductSettingsStore());
@@ -25,10 +28,12 @@ const {
 
 const quantity = ref(null);
 
-
 /* ----- Methods ----- */
-const changeSwitchHandler = () => {
-  isSyncedStockDialogVisible.value = true;
+const changeSwitchHandler = (setting) => {
+  if (setting.key === 'inventory_safety_net_sync') {
+    isSyncedStockDialogVisible.value = true;
+    isSafetyNetModified.value = !isSafetyNetModified.value;
+  }
 };
 
 /* ----- Watcher ----- */
@@ -39,6 +44,15 @@ watch(destinationVariantSettings, (newSettings, oldSettings) => {
 watch(sourceVariantSettings, (newSettings, oldSettings) => {
   settingsUpdated.value = stringifySourceVariantSettings.value !== JSON.stringify(newSettings);
 }, { deep: true });
+
+watch(safetyNetQuantity, (newValue, oldValue) => {
+  settingsUpdated.value = newValue && newValue !== quantity.value;
+  isSafetyNetModified.value = newValue !== quantity.value;
+}, { deep: true });
+
+onMounted(() => {
+  quantity.value = safetyNetQuantity.value;
+})
 </script>
 
 <template>
@@ -143,9 +157,9 @@ watch(sourceVariantSettings, (newSettings, oldSettings) => {
                 </div>
               </div>
               <div class="col-4">
-                <InputSwitch @change="changeSwitchHandler" v-model="setting.is_active" />
+                <InputSwitch @change="changeSwitchHandler(setting)" v-model="setting.is_active" />
                 <div class="mt-4" v-if="setting.key === 'inventory_safety_net_sync' && setting.is_active">
-                  <InputText placeholder="Enter quantity" v-model="quantity">
+                  <InputText placeholder="Enter quantity" v-model="safetyNetQuantity">
                   </InputText>
                   <p>Quantity entered will be removed from stock made available to connected Destination stores.</p>
                   <p>Changes usually take effect within 24 hours.</p>

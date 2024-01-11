@@ -5,17 +5,17 @@ export const fetchSettings = {
     });
   },
 
-  checkExsistingSettings(destinationProductSettings, sourceProductSettings) {
+  checkExistingSettings(destinationProductSettings, sourceProductSettings) {
     return (destinationProductSettings.length > 0 || sourceProductSettings.length > 0);
   },
 
   async fetchSettings() {
-    if (this.checkExsistingSettings(this.destinationProductSettings, this.sourceProductSettings)) return;
+    if (this.checkExistingSettings(this.destinationProductSettings, this.sourceProductSettings)) return;
 
     try {
       this.loading = true;
       const auth = useAuthStore();
-      const { success, configurations } = await axiosService.getData(`configurations/${auth.userId}`);
+      const { success, configurations, config_values } = await axiosService.getData(`configurations/${auth.userId}`);
       if (success) {
         this.destinationProductSettings = await this.filterSettings(configurations, 'product');
         this.stringifyDestinationProductSettings = JSON.stringify(this.destinationProductSettings);
@@ -28,6 +28,11 @@ export const fetchSettings = {
 
         this.sourceVariantSettings = await this.filterSettings(configurations, 'variant', 'source');
         this.stringifySourceVariantSettings = JSON.stringify(this.sourceVariantSettings);
+
+        if (config_values) {
+          this.safetyNetQuantity = config_values.inventory_safety_net_sync;
+        }
+
       }
     } catch (error) {
       throw new Error(error);

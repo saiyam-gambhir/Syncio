@@ -28,7 +28,9 @@ const {
   destinationProductSettings,
   destinationVariantSettings,
   fetchSettings,
+  isSafetyNetModified,
   loading,
+  safetyNetQuantity,
   settingsUpdated,
   sourceProductSettings,
   sourceVariantSettings,
@@ -36,6 +38,7 @@ const {
   stringifyDestinationVariantSettings,
   stringifySourceProductSettings,
   stringifySourceVariantSettings,
+  updateSafetyNet,
   updateSettings,
 } = toRefs(useProductSettingsStore());
 
@@ -86,6 +89,24 @@ const leaveCurrentPageHandler = () => {
   }
 };
 
+const updateSourceStoreSettings = async (isSafetyNetActive, configurations) => {
+  // Update all other settings as is
+  if (!isSafetyNetModified.value) {
+    await updateSettings.value(configurations);
+  } else {
+    if (isSafetyNetActive) {
+      await updateSettings.value(configurations);
+      await updateSafetyNet.value(safetyNetQuantity.value ?? 0);
+    } else {
+      safetyNetQuantity.value = null;
+      await updateSafetyNet.value(0);
+      await updateSettings.value(configurations);
+    }
+  }
+  // Reset to false
+  isSafetyNetModified.value = false;
+};
+
 const updateSettingsHandler = async () => {
   let payload = [];
   if(isDestinationStore.value) {
@@ -94,12 +115,24 @@ const updateSettingsHandler = async () => {
     payload = [...sourceProductSettings.value, ...sourceVariantSettings.value];
   }
 
+  let isSafetyNetActive = false;
+
   const configurations = payload.map(({ key, is_active }) => {
+    if (key === 'inventory_safety_net_sync') {
+      isSafetyNetActive = is_active;
+    }
     return { key, is_active };
   });
-  await updateSettings.value(configurations);
+
+  if (isDestinationStore.value) {
+    await updateSettings.value(configurations);
+  } else { // Source store
+    await updateSourceStoreSettings(isSafetyNetActive, configurations);
+  }
+  
+  await fetchSettings.value();
   resetLeavePageConfigs();
-}
+};
 </script>
 
 <template>
