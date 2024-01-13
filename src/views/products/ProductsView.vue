@@ -112,14 +112,11 @@ const storeChangeHandler = async () => {
 </script>
 
 <template>
-  <PageHeader
-    title="Products"
-    withActions
-    withLink>
+  <PageHeader title="Products" withActions withLink>
     <template #header>
-      <span v-if="isDestinationStore">Sync and manage your inventory. </span>
-      <span v-else>View inventory and product sync status for connected Destination stores. </span>
-      <AppLink link="https://help.syncio.co/en/articles/3285405-syncing-products" label="Read about syncing products" />
+      <span v-if="isDestinationStore">Sync and manage your inventory.</span>
+      <span v-else>View inventory and product sync status for connected Destination stores.</span> <br>
+      <AppLink link="https://help.syncio.co/en/articles/3285405-syncing-products" label="Learn about syncing products" />
     </template>
     <template #actions>
       <StoresFilter

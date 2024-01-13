@@ -103,10 +103,11 @@ const updateSettingsHandler = async () => {
 </script>
 
 <template>
-  <PageHeader
-    content="Manage what information syncs from your Source store"
-    title="Product Settings"
-    withActions>
+  <PageHeader title="Product Settings" withActions withLink>
+    <template #header>
+      Manage what information syncs from your Source store <br>
+      <AppLink link="https://help.syncio.co/en/articles/3704617-product-settings-add-on" label="Learn about Product Settings" />
+    </template>
     <template #actions>
       <Button
         :class="{ 'p-button-lg': settingsUpdated }"

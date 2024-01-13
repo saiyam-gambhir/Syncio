@@ -158,7 +158,7 @@ const isRowSelectedHandler = (data) => {
       <template #header>
         Rate <i class="pi pi-question-circle ml-3 text-xl" v-tooltip.right="'Select commission type to add rate'"></i>
       </template>
-      <template #body="{ data: { id, product_commission_rate } }">
+      <template #body="{ data: { product_commission_rate } }">
         <div class="p-inputgroup w-75" v-if="product_commission_rate.type">
           <InputNumber
             :maxFractionDigits="2"

@@ -15,6 +15,7 @@ const {
   fetchConnections,
   isDestinationStore,
   isSourceStore,
+  isWoocommerce,
 } = toRefs(useConnectionsStore());
 
 const {
@@ -35,6 +36,14 @@ const router = useRouter();
 
 /* ----- Mounted ----- */
 onMounted(async () => {
+  if(isWoocommerce.value) {
+    router.push({
+      path: routes.DASHBOARD,
+    });
+
+    return;
+  }
+
   if (!addons.value.isPayoutsModuleAvailable && isDestinationStore.value) {
     router.push({
       path: routes.DASHBOARD,
@@ -50,7 +59,11 @@ onMounted(async () => {
 
 <template>
   <!-- Page Header -->
-  <PageHeader content="Manage Payouts for fulfilled orders" title="Payouts" withActions>
+  <PageHeader title="Payouts" withActions withLink>
+    <template #header>
+      Manage Payouts for fulfilled orders <br>
+      <AppLink link="https://help.syncio.co/en/collections/3557007-payouts-shopify-only" label="Learn about Payouts" />
+    </template>
     <template #actions>
       <router-link :to="routes.PAYOUTS_SETTINGS">
         <Button label="Payouts settings" outlined></Button>

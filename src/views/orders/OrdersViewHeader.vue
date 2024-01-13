@@ -15,7 +15,7 @@ const searchHandler = async (searchText) => {
 </script>
 
 <template>
-  <div class="grid">
+  <div class="grid grid-sm">
     <div class="col-10">
       <div class="p-inputgroup w-100">
         <SearchFilter

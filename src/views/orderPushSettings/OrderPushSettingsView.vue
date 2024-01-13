@@ -80,7 +80,12 @@ const leaveCurrentPageHandler = () => {
 </script>
 
 <template>
-  <PageHeader content="Manage order push settings" title="Order Push Settings" />
+  <PageHeader title="Order Push Settings" withLink>
+    <template #header>
+      Manage order push settings <br>
+      <AppLink link="https://help.syncio.co/en/articles/4163480-orders-add-on#h_670f11544a" label="Learn about Order Push Setting" />
+    </template>
+  </PageHeader>
 
   <section>
     <TabView v-model:activeIndex="activeTabIndex" @update:activeIndex="handleTabChange" class="margin-bottom">

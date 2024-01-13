@@ -4,10 +4,14 @@ import * as routes from '@/routes';
 
 /* ----- Components ----- */
 const OrderDetails = defineAsyncComponent(() => import('./components/OrderDetails.vue'));
+const OrderPushLimitDialog = defineAsyncComponent(() => import('./components/OrderPushLimitDialog.vue'));
 
 /* ----- Data ----- */
 const {
   addons,
+  isOrderLimitReached,
+  ordersAvailableToPush,
+  shouldShowOrderPushLimitDialog,
 } = toRefs(usePlanStore());
 
 const {
@@ -99,10 +103,24 @@ const isChecked = ({ order_ref_id }) => {
 const isSelected = (row) => {
   if(orders.selectedOrders.includes(row.order_ref_id)) return 'selected';
 };
+
+const bulkPushOrdersHandler = async () => {
+  if(isOrderLimitReached.value || (selectedOrders.value.length > ordersAvailableToPush.value)) {
+    shouldShowOrderPushLimitDialog.value = true;
+    return;
+  }
+
+  await bulkPushOrders.value();
+};
 </script>
 
 <template>
-  <PageHeader content="Push your orders with synced products to connected source stores" title="Orders" withActions>
+  <PageHeader title="Orders" withActions withLink>
+    <template #header>
+      Push your orders with synced products to connected source stores. <br>
+      <AppLink link="https://help.syncio.co/en/articles/4163480-orders-add-on" label="Learn about orders" />
+    </template>
+
     <template #actions>
       <div class="flex align-items-center justify-content-between" v-if="addons.isOrderModulePaid">
         <h4 class="my-0 mr-4">
@@ -126,7 +144,7 @@ const isSelected = (row) => {
 
   <!-- Bulk Push -->
   <BulkSelectedCount v-if="!isBulkPushActive" :items="orders.selectedOrders" itemType="order">
-    <Button label="Push Selected Orders" @click="bulkPushOrders()" :loading="loadingOrders"></Button>
+    <Button label="Push Selected Orders" @click="bulkPushOrdersHandler()" :loading="loadingOrders"></Button>
   </BulkSelectedCount>
 
   <!-- Skeleton Loading -->
@@ -232,4 +250,6 @@ const isSelected = (row) => {
 
   <!-- Enable Auto Push Dialog -->
   <EnableAutoPushDialog />
+
+  <OrderPushLimitDialog v-if="shouldShowOrderPushLimitDialog" :selectedOrders="selectedOrders.length !== 0 ? selectedOrders.length : 1" />
 </template>

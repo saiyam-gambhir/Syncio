@@ -6,7 +6,12 @@ const {
 
 const {
   storeName,
-} = useConnectionsStore();
+} = toRefs(useConnectionsStore());
+
+const {
+  isOrderLimitReached,
+  shouldShowOrderPushLimitDialog,
+} = toRefs(usePlanStore());
 
 const loading = ref(false);
 const shippingCost = ref(null);
@@ -22,11 +27,6 @@ const props = defineProps({
     type: Object,
     required: true
   },
-
-  targetStoreId: {
-    type: String,
-    required: true,
-  }
 });
 
 /* ----- Emits ----- */
@@ -34,6 +34,11 @@ const emits = defineEmits(['onOrderPush']);
 
 /* ----- Methods ----- */
 const pushOrderHandler = async (targetStoreId) => {
+  if(isOrderLimitReached.value) {
+    shouldShowOrderPushLimitDialog.value = true;
+    return;
+  }
+
   loading.value = true;
   const payload = {
     orderId: props.order.syncio_order_id,
@@ -42,8 +47,8 @@ const pushOrderHandler = async (targetStoreId) => {
   };
 
   await pushOrder.value(payload);
-  loading.value = false;
   emits('onOrderPush', true);
+  loading.value = false;
 };
 </script>
 
@@ -53,8 +58,10 @@ const pushOrderHandler = async (targetStoreId) => {
       <InputNumber
         :minFractionDigits="2"
         :useGrouping="false"
+        class="pl-3"
         locale="en-US"
         placeholder="$ Enter a shipping fee"
+        prefix="$"
         v-if="!!order.customer || !!order.shipping_address"
         v-model="shippingCost">
       </InputNumber>

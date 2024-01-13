@@ -94,7 +94,7 @@ const closeDialogHandler = () => {
         <p class="mb-1">Enter the Syncio Key for the <strong>{{ partnerStoreType }}</strong> that you want to connect to below.</p>
         <p class="mt-1">Once connected you can immediately start syncing products from that store.</p>
         <InputText
-        :class="{ 'mb-3 p-invalid': uniqueKeyErrors.uniqueKey }"
+          :class="{ 'mb-3 p-invalid': uniqueKeyErrors.uniqueKey }"
           v-model="uniqueKey"
           v-bind="uniqueKeyAttrs"
           :placeholder="`Enter ${partnerStoreType} unique key`"

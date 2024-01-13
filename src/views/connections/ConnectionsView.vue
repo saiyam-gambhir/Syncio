@@ -56,10 +56,11 @@ const toggleMultilocationHandler = async event => {
 </script>
 
 <template>
-  <PageHeader
-    content="Connect and manage your stores"
-    title="Stores"
-    withActions>
+  <PageHeader title="Stores" withActions withLink>
+    <template #header>
+      Connect and manage your stores <br>
+      <AppLink link="https://help.syncio.co/en/articles/5596700-connecting-to-a-store" label="Learn about connecting to a store" />
+    </template>
     <template #actions>
       <div v-if="isDestinationStore && isShopify" class="flex align-items-center justify-content-between">
         <h4 class="my-0 mr-4">

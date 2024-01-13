@@ -17,6 +17,7 @@ export const usePlanStore = defineStore('plan', {
       selectedAddonIds: null,
       selectedPlan: null,
       shouldShowAddonsDowngradeDialog: false,
+      shouldShowOrderPushLimitDialog: false,
       showProductSyncLimitDialog: false,
     };
   },
@@ -36,6 +37,25 @@ export const usePlanStore = defineStore('plan', {
 
     ordersPushLimit() {
       return this.activeAddons?.order?.usage_count_limit;
+    },
+
+    ordersAvailableToPush() {
+      const limit = +this.ordersPushLimit - +this.ordersPushed;
+      return limit > -1 ? limit : 0;
+    },
+
+    isOrderLimitReached({ plan }) {
+      if(plan) {
+        let ordersPlan = plan.active_addons.filter(plan => plan.name === 'Orders')[0]
+        return ordersPlan && ((+ordersPlan.current_usage >= +ordersPlan.usage_count_limit) && ordersPlan.usage_count_limit !== -1);
+      }
+    },
+
+    isPayoutsLimitReached({ plan }) {
+      if(plan) {
+        let payoutsPlan = plan.active_addons.filter(plan => plan.name === 'Payouts')[0]
+        return payoutsPlan && ((+payoutsPlan.current_usage >= +payoutsPlan.usage_count_limit) && payoutsPlan.usage_count_limit !== -1);
+      }
     },
 
     payoutsProcessed() {

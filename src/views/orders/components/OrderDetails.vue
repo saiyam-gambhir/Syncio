@@ -181,7 +181,6 @@ const getPushedDate = (date) => {
                 <!-- If order is pushed -->
                 <template v-if="store.push_status === 'pushed'">
                   <Tag severity="success" :value="store.push_status" rounded />
-                  <!-- TODO: Change date format from BE -->
                   <p class="mb-0 mt-3 font-semi" v-if="store.pushed_at">On {{ getPushedDate(store.pushed_at) }} (AEST)</p>
                 </template>
 
