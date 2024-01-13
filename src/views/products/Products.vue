@@ -38,7 +38,7 @@ const {
   fetchCurrentPlan,
   productsSynced,
   productsSyncedLimit,
-  showProductSyncLimitDialog,
+  shouldShowProductSyncLimitDialog,
 } = toRefs(usePlanStore());
 
 const statusOptionsTag = {
@@ -53,7 +53,7 @@ const statusOptionsTag = {
 /* ----- Methods ----- */
 const syncProductHandler = async (product) => {
   if(productsSynced.value >= productsSyncedLimit.value) {
-    showProductSyncLimitDialog.value = true;
+    shouldShowProductSyncLimitDialog.value = true;
     return;
   }
 
@@ -143,13 +143,13 @@ const viewSyncHander = (product) => {
       v-if="isDestinationStore">
     </Column>
 
-    <Column header="Product" style="width: 36%;">
+    <Column header="Product" style="width: 36%; max-width: 36%;">
       <template #body="{ data: { default_image_url, external_product_id, product_status, store_id, title } }">
         <div class="flex align-items-center pointer btn-link-parent" @click.prevent="fetchProductDetails({ externalProductId: external_product_id, targetStoreId: store_id }, true)">
           <figure class="m-0" style="width: 42px; height: 42px; padding: 4px; border: 1px solid rgb(231, 231, 231); flex-shrink: 0;">
             <div class="w-full h-full" style="background-size: contain; background-repeat: no-repeat; background-position: center;" :style="{ backgroundImage: `url(${default_image_url})` }"></div>
           </figure>
-          <div class="flex flex-column ml-3 pointer btn-link text-blue-500 truncate-text">
+          <div class="btn-link text-blue-500 truncate-btn ml-3 pointer ">
             {{ title }}
           </div>
         </div>
@@ -281,5 +281,5 @@ const viewSyncHander = (product) => {
     </Column>
   </DataTable>
 
-  <ProductSyncLimitDialog v-if="showProductSyncLimitDialog" :selectedProducts="1" />
+  <ProductSyncLimitDialog v-if="shouldShowProductSyncLimitDialog" :selectedProducts="1" />
 </template>

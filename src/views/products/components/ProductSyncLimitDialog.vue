@@ -5,7 +5,7 @@ import * as routes from '@/routes';
 const {
   productsSynced,
   productsSyncedLimit,
-  showProductSyncLimitDialog,
+  shouldShowProductSyncLimitDialog,
 } = toRefs(usePlanStore());
 
 /* ----- Props ----- */
@@ -18,12 +18,12 @@ const props = defineProps({
 
 /* ----- Methods ----- */
 const closeDialogHandler = () => {
-  showProductSyncLimitDialog.value = false;
+  shouldShowProductSyncLimitDialog.value = false;
 };
 </script>
 
 <template>
-  <DialogWrapper :isVisible="showProductSyncLimitDialog" title="Selection exceeds your plan limit" width="550px" @closeDialog="closeDialogHandler">
+  <DialogWrapper :isVisible="shouldShowProductSyncLimitDialog" title="Selection exceeds your plan limit" width="550px" @closeDialog="closeDialogHandler">
     <template #body>
       <p class="text-xl m-0 pb-3 line-height-3">
         Your are trying to sync <span class="font-bold">{{ selectedProducts }}</span> {{ selectedProducts > 1 ? 'products' : 'product' }}. You can sync <span class="font-bold">{{ productsSyncedLimit - productsSynced }}</span> more products within your plan limit.

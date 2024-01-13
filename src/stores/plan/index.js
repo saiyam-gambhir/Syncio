@@ -18,7 +18,8 @@ export const usePlanStore = defineStore('plan', {
       selectedPlan: null,
       shouldShowAddonsDowngradeDialog: false,
       shouldShowOrderPushLimitDialog: false,
-      showProductSyncLimitDialog: false,
+      shouldShowPayoutsLimitDialog: false,
+      shouldShowProductSyncLimitDialog: false,
     };
   },
 
@@ -49,6 +50,11 @@ export const usePlanStore = defineStore('plan', {
         let ordersPlan = plan.active_addons.filter(plan => plan.name === 'Orders')[0]
         return ordersPlan && ((+ordersPlan.current_usage >= +ordersPlan.usage_count_limit) && ordersPlan.usage_count_limit !== -1);
       }
+    },
+
+    payoutsAvailableToProcess() {
+      const limit = +this.payoutsProcessLimit - +this.payoutsProcessed;
+      return limit > -1 ? limit : 0;
     },
 
     isPayoutsLimitReached({ plan }) {

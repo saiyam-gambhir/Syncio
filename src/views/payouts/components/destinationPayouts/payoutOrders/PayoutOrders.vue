@@ -38,7 +38,6 @@ const selectedPayoutsDetails = computed(() => {
   }, initialValues);
 });
 
-
 /* ----- Methods ----- */
 const updateCurrentPageHandler = (page) => {};
 

@@ -7,6 +7,7 @@ const Open = defineAsyncComponent(() => import('./components/sourcePayouts/open/
 const Paid = defineAsyncComponent(() => import('./components/destinationPayouts/paid/Paid.vue'));
 const PayableOrders = defineAsyncComponent(() => import('./components/destinationPayouts/payableOrders/PayableOrders.vue'));
 const Payout = defineAsyncComponent(() => import('./components/payout/Payout.vue'));
+const PayoutsLimitDialog = defineAsyncComponent(() => import('./components/PayoutsLimitDialog.vue'));
 const Unpaid = defineAsyncComponent(() => import('./components/destinationPayouts/unpaid/Unpaid.vue'));
 
 /* ----- Data ----- */
@@ -25,7 +26,8 @@ const {
 } = toRefs(usePayoutsStore());
 
 const {
-  addons
+  addons,
+  shouldShowPayoutsLimitDialog,
 } = toRefs(usePlanStore());
 
 const {
@@ -40,7 +42,6 @@ onMounted(async () => {
     router.push({
       path: routes.DASHBOARD,
     });
-
     return;
   }
 
@@ -49,11 +50,16 @@ onMounted(async () => {
       path: routes.DASHBOARD,
       query: { showUpgrade: 'true', type: 'payouts' },
     });
-
     return;
   }
 
   if (connections.value?.length === 0) await fetchConnections.value();
+});
+
+/* ----- Before Route Leave ----- */
+onBeforeRouteLeave((to, from, next) => {
+  shouldShowPayoutsLimitDialog.value = false;
+  next();
 });
 </script>
 
@@ -104,4 +110,7 @@ onMounted(async () => {
 
   <!-- Payout -->
   <Payout v-if="isViewPayoutDetailsRequested" :payout="payout" />
+
+  <!----- Limit Dialog ----->
+  <PayoutsLimitDialog v-if="shouldShowPayoutsLimitDialog" />
 </template>

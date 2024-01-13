@@ -55,6 +55,12 @@ onMounted(async () => {
   setAutoPushStatus();
 });
 
+/* ----- Before Route Leave ----- */
+onBeforeRouteLeave((to, from, next) => {
+  isViewOrderDetailsRequested.value = shouldShowOrderPushLimitDialog.value = false;
+  next();
+});
+
 /* ----- Methods ----- */
 const getOrderPushStatus = (order_ref_id, pushStatus) => {
   const _selectedOrders = selectedOrders.value;

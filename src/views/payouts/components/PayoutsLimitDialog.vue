@@ -3,13 +3,12 @@ import * as routes from '@/routes';
 
 /* ----- Data ----- */
 const {
-  ordersAvailableToPush,
-  shouldShowOrderPushLimitDialog,
+  shouldShowPayoutsLimitDialog,
 } = toRefs(usePlanStore());
 
 /* ----- Props ----- */
 const props = defineProps({
-  selectedOrders: {
+  selectedPayouts: {
     required: true,
     type: String,
   }
@@ -17,19 +16,18 @@ const props = defineProps({
 
 /* ----- Methods ----- */
 const closeDialogHandler = () => {
-  shouldShowOrderPushLimitDialog.value = false;
+  shouldShowPayoutsLimitDialog.value = false;
 };
 </script>
 
 <template>
-  <DialogWrapper :isVisible="shouldShowOrderPushLimitDialog" title="Selection exceeds your plan limit" width="550px" @closeDialog="closeDialogHandler">
+  <DialogWrapper :isVisible="shouldShowPayoutsLimitDialog" title="Selection exceeds your plan limit" width="550px" @closeDialog="closeDialogHandler">
     <template #body>
       <p class="text-xl m-0 pb-3 line-height-3">
-        Your are trying to push <span class="font-bold">{{ selectedOrders }}</span> {{ selectedOrders > 1 ? 'orders' : 'order' }}. You can push <span class="font-bold">{{ ordersAvailableToPush }}</span> more orders within your plan limit.
+        You can't create any more Payouts, as you've reached your plan limit.
       </p>
       <p class="text-lg mb-0 line-height-3">
-        Upgrade your Orders add-on to Pro to push the selected orders. <br>
-        Your current limit of 5 renews on 1st of next month.
+        Upgrade your Payouts add-on to Pro to create more payouts. <br> Your current limit of 5 renews on 1st of next month.
       </p>
     </template>
 

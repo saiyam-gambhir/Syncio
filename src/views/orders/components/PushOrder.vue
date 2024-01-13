@@ -56,12 +56,10 @@ const pushOrderHandler = async (targetStoreId) => {
   <div>
     <template v-if="store.push_status !== 'pushed' && store.push_status !== 'blocked' && order.push_status !== 'invalid' && !store.is_mapper_deleted && !store.store_disconnected">
       <InputNumber
-        :minFractionDigits="2"
+        :maxFractionDigits="2"
         :useGrouping="false"
-        class="pl-3"
-        locale="en-US"
         placeholder="$ Enter a shipping fee"
-        prefix="$"
+        prefix="$ "
         v-if="!!order.customer || !!order.shipping_address"
         v-model="shippingCost">
       </InputNumber>

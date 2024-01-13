@@ -1,11 +1,17 @@
 export function usePayouts() {
   const payouts = usePayoutsStore();
+  const plan = usePlanStore();
 
   const fetchPayoutPreviewHandler = async (order = null) => {
+    if(plan.isPayoutsLimitReached || (payouts.selectedPayoutOrders.length > plan.payoutsAvailableToProcess)) {
+      plan.shouldShowPayoutsLimitDialog = true;
+      return;
+    }
+
     let selectedPayoutOrders = [];
 
     if(order) {
-      payouts.selectedPayoutOrders.push(order)
+      payouts.selectedPayoutOrders.push(order);
     }
 
     selectedPayoutOrders = payouts.selectedPayoutOrders.map(order => order.order_id);
