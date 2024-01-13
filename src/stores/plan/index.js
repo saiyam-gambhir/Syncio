@@ -52,11 +52,6 @@ export const usePlanStore = defineStore('plan', {
       }
     },
 
-    payoutsAvailableToProcess() {
-      const limit = +this.payoutsProcessLimit - +this.payoutsProcessed;
-      return limit > -1 ? limit : 0;
-    },
-
     isPayoutsLimitReached({ plan }) {
       if(plan) {
         let payoutsPlan = plan.active_addons.filter(plan => plan.name === 'Payouts')[0]

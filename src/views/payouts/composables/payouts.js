@@ -3,7 +3,7 @@ export function usePayouts() {
   const plan = usePlanStore();
 
   const fetchPayoutPreviewHandler = async (order = null) => {
-    if(plan.isPayoutsLimitReached || (payouts.selectedPayoutOrders.length > plan.payoutsAvailableToProcess)) {
+    if(plan.isPayoutsLimitReached) {
       plan.shouldShowPayoutsLimitDialog = true;
       return;
     }
