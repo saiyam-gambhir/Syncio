@@ -45,7 +45,7 @@ const fetchPlansHandler = async () => {
 </script>
 
 <template>
-  <PageHeader content="Upgrade or downgrade anytime. <a href='#' class='btn-link'>Contact us</a> for help" title="Plan and Billings" />
+  <PageHeader content="Upgrade or downgrade anytime. <a href='javascript:void(0);' class='intercom-custom-launcher btn-link'>Contact us</a> for help" title="Plan and Billings" />
 
   <PlanAndBillingsSkeleton v-if="loadingPlans" />
 
