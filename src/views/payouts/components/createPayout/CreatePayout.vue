@@ -9,6 +9,7 @@ const {
 
 const {
   createPayoutHandler,
+  scrollToOrdersSection,
 } = usePayouts();
 
 const {
@@ -138,7 +139,7 @@ const getFinalPayoutValue = () => {
                             Commission
                           </td>
                           <td role="cell" data-pc-section="bodycell" data-pc-name="bodycell" data-p-selection-column="false" data-p-editable-column="false" data-p-cell-editing="false" style="padding: 1rem 0.75rem !important;">
-                            <a href="#" class="btn-link font-normal inline-block">
+                            <a href="#" class="btn-link font-normal inline-block" @click="scrollToOrdersSection">
                               See orders invoiced
                             </a>
                           </td>

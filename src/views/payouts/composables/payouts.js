@@ -90,6 +90,11 @@ export function usePayouts() {
     }
   };
 
+  const scrollToOrdersSection = () => {
+    const invoicedOrders = document.querySelector('[data-section="invoiced-orders"]')
+    invoicedOrders.scrollIntoView({ behavior: 'smooth' })
+  };
+
   return {
     createPayoutHandler,
     fetchPaidPayoutsHandler,
@@ -102,6 +107,7 @@ export function usePayouts() {
     fetchUnpaidPayoutsHandler,
     handleTabChange,
     payouts,
+    scrollToOrdersSection,
     updatePayoutHandler,
   };
 }

@@ -5,6 +5,7 @@ import * as routes from '@/routes';
 const {
   isDestinationStore,
   isShopify,
+  isWoocommerce,
 } = toRefs(useConnectionsStore());
 </script>
 
@@ -26,6 +27,7 @@ const {
 
         <Setting
           :href="routes.PLAN_AND_BILLINGS"
+          :isWoo="isWoocommerce"
           description="Manage and upgrade your base plan and add-ons"
           icon="pi-credit-card"
           title="Plan and billing"

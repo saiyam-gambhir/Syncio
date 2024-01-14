@@ -12,13 +12,14 @@ const {
 
 const {
   isSourceStore,
+  isWoocommerce,
 } = toRefs(useConnectionsStore());
 
 const router = useRouter();
 
 /* ----- Mounted ----- */
 onMounted(async () => {
-  if (isSourceStore.value) {
+  if (isSourceStore.value || isWoocommerce.value) {
     router.push({
       path: routes.DASHBOARD,
     });

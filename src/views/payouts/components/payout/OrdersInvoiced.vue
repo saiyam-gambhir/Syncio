@@ -49,7 +49,7 @@ const fetchOrderHandler = async orderId => {
 </script>
 
 <template>
-  <CardWrapper class="mt-5">
+  <CardWrapper class="mt-5" data-section="invoiced-orders">
     <template #content>
       <h1 class="mb-0">Orders Invoiced</h1>
       <h3 class="mb-0 mt-2 font-normal">{{ totalProductsInAllOrders }} products from {{ orders?.length }} orders</h3>
@@ -147,7 +147,7 @@ const fetchOrderHandler = async orderId => {
               <template #body="{ data: { commission, commission_type, commission_value } }">
                 <span class="tabular-nums display-commission">
                   + {{ formatCommission(commission_type, commission) }}
-                  <span class="ml-1">({{ formatCurrency(commission_value) }})</span>
+                  <span class="ml-1">({{ formatCommission(commission_type, commission_value) }})</span>
                 </span>
               </template>
             </Column>

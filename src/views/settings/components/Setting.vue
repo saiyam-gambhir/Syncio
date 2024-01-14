@@ -20,7 +20,16 @@ const props = defineProps({
     type: String,
     required: true,
   },
+
+  isWoo: {
+    type: Boolean,
+    default: false
+  }
 });
+
+const {
+  wooPlanSelectionLink,
+} = toRefs(usePlanStore());
 </script>
 
 <template>
@@ -37,10 +46,17 @@ const props = defineProps({
       </div>
 
       <div class="px-4 py-3 text-right border-top-1 surface-border">
-        <router-link :to="href">
+        <router-link :to="href" v-if="!isWoo">
           <Button label="Manage" outlined></Button>
         </router-link>
+        <a v-if="isWoo" :href="wooPlanSelectionLink" class="p-button p-button-outlined font-semibold">Manage</a>
       </div>
     </div>
   </div>
 </template>
+
+<style scoped>
+.p-button-outlined:hover {
+  background: rgba(14,59,77,.04);
+}
+</style>
