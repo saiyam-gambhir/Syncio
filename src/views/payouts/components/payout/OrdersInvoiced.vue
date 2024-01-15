@@ -88,9 +88,9 @@ const fetchOrderHandler = async orderId => {
         </Column>
 
         <Column header="Commission" style="width: 20%">
-          <template #body="{ data: { commission, commission_type } }">
+          <template #body="{ data: { commission } }">
             <span class="tabular-nums display-commission">
-              + {{ formatCommission(commission_type, commission) }}
+              + {{ formatCurrency(commission) }}
             </span>
           </template>
         </Column>
@@ -146,7 +146,7 @@ const fetchOrderHandler = async orderId => {
             <Column header="Commission" style="width: 20%">
               <template #body="{ data: { commission, commission_type, commission_value } }">
                 <span class="tabular-nums display-commission">
-                  + {{ formatCommission(commission_type, commission) }}
+                  + {{ formatCurrency(commission) }}
                   <span class="ml-1">({{ formatCommission(commission_type, commission_value) }})</span>
                 </span>
               </template>

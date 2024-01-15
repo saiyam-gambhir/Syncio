@@ -39,6 +39,9 @@ const selectedPayoutsDetails = computed(() => {
 });
 
 /* ----- Methods ----- */
+/**
+ * Todo: Fix pagination
+*/
 const updateCurrentPageHandler = (page) => {};
 
 const clearSelectionHandler = () => {
