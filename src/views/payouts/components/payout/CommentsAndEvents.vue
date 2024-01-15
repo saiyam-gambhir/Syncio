@@ -7,12 +7,22 @@ const {
 const {
   formatDate,
 } = useFilters();
+
+/* ----- Props ----- */
+const props = defineProps({
+  payout: {
+    type: Object,
+    default: {},
+  },
+});
 </script>
 
 <template>
   <CardWrapper class="mt-5">
     <template #content>
       <h1 class="mb-0">Comments and events</h1>
+
+      <Comment :payoutId="payout.id" />
 
       <DataTable :value="payoutEvents.data" responsiveLayout="scroll" showGridlines class="mt-5">
 

@@ -85,8 +85,9 @@ const updateCurrentPageHandler = page => {
         <Button
           @click="fetchPayoutHandler(payout_id, target_store_id)"
           class="p-button-sm ml-2"
-          label="Manage payout"
-          outlined>
+          :label="status === 'payment_confirmed' ? 'View payout' : 'Manage payout'"
+          outlined
+          style="width: 117px;">
         </Button>
       </template>
     </Column>

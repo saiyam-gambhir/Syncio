@@ -1,6 +1,7 @@
 import deepmerge from 'deepmerge';
 
 /* ----- Actions ----- */
+import { addComment } from './actions/addComment';
 import { confirmPayout } from './actions/confirmPayout';
 import { createPayout } from './actions/createPayout';
 import { deletePayout } from './actions/deletePayout';
@@ -24,6 +25,7 @@ export const usePayoutsStore = defineStore('payouts', {
       isCreatePayoutDetailsRequested: false,
       isViewPayoutDetailsRequested: false,
       limiter: 10,
+      loadingComment: false,
       loadingCreatePayout: false,
       loadingDeletePayout: false,
       loadingPayout: false,
@@ -76,6 +78,7 @@ export const usePayoutsStore = defineStore('payouts', {
   },
 
   actions: deepmerge.all([
+    addComment,
     confirmPayout,
     createPayout,
     deletePayout,

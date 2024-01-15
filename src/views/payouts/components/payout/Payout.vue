@@ -51,7 +51,7 @@ const printHandler = () => {
       <div class="col-12 md:col-12" v-if="payout">
         <PayoutDetails :payout="payout" />
         <OrdersInvoiced :orders="payout.data" />
-        <CommentsAndEvents />
+        <CommentsAndEvents :payout="payout" />
       </div>
     </div>
   </Sidebar>
