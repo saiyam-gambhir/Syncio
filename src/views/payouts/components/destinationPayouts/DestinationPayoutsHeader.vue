@@ -130,7 +130,7 @@ const searchHandler = async (searchText) => {
 
 <template>
   <div class="grid grid-sm">
-    <div class="col col-3 pb-0" v-if="arePayableOrdersVisible">
+    <div class="col col-3 pb-0" v-if="arePayableOrdersVisible || activeTabIndex === 1 || activeTabIndex === 2">
       <div class="p-inputgroup">
         <StoresFilter
           :loading="isLoading"
@@ -140,7 +140,7 @@ const searchHandler = async (searchText) => {
       </div>
     </div>
 
-    <div class="col-4 pb-0" v-if="!arePayableOrdersVisible">
+    <div class="col-4 pb-0" v-if="!arePayableOrdersVisible && activeTabIndex === 0">
       <div class="p-inputgroup w-100">
         <SearchFilter
           :loading="payoutOrders.loading"
