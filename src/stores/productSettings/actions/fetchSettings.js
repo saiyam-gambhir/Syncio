@@ -6,7 +6,7 @@ export const fetchSettings = {
   },
 
   checkExistingSettings(destinationProductSettings, sourceProductSettings) {
-    return (destinationProductSettings.length > 0 || sourceProductSettings.length > 0);
+    return (destinationProductSettings?.length > 0 || sourceProductSettings?.length > 0);
   },
 
   async fetchSettings() {

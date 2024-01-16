@@ -1,6 +1,5 @@
 <script setup>
 import * as routes from '@/routes';
-import { onMounted } from 'vue';
 
 /* ----- Components ----- */
 const SyncedStockDialog = defineAsyncComponent(() => import('./SyncedStockDialog.vue'));
@@ -28,6 +27,11 @@ const {
 
 const quantity = ref(null);
 
+/* ----- Mounted ----- */
+onMounted(() => {
+  quantity.value = safetyNetQuantity.value;
+});
+
 /* ----- Methods ----- */
 const changeSwitchHandler = (setting) => {
   if (setting.key === 'inventory_safety_net_sync') {
@@ -49,10 +53,6 @@ watch(safetyNetQuantity, (newValue, oldValue) => {
   settingsUpdated.value = newValue && newValue !== quantity.value;
   isSafetyNetModified.value = newValue !== quantity.value;
 }, { deep: true });
-
-onMounted(() => {
-  quantity.value = safetyNetQuantity.value;
-})
 </script>
 
 <template>
@@ -131,12 +131,17 @@ onMounted(() => {
       <div class="col-5">
         <ul class="list-none p-0 m-0">
           <li v-for="setting in sourceVariantSettings" :key="setting.key" class="py-5 border-bottom-1 surface-border">
-            <div class="flex align-items-center justify-content-between w-full">
+            <div class="flex justify-content-between w-full">
               <div class="w-85">
                 <p class="m-0 font-semibold text-lg">
                   {{ setting.label }}
+                  <div class="mt-4" v-if="setting.key === 'inventory_safety_net_sync' && setting.is_active">
+                    <InputText placeholder="Enter quantity" v-model="safetyNetQuantity" class="w-75" />
+                    <p class="font-normal text-sm m-0 mt-2">Quantity entered will be removed from stock made available to connected Destination stores.</p>
+                    <p class="font-normal text-sm m-0">Changes usually take effect within 24 hours.</p>
+                  </div>
                 </p>
-                <div v-if="setting.key === 'inventory_safety_net_sync'" class="mt-2 mb-0 text-lg">
+                <div v-if="setting.key === 'inventory_safety_net_sync'" class="mt-3 mb-0 text-lg">
                   <p>
                     Note: Synced Stock Buffer will only apply to Shopify connections.
                   </p>
@@ -156,14 +161,8 @@ onMounted(() => {
                   </p>
                 </div>
               </div>
-              <div class="col-4">
+              <div class="col-4 text-right">
                 <InputSwitch @change="changeSwitchHandler(setting)" v-model="setting.is_active" />
-                <div class="mt-4" v-if="setting.key === 'inventory_safety_net_sync' && setting.is_active">
-                  <InputText placeholder="Enter quantity" v-model="safetyNetQuantity">
-                  </InputText>
-                  <p>Quantity entered will be removed from stock made available to connected Destination stores.</p>
-                  <p>Changes usually take effect within 24 hours.</p>
-                </div>
               </div>
             </div>
           </li>
@@ -171,5 +170,7 @@ onMounted(() => {
       </div>
     </div>
   </section>
+
+  <!----- Safety Net ----->
   <SyncedStockDialog v-if="isSyncedStockDialogVisible" />
 </template>

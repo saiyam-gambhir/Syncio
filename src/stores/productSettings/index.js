@@ -2,8 +2,8 @@ import deepmerge from 'deepmerge';
 
 /* ----- Actions ----- */
 import { fetchSettings } from './actions/fetchSettings';
-import { updateSettings } from './actions/updateSettings';
 import { updateSafetyNet } from './actions/updateSafetyNet';
+import { updateSettings } from './actions/updateSettings';
 
 export const useProductSettingsStore = defineStore('productSettings', {
   state: () => {

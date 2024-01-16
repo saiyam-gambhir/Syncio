@@ -4,13 +4,13 @@ export const updateSafetyNet = {
       this.loading = true;
 
       const {
-          storeId,
-        } = useConnectionsStore();
+        storeId,
+      } = useConnectionsStore();
 
       const params = {
         value: payload
       };
-      
+
       await axiosService.postData(`/stores/${storeId}/inventory-safety-net-add`, params);
     } catch (error) {
       throw new Error(error);
@@ -19,4 +19,3 @@ export const updateSafetyNet = {
     }
   },
 };
-  

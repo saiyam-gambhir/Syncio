@@ -1,5 +1,4 @@
 <script setup>
-import { onBeforeRouteLeave, useRouter } from 'vue-router';
 import * as routes from '@/routes';
 
 /* ----- Components ----- */
@@ -58,6 +57,7 @@ onMounted(async () => {
   await fetchSettings.value();
 });
 
+/* ----- Before Route Leave ----- */
 onBeforeRouteLeave((to, from, next) => {
   if(settingsUpdated.value && !forceLeavingPage.value) {
     showLeavingPageDialog.value = true;
@@ -129,7 +129,7 @@ const updateSettingsHandler = async () => {
   } else { // Source store
     await updateSourceStoreSettings(isSafetyNetActive, configurations);
   }
-  
+
   await fetchSettings.value();
   resetLeavePageConfigs();
 };
