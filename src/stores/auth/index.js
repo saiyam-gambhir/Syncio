@@ -6,6 +6,7 @@ import { forgotPassword } from './actions/forgotPassword';
 import { login } from './actions/login';
 import { registerUser } from './actions/registerUser';
 import { registerWooStore } from './actions/registerWooStore';
+import { resetPassword } from './actions/resetPassword';
 import { saveShopifyToken } from './actions/saveShopifyToken';
 import { shopifyLogin } from './actions/shopifyLogin';
 import { updateStoreType } from './actions/updateStoreType';
@@ -40,14 +41,7 @@ export const useAuthStore = defineStore('auth', {
       registrationForm: {
         loading: false,
       },
-      resetPasswordForm: {
-        email: '',
-        loading: false,
-        password: '',
-        passwordConfirmation: '',
-        submitted: false,
-        token: '',
-      },
+      loadingResetPassword: false,
       showLeavingPageDialog: false,
       timeZone: 'Australia/Melbourne',
       timeZones: [
@@ -85,6 +79,7 @@ export const useAuthStore = defineStore('auth', {
     login,
     registerUser,
     registerWooStore,
+    resetPassword,
     saveShopifyToken,
     shopifyLogin,
     updateStoreType,

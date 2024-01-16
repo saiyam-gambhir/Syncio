@@ -22,12 +22,7 @@ const loginHandler = () => {
 };
 
 const shopifyLoginHandler = async () => {
-  //await shopifyLogin.value('shopify', 'alpha-jimmy.myshopify.com');
-  //await shopifyLogin.value('shopify', 'test-saiyam-destination.myshopify.com');
-  //await shopifyLogin.value('shopify', 'zac-destination-3.myshopify.com'); // Navbar add-ons dialogs
-  //await shopifyLogin.value('shopify', 'dev-destination-1.myshopify.com'); // Update add-on plan dialogs
-  const response = await shopifyLogin.value('shopify', shopifyStore.value);
-  //await shopifyLogin.value('shopify', 'test-nainesh-source-2.myshopify.com');
+  await shopifyLogin.value('shopify', shopifyStore.value);
 };
 </script>
 
@@ -44,9 +39,12 @@ const shopifyLoginHandler = async () => {
           <img src="@/assets/images/wo-logo-sm.png" alt="shopify logo" class="mr-2" />
           <span class="ml-2">WooCommerce</span>
         </Button>
+
         <Button class="ml-2 w-6 font-bold border-1 surface-border surface-0 p-button-lg p-component text-600 inline-flex align-items-center justify-content-center">
-          <img src="@/assets/images/shopify-logo-sm.png" alt="shopify logo" class="mr-2" />
-          <span class="ml-2">Shopify</span>
+          <a href="https://apps.shopify.com/syncio" class="text-900 flex align-items-center">
+            <img src="@/assets/images/shopify-logo-sm.png" alt="shopify logo" class="mr-2" />
+            <span class="ml-2">Shopify</span>
+          </a>
         </Button>
       </div>
 
