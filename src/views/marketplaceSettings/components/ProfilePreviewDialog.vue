@@ -33,17 +33,17 @@ const closeDialogHandler = () => {
         <div class="col col-6">
           <div class="marketplace">
             <div class="border-round shadow-2 surface-0 surface-border profiles">
-              <div v-if="profile.cocoProfileImages.length === 0" class="profile__image">
+              <div v-if="profile?.cocoProfileImages?.length === 0 || !profile.cocoProfileImages" class="profile__image">
                 <div class="image no-profile-image"></div>
               </div>
               <Carousel
                 :numScroll="1"
                 :numVisible="1"
-                :showIndicators="profile.cocoProfileImages.length > 1"
-                :showNavigators="profile.cocoProfileImages.length > 1"
+                :showIndicators="profile?.cocoProfileImages?.length > 1"
+                :showNavigators="profile?.cocoProfileImages?.length > 1"
                 :value="profile.cocoProfileImages"
                 circular
-                v-else>
+                v-else-if="profile?.cocoProfileImages?.length > 0">
                 <template #previousicon>
                   <IconPrevious />
                 </template>
@@ -71,7 +71,7 @@ const closeDialogHandler = () => {
                   <a v-if="profile.shippingPolicyUrl" :href="profile.shippingPolicyUrl" class="btn-link"> (Policy)</a>
                   <span v-else-if="!profile.shippingPolicyUrl && isSourceStore" class="text-sm"> (Request policy)</span>
                 </p>
-                <p class="mb-0 m-0 mt-2">
+                <p class="mb-0 m-0 mt-2" v-if="profile.numOfProducts">
                   <span class="text-sm mr-1">Published products</span>
                   <strong class="font-semibold primary-color">{{ profile.numOfProducts }}</strong>
                 </p>
