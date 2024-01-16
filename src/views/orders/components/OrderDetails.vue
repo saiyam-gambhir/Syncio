@@ -172,6 +172,7 @@ const getPushedDate = (date) => {
               <div class="text-right">
 
                 <!----- Push Order ----->
+
                 <PushOrder :store="store" :order="order" @onOrderPush="onOrderPushHandler" />
 
                 <template v-if="store.push_status === 'failed' && !store.is_mapper_deleted">
@@ -206,6 +207,8 @@ const getPushedDate = (date) => {
                 </template>
               </div>
             </div>
+
+            <TrackingNumbers :storeOrder="store" />
 
             <Divider />
 
