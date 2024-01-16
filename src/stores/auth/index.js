@@ -49,7 +49,7 @@ export const useAuthStore = defineStore('auth', {
         token: '',
       },
       showLeavingPageDialog: false,
-      timeZone: 'America/Los_Angeles',
+      timeZone: 'Australia/Melbourne',
       timeZones: [
         'America/Los_Angeles',
         'America/New_York',

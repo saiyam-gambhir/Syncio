@@ -27,20 +27,20 @@ const disableMultilocationHandler = async () => {
     width="550px"
     @closeDialog="closeDialogHandler">
     <template #body>
-      <section class="mt-1">
-        <p class="mt-0">Are you sure you want to disable multilocation for</p>
+      <section class="mt-1 text-center">
+        <p class="mt-0 mb-4 text-lg">Are you sure you want to disable multilocation for</p>
         <p class="mt-0">
-          <span class="text-danger font-semibold">
-            {{ storeName }}
-          </span>
+          <Tag severity="danger" :value="storeName" style="text-transform: none !important; font-size: 1rem !important;"></Tag>
         </p>
-        <p class="mt-2 mb-1">All settings will be removed.</p>
+        <p class="text-lg mt-4 mb-1">All settings will be removed.</p>
       </section>
     </template>
 
     <template #footer>
-      <Button label="Cancel" class="p-button-secondary ml-1" @click="closeDialogHandler"></Button>
-      <Button label="Disable" class="mr-1" @click="disableMultilocationHandler" :loading="loadingConnections"></Button>
+      <div class="flex align-items-center justify-content-between">
+        <Button label="Cancel" class="p-button-secondary ml-1" @click="closeDialogHandler"></Button>
+        <Button label="Disable" class="mr-1" @click="disableMultilocationHandler" :loading="loadingConnections"></Button>
+      </div>
     </template>
   </DialogWrapper>
 </template>

@@ -34,7 +34,22 @@ const fetchProductsHandler = async (store) => {
   selectedStoreId.value = store.id;
   await router.push({ name: routes.PRODUCTS });
   await fetchProducts.value();
-}
+};
+
+const getStatus = (connection) => {
+  let itemStatus = "";
+  const { destination_default_inventory_location, source_default_inventory_location, status } = connection;
+
+  if((status === 'active' || status === 'Active')) {
+    itemStatus = 'active';
+  } else if(status === 'pending' && destination_default_inventory_location !== null && source_default_inventory_location === null && isMultilocation.value) {
+    itemStatus = 'pending-with-no-source';
+  } else if(status === 'pending')  {
+    itemStatus = 'pending';
+  }
+
+  return itemStatus;
+};
 </script>
 
 <template>
@@ -69,8 +84,14 @@ const fetchProductsHandler = async (store) => {
       <template #body="{ data: connection }">
         <Tag :severity="getStoreStatus(connection.status)" rounded>
           <StatusIcon />
-          {{ connection.status }}
+          <template v-if="getStatus(connection) === 'active'">
+            Active
+          </template>
+          <template v-if="getStatus(connection) === 'pending' || getStatus(connection) === 'pending-with-no-source'">
+            Pending
+          </template>
         </Tag>
+        <i v-if="getStatus(connection) === 'pending-with-no-source'" style="transform: translateY(4px);" class="pi pi-info-circle ml-2 text-xl pointer" v-tooltip.top="'Source store has no location set'"></i>
       </template>
     </Column>
 

@@ -66,6 +66,7 @@ const updateInventoryHandler = async inventoryId => {
     :options="destinationLocations"
     @change="updateInventoryHandler"
     class="w-full"
+    :class="{ 'p-invalid' : connection.status === 'pending' }"
     optionLabel="name"
     optionValue="id"
     placeholder="Select Location"
