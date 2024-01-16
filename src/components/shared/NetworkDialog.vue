@@ -23,7 +23,7 @@ const closeDialogHandler = () => {
         <i class="pi pi-exclamation-triangle text-primary text-6xl mb-4" style="color: #d9342b !important"></i>
         <h1 class="text-primary mt-2">You are not connected to the internet</h1>
         <p class="text-xl line-height-3 mb-6">
-          Reload to check your connection status <br />
+          Please reload to check your connection status <br />
           or come back after sometime.
         </p>
       </div>

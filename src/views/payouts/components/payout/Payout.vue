@@ -15,7 +15,7 @@ const props = defineProps({
 /* ----- Methods ----- */
 const printHandler = () => {
   window.print();
-}
+};
 </script>
 
 <template>

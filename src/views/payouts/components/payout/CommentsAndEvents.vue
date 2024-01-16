@@ -1,7 +1,9 @@
 <script setup>
 /* ----- Data ----- */
 const {
+  fetchPayoutEvents,
   payoutEvents,
+  loadingPayoutEvents,
 } = toRefs(usePayoutsStore());
 
 const {
@@ -15,6 +17,13 @@ const props = defineProps({
     default: {},
   },
 });
+
+/* ----- Methods ----- */
+const loadMoreEventsHandler = async () => {
+  loadingPayoutEvents.value = true;
+  await fetchPayoutEvents.value(props.payout.id, payoutEvents.value.pagination?.nextPage);
+  loadingPayoutEvents.value = false;
+};
 </script>
 
 <template>
@@ -51,6 +60,15 @@ const props = defineProps({
           </template>
         </Column>
       </DataTable>
+
+      <Button
+        :loading="loadingPayoutEvents"
+        @click="loadMoreEventsHandler"
+        class="p-button-lg mt-4"
+        label="Load more events"
+        outlined
+        v-if="payoutEvents.pagination?.nextPage">
+      </Button>
     </template>
   </CardWrapper>
 </template>

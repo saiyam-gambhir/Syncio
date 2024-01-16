@@ -29,6 +29,7 @@ export const usePayoutsStore = defineStore('payouts', {
       loadingCreatePayout: false,
       loadingDeletePayout: false,
       loadingPayout: false,
+      loadingPayoutEvents: false,
       openPayouts: { items: [], loading: false, pagination: {} },
       openPayoutsStatusOptions: [
         { value: 'paid', label: 'Paid' },
@@ -43,7 +44,7 @@ export const usePayoutsStore = defineStore('payouts', {
       payablePayouts: { items: [], loading: false, pagination: {} },
       payout: null,
       payoutCreationDetails: null,
-      payoutEvents: { data: null, pagination: null },
+      payoutEvents: { data: [], pagination: null },
       payoutOrders: { items: [], loading: false, pagination: {} },
       payoutOrdersSearchString: null,
       selectedPayoutOrders: [],
