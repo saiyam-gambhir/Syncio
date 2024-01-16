@@ -3,6 +3,7 @@ import deepmerge from 'deepmerge';
 /* ----- Actions ----- */
 import { fetchSettings } from './actions/fetchSettings';
 import { updateSettings } from './actions/updateSettings';
+import { updateSafetyNet } from './actions/updateSafetyNet';
 
 export const useProductSettingsStore = defineStore('productSettings', {
   state: () => {
@@ -11,7 +12,10 @@ export const useProductSettingsStore = defineStore('productSettings', {
       destinationProductSettings: [],
       destinationVariantSettings: [],
       isMetaFieldsRequested: false,
+      isSafetyNetModified: false,
+      isSyncedStockDialogVisible: false,
       loading: false,
+      safetyNetQuantity: null,
       settingsUpdated: false,
       sourceProductSettings: [],
       sourceVariantSettings: [],
@@ -24,6 +28,7 @@ export const useProductSettingsStore = defineStore('productSettings', {
 
   actions: deepmerge.all([
     fetchSettings,
+    updateSafetyNet,
     updateSettings,
   ]),
 

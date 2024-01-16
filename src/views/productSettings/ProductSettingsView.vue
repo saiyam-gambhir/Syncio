@@ -28,14 +28,17 @@ const {
   destinationProductSettings,
   destinationVariantSettings,
   fetchSettings,
+  isSafetyNetModified,
   loading,
+  safetyNetQuantity,
   settingsUpdated,
   sourceProductSettings,
   sourceVariantSettings,
   stringifyDestinationProductSettings,
   stringifyDestinationVariantSettings,
   stringifySourceProductSettings,
-  stringifysourceVariantSettings,
+  stringifySourceVariantSettings,
+  updateSafetyNet,
   updateSettings,
 } = toRefs(useProductSettingsStore());
 
@@ -82,8 +85,26 @@ const leaveCurrentPageHandler = () => {
     destinationProductSettings.value = JSON.parse(stringifyDestinationProductSettings.value);
     destinationVariantSettings.value = JSON.parse(stringifyDestinationVariantSettings.value);
     sourceProductSettings.value = JSON.parse(stringifySourceProductSettings.value);
-    sourceVariantSettings.value = JSON.parse(stringifysourceVariantSettings.value);
+    sourceVariantSettings.value = JSON.parse(stringifySourceVariantSettings.value);
   }
+};
+
+const updateSourceStoreSettings = async (isSafetyNetActive, configurations) => {
+  // Update all other settings as is
+  if (!isSafetyNetModified.value) {
+    await updateSettings.value(configurations);
+  } else {
+    if (isSafetyNetActive) {
+      await updateSettings.value(configurations);
+      await updateSafetyNet.value(safetyNetQuantity.value ?? 0);
+    } else {
+      safetyNetQuantity.value = null;
+      await updateSafetyNet.value(0);
+      await updateSettings.value(configurations);
+    }
+  }
+  // Reset to false
+  isSafetyNetModified.value = false;
 };
 
 const updateSettingsHandler = async () => {
@@ -94,12 +115,24 @@ const updateSettingsHandler = async () => {
     payload = [...sourceProductSettings.value, ...sourceVariantSettings.value];
   }
 
-  const configrations = payload.map(({ key, is_active }) => {
+  let isSafetyNetActive = false;
+
+  const configurations = payload.map(({ key, is_active }) => {
+    if (key === 'inventory_safety_net_sync') {
+      isSafetyNetActive = is_active;
+    }
     return { key, is_active };
   });
-  await updateSettings.value(configrations);
+
+  if (isDestinationStore.value) {
+    await updateSettings.value(configurations);
+  } else { // Source store
+    await updateSourceStoreSettings(isSafetyNetActive, configurations);
+  }
+  
+  await fetchSettings.value();
   resetLeavePageConfigs();
-}
+};
 </script>
 
 <template>
