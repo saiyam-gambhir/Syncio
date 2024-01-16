@@ -35,7 +35,7 @@ const selectedLocation = computed(() => {
 const updateInventoryHandler = async inventoryId => {
   if(inventoryId.value === +props.connection.destination_default_inventory_location?.external_reference_id) return;
 
-  const { destination_default_inventory_location, store_domain } = props.connection;
+  const { destination_default_inventory_location, store_domain, source_default_inventory_location } = props.connection;
   location.value = {
     current: destination_default_inventory_location,
     new: selectedLocation.value,
@@ -49,7 +49,7 @@ const updateInventoryHandler = async inventoryId => {
     destination_store_id: storeId.value,
     is_default: true,
     name: selectedLocation?.value.name,
-    s_inventory_reference: null,
+    s_inventory_reference: +source_default_inventory_location?.external_reference_id,
     source_store_id: +props.connection?.id,
     store_type: storeType.value,
     sync_option: 'keep',

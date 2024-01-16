@@ -20,29 +20,22 @@ export const shopifyLogin = {
       }
       window.location.href = redirectURL;
       return;
-    } else {
-      router.push({
-        path: routes.DASHBOARD,
-      });
-    }
-
-    if (data.success) {
+    } else if(data.success) {
       this.user = await data.user;
-    }
-
-    window.sessionStorage.setItem('ID_TOKEN_KEY', headers['x-syncio-app-token']);
-    if (window.sessionStorage.getItem('ID_TOKEN_KEY')) {
-      this.isAuthenticated = true;
-      sessionStorage.setItem('USER_ID', this.user?.id);
-      axiosService.https.defaults.headers.common['Authorization'] = `Bearer ${sessionStorage.getItem('ID_TOKEN_KEY')}`;
-      const response = await fetchCurrentStore();
-      await fetchCurrentPlan(sessionStorage.getItem('USER_ID'));
-      if(response?.stores[0]?.type === 'none') {
-        router.replace({ name: routes.SHOPIFY_SELECT_STORE_TYPE});
-      } else {
-        router.replace({ name: routes.DASHBOARD });
+      window.sessionStorage.setItem('ID_TOKEN_KEY', headers['x-syncio-app-token']);
+      if (window.sessionStorage.getItem('ID_TOKEN_KEY')) {
+        this.isAuthenticated = true;
+        sessionStorage.setItem('USER_ID', this.user?.id);
+        axiosService.https.defaults.headers.common['Authorization'] = `Bearer ${sessionStorage.getItem('ID_TOKEN_KEY')}`;
+        const response = await fetchCurrentStore();
+        await fetchCurrentPlan(sessionStorage.getItem('USER_ID'));
+        if(response?.stores[0]?.type === 'none') {
+          router.replace({ name: routes.SHOPIFY_SELECT_STORE_TYPE});
+        } else {
+          router.replace({ name: routes.DASHBOARD });
+        }
+        this.loginForm.loading = false;
       }
-      this.loginForm.loading = false;
     }
 
     return data;
