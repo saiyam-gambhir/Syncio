@@ -91,7 +91,7 @@ const leaveCurrentPageHandler = () => {
     <TabView v-model:activeIndex="activeTabIndex" @update:activeIndex="handleTabChange" class="margin-bottom">
       <TabPanel>
         <template #header>
-          <div v-if="isPushOrderEmailSettingsChanged" class="flex align-items-center" v-tooltip.top="'Unsaved changes on this tab'">
+          <div v-if="isPushOrderEmailSettingsChanged && activeTabIndex !== 0" class="flex align-items-center" v-tooltip.top="'Unsaved changes on this tab'">
             Email Contact Method
             <i  class="pi pi-exclamation-triangle ml-3 text-xl" style="color: rgb(255, 137, 0);"></i>
           </div>
@@ -103,7 +103,7 @@ const leaveCurrentPageHandler = () => {
       </TabPanel>
       <TabPanel>
         <template #header>
-          <div v-if="isPushOrderShippingRulesChanged" class="flex align-items-center" v-tooltip.top="'Unsaved changes on this tab'">
+          <div v-if="isPushOrderShippingRulesChanged && activeTabIndex !== 1" class="flex align-items-center" v-tooltip.top="'Unsaved changes on this tab'">
             Shipping Rate Rules
             <i class="pi pi-exclamation-triangle ml-3 text-xl" style="color: rgb(255, 137, 0);"></i>
           </div>
@@ -115,7 +115,7 @@ const leaveCurrentPageHandler = () => {
       </TabPanel>
       <TabPanel>
         <template #header>
-          <div v-if="isPushOrderShippingTagsChanged" class="flex align-items-center" v-tooltip.top="'Unsaved changes on this tab'">
+          <div v-if="isPushOrderShippingTagsChanged && activeTabIndex !== 2" class="flex align-items-center" v-tooltip.top="'Unsaved changes on this tab'">
             Shipping Type Tags
             <i class="pi pi-exclamation-triangle ml-3 text-xl" style="color: rgb(255, 137, 0);"></i>
           </div>

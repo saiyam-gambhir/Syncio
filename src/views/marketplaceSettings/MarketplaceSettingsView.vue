@@ -59,7 +59,6 @@ const uploadFilesHandler = async () => {
 };
 
 const fileUploadHandler = () => {
-  debugger
   const files = fileSelectedForUpload.value.files;
   const uploadedImages = profile.value.cocoProfileImages?.length ?? 0;
   const totalFiles = files.length + uploadedImages;

@@ -20,6 +20,10 @@ export const shopifyLogin = {
       }
       window.location.href = redirectURL;
       return;
+    } else {
+      router.push({
+        path: routes.DASHBOARD,
+      });
     }
 
     if (data.success) {
