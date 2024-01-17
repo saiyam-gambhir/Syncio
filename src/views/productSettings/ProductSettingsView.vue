@@ -29,6 +29,7 @@ const {
   fetchSettings,
   isSafetyNetModified,
   loading,
+  newQuantity,
   safetyNetQuantity,
   settingsUpdated,
   sourceProductSettings,
@@ -96,9 +97,10 @@ const updateSourceStoreSettings = async (isSafetyNetActive, configurations) => {
   } else {
     if (isSafetyNetActive) {
       await updateSettings.value(configurations);
-      await updateSafetyNet.value(safetyNetQuantity.value ?? 0);
+      await updateSafetyNet.value(newQuantity.value ?? 0);
     } else {
       safetyNetQuantity.value = null;
+      newQuantity.value = null;
       await updateSafetyNet.value(0);
       await updateSettings.value(configurations);
     }

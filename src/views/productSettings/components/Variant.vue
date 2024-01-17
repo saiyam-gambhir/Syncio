@@ -1,5 +1,8 @@
 <script setup>
 import * as routes from '@/routes';
+import { useForm } from 'vee-validate';
+import * as validationMessages from '@/validationMessages';
+import * as yup from 'yup';
 
 /* ----- Components ----- */
 const SyncedStockDialog = defineAsyncComponent(() => import('./SyncedStockDialog.vue'));
@@ -9,6 +12,7 @@ const {
   destinationVariantSettings,
   isSafetyNetModified,
   isSyncedStockDialogVisible,
+  newQuantity,
   safetyNetQuantity,
   settingsUpdated,
   sourceVariantSettings,
@@ -25,11 +29,18 @@ const {
   addons,
 } = toRefs(usePlanStore());
 
-const quantity = ref(null);
+/* ----- Validations ----- */
+const { errors, meta, defineField } = useForm({
+  validationSchema: yup.object({
+    quantity: yup.number().moreThan(0, validationMessages.SAFETY_NET_QUANTITY),
+  }),
+});
+
+[newQuantity.value] = defineField('quantity');
 
 /* ----- Mounted ----- */
 onMounted(() => {
-  quantity.value = safetyNetQuantity.value;
+  newQuantity.value = safetyNetQuantity.value;
 });
 
 /* ----- Methods ----- */
@@ -49,9 +60,9 @@ watch(sourceVariantSettings, (newSettings, oldSettings) => {
   settingsUpdated.value = stringifySourceVariantSettings.value !== JSON.stringify(newSettings);
 }, { deep: true });
 
-watch(safetyNetQuantity, (newValue, oldValue) => {
-  settingsUpdated.value = newValue && newValue !== quantity.value;
-  isSafetyNetModified.value = newValue !== quantity.value;
+watch(newQuantity, (newValue, oldValue) => {
+  settingsUpdated.value = (newValue != safetyNetQuantity.value) && !meta.value.valid;
+  isSafetyNetModified.value = newValue != safetyNetQuantity.value;
 }, { deep: true });
 </script>
 
@@ -134,9 +145,10 @@ watch(safetyNetQuantity, (newValue, oldValue) => {
             <div class="flex justify-content-between w-full">
               <div class="w-85">
                 <p class="m-0 font-semibold text-lg">
-                  {{ setting.label }}
+                  {{ setting.label }} {{ meta.valid }} {{ newQuantity }} - {{ safetyNetQuantity }}
                   <div class="mt-4" v-if="setting.key === 'inventory_safety_net_sync' && setting.is_active">
-                    <InputText placeholder="Enter quantity" v-model="safetyNetQuantity" class="w-75" />
+                    <InputText :class="{ 'p-invalid': errors.quantity }" placeholder="Enter quantity" v-model="newQuantity" class="w-75" />
+                    <ValidationMessage :error="errors.quantity" />
                     <p class="font-normal text-sm m-0 mt-2">Quantity entered will be removed from stock made available to connected Destination stores.</p>
                     <p class="font-normal text-sm m-0">Changes usually take effect within 24 hours.</p>
                   </div>
