@@ -455,13 +455,6 @@ td {
   top: 5px !important;
 }
 
-.p-progress-spinner {
-  left: 50%;
-  position: absolute;
-  top: 50%;
-  transform: translateX(-50%) translateY(-50%);
-}
-
 @keyframes p-progress-spinner-color {
   100%,
   0% {

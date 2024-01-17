@@ -1,28 +1,25 @@
-<!-- <script>
-import { LOGIN_WOO } from "@/store/actions.type"
-import { mapState } from "vuex"
-
-export default {
-  name: "WooEntry",
-  computed: {
-    ...mapState("shop", ["currentShop"]),
-  },
-  async created() {
-    const store = this.$route.query.store
-    const jwt = this.$route.query.jwt
-    const res = await this.$store.dispatch(`auth/${LOGIN_WOO}`, { jwt, store })
-    if (res.success === false) {
-      return await this.$router.push('/session-expired')
-    }
-
-    return await this.$router.push('woocommerce/installation-completed')
-  },
-}
-</script> -->
-
 <script setup>
+import * as routes from '@/routes';
+
 /* ----- Data ----- */
-const loading = ref(false);
+const {
+  loginWoo,
+} = toRefs(useAuthStore());
+
+const route = useRoute();
+const router = useRouter();
+
+/* ----- Mounted ----- */
+onMounted(async () => {
+  const store = route.query.store;
+  const jwt = route.query.jwt;
+  const response = await loginWoo.value({ jwt, store });
+  if (response.success === false) {
+    await router.push({ name: routes.LOGIN });
+  }
+
+  return await router.push({ name: routes.WOO_INSTALLATION_COMPLETED });
+});
 </script>
 
 <template>

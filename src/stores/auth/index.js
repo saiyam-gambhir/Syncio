@@ -4,6 +4,7 @@ import deepmerge from 'deepmerge';
 import { fetchUser } from './actions/fetchUser';
 import { forgotPassword } from './actions/forgotPassword';
 import { login } from './actions/login';
+import { loginWoo } from './actions/loginWoo';
 import { registerUser } from './actions/registerUser';
 import { registerWooStore } from './actions/registerWooStore';
 import { resetPassword } from './actions/resetPassword';
@@ -77,6 +78,7 @@ export const useAuthStore = defineStore('auth', {
     fetchUser,
     forgotPassword,
     login,
+    loginWoo,
     registerUser,
     registerWooStore,
     resetPassword,
