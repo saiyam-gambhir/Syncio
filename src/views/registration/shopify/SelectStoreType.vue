@@ -17,7 +17,7 @@ const router = useRouter();
 
 /* ----- Mounted ----- */
 onMounted(async () => {
-  //loading.value = true;
+  loading.value = true;
   let params = route.query;
   params.store_id = params.shop;
   if(params.store_id) {
