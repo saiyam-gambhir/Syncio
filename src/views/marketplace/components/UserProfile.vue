@@ -49,7 +49,7 @@ const {
               <IconInstagram />
             </a>
           </h3>
-          <p class="m-0 mt-3">
+          <p class="m-0 mt-3" v-if="profile.location">
             <span class="mr-1">Ships from</span>
             <strong class="font-semibold primary-color">{{ profile.location }}</strong>
             <a v-if="profile.shippingPolicyUrl" :href="profile.shippingPolicyUrl" class="btn-link"> (Policy)</a>
