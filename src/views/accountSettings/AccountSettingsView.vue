@@ -1,4 +1,6 @@
 <script setup>
+const UpdateAPIKeyDialog = defineAsyncComponent(() => import('./components/UpdateAPIKeyDialog.vue'));
+
 /* ----- Data ----- */
 const {
   copyToClipBoard,
@@ -18,6 +20,10 @@ const {
   storeName,
   storeType,
 } = useConnectionsStore();
+
+const {
+  isUpdateAPIKeyDialogVisible,
+} = toRefs(useConnectionsStore());
 
 // const {
 //   currency,
@@ -39,6 +45,10 @@ const copyStoreKeyHandler = async val => {
 // const handleCurrencyChange = (event) => {
 //   currency.value = event.value;
 // };
+
+const handleUpdateAPIKey = async () => {
+  isUpdateAPIKeyDialogVisible.value = true;
+};
 </script>
 
 <template>
@@ -131,7 +141,7 @@ const copyStoreKeyHandler = async val => {
             <li v-if="isWoocommerce" class="py-4 border-bottom-1 surface-border">
               <h3 class="flex align-items-center justify-content-between my-1">
                 API Key:
-                <Button label="Update" style="width: 7.5rem;"></Button>
+                <Button @click="handleUpdateAPIKey" label="Update" style="width: 7.5rem;"></Button>
               </h3>
             </li>
             <li class="pt-4 pb-2 surface-border">
@@ -146,6 +156,8 @@ const copyStoreKeyHandler = async val => {
       </CardWrapper>
     </section>
   </article>
+
+  <UpdateAPIKeyDialog />
 </template>
 
 <style scoped>
