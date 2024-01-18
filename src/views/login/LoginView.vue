@@ -2,7 +2,10 @@
 import * as routes from '@/routes';
 
 /* ----- Data ----- */
+const interval = ref('');
 const shopifyStore = ref(null);
+const showWooLogin = ref(true);
+const timer = ref(3);
 
 const {
   login,
@@ -24,6 +27,29 @@ const loginHandler = () => {
 const shopifyLoginHandler = async () => {
   await shopifyLogin.value('shopify', shopifyStore.value);
 };
+
+const startTimer = () => {
+  timer.value -= 1;
+  if (timer.value < 0) {
+    timer.value = 0;
+  }
+  if (timer.value === 0) {
+    window.location.href = 'https://accounts.shopify.com/store-login';
+  }
+};
+
+const showWooLoginHandler = () => {
+  showWooLogin.value = true;
+  timer.value = 3;
+  if (interval.value) {
+    clearInterval(interval.value);
+  }
+};
+
+const showShopifyLoginHandler = () => {
+  showWooLogin.value = false;
+  interval.value = setInterval(startTimer, 1000);
+};
 </script>
 
 <template>
@@ -35,20 +61,20 @@ const shopifyLoginHandler = async () => {
     </div>
     <aside class="auth-wrapper">
       <div class="flex justify-content-between login-platforms">
-        <Button class="active-btn mr-2 w-6 font-bold border-1 surface-border surface-0 p-button-lg p-component text-900 inline-flex align-items-center justify-content-center">
+        <Button @click="showWooLoginHandler" :class="{ 'active-btn': showWooLogin }" class="mr-2 w-6 font-bold border-1 surface-border surface-0 p-button-lg p-component text-900 inline-flex align-items-center justify-content-center">
           <img src="@/assets/images/wo-logo-sm.png" alt="shopify logo" class="mr-2" />
           <span class="ml-2">WooCommerce</span>
         </Button>
 
-        <Button class="ml-2 w-6 font-bold border-1 surface-border surface-0 p-button-lg p-component text-600 inline-flex align-items-center justify-content-center">
-          <a href="https://apps.shopify.com/syncio" class="text-900 flex align-items-center">
+        <Button @click="showShopifyLoginHandler" :class="{ 'active-btn': !showWooLogin }" class="ml-2 w-6 font-bold border-1 surface-border surface-0 p-button-lg p-component text-600 inline-flex align-items-center justify-content-center">
+          <a href="#" class="text-900 flex align-items-center">
             <img src="@/assets/images/shopify-logo-sm.png" alt="shopify logo" class="mr-2" />
             <span class="ml-2">Shopify</span>
           </a>
         </Button>
       </div>
 
-      <form class="mt-6" autocomplete="current-password">
+      <form v-if="showWooLogin" class="mt-6" autocomplete="current-password">
         <div class="field">
           <InputText
             class="p-inputtext-lg mb-3 w-full"
@@ -108,6 +134,11 @@ const shopifyLoginHandler = async () => {
           </div>
         </div>
       </form>
+
+      <div v-else class="text-center text-900 mt-7">
+        <p class="text-xl mt-0">Redirecting you to Login Via Shopify</p>
+        <h3 class="text-3xl mb-0">{{ timer }}</h3>
+      </div>
     </aside>
 
     <div class="text-center">
