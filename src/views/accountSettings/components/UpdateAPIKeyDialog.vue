@@ -13,16 +13,24 @@ const { errors, meta, defineField, handleReset } = useForm({
 
 /* ----- Data ----- */
 const {
+  isInvalidKey,
   isUpdateAPIKeyDialogVisible,
+  isUpdateAPISuccess,
   loadingAPIKeyUpdate,
   updateAPIKey,
 } = toRefs(useConnectionsStore());
+
+const {
+  showToast,
+} = useToasts();
 
 /* ----- Methods ----- */
 const closeDialogHandler = () => {
   isUpdateAPIKeyDialogVisible.value = false;
   consumerKey.value = '';
   consumerSecretKey.value = '';
+  isUpdateAPISuccess.value = false;
+  isInvalidKey.value = false;
   handleReset();
 };
 
@@ -31,6 +39,10 @@ const [consumerSecretKey] = defineField('consumerSecretKey');
 
 const handleUpdateAPIKey = async () => {
   await updateAPIKey.value(consumerKey.value, consumerSecretKey.value);
+  if (isInvalidKey.value) {
+    return;
+  }
+  showToast({ message: 'API key successfully updated.' })
   closeDialogHandler();
 };
 </script>
@@ -73,6 +85,9 @@ const handleUpdateAPIKey = async () => {
         <div class="ml-1">
           <ValidationMessage :error="errors.consumerSecretKey" />
         </div>
+      </div>
+      <div class="text-center" v-if="isInvalidKey">
+        <p class="text-lg p-error">API key & Secret are not valid!</p>
       </div>
       <div class="mt-4">
         <Button :loading="loadingAPIKeyUpdate" :disabled="!meta.valid" class="text-lg w-full px-4"
