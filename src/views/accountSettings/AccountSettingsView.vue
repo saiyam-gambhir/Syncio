@@ -144,13 +144,13 @@ const handleUninstall = async () => {
                 Uninstall Syncio:
                 <Tag v-if="isShopify" severity="danger" class="ml-3 transform-none">* For Shopify, please use Shopify
                   admin page to uninstall Syncio</Tag>
-                <Button 
-                  :loading="loadingUninstall" 
-                  v-if="isWoocommerce" 
-                  @click="handleUninstall" 
+                <Button
+                  :loading="loadingUninstall"
+                  @click="handleUninstall"
                   label="Uninstall"
-                  severity="danger" 
-                  style="width: 7.5rem;">
+                  severity="danger"
+                  style="width: 7.5rem;"
+                  v-if="isWoocommerce">
                 </Button>
               </h3>
             </li>
