@@ -28,7 +28,7 @@ const storeFilterHandler = async storeId => {
 
 <template>
   <div class="grid grid-sm">
-    <div class="col-4">
+    <div class="col-9">
       <div class="p-inputgroup">
         <SearchFilter
           @update:modelValue="searchHandler"
