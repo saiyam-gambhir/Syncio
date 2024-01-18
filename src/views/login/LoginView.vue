@@ -156,5 +156,6 @@ const showShopifyLoginHandler = () => {
 
 .platform-btn.active-btn {
   opacity: 1 !important;
+  pointer-events: none;
 }
 </style>
