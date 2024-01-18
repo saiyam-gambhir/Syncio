@@ -64,9 +64,9 @@ watch(sourceVariantSettings, (newSettings, oldSettings) => {
   settingsUpdated.value = stringifySourceVariantSettings.value !== JSON.stringify(newSettings);
 }, { deep: true });
 
-watch(newQuantity, (newValue, oldValue) => {
-  settingsUpdated.value = (newValue != safetyNetQuantity.value) && !meta.value.valid;
-  isSafetyNetModified.value = newValue != safetyNetQuantity.value;
+watch(newQuantity, () => {
+  settingsUpdated.value = newQuantity.value > 0 && (newQuantity.value != safetyNetQuantity.value) && meta.value.valid;
+  isSafetyNetModified.value = newQuantity.value != safetyNetQuantity.value;
 }, { deep: true });
 </script>
 
@@ -157,7 +157,7 @@ watch(newQuantity, (newValue, oldValue) => {
             <div class="flex justify-content-between w-full">
               <div class="w-85">
                 <p class="m-0 font-semibold text-lg">
-                  {{ setting.label }} - {{ !settingsUpdated }}
+                  {{ setting.label }}
                 <div class="mt-4" v-if="setting.key === 'inventory_safety_net_sync' && setting.is_active">
                   <InputText :class="{ 'p-invalid': errors.quantity }" placeholder="Enter quantity" v-model="newQuantity"
                     class="w-75" />
