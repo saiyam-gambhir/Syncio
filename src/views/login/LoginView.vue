@@ -61,12 +61,12 @@ const showShopifyLoginHandler = () => {
     </div>
     <aside class="auth-wrapper">
       <div class="flex justify-content-between login-platforms">
-        <Button @click="showWooLoginHandler" :class="{ 'active-btn': showWooLogin }" class="mr-2 w-6 font-bold border-1 surface-border surface-0 p-button-lg p-component text-900 inline-flex align-items-center justify-content-center">
+        <Button @click="showWooLoginHandler" :class="{ 'active-btn': showWooLogin }" class="platform-btn mr-2 w-6 font-bold border-1 surface-border surface-0 p-button-lg p-component text-900 inline-flex align-items-center justify-content-center">
           <img src="@/assets/images/wo-logo-sm.png" alt="shopify logo" class="mr-2" />
           <span class="ml-2">WooCommerce</span>
         </Button>
 
-        <Button @click="showShopifyLoginHandler" :class="{ 'active-btn': !showWooLogin }" class="ml-2 w-6 font-bold border-1 surface-border surface-0 p-button-lg p-component text-600 inline-flex align-items-center justify-content-center">
+        <Button @click="showShopifyLoginHandler" :class="{ 'active-btn': !showWooLogin }" class="platform-btn ml-2 w-6 font-bold border-1 surface-border surface-0 p-button-lg p-component text-600 inline-flex align-items-center justify-content-center">
           <a href="#" class="text-900 flex align-items-center">
             <img src="@/assets/images/shopify-logo-sm.png" alt="shopify logo" class="mr-2" />
             <span class="ml-2">Shopify</span>
@@ -137,7 +137,7 @@ const showShopifyLoginHandler = () => {
 
       <div v-else class="text-center text-900 mt-7">
         <p class="text-xl mt-0">Redirecting you to Login Via Shopify</p>
-        <h3 class="text-3xl mb-0">{{ timer }}</h3>
+        <h3 class="text-3xl font-bold mb-0">{{ timer }}</h3>
       </div>
     </aside>
 
@@ -148,3 +148,13 @@ const showShopifyLoginHandler = () => {
     </div>
   </section>
 </template>
+
+<style scoped>
+.platform-btn {
+  opacity: .75;
+}
+
+.platform-btn.active-btn {
+  opacity: 1 !important;
+}
+</style>
