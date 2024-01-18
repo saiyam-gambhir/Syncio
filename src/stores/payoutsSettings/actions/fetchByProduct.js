@@ -4,7 +4,11 @@ export const fetchByProduct = {
     try {
       this.loadingStoreProducts = true;
 
+      const { filterUnwantedQueries } = useFilters();
+      filterUnwantedQueries(this.productQueries, '');
+
       const params = {
+        ...this.productQueries,
         destination_store_id: this.storeId,
         limiter: this.limiter,
         page: page ?? 1,
