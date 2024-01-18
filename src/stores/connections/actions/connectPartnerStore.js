@@ -1,3 +1,6 @@
+import router from '@/router';
+import * as routes from '@/routes';
+
 export const connectPartnerStore = {
   async connectPartnerStore(storeIdentifier) {
     const params = {
@@ -6,8 +9,9 @@ export const connectPartnerStore = {
     };
 
     const { success } = await axiosService.postData('stores/connect', params);
-
-    if(success) await this.fetchConnections();
+    if(router.currentRoute?.value?.name === routes.SHOPIFY_CONNECT_OR_INVITE_STORE) {
+      await this.fetchConnections();
+    }
     return success;
   }
 };

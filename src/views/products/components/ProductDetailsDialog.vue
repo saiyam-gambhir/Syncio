@@ -23,6 +23,7 @@ const {
   searchProduct,
   searchStoreProducts,
   selectedStore,
+  loadingProductDetails,
 } = toRefs(useProductsStore());
 
 /* ----- Computed ----- */
@@ -73,76 +74,83 @@ const searchProductHandler = async ($event) => {
       </h1>
     </template>
 
+    <!----- Spinner ----->
+    <div v-if="loadingProductDetails" class="flex align-items-center justify-content-center h-100">
+      <Spinner />
+    </div>
+
     <!----- Product Details ----->
-    <template v-if="isViewDetailsRequested">
-      <ProductDetails :product="sourceProduct" />
-    </template>
+    <div v-else>
+      <template v-if="isViewDetailsRequested">
+        <ProductDetails :product="sourceProduct" />
+      </template>
 
-    <template v-else>
-      <div class="grid">
-        <div class="col-5" style="width: 47.5%;">
-          <ProductStoreInfo
-            :backgroundInfo="'background: rgba(252, 176, 87, .15);'"
-            :platform="selectedStore.platform"
-            :storeName="selectedStore.store_domain"
-            :styleInfo="'background: rgba(252, 176, 87, .75); color: #0e3b4d; width: 6rem;'"
-            title="From">
-          </ProductStoreInfo>
-          <div></div>
-          <ProductDetails :product="sourceProduct" style="margin-top: 6.5rem;" />
-        </div>
-        <div class="col-2" style="width: 5%;">
-          <Divider layout="vertical" class="m-0" />
-        </div>
-        <div class="col-5" style="width: 47.5%;">
-          <ProductStoreInfo
-            :backgroundInfo="'background: rgba(250, 117, 123, .15);'"
-            :platform="platform"
-            :storeName="storeName"
-            :styleInfo="'background: rgba(250, 117, 123, .75); color: #0e3b4d; width: 6rem;'"
-            title="To">
-          </ProductStoreInfo>
+      <template v-else>
+        <div class="grid">
+          <div class="col-5" style="width: 47.5%;">
+            <ProductStoreInfo
+              :backgroundInfo="'background: rgba(252, 176, 87, .15);'"
+              :platform="selectedStore.platform"
+              :storeName="selectedStore.store_domain"
+              :styleInfo="'background: rgba(252, 176, 87, .75); color: #0e3b4d; width: 6rem;'"
+              title="From">
+            </ProductStoreInfo>
+            <div></div>
+            <ProductDetails :product="sourceProduct" style="margin-top: 6.5rem;" />
+          </div>
+          <div class="col-2" style="width: 5%;">
+            <Divider layout="vertical" class="m-0" />
+          </div>
+          <div class="col-5" style="width: 47.5%;">
+            <ProductStoreInfo
+              :backgroundInfo="'background: rgba(250, 117, 123, .15);'"
+              :platform="platform"
+              :storeName="storeName"
+              :styleInfo="'background: rgba(250, 117, 123, .75); color: #0e3b4d; width: 6rem;'"
+              title="To">
+            </ProductStoreInfo>
 
-          <!----- Mapper ----->
-          <div class="grid my-4">
-            <div class="col-9">
-              <AutoComplete
-                @item-select="searchProductHandler($event)"
-                dropdown
-                :suggestions="searchedProducts"
-                @complete="debouncedSearchProducts"
-                class="p-inputtext-lg w-100"
-                optionLabel="title"
-                placeholder="Search using Title or Product ID"
-                v-model="searchString">
-              </AutoComplete>
+            <!----- Mapper ----->
+            <div class="grid my-4">
+              <div class="col-9">
+                <AutoComplete
+                  @item-select="searchProductHandler($event)"
+                  dropdown
+                  :suggestions="searchedProducts"
+                  @complete="debouncedSearchProducts"
+                  class="p-inputtext-lg w-100"
+                  optionLabel="title"
+                  placeholder="Search using Title or Product ID"
+                  v-model="searchString">
+                </AutoComplete>
+              </div>
+
+              <div class="col-3">
+                <Button
+                  :loading="loadingMapProduct"
+                  :disabled="!destinationProduct.data"
+                  @click="mapProduct"
+                  class="w-100 h-100"
+                  label="Map product">
+                </Button>
+              </div>
             </div>
 
-            <div class="col-3">
-              <Button
-                :loading="loadingMapProduct"
-                :disabled="!destinationProduct.data"
-                @click="mapProduct"
-                class="w-100 h-100"
-                label="Map product">
-              </Button>
+            <div v-if="!destinationProduct.data" class="text-center text-light text-xl font-semi line-height-3 py-8 px-2">
+              <span v-if="!searchString && !loadingProduct">
+                Search for the Destination store <br> product you wish to map the <br> Source store product to
+              </span>
+
+              <span v-if="loadingProduct">
+              </span>
             </div>
+            <!----- Mapper ----->
+
+            <ProductDetails :product="destinationProduct" v-if="destinationProduct.data" />
           </div>
-
-          <div v-if="!destinationProduct.data" class="text-center text-light text-xl font-semi line-height-3 py-8 px-2">
-            <span v-if="!searchString && !loadingProduct">
-              Search for the Destination store <br> product you wish to map the <br> Source store product to
-            </span>
-
-            <span v-if="loadingProduct">
-            </span>
-          </div>
-          <!----- Mapper ----->
-
-          <ProductDetails :product="destinationProduct" v-if="destinationProduct.data" />
         </div>
-      </div>
-    </template>
+      </template>
+    </div>
   </Sidebar>
 </template>
 

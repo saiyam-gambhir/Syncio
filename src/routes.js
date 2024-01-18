@@ -24,6 +24,9 @@ export const SHOPIFY_SELECT_STORE_TYPE = '/shopify/select-store-type';
 /* ----- Woocommerce ----- */
 export const FORGOT_PASSWORD = '/forgot-password';
 export const RESET_PASSWORD = '/reset-password';
+export const WOO_CONTINUE_LATER = '/registration/woocommerce/continue-later';
 export const WOO_CREATE_ACCOUNT = '/registration/woocommerce/create-account';
+export const WOO_ENTRY = '/woocommerce';
+export const WOO_INSTALLATION_COMPLETED = '/woocommerce/installation-completed';
 export const WOO_SELECT_STORE_TYPE = '/registration/woocommerce/select-store-type';
 export const WOO_VERIFY_STORE_URL = '/registration/woocommerce/verify-store-url';

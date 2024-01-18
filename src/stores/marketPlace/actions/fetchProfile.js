@@ -20,7 +20,7 @@ export const fetchProfile = {
       this.profile = {
         brandName: brand_name,
         category,
-        cocoProfileImages: coco_profile_images,
+        cocoProfileImages: coco_profile_images ?? [],
         location: location?.country,
         numOfProducts: num_of_products,
         shippingPolicyUrl: shipping_policy_url,
