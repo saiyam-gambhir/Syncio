@@ -32,7 +32,11 @@ const {
 /* ----- Validations ----- */
 const { errors, meta, defineField } = useForm({
   validationSchema: yup.object({
-    quantity: yup.number().moreThan(0, validationMessages.SAFETY_NET_QUANTITY),
+    quantity: yup
+      .number()
+      .positive(validationMessages.SAFETY_NET_QUANTITY)
+      .integer(validationMessages.SAFETY_NET_QUANTITY)
+      .typeError(validationMessages.SAFETY_NET_QUANTITY),
   }),
 });
 
@@ -68,15 +72,19 @@ watch(newQuantity, (newValue, oldValue) => {
 
 <template>
   <section v-if="isDestinationStore">
-    <p v-if="!addons.isSettingsModulePaid" class="m-0 mb-2 text-lg">Locked settings (<i class="pi pi-lock" style="font-size: 1rem; font-weight: bold;"></i>) are available with Product Settings PRO - <router-link :to="routes.PLAN_AND_BILLINGS" class="btn-link text-lg">Upgrade</router-link> </p>
+    <p v-if="!addons.isSettingsModulePaid" class="m-0 mb-2 text-lg">Locked settings (<i class="pi pi-lock"
+        style="font-size: 1rem; font-weight: bold;"></i>) are available with Product Settings PRO - <router-link
+        :to="routes.PLAN_AND_BILLINGS" class="btn-link text-lg">Upgrade</router-link> </p>
     <div class="grid">
       <div class="col-5">
         <ul class="list-none p-0 m-0">
           <li class="py-4 flex align-items-center text-2xl">
             <h3 class="m-0">Ongoing sync</h3>
-            <i class="pi pi-question-circle text-2xl ml-3" style="transform: translateY(1px);" v-tooltip.right="'Syncs in real time on an ongoing basis'"></i>
+            <i class="pi pi-question-circle text-2xl ml-3" style="transform: translateY(1px);"
+              v-tooltip.right="'Syncs in real time on an ongoing basis'"></i>
           </li>
-          <li v-for="setting in destinationVariantSettings" :key="setting.key" class="py-5 border-bottom-1 surface-border">
+          <li v-for="setting in destinationVariantSettings" :key="setting.key"
+            class="py-5 border-bottom-1 surface-border">
             <div class="flex align-items-center justify-content-between w-full">
               <div class="w-85">
                 <p class="m-0 font-semibold text-lg">{{ setting.label }}</p>
@@ -84,19 +92,22 @@ watch(newQuantity, (newValue, oldValue) => {
                   <span v-if="setting.key === 'auto_add_product_variant'">
                     Ongoing sync of new variants.
                     <br>
-                    When a new variant is added to a synced product on the Source store, Syncio will auto-add the variant to the corresponding product on the Destination store.
+                    When a new variant is added to a synced product on the Source store, Syncio will auto-add the variant
+                    to the corresponding product on the Destination store.
                     <br><br>
                     <strong>Note:</strong> Syncio does not add/remove.
                   </span>
 
                   <span v-if="setting.key === 'sync_inventory_policy'">
-                    Ongoing sync of the Track quantity and Continue selling when out of stock under the Inventory section for each variant.
+                    Ongoing sync of the Track quantity and Continue selling when out of stock under the Inventory section
+                    for each variant.
                   </span>
 
                   <span v-if="setting.key === 'auto_remove_product_variant'">
                     Ongoing sync of removed variants.
                     <br><br>
-                    When a variant is removed from a synced product on the Source store, Syncio will auto-remove the variant from the corresponding product on the Destination store.
+                    When a variant is removed from a synced product on the Source store, Syncio will auto-remove the
+                    variant from the corresponding product on the Destination store.
                     <br><br>
                     <strong>Note:</strong> Syncio does not add.
                   </span>
@@ -104,7 +115,8 @@ watch(newQuantity, (newValue, oldValue) => {
                   <span v-if="setting.key === 'd_sync_cost_per_item'">
                     Ongoing Sync of the "Cost Per Item" field.
                     <br><br>
-                    <strong>Note:</strong> Your source store needs to grant permission first. Do not use if currency is different.
+                    <strong>Note:</strong> Your source store needs to grant permission first. Do not use if currency is
+                    different.
                   </span>
 
                   <span v-if="setting.key === 'sync_variant_title'">
@@ -145,13 +157,15 @@ watch(newQuantity, (newValue, oldValue) => {
             <div class="flex justify-content-between w-full">
               <div class="w-85">
                 <p class="m-0 font-semibold text-lg">
-                  {{ setting.label }} {{ meta.valid }} {{ newQuantity }} - {{ safetyNetQuantity }}
-                  <div class="mt-4" v-if="setting.key === 'inventory_safety_net_sync' && setting.is_active">
-                    <InputText :class="{ 'p-invalid': errors.quantity }" placeholder="Enter quantity" v-model="newQuantity" class="w-75" />
-                    <ValidationMessage :error="errors.quantity" />
-                    <p class="font-normal text-sm m-0 mt-2">Quantity entered will be removed from stock made available to connected Destination stores.</p>
-                    <p class="font-normal text-sm m-0">Changes usually take effect within 24 hours.</p>
-                  </div>
+                  {{ setting.label }} - {{ !settingsUpdated }}
+                <div class="mt-4" v-if="setting.key === 'inventory_safety_net_sync' && setting.is_active">
+                  <InputText :class="{ 'p-invalid': errors.quantity }" placeholder="Enter quantity" v-model="newQuantity"
+                    class="w-75" />
+                  <ValidationMessage :error="errors.quantity" />
+                  <p class="font-normal text-sm m-0 mt-2">Quantity entered will be removed from stock made available to
+                    connected Destination stores.</p>
+                  <p class="font-normal text-sm m-0">Changes usually take effect within 24 hours.</p>
+                </div>
                 </p>
                 <div v-if="setting.key === 'inventory_safety_net_sync'" class="mt-3 mb-0 text-lg">
                   <p>
