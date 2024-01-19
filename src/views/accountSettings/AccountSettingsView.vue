@@ -1,6 +1,7 @@
 <script setup>
 /* ----- Components ----- */
 const UninstallDialog = defineAsyncComponent(() => import('./components/UninstallDialog.vue'));
+const UpdateAPIKeyDialog = defineAsyncComponent(() => import('./components/UpdateAPIKeyDialog.vue'));
 
 /* ----- Data ----- */
 const {
@@ -24,6 +25,7 @@ const {
 } = useConnectionsStore();
 
 const {
+  isUpdateAPIKeyDialogVisible,
   isUninstallDialogVisible,
 } = toRefs(useConnectionsStore());
 
@@ -47,6 +49,10 @@ const copyStoreKeyHandler = async val => {
 // const handleCurrencyChange = (event) => {
 //   currency.value = event.value;
 // };
+
+const handleUpdateAPIKey = async () => {
+  isUpdateAPIKeyDialogVisible.value = true;
+};
 
 const handleUninstall = async () => {
   isUninstallDialogVisible.value = true;
@@ -129,21 +135,19 @@ const handleUninstall = async () => {
             <li class="py-4 border-bottom-1 surface-border">
               <h3 class="flex align-items-center justify-content-between my-1">
                 Joining Date:
-                <Tag severity="info" class="ml-3">{{ formatDate(storeCreationDate).date }} at {{
-                  formatDate(storeCreationDate).time }}</Tag>
+                <Tag severity="info" class="ml-3">{{ formatDate(storeCreationDate).date }} at {{ formatDate(storeCreationDate).time }}</Tag>
               </h3>
             </li>
             <li v-if="isWoocommerce" class="py-4 border-bottom-1 surface-border">
               <h3 class="flex align-items-center justify-content-between my-1">
                 API Key:
-                <Button label="Update" style="width: 7.5rem;"></Button>
+                <Button @click="handleUpdateAPIKey" label="Update" style="width: 7.5rem;"></Button>
               </h3>
             </li>
             <li class="pt-4 pb-2 surface-border">
               <h3 class="flex align-items-center justify-content-between mt-1 mb-0">
                 Uninstall Syncio:
-                <Tag v-if="isShopify" severity="danger" class="ml-3 transform-none">* For Shopify, please use Shopify
-                  admin page to uninstall Syncio</Tag>
+                <Tag v-if="isShopify" severity="danger" class="ml-3 transform-none">* For Shopify, please use Shopify admin page to uninstall Syncio</Tag>
                 <Button
                   :loading="loadingUninstall"
                   @click="handleUninstall"
@@ -160,7 +164,11 @@ const handleUninstall = async () => {
     </section>
   </article>
 
-  <UninstallDialog />
+  <!-- Woo Update API Key  -->
+  <UpdateAPIKeyDialog v-if="isUpdateAPIKeyDialogVisible" />
+
+  <!-- Woo Uninstall  -->
+  <UninstallDialog v-if="isUninstallDialogVisible" />
 </template>
 
 <style scoped>
