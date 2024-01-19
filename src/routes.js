@@ -1,7 +1,7 @@
 export const ACCOUNT_SETTINGS = '/settings/account-settings';
 export const ACTIVITY_CENTER = '/activity-center';
 export const DASHBOARD = '/dashboard';
-export const LOGIN = '/';
+export const LOGIN = '/login';
 export const MARKETPLACE = '/marketplace';
 export const MARKETPLACE_SETTINGS = '/settings/marketplace-settings';
 export const NOTIFICATION_SETTINGS = '/settings/notification-settings';
@@ -13,6 +13,7 @@ export const PLAN_AND_BILLINGS = '/settings/plan-and-billings';
 export const PLATFORM_SELECTION = '/registration';
 export const PRODUCT_SETTINGS = '/settings/product-settings';
 export const PRODUCTS = '/products';
+export const ROOT = '/';
 export const SETTINGS = '/settings';
 export const STORES = '/stores';
 

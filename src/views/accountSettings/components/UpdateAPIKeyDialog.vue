@@ -24,6 +24,14 @@ const {
   showToast,
 } = useToasts();
 
+/* ----- Props ----- */
+const props = defineProps({
+  redirectToDashboard: {
+    type: Boolean,
+    default: false,
+  }
+});
+
 /* ----- Methods ----- */
 const closeDialogHandler = () => {
   isUpdateAPIKeyDialogVisible.value = false;
@@ -38,7 +46,7 @@ const [consumerKey] = defineField('consumerKey');
 const [consumerSecretKey] = defineField('consumerSecretKey');
 
 const handleUpdateAPIKey = async () => {
-  await updateAPIKey.value(consumerKey.value, consumerSecretKey.value);
+  await updateAPIKey.value(consumerKey.value, consumerSecretKey.value, props.redirectToDashboard);
   if (isInvalidKey.value) {
     return;
   }

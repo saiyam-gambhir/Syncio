@@ -1,6 +1,9 @@
 <script setup>
 import * as routes from '@/routes';
 
+/* ----- Components ----- */
+const UpdateAPIKeyDialog = defineAsyncComponent(() => import('../accountSettings/components/UpdateAPIKeyDialog.vue'));
+
 /* ----- Data ----- */
 const interval = ref('');
 const shopifyStore = ref(null);
@@ -12,6 +15,15 @@ const {
   loginForm,
   shopifyLogin,
 } = toRefs(useAuthStore());
+
+const {
+  isUpdateAPIKeyDialogVisible
+} = toRefs(useConnectionsStore());
+
+/* ----- Mounted ----- */
+onMounted(() => {
+
+});
 
 /* ----- Computed ----- */
 const isDevelopment = computed(() => {
@@ -147,6 +159,9 @@ const showShopifyLoginHandler = () => {
       </router-link>
     </div>
   </section>
+
+  <!-- Woo Update API Key  -->
+  <UpdateAPIKeyDialog v-if="isUpdateAPIKeyDialogVisible" redirectToDashboard />
 </template>
 
 <style scoped>

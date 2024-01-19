@@ -159,8 +159,10 @@ router.beforeEach(async (to, from, next) => {
         }
       }
     }
-  } else if ((to.path === '/login' || to.path === '/') && ID_TOKEN_KEY) { // check onboarding routes pending
+  } else if ((to.path === routes.LOGIN || to.path === routes.ROOT) && ID_TOKEN_KEY) { // check onboarding routes pending
     return next({ path: routes.DASHBOARD });
+  } else if (to.path === routes.ROOT && !ID_TOKEN_KEY) {
+    return next({ path: routes.LOGIN });
   }
 
   next();

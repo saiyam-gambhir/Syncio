@@ -55,6 +55,7 @@ export const useConnectionsStore = defineStore('connections', {
         { key: 'store_domain', label: 'Z-A', sortByDesc: true },
       ],
       sourceLocations: null,
+      wooApiKeyStoreId: null,
     };
   },
 
