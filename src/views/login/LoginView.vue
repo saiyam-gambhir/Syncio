@@ -14,6 +14,8 @@ const {
   login,
   loginForm,
   shopifyLogin,
+  wooEmailErrorMessage,
+  wooPasswordErrorMessage,
 } = toRefs(useAuthStore());
 
 const {
@@ -95,6 +97,7 @@ const showShopifyLoginHandler = () => {
             type="text"
             v-model="loginForm.email" autocomplete="email">
           </InputText>
+          <ValidationMessage :error="wooEmailErrorMessage" />
         </div>
 
         <div class="field">
@@ -107,6 +110,7 @@ const showShopifyLoginHandler = () => {
             toggleMask
             v-model="loginForm.password">
           </Password>
+          <ValidationMessage :error="wooPasswordErrorMessage" />
         </div>
 
         <div class="flex align-items-center mb-6">

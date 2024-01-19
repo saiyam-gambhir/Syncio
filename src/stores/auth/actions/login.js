@@ -5,6 +5,7 @@ export const login = {
   async login(payload) {
     try {
       let storeId = null;
+      this.wooEmailErrorMessage = this.wooPasswordErrorMessage = null;
       this.loginForm.loading = true;
       const response = await axiosService.postData('user/login', payload, true);
       if (response.data.success) {

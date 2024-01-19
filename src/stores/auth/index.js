@@ -53,6 +53,8 @@ export const useAuthStore = defineStore('auth', {
       ],
       upgradeDialogType: '',
       user: null,
+      wooEmailErrorMessage: null,
+      wooPasswordErrorMessage: null,
     };
   },
 

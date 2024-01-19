@@ -60,9 +60,20 @@ class AxiosService {
         const productSettings = useProductSettingsStore();
 
         switch (status) {
+          case 401: {
+            const message = data.errors?.[0];
+            if(message.toLowerCase() === 'email or password mismatch');
+            auth.wooPasswordErrorMessage = 'Incorrect password';
+            break;
+          }
           case 422:
           case 400: {
             const message = data.errors?.[0];
+
+            if(message.toLowerCase() === 'the selected email is invalid.') {
+              auth.wooEmailErrorMessage = 'Account not found, try another email';
+              return data;
+            }
 
             if(data?.is_duplicate_sku_found) {
               const products = useProductsStore();
