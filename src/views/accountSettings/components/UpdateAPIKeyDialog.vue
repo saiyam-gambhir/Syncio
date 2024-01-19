@@ -48,50 +48,51 @@ const handleUpdateAPIKey = async () => {
 </script>
 
 <template>
-  <DialogWrapper :isVisible="isUpdateAPIKeyDialogVisible" @closeDialog="closeDialogHandler"
-    title="Update WooCommerce Store API Key" :showFooter="false">
+  <DialogWrapper :isVisible="isUpdateAPIKeyDialogVisible" @closeDialog="closeDialogHandler" title="Update WooCommerce Store API Key" :showFooter="false">
     <template #body>
-      <p class="text-xl font-bold text-center m-0 pb-1 line-height-3">
-        Please provide us with a new API key to continue using Syncio.
-      </p>
-      <p class="text-lg ml-2 line-height-3">
-        Instructions
-      </p>
-      <p class="text-lg ml-2 mt-1 line-height-3">
-        1. Go to WooCommerce -> Settings -> Advanced -> REST API and click "Add key"
-      </p>
-      <p class="text-lg ml-2 mt-1 line-height-3">
-        2. In the submit form, add a description, select a valid user, and select the "Read/Write" permission.
-      </p>
-      <p class="text-lg ml-2 mt-1 line-height-3">
-        3. Click "Generate API key".
-      </p>
-      <p class="text-lg ml-2 mt-1 line-height-3">
-        4. Paste the generated Consumer key and secret key below.
-      </p>
+      <div class="text-lg">
+        <p class="font-bold m-0 pb-1 line-height-3">
+          Please provide us with a new API key to continue using Syncio.
+        </p>
+        <p class="line-height-3">
+          Instructions
+        </p>
+        <p class="line-height-3">
+          1. Go to WooCommerce -> Settings -> Advanced -> REST API and click "Add key"
+        </p>
+        <p class="mt-1 line-height-3">
+          2. In the submit form, add a description, select a valid user, and select the "Read/Write" permission.
+        </p>
+        <p class="mt-1 line-height-3">
+          3. Click "Generate API key".
+        </p>
+        <p class="mt-1 line-height-3">
+          4. Paste the generated Consumer key and secret key below.
+        </p>
+      </div>
 
-      <div class="flex align-items-center justify-content-between">
-        <InputText placeholder="Consumer Key" class="w-full m-2" :class="{ 'p-invalid': errors.consumerKey }"
-          v-model="consumerKey">
-        </InputText>
-        <InputText placeholder="Consumer Secret Key" class="w-full m-2" :class="{ 'p-invalid': errors.consumerSecretKey }"
-          v-model="consumerSecretKey">
-        </InputText>
-      </div>
-      <div class="flex">
-        <div class="ml-1 w-50">
-          <ValidationMessage :error="errors.consumerKey" />
+      <div class="grid grid-sm mt-3">
+        <div class="col-6">
+          <InputText placeholder="Consumer Key" class="w-full" :class="{ 'mb-3 p-invalid': errors.consumerKey }" v-model="consumerKey" />
+          <ValidationMessage :error="errors.consumerKey" style="padding-bottom:  0 !important;" />
         </div>
-        <div class="ml-1">
-          <ValidationMessage :error="errors.consumerSecretKey" />
+        <div class="col-6">
+          <InputText placeholder="Consumer Secret Key" class="w-full" :class="{ 'mb-3 p-invalid': errors.consumerSecretKey }" v-model="consumerSecretKey" />
+          <ValidationMessage :error="errors.consumerSecretKey" style="padding-bottom:  0 !important;" />
         </div>
       </div>
+
       <div class="text-center" v-if="isInvalidKey">
         <p class="text-lg p-error">API key & Secret are not valid!</p>
       </div>
-      <div class="mt-4">
-        <Button :loading="loadingAPIKeyUpdate" :disabled="!meta.valid" class="text-lg w-full px-4"
-          @click="handleUpdateAPIKey" label="Update"></Button>
+      <div class="mt-4 mb-2">
+        <Button
+          :disabled="!meta.valid"
+          :loading="loadingAPIKeyUpdate"
+          @click="handleUpdateAPIKey"
+          class="text-lg w-full"
+          label="Update">
+        </Button>
       </div>
     </template>
   </DialogWrapper>

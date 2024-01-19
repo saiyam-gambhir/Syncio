@@ -10,9 +10,10 @@ import { fetchMetadata } from './actions/fetchMetadata';
 import { fetchSourceLocations } from './actions/fetchSourceLocations';
 import { invitePartnerStore } from './actions/invitePartnerStore';
 import { toggleMultilocation } from './actions/toggleMultilocation';
-import { updateLocation } from './actions/updateLocation';
-import { updateEmail } from './actions/updateEmail';
+import { uninstallStore } from './actions/uninstallStore';
 import { updateAPIKey } from './actions/updateAPIKey';
+import { updateEmail } from './actions/updateEmail';
+import { updateLocation } from './actions/updateLocation';
 
 export const useConnectionsStore = defineStore('connections', {
   state: () => {
@@ -29,17 +30,17 @@ export const useConnectionsStore = defineStore('connections', {
       isDisableMultilocationRequested: false,
       isDisconnectAndDeleteRequested: false,
       isDisconnectAndKeepRequested: false,
-      isInviteViaEmailRequested: false,
       isInvalidKey: false,
+      isInviteViaEmailRequested: false,
       isLocationChanged: false,
       isLocationChangeRequested: false,
       isLocationPendingDialogRequested: false,
       isMultilocationEnabled: 'Off',
       isNewStoreConnectionRequested: false,
+      isUninstallDialogVisible: false,
       isUpdateAPIKeyDialogVisible: false,
       isUpdateAPISuccess: false,
       loadingAPIKeyUpdate: false,
-      isUninstallDialogVisible: false,
       loadingConnections: false,
       loadingEmail: false,
       loadingInventory: false,
@@ -133,10 +134,10 @@ export const useConnectionsStore = defineStore('connections', {
     fetchSourceLocations,
     invitePartnerStore,
     toggleMultilocation,
-    updateAPIKey,
     uninstallStore,
-    updateLocation,
+    updateAPIKey,
     updateEmail,
+    updateLocation,
   ]),
 
   persist: {
