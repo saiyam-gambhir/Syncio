@@ -1,14 +1,19 @@
 <script setup>
+import { useForm } from 'vee-validate';
 import * as routes from '@/routes';
+import * as validationMessages from '@/validationMessages';
+import * as yup from 'yup';
 
 /* ----- Components ----- */
 const UpdateAPIKeyDialog = defineAsyncComponent(() => import('../accountSettings/components/UpdateAPIKeyDialog.vue'));
 
 /* ----- Data ----- */
 const interval = ref('');
+const isContinueInstallation = ref(false);
 const shopifyStore = ref(null);
 const showWooLogin = ref(true);
 const timer = ref(3);
+const route = useRoute();
 
 const {
   login,
@@ -22,9 +27,20 @@ const {
   isUpdateAPIKeyDialogVisible
 } = toRefs(useConnectionsStore());
 
+/* ----- Validations ----- */
+const { errors, meta, defineField } = useForm({
+  validationSchema: yup.object({
+    emailAddress: yup.string().email(validationMessages.EMAIL).required(validationMessages.REQUIRED),
+    password: yup.string().required(validationMessages.REQUIRED),
+  }),
+});
+
+const [emailAddress] = defineField('emailAddress');
+const [password] = defineField('password');
+
 /* ----- Mounted ----- */
 onMounted(() => {
-
+  isContinueInstallation.value = route.query && route.query.continue === 'true';
 });
 
 /* ----- Computed ----- */
@@ -34,8 +50,7 @@ const isDevelopment = computed(() => {
 
 /* ----- Methods ----- */
 const loginHandler = () => {
-  const { email, password } = loginForm.value;
-  login.value({ email, password });
+  login.value({ email: emailAddress.value, password: password.value });
 };
 
 const shopifyLoginHandler = async () => {
@@ -64,17 +79,32 @@ const showShopifyLoginHandler = () => {
   showWooLogin.value = false;
   interval.value = setInterval(startTimer, 1000);
 };
+
+const inputEmailHandler = () => {
+  wooEmailErrorMessage.value = null;
+};
+
+const inputPasswordHandler = () => {
+  wooPasswordErrorMessage.value = null;
+};
 </script>
 
 <template>
   <section class="mx-auto" style="width: 700px;">
     <div class="text-center">
-      <h1 class="text-5xl line-height-3 my-6 font-bold">
+      <h1 class="text-5xl line-height-3 my-6 font-bold" v-if="!isContinueInstallation">
         Login to your account
       </h1>
+      <template v-else>
+        <h1 class="text-5xl line-height-3 mt-6 mb-0 font-bold">
+          Welcome Back!
+        </h1>
+        <p class="mt-2 mb-6 text-2xl font-semi">Login to continue installing Syncio</p>
+      </template>
     </div>
+
     <aside class="auth-wrapper">
-      <div class="flex justify-content-between login-platforms">
+      <div class="flex justify-content-between login-platforms" v-if="!isContinueInstallation">
         <Button @click="showWooLoginHandler" :class="{ 'active-btn': showWooLogin }" class="platform-btn mr-2 w-6 font-bold border-1 surface-border surface-0 p-button-lg p-component text-900 inline-flex align-items-center justify-content-center">
           <img src="@/assets/images/wo-logo-sm.png" alt="shopify logo" class="mr-2" />
           <span class="ml-2">WooCommerce</span>
@@ -88,29 +118,31 @@ const showShopifyLoginHandler = () => {
         </Button>
       </div>
 
-      <form v-if="showWooLogin" class="mt-6" autocomplete="current-password">
+      <form v-if="showWooLogin" :class="{ 'mt-6': !isContinueInstallation }" autocomplete="current-password">
         <div class="field">
           <InputText
             class="p-inputtext-lg mb-3 w-full"
             id="email"
+            @input="inputEmailHandler"
             placeholder="Email address"
             type="text"
-            v-model="loginForm.email" autocomplete="email">
+            v-model="emailAddress" autocomplete="email">
           </InputText>
-          <ValidationMessage :error="wooEmailErrorMessage" />
+          <ValidationMessage :error="wooEmailErrorMessage ?? errors.emailAddress" />
         </div>
 
         <div class="field">
           <Password
             :feedback="false"
+            @input="inputPasswordHandler"
             autocomplete="new-password"
             class="mb-3 w-full p-inputtext-lg"
             id="password"
             placeholder="Password"
             toggleMask
-            v-model="loginForm.password">
+            v-model="password">
           </Password>
-          <ValidationMessage :error="wooPasswordErrorMessage" />
+          <ValidationMessage :error="wooPasswordErrorMessage ?? errors.password" />
         </div>
 
         <div class="flex align-items-center mb-6">
@@ -118,6 +150,7 @@ const showShopifyLoginHandler = () => {
         </div>
 
         <Button
+          :disabled="!meta.valid"
           :loading="loginForm.loading"
           @click="loginHandler"
           class="w-full p-button-lg"
