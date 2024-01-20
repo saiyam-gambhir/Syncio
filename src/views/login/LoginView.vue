@@ -182,6 +182,21 @@ const inputPasswordHandler = () => {
             </Button>
           </div>
         </div>
+
+        <ul class="text-900 pl-0 list-none text-xl font-semi pt-4 m-0" v-if="isContinueInstallation">
+          <li class="flex mt-4">
+            <i class="pi pi-check-circle text-2xl text-green-700 font-bold mr-3" style="transform: translateY(-.5px);"></i>
+            One click copy and sync products with Woo and Shopify stores
+          </li>
+          <li class="flex mt-4">
+            <i class="pi pi-check-circle text-2xl text-green-700 font-bold mr-3" style="transform: translateY(-.5px);"></i>
+            Real time auto-stock syncing between platforms
+          </li>
+          <li class="flex mt-4">
+            <i class="pi pi-check-circle text-2xl text-green-700 font-bold mr-3" style="transform: translateY(-.5px);"></i>
+            Connect to unlimited stores
+          </li>
+        </ul>
       </form>
 
       <div v-else class="text-center text-900 mt-7">
