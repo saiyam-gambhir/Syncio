@@ -12,6 +12,7 @@ const {
 
 const isURLValid = ref(false);
 const loading = ref(false);
+const storeAlreadyUsedError = ref(false);
 
 /* ----- Validations ----- */
 const { errors, meta, defineField } = useForm({
@@ -66,12 +67,17 @@ const registerStore = async () => {
 
   try {
     const response = await registerWooStore.value(params);
+
+    if(response === undefined) {
+      storeAlreadyUsedError.value = true;
+      return;
+    }
+
+    storeAlreadyUsedError.value = false;
     let redirectUrl = response?.redirect_url;
     redirectUrl += import.meta.env.VITE_WOO_REDIRECT_URL + '?store=' + withoutHttps + '&type=' + shopType;
     window.location.href = redirectUrl;
-  } catch (error) {
-    //storeAlreadyUsedError = error.data.errors[0]
-  }
+  } catch (error) {}
 };
 </script>
 
@@ -146,7 +152,12 @@ const registerStore = async () => {
         <p class="m-0 mt-4">Syncio will only use these permissions to perform essential product and order updates.</p>
         <p class="m-0 mt-4">On the next step, make sure you login to your admin account with:</p>
         <h3 class="m-0 mt-2 text-xl">Read and Write permissions</h3>
-        <Button label="Continue to permission approval" @click="registerStore" class="w-100 p-button-lg mt-5"></Button>
+        <Button label="Continue to permission approval" @click="registerStore" class="w-100 p-button-lg mt-6"></Button>
+        <p v-if="storeAlreadyUsedError" class="mt-4 text-lg font-semi line-height-3 mb-0" style="color: #D91E18 !important;">
+          The store is already installed with another account
+          <br>
+          Please try again
+        </p>
       </div>
 
     </aside>

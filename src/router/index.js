@@ -82,6 +82,12 @@ const router = createRouter({
       path: routes.WOO_VERIFY_STORE_URL,
     },
     {
+      component: () => import('@/views/registration/woocommerce/Permissions.vue'),
+      meta: { layout: LoggedOut, requireAuth: true },
+      name: routes.WOO_PERMISSIONS,
+      path: routes.WOO_PERMISSIONS,
+    },
+    {
       component: () => import('@/views/registration/woocommerce/WooEntry.vue'),
       meta: { layout: LoggedOut, requireAuth: true, },
       name: '',
