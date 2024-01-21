@@ -160,7 +160,6 @@ const registerStore = async () => {
           Please try again
         </p>
       </div>
-
     </aside>
   </section>
 </template>

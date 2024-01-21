@@ -106,29 +106,3 @@ const navigateToWooPlanSelction = () => {
     </div>
   </section>
 </template>
-
-<!-- <script>
-export default {
-  methods: {
-    registerStore() {
-      let withoutHttps;
-      withoutHttps = this.storeUrl.replace(/^http(s)*:\/\//, "")
-      withoutHttps = withoutHttps.replace(/\/$/, "")
-      this.$store.dispatch(`shop/${REGISTER_SHOP}`, {
-        user_id: this.currentUserID,
-        url: withoutHttps,
-        platform_api_version: "v3",
-        platform: "woocommerce",
-        type: this.storeType
-      }).then((response) => {
-        let redirectUrl = response.redirect_url;
-        redirectUrl += process.env.VUE_APP_WOO_REDIRECT_URI + '?store=' + withoutHttps + '?type=' + this.storeType;
-        window.location.href = redirectUrl;
-      }).catch((error) => {
-        console.log(error)
-      })
-    },
-  }
-}
-</script>
--->
