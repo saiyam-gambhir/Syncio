@@ -49,6 +49,7 @@ const verifyStoreURLHandler = () => {
 
 const clearStoreUrlHandler = () => {
   isURLValid.value = false;
+  storeAlreadyUsedError.value = false;
   storeURL.value = null;
 };
 
