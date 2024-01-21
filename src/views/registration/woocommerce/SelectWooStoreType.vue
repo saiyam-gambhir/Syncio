@@ -1,6 +1,6 @@
 <script setup>
-import router from '@/router';
 import * as routes from '@/routes';
+import router from '@/router';
 
 const setWooStoreType = (storeType) => {
   window.sessionStorage.setItem('woo-store-type', storeType);
@@ -9,13 +9,15 @@ const setWooStoreType = (storeType) => {
 </script>
 
 <template>
-  <ul class="fixed list-none p-0 m-0 flex flex-row" style="top: 1.5rem; left: 50%; transform: translateX(-50%); width: 900px;">
-    <Step title="Store Type" subTitle="Source or destination?" :isCurrent="true" />
-    <Step title="Connect Store" subTitle="Verify your store" />
-    <Step title="Permissions" subTitle="Review store access" :isLast="true" />
-  </ul>
-
-  <section class="mx-auto" style="width: 900px;">
+  <section class="mx-auto relative" style="width: 900px;">
+    <router-link :to="routes.WOO_CONTINUE_LATER" class="fixed z-1" style="right: 2.5rem; top: 2.3rem;">
+      <Button label="Signout, continue later" class="font-bold justify-content-center"></Button>
+    </router-link>
+    <ul class="mx-auto list-none p-0 py-6 flex flex-row" style="top: 1.5rem;">
+      <Step title="Store Type" subTitle="Source or destination?" :isCurrent="true" />
+      <Step title="Connect Store" subTitle="Verify your store" />
+      <Step title="Permissions" subTitle="Review store access" :isLast="true" />
+    </ul>
     <PageDetails title="Select store type" />
 
     <aside class="auth-wrapper text-900">

@@ -1,5 +1,6 @@
 <script setup>
 import { useForm } from 'vee-validate';
+import * as routes from '@/routes';
 import * as validationMessages from '@/validationMessages';
 import * as yup from 'yup';
 
@@ -76,7 +77,10 @@ const registerStore = async () => {
 
 <template>
   <section class="mx-auto relative" style="width: 900px;">
-    <ul class="list-none p-0 m-0 mb-8 flex flex-row" style="">
+    <router-link :to="routes.WOO_CONTINUE_LATER" class="fixed z-1" style="right: 2.5rem; top: 2.3rem;">
+      <Button label="Signout, continue later" class="font-bold justify-content-center"></Button>
+    </router-link>
+    <ul class="mx-auto list-none p-0 mt-0 mb-6 flex flex-row" style="top: 1.5rem;">
       <Step title="Store Type" subTitle="Source or destination?" :isComplete="true" />
       <Step title="Connect Store" subTitle="Verify your store" :isCurrent="true" />
       <Step title="Permissions" subTitle="Review store access" :isLast="true" />

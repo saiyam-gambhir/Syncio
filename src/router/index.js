@@ -105,6 +105,12 @@ const router = createRouter({
       name: routes.RESET_PASSWORD,
       path: routes.RESET_PASSWORD,
     },
+    {
+      component: () => import('@/views/registration/woocommerce/ContinueLater.vue'),
+      meta: { layout: LoggedOut, requireAuth: true },
+      name: routes.WOO_CONTINUE_LATER,
+      path: routes.WOO_CONTINUE_LATER,
+    },
     /* ----- Woocommerce ----- */
 
     {

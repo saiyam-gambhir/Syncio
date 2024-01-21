@@ -16,7 +16,7 @@ export const login = {
         storeId = this.user.stores[0].id;
       }
 
-      if(!response?.data?.woocommerce_healthy) {
+      if(!response?.data?.woocommerce_healthy && Object.prototype.hasOwnProperty.call(response.data, 'woocommerce_healthy')) {
         const { isUpdateAPIKeyDialogVisible, wooApiKeyStoreId, } = toRefs(useConnectionsStore());
         wooApiKeyStoreId.value = storeId;
         isUpdateAPIKeyDialogVisible.value = true;

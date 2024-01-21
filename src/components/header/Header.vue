@@ -45,7 +45,7 @@ const items = ref([
 /* ----- Mounted ----- */
 onMounted(() => {
   if(isShopify.value) {
-    //fetchMetadata.value();
+    fetchMetadata.value();
   }
 });
 
