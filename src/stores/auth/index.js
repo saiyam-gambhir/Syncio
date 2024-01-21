@@ -18,15 +18,11 @@ export const useAuthStore = defineStore('auth', {
       currency: 'USD',
       currencies: [
         'USD',
-        'AUD',
-        'INR',
       ],
       forgotPasswordForm: {
-        email: '',
         emailNotFound: false,
         emailSent: false,
         loading: false,
-        submitted: false,
       },
       isAuthenticated: false,
       isBatteryLowDialogVisible: false,
@@ -34,10 +30,7 @@ export const useAuthStore = defineStore('auth', {
       isUpgradeDialogRequested: false,
       locales: 'en-US',
       loginForm: {
-        email: '',
         loading: false,
-        password: '',
-        submitted: false
       },
       registrationForm: {
         loading: false,
@@ -46,13 +39,11 @@ export const useAuthStore = defineStore('auth', {
       showLeavingPageDialog: false,
       timeZone: 'Australia/Melbourne',
       timeZones: [
-        'America/Los_Angeles',
-        'America/New_York',
-        'Asia/Kolkata',
         'Australia/Melbourne',
       ],
       upgradeDialogType: '',
       user: null,
+      forgotEmailErrorMessage: null,
       wooEmailErrorMessage: null,
       wooPasswordErrorMessage: null,
     };
