@@ -1,11 +1,7 @@
 export const generateCharge = {
   async generateCharge() {
     try {
-      const {
-        fetchConnections,
-        isDestinationStore,
-        storeId,
-       } = useConnectionsStore();
+      const { fetchConnections, isDestinationStore, storeId } = useConnectionsStore();
 
       const params = {
         is_onboarding: this.isOnboarding,

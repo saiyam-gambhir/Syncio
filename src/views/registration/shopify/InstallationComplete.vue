@@ -7,7 +7,6 @@ const loadingToDashboard = ref(false);
 
 const {
   isDestinationStore,
-  partnerStoreType,
 } = toRefs(useConnectionsStore());
 
 const {
@@ -15,6 +14,7 @@ const {
 } = toRefs(usePlanStore());
 
 const route = useRoute();
+const router = useRoute();
 
 /* ----- OnMounted ----- */
 onMounted(async () => {
@@ -23,7 +23,11 @@ onMounted(async () => {
     const params = route.query;
     const response = await activateCharge.value(params);
     if(response.success) {
-      loading.value = false;
+      if (!response.isonboard) {
+        await router.push({ name: routes.PLAN_AND_BILLINGS });
+      } else {
+        loading.value = false;
+      }
     }
   }
 });
