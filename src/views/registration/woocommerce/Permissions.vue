@@ -1,6 +1,5 @@
 <script setup>
 import * as routes from '@/routes';
-import { watch } from 'vue';
 
 /* ----- Data ----- */
 const {
@@ -35,7 +34,7 @@ onMounted(() => {
 
 /* ----- Watch ----- */
 watch(storeType, (newVal, oldVal) => {
-  if(storeType.value === 'destination' && arePermissionsApproved.value) {
+  if(storeType.value === 'source' && arePermissionsApproved.value) {
     router.push({ name: routes.WOO_INSTALLATION_COMPLETED });
   }
 });
@@ -90,7 +89,7 @@ const navigateToWooPlanSelction = () => {
 
         <Button @click="navigateToWooPlanSelction" label="Pick a plan and activate my free trial" class="w-100 p-button-lg mt-6"></Button>
       </div>
-      <div v-else>
+      <div v-else-if="!arePermissionsApproved">
         <h2 class="m-0">You've denied Syncio access to connect to your store</h2>
         <p class="m-0 mt-5 text-lg font-semi line-height-3">In order to send and receive stock and updates between the stores you've connected to, Syncio requires Read & Write permissions for an API Key and Webhooks.</p>
         <p class="m-0 mt-3 text-lg font-semi line-height-3">Syncio will only use these permissions to perform essential product and order updates.</p>
