@@ -1,5 +1,6 @@
 <script setup>
 import * as routes from '@/routes';
+import router from '@/router';
 
 /* ----- Data ----- */
 const loading = ref(false);
@@ -14,7 +15,6 @@ const {
 } = toRefs(usePlanStore());
 
 const route = useRoute();
-const router = useRoute();
 
 /* ----- OnMounted ----- */
 onMounted(async () => {
@@ -23,7 +23,7 @@ onMounted(async () => {
     const params = route.query;
     const response = await activateCharge.value(params);
     if(response.success) {
-      if (!response.isonboard) {
+      if (!Boolean(params.isonboard)) {
         await router.push({ name: routes.PLAN_AND_BILLINGS });
       } else {
         loading.value = false;

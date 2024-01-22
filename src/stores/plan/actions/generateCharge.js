@@ -4,7 +4,7 @@ export const generateCharge = {
       const { fetchConnections, isDestinationStore, storeId } = useConnectionsStore();
 
       const params = {
-        is_onboarding: this.isOnboarding,
+        is_onboarding: this.plan ? false : true,
         option_ids: [...Object.values(this.selectedAddonIds)],
         plan_id: this.currentPlanId,
       };
