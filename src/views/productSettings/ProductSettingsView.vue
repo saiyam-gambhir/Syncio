@@ -59,7 +59,7 @@ onMounted(async () => {
 
 /* ----- Before Route Leave ----- */
 onBeforeRouteLeave((to, from, next) => {
-  if(settingsUpdated.value && !forceLeavingPage.value) {
+  if(settingsUpdated.value && !forceLeavingPage.value && to.fullPath !== routes.LOGIN) {
     showLeavingPageDialog.value = true;
     routeTo.value = to;
     next(false);

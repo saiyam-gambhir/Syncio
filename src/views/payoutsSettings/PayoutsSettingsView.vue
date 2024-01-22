@@ -1,4 +1,6 @@
 <script setup>
+import * as routes from '@/routes';
+
 /* ----- Components ----- */
 const DefaultStoreCommission = defineAsyncComponent(() => import('./components/DefaultStoreCommission.vue'));
 const LeavingPageDialog = defineAsyncComponent(() => import('@/components/shared/LeavingPageDialog.vue'));
@@ -32,7 +34,7 @@ const {
 
 /* ----- Before Route Leave ----- */
 onBeforeRouteLeave((to, from, next) => {
-  if((isDefaultCommissionChanged.value || areStoreCommissionsChanged.value || areProductCommissionsChanged.value) && !forceLeavingPage.value) {
+  if((isDefaultCommissionChanged.value || areStoreCommissionsChanged.value || areProductCommissionsChanged.value) && !forceLeavingPage.value && to.fullPath !== routes.LOGIN) {
     showLeavingPageDialog.value = true;
     routeTo.value = to;
     next(false);
