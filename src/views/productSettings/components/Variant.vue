@@ -64,8 +64,8 @@ watch(sourceVariantSettings, (newSettings, oldSettings) => {
   settingsUpdated.value = stringifySourceVariantSettings.value !== JSON.stringify(newSettings);
 }, { deep: true });
 
-watch(newQuantity, () => {
-  settingsUpdated.value = newQuantity.value > 0 && (newQuantity.value != safetyNetQuantity.value) && meta.value.valid;
+watch(errors, () => {
+  settingsUpdated.value = (newQuantity.value != safetyNetQuantity.value) && meta.value.valid;
   isSafetyNetModified.value = newQuantity.value != safetyNetQuantity.value;
 }, { deep: true });
 </script>
