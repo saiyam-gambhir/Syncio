@@ -36,7 +36,8 @@ const { errors, meta, defineField } = useForm({
       .number()
       .positive(validationMessages.SAFETY_NET_QUANTITY)
       .integer(validationMessages.SAFETY_NET_QUANTITY)
-      .typeError(validationMessages.SAFETY_NET_QUANTITY),
+      .typeError(validationMessages.SAFETY_NET_QUANTITY)
+      .nullable(),
   }),
 });
 
@@ -61,7 +62,11 @@ watch(destinationVariantSettings, (newSettings, oldSettings) => {
 }, { deep: true });
 
 watch(sourceVariantSettings, (newSettings, oldSettings) => {
-  settingsUpdated.value = stringifySourceVariantSettings.value !== JSON.stringify(newSettings);
+  if (isSafetyNetModified.value) {
+    settingsUpdated.value = newQuantity.value && stringifySourceVariantSettings.value !== JSON.stringify(newSettings);
+  } else {
+    settingsUpdated.value = stringifySourceVariantSettings.value !== JSON.stringify(newSettings);
+  }
 }, { deep: true });
 
 watch(errors, () => {

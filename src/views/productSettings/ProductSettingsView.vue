@@ -96,8 +96,10 @@ const updateSourceStoreSettings = async (isSafetyNetActive, configurations) => {
     await updateSettings.value(configurations);
   } else {
     if (isSafetyNetActive) {
+      const val = newQuantity.value;
       await updateSettings.value(configurations);
-      await updateSafetyNet.value(newQuantity.value ?? 0);
+      await updateSafetyNet.value(val);
+      newQuantity.value = val;
     } else {
       safetyNetQuantity.value = null;
       newQuantity.value = null;
