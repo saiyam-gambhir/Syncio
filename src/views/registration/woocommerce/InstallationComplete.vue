@@ -3,6 +3,7 @@ import * as routes from '@/routes';
 
 /* ----- Data ----- */
 const loading = ref(false);
+const loadingToDashboard = ref(false);
 
 const {
   isDestinationStore,
@@ -66,6 +67,7 @@ onMounted(async () => {
       <div class="flex flex-column align-items-center justify-content-center">
         <router-link :to="routes.DASHBOARD" @click="loadingToDashboard = true;" class="w-100 text-center">
           <Button
+            :loading="loadingToDashboard"
             class="font-bold justify-content-center p-button-lg mb-4 w-100"
             label="Launch Syncio!">
           </Button>

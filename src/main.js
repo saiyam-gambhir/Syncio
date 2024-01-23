@@ -140,7 +140,7 @@ router.beforeEach(async (to, from, next) => {
       await plan.fetchCurrentPlan(userId);
     }
 
-    if (!auth.user) {
+    if (!auth.user || from.fullPath === routes.WOO_INSTALLATION_COMPLETED) {
       const userId = sessionStorage.getItem('USER_ID');
       await auth.fetchUser(userId);
 
