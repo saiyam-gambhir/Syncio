@@ -15,8 +15,8 @@ const { errors, meta, defineField } = useForm({
   validationSchema: yup.object({
     name: yup.string().required(validationMessages.REQUIRED),
     emailAddress: yup.string().email(validationMessages.EMAIL).required(validationMessages.REQUIRED),
-    password: yup.string().min(8, validationMessages.PASSWORD).required(validationMessages.REQUIRED),
-    passwordConfirmation: yup.string().oneOf([yup.ref('password')], 'Passwords do not match').required(validationMessages.REQUIRED),
+    password: yup.string().matches(/[#?!@$%^&*-]/, validationMessages.PASSWORD).min(8, validationMessages.PASSWORD),
+    passwordConfirmation: yup.string().oneOf([yup.ref('password')], validationMessages.PASSWORD_CONFIRMATION).required(validationMessages.REQUIRED),
   }),
 });
 
