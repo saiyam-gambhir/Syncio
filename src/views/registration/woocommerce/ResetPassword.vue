@@ -33,11 +33,11 @@ const [passwordConfirmation] = defineField('passwordConfirmation');
 
 /* ----- Methods ----- */
 const getQueryParams = () => {
-  const url = new URL(window.location)
-  url.searchParams.sort()
-  const token = url.search.split('&token=')
-  resetToken.value = token[1]
-  emailAddress.value = decodeURIComponent(token[0].split('?email=')[1])
+  const url = new URL(window.location);
+  url.searchParams.sort();
+  const token = url.search.split('&token=');
+  resetToken.value = token[1];
+  emailAddress.value = decodeURIComponent(token[0].split('?email=')[1]);
 };
 
 const resetPasswordHander = async () => {
