@@ -1,8 +1,5 @@
 <script setup>
 import * as routes from '@/routes';
-import { useForm } from 'vee-validate';
-import * as validationMessages from '@/validationMessages';
-import * as yup from 'yup';
 
 /* ----- Components ----- */
 const SyncedStockDialog = defineAsyncComponent(() => import('./SyncedStockDialog.vue'));
@@ -29,19 +26,6 @@ const {
   addons,
 } = toRefs(usePlanStore());
 
-/* ----- Validations ----- */
-const { errors, meta, defineField } = useForm({
-  validationSchema: yup.object({
-    quantity: yup
-      .number()
-      .positive(validationMessages.SAFETY_NET_QUANTITY)
-      .integer(validationMessages.SAFETY_NET_QUANTITY)
-      .typeError(validationMessages.SAFETY_NET_QUANTITY)
-      .nullable(),
-  }),
-});
-
-[newQuantity.value] = defineField('quantity');
 
 /* ----- Mounted ----- */
 onMounted(() => {
@@ -69,8 +53,8 @@ watch(sourceVariantSettings, (newSettings, oldSettings) => {
   }
 }, { deep: true });
 
-watch(errors, () => {
-  settingsUpdated.value = (newQuantity.value != safetyNetQuantity.value) && meta.value.valid;
+watch(newQuantity, () => {
+  settingsUpdated.value = newQuantity.value > 0 && newQuantity.value != safetyNetQuantity.value
   isSafetyNetModified.value = newQuantity.value != safetyNetQuantity.value;
 }, { deep: true });
 </script>
@@ -164,9 +148,7 @@ watch(errors, () => {
                 <p class="m-0 font-semibold text-lg">
                   {{ setting.label }}
                 <div class="mt-4" v-if="setting.key === 'inventory_safety_net_sync' && setting.is_active">
-                  <InputText :class="{ 'p-invalid': errors.quantity }" placeholder="Enter quantity" v-model="newQuantity"
-                    class="w-75" />
-                  <ValidationMessage :error="errors.quantity" />
+                  <InputText placeholder="Enter quantity" type="number" v-model="newQuantity" class="w-75" />
                   <p class="font-normal text-sm m-0 mt-2">Quantity entered will be removed from stock made available to
                     connected Destination stores.</p>
                   <p class="font-normal text-sm m-0">Changes usually take effect within 24 hours.</p>
@@ -205,3 +187,15 @@ watch(errors, () => {
   <!----- Safety Net ----->
   <SyncedStockDialog v-if="isSyncedStockDialogVisible" />
 </template>
+<style>
+/* To remove the arrows in input type="number" */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+  }
+
+  input[type=number] {
+      -moz-appearance: textfield;
+  }
+</style>
