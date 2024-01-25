@@ -5,7 +5,7 @@
     "dev": "vite --host",
     "build": "vite build",
     "deploy-staging": "vite build --mode staging && aws s3 rm s3://staging-app.syncio.io --recursive && aws s3 sync ./dist s3://staging-app.syncio.io && aws-cloudfront-invalidate E1JQLAWU0IBM3T",
-    "deploy-production": "vite build --mode production && aws s3 rm s3://staging-app.syncio.io --recursive && aws s3 sync ./dist s3://staging-app.syncio.io && aws-cloudfront-invalidate E1JQLAWU0IBM3T",
+    "deploy-production": "vite build --mode production && aws s3 rm s3://app-v2.syncio.co --recursive && aws s3 sync ./dist s3://app-v2.syncio.co && aws-cloudfront-invalidate E2XTG3KY1VIR4",
     "preview": "vite preview --port 4173",
     "test:unit": "vitest --environment jsdom",
     "test:e2e": "start-server-and-test preview http://localhost:4173/ 'cypress open --e2e'",
