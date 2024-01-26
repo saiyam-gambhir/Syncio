@@ -258,7 +258,7 @@ const bulkPushOrdersHandler = async () => {
   <!-- Pagination -->
   <div v-if="!orders.loadingOrders" class="text-center mt-5 mb-2">
     <h3 class="font-semibold" v-if="(pagination?.current_page === pagination?.last_page) && orders.orders.length > 0">
-      No more orders to see. We only display orders upto 60 days.
+      No more orders to see. We only display orders up to 60 days.
     </h3>
 
     <Button

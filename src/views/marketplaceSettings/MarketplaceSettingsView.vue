@@ -303,7 +303,7 @@ watch(profile, (newValue, oldValue) => {
                   type="file"
                 >
                 <Button @click="clickFileUploadButton" label="Upload Images" icon="pi pi-upload"></Button>
-                <p class="text-center mt-1 m-0 text-sm text-600">You can add upto {{ maxImagesAllowed }} images</p>
+                <p class="text-center mt-1 m-0 text-sm text-600">You can add up to {{ maxImagesAllowed }} images</p>
               </div>
 
               <ul class="list-none p-0 m-0">
