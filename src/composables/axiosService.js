@@ -28,7 +28,7 @@ class AxiosService {
   constructor() {
     this.https = axios.create({
       baseURL: import.meta.env.VITE_BASE_URL,
-      timeout: 20000,
+      timeout: 60000,
     });
 
     this.https.defaults.headers.common['x-syncio-app-id'] = import.meta.env.VITE_APP_ID;

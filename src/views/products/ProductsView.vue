@@ -59,9 +59,9 @@ onMounted(async () => {
   await fetchProductsHandler();
   if(selectedStoreId.value) await fetchMetaFields.value();
 
-  if(isDestinationStore.value && isWoocommerce.value) {
+  if(isDestinationStore.value && selectedStore.value?.platform === 'woocommerce') {
     statusOptions.value.push({ key: 'Replaced', value: 'replaced' });
-  } else if(isSourceStore.value && isWoocommerce.value) {
+  } else if(isSourceStore.value && selectedStore.value?.platform === 'woocommerce') {
     statusOptions.value.push({ key: 'Unsupported', value: 'unsupported' });
   }
 });

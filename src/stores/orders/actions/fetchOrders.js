@@ -4,6 +4,7 @@ export const fetchOrders = {
     this.isBulkPushActive = false;
     const { searchString, sortBy } = this.filters;
     const params = {
+      'filters[status]': 'all',
       page,
       searchStr: searchString,
       sortBy: sortBy,
