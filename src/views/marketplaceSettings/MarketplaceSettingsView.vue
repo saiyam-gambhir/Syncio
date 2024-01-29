@@ -300,9 +300,8 @@ watch(profile, (newValue, oldValue) => {
                   class="absolute upload-btn w-100 h-100 top-0 left-0"
                   multiple
                   ref="fileSelectedForUpload"
-                  type="file"
-                >
-                <Button @click="clickFileUploadButton" label="Upload Images" icon="pi pi-upload"></Button>
+                  type="file" />
+                <Button :loading="loading" @click="clickFileUploadButton" label="Upload Images" icon="pi pi-upload"></Button>
                 <p class="text-center mt-1 m-0 text-sm text-600">You can add up to {{ maxImagesAllowed }} images</p>
               </div>
 
@@ -332,24 +331,6 @@ watch(profile, (newValue, oldValue) => {
   </form>
 
   <ProfilePreviewDialog v-if="isPreviewProfileDialogVisible" />
-
-  <!-- <DialogWrapper :isVisible="showPreviewDialog" @closeDialog="dialogHandler" title="Profile Preview" width="750px" :showFooter="false">
-    <template #body>
-      <div class="grid">
-        <div class="col col-6">
-          <p class="text-lg m-0 pb-3 line-height-3">
-            This is how your profile will appear on the marketplace.
-          </p>
-          <p class="text-lg m-0 line-height-3">
-            When other stores message you, you'll receive an email with their details and an optional personal message.
-          </p>
-        </div>
-        <div class="col col-6">
-          <ProfilePreview :profile="profile" />
-        </div>
-      </div>
-    </template>
-  </DialogWrapper> -->
 </template>
 
 <style scoped>

@@ -112,7 +112,8 @@ const registerStore = async () => {
             </InputText>
             <i v-if="storeURL" @click="clearStoreUrlHandler" class="pi pi-times absolute pointer text-700" style="right: 1rem; top: 1.33rem;"></i>
           </div>
-          <ValidationMessage :error="errors.storeURL" />
+
+          <ValidationMessage :error="errors.storeURL" style="padding-bottom: 0 !important;" />
           <small v-if="!errors.storeURL" class="block mt-2 pl-1 text-700 font-semi text-sm" id="username-help">You'll need to add https:// to the URL</small>
         </div>
         <div class="col-3 pb-0">
