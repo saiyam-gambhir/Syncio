@@ -22,7 +22,7 @@ const loading = ref(false);
 /* ----- Validations ----- */
 const { errors, meta, defineField } = useForm({
   validationSchema: yup.object({
-    shippingCost: yup.string().matches(/^(0*[1-9]\d*(\.\d*[1-9])?|0*\.\d*[1-9])$/, validationMessages.GREATER_THAN_ZERO).required(validationMessages.REQUIRED),
+    shippingCost: yup.string().matches(/^-?\d+(\.\d+)?$/, validationMessages.VALID_NUMBER).matches(/^\d+(\.\d+)?$/, validationMessages.GREATER_THAN_ZERO).required(validationMessages.REQUIRED),
   }),
 });
 
