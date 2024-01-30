@@ -16,7 +16,7 @@ const searchHandler = async (searchText) => {
 
 <template>
   <div class="grid grid-sm">
-    <div class="col-10">
+    <div class="col-10 pb-0">
       <div class="p-inputgroup w-100">
         <SearchFilter
           :loading="loadingOrders"
@@ -26,7 +26,7 @@ const searchHandler = async (searchText) => {
         </SearchFilter>
       </div>
     </div>
-    <div class="col-2">
+    <div class="col-2 pb-0">
       <div class="p-inputgroup w-100">
         <Dropdown
           :loading="loadingOrders"

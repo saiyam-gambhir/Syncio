@@ -29,7 +29,7 @@ export const fetchProducts = {
       origin: storeType,
       page,
       page: page,
-      search_attribute: this.searchAttribute?.value,
+      search_attribute: this.searchAttribute?.value ?? 'none',
       search_str,
       sort_by_desc: sortBy?.sortByDesc,
       sort_by: sortBy?.key,
