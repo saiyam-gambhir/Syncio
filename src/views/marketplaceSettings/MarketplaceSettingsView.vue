@@ -104,8 +104,8 @@ watch(profile, (newValue, oldValue) => {
   categoryError.value = category?.length > 0 ? null : validationMessages.REQUIRED;
   locationError.value = location?.length > 0 ? null : validationMessages.REQUIRED;
   numOfProductsError.value = numOfProducts && numOfProducts > -1 > 0 ? null : validationMessages.REQUIRED;
-  socialMediaError.value = !urlRegex.test(socialMedia) && socialMedia.length > 0 ? 'Please enter a valid URL starting with https://' : null;
-  websiteError.value = urlRegex.test(website) ? null : 'Please enter a valid URL starting with https://';
+  socialMediaError.value = !urlRegex.test(socialMedia) && socialMedia?.length > 0 ? validationMessages.URL_VERIFICATION : null;
+  websiteError.value = urlRegex.test(website) ? null : validationMessages.URL_VERIFICATION;
 }, { deep: true });
 </script>
 
