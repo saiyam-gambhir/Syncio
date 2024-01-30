@@ -1,6 +1,7 @@
 <script setup>
 /* ----- Data ----- */
 const {
+  loadingPayout,
   isViewPayoutDetailsRequested,
 } = toRefs(usePayoutsStore());
 
@@ -47,8 +48,14 @@ const printHandler = () => {
       </h1>
     </template>
 
-    <div class="grid mt-4">
-      <div class="col-12 md:col-12" v-if="payout">
+    <!----- Spinner ----->
+    <div v-if="loadingPayout" class="flex align-items-center justify-content-center h-100">
+      <Spinner />
+    </div>
+
+    <!----- Payout ----->
+    <div v-else class="grid mt-4">
+      <div class="col-12 md:col-12">
         <PayoutDetails :payout="payout" />
         <OrdersInvoiced :orders="payout.data" />
         <CommentsAndEvents :payout="payout" />
