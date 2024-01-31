@@ -1,7 +1,7 @@
 export const ACCOUNT_SETTINGS = '/settings/account-settings';
 export const ACTIVITY_CENTER = '/activity-center';
 export const DASHBOARD = '/dashboard';
-export const LOGIN = '/';
+export const LOGIN = '/login';
 export const MARKETPLACE = '/marketplace';
 export const MARKETPLACE_SETTINGS = '/settings/marketplace-settings';
 export const NOTIFICATION_SETTINGS = '/settings/notification-settings';
@@ -13,6 +13,7 @@ export const PLAN_AND_BILLINGS = '/settings/plan-and-billings';
 export const PLATFORM_SELECTION = '/registration';
 export const PRODUCT_SETTINGS = '/settings/product-settings';
 export const PRODUCTS = '/products';
+export const ROOT = '/';
 export const SETTINGS = '/settings';
 export const STORES = '/stores';
 
@@ -24,6 +25,10 @@ export const SHOPIFY_SELECT_STORE_TYPE = '/shopify/select-store-type';
 /* ----- Woocommerce ----- */
 export const FORGOT_PASSWORD = '/forgot-password';
 export const RESET_PASSWORD = '/reset-password';
+export const WOO_CONTINUE_LATER = '/registration/woocommerce/continue-later';
 export const WOO_CREATE_ACCOUNT = '/registration/woocommerce/create-account';
+export const WOO_ENTRY = '/woocommerce';
+export const WOO_INSTALLATION_COMPLETED = '/woocommerce/installation-completed';
+export const WOO_PERMISSIONS = '/registration/woocommerce/permissions';
 export const WOO_SELECT_STORE_TYPE = '/registration/woocommerce/select-store-type';
 export const WOO_VERIFY_STORE_URL = '/registration/woocommerce/verify-store-url';

@@ -8,10 +8,10 @@ const {
   commissionTypeOptions,
   storeDefaultCommissionRate,
   updateStoreCommission,
+  isDefaultCommissionChanged,
 } = toRefs(usePayoutsSettingsStore());
 
 const storeDefaultCommissionRateCopy = ref(null);
-const isDefaultCommissionChanged = ref(false);
 
 /* ----- Mounted ----- */
 onMounted(() => {

@@ -10,8 +10,10 @@ import { fetchMetadata } from './actions/fetchMetadata';
 import { fetchSourceLocations } from './actions/fetchSourceLocations';
 import { invitePartnerStore } from './actions/invitePartnerStore';
 import { toggleMultilocation } from './actions/toggleMultilocation';
-import { updateLocation } from './actions/updateLocation';
+import { uninstallStore } from './actions/uninstallStore';
+import { updateAPIKey } from './actions/updateAPIKey';
 import { updateEmail } from './actions/updateEmail';
+import { updateLocation } from './actions/updateLocation';
 
 export const useConnectionsStore = defineStore('connections', {
   state: () => {
@@ -28,17 +30,23 @@ export const useConnectionsStore = defineStore('connections', {
       isDisableMultilocationRequested: false,
       isDisconnectAndDeleteRequested: false,
       isDisconnectAndKeepRequested: false,
+      isInvalidKey: false,
       isInviteViaEmailRequested: false,
       isLocationChanged: false,
       isLocationChangeRequested: false,
       isLocationPendingDialogRequested: false,
       isMultilocationEnabled: 'Off',
       isNewStoreConnectionRequested: false,
+      isUninstallDialogVisible: false,
+      isUpdateAPIKeyDialogVisible: false,
+      isUpdateAPISuccess: false,
+      loadingAPIKeyUpdate: false,
       loadingConnections: false,
       loadingEmail: false,
       loadingInventory: false,
       loadingLocationChange: false,
       loadingTestStoreConnection: false,
+      loadingUninstall: false,
       location: { current: null, new: null, params: null, store: null },
       selectedConnection: {},
       shopifyPermissions: { link: null, showDialog: false },
@@ -47,6 +55,7 @@ export const useConnectionsStore = defineStore('connections', {
         { key: 'store_domain', label: 'Z-A', sortByDesc: true },
       ],
       sourceLocations: null,
+      wooApiKeyStoreId: null,
     };
   },
 
@@ -126,8 +135,10 @@ export const useConnectionsStore = defineStore('connections', {
     fetchSourceLocations,
     invitePartnerStore,
     toggleMultilocation,
-    updateLocation,
+    uninstallStore,
+    updateAPIKey,
     updateEmail,
+    updateLocation,
   ]),
 
   persist: {

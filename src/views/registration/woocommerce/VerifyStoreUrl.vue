@@ -1,5 +1,6 @@
 <script setup>
 import { useForm } from 'vee-validate';
+import * as routes from '@/routes';
 import * as validationMessages from '@/validationMessages';
 import * as yup from 'yup';
 
@@ -11,6 +12,7 @@ const {
 
 const isURLValid = ref(false);
 const loading = ref(false);
+const storeAlreadyUsedError = ref(false);
 
 /* ----- Validations ----- */
 const { errors, meta, defineField } = useForm({
@@ -47,6 +49,7 @@ const verifyStoreURLHandler = () => {
 
 const clearStoreUrlHandler = () => {
   isURLValid.value = false;
+  storeAlreadyUsedError.value = false;
   storeURL.value = null;
 };
 
@@ -65,18 +68,26 @@ const registerStore = async () => {
 
   try {
     const response = await registerWooStore.value(params);
+
+    if(response === undefined) {
+      storeAlreadyUsedError.value = true;
+      return;
+    }
+
+    storeAlreadyUsedError.value = false;
     let redirectUrl = response?.redirect_url;
     redirectUrl += import.meta.env.VITE_WOO_REDIRECT_URL + '?store=' + withoutHttps + '&type=' + shopType;
     window.location.href = redirectUrl;
-  } catch (error) {
-    //storeAlreadyUsedError = error.data.errors[0]
-  }
+  } catch (error) {}
 };
 </script>
 
 <template>
   <section class="mx-auto relative" style="width: 900px;">
-    <ul class="list-none p-0 m-0 mb-8 flex flex-row" style="">
+    <router-link :to="routes.WOO_CONTINUE_LATER" class="fixed z-1" style="right: 2.5rem; top: 2.3rem;">
+      <Button label="Signout, continue later" class="font-bold justify-content-center"></Button>
+    </router-link>
+    <ul class="mx-auto list-none p-0 mt-0 mb-6 flex flex-row" style="top: 1.5rem;">
       <Step title="Store Type" subTitle="Source or destination?" :isComplete="true" />
       <Step title="Connect Store" subTitle="Verify your store" :isCurrent="true" />
       <Step title="Permissions" subTitle="Review store access" :isLast="true" />
@@ -101,7 +112,8 @@ const registerStore = async () => {
             </InputText>
             <i v-if="storeURL" @click="clearStoreUrlHandler" class="pi pi-times absolute pointer text-700" style="right: 1rem; top: 1.33rem;"></i>
           </div>
-          <ValidationMessage :error="errors.storeURL" />
+
+          <ValidationMessage :error="errors.storeURL" style="padding-bottom: 0 !important;" />
           <small v-if="!errors.storeURL" class="block mt-2 pl-1 text-700 font-semi text-sm" id="username-help">You'll need to add https:// to the URL</small>
         </div>
         <div class="col-3 pb-0">
@@ -142,9 +154,13 @@ const registerStore = async () => {
         <p class="m-0 mt-4">Syncio will only use these permissions to perform essential product and order updates.</p>
         <p class="m-0 mt-4">On the next step, make sure you login to your admin account with:</p>
         <h3 class="m-0 mt-2 text-xl">Read and Write permissions</h3>
-        <Button label="Continue to permission approval" @click="registerStore" class="w-100 p-button-lg mt-5"></Button>
+        <Button label="Continue to permission approval" @click="registerStore" class="w-100 p-button-lg mt-6"></Button>
+        <p v-if="storeAlreadyUsedError" class="mt-4 text-lg font-semi line-height-3 mb-0" style="color: #D91E18 !important;">
+          The store is already installed with another account
+          <br>
+          Please try again
+        </p>
       </div>
-
     </aside>
   </section>
 </template>

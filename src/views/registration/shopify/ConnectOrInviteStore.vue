@@ -48,15 +48,29 @@ const showConnectViaKeyHandler = () => {
 
     <aside class="auth-wrapper text-900 text-center">
       <h3>Your store's unique key:</h3>
-      <h3 class="text-4xl font-semi mb-4" style="color: #fa757b; letter-spacing: 1.5px;">{{ storeKey || '658adff94608e' }}</h3>
-      <p class="text-lg line-height-3 m-0">Share your unique key with source stores to start importing their products to sell on your store.</p>
+      <h3 class="text-4xl font-semi mb-4" :style="{ color: isDestinationStore ? '#fa757b' : '#f89117' }" style="letter-spacing: 1.5px;">{{ storeKey || '658adff94608e' }}</h3>
+      <p class="text-lg line-height-3 m-0" v-if="isDestinationStore">Share your unique key with source stores to start importing their products to sell on your store.</p>
+      <p class="text-lg line-height-3 m-0" v-else>Share your unique key with destination stores to allow them to import your products to sell on their store.</p>
       <p class="text-lg line-height-3 mt-1">This unique key can also be found on your dashboard after completing this setup process.</p>
       <div class="grid pt-4 pb-3">
         <div class="col-6">
-          <Button @click="showInviteViaEmailHandler" icon="pi pi-arrow-right" iconPos="right" label="Share your key via e-mail" class="p-button-lg w-100"></Button>
+          <Button
+            @click="showInviteViaEmailHandler"
+            class="p-button-lg w-100"
+            icon="pi pi-arrow-right"
+            iconPos="right"
+            label="Share your key via e-mail">
+          </Button>
         </div>
         <div class="col-6">
-          <Button @click="showConnectViaKeyHandler" outlined icon="pi pi-arrow-right" iconPos="right" label="I received a source store key" class="p-button-lg w-100"></Button>
+          <Button
+            @click="showConnectViaKeyHandler"
+            class="p-button-lg w-100"
+            icon="pi pi-arrow-right"
+            iconPos="right"
+            label="I received a source store key"
+            outlined>
+          </Button>
         </div>
       </div>
 

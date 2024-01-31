@@ -41,6 +41,13 @@ const searchAttributeHandler = ($event) => {
     fetchProductsHandler();
   }
 };
+
+const showProductSearchAttributes = () => {
+  const searchAttributesSelector = document.querySelector('#search-attributes');
+  if(searchAttributesSelector) {
+    searchAttributesSelector.click();
+  }
+};
 </script>
 
 <template>
@@ -62,6 +69,7 @@ const searchAttributeHandler = ($event) => {
 
             <div class="p-inputgroup w-100">
               <Dropdown
+                id="search-attributes"
                 :autoOptionFocus="false"
                 :loading="loading"
                 :options="searchOptions"
@@ -74,8 +82,9 @@ const searchAttributeHandler = ($event) => {
               </Dropdown>
             </div>
           </div>
-          <div class="col-9 flex align-items-center">
-            <div class="p-inputgroup w-100">
+          <div class="col-9 flex align-items-center pr-0">
+            <div class="p-inputgroup relative w-100">
+              <span v-if="!searchAttribute" class="w-100 h-100 absolute pointer z-1" @click="showProductSearchAttributes" style="top: 0; left: 0;"></span>
               <SearchFilter
                 :disabled="!searchAttribute"
                 :loading="loading"
@@ -124,7 +133,7 @@ const searchAttributeHandler = ($event) => {
     </div>
 
     <div class="grid grid-sm my-0">
-      <div class="col-2">
+      <div class="col-3">
         <div class="p-inputgroup w-100">
           <Dropdown
             :autoOptionFocus="false"
@@ -188,7 +197,7 @@ const searchAttributeHandler = ($event) => {
           </Dropdown>
         </div>
       </div>
-      <div class="col-4 flex align-items-center">
+      <div class="col-3 flex align-items-center">
         <InputSwitch
           @change="fetchProductsHandler"
           inputId="hide-zero-stock"

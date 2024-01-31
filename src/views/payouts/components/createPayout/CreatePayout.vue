@@ -73,8 +73,14 @@ const getFinalPayoutValue = () => {
       </h1>
     </template>
 
-    <div class="grid mt-4">
-      <div class="col-12 md:col-12" v-if="payout">
+    <!----- Spinner ----->
+    <div v-if="loadingCreatePayout" class="flex align-items-center justify-content-center h-100">
+      <Spinner />
+    </div>
+
+    <!----- Payout ----->
+    <div v-else class="grid mt-4">
+      <div class="col-12 md:col-12">
 
         <CardWrapper class="pb-3">
           <template #content>

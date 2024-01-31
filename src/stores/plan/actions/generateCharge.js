@@ -1,10 +1,10 @@
 export const generateCharge = {
   async generateCharge() {
     try {
-      const { isDestinationStore, storeId } = useConnectionsStore();
+      const { fetchConnections, isDestinationStore, storeId } = useConnectionsStore();
 
       const params = {
-        is_onboarding: this.isOnboarding,
+        is_onboarding: this.plan ? false : true,
         option_ids: [...Object.values(this.selectedAddonIds)],
         plan_id: this.currentPlanId,
       };
@@ -15,7 +15,10 @@ export const generateCharge = {
       if(!charge) { // Free plan
         const { userId } = useAuthStore();
         this.loadingPlans = true;
-        await this.fetchCurrentPlan(userId);
+        await Promise.all([
+          this.fetchCurrentPlan(userId),
+          fetchConnections()
+        ]);
         this.loadingPlans = false;
         this.shouldShowAddonsDowngradeDialog = false;
         return;

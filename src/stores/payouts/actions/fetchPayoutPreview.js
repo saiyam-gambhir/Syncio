@@ -1,6 +1,7 @@
 export const fetchPayoutPreview = {
   async fetchPayoutPreview(orderIds) {
     try {
+      this.loadingCreatePayout = true;
       const params = {
         current_store_id: this.storeId,
         order_ids: orderIds,
@@ -12,6 +13,7 @@ export const fetchPayoutPreview = {
 
     } catch (error) {
     } finally {
+      this.loadingCreatePayout = false;
     }
   }
 };

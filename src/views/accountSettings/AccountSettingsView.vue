@@ -1,4 +1,8 @@
 <script setup>
+/* ----- Components ----- */
+const UninstallDialog = defineAsyncComponent(() => import('./components/UninstallDialog.vue'));
+const UpdateAPIKeyDialog = defineAsyncComponent(() => import('./components/UpdateAPIKeyDialog.vue'));
+
 /* ----- Data ----- */
 const {
   copyToClipBoard,
@@ -12,12 +16,18 @@ const {
 const {
   isShopify,
   isWoocommerce,
+  loadingUninstall,
   platform,
   storeCreationDate,
   storeKey,
   storeName,
   storeType,
 } = useConnectionsStore();
+
+const {
+  isUpdateAPIKeyDialogVisible,
+  isUninstallDialogVisible,
+} = toRefs(useConnectionsStore());
 
 // const {
 //   currency,
@@ -39,6 +49,14 @@ const copyStoreKeyHandler = async val => {
 // const handleCurrencyChange = (event) => {
 //   currency.value = event.value;
 // };
+
+const handleUpdateAPIKey = async () => {
+  isUpdateAPIKeyDialogVisible.value = true;
+};
+
+const handleUninstall = async () => {
+  isUninstallDialogVisible.value = true;
+};
 </script>
 
 <template>
@@ -50,20 +68,12 @@ const copyStoreKeyHandler = async val => {
   <article class="grid mt-2">
     <section class="col-12 md:col-5 lg:col-3">
       <h2 class="pb-2">The essentials</h2>
-      <CardWrapper
-        class="pb-3"
-        description="Share this with Source stores so you can import products to your store."
-        icon="key"
-        title="Unique store key">
+      <CardWrapper class="pb-3" description="Share this with Source stores so you can import products to your store."
+        icon="key" title="Unique store key">
         <template #content>
           <h3 class="mb-0 flex align-items-center">
             {{ storeKey }}
-            <Button
-              @click="copyStoreKeyHandler(storeKey)"
-              class="ml-2"
-              rounded
-              text
-              icon="pi pi-copy">
+            <Button @click="copyStoreKeyHandler(storeKey)" class="ml-2" rounded text icon="pi pi-copy">
             </Button>
           </h3>
         </template>
@@ -131,14 +141,21 @@ const copyStoreKeyHandler = async val => {
             <li v-if="isWoocommerce" class="py-4 border-bottom-1 surface-border">
               <h3 class="flex align-items-center justify-content-between my-1">
                 API Key:
-                <Button label="Update" style="width: 7.5rem;"></Button>
+                <Button @click="handleUpdateAPIKey" label="Update" style="width: 7.5rem;"></Button>
               </h3>
             </li>
             <li class="pt-4 pb-2 surface-border">
               <h3 class="flex align-items-center justify-content-between mt-1 mb-0">
                 Uninstall Syncio:
                 <Tag v-if="isShopify" severity="danger" class="ml-3 transform-none">* For Shopify, please use Shopify admin page to uninstall Syncio</Tag>
-                <Button label="Uninstall" severity="danger" style="width: 7.5rem;"></Button>
+                <Button
+                  :loading="loadingUninstall"
+                  @click="handleUninstall"
+                  label="Uninstall"
+                  severity="danger"
+                  style="width: 7.5rem;"
+                  v-if="isWoocommerce">
+                </Button>
               </h3>
             </li>
           </ul>
@@ -146,18 +163,24 @@ const copyStoreKeyHandler = async val => {
       </CardWrapper>
     </section>
   </article>
+
+  <!-- Woo Update API Key  -->
+  <UpdateAPIKeyDialog v-if="isUpdateAPIKeyDialogVisible" />
+
+  <!-- Woo Uninstall  -->
+  <UninstallDialog v-if="isUninstallDialogVisible" />
 </template>
 
 <style scoped>
-  .capitalize {
-    text-transform: capitalize !important;
-  }
+.capitalize {
+  text-transform: capitalize !important;
+}
 
-  .transform-none {
-    text-transform: none !important;
-  }
+.transform-none {
+  text-transform: none !important;
+}
 
-  h3 span {
-    font-size: 1.25rem !important;
-  }
+h3 span {
+  font-size: 1.25rem !important;
+}
 </style>

@@ -81,8 +81,24 @@ const router = createRouter({
       name: routes.WOO_VERIFY_STORE_URL,
       path: routes.WOO_VERIFY_STORE_URL,
     },
-    /* ----- Woocommerce ----- */
-
+    {
+      component: () => import('@/views/registration/woocommerce/Permissions.vue'),
+      meta: { layout: LoggedOut, requireAuth: true },
+      name: routes.WOO_PERMISSIONS,
+      path: routes.WOO_PERMISSIONS,
+    },
+    {
+      component: () => import('@/views/registration/woocommerce/WooEntry.vue'),
+      meta: { layout: LoggedOut, requireAuth: true, },
+      name: '',
+      path: routes.WOO_ENTRY
+    },
+    {
+      component: () => import('@/views/registration/woocommerce/InstallationComplete.vue'),
+      meta: { layout: LoggedOut, requireAuth: true, },
+      name: routes.WOO_INSTALLATION_COMPLETED,
+      path: routes.WOO_INSTALLATION_COMPLETED,
+    },
     {
       component: () => import('@/views/registration/woocommerce/ForgotPassword.vue'),
       meta: { layout: LoggedOut },
@@ -95,6 +111,14 @@ const router = createRouter({
       name: routes.RESET_PASSWORD,
       path: routes.RESET_PASSWORD,
     },
+    {
+      component: () => import('@/views/registration/woocommerce/ContinueLater.vue'),
+      meta: { layout: LoggedOut, requireAuth: true },
+      name: routes.WOO_CONTINUE_LATER,
+      path: routes.WOO_CONTINUE_LATER,
+    },
+    /* ----- Woocommerce ----- */
+
     {
       component: DashboardView,
       meta: { ...meta },

@@ -110,13 +110,18 @@ const isSelected = (row) => {
   if(orders.selectedOrders.includes(row.order_ref_id)) return 'selected';
 };
 
+const clearSelectionHandler = () => {
+  selectedOrders.value = [];
+};
+
 const bulkPushOrdersHandler = async () => {
-  if(isOrderLimitReached.value || (selectedOrders.value.length > ordersAvailableToPush.value)) {
+  if(!addons.value.isOrderModulePaid && (isOrderLimitReached.value || (selectedOrders.value.length > ordersAvailableToPush.value))) {
     shouldShowOrderPushLimitDialog.value = true;
     return;
   }
 
   await bulkPushOrders.value();
+  clearSelectionHandler();
 };
 </script>
 
@@ -150,7 +155,22 @@ const bulkPushOrdersHandler = async () => {
 
   <!-- Bulk Push -->
   <BulkSelectedCount v-if="!isBulkPushActive" :items="orders.selectedOrders" itemType="order">
-    <Button label="Push Selected Orders" @click="bulkPushOrdersHandler()" :loading="loadingOrders"></Button>
+    <Button
+      :loading="loadingOrders"
+      @click="bulkPushOrdersHandler()"
+      label="Push Selected Orders">
+    </Button>
+
+    <Button
+      @click="clearSelectionHandler"
+      class="ml-2"
+      icon="pi pi-times"
+      rounded
+      outlined
+      style="vertical-align: top !important;"
+      size="10px"
+      v-tooltip.bottom="'Clear selection'">
+    </Button>
   </BulkSelectedCount>
 
   <!-- Skeleton Loading -->
@@ -238,7 +258,7 @@ const bulkPushOrdersHandler = async () => {
   <!-- Pagination -->
   <div v-if="!orders.loadingOrders" class="text-center mt-5 mb-2">
     <h3 class="font-semibold" v-if="(pagination?.current_page === pagination?.last_page) && orders.orders.length > 0">
-      No more orders to see. We only display orders upto 60 days.
+      No more orders to see. We only display orders up to 60 days.
     </h3>
 
     <Button

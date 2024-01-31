@@ -34,7 +34,7 @@ const {
 
 const forceLeavingPage = ref(false);
 const router = useRouter();
-const routeTo = ref(null)
+const routeTo = ref(null);
 
 /* ----- Mounted ----- */
 onMounted(async () => {

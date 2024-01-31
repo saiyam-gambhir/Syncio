@@ -9,7 +9,10 @@ const props = defineProps({
 </script>
 
 <template>
-  <span class="pb-3 pl-1 block text-error font-semibold" style="letter-spacing: .5px;" v-if="error">
-    {{ error }}
+  <span
+    class="pb-3 pl-1 block text-error font-semibold"
+    style="letter-spacing: .5px;"
+    v-html="error"
+    v-if="error">
   </span>
 </template>

@@ -455,13 +455,6 @@ td {
   top: 5px !important;
 }
 
-.p-progress-spinner {
-  left: 50%;
-  position: absolute;
-  top: 50%;
-  transform: translateX(-50%) translateY(-50%);
-}
-
 @keyframes p-progress-spinner-color {
   100%,
   0% {
@@ -840,12 +833,11 @@ input.p-inputtext-lg {
   padding: 0.6rem 1rem;
   position: fixed;
   top: -0;
-  //transform: translateX(calc(-50% + (18.5rem / 2)));
   z-index: 1;
 
   button {
-    background: #fff;
-    color: $primary;
+    background: #fff !important;
+    color: $primary !important;
 
     &:hover {
       color: $primary !important;
@@ -874,7 +866,7 @@ input.p-inputtext-lg {
 
 .status-not_pushed,
 .status-false {
-  background: lighten(#fff2e3, 4%) !important;
+  background: rgba(238, 238, 238, .4) !important;
 }
 
 .font-semi {

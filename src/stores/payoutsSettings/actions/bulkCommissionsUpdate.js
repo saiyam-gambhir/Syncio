@@ -17,13 +17,13 @@ export const bulkCommissionsUpdate = {
       }
 
       commissionRates = updatedStores.map(store => {
-        const { connection_id, id, store_commission_rate: { type, value } } = store;
+        const { external_product_id, connection_id, id, store_commission_rate: { type, value } } = store;
         return {
           commission_type: isBulkUpdate ? this.bulkCommission.type : type,
           commission_value: isBulkUpdate ? this.bulkCommission.val : value,
           connection_id,
           destination_store_id: this.storeId,
-          source_product_id: null,
+          source_product_id: external_product_id,
           source_store_id: id,
         }
       });

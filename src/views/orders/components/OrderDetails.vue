@@ -100,7 +100,7 @@ const getPushedDate = (date) => {
             :disabled="isPreviousOrderButtonDisabled"
             @click="fetchPreviousOrderSummary"
             class="p-button-sm ml-3"
-            label="Previous Order"
+            label="Previous order"
             outlined>
           </Button>
 
@@ -108,7 +108,7 @@ const getPushedDate = (date) => {
             :disabled="isNextOrderButtonDisabled"
             @click="fetchNextOrderSummary"
             class="p-button-sm ml-3"
-            label="Next Order"
+            label="Next order"
             outlined>
           </Button>
         </template>
@@ -133,19 +133,27 @@ const getPushedDate = (date) => {
         <CardWrapper class="pb-3">
           <template #content>
             <h3 class="mb-2 flex align-items-center">
-              <LogoSmall style="width: 30px;transform: translateY(1px);" class="mr-2" /> Status: <Tag class="ml-3" rounded :severity="getPushStatus(order.push_status)">{{ formattedUnderscoreText(order.push_status) }}</Tag>
+              <LogoSmall style="width: 30px;transform: translateY(1px);" class="mr-2" /> Status:
+              <Tag v-if="formattedUnderscoreText(order.push_status) === 'not pushed'" :pt="{root: { style: { background: '#eee', color: '#333', border: '1px solid #333' }}}" class="ml-3" rounded :severity="getPushStatus(order.push_status)"><StatusIcon /> {{ formattedUnderscoreText(order.push_status) }}</Tag>
+              <Tag v-else class="ml-3" rounded :severity="getPushStatus(order.push_status)"><StatusIcon /> {{ formattedUnderscoreText(order.push_status) }}</Tag>
             </h3>
             <p class="mt-3 mb-0">Order contains synced products from <Tag severity="info" class="mx-1" style="padding: .25rem .75rem !important;">{{ Object.keys(order?.source_stores).length }}</Tag> {{ Object.keys(order?.source_stores).length > 1 ? 'source stores' : 'source store' }}.</p>
             <Divider />
-            <h3 class="mb-2 flex align-items-center">
+            <h3 class="mb-0 flex align-items-center">
               <IconShopify class="mr-3" style="transform: translateY(-1px);" />
               Order details: <span class="ml-2">{{ order.name }}</span>
             </h3>
             <Divider />
             <div>
               <strong>Status:</strong>
-              <Tag :severity="getFinancialStatus(order.financial_status)" rounded class="ml-3">{{ formattedUnderscoreText(order.financial_status) }}</Tag>
-              <Tag :severity="getFulfillmentStatus(order.fulfillment_status)" rounded class="ml-2">{{ getOrderFulfillmentStatus }}</Tag>
+              <Tag :severity="getFinancialStatus(order.financial_status)" rounded class="ml-3">
+                <StatusIcon />
+                {{ formattedUnderscoreText(order.financial_status) }}
+              </Tag>
+              <Tag :severity="getFulfillmentStatus(order.fulfillment_status)" rounded class="ml-2">
+                <StatusIcon />
+                {{ getOrderFulfillmentStatus }}
+              </Tag>
             </div>
             <Divider />
             <AppLink strong :label="`Order ID: ${order.id}`" :link="`https://${storeName}/admin/orders/${order.id}`" />
@@ -172,7 +180,6 @@ const getPushedDate = (date) => {
               <div class="text-right">
 
                 <!----- Push Order ----->
-
                 <PushOrder :store="store" :order="order" @onOrderPush="onOrderPushHandler" />
 
                 <template v-if="store.push_status === 'failed' && !store.is_mapper_deleted">

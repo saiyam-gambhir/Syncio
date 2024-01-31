@@ -1,17 +1,63 @@
 <script setup>
+import * as routes from '@/routes';
+
 /* ----- Components ----- */
 const DefaultStoreCommission = defineAsyncComponent(() => import('./components/DefaultStoreCommission.vue'));
+const LeavingPageDialog = defineAsyncComponent(() => import('@/components/shared/LeavingPageDialog.vue'));
 const ProductCommission = defineAsyncComponent(() => import('./components/product/ProductCommission.vue'));
 const StoreCommission = defineAsyncComponent(() => import('./components/store/StoreCommission.vue'));
 
 /* ----- Data ----- */
+const forceLeavingPage = ref(false);
+const router = useRouter();
+const routeTo = ref(null);
+
 const {
   activeTabIndex,
+  areProductCommissionsChanged,
+  areStoreCommissionsChanged,
+  isDefaultCommissionChanged,
+  storeConnections,
+  storeDefaultCommissionRate,
+  storeProducts,
+  unMutatedStoreProducts,
 } = toRefs(usePayoutsSettingsStore());
+
+const {
+  connections,
+  storeDefaultCommission,
+} = toRefs(useConnectionsStore());
+
+const {
+  showLeavingPageDialog
+} = toRefs(useAuthStore());
+
+/* ----- Before Route Leave ----- */
+onBeforeRouteLeave((to, from, next) => {
+  if((isDefaultCommissionChanged.value || areStoreCommissionsChanged.value || areProductCommissionsChanged.value) && !forceLeavingPage.value && to.fullPath !== routes.LOGIN) {
+    showLeavingPageDialog.value = true;
+    routeTo.value = to;
+    next(false);
+  } else {
+    next();
+  }
+});
 
 /* ----- Methods ----- */
 const handleTabChange = async index => {
   activeTabIndex.value = index;
+};
+
+const leaveCurrentPageHandler = () => {
+  if (routeTo.value) {
+    forceLeavingPage.value = true;
+    router.push(routeTo.value);
+    showLeavingPageDialog.value = false;
+
+    storeDefaultCommissionRate.value = structuredClone(toRaw(storeDefaultCommission.value));
+    storeConnections.value = structuredClone(toRaw(connections.value));
+    storeProducts.value = JSON.parse(unMutatedStoreProducts.value);
+  }
 };
 </script>
 
@@ -30,14 +76,19 @@ const handleTabChange = async index => {
 
     <TabView v-model:activeIndex="activeTabIndex" @update:activeIndex="handleTabChange" class="mt-4">
       <TabPanel header="Your Shop Default">
-        <DefaultStoreCommission class="mt-4" v-if="activeTabIndex === 0" />
+        <DefaultStoreCommission class="mt-4" v-show="activeTabIndex === 0" />
       </TabPanel>
       <TabPanel header="By Store">
-        <StoreCommission v-if="activeTabIndex === 1" />
+        <StoreCommission v-show="activeTabIndex === 1" />
       </TabPanel>
       <TabPanel header="By Product">
-        <ProductCommission v-if="activeTabIndex === 2" />
+        <ProductCommission v-show="activeTabIndex === 2" />
       </TabPanel>
     </TabView>
   </article>
+
+  <LeavingPageDialog
+    :isDialogVisible="(isDefaultCommissionChanged || areStoreCommissionsChanged || areProductCommissionsChanged)"
+    @leaveCurrentPage="leaveCurrentPageHandler">
+  </LeavingPageDialog>
 </template>

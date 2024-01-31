@@ -1,4 +1,6 @@
 <script setup>
+import * as validationMessages from '@/validationMessages';
+
 /* ----- Components ----- */
 const ProfilePreviewDialog = defineAsyncComponent(() => import('./components/ProfilePreviewDialog.vue'));
 
@@ -22,6 +24,15 @@ const {
 const deletedImages = ref([]);
 const fileSelectedForUpload = ref([]);
 const loading = ref(false);
+const urlRegex = /^((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)/;
+
+/* Form */
+const brandNameError = ref(null);
+const categoryError = ref(null);
+const locationError = ref(null);
+const numOfProductsError = ref(null);
+const socialMediaError = ref(null);
+const websiteError = ref(null);
 
 /* ----- Mounted ----- */
 onMounted(async () => {
@@ -32,6 +43,10 @@ onMounted(async () => {
 const placeHolderImages = computed(() => {
   const uploadedImages = profile.value?.cocoProfileImages?.length ?? 0;
   return uploadedImages ? maxImagesAllowed.value - (uploadedImages) : maxImagesAllowed.value;
+});
+
+const isActionDisabled = computed(() => {
+  return brandNameError.value || categoryError.value || locationError.value || numOfProductsError.value || socialMediaError.value || websiteError.value;
 });
 
 /* ----- Methods ----- */
@@ -81,6 +96,17 @@ const deleteFilesFromView = (image, index) => {
     profile.value.cocoProfileImages.splice(index, 1);
   }
 };
+
+/* ----- Validations ----- */
+watch(profile, (newValue, oldValue) => {
+  const { brandName, category, location, numOfProducts, socialMedia, website } = newValue;
+  brandNameError.value = brandName?.length > 0 ? null : validationMessages.REQUIRED;
+  categoryError.value = category?.length > 0 ? null : validationMessages.REQUIRED;
+  locationError.value = location?.length > 0 ? null : validationMessages.REQUIRED;
+  numOfProductsError.value = numOfProducts && numOfProducts > -1 > 0 ? null : validationMessages.REQUIRED;
+  socialMediaError.value = !urlRegex.test(socialMedia) && socialMedia?.length > 0 ? validationMessages.URL_VERIFICATION : null;
+  websiteError.value = urlRegex.test(website) ? null : validationMessages.URL_VERIFICATION;
+}, { deep: true });
 </script>
 
 <template>
@@ -93,8 +119,20 @@ const deleteFilesFromView = (image, index) => {
         <span class="font-bold">Last saved: </span>
         <Date :date="profile.updatedAt" horizontal />
       </span>
-      <Button @click="isPreviewProfileDialogVisible = true" label="Preview" outlined class="ml-3"></Button>
-      <Button @click="updateProfile" :loading="loadingProfile" :label="profile.updatedAt ? 'Save' : 'Create profile'" class="ml-3"></Button>
+      <Button
+        :disabled="isActionDisabled"
+        @click="isPreviewProfileDialogVisible = true"
+        class="ml-3"
+        label="Preview"
+        outlined>
+      </Button>
+      <Button
+        :disabled="isActionDisabled"
+        :label="profile.updatedAt ? 'Save' : 'Create profile'"
+        :loading="loadingProfile"
+        @click="updateProfile"
+        class="ml-3">
+      </Button>
     </template>
   </PageHeader>
 
@@ -111,7 +149,15 @@ const deleteFilesFromView = (image, index) => {
                     <label for="brandName" class="font-semibold">Brand Name</label>
                   </div>
                   <div class="text-900 w-9">
-                    <InputText type="text" id="brandName" class="w-66" v-model="profile.brandName" />
+                    <InputText
+                      :class="{ 'mb-3 p-invalid': brandNameError }"
+                      type="text"
+                      id="brandName"
+                      class="w-66"
+                      v-model="profile.brandName">
+                    </InputText>
+
+                    <ValidationMessage :error="brandNameError" style="padding-bottom: 0 !important;" />
                   </div>
                 </li>
 
@@ -120,7 +166,15 @@ const deleteFilesFromView = (image, index) => {
                     <label for="instagram" class="font-semibold">Instagram (optional)</label>
                   </div>
                   <div class="text-900 w-9">
-                    <InputText type="text" id="instagram" class="w-66" v-model="profile.socialMedia" />
+                    <InputText
+                      :class="{ 'mb-3 p-invalid': socialMediaError }"
+                      class="w-66"
+                      id="instagram"
+                      type="text"
+                      v-model="profile.socialMedia">
+                    </InputText>
+
+                    <ValidationMessage :error="socialMediaError" style="padding-bottom: 0 !important;" />
                   </div>
                 </li>
 
@@ -129,7 +183,15 @@ const deleteFilesFromView = (image, index) => {
                     <label for="website" class="font-semibold">Website</label>
                   </div>
                   <div class="text-900 w-9">
-                    <InputText type="text" id="website" class="w-66" v-model="profile.website" />
+                    <InputText
+                      :class="{ 'mb-3 p-invalid': websiteError }"
+                      type="text"
+                      id="website"
+                      class="w-66"
+                      v-model="profile.website">
+                    </InputText>
+
+                    <ValidationMessage :error="websiteError" style="padding-bottom: 0 !important;" />
                   </div>
                 </li>
 
@@ -140,13 +202,18 @@ const deleteFilesFromView = (image, index) => {
                   <div class="text-900 w-9">
                     <Dropdown
                       :autoOptionFocus="false"
+                      :class="{ 'mb-3 p-invalid': locationError }"
                       :options="countries"
                       class="w-66"
-                      editable placeholder="Select Country"
+                      editable
                       inputId="location"
+                      placeholder="Select Country"
                       selectOnFocus
+                      showClear
                       v-model="profile.location">
                     </Dropdown>
+
+                    <ValidationMessage :error="locationError" style="padding-bottom: 0 !important;" />
                   </div>
                 </li>
 
@@ -157,13 +224,17 @@ const deleteFilesFromView = (image, index) => {
                   </div>
                   <div class="text-900 w-9">
                     <Dropdown
+                      showClear
                       :autoOptionFocus="false"
+                      :class="{ 'mb-3 p-invalid': categoryError }"
                       :options="categories"
                       class="w-66"
-                      editable placeholder="Select category"
                       inputId="category"
+                      placeholder="Select category"
                       v-model="profile.category">
                     </Dropdown>
+
+                    <ValidationMessage :error="categoryError" style="padding-bottom: 0 !important;" />
                   </div>
                 </li>
 
@@ -172,7 +243,16 @@ const deleteFilesFromView = (image, index) => {
                     <label for="numOfProducts" class="font-semibold">Number of products</label>
                   </div>
                   <div class="text-900 w-9">
-                    <InputText type="number" min="0" id="numOfProducts" class="w-66" v-model="profile.numOfProducts" />
+                    <InputText
+                      :class="{ 'mb-3 p-invalid': numOfProductsError }"
+                      class="w-66"
+                      id="numOfProducts"
+                      min="0"
+                      type="number"
+                      v-model="profile.numOfProducts">
+                    </InputText>
+
+                    <ValidationMessage :error="numOfProductsError" style="padding-bottom: 0 !important;" />
                   </div>
                 </li>
 
@@ -213,17 +293,16 @@ const deleteFilesFromView = (image, index) => {
               <div class="font-medium text-3xl mb-3">Profile images - ({{ profile?.cocoProfileImages?.length ?? 0 }}/{{ maxImagesAllowed }})</div>
               <div class="text-500">The order that images appear on your profile will be the same as the order here.</div>
               <div class="text-500 mb-3 mt-2">Include product images to give partner stores an understanding of what you sell.</div>
-              <div class="absolute right-0 top-0" v-if="profile?.cocoProfileImages?.length < maxImagesAllowed">
+              <div class="absolute right-0 top-0" v-if="profile?.cocoProfileImages?.length < maxImagesAllowed || !profile.cocoProfileImages">
                 <input
                   @change="fileUploadHandler"
                   accept="image/jpeg, image/png, image/jpg, image/webp, image/gif, image/ico"
                   class="absolute upload-btn w-100 h-100 top-0 left-0"
                   multiple
                   ref="fileSelectedForUpload"
-                  type="file"
-                >
-                <Button @click="clickFileUploadButton" label="Upload Images" icon="pi pi-upload"></Button>
-                <p class="text-center mt-1 m-0 text-sm text-600">You can add upto {{ maxImagesAllowed }} images</p>
+                  type="file" />
+                <Button :loading="loading" @click="clickFileUploadButton" label="Upload Images" icon="pi pi-upload"></Button>
+                <p class="text-center mt-1 m-0 text-sm text-600">You can add up to {{ maxImagesAllowed }} images</p>
               </div>
 
               <ul class="list-none p-0 m-0">
@@ -252,24 +331,6 @@ const deleteFilesFromView = (image, index) => {
   </form>
 
   <ProfilePreviewDialog v-if="isPreviewProfileDialogVisible" />
-
-  <!-- <DialogWrapper :isVisible="showPreviewDialog" @closeDialog="dialogHandler" title="Profile Preview" width="750px" :showFooter="false">
-    <template #body>
-      <div class="grid">
-        <div class="col col-6">
-          <p class="text-lg m-0 pb-3 line-height-3">
-            This is how your profile will appear on the marketplace.
-          </p>
-          <p class="text-lg m-0 line-height-3">
-            When other stores message you, you'll receive an email with their details and an optional personal message.
-          </p>
-        </div>
-        <div class="col col-6">
-          <ProfilePreview :profile="profile" />
-        </div>
-      </div>
-    </template>
-  </DialogWrapper> -->
 </template>
 
 <style scoped>

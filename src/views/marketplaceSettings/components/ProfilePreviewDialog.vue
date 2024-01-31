@@ -65,7 +65,7 @@ const closeDialogHandler = () => {
                     <IconInstagram />
                   </a>
                 </h3>
-                <p class="m-0 mt-2">
+                <p class="m-0 mt-2" v-if="profile.location">
                   <span class="text-sm mr-1">Ships from</span>
                   <strong class="font-semibold primary-color">{{ profile.location }}</strong>
                   <a v-if="profile.shippingPolicyUrl" :href="profile.shippingPolicyUrl" class="btn-link"> (Policy)</a>
@@ -86,7 +86,10 @@ const closeDialogHandler = () => {
                 <Divider />
 
                 <div class="flex">
-                  <Button class="p-button-success p-button-sm" label="Invite to connect" style="bottom: auto;">
+                  <Button
+                    class="p-button-success p-button-sm"
+                    label="Invite to connect"
+                    style="bottom: auto;">
                   </Button>
                 </div>
               </div>

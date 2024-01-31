@@ -140,7 +140,7 @@ router.beforeEach(async (to, from, next) => {
       await plan.fetchCurrentPlan(userId);
     }
 
-    if (!auth.user) {
+    if (!auth.user || from.fullPath === routes.WOO_INSTALLATION_COMPLETED) {
       const userId = sessionStorage.getItem('USER_ID');
       await auth.fetchUser(userId);
 
@@ -159,8 +159,10 @@ router.beforeEach(async (to, from, next) => {
         }
       }
     }
-  } else if ((to.path === '/login' || to.path === '/') && ID_TOKEN_KEY) { // check onboarding routes pending
+  } else if ((to.path === routes.LOGIN || to.path === routes.ROOT) && ID_TOKEN_KEY) { // check onboarding routes pending
     return next({ path: routes.DASHBOARD });
+  } else if (to.path === routes.ROOT && !ID_TOKEN_KEY) {
+    return next({ path: routes.LOGIN });
   }
 
   next();
@@ -177,3 +179,13 @@ window.intercomSettings = {
   custom_launcher_selector: '.intercom-custom-launcher'
 };
 window.Intercom('update', window.intercomSettings);
+
+/* ----- Hotjar ----- */
+(function(h,o,t,j,a,r) {
+  h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+  h._hjSettings={hjid:import.meta.env.VITE_HOTJAR_CODE,hjsv:6};
+  a=o.getElementsByTagName('head')[0];
+  r=o.createElement('script');r.async=1;
+  r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+  a.appendChild(r);
+})(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');

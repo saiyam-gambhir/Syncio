@@ -23,8 +23,8 @@ onMounted(() => {
 /* ----- Validations ----- */
 const { errors, meta, defineField } = useForm({
   validationSchema: yup.object({
-    password: yup.string().min(8, validationMessages.PASSWORD).required(validationMessages.REQUIRED),
-    passwordConfirmation: yup.string().oneOf([yup.ref('password')], 'Passwords do not match').required(validationMessages.REQUIRED),
+    password: yup.string().matches(/[#?!@$%^&*-]/, validationMessages.PASSWORD).min(8, validationMessages.PASSWORD),
+    passwordConfirmation: yup.string().oneOf([yup.ref('password')], validationMessages.PASSWORD_CONFIRMATION).required(validationMessages.REQUIRED),
   }),
 });
 
@@ -33,11 +33,11 @@ const [passwordConfirmation] = defineField('passwordConfirmation');
 
 /* ----- Methods ----- */
 const getQueryParams = () => {
-  const url = new URL(window.location)
-  url.searchParams.sort()
-  const token = url.search.split('&token=')
-  resetToken.value = token[1]
-  emailAddress.value = decodeURIComponent(token[0].split('?email=')[1])
+  const url = new URL(window.location);
+  url.searchParams.sort();
+  const token = url.search.split('&token=');
+  resetToken.value = token[1];
+  emailAddress.value = decodeURIComponent(token[0].split('?email=')[1]);
 };
 
 const resetPasswordHander = async () => {

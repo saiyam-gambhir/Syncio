@@ -1,13 +1,24 @@
 <script setup>
+import * as routes from '@/routes';
+
 /* ----- Data ----- */
 const {
   registerWooStore,
   user,
 } = toRefs(useAuthStore());
 
+const {
+  currentStore,
+} = toRefs(useConnectionsStore());
+
+const {
+  wooPlanSelectionLink,
+} = toRefs(usePlanStore());
+
 const arePermissionsApproved = ref(false);
 const storeType = ref('');
 const storeUrl = ref('');
+const router = useRouter();
 
 /* ----- Mounted ----- */
 onMounted(() => {
@@ -17,8 +28,15 @@ onMounted(() => {
   storeUrl.value = searchParams.get('store');
 
   if(url.searchParams.get('type')) storeType.value = url.searchParams.get('type');
-  else if(this.currentShop && this.currentShop.type) storeType.value = this.currentShop.type;
-  else if(window.sessionStorage.getItem('type')) storeType.value = window.sessionStorage.getItem('type');
+  else if(currentStore.value && currentStore.value.type) storeType.value = currentStore.value.type;
+  else if(window.sessionStorage.getItem('woo-store-type')) storeType.value = window.sessionStorage.getItem('woo-store-type');
+});
+
+/* ----- Watch ----- */
+watch(storeType, (newVal, oldVal) => {
+  if(storeType.value === 'source' && arePermissionsApproved.value) {
+    router.push({ name: routes.WOO_INSTALLATION_COMPLETED });
+  }
 });
 
 /* ----- Methods ----- */
@@ -29,7 +47,7 @@ const registerStore = async () => {
   const params = {
     platform_api_version: 'v3',
     platform: 'woocommerce',
-    type: shopType,
+    type: storeType.value,
     url: withoutHttps,
     user_id: user.value.id,
   };
@@ -37,159 +55,53 @@ const registerStore = async () => {
   try {
     const response = await registerWooStore.value(params);
     let redirectUrl = response?.redirect_url;
-    redirectUrl += import.meta.env.VITE_WOO_REDIRECT_URL + '?store=' + withoutHttps + '&type=' + shopType;
+    redirectUrl += import.meta.env.VITE_WOO_REDIRECT_URL + '?store=' + withoutHttps + '&type=' + storeType.value;
     window.location.href = redirectUrl;
   } catch (error) {
-    //storeAlreadyUsedError = error.data.errors[0]
   }
-}
+};
+
+const navigateToWooPlanSelction = () => {
+  window.location.href = wooPlanSelectionLink.value;
+};
 </script>
 
 <template>
-  <!-- <h1 v-if="arePermissionsApproved">Approved</h1>
-  <h1 v-else>Denied</h1> -->
-</template>
+  <section class="mx-auto" style="width: 700px;">
+    <PageDetails v-if="arePermissionsApproved && storeType === 'destination'" title="Syncio installed successfully" content="Select your Syncio plan to activate your free 14 day trial" />
 
-<!-- <script>
-import { CheckCircleIcon } from '@/icons'
-import { mapGetters, mapState } from 'vuex'
-import { REGISTER_SHOP } from '@/store/actions.type'
-import JwtService from '@/common/jwt.service'
-import OnboardingCard from '../../OnboardingCard.vue'
-import OnboardingHeading from '../../OnboardingHeading.vue'
+    <aside class="auth-wrapper text-center text-900">
+      <div v-if="arePermissionsApproved && storeType === 'destination'">
+        <ul class="text-900 pl-0 list-none text-xl font-semi m-0">
+          <li class="flex">
+            <i class="pi pi-check-circle text-2xl text-green-700 font-bold mr-3" style="transform: translateY(-.5px);"></i>
+            One click copy and sync products with Woo and Shopify stores
+          </li>
+          <li class="flex mt-4">
+            <i class="pi pi-check-circle text-2xl text-green-700 font-bold mr-3" style="transform: translateY(-.5px);"></i>
+            Real time auto-stock syncing between platforms
+          </li>
+          <li class="flex mt-4">
+            <i class="pi pi-check-circle text-2xl text-green-700 font-bold mr-3" style="transform: translateY(-.5px);"></i>
+            Connect to unlimited stores
+          </li>
+        </ul>
 
-export default {
-  name: 'Permissions',
-
-  data() {
-    return {
-      arePermissionsApproved: false,
-      storeType: '',
-      storeUrl: '',
-    }
-  },
-
-  components: {
-    CheckCircleIcon,
-    OnboardingCard,
-    OnboardingHeading,
-  },
-
-  async mounted() {
-
-    await this.$store.dispatch(`shop/init`)
-    if(url.searchParams.get('type')) this.storeType = url.searchParams.get('type')
-    else if(this.currentShop && this.currentShop.type) this.storeType = this.currentShop.type
-    else if(window.sessionStorage.getItem('type')) this.storeType = window.sessionStorage.getItem('type')
-  },
-
-  computed: {
-    ...mapGetters('shop', ["newShopType"]),
-    ...mapGetters('auth', ["currentUserID"]),
-    ...mapState('shop', [ 'currentShop' ]),
-
-    wooPlanSelectionLink() {
-      return `${process.env.VUE_APP_WOO_BILLING}/?jwt=${JwtService.getToken()}`;
-    },
-  },
-
-  watch: {
-    'storeType'() {
-      if(this.storeType === 'source' && this.arePermissionsApproved) {
-        this.$router.push('/woocommerce/installation-completed')
-      }
-    },
-  },
-
-  methods: {
-    registerStore() {
-      let withoutHttps;
-      withoutHttps = this.storeUrl.replace(/^http(s)*:\/\//, "")
-      withoutHttps = withoutHttps.replace(/\/$/, "")
-      this.$store.dispatch(`shop/${REGISTER_SHOP}`, {
-        user_id: this.currentUserID,
-        url: withoutHttps,
-        platform_api_version: "v3",
-        platform: "woocommerce",
-        type: this.storeType
-      }).then((response) => {
-        let redirectUrl = response.redirect_url;
-        redirectUrl += process.env.VUE_APP_WOO_REDIRECT_URI + '?store=' + withoutHttps + '?type=' + this.storeType;
-        window.location.href = redirectUrl;
-      }).catch((error) => {
-        console.log(error)
-      })
-    },
-
-    navigateToWooPlanSelction() {
-      window.location.href = this.wooPlanSelectionLink
-    }
-  }
-}
-</script>
-
-<template>
-  <section class="onboarding v2">
-
-    <template v-if="arePermissionsApproved && storeType === 'destination'">
-      <OnboardingHeading heading="Syncio installed successfully" />
-      <p class="onboarding-text m-t-2">
-        Select your Syncio plan to activate your free 14 day trial
-      </p>
-
-      <div :class="{ 'm-t-4': arePermissionsApproved, 'm-t-8': !arePermissionsApproved }">
-        <OnboardingCard medium>
-          <ul class="onboarding-complete-list m-0">
-            <li>
-              <CheckCircleIcon />
-              One click copy and import products from <br> other Shopify & WooCommerce stores
-            </li>
-            <li>
-              <CheckCircleIcon />
-              Real time auto-inventory cross-platform <br> syncing
-            </li>
-            <li>
-              <CheckCircleIcon />
-              Unlimited source store connections
-            </li>
-          </ul>
-        </OnboardingCard>
-
-        <div class="outside-card-btn">
-          <v-btn
-            @click="navigateToWooPlanSelction"
-            block
-            class="onboarding-btn m-y-6"
-            color="primary"
-            elevation="0">
-            Pick a plan and activate my free trial
-          </v-btn>
-        </div>
+        <Button @click="navigateToWooPlanSelction" label="Pick a plan and activate my free trial" class="w-100 p-button-lg mt-6"></Button>
       </div>
-    </template>
-
-    <OnboardingCard v-else-if="!arePermissionsApproved" large>
-      <div class="text-center url-linked-text">
-        <p class="lg">You've denied Syncio access to connect to your store</p>
-        <p>In order to send and receive stock and updates between the stores you've connected to, <br> Syncio requires Read & Write permissions for an API Key and Webhooks.</p>
-        <p>Syncio will only use these permissions to perform essential product and order updates.</p>
-        <p class="lg">Would you like to grant permissions to Syncio now?</p>
-
-        <v-btn
-          @click="registerStore"
-          block
-          class="onboarding-btn m-t-4"
-          color="primary"
-          elevation="0">
-          Continue to permissions approval
-        </v-btn>
+      <div v-else-if="!arePermissionsApproved">
+        <h2 class="m-0">You've denied Syncio access to connect to your store</h2>
+        <p class="m-0 mt-5 text-lg font-semi line-height-3">In order to send and receive stock and updates between the stores you've connected to, Syncio requires Read & Write permissions for an API Key and Webhooks.</p>
+        <p class="m-0 mt-3 text-lg font-semi line-height-3">Syncio will only use these permissions to perform essential product and order updates.</p>
+        <h2 class="m-0 mt-5">Would you like to grant permissions to Syncio now?</h2>
+        <Button @click="registerStore" label="Continue to permissions approval" class="w-100 p-button-lg mt-5"></Button>
       </div>
-    </OnboardingCard>
+    </aside>
 
-    <div class="text-center m-t-4" v-if="!arePermissionsApproved">
-      <router-link to="/registration/woocommerce/continue-later" class="btn-later relative">
-        Signout, continue later
+    <div v-if="!arePermissionsApproved && storeType !== 'destination'" class="mt-5 text-center">
+      <router-link :to="routes.WOO_CONTINUE_LATER">
+        <Button label="Signout, continue later" class="font-bold justify-content-center"></Button>
       </router-link>
     </div>
   </section>
-</template> -->
+</template>

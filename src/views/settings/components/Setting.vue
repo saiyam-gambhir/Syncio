@@ -27,6 +27,7 @@ const props = defineProps({
   }
 });
 
+/* ----- Data ----- */
 const {
   wooPlanSelectionLink,
 } = toRefs(usePlanStore());

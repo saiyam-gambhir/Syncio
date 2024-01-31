@@ -28,7 +28,7 @@ class AxiosService {
   constructor() {
     this.https = axios.create({
       baseURL: import.meta.env.VITE_BASE_URL,
-      timeout: 20000,
+      timeout: 60000,
     });
 
     this.https.defaults.headers.common['x-syncio-app-id'] = import.meta.env.VITE_APP_ID;
@@ -60,9 +60,20 @@ class AxiosService {
         const productSettings = useProductSettingsStore();
 
         switch (status) {
+          case 401: {
+            const message = data.errors?.[0];
+            if(message.toLowerCase() === 'email or password mismatch');
+            auth.wooPasswordErrorMessage = 'Incorrect password';
+            break;
+          }
           case 422:
           case 400: {
             const message = data.errors?.[0];
+
+            if(message.toLowerCase() === 'the selected email is invalid.') {
+              auth.wooEmailErrorMessage = 'Account not found, try another email';
+              return data;
+            }
 
             if(data?.is_duplicate_sku_found) {
               const products = useProductsStore();

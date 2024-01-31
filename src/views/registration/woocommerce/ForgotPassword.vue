@@ -1,16 +1,29 @@
 <script setup>
+import { useForm } from 'vee-validate';
 import * as routes from '@/routes';
+import * as validationMessages from '@/validationMessages';
+import * as yup from 'yup';
 
 /* ----- Data ----- */
 const {
+  forgotEmailErrorMessage,
   forgotPassword,
   forgotPasswordForm,
 } = toRefs(useAuthStore());
 
-/* ----- Computed ----- */
-const isFormDisabled = computed(() => {
-  return forgotPasswordForm.value.email.length === 0;
+/* ----- Validations ----- */
+const { errors, meta, defineField } = useForm({
+  validationSchema: yup.object({
+    emailAddress: yup.string().email(validationMessages.EMAIL).required(validationMessages.REQUIRED),
+  }),
 });
+
+const [emailAddress] = defineField('emailAddress');
+
+/* ----- Methods ----- */
+const inputEmailHandler = () => {
+  forgotEmailErrorMessage.value = null;
+};
 </script>
 
 <template>
@@ -22,25 +35,27 @@ const isFormDisabled = computed(() => {
 
     <aside class="auth-wrapper">
       <Message v-if="forgotPasswordForm.emailSent" severity="success" :closable="false" class="p-message-lg mt-1 mb-0">
-        Email sent to {{ forgotPasswordForm.email }} <br />
+        Email sent to {{ emailAddress }} <br />
         Check your inbox shortly for instructions.
       </Message>
 
       <form v-else autocomplete="off" @submit.prevent="forgotPassword">
         <div class="field">
           <InputText
+            @input="inputEmailHandler"
             class="p-inputtext-lg mb-2 w-full"
             id="email"
             placeholder="Email address"
             type="text"
-            v-model="forgotPasswordForm.email">
+            v-model="emailAddress">
           </InputText>
+          <ValidationMessage :error="forgotEmailErrorMessage ?? errors.emailAddress" style="padding-bottom: 0 !important;" />
         </div>
 
         <Button
-          :disabled="isFormDisabled"
+          :disabled="!meta.valid"
           :loading="forgotPasswordForm.loading"
-          @click="forgotPassword()"
+          @click="forgotPassword(emailAddress)"
           class="w-full mt-2"
           iconPos="right"
           label="Reset Password"
