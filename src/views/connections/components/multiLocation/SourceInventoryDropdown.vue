@@ -22,7 +22,11 @@ const props = defineProps({
 /* ----- Mounted ----- */
 onMounted(() => {
   const sourceInventoryReferenceId = props.connection?.source_default_inventory_location?.external_reference_id;
-  inventoryReferenceId.value = sourceInventoryReferenceId ? +sourceInventoryReferenceId : 0;
+  if (props.connection?.status === 'pending') {
+    inventoryReferenceId.value = null;
+  } else {
+    inventoryReferenceId.value = sourceInventoryReferenceId ? +sourceInventoryReferenceId : 0;
+  }
 });
 
 /* ----- Methods ----- */
