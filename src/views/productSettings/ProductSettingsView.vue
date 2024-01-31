@@ -29,6 +29,7 @@ const {
   fetchSettings,
   isSafetyNetModified,
   loading,
+  newQuantity,
   safetyNetQuantity,
   settingsUpdated,
   sourceProductSettings,
@@ -94,11 +95,17 @@ const updateSourceStoreSettings = async (isSafetyNetActive, configurations) => {
   if (!isSafetyNetModified.value) {
     await updateSettings.value(configurations);
   } else {
+    // Adding a separate variable because newQuantity.value resets after updateSettings function call
+    // Need to look into this when we add validation
     if (isSafetyNetActive) {
+      const val = newQuantity.value;
       await updateSettings.value(configurations);
-      await updateSafetyNet.value(safetyNetQuantity.value ?? 0);
+      await updateSafetyNet.value(val);
+      newQuantity.value = val;
+      safetyNetQuantity.value = val;
     } else {
       safetyNetQuantity.value = null;
+      newQuantity.value = null;
       await updateSafetyNet.value(0);
       await updateSettings.value(configurations);
     }
