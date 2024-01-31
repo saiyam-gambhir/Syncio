@@ -187,7 +187,7 @@ const onChangeHandler = ({ is_active, key }) => {
                     Allow connected stores to sync the "Cost Per Item" field.
                   </span>
                   <span v-else-if="setting.key === 's_sync_metafields'">
-                    Allow Destination stores to sync product and variant Custom metafields. <br><br>
+                    Allow Destination stores to sync product and variant metafields. <br><br>
                     What connected Destination stores will have permission to sync:
                     <ul class="p-0 pl-3 m-0 mt-3">
                       <li>Custom product and variant metafield data (supported fields only)</li>
