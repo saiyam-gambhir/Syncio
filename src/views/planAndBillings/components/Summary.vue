@@ -25,6 +25,7 @@ const totalCartValue = ref(0);
 /* ----- Mounted ----- */
 onMounted(() => {
   clonedSelectedAddonIds.value = JSON.parse(JSON.stringify(selectedAddonIds.value));
+  calculateTotalCartValue();
 });
 
 /* ----- Watchers ----- */
