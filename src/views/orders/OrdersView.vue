@@ -194,13 +194,15 @@ const bulkPushOrdersHandler = async () => {
       </template>
     </Column>
 
-    <Column header="Order #" style="width: 10%">
-      <template #body="{ data: { name } }">
-        {{ name }}
+    <Column header="Order #" style="width: 12.5%">
+      <template #body="{ data: { id, name } }">
+        <div class="flex align-items-center pointer btn-link-parent py-2" @click.prevent="fetchOrderHandler(id)">
+          <a href="javascript:void(0);" class="btn-link">{{ name }}</a>
+        </div>
       </template>
     </Column>
 
-    <Column header="Date" style="width: 17.5%">
+    <Column header="Date" style="width: 15%">
       <template #body="{ data: { created_at } }">
         <Date :date="created_at" />
       </template>
