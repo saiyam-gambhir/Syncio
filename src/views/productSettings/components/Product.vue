@@ -148,10 +148,11 @@ const onChangeHandler = ({ is_active, key }) => {
                     <br><br>
                     What will be synced:
                     <ul class="p-0 pl-3 m-0 mt-3">
-                      <li>All custom product and variant metafield data</li>
-                      <li>All metafields definitions</li>
-                      <li>All metaobjects</li>
+                      <li>Custom product and variant metafield data (supported fields only)</li>
+                      <li>Includes: metafields definitions and metaobjects related to the above fields.</li>
                     </ul>
+                    <br>
+                    * Refer to this <AppLink :icon="false" label="article" link="https://help.syncio.co/en/articles/8418976-metafields-sync#h_6eb784c5e" class="text-lg" /> for a full list of supported metafields.
                   </span>
                 </p>
               </div>
@@ -189,10 +190,11 @@ const onChangeHandler = ({ is_active, key }) => {
                     Allow Destination stores to sync product and variant Custom metafields. <br><br>
                     What connected Destination stores will have permission to sync:
                     <ul class="p-0 pl-3 m-0 mt-3">
-                      <li>All custom product and variant metafield data</li>
-                      <li>All metafields definitions</li>
-                      <li>All metaobjects</li>
+                      <li>Custom product and variant metafield data (supported fields only)</li>
+                      <li>Includes: metafields definitions and metaobjects related to the above fields.</li>
                     </ul>
+                    <br>
+                    * Refer to this <AppLink :icon="false" label="article" link="https://help.syncio.co/en/articles/8418976-metafields-sync#h_6eb784c5e" class="text-lg" /> for a full list of supported metafields.
                   </span>
                 </p>
               </div>
