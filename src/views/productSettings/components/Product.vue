@@ -152,7 +152,7 @@ const onChangeHandler = ({ is_active, key }) => {
                       <li>Includes: metafields definitions and metaobjects related to the above fields.</li>
                     </ul>
                     <br>
-                    * Refer to this <AppLink :icon="false" label="article" link="https://help.syncio.co/en/articles/8418976-metafields-sync#h_6eb784c5e" class="text-lg" /> for a full list of supported metafields.
+                    * For a full list of supported metafields, see: <AppLink label="Metafields syncing guide" link="https://help.syncio.co/en/articles/8418976-metafields-syncing-guide" class="text-lg" />
                   </span>
                 </p>
               </div>
@@ -194,7 +194,7 @@ const onChangeHandler = ({ is_active, key }) => {
                       <li>Includes: metafields definitions and metaobjects related to the above fields.</li>
                     </ul>
                     <br>
-                    * Refer to this <AppLink :icon="false" label="article" link="https://help.syncio.co/en/articles/8418976-metafields-sync#h_6eb784c5e" class="text-lg" /> for a full list of supported metafields.
+                    * For a full list of supported metafields, see: <AppLink label="Metafields syncing guide" link="https://help.syncio.co/en/articles/8418976-metafields-syncing-guide" class="text-lg" />
                   </span>
                 </p>
               </div>
