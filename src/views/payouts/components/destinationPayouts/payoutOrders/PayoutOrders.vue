@@ -119,7 +119,7 @@ const isRowSelectedHandler = (data) => {
       </template>
     </Column>
 
-    <Column header="Date" style="width: 15%">
+    <Column header="Date (AEST)" style="width: 15%">
       <template #body="{ data: { date } }">
         {{ date }}
       </template>

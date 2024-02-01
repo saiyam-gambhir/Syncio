@@ -15,6 +15,7 @@ export const useProductSettingsStore = defineStore('productSettings', {
       isSafetyNetModified: false,
       isSyncedStockDialogVisible: false,
       loading: false,
+      newQuantity: null,
       safetyNetQuantity: null,
       settingsUpdated: false,
       sourceProductSettings: [],

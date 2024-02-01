@@ -15,13 +15,13 @@ const { randomInteger } = useFilters();
       </template>
     </Column>
 
-    <Column header="Order #" style="width: 10%">
+    <Column header="Order #" style="width: 12.5%">
       <template #body>
         <Skeleton height="14px" width="75px" />
       </template>
     </Column>
 
-    <Column header="Date" style="width: 17.5%">
+    <Column header="Date (AEST)" style="width: 15%">
       <template #body>
         <Skeleton height="14px" width="75px" />
         <Skeleton height="14px" width="50px" class="mt-2" />
