@@ -21,7 +21,6 @@ const {
   isLocationPendingDialogRequested,
   isShopify,
   isSourceStore,
-  isWoocommerce,
   partnerStoreType,
 } = toRefs(useConnectionsStore());
 
@@ -38,6 +37,7 @@ const {
   pagination,
   products,
   queries,
+  searchAttribute,
   selectedProducts,
   selectedStore,
   selectedStoreId,

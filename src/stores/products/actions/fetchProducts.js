@@ -29,12 +29,29 @@ export const fetchProducts = {
       origin: storeType,
       page,
       page: page,
-      search_attribute: this.searchAttribute?.value,
+      search_attribute: this.searchAttribute === 'none' ? this.searchAttribute : this.searchAttribute?.value,
       search_str,
       sort_by_desc: sortBy?.sortByDesc,
       sort_by: sortBy?.key,
       source_store_id: storeType === 'destination' ? id : storeId,
     };
+
+    // Check if products exist
+    if (!this.products) {
+      // If no products, set search attribute to 'none'
+      params.search_attribute = 'none';
+    } else if (this.enableNewFilters && this.searchAttribute !== 'none') {
+      // If new filters are enabled and search attribute is not 'none', use the selected search attribute's value
+      params.search_attribute = this.searchAttribute?.value;
+    } else if (!this.enableNewFilters && (this.searchAttribute !== 'none' || search_str !== null)) {
+      // If new filters are not enabled and search attribute is not 'none' OR
+      // If new filters are not enabled, search attribute is 'none', and search string is not null,
+      // set search attribute to undefined
+      params.search_attribute = undefined;
+    } else {
+      // Default case: If none of the above conditions match, set search attribute to 'none'
+      params.search_attribute = 'none';
+    }
 
     const response = await axiosService.getData('products', params);
     if(response?.success) {
