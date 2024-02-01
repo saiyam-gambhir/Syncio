@@ -61,22 +61,22 @@ watch(newQuantity, () => {
 
 <template>
   <section v-if="isDestinationStore">
-    <p v-if="!addons.isSettingsModulePaid" class="m-0 mb-2 text-lg">Locked settings (<i class="pi pi-lock"
-        style="font-size: 1rem; font-weight: bold;"></i>) are available with Product Settings PRO - <router-link
-        :to="routes.PLAN_AND_BILLINGS" class="btn-link text-lg">Upgrade</router-link> </p>
+    <p v-if="!addons.isSettingsModulePaid" class="m-0 mb-2 text-lg">
+      Locked settings (<i class="pi pi-lock" style="font-size: 1rem; font-weight: bold;"></i>) are available with Product Settings PRO - <router-link :to="routes.PLAN_AND_BILLINGS" class="btn-link text-lg">Upgrade</router-link>
+    </p>
     <div class="grid">
       <div class="col-5">
         <ul class="list-none p-0 m-0">
           <li class="py-4 flex align-items-center text-2xl">
             <h3 class="m-0">Ongoing sync</h3>
-            <i class="pi pi-question-circle text-2xl ml-3" style="transform: translateY(1px);"
-              v-tooltip.right="'Syncs in real time on an ongoing basis'"></i>
+            <i class="pi pi-question-circle text-2xl ml-3" style="transform: translateY(1px);" v-tooltip.right="'Syncs in real time on an ongoing basis'"></i>
           </li>
-          <li v-for="setting in destinationVariantSettings" :key="setting.key"
-            class="py-5 border-bottom-1 surface-border">
+          <li v-for="setting in destinationVariantSettings" :key="setting.key" class="py-5 border-bottom-1 surface-border">
             <div class="flex align-items-center justify-content-between w-full">
               <div class="w-85">
-                <p class="m-0 font-semibold text-lg">{{ setting.label }}</p>
+                <p class="m-0 font-semibold text-lg">
+                  {{ setting.label }}
+                </p>
                 <p class="mt-2 mb-0 text-lg">
                   <span v-if="setting.key === 'auto_add_product_variant'">
                     Ongoing sync of new variants.
@@ -126,8 +126,7 @@ watch(newQuantity, () => {
                   </span>
                 </p>
               </div>
-              <InputSwitch v-if="addons.isSettingsModulePaid || setting.key === 'auto_remove_product_variant'"
-                v-model="setting.is_active" />
+              <InputSwitch v-if="addons.isSettingsModulePaid || setting.key === 'auto_remove_product_variant'" v-model="setting.is_active" />
               <i v-else class="pi pi-lock" style="font-size: 1.5rem"></i>
             </div>
           </li>
@@ -137,7 +136,8 @@ watch(newQuantity, () => {
   </section>
 
   <section v-if="isSourceStore">
-    <p class="text-lg">Switch on any product attributes that you would like to sync across all connected source stores.
+    <p class="text-lg">
+      Switch on any product attributes that you would like to sync across all connected source stores.
     </p>
     <div class="grid">
       <div class="col-5">
@@ -147,12 +147,15 @@ watch(newQuantity, () => {
               <div class="w-85">
                 <p class="m-0 font-semibold text-lg">
                   {{ setting.label }}
-                <div class="mt-4" v-if="setting.key === 'inventory_safety_net_sync' && setting.is_active">
-                  <InputText placeholder="Enter quantity" type="number" v-model="newQuantity" class="w-75" />
-                  <p class="font-normal text-sm m-0 mt-2">Quantity entered will be removed from stock made available to
-                    connected Destination stores.</p>
-                  <p class="font-normal text-sm m-0">Changes usually take effect within 24 hours.</p>
-                </div>
+                  <div class="mt-4" v-if="setting.key === 'inventory_safety_net_sync' && setting.is_active">
+                    <InputText placeholder="Enter quantity" type="number" v-model="newQuantity" class="w-75" />
+                    <p class="font-normal text-sm m-0 mt-2">
+                      Quantity entered will be removed from stock made available to connected Destination stores.
+                    </p>
+                    <p class="font-normal text-sm m-0">
+                      Changes usually take effect within 24 hours.
+                    </p>
+                  </div>
                 </p>
                 <div v-if="setting.key === 'inventory_safety_net_sync'" class="mt-3 mb-0 text-lg">
                   <p>
@@ -187,15 +190,16 @@ watch(newQuantity, () => {
   <!----- Safety Net ----->
   <SyncedStockDialog v-if="isSyncedStockDialogVisible" />
 </template>
+
 <style>
-/* To remove the arrows in input type="number" */
+  /* To remove the arrows in input type="number" */
   input::-webkit-outer-spin-button,
   input::-webkit-inner-spin-button {
-          -webkit-appearance: none;
-          margin: 0;
+    -webkit-appearance: none;
+    margin: 0;
   }
 
   input[type=number] {
-      -moz-appearance: textfield;
+    -moz-appearance: textfield;
   }
 </style>
