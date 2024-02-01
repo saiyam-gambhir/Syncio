@@ -6,6 +6,10 @@ export const shopifyLogin = {
     this.loginForm.loading = true;
     const { fetchCurrentStore } = useConnectionsStore();
     const { fetchCurrentPlan } = usePlanStore();
+    const { resetStore } = useResetStore();
+
+    /* ----- Reset store before force login ----- */
+    resetStore();
 
     const params = {
       platform: platform,
