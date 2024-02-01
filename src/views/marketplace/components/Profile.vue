@@ -75,8 +75,8 @@ const showMessageDialogHandler = profile => {
         <p class="m-0 mt-2">
           <span class="text-sm mr-1">Ships from</span>
           <strong class="font-semibold primary-color">{{ profile.location?.country }}</strong>
-          <a v-if="profileData.shippingPolicyUrl" :href="profileData.shippingPolicyUrl" class="btn-link"> (Policy)</a>
-          <span v-else-if="!profile.shippingPolicyUrl && isDestinationStore" class="text-sm"> (Request policy)</span>
+          <a v-if="profileData.shippingPolicyUrl" :href="profileData.shippingPolicyUrl" target="_blank" class="btn-link">(Policy)</a>
+          <span v-else-if="!profile.shippingPolicyUrl && isDestinationStore" class="text-sm">(Request policy)</span>
         </p>
         <p class="mb-0 m-0 mt-2">
           <span class="text-sm mr-1">Published products</span>
