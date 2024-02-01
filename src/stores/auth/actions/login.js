@@ -42,9 +42,3 @@ export const login = {
     }
   },
 };
-
-/* Update api - pending */
-// if (!data.woocommerce_healthy && Object.prototype.hasOwnProperty.call(data, "woocommerce_healthy")) {
-//   this.isRefreshAPIDialogVisible = true
-//   this.$store.dispatch(`shop/init`)
-// }

@@ -9,7 +9,6 @@ export const saveShopifyToken = {
       }
 
     } catch(error) {
-      console.log(error);
     }
   }
 };
