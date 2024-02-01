@@ -37,7 +37,7 @@ const updateCurrentPageHandler = page => {
       <DestinationPayoutsHeader />
     </template>
 
-    <Column header="Date" style="width: 12.5%">
+    <Column header="Date (AEST)" style="width: 12.5%">
       <template #body="{ data: { date } }">
         {{ date }}
       </template>

@@ -11,7 +11,7 @@ const {
       <SourcePayoutsHeader />
     </template>
 
-    <Column header="Date" style="width: 12.5%">
+    <Column header="Date (AEST)" style="width: 12.5%">
       <template #body>
         <Skeleton :width="`${randomInteger(50, 90)}%`" height="16px" />
       </template>

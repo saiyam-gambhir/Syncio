@@ -202,7 +202,7 @@ const bulkPushOrdersHandler = async () => {
       </template>
     </Column>
 
-    <Column header="Date" style="width: 15%">
+    <Column header="Date (AEST)" style="width: 15%">
       <template #body="{ data: { created_at } }">
         <Date :date="created_at" />
       </template>

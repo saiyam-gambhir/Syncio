@@ -21,7 +21,7 @@ const { randomInteger } = useFilters();
       </template>
     </Column>
 
-    <Column header="Date" style="width: 15%">
+    <Column header="Date (AEST)" style="width: 15%">
       <template #body>
         <Skeleton height="14px" width="75px" />
         <Skeleton height="14px" width="50px" class="mt-2" />
