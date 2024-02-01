@@ -33,6 +33,12 @@ watch(storeDefaultCommissionRate, () => {
 const cancelHandler = () => {
   storeDefaultCommissionRate.value = structuredClone(toRaw(storeDefaultCommission.value));
 };
+
+const updateStoreCommissionHandler = () => {
+  updateStoreCommission.value();
+  isDefaultCommissionChanged.value = false;
+  storeDefaultCommissionRateCopy.value = structuredClone(toRaw(storeDefaultCommissionRate.value));
+}
 </script>
 
 <template>
@@ -70,7 +76,7 @@ const cancelHandler = () => {
 
       <div class="flex justify-content-end pt-1">
         <Button @click="cancelHandler" :disabled="!isDefaultCommissionChanged" outlined label="Cancel" class="mr-3" style="width: 80px;"></Button>
-        <Button @click="updateStoreCommission" :disabled="!isDefaultCommissionChanged" label="Save" width="80px" style="width: 100px;"></Button>
+        <Button @click="updateStoreCommissionHandler" :disabled="!isDefaultCommissionChanged" label="Save" width="80px" style="width: 100px;"></Button>
       </div>
     </template>
   </CardWrapper>
