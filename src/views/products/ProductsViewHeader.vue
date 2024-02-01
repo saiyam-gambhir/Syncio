@@ -4,10 +4,7 @@ const {
 } = useProducts();
 
 const {
-  storeName,
-} = toRefs(useConnectionsStore());
-
-const {
+  enableNewFilters,
   excludeZeroStock,
   loading,
   productTypeOptions,
@@ -17,17 +14,10 @@ const {
   sortOptions,
   statusOption,
   statusOptions,
-  storesWithNewFilters,
-  totalProductCount,
   vendorOptions,
   visibilityOption,
   visibilityOptions,
 } = toRefs(useProductsStore());
-
-/* ----- Computed ----- */
-const enableNewFilters = computed(() => {
-  return storesWithNewFilters.value.includes(storeName.value) || +totalProductCount.value > 30000;
-});
 
 /* ----- Methods ----- */
 const searchHandler = searchText => {
@@ -38,6 +28,7 @@ const searchHandler = searchText => {
 const searchAttributeHandler = ($event) => {
   if(!$event.value) {
     queries.value.search_str = null;
+    searchAttribute.value = 'none';
     fetchProductsHandler();
   }
 };
@@ -84,9 +75,9 @@ const showProductSearchAttributes = () => {
           </div>
           <div class="col-9 flex align-items-center pr-0">
             <div class="p-inputgroup relative w-100">
-              <span v-if="!searchAttribute" class="w-100 h-100 absolute pointer z-1" @click="showProductSearchAttributes" style="top: 0; left: 0;"></span>
+              <span v-if="!searchAttribute || searchAttribute === 'none'" class="w-100 h-100 absolute pointer z-1" @click="showProductSearchAttributes" style="top: 0; left: 0;"></span>
               <SearchFilter
-                :disabled="!searchAttribute"
+                :disabled="!searchAttribute || searchAttribute === 'none'"
                 :loading="loading"
                 @update:modelValue="searchHandler"
                 placeholder="Your search query"
