@@ -31,7 +31,7 @@ onMounted(() => {
 
 /* ----- Methods ----- */
 const updateInventoryHandler = async inventoryId => {
-  if((inventoryId.value === +props.connection.source_default_inventory_location?.external_reference_id) || inventoryId.value === 0) return;
+  if((inventoryId.value === +props.connection.source_default_inventory_location?.external_reference_id)) return;
 
   const selectedInventory = sourceLocations.value.find(inventory => inventory.id === inventoryId.value);
 
