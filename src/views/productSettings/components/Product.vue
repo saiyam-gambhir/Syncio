@@ -54,6 +54,7 @@ const ongoingSyncSettings = computed(() => {
     'sync_product_title': true,
     'sync_product_type': true,
     'sync_product_vendor': true,
+    'sync_product_status': true,
   };
 
   return destinationProductSettings.value?.filter(({ key }) => syncSetting[key]);
@@ -142,6 +143,24 @@ const onChangeHandler = ({ is_active, key }) => {
                   </span>
                   <span v-else-if="setting.key === 'sync_product_type'">
                     Ongoing sync of product type field from the source product.
+                  </span>
+                  <span v-else-if="setting.key === 'sync_product_status'">
+                    <p>Ongoing sync of the Draft/Active status on Shopify</p>
+                    <p>What will be synced:</p>
+                    <ul>
+                      <li>Synced products will be set to <strong class="font-semibold">Draft</strong>, if the source store sets their product to
+                        Draft.
+                      </li>
+                      <li>Synced products will be set to <strong class="font-semibold">Active</strong>, if the source store sets their product
+                        to Active.
+                      </li>
+                    </ul>
+                    <p>Useful option to prevent draft products from being sold.</p>
+                    <div class="box">
+                      <img
+                        src="https://staging-core.syncio.io/images/product-sync-configurations-setting-desciprtion-images/product-status.png"
+                        alt="product status" width="400">
+                    </div>
                   </span>
                   <span v-else-if="setting.key === 'd_sync_metafields'">
                     Ongoing sync of product and variant metafields from connected Source stores.
