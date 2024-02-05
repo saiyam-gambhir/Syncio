@@ -78,7 +78,7 @@ export const useProductsStore = defineStore('products', {
       },
 
       /* ----- Filters for large stores */
-      searchAttribute: null,
+      searchAttribute: undefined,
       searchOptions: [
         { label: 'Barcode', value: 'barcode' },
         { label: 'Product ID', value: 'product_id' },
@@ -118,6 +118,11 @@ export const useProductsStore = defineStore('products', {
     selectedStore({ selectedStoreId }) {
       const { connections } = useConnectionsStore();
       return connections?.find(connection => connection.id === selectedStoreId);
+    },
+
+    enableNewFilters() {
+      const { storeName } = useConnectionsStore();
+      return this.storesWithNewFilters.includes(storeName) || +this.totalProductCount > 30000;
     },
   },
 

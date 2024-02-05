@@ -8,9 +8,7 @@ export const updateStoreType = {
         await fetchCurrentStore();
       }
       return response;
-
     } catch(error) {
-      console.log(error);
     }
   }
 };
