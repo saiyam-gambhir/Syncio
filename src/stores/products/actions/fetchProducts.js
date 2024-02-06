@@ -40,7 +40,7 @@ export const fetchProducts = {
     if (!this.products) {
       // If no products, set search attribute to 'none'
       params.search_attribute = 'none';
-    } else if (this.enableNewFilters && this.searchAttribute !== 'none') {
+    } else if (this.enableNewFilters && this.searchAttribute && this.searchAttribute !== 'none') {
       // If new filters are enabled and search attribute is not 'none', use the selected search attribute's value
       params.search_attribute = this.searchAttribute?.value;
     } else if (!this.enableNewFilters && (this.searchAttribute !== 'none' || search_str !== null)) {
