@@ -36,8 +36,10 @@ const updateInventoryHandler = async inventoryId => {
   const selectedInventory = sourceLocations.value.find(inventory => inventory.id === inventoryId.value);
 
   const { source_default_inventory_location, store_domain } = props.connection;
+  const currentLocation = sourceLocations?.value?.find(location => location.id === +source_default_inventory_location?.external_reference_id) ?? { id: 0, name: 'All Locations' }
+
   location.value = {
-    current: source_default_inventory_location ?? { id: 0, name: 'All Locations' },
+    current: currentLocation,
     new: selectedInventory,
     store: store_domain,
   }
