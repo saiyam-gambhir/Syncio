@@ -31,8 +31,7 @@ onMounted(() => {
 
 /* ----- Methods ----- */
 const updateInventoryHandler = async inventoryId => {
-  // No action if the user clicks on selected dropdown item
-  if(inventoryId.value === +props.connection.source_default_inventory_location?.external_reference_id || inventoryId.value === 0) return;
+  if((inventoryId.value === +props.connection.source_default_inventory_location?.external_reference_id) || inventoryId.value === 0) return;
 
   const selectedInventory = sourceLocations.value.find(inventory => inventory.id === inventoryId.value);
 
