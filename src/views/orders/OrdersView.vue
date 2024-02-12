@@ -5,6 +5,7 @@ import * as routes from '@/routes';
 /* ----- Components ----- */
 const OrderDetails = defineAsyncComponent(() => import('./components/OrderDetails.vue'));
 const OrderPushLimitDialog = defineAsyncComponent(() => import('./components/OrderPushLimitDialog.vue'));
+const BulkPushDialog = defineAsyncComponent(() => import('./components/BulkPushDialog.vue'));
 
 /* ----- Data ----- */
 const {
@@ -24,10 +25,11 @@ const {
 } = useOrders();
 
 const {
-  bulkPushOrders,
+  bulkPushCount,
   fetchOrders,
   isAutoPushEnabled,
   isBulkPushActive,
+  isBulkPushDialogVisible,
   isEnableAutoPushRequested,
   isViewOrderDetailsRequested,
   loadingMoreOrders,
@@ -120,8 +122,7 @@ const bulkPushOrdersHandler = async () => {
     return;
   }
 
-  await bulkPushOrders.value();
-  clearSelectionHandler();
+  isBulkPushDialogVisible.value = true;
 };
 </script>
 
@@ -261,6 +262,7 @@ const bulkPushOrdersHandler = async () => {
   <div v-if="!orders.loadingOrders" class="text-center mt-5 mb-2">
     <h3 class="font-semibold" v-if="(pagination?.current_page === pagination?.last_page) && orders.orders.length > 0">
       No more orders to see. We only display orders up to 60 days.
+      {{ bulkPushCount }} - {{ isBulkPushActive }}
     </h3>
 
     <Button
@@ -280,4 +282,6 @@ const bulkPushOrdersHandler = async () => {
   <EnableAutoPushDialog />
 
   <OrderPushLimitDialog v-if="shouldShowOrderPushLimitDialog" :selectedOrders="selectedOrders.length !== 0 ? selectedOrders.length : 1" />
+
+  <BulkPushDialog v-if="isBulkPushDialogVisible" />
 </template>
