@@ -1,7 +1,6 @@
 <script setup>
 /* ----- Data ----- */
 const {
-  bulkPushCount,
   bulkPushOrders,
   bulkPushShippingCost,
   fetchOrders,
@@ -9,43 +8,34 @@ const {
   selectedOrders,
 } = toRefs(useOrdersStore());
 
-const existingRules = ref(true);
 const showCustomFee = ref(false);
 const shippingFee = ref(null);
-const bulkPushShippingCostCopy = ref(null);
 
-/* ----- Mounted ----- */
-onMounted(() => {
-  bulkPushShippingCostCopy.value = bulkPushShippingCost.value;
-});
+/* ----- Computed ----- */
+const existingRules = computed(() => !showCustomFee.value);
 
 /* ----- Methods ----- */
 const closeDialogHandler = () => {
   isBulkPushDialogVisible.value = false;
 };
 
-const onChangeHandler = (type) => {
-  switch (type) {
-    case 'rules':
-      existingRules.value = !existingRules.value;
-      showCustomFee.value = !showCustomFee.value;
-      break;
-    case 'rate':
-      showCustomFee.value = !showCustomFee.value;
-      existingRules.value = !existingRules.value;
-      break;
-  }
+const onChangeHandler = () => {
+  showCustomFee.value = !showCustomFee.value;
 };
 
 const bulkPushOrdersHandler = async () => {
   if (showCustomFee.value) {
     bulkPushShippingCost.value = shippingFee.value;
   } else {
-    bulkPushShippingCost.value = bulkPushShippingCostCopy.value;
+    bulkPushShippingCost.value = null;
   }
-  isBulkPushDialogVisible.value = false;
+
   await bulkPushOrders.value();
+  
+  closeDialogHandler();
   selectedOrders.value = [];
+
+  await fetchOrders.value();
 };
 </script>
 <template>
@@ -54,7 +44,7 @@ const bulkPushOrdersHandler = async () => {
     <template #body>
       
       <div class="flex align-items-center">
-        <InputSwitch @click="onChangeHandler('rules')" class="p-2 mt-4" v-model="existingRules" inputId="shipping-rules">
+        <InputSwitch @click="onChangeHandler" class="p-2 mt-4" :modelValue="existingRules" inputId="shipping-rules">
         </InputSwitch>
         <label class="pointer font-semi ml-3 mt-4" for="shipping-rules">Bulk Push With Existing Shipping Rules</label>
       </div>
@@ -62,10 +52,10 @@ const bulkPushOrdersHandler = async () => {
       <Divider />
 
       <div class="flex align-items-center">
-        <InputSwitch @click="onChangeHandler('rate')" class="p-2 mt-4" v-model="showCustomFee" inputId="custom-rate">
+        <InputSwitch @click="onChangeHandler" class="p-2 mt-4" v-model="showCustomFee" inputId="custom-rate">
         </InputSwitch>
         <label class="pointer font-semi ml-3 mt-4" for="custom-rate">Bulk Push With Custom Rate</label>
-        <InputText v-if="showCustomFee" placeholder="Enter a shipping fee(can be $0)" class="ml-2 mt-4 w-50"
+        <InputText v-if="showCustomFee" placeholder="Enter a shipping fee (can be $0)" class="ml-2 mt-4 w-50"
           v-model="shippingFee" type="number">
         </InputText>
       </div>

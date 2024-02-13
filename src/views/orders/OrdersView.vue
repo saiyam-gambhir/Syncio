@@ -25,7 +25,6 @@ const {
 } = useOrders();
 
 const {
-  bulkPushCount,
   fetchOrders,
   isAutoPushEnabled,
   isBulkPushActive,
@@ -262,7 +261,6 @@ const bulkPushOrdersHandler = async () => {
   <div v-if="!orders.loadingOrders" class="text-center mt-5 mb-2">
     <h3 class="font-semibold" v-if="(pagination?.current_page === pagination?.last_page) && orders.orders.length > 0">
       No more orders to see. We only display orders up to 60 days.
-      {{ bulkPushCount }} - {{ isBulkPushActive }}
     </h3>
 
     <Button
