@@ -71,6 +71,13 @@ const generateChargeHandler = async () => {
     return;
   }
 
+  if (isOnboarding.value && totalCartValue.value === 0) {
+    router.push({
+      path: routes.SHOPIFY_INSTALLATION_COMPLETE,
+    });
+    return;
+  }
+
   await generateCharge.value();
 }
 </script>
