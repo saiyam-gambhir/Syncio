@@ -1,5 +1,6 @@
 <script setup>
 import * as routes from '@/routes';
+import router from '@/router';
 
 /* ----- Data ----- */
 const {
