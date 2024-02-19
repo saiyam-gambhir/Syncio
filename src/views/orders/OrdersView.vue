@@ -5,6 +5,7 @@ import * as routes from '@/routes';
 /* ----- Components ----- */
 const OrderDetails = defineAsyncComponent(() => import('./components/OrderDetails.vue'));
 const OrderPushLimitDialog = defineAsyncComponent(() => import('./components/OrderPushLimitDialog.vue'));
+const BulkPushDialog = defineAsyncComponent(() => import('./components/BulkPushDialog.vue'));
 
 /* ----- Data ----- */
 const {
@@ -24,10 +25,10 @@ const {
 } = useOrders();
 
 const {
-  bulkPushOrders,
   fetchOrders,
   isAutoPushEnabled,
   isBulkPushActive,
+  isBulkPushDialogVisible,
   isEnableAutoPushRequested,
   isViewOrderDetailsRequested,
   loadingMoreOrders,
@@ -137,8 +138,7 @@ const bulkPushOrdersHandler = async () => {
     return;
   }
 
-  await bulkPushOrders.value();
-  clearSelectionHandler();
+  isBulkPushDialogVisible.value = true;
 };
 
 const selectAll = () => {
@@ -318,4 +318,6 @@ const allChecked = () => {
   <EnableAutoPushDialog />
 
   <OrderPushLimitDialog v-if="shouldShowOrderPushLimitDialog" :selectedOrders="selectedOrders.length !== 0 ? selectedOrders.length : 1" />
+
+  <BulkPushDialog v-if="isBulkPushDialogVisible" />
 </template>
