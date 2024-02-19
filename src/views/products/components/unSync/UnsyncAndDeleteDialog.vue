@@ -75,7 +75,7 @@ const unsyncAndDeleteHandler = () => {
       <section class="grid flex-column mt-1 px-3">
         <p class="mt-0 text-center text-lg">
           <span class="block mt-2">
-            You're about to unsync and permanently delete {{ syncedProducts.length }} {{ syncedProducts.length > 1 ? 'products' : 'product' }}.
+            You're about to unsync and permanently delete {{ syncedProducts.length || 1 }} {{ syncedProducts.length > 1 ? 'products' : 'product' }}.
           </span>
           <Tag class="mt-4 mb-3" v-if="!isBulkUnsyncAction" severity="danger" style="font-size: 1.15rem !important;">{{ clickedProduct.title }}</Tag> <br>
           <span class="block mt-2">You cannot undo this action.</span>
