@@ -133,7 +133,7 @@ const storeChangeHandler = async () => {
       <Button
         :disabled="!selectedStoreId"
         @click="isBulkMapperDialogRequested = true"
-        class="p-button-success ml-4 bulk-mapper-btn"
+        class="ml-4 bulk-mapper-btn"
         label="Bulk mapper"
         v-if="isDestinationStore">
       </Button>
