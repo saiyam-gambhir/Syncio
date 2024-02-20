@@ -80,7 +80,7 @@ const updateCurrentPageHandler = async page => {
       </template>
     </Column>
 
-    <Column header="Actions" style="width: 25%" class="text-right">
+    <Column header="Actions" class="flex justify-content-end">
       <template #body="{ data: { payout_id, target_store_id } }">
         <Button
           @click="confirmPayout(payout_id)"
