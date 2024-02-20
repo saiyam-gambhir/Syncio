@@ -72,7 +72,7 @@ const updateCurrentPageHandler = page => {
       </template>
     </Column>
 
-    <Column header="Actions" style="width: 20%" class="text-right">
+    <Column header="Actions" class="flex justify-content-end">
       <template #body="{ data: { payout_id, target_store_id } }">
         <Button
           @click="updatePayoutHandler(payout_id, 'paid')"

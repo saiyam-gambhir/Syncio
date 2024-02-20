@@ -41,7 +41,7 @@ const {
       </template>
     </Column>
 
-    <Column header="Actions" style="width: 15%" class="text-right">
+    <Column header="Actions" class="flex justify-content-end">
       <template #body>
         <div class="flex justify-content-end">
           <Skeleton width="116px" height="32.5px" />
