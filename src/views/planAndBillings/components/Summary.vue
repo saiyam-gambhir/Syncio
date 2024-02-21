@@ -1,4 +1,7 @@
 <script setup>
+import { useRouter } from 'vue-router';
+import * as routes from '@/routes';
+
 /* ----- Components ----- */
 const AddonsDowngradeDialog = defineAsyncComponent(() => import('./AddonsDowngradeDialog.vue'));
 
@@ -21,6 +24,8 @@ const areAddonsChanged = ref(false);
 const clonedSelectedAddonIds = ref(null);
 const isBasePlanChanged = ref(false);
 const totalCartValue = ref(0);
+
+const router = useRouter();
 
 /* ----- Mounted ----- */
 onMounted(() => {
@@ -72,6 +77,12 @@ const generateChargeHandler = async () => {
   }
 
   await generateCharge.value();
+
+  if (isOnboarding.value && totalCartValue.value === 0) {
+    router.push({
+      path: routes.SHOPIFY_INSTALLATION_COMPLETE,
+    });
+  }
 }
 </script>
 

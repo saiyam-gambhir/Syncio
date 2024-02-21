@@ -43,16 +43,16 @@ const router = createRouter({
       path: routes.SHOPIFY_SELECT_STORE_TYPE,
     },
     {
-      component: () => import('@/views/registration/shopify/SelectStoreType.vue'),
-      meta: { layout: LoggedOut },
-      name: routes.SHOPIFY_SELECT_STORE_TYPE,
-      path: routes.SHOPIFY_SELECT_STORE_TYPE,
-    },
-    {
       component: () => import('@/views/registration/shopify/ConnectOrInviteStore.vue'),
       meta: { layout: LoggedOut },
       name: routes.SHOPIFY_CONNECT_OR_INVITE_STORE,
       path: routes.SHOPIFY_CONNECT_OR_INVITE_STORE,
+    },
+    {
+      component: () => import('@/views/registration/shopify/SelectPlan.vue'),
+      meta: { layout: LoggedOut },
+      name: routes.SHOPIFY_SELECT_PLAN,
+      path: routes.SHOPIFY_SELECT_PLAN,
     },
     {
       component: () => import('@/views/registration/shopify/InstallationComplete.vue'),

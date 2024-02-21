@@ -36,8 +36,8 @@ class AxiosService {
     this.https.interceptors.response.use(
       response => {
         const message = response?.data?.message ?? response.message;
-        if(message) {
-          if(response?.request?.responseURL.includes('products/unsync')) {
+        if (message) {
+          if (response?.request?.responseURL.includes('products/unsync')) {
             const options = { ...toastOptions, multiple: false };
             toast(message, { ...options, type: 'success' });
           } else {
@@ -62,7 +62,7 @@ class AxiosService {
         switch (status) {
           case 401: {
             const message = data.errors?.[0];
-            if(message.toLowerCase() === 'email or password mismatch');
+            if (message.toLowerCase() === 'email or password mismatch');
             auth.wooPasswordErrorMessage = 'Incorrect password';
             break;
           }
@@ -70,22 +70,27 @@ class AxiosService {
           case 400: {
             const message = data.errors?.[0];
 
-            if(message.toLowerCase() === 'the selected email is invalid.') {
+            if (message.toLowerCase() === 'the selected email is invalid.') {
               auth.wooEmailErrorMessage = 'Account not found, try another email';
               return data;
             }
 
-            if(data?.is_duplicate_sku_found) {
+            if (data?.is_duplicate_sku_found) {
               const products = useProductsStore();
               products.$patch({ isDuplicateSkuFound: true });
               return data;
             }
 
-            if(data?.redirect_to === 'billing') {
-               await router.push({ name: routes.PLAN_AND_BILLINGS });
-               const options = { ...toastOptions, multiple: true };
-               toast(message, { ...options, type: 'error' });
-               return data;
+            if (data?.redirect_to === 'billing') {
+              // Redirect to select plan if part of onboarding
+              if (router.options.history.state.back === routes.SHOPIFY_SELECT_STORE_TYPE) {
+                await router.push({ name: routes.SHOPIFY_SELECT_PLAN });
+                return data;
+              }
+              await router.push({ name: routes.PLAN_AND_BILLINGS });
+              const options = { ...toastOptions, multiple: true };
+              toast(message, { ...options, type: 'error' });
+              return data;
             }
 
             if (message) {
