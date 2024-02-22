@@ -12,6 +12,7 @@ const {
 
 const {
   activateCharge,
+  isOnboarding,
 } = toRefs(usePlanStore());
 
 const route = useRoute();
@@ -33,6 +34,7 @@ onMounted(async () => {
       }
     }
     loading.value = false;
+    isOnboarding.value = false;
   }
 });
 
