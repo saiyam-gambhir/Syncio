@@ -161,6 +161,8 @@ router.beforeEach(async (to, from, next) => {
     }
   } else if ((to.path === routes.LOGIN || to.path === routes.ROOT) && ID_TOKEN_KEY) { // check onboarding routes pending
     return next({ path: routes.DASHBOARD });
+  } else if((to.path === routes.SHOPIFY_SELECT_STORE_TYPE || to.path === routes.SHOPIFY_SELECT_PLAN) && sessionStorage.getItem('USER_ID')) {
+    await auth.fetchUser(sessionStorage.getItem('USER_ID'));
   } else if (to.path === routes.ROOT && !ID_TOKEN_KEY) {
     return next({ path: routes.LOGIN });
   }

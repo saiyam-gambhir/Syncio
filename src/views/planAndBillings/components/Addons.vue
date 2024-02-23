@@ -1,4 +1,6 @@
 <script setup>
+import * as routes from '@/routes';
+
 /* ----- Data ----- */
 const {
   activeAddons,
@@ -7,6 +9,8 @@ const {
   plans,
   selectedPlan,
 } = toRefs(usePlanStore());
+
+const route = useRoute();
 
 /* ----- Mounted ----- */
 onMounted(() => {
@@ -36,7 +40,7 @@ watch(selectedPlan, (newValue, oldValue) => {
       <h2 class="my-2">Upgrade add-ons to suit your needs</h2>
       <p class="mt-0">Downgrade at any time. All add-ons have a <strong>14 day free trial</strong>.</p>
 
-      <Message v-if="!plan?.syncio_plan.is_active && !isOnboarding" severity="info" :closable="false" class="mt-5 block message-warning">
+      <Message v-if="!plan?.syncio_plan.is_active && !isOnboarding && route.fullPath !== routes.SHOPIFY_SELECT_PLAN" severity="info" :closable="false" class="mt-5 block message-warning">
         <h3 class="mb-2">To access free plans for add-ons, first select a base plan above.</h3>
         <h4 class="line-height-3 m-0 font-normal" style="text-transform: none !important;">
           Once a base plan is selected, you'll see the free plan options below.
