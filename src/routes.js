@@ -20,6 +20,7 @@ export const STORES = '/stores';
 /* ----- Shopify ----- */
 export const SHOPIFY_CONNECT_OR_INVITE_STORE = '/shopify/connect-or-invite-store';
 export const SHOPIFY_INSTALLATION_COMPLETE = '/shopify/installation-complete';
+export const SHOPIFY_SELECT_PLAN = '/shopify/select-plan';
 export const SHOPIFY_SELECT_STORE_TYPE = '/shopify/select-store-type';
 
 /* ----- Woocommerce ----- */

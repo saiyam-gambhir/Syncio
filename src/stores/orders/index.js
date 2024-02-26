@@ -18,6 +18,7 @@ export const useOrdersStore = defineStore('orders', {
       filters: { searchStr: '', sortBy: 'DESC' },
       isAutoPushEnabled: 'Off',
       isBulkPushActive: false,
+      isBulkPushDialogVisible: false,
       isEnableAutoPushRequested: false,
       isViewOrderDetailsRequested: false,
       isPushOrderEmailSettingsChanged: false,

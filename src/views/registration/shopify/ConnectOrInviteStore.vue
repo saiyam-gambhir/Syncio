@@ -92,7 +92,7 @@ const showConnectViaKeyHandler = () => {
     </aside>
 
     <div class="text-center">
-      <router-link :to="isDestinationStore ? routes.PLAN_AND_BILLINGS : routes.SHOPIFY_INSTALLATION_COMPLETE">
+      <router-link :to="isDestinationStore ? routes.SHOPIFY_SELECT_PLAN : routes.SHOPIFY_INSTALLATION_COMPLETE">
         <Button @click="loading = true" :loading="loading" label="Skip for now" class="my-6 font-bold justify-content-center p-button-lg"></Button>
       </router-link>
     </div>

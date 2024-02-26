@@ -1,4 +1,5 @@
 <script setup>
+import { useRouter } from 'vue-router';
 import * as routes from '@/routes';
 
 /* ----- Data ----- */
@@ -8,7 +9,6 @@ const {
   plan,
   plans,
   selectedPlan,
-  isOnboarding,
 } = toRefs(usePlanStore());
 
 const {
@@ -46,24 +46,30 @@ const fetchPlansHandler = async () => {
 </script>
 
 <template>
-  <PageHeader content="Upgrade or downgrade anytime. <a href='javascript:void(0);' class='intercom-custom-launcher btn-link'>Contact us</a> for help" title="Plan and Billing" />
+  <section class="mx-auto mt-8 w-90">
+    <PageDetails title="Select Plan" content="Upgrade or downgrade anytime. <a href='javascript:void(0);' class='intercom-custom-launcher btn-link font-semibold text-2xl line-height-3 mt-1 mb-6 pointer'>Contact us</a> for help" />
 
-  <PlanAndBillingsSkeleton v-if="loadingPlans" />
+    <aside class="auth-wrapper text-900">
 
-  <article v-else class="mt-2">
-    <section class="grid">
-      <div class="col-12 md:col-12 lg:col-9">
-        <div class="pr-2">
-          <Plans />
-          <Addons />
-        </div>
-      </div>
+      <PlanAndBillingsSkeleton v-if="loadingPlans" />
 
-      <div class="col-12 md:col-12 lg:col-3">
-        <Summary />
-      </div>
-    </section>
-  </article>
+      <article v-else class="mt-2">
+        <section class="grid">
+          <div class="col-12 md:col-12 lg:col-9">
+            <div class="pr-2">
+              <Plans />
+              <Addons />
+            </div>
+          </div>
+
+          <div class="col-12 md:col-12 lg:col-3">
+            <Summary />
+          </div>
+        </section>
+      </article>
+    </aside>
+
+  </section>
 </template>
 
 <style>

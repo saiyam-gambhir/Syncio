@@ -5,6 +5,7 @@ import * as routes from '@/routes';
 /* ----- Components ----- */
 const OrderDetails = defineAsyncComponent(() => import('./components/OrderDetails.vue'));
 const OrderPushLimitDialog = defineAsyncComponent(() => import('./components/OrderPushLimitDialog.vue'));
+const BulkPushDialog = defineAsyncComponent(() => import('./components/BulkPushDialog.vue'));
 
 /* ----- Data ----- */
 const {
@@ -24,10 +25,10 @@ const {
 } = useOrders();
 
 const {
-  bulkPushOrders,
   fetchOrders,
   isAutoPushEnabled,
   isBulkPushActive,
+  isBulkPushDialogVisible,
   isEnableAutoPushRequested,
   isViewOrderDetailsRequested,
   loadingMoreOrders,
@@ -39,6 +40,7 @@ const {
 
 const options = ref(['Off', 'On']);
 const router = useRouter();
+let isAllChecked = ref(false);
 
 /* ----- Mounted ----- */
 onMounted(async () => {
@@ -59,6 +61,11 @@ onMounted(async () => {
 onBeforeRouteLeave((to, from, next) => {
   isViewOrderDetailsRequested.value = shouldShowOrderPushLimitDialog.value = false;
   next();
+});
+
+/* ----- Computed ----- */
+const allPushed = computed(() => {
+  return orders.orders.filter(order => order.push_status !== 'pushed').map(({ order_ref_id }) => order_ref_id).length === 0;
 });
 
 /* ----- Methods ----- */
@@ -96,13 +103,23 @@ const onInputHandler = ({ order_ref_id }) => {
   if (orders.selectedOrders.includes(order_ref_id)) {
     const index = orders.selectedOrders.indexOf(order_ref_id);
     orders.selectedOrders.splice(index, 1);
+    isAllChecked.value = false; // Unselect select-all checkbox
     return;
   }
 
   orders.selectedOrders.push(order_ref_id);
+
+  // Check select all checkbox if all boxes are checked
+  if (allChecked()) {
+    isAllChecked.value = true;
+  }
 };
 
 const isChecked = ({ order_ref_id }) => {
+  // Check select all checkbox if all boxes are checked
+  if (allChecked()) {
+    isAllChecked.value = true;
+  }
   return orders.selectedOrders.length > 0 && orders.selectedOrders.includes(order_ref_id);
 };
 
@@ -111,6 +128,7 @@ const isSelected = (row) => {
 };
 
 const clearSelectionHandler = () => {
+  isAllChecked.value = false;
   selectedOrders.value = [];
 };
 
@@ -120,9 +138,26 @@ const bulkPushOrdersHandler = async () => {
     return;
   }
 
-  await bulkPushOrders.value();
-  clearSelectionHandler();
+  isBulkPushDialogVisible.value = true;
 };
+
+const selectAll = () => {
+  isAllChecked.value = !isAllChecked.value; // Toggle select all checkbox
+  
+  // If select all is unselected, clear the orders list
+  if (!isAllChecked.value) {
+    selectedOrders.value = [];
+    return;
+  }
+
+  orders.selectedOrders = [];
+  const notPushed = orders.orders.filter(order => order.push_status !== 'pushed').map(({ order_ref_id }) => order_ref_id);
+  orders.selectedOrders.push(...notPushed);
+};
+
+const allChecked = () => {
+  return orders.selectedOrders.length === orders.orders.filter(order => order.push_status !== 'pushed').map(({ order_ref_id }) => order_ref_id).length;
+}
 </script>
 
 <template>
@@ -188,7 +223,10 @@ const bulkPushOrdersHandler = async () => {
       <OrdersViewHeader />
     </template>
 
-    <Column header="" style="width: 3rem; min-width: 42.5px">
+    <Column style="width: 3rem; min-width: 42.5px" @row-select-all="selectAll">
+      <template #header>
+        <CheckboxWrapper :isChecked="isAllChecked" :disabled="allPushed" @onInput="selectAll" />
+      </template>
       <template #body="{ data }">
         <CheckboxWrapper :isChecked="isChecked(data)" :disabled="data.push_status === 'pushed' || isBulkPushActive" @onInput="onInputHandler(data)" />
       </template>
@@ -280,4 +318,6 @@ const bulkPushOrdersHandler = async () => {
   <EnableAutoPushDialog />
 
   <OrderPushLimitDialog v-if="shouldShowOrderPushLimitDialog" :selectedOrders="selectedOrders.length !== 0 ? selectedOrders.length : 1" />
+
+  <BulkPushDialog v-if="isBulkPushDialogVisible" />
 </template>

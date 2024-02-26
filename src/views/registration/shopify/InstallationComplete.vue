@@ -12,23 +12,29 @@ const {
 
 const {
   activateCharge,
+  isOnboarding,
 } = toRefs(usePlanStore());
 
 const route = useRoute();
 
 /* ----- OnMounted ----- */
 onMounted(async () => {
-  if(isDestinationStore.value) {
+  if (isDestinationStore.value) {
     loading.value = true;
     const params = route.query;
-    const response = await activateCharge.value(params);
-    if(response.success) {
-      if (!Boolean(params.isonboard)) {
-        await router.push({ name: routes.PLAN_AND_BILLINGS });
+    // Check if params is empty
+    if (JSON.stringify(params) !== '{}') {
+      const response = await activateCharge.value(params);
+      if (response.success) {
+        if (!Boolean(params.isonboard)) {
+          await router.push({ name: routes.PLAN_AND_BILLINGS });
+        }
       } else {
-        loading.value = false;
+        await router.push({ name: routes.SHOPIFY_SELECT_PLAN });
       }
     }
+    loading.value = false;
+    isOnboarding.value = false;
   }
 });
 

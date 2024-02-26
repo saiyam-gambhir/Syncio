@@ -39,6 +39,8 @@ const handleSearch = () => {
     :disabled="disabled"
     :placeholder="placeholder"
     @keyup.enter="handleSearch"
+    type="search"
+    @search="handleSearch"
     style="height: 39px;"
     v-model="searchText">
   </InputText>

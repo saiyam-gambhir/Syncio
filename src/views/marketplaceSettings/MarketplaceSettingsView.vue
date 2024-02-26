@@ -301,8 +301,8 @@ watch(profile, (newValue, oldValue) => {
                   multiple
                   ref="fileSelectedForUpload"
                   type="file" />
-                <Button :loading="loading" @click="clickFileUploadButton" label="Upload Images" icon="pi pi-upload"></Button>
-                <p class="text-center mt-1 m-0 text-sm text-600">You can add up to {{ maxImagesAllowed }} images</p>
+                <Button :loading="loading" @click="clickFileUploadButton" label="Upload Images" icon="pi pi-upload" class="w-full"></Button>
+                <p class="text-center mt-1 m-0 text-sm text-600">You can add up to {{ maxImagesAllowed }} images (max 3mb per image)</p>
               </div>
 
               <ul class="list-none p-0 m-0">
