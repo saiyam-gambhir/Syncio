@@ -143,7 +143,7 @@ const bulkPushOrdersHandler = async () => {
 
 const selectAll = () => {
   isAllChecked.value = !isAllChecked.value; // Toggle select all checkbox
-  
+
   // If select all is unselected, clear the orders list
   if (!isAllChecked.value) {
     selectedOrders.value = [];
