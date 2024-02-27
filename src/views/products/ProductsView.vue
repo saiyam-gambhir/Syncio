@@ -37,7 +37,6 @@ const {
   pagination,
   products,
   queries,
-  searchAttribute,
   selectedProducts,
   selectedStore,
   selectedStoreId,
@@ -68,7 +67,7 @@ onMounted(async () => {
 
 /* ----- Watch ----- */
 watch(selectedStoreId, (newValue, oldValue) => {
-  if((newValue !== oldValue)) {
+  if((newValue && newValue !== oldValue)) {
     fetchMetaFields.value();
   }
 }, { deep: true });

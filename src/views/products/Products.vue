@@ -52,6 +52,15 @@ const statusOptionsTag = {
 
 const isAllChecked = ref(false);
 
+/* ----- Watch ----- */
+watch(products, (newValue, oldValue) => {
+  if(products?.value?.every(product => product.added)) {
+    isAllChecked.value = true;
+  } else {
+    isAllChecked.value = false;
+  }
+}, { deep: true })
+
 /* ----- Methods ----- */
 const syncProductHandler = async (product) => {
   if(productsSynced.value >= productsSyncedLimit.value) {
@@ -78,6 +87,7 @@ const unsyncProductHandler = async (product) => {
 const rowSelectHandler = (row) => {
   if(row.mapper_id) {
     const rowIndex = syncedProducts.value.findIndex(_row => _row.mapper_id == row.mapper_id);
+    const selectedRowIndex = selectedProducts.value.findIndex(_row => _row.mapper_id == row.mapper_id);
     if(rowIndex === -1) {
       syncedProducts.value.push(row);
       row.added = true;
@@ -85,14 +95,27 @@ const rowSelectHandler = (row) => {
       syncedProducts.value.splice(rowIndex, 1);
       row.added = false;
     }
+
+    if(selectedRowIndex === -1) {
+      selectedProducts.value.push(row);
+    } else {
+      selectedProducts.value.splice(rowIndex, 1);
+    }
   } else {
     const rowIndex = unsyncedProducts.value.findIndex(_row => _row.external_product_id == row.external_product_id);
+    const selectedRowIndex = selectedProducts.value.findIndex(_row => _row.external_product_id == row.external_product_id);
     if(rowIndex === -1) {
       unsyncedProducts.value.push(row);
       row.added = true;
     } else {
       unsyncedProducts.value.splice(rowIndex, 1);
       row.added = false;
+    }
+
+    if(selectedRowIndex === -1) {
+      selectedProducts.value.push(row);
+    } else {
+      selectedProducts.value.splice(rowIndex, 1);
     }
   }
 };
@@ -107,16 +130,9 @@ const viewSyncHander = (product) => {
   fetchProductDetails.value({ externalProductId: product.external_product_id, targetStoreId: product.store_id }, false);
 };
 
-const clearBulkSelectionHandler = () => {
-  selectedProducts.value = [];
-  syncedProducts.value = [];
-  unsyncedProducts.value = [];
-  products.value.forEach(product => product.added = false);
-};
-
 const selectAll = () => {
   isAllChecked.value = !isAllChecked.value; // Toggle select all checkbox
-  clearBulkSelectionHandler();
+  unselectAllRowsHandler();
 
   // If select all is unselected, return list
   if (!isAllChecked.value) {
@@ -130,10 +146,6 @@ const selectAll = () => {
   unsyncedProducts.value = selectedProducts.value.filter(row => !row.mapper_id);
 };
 
-const areAllProductsSelected = () => {
-  isAllChecked.value = !isAllChecked.value;
-};
-
 const isSelected = (row) => {
   if(row.added) return 'selected';
 };
@@ -142,7 +154,6 @@ const isSelected = (row) => {
 <template>
   <DataTable
     :value="products"
-    @rowUnselectAll="unselectAllRowsHandler"
     responsiveLayout="scroll"
     showGridlines
     :rowClass="isSelected">

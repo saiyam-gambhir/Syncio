@@ -25,10 +25,12 @@ export function useProducts() {
     selectedProducts.value = [];
     syncedProducts.value = [];
     unsyncedProducts.value = [];
+    products?.value?.forEach(product => product.added = false);
   };
 
   const applyFilters = () => {
     queries.value.filters = [];
+    queries.value.page = 1;
 
     if(visibilityOption.value && visibilityOption.value !== 'all') {
       queries.value.filters.push(visibilityOption.value);
@@ -47,6 +49,7 @@ export function useProducts() {
     queries.value.page = page;
     queries.value.limiter = perPage;
     await fetchProducts.value();
+    unselectAllRowsHandler();
   };
 
   const checkProductStatusOnRefresh = () => {
