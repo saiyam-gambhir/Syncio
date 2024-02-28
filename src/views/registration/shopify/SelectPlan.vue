@@ -5,6 +5,7 @@ import * as routes from '@/routes';
 /* ----- Data ----- */
 const {
   fetchPlans,
+  isOnboarding,
   loadingPlans,
   plan,
   plans,
@@ -29,6 +30,7 @@ onMounted(async () => {
 
   await fetchPlansHandler();
   setSelectedPlan();
+  isOnboarding.value = true;
 });
 
 /* ----- Methods ----- */
