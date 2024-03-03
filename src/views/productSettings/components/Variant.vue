@@ -40,6 +40,14 @@ const changeSwitchHandler = (setting) => {
   }
 };
 
+const sortedDestinationVariantSettings = computed(() => {
+  return destinationVariantSettings.value.sort((a, b) => a.label > b.label ? 1 : -1);
+});
+
+const sortedSourceVariantSettings = computed(() => {
+  return sourceVariantSettings.value.sort((a, b) => a.label > b.label ? 1 : -1);
+});
+
 /* ----- Watcher ----- */
 watch(destinationVariantSettings, (newSettings, oldSettings) => {
   settingsUpdated.value = stringifyDestinationVariantSettings.value !== JSON.stringify(newSettings);
@@ -71,7 +79,7 @@ watch(newQuantity, () => {
             <h3 class="m-0">Ongoing sync</h3>
             <i class="pi pi-question-circle text-2xl ml-3" style="transform: translateY(1px);" v-tooltip.right="'Syncs in real time on an ongoing basis'"></i>
           </li>
-          <li v-for="setting in destinationVariantSettings" :key="setting.key" class="py-5 border-bottom-1 surface-border">
+          <li v-for="setting in sortedDestinationVariantSettings" :key="setting.key" class="py-5 border-bottom-1 surface-border">
             <div class="flex align-items-center justify-content-between w-full">
               <div class="w-85">
                 <p class="m-0 font-semibold text-lg">
@@ -142,7 +150,7 @@ watch(newQuantity, () => {
     <div class="grid">
       <div class="col-5">
         <ul class="list-none p-0 m-0">
-          <li v-for="setting in sourceVariantSettings" :key="setting.key" class="py-5 border-bottom-1 surface-border">
+          <li v-for="setting in sortedSourceVariantSettings" :key="setting.key" class="py-5 border-bottom-1 surface-border">
             <div class="flex justify-content-between w-full">
               <div class="w-85">
                 <p class="m-0 font-semibold text-lg">
