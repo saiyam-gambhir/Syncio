@@ -143,7 +143,7 @@ const bulkPushOrdersHandler = async () => {
 
 const selectAll = () => {
   isAllChecked.value = !isAllChecked.value; // Toggle select all checkbox
-  
+
   // If select all is unselected, clear the orders list
   if (!isAllChecked.value) {
     selectedOrders.value = [];
@@ -297,8 +297,12 @@ const allChecked = () => {
 
   <!-- Pagination -->
   <div v-if="!orders.loadingOrders" class="text-center mt-5 mb-2">
-    <h3 class="font-semibold" v-if="(pagination?.current_page === pagination?.last_page) && orders.orders.length > 0">
-      No more orders to see. We only display orders up to 60 days.
+    <h3 class="font-semi" v-if="(pagination?.current_page === pagination?.last_page) && orders.orders.length > 0">
+      <div class="px-4 py-2 text-center">
+        <h3 class="mt-0 mb-2">That's all your orders for the last 60 days</h3>
+        <p class="line-height-3">For fulfilled orders, you can easily keep track of payments to your <br> suppliers using Payouts</p>
+        <AppLink class="text-lg" link="https://help.syncio.co/en/articles/7325099-payouts-101" label="Learn about payouts" />
+      </div>
     </h3>
 
     <Button

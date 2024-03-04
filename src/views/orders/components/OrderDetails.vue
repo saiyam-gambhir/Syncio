@@ -194,7 +194,9 @@ const getPushedDate = (date) => {
 
                 <!-- If store is disconnected -->
                 <template v-if="store.store_disconnected">
-                  <p class="mb-0 mt-2 text-error font-semibold">Cannot fetch information as store is disconnected</p>
+                  <p class="mb-0 mt-2 text-error font-semibold">
+                    This store has been disconnected. <br> You may need to check with the store if <br> they have received and fulfilled the order.
+                  </p>
                 </template>
 
                 <template v-if="store.push_status !== 'blocked'"></template>
