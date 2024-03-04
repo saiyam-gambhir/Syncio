@@ -52,6 +52,13 @@ const statusOptionsTag = {
 
 const isAllChecked = ref(false);
 
+/* ----- Before Route Leave ----- */
+onBeforeRouteLeave((to, from, next) => {
+  shouldShowProductSyncLimitDialog.value = false;
+  unselectAllRowsHandler();
+  next();
+});
+
 /* ----- Watch ----- */
 watch(products, (newValue, oldValue) => {
   if(products?.value?.every(product => product.added)) {
@@ -324,5 +331,5 @@ const isSelected = (row) => {
     </Column>
   </DataTable>
 
-  <ProductSyncLimitDialog v-if="shouldShowProductSyncLimitDialog" :selectedProducts="1" />
+  <ProductSyncLimitDialog v-if="shouldShowProductSyncLimitDialog" :selectedProducts="unsyncedProducts?.length || '1'" />
 </template>
