@@ -40,7 +40,7 @@ const initialSyncSettings = computed(() => {
     'unpublish_at_product_creation': true,
   };
 
-  return destinationProductSettings.value?.filter(({ key }) => syncSetting[key]).sort((a, b) => a.label > b.label ? 1 : -1);
+  return destinationProductSettings.value?.filter(({ key }) => syncSetting[key]);
 });
 
 const ongoingSyncSettings = computed(() => {
@@ -57,11 +57,7 @@ const ongoingSyncSettings = computed(() => {
     'sync_product_status': true,
   };
 
-  return destinationProductSettings.value?.filter(({ key }) => syncSetting[key]).sort((a, b) => a.label > b.label ? 1 : -1);
-});
-
-const sortedSourceProductSettings = computed(() => {
-  return sourceProductSettings.value.sort((a, b) => a.label > b.label ? 1 : -1);
+  return destinationProductSettings.value?.filter(({ key }) => syncSetting[key]);
 });
 
 const onChangeHandler = ({ is_active, key }) => {
@@ -199,7 +195,7 @@ const onChangeHandler = ({ is_active, key }) => {
     <div class="grid">
       <div class="col-5">
         <ul class="list-none p-0 m-0">
-          <li v-for="setting in sortedSourceProductSettings" :key="setting.key" class="py-5 border-bottom-1 surface-border">
+          <li v-for="setting in sourceProductSettings" :key="setting.key" class="py-5 border-bottom-1 surface-border">
             <div class="flex align-items-center justify-content-between w-full">
               <div class="w-85">
                 <p class="m-0 font-semibold text-lg">
