@@ -48,7 +48,7 @@ const fetchPlansHandler = async () => {
 </script>
 
 <template>
-  <section class="mx-auto mt-8 w-90">
+  <section class="mx-auto my-8 w-90">
     <PageDetails title="Select Plan" content="Upgrade or downgrade anytime. <a href='javascript:void(0);' class='intercom-custom-launcher btn-link font-semibold text-2xl line-height-3 mt-1 mb-6 pointer'>Contact us</a> for help" />
 
     <aside class="auth-wrapper text-900">
