@@ -45,9 +45,6 @@ onMounted(async () => {
     });
     return;
   }
-
-  await fetchPlansHandler();
-  setSelectedPlan();
 });
 
 /* ----- Before Route Leave ----- */
