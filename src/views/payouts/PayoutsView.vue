@@ -70,7 +70,7 @@ onBeforeRouteLeave((to, from, next) => {
       Manage Payouts for fulfilled orders <br>
       <AppLink link="https://help.syncio.co/en/collections/3557007-payouts-shopify-only" label="Learn about Payouts" />
     </template>
-    <template #actions>
+    <template #actions v-if="isDestinationStore">
       <router-link :to="routes.PAYOUTS_SETTINGS">
         <Button label="Payouts settings" outlined></Button>
       </router-link>

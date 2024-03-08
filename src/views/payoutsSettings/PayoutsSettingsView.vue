@@ -32,6 +32,21 @@ const {
   showLeavingPageDialog
 } = toRefs(useAuthStore());
 
+const {
+  isSourceStore,
+  isWoocommerce,
+} = toRefs(useConnectionsStore());
+
+/* ----- Mounted ----- */
+onMounted(async () => {
+  if (isSourceStore.value || isWoocommerce.value) {
+    router.push({
+      path: routes.DASHBOARD,
+    });
+    return;
+  }
+});
+
 /* ----- Before Route Leave ----- */
 onBeforeRouteLeave((to, from, next) => {
   if((isDefaultCommissionChanged.value || areStoreCommissionsChanged.value || areProductCommissionsChanged.value) && !forceLeavingPage.value && to.fullPath !== routes.LOGIN) {
