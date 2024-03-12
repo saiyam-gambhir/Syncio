@@ -184,7 +184,7 @@ const isSelected = (row) => {
       <ProductsViewHeader />
     </template>
 
-    <Column>
+    <Column v-if="isDestinationStore">
       <template #header>
         <CheckboxWrapper :isChecked="isAllChecked" @onInput="selectAll" />
       </template>
