@@ -38,12 +38,12 @@ const props = defineProps({
       <span>{{ linkText }}</span>
     </div>
     <i v-if="isLocationPending && isDestinationStore" class="pi pi-info-circle pending-icon text-2xl" style="color: var(--primary); transform: translateY(-.5px);"></i>
-    <Tag
+    <!-- <Tag
       class="absolute"
       rounded
       style="right: 1rem; width: 2rem; height: 2rem;"
       v-if="+currentStore.payout_count > 0 && isSourceStore && href === '/payouts'">
         {{ currentStore.payout_count }}
-    </Tag>
+    </Tag> -->
   </router-link>
 </template>
