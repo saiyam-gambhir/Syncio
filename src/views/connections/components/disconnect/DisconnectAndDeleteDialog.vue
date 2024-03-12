@@ -39,11 +39,11 @@ const disconnectHandler = async () => {
         </p>
         <p class="mt-0">Any products currently in sync with this store will be:</p>
         <ul class="p-0 pl-3 mt-0 mb-4 line-height-3">
-          <li>unsynced</li>
+          <li>Unsynced</li>
           <li><strong>DELETED</strong> in the Destination store</li>
         </ul>
         <p class="m-0">This action cannot be undone.</p>
-        <p class="mb-0">For more detailed information about the impact of this choice, <br> <AppLink label="learn about disconnecting stores" link="" /></p>
+        <p class="mb-0">For more detailed information about the impact of this choice, <br> <AppLink label="learn about disconnecting stores" link="https://help.syncio.co/en/articles/8988630-disconnecting-stores" /></p>
         <div class="field-checkbox mt-4">
           <Checkbox inputId="action-confirmation" v-model="isChecked" :binary="true" />
           <label for="action-confirmation">I Understand this action cannot be undone.</label>
