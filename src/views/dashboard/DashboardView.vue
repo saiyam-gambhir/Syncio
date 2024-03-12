@@ -1,10 +1,21 @@
 <script setup>
 import { useUrlSearchParams } from '@vueuse/core';
+import * as routes from '@/routes';
 
 /* ----- Data ----- */
+const router = useRouter();
+
 const {
   showUpgradeDialogHandler,
 } = useUpgradeDialog();
+
+const {
+  plan,
+} = toRefs(usePlanStore());
+
+const {
+  isShopify,
+} = toRefs(useConnectionsStore());
 
 const {
   showUpgrade,
@@ -15,6 +26,10 @@ const {
 onMounted(() => {
   if (Boolean(showUpgrade)) {
     showUpgradeDialogHandler(type);
+  }
+
+  if(!plan.value && isShopify.value) {
+    router.push({ name: routes.SHOPIFY_SELECT_PLAN })
   }
 });
 </script>

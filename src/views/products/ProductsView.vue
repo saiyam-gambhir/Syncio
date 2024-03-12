@@ -37,7 +37,6 @@ const {
   pagination,
   products,
   queries,
-  searchAttribute,
   selectedProducts,
   selectedStore,
   selectedStoreId,
@@ -45,6 +44,17 @@ const {
   syncedProducts,
   unsyncedProducts,
 } = toRefs(useProductsStore());
+
+const {
+  fetchCurrentPlan,
+  productsSynced,
+  productsSyncedLimit,
+  shouldShowProductSyncLimitDialog,
+} = toRefs(usePlanStore());
+
+const {
+  userId,
+} = toRefs(useAuthStore());
 
 /* ----- Mounted ----- */
 onMounted(async () => {
@@ -68,7 +78,7 @@ onMounted(async () => {
 
 /* ----- Watch ----- */
 watch(selectedStoreId, (newValue, oldValue) => {
-  if((newValue !== oldValue)) {
+  if((newValue && newValue !== oldValue)) {
     fetchMetaFields.value();
   }
 }, { deep: true });
@@ -88,6 +98,11 @@ const storeFilterHandler = async storeId => {
 };
 
 const bulkSyncProductsHandler = async () => {
+  const productsToUnsync = unsyncedProducts.value?.length;
+  if((productsToUnsync + productsSynced.value) > productsSyncedLimit.value) {
+    shouldShowProductSyncLimitDialog.value = true;
+    return;
+  }
   const sourceProductIds = unsyncedProducts.value.map(product => product.external_product_id);
   const response = await bulkSyncProducts.value(sourceProductIds);
   if(response?.success) {
@@ -108,6 +123,11 @@ const storeChangeHandler = async () => {
 
   queries.value.page = 1;
   await fetchProductsHandler();
+};
+
+const refreshHandler = async () => {
+  await fetchProductsHandler();
+  await fetchCurrentPlan.value(userId.value);
 };
 </script>
 
@@ -163,7 +183,7 @@ const storeChangeHandler = async () => {
     </div>
 
     <div v-if="bulkSync.isOngoing" class="flex align-items-center" style="padding-bottom: .65rem;">
-      <Tag @click="fetchProductsHandler" class="pointer" severity="warning">
+      <Tag @click="refreshHandler" class="pointer" severity="warning">
         <i class="pi pi-spin pi-sync mr-2"></i>
         {{ bulkSync?.count }} sync in progress | CLICK to refresh
       </Tag>

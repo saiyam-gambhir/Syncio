@@ -14,6 +14,8 @@ export const updateSettings = {
       };
       const { success, configurations } = await axiosService.postData(`configurations/${auth.userId}`, params);
       if (success) {
+        configurations.sort((a, b) => a.label > b.label ? 1 : -1);
+        
         this.destinationProductSettings = await this.filterSettings(configurations, 'product');
         this.stringifyDestinationProductSettings = JSON.stringify(this.destinationProductSettings);
 

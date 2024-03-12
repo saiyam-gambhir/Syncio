@@ -87,7 +87,7 @@ class AxiosService {
                 await router.push({ name: routes.SHOPIFY_SELECT_PLAN });
                 return data;
               }
-              await router.push({ name: routes.PLAN_AND_BILLINGS });
+              await router.push({ name: routes.SHOPIFY_SELECT_PLAN });
               const options = { ...toastOptions, multiple: true };
               toast(message, { ...options, type: 'error' });
               return data;

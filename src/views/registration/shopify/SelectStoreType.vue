@@ -17,11 +17,15 @@ const router = useRouter();
 
 /* ----- Mounted ----- */
 onMounted(async () => {
-  loading.value = true;
-  let params = route.query;
-  params.store_id = params.shop;
-  if(params.store_id) {
-    await saveShopifyToken.value(params);
+  try {
+    loading.value = true;
+    let params = route.query;
+    params.store_id = params.shop;
+    if(params.store_id) {
+      await saveShopifyToken.value(params);
+    }
+  } catch(error) {}
+  finally {
     loading.value = false;
   }
 });

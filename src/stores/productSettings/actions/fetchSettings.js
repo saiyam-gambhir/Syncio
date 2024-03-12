@@ -17,6 +17,8 @@ export const fetchSettings = {
       const auth = useAuthStore();
       const { success, configurations, config_values } = await axiosService.getData(`configurations/${auth.userId}`);
       if (success) {
+        configurations.sort((a, b) => a.label > b.label ? 1 : -1);
+        
         this.destinationProductSettings = await this.filterSettings(configurations, 'product');
         this.stringifyDestinationProductSettings = JSON.stringify(this.destinationProductSettings);
 

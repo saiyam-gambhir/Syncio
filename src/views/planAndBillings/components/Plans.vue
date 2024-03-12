@@ -1,4 +1,6 @@
 <script setup>
+import * as routes from '@/routes';
+
 /* ----- Data ----- */
 const {
   activeAddons,
@@ -9,6 +11,8 @@ const {
   selectedAddonIds,
   selectedPlan,
 } = toRefs(usePlanStore());
+
+const route = useRoute();
 
 /* ----- Methods ----- */
 const selectPlanHandler = (plan) => {
@@ -33,7 +37,7 @@ const selectPlanHandler = (plan) => {
         <AppLink label="Learn more about our pricing" link="https://www.syncio.co/pricing"></AppLink>
       </p>
 
-      <Message v-if="!plan?.syncio_plan.is_active && !isOnboarding" severity="info" :closable="false" class="mt-5 block message-warning">
+      <Message v-if="!plan?.syncio_plan.is_active && !isOnboarding && route.fullPath !== routes.SHOPIFY_SELECT_PLAN" severity="info" :closable="false" class="mt-5 block message-warning">
         <h3 class="mb-2">New Free Plans Available</h3>
         <h4 class="line-height-3 m-0 font-normal" style="text-transform: none !important;">
           We haven't made any changes to your account but there are new <span class="font-semibold">FREE</span> plans that could suit your needs.

@@ -50,6 +50,24 @@ const statusOptionsTag = {
   'unsynced': 'danger',
 };
 
+const isAllChecked = ref(false);
+
+/* ----- Before Route Leave ----- */
+onBeforeRouteLeave((to, from, next) => {
+  shouldShowProductSyncLimitDialog.value = false;
+  unselectAllRowsHandler();
+  next();
+});
+
+/* ----- Watch ----- */
+watch(products, (newValue, oldValue) => {
+  if(products?.value?.every(product => product.added)) {
+    isAllChecked.value = true;
+  } else {
+    isAllChecked.value = false;
+  }
+}, { deep: true })
+
 /* ----- Methods ----- */
 const syncProductHandler = async (product) => {
   if(productsSynced.value >= productsSyncedLimit.value) {
@@ -73,26 +91,39 @@ const unsyncProductHandler = async (product) => {
   isUnsyncRequested.value = true;
 };
 
-const selectAllRowsHandler = (rows) => {
-  syncedProducts.value = rows.data.filter(row => row.mapper_id);
-  unsyncedProducts.value = rows.data.filter(row => !row.mapper_id);
-};
-
 const rowSelectHandler = (row) => {
-  if(row.data.mapper_id) {
-    syncedProducts.value.push(row.data)
-  } else {
-    unsyncedProducts.value.push(row.data);
-  }
-};
+  if(row.mapper_id) {
+    const rowIndex = syncedProducts.value.findIndex(_row => _row.mapper_id == row.mapper_id);
+    const selectedRowIndex = selectedProducts.value.findIndex(_row => _row.mapper_id == row.mapper_id);
+    if(rowIndex === -1) {
+      syncedProducts.value.push(row);
+      row.added = true;
+    } else {
+      syncedProducts.value.splice(rowIndex, 1);
+      row.added = false;
+    }
 
-const rowUnselectHandler = (row) => {
-  if(row.data.mapper_id) {
-    const rowIndex = syncedProducts.value.findIndex(_row => _row.mapper_id == row.data.mapper_id);
-    syncedProducts.value.splice(rowIndex, 1);
+    if(selectedRowIndex === -1) {
+      selectedProducts.value.push(row);
+    } else {
+      selectedProducts.value.splice(rowIndex, 1);
+    }
   } else {
-    const rowIndex = unsyncedProducts.value.findIndex(_row => _row.external_product_id == row.data.external_product_id);
-    unsyncedProducts.value.splice(rowIndex, 1);
+    const rowIndex = unsyncedProducts.value.findIndex(_row => _row.external_product_id == row.external_product_id);
+    const selectedRowIndex = selectedProducts.value.findIndex(_row => _row.external_product_id == row.external_product_id);
+    if(rowIndex === -1) {
+      unsyncedProducts.value.push(row);
+      row.added = true;
+    } else {
+      unsyncedProducts.value.splice(rowIndex, 1);
+      row.added = false;
+    }
+
+    if(selectedRowIndex === -1) {
+      selectedProducts.value.push(row);
+    } else {
+      selectedProducts.value.splice(rowIndex, 1);
+    }
   }
 };
 
@@ -105,18 +136,34 @@ const viewSyncHander = (product) => {
   clickedProduct.value = product;
   fetchProductDetails.value({ externalProductId: product.external_product_id, targetStoreId: product.store_id }, false);
 };
+
+const selectAll = () => {
+  isAllChecked.value = !isAllChecked.value; // Toggle select all checkbox
+  unselectAllRowsHandler();
+
+  // If select all is unselected, return list
+  if (!isAllChecked.value) {
+    selectedProducts.value.forEach(row => row.added = false);
+    return;
+  }
+
+  selectedProducts.value = [...selectedProducts.value, ...products.value];
+  selectedProducts.value.forEach(row => row.added = true);
+  syncedProducts.value = selectedProducts.value.filter(row => row.mapper_id);
+  unsyncedProducts.value = selectedProducts.value.filter(row => !row.mapper_id);
+};
+
+const isSelected = (row) => {
+  if(row.added) return 'selected';
+};
 </script>
 
 <template>
   <DataTable
     :value="products"
-    @rowSelect="rowSelectHandler"
-    @rowSelectAll="selectAllRowsHandler"
-    @rowUnselect="rowUnselectHandler"
-    @rowUnselectAll="unselectAllRowsHandler"
     responsiveLayout="scroll"
     showGridlines
-    v-model:selection="selectedProducts">
+    :rowClass="isSelected">
 
     <template #empty>
       <div class="px-4 py-8 text-center" v-if="!loading">
@@ -137,10 +184,13 @@ const viewSyncHander = (product) => {
       <ProductsViewHeader />
     </template>
 
-    <Column
-      style="width: 3rem; min-width: 42.5px"
-      selectionMode="multiple"
-      v-if="isDestinationStore">
+    <Column v-if="isDestinationStore">
+      <template #header>
+        <CheckboxWrapper :isChecked="isAllChecked" @onInput="selectAll" />
+      </template>
+      <template #body="{ data }">
+        <CheckboxWrapper :isChecked="data.added" @onInput="rowSelectHandler(data)" />
+      </template>
     </Column>
 
     <Column header="Product" style="width: 36%; max-width: 36%;">
@@ -281,5 +331,5 @@ const viewSyncHander = (product) => {
     </Column>
   </DataTable>
 
-  <ProductSyncLimitDialog v-if="shouldShowProductSyncLimitDialog" :selectedProducts="1" />
+  <ProductSyncLimitDialog v-if="shouldShowProductSyncLimitDialog" :selectedProducts="unsyncedProducts?.length || '1'" />
 </template>

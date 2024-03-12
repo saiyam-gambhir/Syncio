@@ -4,6 +4,14 @@ const {
 } = useProducts();
 
 const {
+  userId,
+} = toRefs(useAuthStore());
+
+const {
+  fetchCurrentPlan,
+} = toRefs(usePlanStore());
+
+const {
   enableNewFilters,
   excludeZeroStock,
   loading,
@@ -39,6 +47,11 @@ const showProductSearchAttributes = () => {
     searchAttributesSelector.click();
   }
 };
+
+const refreshHandler = async () => {
+  await fetchProductsHandler();
+  await fetchCurrentPlan.value(userId.value);
+};
 </script>
 
 <template>
@@ -49,7 +62,7 @@ const showProductSearchAttributes = () => {
         <div class="grid grid-sm w-100">
           <div class="col-3 flex align-items-center">
             <Button
-              @click="fetchProductsHandler"
+              @click="refreshHandler"
               aria-label="Refresh"
               class="mr-3"
               icon="pi pi-refresh"
@@ -90,7 +103,7 @@ const showProductSearchAttributes = () => {
 
       <div v-if="!enableNewFilters" class="col-10 flex align-items-center">
         <Button
-          @click="fetchProductsHandler"
+          @click="refreshHandler"
           aria-label="Refresh"
           class="mr-3"
           icon="pi pi-refresh"

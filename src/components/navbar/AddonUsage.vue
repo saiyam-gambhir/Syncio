@@ -27,7 +27,7 @@ const percentageLimitUsed = computed(() => {
     <template v-if="limitAvailable > -1">
       <h4 class="uppercase font-semibold text-sm m-0">{{ title }}</h4>
       <div class="progress-bar relative my-2 w-full">
-        <div class="progress-bar-used absolute h-full" :style="{ 'width': percentageLimitUsed }"></div>
+        <div class="progress-bar-used absolute h-full" :style="{ 'width': percentageLimitUsed }" style="transition: width .25s;"></div>
       </div>
       <div class="font-semibold text-right">{{ limitUsed }}/{{ limitAvailable }}</div>
     </template>
