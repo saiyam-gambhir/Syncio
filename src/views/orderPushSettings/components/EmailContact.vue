@@ -32,6 +32,16 @@ const updatePushSettingsHandler = async () => {
   let data = null;
 
   emailAddress ? data = `${value}:${emailAddress.value}` : data = value;
+  switch(value) {
+    case 'customer_email':
+      data = 'customer_email';
+      break;
+    case 'destination_store_email':
+      data = 'destination_store_email';
+      break;
+    default:
+      break;
+  }
   await updatePushSettings.value(data, id);
   isPushOrderEmailSettingsChanged.value = false;
 };
