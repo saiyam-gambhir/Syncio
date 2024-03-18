@@ -14,7 +14,9 @@ const {
 } = toRefs(usePlanStore());
 
 const {
+  isDestinationStore,
   isShopify,
+  isShopline,
 } = toRefs(useConnectionsStore());
 
 const {
@@ -28,8 +30,8 @@ onMounted(() => {
     showUpgradeDialogHandler(type);
   }
 
-  if(!plan.value && isShopify.value) {
-    router.push({ name: routes.SHOPIFY_SELECT_PLAN })
+  if(!plan.value && (isShopify.value || isShopline.value) && isDestinationStore.value) {
+    router.push({ name: routes.SHOPIFY_SELECT_PLAN });
   }
 });
 </script>
