@@ -4,6 +4,7 @@ const {
   deleteConnection,
   isConnectionDisconnectRequested,
   isDisconnectAndKeepRequested,
+  isShopify,
   selectedConnection,
 } = toRefs(useConnectionsStore());
 
@@ -39,7 +40,7 @@ const disconnectHandler = async () => {
         <ul class="p-0 pl-3 mt-0 mb-4 line-height-3">
           <li>will be unsynced</li>
           <li>will NOT be deleted</li>
-          <li>stock will be set to Zero in the Destination store to prevent oversell</li>
+          <li v-if="isShopify">stock will be set to Zero in the Destination store to prevent oversell</li>
         </ul>
         <p class="m-0">This action cannot be undone.</p>
         <p>For more detailed information about the impact of this choice, <br> <AppLink label="learn about disconnecting stores" link="https://help.syncio.co/en/articles/8988630-disconnecting-stores" /></p>
