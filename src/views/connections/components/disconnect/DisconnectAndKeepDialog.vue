@@ -4,6 +4,7 @@ const {
   deleteConnection,
   isConnectionDisconnectRequested,
   isDisconnectAndKeepRequested,
+  isShopify,
   selectedConnection,
 } = toRefs(useConnectionsStore());
 
@@ -35,15 +36,22 @@ const disconnectHandler = async () => {
           You are about to disconnect with
           <span class="text-danger font-semibold">{{ selectedConnection.store_domain }}</span>
         </p>
-        <p class="mt-0">Any products currently in sync with this store will be unsynced, but will not be deleted.
-        </p>
+        <p class="mt-0">Any products currently in sync with this store:</p>
+        <ul class="p-0 pl-3 mt-0 mb-4 line-height-3">
+          <li>will be unsynced</li>
+          <li>will NOT be deleted</li>
+          <li v-if="isShopify">stock will be set to Zero in the Destination store to prevent oversell</li>
+        </ul>
         <p class="m-0">This action cannot be undone.</p>
+        <p>For more detailed information about the impact of this choice, <br> <AppLink label="learn about disconnecting stores" link="https://help.syncio.co/en/articles/8988630-disconnecting-stores" /></p>
       </section>
     </template>
 
     <template #footer>
-      <Button label="Cancel" class="p-button-secondary" @click="closeDialogHandler"></Button>
-      <Button label="Disconnect and Keep" class="mr-0" @click="disconnectHandler"></Button>
+      <div class="flex align-items-center justify-content-between">
+        <Button label="Cancel" class="p-button-secondary" @click="closeDialogHandler"></Button>
+        <Button label="Disconnect and Keep" class="mr-0" @click="disconnectHandler"></Button>
+      </div>
     </template>
   </DialogWrapper>
 </template>
