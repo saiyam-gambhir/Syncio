@@ -37,8 +37,13 @@ const disconnectHandler = async () => {
           You are about to disconnect with
           <span class="text-danger font-semibold">{{ selectedConnection.store_domain }}</span>
         </p>
-        <p class="mt-0">Any products currently in sync with this store will be unsynced, and will be <strong>DELETED</strong>.</p>
+        <p class="mt-0">Any products currently in sync with this store will be:</p>
+        <ul class="p-0 pl-3 mt-0 mb-4 line-height-3">
+          <li>Unsynced</li>
+          <li><strong>DELETED</strong> in the Destination store</li>
+        </ul>
         <p class="m-0">This action cannot be undone.</p>
+        <p class="mb-0">For more detailed information about the impact of this choice, <br> <AppLink label="learn about disconnecting stores" link="https://help.syncio.co/en/articles/8988630-disconnecting-stores" /></p>
         <div class="field-checkbox mt-4">
           <Checkbox inputId="action-confirmation" v-model="isChecked" :binary="true" />
           <label for="action-confirmation">I Understand this action cannot be undone.</label>
@@ -47,8 +52,10 @@ const disconnectHandler = async () => {
     </template>
 
     <template #footer>
-      <Button label="Cancel" class="p-button-secondary" @click="closeDialogHandler"></Button>
-      <Button label="Delete all Products" class="p-button-danger mr-0" @click="disconnectHandler" :disabled="!isChecked"></Button>
+      <div class="flex align-items-center justify-content-between">
+        <Button label="Cancel" class="p-button-secondary" @click="closeDialogHandler"></Button>
+        <Button label="Delete all Products" class="p-button-danger mr-0" @click="disconnectHandler" :disabled="!isChecked"></Button>
+      </div>
     </template>
   </DialogWrapper>
 </template>
