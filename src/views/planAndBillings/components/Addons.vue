@@ -10,6 +10,10 @@ const {
   selectedPlan,
 } = toRefs(usePlanStore());
 
+const {
+  isShopline,
+} = toRefs(useConnectionsStore());
+
 const route = useRoute();
 
 /* ----- Mounted ----- */
@@ -23,9 +27,9 @@ watch(selectedPlan, (newValue, oldValue) => {
   if(!oldValue) {
     const avaialbleAddons = plans?.value[0].available_addons;
     const _activeAddons = {
-      order: avaialbleAddons.order[0],
-      payout: avaialbleAddons.payout[0],
-      product: avaialbleAddons.product[0],
+      order: avaialbleAddons.order && avaialbleAddons.order[0],
+      payout: avaialbleAddons.payout && avaialbleAddons.payout[0],
+      product: avaialbleAddons.product && avaialbleAddons.product[0],
     };
 
     selectedPlan.value.addonsSummary = { ..._activeAddons };
@@ -37,8 +41,11 @@ watch(selectedPlan, (newValue, oldValue) => {
   <CardWrapper class="mt-6 pb-2" id="addons-wrapper">
     <template #content>
       <Tag severity="warning" style="text-transform: uppercase !important;" class="mb-3">Step 2: upgrade add-ons</Tag>
-      <h2 class="my-2">Upgrade add-ons to suit your needs</h2>
-      <p class="mt-0">Downgrade at any time. All add-ons have a <strong>14 day free trial</strong>.</p>
+      <template v-if="!isShopline">
+        <h2 class="my-2">Upgrade add-ons to suit your needs</h2>
+        <p class="mt-0">Downgrade at any time. All add-ons have a <strong>14 day free trial</strong>.</p>
+      </template>
+      <h2 v-if="isShopline" class="pt-2">No add-ons available for above base plan.</h2>
 
       <Message v-if="!plan?.syncio_plan.is_active && !isOnboarding && route.fullPath !== routes.SHOPIFY_SELECT_PLAN" severity="info" :closable="false" class="mt-5 block message-warning">
         <h3 class="mb-2">To access free plans for add-ons, first select a base plan above.</h3>

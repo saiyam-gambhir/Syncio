@@ -15,6 +15,7 @@ const {
 
 const {
   isShopify,
+  isShopline,
   isWoocommerce,
   loadingUninstall,
   platform,
@@ -148,6 +149,7 @@ const handleUninstall = async () => {
               <h3 class="flex align-items-center justify-content-between mt-1 mb-0">
                 Uninstall Syncio:
                 <Tag v-if="isShopify" severity="danger" class="ml-3 transform-none">* For Shopify, please use Shopify admin page to uninstall Syncio</Tag>
+                <Tag v-if="isShopline" severity="danger" class="ml-3 transform-none">* For Shopline, please use Shopline admin page to uninstall Syncio</Tag>
                 <Button
                   :loading="loadingUninstall"
                   @click="handleUninstall"

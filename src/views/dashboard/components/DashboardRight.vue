@@ -5,8 +5,10 @@ import WooShopifyImageUrl from '@/assets/images/woo-shopify.svg';
 
 /* ----- Data ----- */
 const {
+  isShopline,
   isSourceStore,
-} = useConnectionsStore();
+  isWoocommerce,
+} = toRefs(useConnectionsStore());
 
 const destinationAnnouncements = ref([
   {
@@ -53,6 +55,17 @@ const sourceAnnouncements = ref([
   destinationAnnouncements.value[0],
   destinationAnnouncements.value[1],
 ]);
+
+/* ----- Mounted ----- */
+onMounted(() => {
+  if(isShopline.value) {
+    sourceAnnouncements.value = destinationAnnouncements.value = destinationAnnouncements.value.filter(announcement => announcement.className === 'a-marketplace');
+  }
+
+  if(isWoocommerce.value) {
+    destinationAnnouncements.value = destinationAnnouncements.value.filter(announcement => announcement.className !== 'a-multilocation')
+  }
+});
 </script>
 
 <template>

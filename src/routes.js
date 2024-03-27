@@ -23,6 +23,10 @@ export const SHOPIFY_INSTALLATION_COMPLETE = '/shopify/installation-complete';
 export const SHOPIFY_SELECT_PLAN = '/shopify/select-plan';
 export const SHOPIFY_SELECT_STORE_TYPE = '/shopify/select-store-type';
 
+/* ----- Shopline ----- */
+export const SHOPLINE_CONNECT_OR_INVITE_STORE = '/shopline/connect-or-invite-store';
+export const SHOPLINE_SELECT_STORE_TYPE = '/shopline/select-store-type';
+
 /* ----- Woocommerce ----- */
 export const FORGOT_PASSWORD = '/forgot-password';
 export const RESET_PASSWORD = '/reset-password';

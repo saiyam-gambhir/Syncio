@@ -8,6 +8,8 @@ const ShopifyPermissionsDialog = defineAsyncComponent(() => import('./components
 const {
   fetchMetadata,
   isShopify,
+  isShopline,
+  isWoocommerce,
   shopifyPermissions,
   storeName,
   storeType,
@@ -95,7 +97,10 @@ const copyStoreNameHandler = async val => {
 
     <div class="header-right flex align-items-center">
       <Tag severity="info" class="pointer text-900" :class="`tag-${storeType}`" @click="copyStoreNameHandler(storeName)">
-        {{ storeName }}
+        <IconShopify v-if="isShopify" />
+        <IconWoo v-if="isWoocommerce" />
+        <img src="@/assets/images/shopline_logo.png" v-if="isShopline" alt="Shopline" style="width: 28px;">
+        <span class="ml-2 pl-1">{{ storeName }}</span>
         <span :class="storeType" class="font-bold">{{ storeType }}</span>
       </Tag>
 

@@ -20,6 +20,7 @@ const {
   isDestinationStore,
   isLocationPendingDialogRequested,
   isShopify,
+  isShopline,
   isSourceStore,
   partnerStoreType,
 } = toRefs(useConnectionsStore());
@@ -155,7 +156,7 @@ const refreshHandler = async () => {
         @click="isBulkMapperDialogRequested = true"
         class="ml-4 bulk-mapper-btn"
         label="Bulk mapper"
-        v-if="isDestinationStore">
+        v-if="isDestinationStore && !isShopline">
       </Button>
     </template>
   </PageHeader>

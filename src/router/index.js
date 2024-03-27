@@ -62,6 +62,21 @@ const router = createRouter({
     },
     /* ----- Shopify ----- */
 
+    /* ----- Shopline ----- */
+    {
+      component: () => import('@/views/registration/shopline/ShoplineEmptyBase.vue'),
+      meta: { layout: LoggedOut },
+      name: '',
+      path: '/shopline',
+    },
+    {
+      component: () => import('@/views/registration/shopline/ShoplineSelectStoreType.vue'),
+      meta: { layout: LoggedOut },
+      name: routes.SHOPLINE_SELECT_STORE_TYPE,
+      path: routes.SHOPLINE_SELECT_STORE_TYPE,
+    },
+    /* ----- Shopline ----- */
+
     /* ----- Woocommerce ----- */
     {
       component: () => import('@/views/registration/woocommerce/CreateAccount.vue'),

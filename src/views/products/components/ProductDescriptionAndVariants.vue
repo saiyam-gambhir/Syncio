@@ -2,6 +2,7 @@
 /* ----- Data ----- */
 const {
   isDestinationStore,
+  isShopify,
 } = toRefs(useConnectionsStore());
 
 const {
@@ -43,7 +44,7 @@ const props = defineProps({
       <Column style="width: 20%;">
         <template #header>
           Quantity
-          <i v-if="isDestinationStore" class="pi pi-question-circle ml-3 text-xl pointer" v-tooltip.top="'Quantities are from Shopify totals. Synced Stock Buffer and locations may not be applied.'"></i>
+          <i v-if="isDestinationStore && isShopify" class="pi pi-question-circle ml-3 text-xl pointer" v-tooltip.top="'Quantities are from Shopify totals. Synced Stock Buffer and locations may not be applied.'"></i>
         </template>
         <template #body="{ data: { inventory_quantity } }">
           {{ inventory_quantity }}

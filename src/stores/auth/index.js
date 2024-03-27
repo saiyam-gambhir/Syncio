@@ -10,7 +10,9 @@ import { registerUser } from './actions/registerUser';
 import { registerWooStore } from './actions/registerWooStore';
 import { resetPassword } from './actions/resetPassword';
 import { saveShopifyToken } from './actions/saveShopifyToken';
+import { saveShoplineToken } from './actions/saveShoplineToken';
 import { shopifyLogin } from './actions/shopifyLogin';
+import { shoplineLogin } from './actions/shoplineLogin';
 import { updateStoreType } from './actions/updateStoreType';
 
 export const useAuthStore = defineStore('auth', {
@@ -67,7 +69,9 @@ export const useAuthStore = defineStore('auth', {
     registerWooStore,
     resetPassword,
     saveShopifyToken,
+    saveShoplineToken,
     shopifyLogin,
+    shoplineLogin,
     updateStoreType,
   ]),
 });

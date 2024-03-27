@@ -5,7 +5,7 @@ export const generateCharge = {
 
       const params = {
         is_onboarding: this.plan ? false : true,
-        option_ids: [...Object.values(this.selectedAddonIds)],
+        option_ids: this.selectedAddonIds ? [...Object.values(this.selectedAddonIds)] : [],
         plan_id: this.currentPlanId,
       };
 
