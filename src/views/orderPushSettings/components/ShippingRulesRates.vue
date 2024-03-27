@@ -37,9 +37,9 @@ const deleteShippingRuleHandler = (index) => {
 
 const addShippingRuleHandler = () => {
   pushOrderShippingRules.value.value.push({
-    min_order_total: newShipping.value.rate,
-    shipping_cost: newShipping.value.value
-  })
+    min_order_total: newShipping.value.value,
+    shipping_cost: newShipping.value.rate
+  });
 
   pushOrderShippingRules.value.value.sort((a, b) => {
     return a.min_order_total - b.min_order_total;
