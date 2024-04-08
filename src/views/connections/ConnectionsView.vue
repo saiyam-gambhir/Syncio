@@ -99,5 +99,5 @@ const toggleMultilocationHandler = async event => {
   <DisconnectDialog v-if="isConnectionDisconnectRequested" />
   <LocationChangeConfirmationDialog v-if="isLocationChangeRequested" />
   <LocationChangedDialog v-if="isLocationChanged" />
-  <LocationPendingDialog :store="clickedStore" v-if="isLocationPendingDialogRequested" />
+  <LocationPendingDialog v-if="isLocationPendingDialogRequested" />
 </template>

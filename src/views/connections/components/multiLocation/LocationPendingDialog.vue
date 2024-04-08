@@ -11,28 +11,15 @@ const {
 } = toRefs(useConnectionsStore());
 
 const {
-  bulkSync,
-  pagination,
-  products,
-  selectedStoreId,
-  totalProductCount,
-} = toRefs(useProductsStore());
-
-const {
   resetProducts,
 } = useProducts();
 
 /* ----- Props ----- */
 const props = defineProps({
-  store: {
-    required: true,
-    type: Object,
-  },
-
   isRouterLink: {
     default: false,
     type: Boolean,
-  }
+  },
 });
 
 /* ----- Methods ----- */
