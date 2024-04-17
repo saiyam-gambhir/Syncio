@@ -6,6 +6,6 @@ export const deleteConnection = {
     };
 
     const response = await axiosService.postData('stores/disconnect', params);
-    await this.fetchConnections();
+    await this.fetchConnections(true);
   },
 };

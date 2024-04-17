@@ -60,7 +60,13 @@ const updateCurrentPageHandler = page => {
           </figure>
           <div class="flex flex-column ml-2">
             <span v-if="data.data?.name" class="text-blue-500" style="font-weight: 500;">{{ data.data.name }}</span>
-            <span v-if="data.data?.store_name" class="mt-2">{{ data.data.store_name }}</span>
+            <div v-if="data.data?.store_name" class="flex flex-column mt-2">
+              <span style="font-size: 1.1rem;">{{ data.data.store_name }}</span>
+              <span class="text-small">{{ store_domain }}</span>
+            </div>
+            <div v-else class="mt-2">
+              {{ data.data?.store_domain }}
+            </div>
           </div>
         </div>
       </template>

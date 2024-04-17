@@ -4,7 +4,7 @@ const {
   isCreatePayoutDetailsRequested,
   loadingCreatePayout,
   payoutCreationDetails,
-  selectedPayoutOrdersStoreName,
+  selectedPayoutOrdersStoreDetails,
 } = toRefs(usePayoutsStore());
 
 const {
@@ -93,7 +93,15 @@ const getFinalPayoutValue = () => {
 
             <h3 class="grid mb-0 mt-1">
               <div class="col-3">Send to</div>
-              <div class="col-9 font-normal">{{ selectedPayoutOrdersStoreName }}</div>
+              <template v-if="selectedPayoutOrdersStoreDetails?.store_name">
+                <div class="col-9 font-normal flex flex-column">
+                  <span>{{ selectedPayoutOrdersStoreDetails.store_name }}</span>
+                  <span class="mt-1 text-small">{{ selectedPayoutOrdersStoreDetails.store_domain }}</span>
+                </div>
+              </template>
+              <template v-else>
+                <div class="col-9 font-normal">{{ selectedPayoutOrdersStoreDetails?.store_domain }}</div>
+              </template>
             </h3>
 
             <Divider />

@@ -8,7 +8,7 @@
           </h3>
           <p class="mt-3 mb-0">Order contains synced products from <Skeleton class="inline-flex vertical-align-middle mx-1" width="25.5px" height="28.5px"></Skeleton> source store.</p>
           <Divider />
-          <h3 class="flex align-items-center">
+          <h3 class="mb-0 flex align-items-center">
             <IconShopify class="mr-3" style="transform: translateY(-1px);" />
             Order details: <Skeleton width="75px" height="24px" class="ml-2"></Skeleton>
           </h3>

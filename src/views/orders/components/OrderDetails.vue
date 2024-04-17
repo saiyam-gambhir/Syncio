@@ -21,6 +21,7 @@ const {
 } = toRefs(useOrdersStore());
 
 const {
+  isShopify,
   storeName,
 } = useConnectionsStore();
 
@@ -156,13 +157,16 @@ const getPushedDate = (date) => {
               </Tag>
             </div>
             <Divider />
-            <AppLink strong :label="`Order ID: ${order.id}`" :link="`https://${storeName}/admin/orders/${order.id}`" />
+            <div class="py-1">
+              <strong class="mr-1">Order Id:</strong>
+              <AppLink strong :label="order.id" :link="`https://${storeName}/admin/orders/${order.id}`" />
+            </div>
             <Divider />
-            <div>
+            <div class="py-1">
               <strong>Order created on</strong> {{ formatDate(order.created_at).date }} at {{ formatDate(order.created_at).time }}
             </div>
             <Divider />
-            <div v-if="order.edited_at">
+            <div class="py-1" v-if="order.edited_at">
               <strong>Order edited on</strong> {{ formatDate(order.edited_at).date }} at {{ formatDate(order.edited_at).time }}
               <Divider />
             </div>
@@ -172,9 +176,12 @@ const getPushedDate = (date) => {
         <CardWrapper class="mt-5" :class="`status-${store.push_status}`" v-for="(store, key) in order.source_stores" :key="key">
           <template #content>
             <div class="flex align-items-top justify-content-between mb-4">
-              <h2 class="mb-0">
-                <i class="pi pi-shopping-cart text-xl mr-2"></i>
-                {{ key }}
+              <h2 class="mb-0 flex">
+                <i class="pi pi-shopping-cart text-xl mr-3" style="margin-top: .2rem;"></i>
+                <div class="flex flex-column">
+                  {{ store?.store_name }}
+                  <span v-if="isShopify" class="text-small font-normal">{{ key + '.myshopify.com' }}</span>
+                </div>
               </h2>
 
               <div class="text-right">

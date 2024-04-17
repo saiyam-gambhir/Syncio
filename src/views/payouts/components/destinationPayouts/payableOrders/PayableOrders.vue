@@ -48,8 +48,14 @@ onMounted(async () => {
       </template>
 
       <Column header="Source store" style="width: 32.5%">
-        <template #body="{ data: { store_name } }">
-          {{ store_name }}
+        <template #body="{ data: { store_domain, store_name } }">
+          <div v-if="store_name" class="flex flex-column">
+            <span class="text-lg">{{ store_name }}</span>
+            <span class="text-small">{{ store_domain }}</span>
+          </div>
+          <div v-else>
+            {{ store_domain }}
+          </div>
         </template>
       </Column>
 

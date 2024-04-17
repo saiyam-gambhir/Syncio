@@ -45,9 +45,13 @@ const updateCurrentPageHandler = page => {
     </Column>
 
     <Column header="Store" style="width: 25%">
-      <template #body="{ data }">
-        <div class="flex flex-column">
-          <span>{{ data.data.store_name }}</span>
+      <template #body="{ data: { data: { store_domain, store_name } } }">
+        <div v-if="store_name" class="flex flex-column">
+          <span style="font-size: 1.1rem;">{{ store_name }}</span>
+          <span class="text-small">{{ store_domain }}</span>
+        </div>
+        <div v-else>
+          {{ store_domain }}
         </div>
       </template>
     </Column>

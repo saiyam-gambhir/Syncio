@@ -51,8 +51,8 @@ export const useConnectionsStore = defineStore('connections', {
       selectedConnection: {},
       shopifyPermissions: { link: null, showDialog: false },
       sortOptions: [
-        { key: 'store_domain', label: 'A-Z', sortByDesc: false },
-        { key: 'store_domain', label: 'Z-A', sortByDesc: true },
+        { key: 'store_name', label: 'A-Z', sortByDesc: false },
+        { key: 'store_name', label: 'Z-A', sortByDesc: true },
       ],
       sourceLocations: null,
       wooApiKeyStoreId: null,
@@ -60,6 +60,10 @@ export const useConnectionsStore = defineStore('connections', {
   },
 
   getters: {
+    customStoreName({ currentStore }) {
+      return currentStore?.store_name;
+    },
+
     platform({ currentStore }) {
       return currentStore?.platform;
     },
