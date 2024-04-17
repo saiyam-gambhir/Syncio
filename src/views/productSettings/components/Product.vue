@@ -124,8 +124,11 @@ const onChangeHandler = ({ is_active, key }) => {
                     Descriptions for each product.
                   </span>
                   <span v-else-if="setting.key === 'sync_product_images'">
-                    <strong class="font-semibold">Product</strong> and <strong class="font-semibold">Variant</strong> images. Syncio doesn't currently sync videos.
-                    Duplicates may occur if more than 20 images per product exist.
+                    Sync product and variant images. For more information please see this <AppLink label="article" link="https://help.syncio.co/en/articles/9202762-product-settings-images-and-videos" class="text-lg" />.
+                    <ul class="p-0 pl-3 m-0 mt-3">
+                      <li>Videos are not supported. If the source store product has images do not use this feature.</li>
+                      <li>For a reliable image sync please ensure image file size is 200Kb or under.</li>
+                    </ul>
                   </span>
                   <span v-else-if="setting.key === 'sync_product_tags'">
                     When a new tag is added on the Source store, Syncio will add that tag to the Destination store.
@@ -147,19 +150,13 @@ const onChangeHandler = ({ is_active, key }) => {
                   <span v-else-if="setting.key === 'sync_product_status'">
                     <p>Ongoing sync of the Draft/Active status on Shopify</p>
                     <p>What will be synced:</p>
-                    <ul>
-                      <li>Synced products will be set to <strong class="font-semibold">Draft</strong>, if the source store sets their product to
-                        Draft.
-                      </li>
-                      <li>Synced products will be set to <strong class="font-semibold">Active</strong>, if the source store sets their product
-                        to Active.
-                      </li>
+                    <ul class="p-0 pl-3 m-0 mt-3">
+                      <li>Synced products will be set to <strong class="font-semibold">Draft</strong>, if the source store sets their product to Draft.</li>
+                      <li>Synced products will be set to <strong class="font-semibold">Active</strong>, if the source store sets their product to Active.</li>
                     </ul>
                     <p>Useful option to prevent draft products from being sold.</p>
                     <div class="box">
-                      <img
-                        src="https://staging-core.syncio.io/images/product-sync-configurations-setting-desciprtion-images/product-status.png"
-                        alt="product status" width="400">
+                      <img src="https://staging-core.syncio.io/images/product-sync-configurations-setting-desciprtion-images/product-status.png" alt="product status" width="400">
                     </div>
                   </span>
                   <span v-else-if="setting.key === 'd_sync_metafields'">
