@@ -1,18 +1,14 @@
 export function useProducts() {
   const {
-    bulkSync,
     excludeZeroStock,
     fetchProducts,
-    pagination,
     products,
     queries,
     resyncProduct,
     selectedProducts,
-    selectedStoreId,
     statusOption,
     syncedProducts,
     syncProductsQueue,
-    totalProductCount,
     unsyncedProducts,
     visibilityOption,
   } = toRefs(useProductsStore());
@@ -121,23 +117,10 @@ export function useProducts() {
     getProductSyncStatus(product);
   };
 
-  const resetProducts = () => {
-    selectedStoreId.value = null;
-    pagination.value = null;
-    products.value = null;
-    totalProductCount.value = null;
-    bulkSync.value = {
-      count: null,
-      isOngoing: false,
-      showDialog: false,
-    };
-  };
-
   return {
     fetchProductsHandler,
     getProductSyncStatus,
     resyncProductHandler,
-    resetProducts,
     unselectAllRowsHandler,
     updateCurrentPageHandler,
     updateProductStatus,

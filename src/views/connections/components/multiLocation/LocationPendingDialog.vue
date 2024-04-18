@@ -1,18 +1,14 @@
 <script setup>
-import * as routes from '@/routes';
 import { useRouter } from 'vue-router';
+import * as routes from '@/routes';
 
 /* ----- Data ----- */
-
+const products = useProductsStore();
 const router = useRouter();
 
 const {
   isLocationPendingDialogRequested,
 } = toRefs(useConnectionsStore());
-
-const {
-  resetProducts,
-} = useProducts();
 
 /* ----- Props ----- */
 const props = defineProps({
@@ -27,9 +23,9 @@ const closeDialogHandler = async () => {
   isLocationPendingDialogRequested.value = false;
 };
 
-const redirectToStoresView = () => {
-  router.push({ name: routes.STORES });
-  resetProducts();
+const redirectToStoresView = async () => {
+  await router.push({ name: routes.STORES });
+  products.$reset();
 };
 </script>
 
