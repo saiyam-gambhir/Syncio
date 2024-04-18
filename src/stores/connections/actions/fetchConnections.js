@@ -1,5 +1,5 @@
 export const fetchConnections = {
-  async fetchConnections() {
+  async fetchConnections(reloadConnections = false) {
     const { searchString, sortBy } = this.filters;
     this.loadingConnections = true;
 
@@ -18,7 +18,14 @@ export const fetchConnections = {
     storeConnections.value = await response?.stores;
 
     /* ----- Stores dropdown filter ----- */
-    this.connectionFilterItems = await response?.stores;
+    if(this.connectionFilterItems?.length === 0 || reloadConnections) {
+      this.connectionFilterItems = JSON.parse(JSON.stringify(storeConnections.value));
+      this.connectionFilterItems.forEach(connection => {
+        if(!connection.store_name) {
+          connection.store_name = connection.store_domain;
+        }
+      });
+    }
     this.loadingConnections = false;
   },
 };

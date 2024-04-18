@@ -35,7 +35,7 @@ const updateInventoryHandler = async inventoryId => {
 
   const selectedInventory = sourceLocations.value.find(inventory => inventory.id === inventoryId.value);
 
-  const { source_default_inventory_location, store_domain } = props.connection;
+  const { source_default_inventory_location, store_domain, store_name } = props.connection;
   const currentLocation = sourceLocations?.value?.find(
     location => location.id === +source_default_inventory_location?.external_reference_id
   ) ?? { id: 0, name: 'All Locations' }
@@ -44,6 +44,7 @@ const updateInventoryHandler = async inventoryId => {
     current: currentLocation,
     new: selectedInventory,
     store: store_domain,
+    storeName: store_name,
   }
 
   isLocationChangeRequested.value = true;

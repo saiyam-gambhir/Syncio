@@ -8,6 +8,7 @@ const {
 } = useProducts();
 
 const {
+  customStoreName,
   platform,
   storeName,
 } = toRefs(useConnectionsStore());
@@ -90,6 +91,7 @@ const searchProductHandler = async ($event) => {
           <div class="col-5" style="width: 47.5%;">
             <ProductStoreInfo
               :backgroundInfo="'background: rgba(252, 176, 87, .15);'"
+              :customStoreName="selectedStore?.store_name"
               :platform="selectedStore.platform"
               :storeName="selectedStore.store_domain"
               :styleInfo="'background: rgba(252, 176, 87, .75); color: #0e3b4d; width: 6rem;'"
@@ -106,6 +108,7 @@ const searchProductHandler = async ($event) => {
               :backgroundInfo="'background: rgba(250, 117, 123, .15);'"
               :platform="platform"
               :storeName="storeName"
+              :customStoreName="customStoreName"
               :styleInfo="'background: rgba(250, 117, 123, .75); color: #0e3b4d; width: 6rem;'"
               title="To">
             </ProductStoreInfo>

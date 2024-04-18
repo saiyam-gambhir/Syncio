@@ -35,7 +35,7 @@ const closeDialogHandler = async () => {
     @closeDialog="closeDialogHandler">
     <template #body>
       <section class="mt-1">
-        <p class="m-0 text-center text-lg line-height-4">There is no location assigned to <span class="font-semi">{{ store?.store_domain }}</span>.</p>
+        <p class="m-0 text-center text-lg line-height-4">There is no location assigned to <span class="font-semibold">{{ store?.store_name ?? store?.store_domain }}</span>.</p>
         <p class="m-0 text-center text-lg line-height-4">To continue syncing products, please assign a location to this Source Store.</p>
       </section>
     </template>

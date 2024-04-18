@@ -41,9 +41,9 @@ const emits = defineEmits(['update:modelValue']);
     :autoOptionFocus="false"
     :loading="loading"
     :options="connectionFilterItems"
-    :placeholder="customPlaceholder ? customPlaceholderText : 'All Stores'"
+    :placeholder="customPlaceholder ? customPlaceholderText : 'All stores'"
     @change="$emit('update:modelValue', $event.value)"
-    optionLabel="store_domain"
+    optionLabel="store_name"
     optionValue="id"
     showClear
     v-model="props.modelValue">

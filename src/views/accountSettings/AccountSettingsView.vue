@@ -14,6 +14,7 @@ const {
 } = useToasts();
 
 const {
+  customStoreName,
   isShopify,
   isShopline,
   isWoocommerce,
@@ -123,8 +124,14 @@ const handleUninstall = async () => {
             </li>
             <li class="py-4 border-bottom-1 surface-border">
               <h3 class="flex align-items-center justify-content-between my-1">
-                Store Type:
+                Store type:
                 <Tag severity="info" class="capitalize ml-3">{{ storeType }} store</Tag>
+              </h3>
+            </li>
+            <li v-if="customStoreName" class="py-4 border-bottom-1 surface-border">
+              <h3 class="flex align-items-center justify-content-between my-1">
+                Store name:
+                <Tag severity="info" class="ml-3">{{ customStoreName }}</Tag>
               </h3>
             </li>
             <li class="py-4 border-bottom-1 surface-border">
@@ -135,19 +142,19 @@ const handleUninstall = async () => {
             </li>
             <li class="py-4 border-bottom-1 surface-border">
               <h3 class="flex align-items-center justify-content-between my-1">
-                Joining Date:
+                Joining date:
                 <Tag severity="info" class="ml-3">{{ formatDate(storeCreationDate).date }} at {{ formatDate(storeCreationDate).time }}</Tag>
               </h3>
             </li>
             <li v-if="isWoocommerce" class="py-4 border-bottom-1 surface-border">
               <h3 class="flex align-items-center justify-content-between my-1">
-                API Key:
+                API key:
                 <Button @click="handleUpdateAPIKey" label="Update" style="width: 7.5rem;"></Button>
               </h3>
             </li>
             <li class="pt-4 pb-2 surface-border">
               <h3 class="flex align-items-center justify-content-between mt-1 mb-0">
-                Uninstall Syncio:
+                Uninstall syncio:
                 <Tag v-if="isShopify" severity="danger" class="ml-3 transform-none">* For Shopify, please use Shopify admin page to uninstall Syncio</Tag>
                 <Tag v-if="isShopline" severity="danger" class="ml-3 transform-none">* For Shopline, please use Shopline admin page to uninstall Syncio</Tag>
                 <Button

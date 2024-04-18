@@ -6,10 +6,9 @@ const ShopifyPermissionsDialog = defineAsyncComponent(() => import('./components
 
 /* ----- Data ----- */
 const {
+  customStoreName,
   fetchMetadata,
   isShopify,
-  isShopline,
-  isWoocommerce,
   shopifyPermissions,
   storeName,
   storeType,
@@ -79,7 +78,7 @@ const logout = () => {
 
 const copyStoreNameHandler = async val => {
   await copyToClipBoard(val);
-  showToast({ message: 'Store name copied successfully' });
+  showToast({ message: 'Store URL copied successfully' });
 };
 </script>
 
@@ -96,11 +95,18 @@ const copyStoreNameHandler = async val => {
     </div>
 
     <div class="header-right flex align-items-center">
-      <Tag severity="info" class="pointer text-900" :class="`tag-${storeType}`" @click="copyStoreNameHandler(storeName)">
-        <IconShopify v-if="isShopify" />
-        <IconWoo v-if="isWoocommerce" />
-        <img src="@/assets/images/shopline_logo.png" v-if="isShopline" alt="Shopline" style="width: 28px;">
-        <span class="ml-2 pl-1">{{ storeName }}</span>
+      <Tag v-if="customStoreName" severity="info" class="text-900" :class="`tag-${storeType}`">
+        <div class="flex flex-column pr-4">
+          <h4 class="m-0 font-semiBold" style="transform: translateY(2px);">{{ customStoreName }}</h4>
+          <p class="flex align-items-center m-0 font-normal" style="font-size: .9rem;">
+            {{ storeName }}
+            <i class="pi pi-copy pointer ml-1" @click="copyStoreNameHandler(storeName)"></i>
+          </p>
+        </div>
+        <span :class="storeType" class="font-bold">{{ storeType }}</span>
+      </Tag>
+      <Tag v-else severity="info" class="pointer text-900" :class="`tag-${storeType}`" @click="copyStoreNameHandler(storeName)">
+        {{ storeName }}
         <span :class="storeType" class="font-bold">{{ storeType }}</span>
       </Tag>
 
@@ -117,3 +123,9 @@ const copyStoreNameHandler = async val => {
     <ShopifyPermissionsDialog v-if="shopifyPermissions.showDialog" />
   </header>
 </template>
+
+<style scoped>
+.pi-copy:before {
+  font-size: 1rem !important;
+}
+</style>

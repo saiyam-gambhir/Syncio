@@ -57,9 +57,9 @@ const cancelHandler = () => {
   storeProducts.value = JSON.parse(unMutatedStoreProducts.value);
 };
 
-const getStoreName = (id) => {
+const getStore = (id) => {
   const store = connectionFilterItems.value?.find(store => store.id === id);
-  return store?.store_domain;
+  return store;
 }
 
 const updateCurrentPageHandler = page => {
@@ -135,9 +135,17 @@ const isRowSelectedHandler = (data) => {
       </template>
     </Column>
 
-    <Column header="Store URL" style="width: 15%">
+    <Column header="Store" style="width: 15%">
       <template #body="{ data: { store_id } }">
-        {{ getStoreName(store_id) }}
+        <template v-if="getStore(store_id)?.store_name">
+          <div class="flex flex-column">
+            <h3 class="m-0 text-900 font-semi" style="font-size: 1.1rem;">{{ getStore(store_id).store_name }}</h3>
+            <p class="m-0 pt-1 text-600">{{ getStore(store_id).store_domain }}</p>
+          </div>
+        </template>
+        <template v-else>
+          {{ getStore(store_id)?.store_domain }}
+        </template>
       </template>
     </Column>
 

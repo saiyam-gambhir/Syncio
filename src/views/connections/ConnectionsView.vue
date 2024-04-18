@@ -83,7 +83,7 @@ const toggleMultilocationHandler = async event => {
 
       <Button
         @click="isNewStoreConnectionRequested = true"
-        class="ml-5 p-button-success"
+        class="ml-4 p-button-success"
         label="Connect new store">
       </Button>
     </template>

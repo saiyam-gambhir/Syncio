@@ -10,7 +10,7 @@ export const connectPartnerStore = {
 
     const { success } = await axiosService.postData('stores/connect', params);
     if(router.currentRoute?.value?.name === routes.SHOPIFY_CONNECT_OR_INVITE_STORE || router.currentRoute?.value?.name === routes.STORES) {
-      await this.fetchConnections();
+      await this.fetchConnections(true);
     }
     return success;
   }

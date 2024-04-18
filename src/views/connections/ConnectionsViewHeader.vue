@@ -24,7 +24,7 @@ const searchHandler = async (searchText) => {
         <SearchFilter
           :loading="loadingConnections"
           @update:modelValue="searchHandler"
-          placeholder="Search by store URL"
+          placeholder="Search by store name"
           v-model="filters.searchString">
         </SearchFilter>
       </div>
@@ -36,9 +36,8 @@ const searchHandler = async (searchText) => {
           :options="sortOptions"
           @change="fetchConnectionsHandler"
           optionLabel="label"
-          placeholder="Sort by Store"
+          placeholder="Sort by store name"
           v-model="filters.sortBy">
-          <template #value>Sort by Store</template>
           <template #option="{ option }">
             <div class="flex align-items-center justify-content-between">
               {{ option.label }}
