@@ -31,7 +31,7 @@ const {
       </template>
     </Column>
 
-    <Column header="Store URL" style="width: 15%">
+    <Column header="Store" style="width: 15%">
       <template #body>
         <Skeleton height="26px" :width="`${randomInteger()}%`" />
       </template>

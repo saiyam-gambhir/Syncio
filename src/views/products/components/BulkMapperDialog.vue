@@ -24,9 +24,14 @@ const startBulkMapperHandler = async () => {
         Once you click the start button, Syncio will scan through this source store's products and try to find the products that is matched from your store.
       </p>
 
-      <div class="py-5 text-center">
-        <Tag severity="info" :pt="{root: { style: { fontSize: '1.1rem !important' } }}">
-          {{ selectedStore?.store_domain }}
+      <div class="py-6 text-center">
+        <Tag v-if="selectedStore?.store_name" severity="info" :pt="{root: { style: { fontSize: '1.1rem !important' } }}" class="flex-inline flex-column">
+          <span>{{ selectedStore.store_name }}</span>
+          <span style="font-size: .9rem;" class="mt-1 font-normal">{{ selectedStore.store_domain }}</span>
+        </Tag>
+
+        <Tag v-else severity="info" :pt="{root: { style: { fontSize: '1.1rem !important' } }}">
+          {{ selectedStore.store_domain }}
         </Tag>
       </div>
 

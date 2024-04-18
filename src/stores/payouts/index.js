@@ -71,10 +71,10 @@ export const usePayoutsStore = defineStore('payouts', {
       return storeId;
     },
 
-    selectedPayoutOrdersStoreName() {
+    selectedPayoutOrdersStoreDetails() {
       const { connectionFilterItems } = useConnectionsStore();
       const store = connectionFilterItems?.find(store => store.id === this.selectedPayoutOrdersStore);
-      return store?.store_domain;
+      return store;
     }
   },
 

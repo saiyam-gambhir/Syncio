@@ -3,7 +3,7 @@
 const {
   arePayableOrdersVisible,
   selectedPayoutOrders,
-  selectedPayoutOrdersStoreName,
+  selectedPayoutOrdersStoreDetails,
 } = toRefs(usePayoutsStore());
 
 /* ----- Methods ----- */
@@ -21,6 +21,12 @@ const goToStoresHandler = () => {
       <i class="pi pi-arrow-left mr-2"></i> Stores
     </span>
     <span class="font-light text-xl">|</span>
-    <span class="font-light pl-3 mr-1">Payable orders for</span> <span>{{ selectedPayoutOrdersStoreName }}</span>
+    <span class="font-light pl-3 mr-1">Payable orders for</span>
+    <template v-if="selectedPayoutOrdersStoreDetails?.store_name">
+      <span>{{ selectedPayoutOrdersStoreDetails.store_name }} <span class="font-normal">({{ selectedPayoutOrdersStoreDetails.store_domain }})</span></span>
+    </template>
+    <template v-else>
+      {{ selectedPayoutOrdersStoreDetails?.store_domain }}
+    </template>
   </div>
 </template>

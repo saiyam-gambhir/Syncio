@@ -71,9 +71,17 @@ const confirmDeletePayoutHandler = (event) => {
 
       <Divider />
 
-      <h3 class="grid mb-0">
+      <h3 class="grid mb-0 mt-1">
         <div class="col-3">Send to</div>
-        <div class="col-9 font-normal">{{ payoutReceiver?.store_domain }}</div>
+        <template v-if="payoutReceiver?.store_name">
+          <div class="col-9 font-normal flex flex-column">
+            <span>{{ payoutReceiver.store_name }}</span>
+            <span class="mt-1 text-small">{{ payoutReceiver.store_domain }}</span>
+          </div>
+        </template>
+        <template v-else>
+          <div class="col-9 font-normal">{{ payoutReceiver?.store_domain }}</div>
+        </template>
       </h3>
 
       <Divider />

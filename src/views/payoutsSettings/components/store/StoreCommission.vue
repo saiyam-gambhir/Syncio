@@ -121,7 +121,15 @@ const isRowSelectedHandler = (data) => {
     <Column header="Store" style="width: 40%">
       <template #body="{ data: connection }">
         <div class="flex align-items-center">
-          {{ connection.store_domain }}
+          <template v-if="connection.store_name">
+            <div class="flex flex-column">
+              <h3 class="m-0 text-900 font-semi" style="font-size: 1.1rem;">{{ connection.store_name }}</h3>
+              <p class="m-0 pt-1 text-600">{{ connection.store_domain }}</p>
+            </div>
+          </template>
+          <template v-else>
+            {{ connection?.store_domain }}
+          </template>
         </div>
       </template>
     </Column>

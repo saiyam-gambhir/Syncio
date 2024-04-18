@@ -1,6 +1,7 @@
 <script setup>
 /* ----- Data ----- */
 const {
+  customStoreName,
   isDisableMultilocationRequested,
   isMultilocationEnabled,
   loadingConnections,
@@ -30,7 +31,13 @@ const disableMultilocationHandler = async () => {
       <section class="mt-1 text-center">
         <p class="mt-0 mb-4 text-lg">Are you sure you want to disable multilocation for</p>
         <p class="mt-0">
-          <Tag severity="danger" :value="storeName" style="text-transform: none !important; font-size: 1rem !important;"></Tag>
+          <Tag v-if="customStoreName" severity="danger" style="text-transform: none !important; font-size: 1rem !important;" class="flex-inline flex-column">
+            <span>{{ customStoreName }}</span>
+            <span style="font-size: .9rem;" class="font-normal">{{ storeName }}</span>
+          </Tag>
+          <Tag v-else severity="danger" style="text-transform: none !important; font-size: 1rem !important;">
+            {{ storeName }}
+          </Tag>
         </p>
         <p class="text-lg mt-4 mb-1">All settings will be removed.</p>
       </section>

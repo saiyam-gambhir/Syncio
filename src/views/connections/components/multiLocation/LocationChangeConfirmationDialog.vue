@@ -33,11 +33,21 @@ const updateLocationHandler = () => {
         <p class="m-0 text-center text-lg">
           <span class="block mt-2" v-if="isDestinationStore">You're about to change the inventory receiving location for:</span> <br>
           <span class="block mt-2" v-if="isSourceStore">You are about to change the inventory location of:</span> <br>
-          <Tag class="mb-3" severity="info" style="font-size: 1.15rem !important;">{{ location.store }}</Tag> <br>
+
+          <div class="mb-3">
+            <Tag v-if="location?.storeName" severity="info" style="font-size: 1.15rem !important;" class="flex-inline flex-column">
+              <span>{{ location.storeName }}</span>
+              <span style="font-size: .9rem;" class="font-normal">{{ location.store }}</span>
+            </Tag>
+            <Tag v-else severity="info" style="text-transform: none !important; font-size: 1rem !important;">
+              {{ location.store }}
+            </Tag>
+          </div>
+
           <Strong class="inline-block" style="width: 4rem;">FROM:</Strong> <br>
-          <Tag class="my-3" style="font-size: 1.15rem !important;" severity="info">{{ location?.current?.name ?? 'Location Unassigned' }}</Tag> <br>
+          <Tag class="my-3" style="text-transform: none !important; font-size: 1.15rem !important;" severity="info">{{ location?.current?.name ?? 'Location Unassigned' }}</Tag> <br>
           <Strong class="inline-block" style="width: 4rem;">TO:</Strong> <br>
-          <Tag class="mt-3 mb-2" severity="info" style="font-size: 1.15rem !important;">{{ location?.new?.name }}</Tag>
+          <Tag class="mt-3 mb-2" severity="info" style="text-transform: none !important; font-size: 1.15rem !important;">{{ location?.new?.name }}</Tag>
         </p>
       </section>
     </template>

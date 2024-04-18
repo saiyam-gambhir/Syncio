@@ -79,7 +79,7 @@ const changeHandler = (addon) => {
 
       <div v-else-if="isPayoutsAddon">
         <h3 class="uppercase mb-2">Payouts</h3>
-        <p class="m-0 mb-4">Premium Payouts requires Orders add-on to be on the Premium plan. Generate payouts to keep track of commissions, payments and invoices (Shopify only).</p>
+        <p class="m-0 mb-4">Pro Payouts requires Orders add-on to be on the Pro plan. Generate payouts to keep track of commissions, payments and invoices <br> <span class="font-semi">(Shopify only)</span>.</p>
         <AppLink label="Learn more" link="https://help.syncio.co/en/collections/3557007-payouts-shopify-only"></AppLink>
       </div>
 

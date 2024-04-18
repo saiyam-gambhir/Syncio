@@ -87,7 +87,7 @@ export function useProducts() {
     if(product) {
       const { is_sync_failed, external_product_id, mapper_id, product_status } = product;
 
-      if((syncProductsQueue.value.includes(external_product_id) || syncProductsQueue.value.includes(mapper_id)) && !is_sync_failed) {
+      if((syncProductsQueue.value.includes(external_product_id) || syncProductsQueue.value.includes(mapper_id)) && !is_sync_failed || (syncProductsQueue.value.includes(external_product_id) && is_sync_failed)) {
         return 'pending';
       }
 
