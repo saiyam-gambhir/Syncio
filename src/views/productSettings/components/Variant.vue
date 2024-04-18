@@ -75,7 +75,8 @@ watch(newQuantity, () => {
             <div class="flex align-items-center justify-content-between w-full">
               <div class="w-85">
                 <p class="m-0 font-semibold text-lg">
-                  {{ setting.label }}
+                  <template v-if="setting.key === 'd_sync_cost_per_item'">Cost per item</template>
+                  <template v-else>{{ setting.label }}</template>
                 </p>
                 <p class="mt-2 mb-0 text-lg">
                   <span v-if="setting.key === 'auto_add_product_variant'">
@@ -102,9 +103,9 @@ watch(newQuantity, () => {
                   </span>
 
                   <span v-if="setting.key === 'd_sync_cost_per_item'">
-                    Ongoing Sync of the "Cost Per Item" field.
+                    Ongoing sync of the Cost Per Item field. If the Source store has enabled this setting then the cost price will sync on import, regardless of this setting.
                     <br><br>
-                    <strong>Note:</strong> Your source store needs to grant permission first. Do not use if currency is
+                    <strong>Note:</strong> Requires connected Source stores to turn on Cost Per Item in their Product Settings
                     different.
                   </span>
 
