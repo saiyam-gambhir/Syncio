@@ -1,51 +1,58 @@
 <script setup>
 import * as routes from '@/routes';
+import { useRouter } from 'vue-router';
 
 /* ----- Data ----- */
+
+const router = useRouter();
+
 const {
-  clickedStore,
   isLocationPendingDialogRequested,
 } = toRefs(useConnectionsStore());
 
+const {
+  resetProducts,
+} = useProducts();
+
 /* ----- Props ----- */
 const props = defineProps({
-  store: {
-    required: true,
-    type: Object,
-  },
-
   isRouterLink: {
     default: false,
     type: Boolean,
-  }
+  },
 });
 
 /* ----- Methods ----- */
 const closeDialogHandler = async () => {
   isLocationPendingDialogRequested.value = false;
 };
+
+const redirectToStoresView = () => {
+  router.push({ name: routes.STORES });
+  resetProducts();
+};
 </script>
 
 <template>
   <DialogWrapper
     :isVisible="isLocationPendingDialogRequested"
-    title=" Store connection is pending"
+    title=" Store connection pending"
     :closable="false"
     width="550px"
     @closeDialog="closeDialogHandler">
     <template #body>
       <section class="mt-1">
-        <p class="m-0 text-center text-lg line-height-4">There is no location assigned to <span class="font-semibold">{{ store?.store_name ?? store?.store_domain }}</span>.</p>
-        <p class="m-0 text-center text-lg line-height-4">To continue syncing products, please assign a location to this Source Store.</p>
+        <p class="m-0 text-left text-lg line-height-4">
+          To continue syncing products, the Source store needs to assign a location to your store in their Syncio app. <br />
+          Please contact the Source store to ensure they've assigned a location to your store.
+        </p>
       </section>
     </template>
 
     <template #footer>
       <div class="flex justify-content-end">
-        <router-link v-if="isRouterLink" :to="routes.STORES" class="btn-primary">
-          <Button label="Assign Location" class="mr-1"></Button>
-        </router-link>
-        <Button v-else label="Assign Location" class="mr-1" @click="closeDialogHandler"></Button>
+        <Button v-if="isRouterLink" label="CLOSE" class="mr-1" outlined @click="redirectToStoresView"></Button>
+        <Button v-else label="CLOSE" class="mr-1" outlined @click="closeDialogHandler"></Button>
       </div>
     </template>
   </DialogWrapper>
