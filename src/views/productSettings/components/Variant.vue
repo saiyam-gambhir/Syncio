@@ -103,7 +103,7 @@ watch(newQuantity, () => {
                   </span>
 
                   <span v-if="setting.key === 'd_sync_cost_per_item'">
-                    Ongoing sync of the Cost Per Item field. If the Source store has enabled this setting then the cost price will sync on import, regardless of this setting.
+                    Ongoing sync of the <i>Cost Per Item</i> field. If the Source store has enabled this setting then the cost price will sync on import, regardless of this setting.
                     <br><br>
                     <strong>Note:</strong> Requires connected Source stores to turn on Cost Per Item in their Product Settings
                     different.

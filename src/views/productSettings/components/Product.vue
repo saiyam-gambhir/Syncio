@@ -126,7 +126,7 @@ const onChangeHandler = ({ is_active, key }) => {
                   <span v-else-if="setting.key === 'sync_product_images'">
                     Sync product and variant images. For more information please see this <AppLink label="article" link="https://help.syncio.co/en/articles/9202762-product-settings-images-and-videos" class="text-lg" />.
                     <ul class="p-0 pl-3 m-0 mt-3">
-                      <li>Videos are not supported. If the source store product has images do not use this feature.</li>
+                      <li>Videos are not supported. If the source store product has videos do not use this feature.</li>
                       <li>For a reliable image sync please ensure image file size is 200Kb or under.</li>
                     </ul>
                   </span>
