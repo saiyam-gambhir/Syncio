@@ -94,10 +94,21 @@ const toggleMultilocationHandler = async event => {
     <Connections v-else />
   </article>
 
+  <!-- Connect new store dialog -->
   <ConnectNewStoreDialog v-if="isNewStoreConnectionRequested" />
+
+  <!-- Disable multilocation dialog -->
   <DisableMultilocationDialog v-if="isDisableMultilocationRequested" />
+
+  <!-- Disconnect store dialog -->
   <DisconnectDialog v-if="isConnectionDisconnectRequested" />
+
+  <!-- Location change confirmation dialog -->
   <LocationChangeConfirmationDialog v-if="isLocationChangeRequested" />
+
+  <!-- Location changed dialog -->
   <LocationChangedDialog v-if="isLocationChanged" />
-  <LocationPendingDialog :store="clickedStore" v-if="isLocationPendingDialogRequested" />
+
+  <!-- Location pending dialog -->
+  <LocationPendingDialog v-if="isLocationPendingDialogRequested" />
 </template>

@@ -212,7 +212,7 @@ const refreshHandler = async () => {
     <DuplicateSkuDialog v-if="isDuplicateSkuFound" />
 
     <!----- Location Pending ----->
-    <LocationPendingDialog v-if="isLocationPendingDialogRequested" :store="selectedStore" isRouterLink />
+    <LocationPendingDialog v-if="isLocationPendingDialogRequested" isRouterLink />
 
     <!----- Product Details ----->
     <ProductDetailsDialog v-if="isProductDetailsDialogRequested" />

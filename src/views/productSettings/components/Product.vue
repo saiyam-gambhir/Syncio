@@ -124,8 +124,11 @@ const onChangeHandler = ({ is_active, key }) => {
                     Descriptions for each product.
                   </span>
                   <span v-else-if="setting.key === 'sync_product_images'">
-                    <strong class="font-semibold">Product</strong> and <strong class="font-semibold">Variant</strong> images. Syncio doesn't currently sync videos.
-                    Duplicates may occur if more than 20 images per product exist.
+                    Sync product and variant images. For more information please see this <AppLink label="article" link="https://help.syncio.co/en/articles/9202762-product-settings-images-and-videos" class="text-lg" />.
+                    <ul class="p-0 pl-3 m-0 mt-3">
+                      <li>Videos are not supported. If the source store product has videos do not use this feature.</li>
+                      <li>For a reliable image sync please ensure image file size is 200Kb or under.</li>
+                    </ul>
                   </span>
                   <span v-else-if="setting.key === 'sync_product_tags'">
                     When a new tag is added on the Source store, Syncio will add that tag to the Destination store.
@@ -147,31 +150,20 @@ const onChangeHandler = ({ is_active, key }) => {
                   <span v-else-if="setting.key === 'sync_product_status'">
                     <p>Ongoing sync of the Draft/Active status on Shopify</p>
                     <p>What will be synced:</p>
-                    <ul>
-                      <li>Synced products will be set to <strong class="font-semibold">Draft</strong>, if the source store sets their product to
-                        Draft.
-                      </li>
-                      <li>Synced products will be set to <strong class="font-semibold">Active</strong>, if the source store sets their product
-                        to Active.
-                      </li>
+                    <ul class="p-0 pl-3 m-0 mt-3">
+                      <li>Synced products will be set to <strong class="font-semibold">Draft</strong>, if the source store sets their product to Draft.</li>
+                      <li>Synced products will be set to <strong class="font-semibold">Active</strong>, if the source store sets their product to Active.</li>
                     </ul>
-                    <p>Useful option to prevent draft products from being sold.</p>
-                    <div class="box">
-                      <img
-                        src="https://staging-core.syncio.io/images/product-sync-configurations-setting-desciprtion-images/product-status.png"
-                        alt="product status" width="400">
-                    </div>
+                    <p class="mb-0">Useful option to prevent draft products from being sold.</p>
                   </span>
                   <span v-else-if="setting.key === 'd_sync_metafields'">
                     Ongoing sync of product and variant metafields from connected Source stores.
                     <br><br>
-                    What will be synced:
-                    <ul class="p-0 pl-3 m-0 mt-3">
-                      <li>Custom product and variant metafield data (supported fields only)</li>
-                      <li>Includes: metafields definitions and metaobjects related to the above fields.</li>
-                    </ul>
-                    <br>
-                    * For a full list of supported metafields, see: <AppLink label="metafields syncing guide" link="https://help.syncio.co/en/articles/8418976-metafields-syncing-guide" class="text-lg" />
+                    ⚠️ Turning on will mirror supported metafields to the Destination store and remove any that don't exist in the original source product/variant.
+                    <br><br>
+                    For a list of supported Metafields and more, <AppLink label="read Metafields Syncing Guide" link="https://help.syncio.co/en/articles/8418976-metafields-syncing-guide" class="text-lg" />
+                    <br><br>
+                    <strong>Note:</strong> Requires connected Source stores to turn on Metafields in their Product Settings
                   </span>
                 </p>
               </div>
@@ -203,17 +195,22 @@ const onChangeHandler = ({ is_active, key }) => {
                 </p>
                 <p class="mt-2 mb-0 text-lg">
                   <span v-if="setting.key === 'sync_cost_per_item'">
-                    Allow connected stores to sync the "Cost Per Item" field.
+                    Allow connected stores to sync the <i>Cost Per Item</i> field
+                    <br><br>
+                    <strong>Note: </strong> Requires connected Destination stores to turn on Cost Per Item in their Product Settings
                   </span>
                   <span v-else-if="setting.key === 's_sync_metafields'">
-                    Allow Destination stores to sync product and variant metafields. <br><br>
+                    Allow Destination stores to sync product and variant metafields.
+                    <br><br>
                     What connected Destination stores will have permission to sync:
                     <ul class="p-0 pl-3 m-0 mt-3">
-                      <li>Custom product and variant metafield data (supported fields only)</li>
+                      <li>Custom product and variant metafield data (supported fields only*)</li>
                       <li>Includes: metafields definitions and metaobjects related to the above fields.</li>
                     </ul>
                     <br>
                     * For a full list of supported metafields, see: <AppLink label="metafields syncing guide" link="https://help.syncio.co/en/articles/8418976-metafields-syncing-guide" class="text-lg" />
+                    <br><br>
+                    <strong>Note: </strong> Requires connected Destination stores to turn on Metafields in their Product Settings
                   </span>
                 </p>
               </div>

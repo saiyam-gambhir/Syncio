@@ -9,7 +9,7 @@ export const searchStoreProducts = {
 
     const response = await axiosService.getData('products/search-store-products', params);
     if(response.success) {
-      this.searchedProducts = await response.products;
+      this.searchedProducts = !!response.products[0] ? await response.products : [];
     }
   }
 };

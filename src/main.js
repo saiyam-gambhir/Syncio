@@ -11,7 +11,6 @@ import Accordion from 'primevue/accordion';
 import AccordionTab from 'primevue/accordiontab';
 import AutoComplete from 'primevue/autocomplete';
 import Button from 'primevue/button';
-import Calendar from 'primevue/calendar';
 import Card from 'primevue/card';
 import Carousel from 'primevue/carousel';
 import Checkbox from 'primevue/checkbox';
@@ -27,19 +26,14 @@ import InputSwitch from 'primevue/inputswitch';
 import InputText from 'primevue/inputtext';
 import Menu from 'primevue/menu';
 import Message from 'primevue/message';
-import MultiSelect from 'primevue/multiselect';
-import Panel from 'primevue/panel';
 import Password from 'primevue/password';
 import PrimeVue from 'primevue/config';
-import ProgressBar from 'primevue/progressbar';
 import ProgressSpinner from 'primevue/progressspinner';
 import RadioButton from 'primevue/radiobutton';
 import Ripple from 'primevue/ripple';
-import Row from 'primevue/row'; // optional
 import SelectButton from 'primevue/selectbutton';
 import Sidebar from 'primevue/sidebar';
 import Skeleton from 'primevue/skeleton';
-import SpeedDial from 'primevue/speeddial';
 import SplitButton from 'primevue/splitbutton';
 import TabPanel from 'primevue/tabpanel';
 import TabView from 'primevue/tabview';
@@ -83,7 +77,6 @@ app
   .component('AccordionTab', AccordionTab)
   .component('AutoComplete', AutoComplete)
   .component('Button', Button)
-  .component('Calendar', Calendar)
   .component('Card', Card)
   .component('Carousel', Carousel)
   .component('Checkbox', Checkbox)
@@ -98,17 +91,12 @@ app
   .component('InputText', InputText)
   .component('Menu', Menu)
   .component('Message', Message)
-  .component('MultiSelect', MultiSelect)
-  .component('Panel', Panel)
   .component('Password', Password)
-  .component('ProgressBar', ProgressBar)
   .component('ProgressSpinner', ProgressSpinner)
   .component('RadioButton', RadioButton)
-  .component('Row', Row)
   .component('SelectButton', SelectButton)
   .component('Sidebar', Sidebar)
   .component('Skeleton', Skeleton)
-  .component('SpeedDial', SpeedDial)
   .component('SplitButton', SplitButton)
   .component('TabPanel', TabPanel)
   .component('TabView', TabView)
