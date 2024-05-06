@@ -1,7 +1,6 @@
 <script setup>
 /* ----- Data ----- */
 const {
-  formatCommission,
   formatCurrency,
 } = useFilters();
 
@@ -146,8 +145,8 @@ const isRowSelectedHandler = (data) => {
     </Column>
 
     <Column header="Commission" style="width: 12.5%;">
-      <template #body="{ data: { commission, commission_type } }">
-        <span class="tabular-nums display-commission">+ {{ formatCommission(commission_type, commission) }}</span>
+      <template #body="{ data: { commission } }">
+        <span class="tabular-nums display-commission">+ {{ formatCurrency(commission) }}</span>
       </template>
     </Column>
 

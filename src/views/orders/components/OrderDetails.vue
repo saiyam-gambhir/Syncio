@@ -307,8 +307,8 @@ const getPushedDate = (date) => {
 
         <CardWrapper class="pb-3 mt-5" title="Tags">
           <template #content>
-            <div class="mt-3"></div>
-            <Tag v-for="tag in order.tags" :key="tag" severity="info" :value="tag" rounded class="mr-2"></Tag>
+            <div class="mt-2"></div>
+            <Tag v-for="tag in order.tags" :key="tag" severity="info" :value="tag" rounded class="mr-2 mt-2"></Tag>
           </template>
         </CardWrapper>
       </div>

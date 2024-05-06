@@ -5,6 +5,7 @@ import * as routes from '@/routes';
 const {
   isDestinationStore,
   isShopify,
+  isShopline,
   isWoocommerce,
 } = toRefs(useConnectionsStore());
 </script>
@@ -54,7 +55,8 @@ const {
           :href="routes.MARKETPLACE_SETTINGS"
           description="Manage your Marketplace profile and settings"
           icon="pi-shopping-bag"
-          title="Marketplace settings">
+          title="Marketplace settings"
+          v-if="!isShopline">
         </Setting>
 
         <Setting
