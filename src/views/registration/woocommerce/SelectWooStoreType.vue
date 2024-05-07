@@ -18,7 +18,7 @@ const setWooStoreType = (storeType) => {
       <Step title="Connect Store" subTitle="Verify your store" />
       <Step title="Permissions" subTitle="Review store access" :isLast="true" />
     </ul>
-    <PageDetails title="Select store type" />
+    <PageDetails title="Select your store type" />
 
     <aside class="auth-wrapper text-900">
       <div class="grid">

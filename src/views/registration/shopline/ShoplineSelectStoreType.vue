@@ -41,7 +41,7 @@ const updateStoreTypeHandler = async (storeType) => {
 <template>
   <Loading v-if="loading" />
   <section v-else class="mx-auto" style="width: 900px;">
-    <PageDetails title="Select store type" content="" />
+    <PageDetails title="Select your store type" content="Choose the description that best fits your store" />
 
     <aside class="auth-wrapper text-900">
       <div class="grid">
