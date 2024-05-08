@@ -10,42 +10,12 @@ const selectedStoreType = ref('');
 const {
   isAuthenticated,
   saveShopifyToken,
+  storeTypes,
   updateStoreType,
 } = toRefs(useAuthStore());
 
 const route = useRoute();
 const router = useRouter();
-
-const storeTypes = ref([
-  {
-    storeType: 'source',
-    description: [
-      'Owns the product information and inventory',
-      'Sells through other stores',
-      'Fulfils and ships orders from other stores',
-    ],
-    examples: [
-      'Drop shipping suppliers',
-      'Brands working with resellers',
-      'Store providing inventory for expansion stores'
-    ],
-    btnLabel: 'Select Source store',
-  },
-  {
-    storeType: 'destination',
-    description: [
-      'Imports product information and inventory',
-      'Sells products from other stores/brands',
-      'Forwards orders to suppliers for fulfilment',
-    ],
-    examples: [
-      'Drop shipping retailers',
-      'Marketplaces selling other brands',
-      'Expansion stores (e.g. region-specific versions)'
-    ],
-    btnLabel: 'Select Destination store',
-  }
-])
 
 /* ----- Mounted ----- */
 onMounted(async () => {
@@ -76,10 +46,10 @@ const updateStoreTypeHandler = async (storeType) => {
 
 <template>
   <Loading v-if="loading" />
-  <section v-else class="mx-auto" style="width: 900px;">
+  <section v-else class="mx-auto mb-2" style="width: 900px;">
     <PageDetails title="Select your store type" content="Choose the description that best fits your store" />
 
-    <aside class="auth-wrapper text-900" style="padding: 2rem !important;">
+    <aside class="auth-wrapper text-900" style="padding: 1.5rem !important;">
       <div class="grid">
         <div v-for="{ btnLabel, description, examples, storeType } in storeTypes" class="col-6 pb-0">
           <CardWrapper class="font-semibold" style="padding: 0 !important;">
@@ -91,12 +61,12 @@ const updateStoreTypeHandler = async (storeType) => {
               <div class="px-4">
                 <h2 class="capitalize	text-2xl font-semi mb-2">{{ storeType }} store</h2>
                 <ul class="p-0 list-none font-normal text-lg m-0">
-                  <li v-for="(item, index) in description" class="py-3 border-bottom-1 border-300">
+                  <li v-for="item in description" class="py-3 border-bottom-1 border-300">
                     <i class="pi pi-check-circle text-green-500 text-lg mr-1" style="transform: translateY(1px);"></i>
                     {{ item }}
                   </li>
                 </ul>
-                <h3 class="text-lg mb-2 pt-3">Examples</h3>
+                <h3 class="text-lg mb-2 pt-4">Examples</h3>
                 <ul class="p-0 list-none font-normal text-lg m-0">
                   <li v-for="example in examples" class="py-2">{{ example }}</li>
                 </ul>
@@ -109,13 +79,20 @@ const updateStoreTypeHandler = async (storeType) => {
           </CardWrapper>
         </div>
 
-        <div class="col-12 text-right py-0 mt-5">
+        <div class="col-12 text-center mt-5">
+          <!-- <h3 class="text-lg font-semibold">Need to be both Source and Destination?</h3>
+          <p>Select one store type to complete installation, then you can add the other <br> store type after installation is complete</p> -->
+          <p>If you're unsure, <AppLink label="read is my store a Source or Destination store" link="https://help.syncio.co/en/articles/3284157-is-my-store-a-source-or-destination-store" /></p>
+        </div>
+
+        <div class="col-12 text-right py-0 mt-3">
           <Button
-            style="height: 3.5rem;"
             :disabled="selectedStoreType === ''"
+            :loading="loadingStoreType"
             @click="updateStoreTypeHandler(selectedStoreType)"
             class="p-button-lg"
-            label="Next">
+            label="Next"
+            style="height: 3.5rem;">
           </Button>
         </div>
       </div>
