@@ -67,7 +67,6 @@ const setWooStoreType = (storeType) => {
         <div class="col-12 text-right py-0 mt-3">
           <Button
             :disabled="selectedStoreType === ''"
-            :loading="loadingStoreType"
             @click="setWooStoreType(selectedStoreType)"
             class="p-button-lg"
             label="Next"
