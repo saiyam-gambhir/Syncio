@@ -32,6 +32,7 @@ const searchHandler = async (searchText) => {
     <div class="col-2 pb-0">
       <div class="p-inputgroup w-100">
         <Dropdown
+          :autoOptionFocus="false"
           :loading="loadingConnections"
           :options="sortOptions"
           @change="fetchConnectionsHandler"

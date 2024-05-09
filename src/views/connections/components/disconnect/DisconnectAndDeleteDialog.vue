@@ -34,7 +34,7 @@ const disconnectHandler = async () => {
     <template #body>
       <section class="grid flex-column mt-1 px-3">
         <p class="m-0">
-          You are about to disconnect with
+          You are about to disconnect from:
         </p>
 
         <div class="my-5 text-center">
