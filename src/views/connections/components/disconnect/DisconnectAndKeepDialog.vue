@@ -4,7 +4,6 @@ const {
   deleteConnection,
   isConnectionDisconnectRequested,
   isDisconnectAndKeepRequested,
-  isShopify,
   isSourceStore,
   selectedConnection,
 } = toRefs(useConnectionsStore());
@@ -13,7 +12,7 @@ const selectedOption = ref();
 const disconnectOptions = ref([
   { name: 'YES - Set Destination store stock to zero for synced products', val: true },
   { name: 'NO - Keep Destination store stock as is for synced products', val: false },
-])
+]);
 
 /* ----- Methods ----- */
 const closeDialogHandler = () => {
@@ -35,8 +34,8 @@ const disconnectHandler = async () => {
   <DialogWrapper
     :isVisible="isDisconnectAndKeepRequested"
     @closeDialog="closeDialogHandler"
-    title="Confirm disconnect and keep?"
-    width="500px">
+    title="Confirm disconnect and keep"
+    width="550px">
     <template #body>
       <section class="grid flex-column px-3 text-700">
         <p class="m-0">
