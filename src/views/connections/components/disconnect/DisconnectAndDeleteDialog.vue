@@ -53,7 +53,7 @@ const disconnectHandler = async () => {
         </p>
         <div class="field-checkbox mt-2 mb-0">
           <Checkbox inputId="action-confirmation" v-model="isChecked" :binary="true" />
-          <label for="action-confirmation">I understand this action can't be undone</label>
+          <label for="action-confirmation" class="pointer">I understand this action can't be undone</label>
         </div>
       </section>
     </template>
@@ -61,7 +61,7 @@ const disconnectHandler = async () => {
     <template #footer>
       <div class="flex align-items-center justify-content-between">
         <Button label="Cancel" class="p-button-secondary" @click="closeDialogHandler"></Button>
-        <Button label="Delete all Products" class="p-button-danger mr-0" @click="disconnectHandler" :disabled="!isChecked"></Button>
+        <Button label="Disconnect and Delete" class="p-button-danger mr-0" @click="disconnectHandler" :disabled="!isChecked"></Button>
       </div>
     </template>
   </DialogWrapper>
