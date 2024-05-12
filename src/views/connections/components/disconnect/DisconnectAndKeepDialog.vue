@@ -25,7 +25,7 @@ const closeOnDisconnectHandler = () => {
 };
 
 const disconnectHandler = async () => {
-  await deleteConnection.value(selectedConnection.value.connection_id);
+  await deleteConnection.value(selectedConnection.value.connection_id, true, selectedOption.value.val);
   closeOnDisconnectHandler();
 };
 </script>
