@@ -957,7 +957,3 @@ svg[data-pc-section="hideicon"] {
     fill: var(--primary-color);
   }
 }
-
-html.theme-dark {
-  filter: invert(1) hue-rotate(180deg);
-}

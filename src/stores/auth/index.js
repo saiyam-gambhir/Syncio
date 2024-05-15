@@ -32,6 +32,36 @@ export const useAuthStore = defineStore('auth', {
       loginForm: { loading: false },
       registrationForm: { loading: false },
       showLeavingPageDialog: false,
+      storeTypes: [
+        {
+          storeType: 'source',
+          description: [
+            'Owns the product information and inventory',
+            'Sells through other stores',
+            'Fulfils and ships orders from other stores',
+          ],
+          examples: [
+            'Drop shipping suppliers',
+            'Brands working with resellers',
+            'Store providing inventory for expansion stores'
+          ],
+          btnLabel: 'Select Source store',
+        },
+        {
+          storeType: 'destination',
+          description: [
+            'Imports product information and inventory',
+            'Sells products from other stores/brands',
+            'Forwards orders to suppliers for fulfilment',
+          ],
+          examples: [
+            'Drop shipping retailers',
+            'Marketplaces selling other brands',
+            'Expansion stores (e.g. region-specific versions)'
+          ],
+          btnLabel: 'Select Destination store',
+        }
+      ],
       timeZone: 'Australia/Melbourne',
       timeZones: [ 'Australia/Melbourne'],
       upgradeDialogType: '',
