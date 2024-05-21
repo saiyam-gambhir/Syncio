@@ -37,3 +37,6 @@ export const WOO_INSTALLATION_COMPLETED = '/woocommerce/installation-completed';
 export const WOO_PERMISSIONS = '/registration/woocommerce/permissions';
 export const WOO_SELECT_STORE_TYPE = '/registration/woocommerce/select-store-type';
 export const WOO_VERIFY_STORE_URL = '/registration/woocommerce/verify-store-url';
+
+/* ----- Marketplace onboarding ----- */
+export const PROFILE_COMPLETE = '/marketplace/profile-complete';

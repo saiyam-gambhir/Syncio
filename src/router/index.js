@@ -134,6 +134,16 @@ const router = createRouter({
     },
     /* ----- Woocommerce ----- */
 
+    /* ----- Marketplace onboarding ----- */
+    {
+      component: () => import('@/views/registration/marketPlace/ProfileComplete.vue'),
+      meta: { layout: LoggedOut },
+      name: routes.PROFILE_COMPLETE,
+      path: routes.PROFILE_COMPLETE,
+    },
+    /* ----- Marketplace onboarding ----- */
+
+    /* ----- App ----- */
     {
       component: DashboardView,
       meta: { ...meta },
@@ -224,6 +234,7 @@ const router = createRouter({
       name: routes.SETTINGS,
       path: routes.SETTINGS,
     },
+    /* ----- App ----- */
   ],
 });
 
