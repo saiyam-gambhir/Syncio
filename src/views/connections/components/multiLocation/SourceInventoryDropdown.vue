@@ -22,7 +22,10 @@ const props = defineProps({
 /* ----- Mounted ----- */
 onMounted(() => {
   const sourceInventoryReferenceId = props.connection?.source_default_inventory_location?.external_reference_id;
-  if (props.connection?.status === 'pending') {
+  const destinationInventoryReferenceId = +props.connection?.destination_default_inventory_location?.external_reference_id;
+  if (props.connection?.status === 'pending' && !(+props.connection?.is_multi_locations)) { // ML is off
+    inventoryReferenceId.value = null;
+  } else if (props.connection?.status === 'pending' && destinationInventoryReferenceId && !sourceInventoryReferenceId) { // ML on, DS has location set
     inventoryReferenceId.value = null;
   } else {
     inventoryReferenceId.value = sourceInventoryReferenceId ? +sourceInventoryReferenceId : 0;
