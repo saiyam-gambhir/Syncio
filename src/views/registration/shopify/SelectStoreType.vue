@@ -37,7 +37,10 @@ const updateStoreTypeHandler = async (storeType) => {
   loadingStoreType.value = true;
   const response = await updateStoreType.value(storeType);
   if(response?.success) {
-    await router.push({ name: routes.SHOPIFY_CONNECT_OR_INVITE_STORE });
+    selectedStoreType.value === 'source'
+      ? await router.push({ name: routes.SHOPIFY_CONNECT_YOUR_FIRST_STORE })
+      : await router.push({ name: routes.SHOPIFY_CONNECT_OR_INVITE_STORE });
+
     isAuthenticated.value = true;
     loadingStoreType.value = true;
   }

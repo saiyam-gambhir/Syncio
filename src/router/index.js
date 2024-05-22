@@ -49,6 +49,12 @@ const router = createRouter({
       path: routes.SHOPIFY_CONNECT_OR_INVITE_STORE,
     },
     {
+      component: () => import('@/views/registration/shopify/ConnectYourFirstStore.vue'),
+      meta: { layout: LoggedOut },
+      name: routes.SHOPIFY_CONNECT_YOUR_FIRST_STORE,
+      path: routes.SHOPIFY_CONNECT_YOUR_FIRST_STORE,
+    },
+    {
       component: () => import('@/views/registration/shopify/SelectPlan.vue'),
       meta: { layout: LoggedOut },
       name: routes.SHOPIFY_SELECT_PLAN,
