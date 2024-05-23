@@ -23,7 +23,13 @@ $textPrimary: rgba(17, 17, 17, 1);
 };
 
 .text-light {
-  color: #999;
+  color: #616161;
+}
+
+.text-small {
+  color: var(--text-light) !important;
+  margin-left: .1rem !important;
+  font-size: 1rem !important;
 }
 
 .text-small {

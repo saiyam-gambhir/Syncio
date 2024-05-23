@@ -225,6 +225,7 @@ td {
     &.without-title {
       .p-dialog-header {
         border: 0 !important;
+        background: var(--white);
       }
 
       .p-dialog-header * {
@@ -562,6 +563,11 @@ input.p-inputtext-lg {
 .p-tag {
   letter-spacing: .5px;
   padding-top: .58rem !important;
+
+  &.tag-transparent {
+    background: #f8f9fa !important;
+    border: 0 !important;
+  }
 
   &.p-tag-warning {
     background: #fff2e3;
@@ -956,4 +962,17 @@ svg[data-pc-section="hideicon"] {
   path {
     fill: var(--primary-color);
   }
+}
+
+.p-progressbar {
+  height: .25rem;
+}
+.p-progressbar-value {
+  background: #2196F3 !important;
+}
+
+.alert {
+  background: #e3f2ff;
+  border-bottom: solid 1px var(--surface-border);
+  color: #0052aa;
 }

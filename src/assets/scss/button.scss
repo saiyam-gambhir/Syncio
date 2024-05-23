@@ -87,6 +87,14 @@
     &-dark {
       color: var(--white) !important;
     }
+
+    &.dark {
+      color: $textPrimary !important;
+
+      &:before {
+        background: $textPrimary !important;
+      }
+    }
   }
 }
 

@@ -56,7 +56,7 @@ const router = createRouter({
     },
     {
       component: () => import('@/views/registration/shopify/InstallationComplete.vue'),
-      meta: { layout: LoggedOut },
+      meta: { layout: LoggedOut, requireAuth: true },
       name: routes.SHOPIFY_INSTALLATION_COMPLETE,
       path: routes.SHOPIFY_INSTALLATION_COMPLETE,
     },

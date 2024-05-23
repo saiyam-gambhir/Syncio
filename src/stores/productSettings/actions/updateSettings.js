@@ -9,13 +9,14 @@ export const updateSettings = {
     try {
       this.loading = true;
       const auth = useAuthStore();
+      const { storeId } = useConnectionsStore();
       const params = {
         configurations: [...payload]
       };
-      const { success, configurations } = await axiosService.postData(`configurations/${auth.userId}`, params);
+      const { success, configurations } = await axiosService.postData(`user/${auth.userId}/stores/${storeId}/configurations`, params);
       if (success) {
         configurations.sort((a, b) => a.label > b.label ? 1 : -1);
-        
+
         this.destinationProductSettings = await this.filterSettings(configurations, 'product');
         this.stringifyDestinationProductSettings = JSON.stringify(this.destinationProductSettings);
 

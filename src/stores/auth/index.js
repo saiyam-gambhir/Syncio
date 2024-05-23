@@ -25,6 +25,7 @@ export const useAuthStore = defineStore('auth', {
       isAuthenticated: false,
       isBatteryLowDialogVisible: false,
       isNetworkDialogVisible: false,
+      isSwitchingStore: false,
       isUpgradeDialogRequested: false,
       loadingContinueLater: false,
       loadingResetPassword: false,
@@ -63,7 +64,7 @@ export const useAuthStore = defineStore('auth', {
         }
       ],
       timeZone: 'Australia/Melbourne',
-      timeZones: [ 'Australia/Melbourne'],
+      timeZones: ['Australia/Melbourne'],
       upgradeDialogType: '',
       user: null,
       wooEmailErrorMessage: null,

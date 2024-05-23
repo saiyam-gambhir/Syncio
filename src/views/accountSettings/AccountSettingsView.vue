@@ -1,5 +1,6 @@
 <script setup>
 /* ----- Components ----- */
+const DeactivateDialog = defineAsyncComponent(() => import('./components/DeactivateDialog.vue'));
 const UninstallDialog = defineAsyncComponent(() => import('./components/UninstallDialog.vue'));
 const UpdateAPIKeyDialog = defineAsyncComponent(() => import('./components/UpdateAPIKeyDialog.vue'));
 
@@ -15,16 +16,21 @@ const {
 
 const {
   customStoreName,
+  isDeactivateStoreDialogVisible,
+  isDefaultStore,
   isShopify,
   isShopline,
+  isUniversalStore,
   isWoocommerce,
+  loadingDefaultStoreUpdate,
   loadingUninstall,
   platform,
   storeCreationDate,
   storeKey,
   storeName,
   storeType,
-} = useConnectionsStore();
+  UPDATE_DEFAULT_STORE,
+} = toRefs(useConnectionsStore());
 
 const {
   isUpdateAPIKeyDialogVisible,
@@ -58,6 +64,10 @@ const handleUpdateAPIKey = async () => {
 
 const handleUninstall = async () => {
   isUninstallDialogVisible.value = true;
+};
+
+const deleteStoreHandler = () => {
+  isDeactivateStoreDialogVisible.value = true;
 };
 </script>
 
@@ -125,7 +135,21 @@ const handleUninstall = async () => {
             <li class="py-4 border-bottom-1 surface-border">
               <h3 class="flex align-items-center justify-content-between my-1">
                 Store type:
-                <Tag severity="info" class="capitalize ml-3">{{ storeType }} store</Tag>
+                <div>
+                  <template v-if="isUniversalStore">
+                    <span v-if="isDefaultStore" class="font-normal text-light mr-2">Default for login</span>
+                    <Button
+                      :loading="loadingDefaultStoreUpdate"
+                      @click="UPDATE_DEFAULT_STORE"
+                      class="mr-2"
+                      label="Make Default"
+                      outlined
+                      style="height: 35.54px;"
+                      v-else>
+                    </Button>
+                  </template>
+                  <Tag severity="info" class="ml-3"><span class="capitalize">{{ storeType }}</span> &nbsp;store</Tag>
+                </div>
               </h3>
             </li>
             <li v-if="customStoreName" class="py-4 border-bottom-1 surface-border">
@@ -152,7 +176,7 @@ const handleUninstall = async () => {
                 <Button @click="handleUpdateAPIKey" label="Update" style="width: 7.5rem;"></Button>
               </h3>
             </li>
-            <li class="pt-4 pb-2 surface-border">
+            <li class="py-4 surface-border" :class="{ 'border-bottom-1' : isUniversalStore }">
               <h3 class="flex align-items-center justify-content-between mt-1 mb-0">
                 Uninstall syncio:
                 <Tag v-if="isShopify" severity="danger" class="ml-3 transform-none">* For Shopify, please use Shopify admin page to uninstall Syncio</Tag>
@@ -167,11 +191,30 @@ const handleUninstall = async () => {
                 </Button>
               </h3>
             </li>
+            <li v-if="isUniversalStore" class="pt-4 pb-2 surface-border">
+              <h3 class="flex align-items-center justify-content-between my-1">
+                <div>
+                  Deactivate <span class="capitalize">{{ storeType }}</span> store:
+                  <p class="mt-2 mb-0 text-small font-normal" style="line-height: 1.35rem; margin-left: 0 !important;">
+                    Deactivating will remove this store type. <br> Use Uninstall to remove all stores.
+                  </p>
+                </div>
+
+                <Button
+                  @click="deleteStoreHandler"
+                  label="Deactivate store"
+                  severity="danger">
+                </Button>
+              </h3>
+            </li>
           </ul>
         </template>
       </CardWrapper>
     </section>
   </article>
+
+  <!-- Deactivate Store -->
+  <DeactivateDialog v-if="isDeactivateStoreDialogVisible" />
 
   <!-- Woo Update API Key  -->
   <UpdateAPIKeyDialog v-if="isUpdateAPIKeyDialogVisible" />

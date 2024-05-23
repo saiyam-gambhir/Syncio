@@ -3,12 +3,15 @@ import * as routes from '@/routes';
 
 /* ----- Components ----- */
 const ShopifyPermissionsDialog = defineAsyncComponent(() => import('./components/ShopifyPermissionsDialog.vue'));
+const EnableUniversalStore = defineAsyncComponent(() => import('./components/EnableUniversalStoreDialog.vue'));
 
 /* ----- Data ----- */
 const {
   customStoreName,
   fetchMetadata,
+  isEnableUniversalStoreRequested,
   isShopify,
+  isUniversalStore,
   shopifyPermissions,
   storeName,
   storeType,
@@ -41,6 +44,23 @@ const items = ref([
       { label: 'Logout', icon: 'pi pi-sign-out', command: () => logout() },
     ]
   },
+]);
+
+// const allowedUniversalStores = ref([
+//   '19grams-specialty-coffee-roasters.myshopify.com',
+//   '2dba1f-4.myshopify.com',
+//   'buyfsa.myshopify.com',
+//   'gear-as-rx.myshopify.com',
+//   'hi-desert-daydream.myshopify.com',
+//   'roaming-travelers.myshopify.com',
+//   'the-green-box-australia.myshopify.com',
+//   'wholesaleplug-com-au.myshopify.com',
+// ]);
+
+const allowedUniversalStores = ref([
+  'qa-shp-live-uni-dest1.myshopify.com',
+  'qa-shp-live-uni-source1.myshopify.com',
+  'shared-live-uni-1.myshopify.com',
 ]);
 
 /* ----- Mounted ----- */
@@ -86,29 +106,35 @@ const copyStoreNameHandler = async val => {
   <header class="header-height surface-section border-bottom-1 surface-border flex align-items-center justify-content-between px-5">
     <div class="header-left">
       <Button
+        @click="goBackHandler"
         icon="pi pi-arrow-left"
         iconPos="left"
         outlined
-        @click="goBackHandler"
         v-tooltip.left="'Go Back'">
       </Button>
     </div>
 
     <div class="header-right flex align-items-center">
-      <Tag v-if="customStoreName" severity="info" class="text-900" :class="`tag-${storeType}`">
-        <div class="flex flex-column pr-4">
-          <h4 class="m-0 font-semiBold" style="transform: translateY(2px);">{{ customStoreName }}</h4>
-          <p class="flex align-items-center m-0 font-normal" style="font-size: .9rem;">
-            {{ storeName }}
-            <i class="pi pi-copy pointer ml-1" @click="copyStoreNameHandler(storeName)"></i>
-          </p>
-        </div>
-        <span :class="storeType" class="font-bold">{{ storeType }}</span>
-      </Tag>
-      <Tag v-else severity="info" class="pointer text-900" :class="`tag-${storeType}`" @click="copyStoreNameHandler(storeName)">
-        {{ storeName }}
-        <span :class="storeType" class="font-bold">{{ storeType }}</span>
-      </Tag>
+      <div v-if="allowedUniversalStores.includes(storeName) && isShopify" class="flex">
+        <UniversalStoreActions v-if="isUniversalStore" />
+        <NonuniversalStoreActions v-else />
+      </div>
+      <div v-else>
+        <Tag v-if="customStoreName" severity="info" class="text-900" :class="`tag-${storeType}`">
+          <div class="flex flex-column pr-4">
+            <h4 class="m-0 font-semiBold" style="transform: translateY(2px);">{{ customStoreName }}</h4>
+            <p class="flex align-items-center m-0 font-normal" style="font-size: .9rem;">
+              {{ storeName }}
+              <i class="pi pi-copy pointer ml-1" @click="copyStoreNameHandler(storeName)"></i>
+            </p>
+          </div>
+          <span :class="storeType" class="font-bold">{{ storeType }}</span>
+        </Tag>
+        <Tag v-else severity="info" class="pointer text-900" :class="`tag-${storeType}`" @click="copyStoreNameHandler(storeName)">
+          {{ storeName }}
+          <span :class="storeType" class="font-bold">{{ storeType }}</span>
+        </Tag>
+      </div>
 
       <Button
         @click="toggleMenu"
@@ -120,12 +146,10 @@ const copyStoreNameHandler = async val => {
       <Menu ref="menu" id="overlay_menu" :model="items" :popup="true" />
     </div>
 
+    <!-- Shopify permissions dialog -->
     <ShopifyPermissionsDialog v-if="shopifyPermissions.showDialog" />
+
+    <!-- Enable universal store dialog -->
+    <EnableUniversalStore v-if="isEnableUniversalStoreRequested" />
   </header>
 </template>
-
-<style scoped>
-.pi-copy:before {
-  font-size: 1rem !important;
-}
-</style>
