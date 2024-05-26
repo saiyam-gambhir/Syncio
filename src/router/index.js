@@ -147,6 +147,13 @@ const router = createRouter({
       name: routes.PROFILE_COMPLETE,
       path: routes.PROFILE_COMPLETE,
     },
+
+    {
+      component: () => import('@/views/registration/marketPlace/CreateProfile.vue'),
+      meta: { layout: LoggedOut },
+      name: routes.CREATE_PROFILE,
+      path: routes.CREATE_PROFILE,
+    },
     /* ----- Marketplace onboarding ----- */
 
     /* ----- App ----- */

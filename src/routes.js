@@ -40,4 +40,5 @@ export const WOO_SELECT_STORE_TYPE = '/registration/woocommerce/select-store-typ
 export const WOO_VERIFY_STORE_URL = '/registration/woocommerce/verify-store-url';
 
 /* ----- Marketplace onboarding ----- */
+export const CREATE_PROFILE = '/marketplace/create-profile';
 export const PROFILE_COMPLETE = '/marketplace/profile-complete';

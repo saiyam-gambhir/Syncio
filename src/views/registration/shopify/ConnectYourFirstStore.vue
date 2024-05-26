@@ -1,5 +1,6 @@
 <script setup>
 import { useForm } from 'vee-validate';
+import { useRouter } from 'vue-router';
 import * as routes from '@/routes';
 import * as validationMessages from '@/validationMessages';
 import * as yup from 'yup';
@@ -26,6 +27,7 @@ const isDestinationStoreConnected = ref(false);
 const isEmailInvitationSent = ref(false);
 const loading = ref(false);
 const selectedOption = ref('');
+const router = useRouter();
 
 const options = ref([
   {
@@ -65,6 +67,13 @@ const isNextStepEnabled = computed(() => {
   const isProfileCreationSelected = selectedOption.value === 'profile';
   return (isUniqueKeySelected ||  isEmailInvitationSelected || isProfileCreationSelected);
 });
+
+/* ----- Methods ----- */
+const goToNextStepHandler = async () => {
+  if(selectedOption.value === 'profile') {
+    await router.push({ name: routes.CREATE_PROFILE })
+  }
+}
 </script>
 
 <template>
@@ -152,7 +161,7 @@ const isNextStepEnabled = computed(() => {
           <router-link :to="isDestinationStore ? routes.SHOPIFY_SELECT_PLAN : routes.SHOPIFY_INSTALLATION_COMPLETE">
             <a href="javascript:void(0);" class="btn-link mr-5 text-lg">Skip</a>
           </router-link>
-          <Button :disabled="!isNextStepEnabled" label="Next" class="font-bold justify-content-center"></Button>
+          <Button @click="goToNextStepHandler" :disabled="!isNextStepEnabled" label="Next" class="font-bold justify-content-center"></Button>
         </div>
       </div>
 
