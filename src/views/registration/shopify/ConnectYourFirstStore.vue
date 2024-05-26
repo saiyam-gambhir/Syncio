@@ -1,13 +1,32 @@
 <script setup>
+import { useForm } from 'vee-validate';
 import * as routes from '@/routes';
+import * as validationMessages from '@/validationMessages';
+import * as yup from 'yup';
 
-/* ----- Components ----- */
-const ConnectNewStoreDialog = defineAsyncComponent(() => import('../../connections/components/connect/ConnectNewStoreDialog.vue'));
+/* ----- Validations ----- */
+const { errors: emailErrors, meta: emailMeta, defineField: emailDefinedField } = useForm({
+  validationSchema: yup.object({
+    emailAddress: yup.string().email(validationMessages.EMAIL).required(validationMessages.REQUIRED),
+  }),
+});
+
+const { errors: uniqueKeyErrors, meta: uniqueKeyMeta, defineField: uniqueKeyDefinedField } = useForm({
+  validationSchema: yup.object({
+    uniqueKey: yup.string().required(validationMessages.REQUIRED),
+  }),
+});
+
+const [emailAddress, emailAddressAttrs] = emailDefinedField('emailAddress');
+const [uniqueKey, uniqueKeyAttrs] = uniqueKeyDefinedField('uniqueKey');
+const ownStoreKeyError = ref('');
 
 /* ----- Data ----- */
-const isTestStoreConnected = ref(false);
+const isDestinationStoreConnected = ref(false);
+const isEmailInvitationSent = ref(false);
 const loading = ref(false);
 const selectedOption = ref('');
+
 const options = ref([
   {
     btnLabel: 'I received a Destination store key',
@@ -25,38 +44,27 @@ const options = ref([
     type: 'profile',
   },
 ]);
+
 const {
-  connectPartnerStore,
-  isConnectViaStoreKeyRequested,
   isDestinationStore,
-  isInviteViaEmailRequested,
   isNewStoreConnectionRequested,
-  loadingTestStoreConnection,
   partnerStoreType,
   storeKey,
 } = toRefs(useConnectionsStore());
 
-/* ----- Methods ----- */
-const connectPartnerStoreHandler = async () => {
-  loadingTestStoreConnection.value = true;
-  const success = await connectPartnerStore.value('5d49553267519');
-  if(success) {
-    isTestStoreConnected.value = true;
-    loadingTestStoreConnection.value = false;
-  }
-};
+const {
+  connectPartnerStoreHandler,
+  invitePartnerStoreHandler,
+  isSendingInvitation,
+} = useConnections();
 
-const showInviteViaEmailHandler = () => {
-  isConnectViaStoreKeyRequested.value = false;
-  isNewStoreConnectionRequested.value = true;
-  isInviteViaEmailRequested.value = true;
-};
-
-const showConnectViaKeyHandler = () => {
-  isInviteViaEmailRequested.value = false;
-  isNewStoreConnectionRequested.value = true;
-  isConnectViaStoreKeyRequested.value = true;
-};
+/* ----- Computed ----- */
+const isNextStepEnabled = computed(() => {
+  const isUniqueKeySelected = selectedOption.value === 'uniqueKey' && isDestinationStoreConnected.value;
+  const isEmailInvitationSelected = selectedOption.value === 'email' && isEmailInvitationSent.value;
+  const isProfileCreationSelected = selectedOption.value === 'profile';
+  return (isUniqueKeySelected ||  isEmailInvitationSelected || isProfileCreationSelected);
+});
 </script>
 
 <template>
@@ -64,44 +72,7 @@ const showConnectViaKeyHandler = () => {
     <PageDetails :title="`Connect to your first ${partnerStoreType}`" content="" />
 
     <aside class="auth-wrapper text-900">
-      <!-- <div class="grid pt-4 pb-3">
-        <div class="col-6">
-          <Button
-            @click="showInviteViaEmailHandler"
-            class="p-button-lg w-100"
-            icon="pi pi-arrow-right"
-            iconPos="right"
-            label="Share your key via e-mail">
-          </Button>
-        </div>
-        <div class="col-6">
-          <Button
-            @click="showConnectViaKeyHandler"
-            class="p-button-lg w-100"
-            icon="pi pi-arrow-right"
-            iconPos="right"
-            label="I received a source store key"
-            outlined>
-          </Button>
-        </div>
-      </div> -->
-
-      <!-- <template v-if="!isTestStoreConnected && isDestinationStore">
-        <Divider />
-        <p class="text-lg line-height-3 mt-3 mb-0">Haven't received a unique key?</p>
-        <p class="text-lg line-height-3 mt-1">Why not try out our awesome features with our test store instead?</p>
-        <Button
-          :loading="loadingTestStoreConnection"
-          @click="connectPartnerStoreHandler"
-          class="p-button-lg w-50"
-          icon="pi pi-plus"
-          iconPos="right"
-          label="Connect to test store"
-          outlined>
-        </Button>
-      </template> -->
-
-      <h3 class="text-2xl mb-2">How do you want to connect?</h3>
+      <h3 class="text-2xl mb-2 font-semi">How do you want to connect?</h3>
       <p class="text-lg line-height-3">Syncio uses Unique Store Keys to establish connections between stores. <br> Find your Unique Store Key at any time on the in app dashboard.</p>
       <ul class="m-0 pt-3 p-0 radio-list">
         <li v-for="({ btnLabel, description, type }, index) in options" :key="type" class="flex align-items-center relative p-4 border-1 border-400" :class="{ 'selected' : selectedOption === type, 'border-top-none' : index > 0 }">
@@ -117,6 +88,63 @@ const showConnectViaKeyHandler = () => {
         </li>
       </ul>
 
+      <!-- Connect via destination key -->
+      <template v-if="selectedOption === 'uniqueKey'">
+        <h3 class="text-2xl mb-0 font-semi mt-6">Enter Destination store key</h3>
+        <p class="text-lg line-height-3 mt-2">You'll be able to sync their products once set up is complete</p>
+        <div class="grid">
+          <div class="col-10">
+            <InputText
+              :class="{ 'mb-3 p-invalid': uniqueKeyErrors.uniqueKey || ownStoreKeyError !== '' }"
+              v-model="uniqueKey"
+              v-bind="uniqueKeyAttrs"
+              placeholder="Enter store key"
+              class="p-inputtext-lg w-100">
+            </InputText>
+            <ValidationMessage v-if="uniqueKeyErrors.uniqueKey" :error="uniqueKeyErrors.uniqueKey" style="padding-bottom: 0 !important;" />
+            <ValidationMessage v-if="ownStoreKeyError && ownStoreKeyError !== ''" :error="ownStoreKeyError" class="pt-0" style="padding-bottom: 0 !important;" />
+          </div>
+          <div class="col-2">
+            <Button
+              :disabled="!uniqueKeyMeta.valid || ownStoreKeyError !== ''"
+              :loading="isSendingInvitation"
+              @click="connectPartnerStoreHandler(uniqueKey)"
+              class="mr-0 w-100"
+              style="height: 44px;"
+              label="Connect">
+            </Button>
+          </div>
+        </div>
+      </template>
+
+      <!-- Send email invite -->
+      <template v-if="selectedOption === 'email'">
+        <h3 class="text-2xl mb-0 font-semi mt-6">Invite Destination store via email</h3>
+        <p class="text-lg line-height-3 mt-2">This email will include your Unique Store Key <Strong>({{ storeKey }})</Strong> and installation instructions</p>
+        <div class="grid">
+          <div class="col-10">
+            <InputText
+              :class="{ 'mb-3 p-invalid': emailErrors.emailAddress }"
+              v-model="emailAddress"
+              v-bind="emailAddressAttrs"
+              placeholder="Enter email address"
+              class="p-inputtext-lg w-100">
+            </InputText>
+            <ValidationMessage :error="emailErrors.emailAddress" style="padding-bottom: 0 !important;" />
+          </div>
+          <div class="col-2">
+            <Button
+              :disabled="!emailMeta.valid"
+              :loading="isSendingInvitation"
+              @click="invitePartnerStoreHandler(emailAddress)"
+              class="mr-0 w-100"
+              style="height: 44px;"
+              label="Send invite">
+            </Button>
+          </div>
+        </div>
+      </template>
+
       <div class="border-top-1 border-400 my-6"></div>
 
       <div class="text-center">
@@ -124,7 +152,7 @@ const showConnectViaKeyHandler = () => {
           <router-link :to="isDestinationStore ? routes.SHOPIFY_SELECT_PLAN : routes.SHOPIFY_INSTALLATION_COMPLETE">
             <a href="javascript:void(0);" class="btn-link mr-5 text-lg">Skip</a>
           </router-link>
-          <Button label="Next" class="font-bold justify-content-center"></Button>
+          <Button :disabled="!isNextStepEnabled" label="Next" class="font-bold justify-content-center"></Button>
         </div>
       </div>
 
