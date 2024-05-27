@@ -1,0 +1,34 @@
+.btn-store-type {
+  border-bottom-left-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+
+  .absolute {
+    left: 1rem;
+    top: 1.4rem;
+  }
+
+  label {
+    border-bottom-left-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+    cursor: pointer;
+    height: 4.5rem;
+    width: 100%;
+    transition: .3s background;
+  }
+
+  &.destination {
+    background: #EC9C9E;
+
+    .p-radiobutton-checked + label {
+      background: $destinationIndicator;
+    }
+  }
+
+  &.source {
+    background: #FCC39B;
+
+    .p-radiobutton-checked + label {
+      background: $sourceIndicator;
+    }
+  }
+}

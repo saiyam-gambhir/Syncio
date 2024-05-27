@@ -8,7 +8,6 @@ const {
   plan,
   plans,
   selectedPlan,
-  isOnboarding,
 } = toRefs(usePlanStore());
 
 const {
