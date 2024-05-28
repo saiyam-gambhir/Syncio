@@ -16,6 +16,7 @@ const {
 
 const {
   fetchUser,
+  installationComplete,
 } = toRefs(useAuthStore());
 
 /* ----- Mounted ----- */
@@ -24,6 +25,7 @@ onMounted(async () => {
   loading.value = true;
   await fetchUser.value(userId);
   await fetchCurrentPlan.value(userId);
+  await installationComplete.value();
   loading.value = false;
 });
 </script>
