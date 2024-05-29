@@ -7,6 +7,7 @@ const loadingToDashboard = ref(false);
 
 const {
   isDestinationStore,
+  fetchCurrentStore,
 } = toRefs(useConnectionsStore());
 
 const {
@@ -23,7 +24,9 @@ const {
 onMounted(async () => {
   const userId = sessionStorage.getItem('USER_ID');
   loading.value = true;
+
   await fetchUser.value(userId);
+  await fetchCurrentStore.value();
   await fetchCurrentPlan.value(userId);
   await installationComplete.value();
   loading.value = false;
