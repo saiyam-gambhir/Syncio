@@ -79,7 +79,9 @@ const syncProductHandler = async (product) => {
   const response = await SYNC_PRODUCT.value(product.external_product_id);
   if(response?.success) {
     product.mapper_id = await response.mapper.id;
-    Intercom('trackEvent', 'first-product-synced');
+    if(productsSynced.value === 0) {
+      Intercom('trackEvent', 'first-product-synced');
+    }
   }
   updateProductStatus(product, product.external_product_id);
   setTimeout(() => {
