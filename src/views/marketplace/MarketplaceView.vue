@@ -31,7 +31,10 @@ const fetchProfilesHandler = async () => {
 
 <template>
   <section class="marketplace mt-2">
-    <div v-if="!profile.updatedAt && !loading && !loadingProfile">
+    <div v-if="loadingProfile">
+      <MarketplaceViewSkeleton />
+    </div>
+    <div v-else-if="!profile.updatedAt && !loadingProfile">
       <Banner />
     </div>
     <div v-else>
