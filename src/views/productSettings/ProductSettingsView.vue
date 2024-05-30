@@ -10,7 +10,8 @@ const VariantSkeleton = defineAsyncComponent(() => import('./components/VariantS
 
 /* ----- Data ----- */
 const {
-  showLeavingPageDialog
+  isSwitchingStore,
+  showLeavingPageDialog,
 } = toRefs(useAuthStore());
 
 const {
@@ -60,7 +61,7 @@ onMounted(async () => {
 
 /* ----- Before Route Leave ----- */
 onBeforeRouteLeave((to, from, next) => {
-  if(settingsUpdated.value && !forceLeavingPage.value && to.fullPath !== routes.LOGIN) {
+  if(settingsUpdated.value && !forceLeavingPage.value && to.fullPath !== routes.LOGIN && !isSwitchingStore.value) {
     showLeavingPageDialog.value = true;
     routeTo.value = to;
     next(false);

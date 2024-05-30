@@ -13,7 +13,7 @@ const {
 const {
   isDestinationStore,
   storeKey,
-} = useConnectionsStore();
+} = toRefs(useConnectionsStore());
 
 /* ----- Methods ----- */
 const copyStoreKeyHandler = async val => {

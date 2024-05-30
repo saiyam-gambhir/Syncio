@@ -6,17 +6,21 @@ import Loading from './Loading.vue';
 
 /* ----- Data ----- */
 const online = useOnline();
-const auth = useAuthStore();
+const {
+  isNetworkDialogVisible,
+  isSwitchingStore,
+} = toRefs(useAuthStore());
 
 /* ----- Watcher ----- */
 watch(online, () => {
   if (!online.value) {
-    auth.isNetworkDialogVisible = true;
+    isNetworkDialogVisible.value = true;
   }
 });
 </script>
 
 <template>
+  <SwitchStoreLoading v-if="isSwitchingStore" />
   <component :is="$route.meta.layout ?? Loading"></component>
   <NetworkDialog :online="online" v-if="!online" />
 </template>

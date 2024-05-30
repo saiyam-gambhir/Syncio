@@ -15,6 +15,7 @@ const {
   isInviteViaEmailRequested,
   isNewStoreConnectionRequested,
   partnerStoreType,
+  universalStores,
 } = toRefs(useConnectionsStore());
 
 /* ----- Validations ----- */
@@ -32,6 +33,7 @@ const { errors: uniqueKeyErrors, meta: uniqueKeyMeta, defineField: uniqueKeyDefi
 
 const [emailAddress, emailAddressAttrs] = emailDefinedField('emailAddress');
 const [uniqueKey, uniqueKeyAttrs] = uniqueKeyDefinedField('uniqueKey');
+const ownStoreKeyError = ref('');
 
 /* ----- Props ----- */
 const props = defineProps({
@@ -39,6 +41,10 @@ const props = defineProps({
     type: Boolean,
     default: true
   }
+});
+
+watch(uniqueKey, (newVal, oldVal) => {
+  ownStoreKeyError.value = universalStores.value.some(store => store.identifier === newVal) ? "The key you've entered belongs to your own store.<br>Enter the key of a store that doesn't belong to this account." : '';
 });
 
 /* ----- Methods ----- */
@@ -94,13 +100,14 @@ const closeDialogHandler = () => {
         <p class="mb-1">Enter the Syncio Key for the <strong>{{ partnerStoreType }}</strong> that you want to connect to below.</p>
         <p class="mt-1">Once connected you can immediately start syncing products from that store.</p>
         <InputText
-          :class="{ 'mb-3 p-invalid': uniqueKeyErrors.uniqueKey }"
+          :class="{ 'mb-3 p-invalid': uniqueKeyErrors.uniqueKey || ownStoreKeyError !== '' }"
           v-model="uniqueKey"
           v-bind="uniqueKeyAttrs"
           :placeholder="`Enter ${partnerStoreType} unique key`"
           class="p-inputtext-lg w-75 mt-4">
         </InputText>
-        <ValidationMessage :error="uniqueKeyErrors.uniqueKey" style="padding-bottom: 0 !important;" />
+        <ValidationMessage v-if="uniqueKeyErrors.uniqueKey" :error="uniqueKeyErrors.uniqueKey" style="padding-bottom: 0 !important;" />
+        <ValidationMessage v-if="ownStoreKeyError && ownStoreKeyError !== ''" :error="ownStoreKeyError" class="pt-0" style="padding-bottom: 0 !important;" />
       </div>
     </template>
 
@@ -109,7 +116,7 @@ const closeDialogHandler = () => {
         <Button
           @click="isInviteViaEmailRequested = false"
           class="p-button-secondary"
-          label="Go back"
+          label="Back"
           v-if="enableBackBtn">
         </Button>
         <Button
@@ -125,11 +132,11 @@ const closeDialogHandler = () => {
         <Button
           @click="isConnectViaStoreKeyRequested = false"
           class="p-button-secondary"
-          label="Go back"
+          label="Back"
           v-if="enableBackBtn">
         </Button>
         <Button
-          :disabled="!uniqueKeyMeta.valid"
+          :disabled="!uniqueKeyMeta.valid || ownStoreKeyError !== ''"
           :loading="isSendingInvitation"
           @click="connectPartnerStoreHandler(uniqueKey)"
           class="mr-0"

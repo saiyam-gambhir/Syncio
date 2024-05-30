@@ -72,7 +72,6 @@ onMounted(() => {
   <section class="col-12 md:col-7 lg:col-9">
     <h2 class="pb-2">What's New</h2>
     <Carousel
-      :autoplayInterval="5000"
       :numScroll="1"
       :numVisible="1"
       :showNavigators="false"

@@ -97,3 +97,22 @@ select:-webkit-autofill:focus {
   transition: background-color 5000s ease-in-out 0s;
   font-size: 1.25rem !important;
 }
+
+/* Universal store */
+.p-button-destination {
+  border: 0 !important;
+  &.active {
+    background: $destinationIndicator;
+    border-color: $destinationIndicator;
+    color: $primary;
+    pointer-events: none;
+  }
+}
+
+.p-button-source {
+  border: 0 !important;
+  &.active {
+    background: $sourceIndicator;
+    pointer-events: none;
+  }
+}

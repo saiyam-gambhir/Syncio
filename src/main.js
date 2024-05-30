@@ -28,6 +28,7 @@ import Menu from 'primevue/menu';
 import Message from 'primevue/message';
 import Password from 'primevue/password';
 import PrimeVue from 'primevue/config';
+import ProgressBar from 'primevue/progressbar';
 import ProgressSpinner from 'primevue/progressspinner';
 import RadioButton from 'primevue/radiobutton';
 import Ripple from 'primevue/ripple';
@@ -92,6 +93,7 @@ app
   .component('Menu', Menu)
   .component('Message', Message)
   .component('Password', Password)
+  .component('ProgressBar', ProgressBar)
   .component('ProgressSpinner', ProgressSpinner)
   .component('RadioButton', RadioButton)
   .component('SelectButton', SelectButton)
