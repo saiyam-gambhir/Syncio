@@ -44,14 +44,21 @@ onMounted(() => {
 
 /* ----- Methods ----- */
 const updateInventoryHandler = async inventoryId => {
-  if((inventoryId.value === +props.connection.source_default_inventory_location?.external_reference_id) || (inventoryId.value === 0 && !props.connection.source_default_inventory_location)) return;
+  //Prevent user from selecting already selected item menu
+  const allLocationsStatus = props.connection?.status === 'active' || (props.connection?.status === 'pending' && +props.connection?.is_multi_location && !props.connection?.destination_default_inventory_location?.external_reference_id);
+
+  if ((inventoryId.value === +props.connection.source_default_inventory_location?.external_reference_id) || (inventoryId.value === 0 && !props.connection.source_default_inventory_location) && allLocationsStatus) return;
 
   const selectedInventory = sourceLocations.value.find(inventory => inventory.id === inventoryId.value);
 
   const { source_default_inventory_location, store_domain, store_name } = props.connection;
   const currentLocation = sourceLocations?.value?.find(
     location => location.id === +source_default_inventory_location?.external_reference_id
-  ) ?? { id: 0, name: 'All Locations' }
+  );
+
+  if (!currentLocation) {
+    currentLocation = props.connection?.status === 'active' ? { id: 0, name: 'All Locations' } : { id: null, name: null };
+  }
 
   location.value = {
     current: currentLocation,
