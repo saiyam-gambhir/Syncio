@@ -1,4 +1,5 @@
 <script setup>
+import * as routes from '@/routes';
 import * as validationMessages from '@/validationMessages';
 
 /* ----- Mounted ----- */
@@ -52,7 +53,11 @@ const placeHolderImages = computed(() => {
 });
 
 const isActionDisabled = computed(() => {
-  return brandNameError.value || categoryError.value || locationError.value || numOfProductsError.value || socialMediaError.value || websiteError.value;
+  if(progress.value === 25) {
+    return brandNameError.value || websiteError.value;
+  } else if (progress.value === 50) {
+    return locationError.value || categoryError.value || numOfProductsError.value
+  }
 });
 
 /* ----- Methods ----- */
@@ -103,6 +108,10 @@ const deleteFilesFromView = (image, index) => {
   }
 };
 
+const goToNextStepHandler = () => {
+  progress.value += 25;
+};
+
 /* ----- Validations ----- */
 watch(profile, (newValue, oldValue) => {
   const { brandName, category, location, numOfProducts, socialMedia, website } = newValue;
@@ -117,16 +126,21 @@ watch(profile, (newValue, oldValue) => {
 
 <template>
   <section class="mx-auto" style="width: 800px;">
+    <div class="mb-8 px-8 mx-8">
+      <ProgressBar :value="progress" :showValue="false" />
+    </div>
+
     <PageDetails title="Create your Marketplace profile" content="Your profile will help find like minded stores to connect with" />
 
     <aside class="auth-wrapper text-900">
       <template v-if="progress === 25">
+        <h3 class="font-semi text-2xl mb-5">First, let's start with the basics</h3>
         <ul class="list-none p-0 m-0">
-          <li class="flex align-items-center pb-3 pt-5 border-top-1 surface-border flex-wrap">
+          <li class="flex align-items-center pb-3 pt-5 flex-wrap">
             <div class="w-12 font-bold">
-              <label for="brandName" class="font-semibold">Brand name</label>
+              <label for="brandName" class="font-semibold">Business name</label>
             </div>
-            <div class="text-900 w-12">
+            <div class="text-900 w-12 mt-3">
               <InputText
                 :class="{ 'mb-3 p-invalid': brandNameError }"
                 type="text"
@@ -139,9 +153,9 @@ watch(profile, (newValue, oldValue) => {
           </li>
           <li class="flex align-items-center py-3 flex-wrap">
             <div class="w-12 font-bold">
-              <label for="website" class="font-semibold">Website</label>
+              <label for="website" class="font-semibold">Store website</label>
             </div>
-            <div class="text-900 w-12">
+            <div class="text-900 w-12 mt-3">
               <InputText
                 :class="{ 'mb-3 p-invalid': websiteError }"
                 type="text"
@@ -156,13 +170,14 @@ watch(profile, (newValue, oldValue) => {
       </template>
 
       <template v-if="progress === 50">
+        <h3 class="font-semi text-2xl mb-5">Now, add some details to help other stores understand your business</h3>
         <ul class="list-none p-0 m-0">
           <li class="flex align-items-center py-3 flex-wrap">
             <div class="w-12 font-bold">
               <label for="location" class="font-semibold">Location</label>
-              <p class="text-light text-sm font-normal mt-1 mb-0">Your primary country of business</p>
+              <p class="text-light text-sm font-normal mt-2 mb-0">Your primary country of business</p>
             </div>
-            <div class="text-900 w-12">
+            <div class="text-900 w-12 mt-1">
               <Dropdown
                 :autoOptionFocus="false"
                 :class="{ 'mb-3 p-invalid': locationError }"
@@ -183,7 +198,7 @@ watch(profile, (newValue, oldValue) => {
             <div class="w-12 font-bold">
               <label for="category" class="font-semibold">Primary product category</label>
             </div>
-            <div class="text-900 w-12">
+            <div class="text-900 w-12 mt-3">
               <Dropdown
                 showClear
                 :autoOptionFocus="false"
@@ -202,12 +217,13 @@ watch(profile, (newValue, oldValue) => {
             <div class="w-12 font-bold">
               <label for="numOfProducts" class="font-semibold">Number of products</label>
             </div>
-            <div class="text-900 w-12">
+            <div class="text-900 w-12 mt-3">
               <InputText
                 :class="{ 'mb-3 p-invalid': numOfProductsError }"
                 class="w-100"
                 id="numOfProducts"
                 min="0"
+                placeholder="Enter the number of products you stock"
                 type="number"
                 v-model="profile.numOfProducts">
               </InputText>
@@ -220,6 +236,22 @@ watch(profile, (newValue, oldValue) => {
       <template v-if="progress === 75">
 
       </template>
+
+      <div class="border-top-1 border-400 my-5"></div>
+
+      <div class="text-center">
+        <div class="flex align-items-center justify-content-between">
+          <div>
+            <Button v-if="progress > 25" @click="progress -=25" label="Previous step" class="font-bold p-button-secondary"></Button>
+          </div>
+          <div class="flex align-items-center">
+            <router-link :to="isDestinationStore ? routes.SHOPIFY_SELECT_PLAN : routes.SHOPIFY_INSTALLATION_COMPLETE">
+              <a href="javascript:void(0);" class="btn-link mr-5 text-lg">Skip</a>
+            </router-link>
+            <Button @click="goToNextStepHandler" :disabled="isActionDisabled" label="Next" class="font-bold"></Button>
+          </div>
+        </div>
+      </div>
     </aside>
   </section>
 </template>
