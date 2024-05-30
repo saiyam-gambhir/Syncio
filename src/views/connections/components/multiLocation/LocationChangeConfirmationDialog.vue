@@ -32,8 +32,12 @@ const updateLocationHandler = () => {
       <section class="mt-1" v-if="location">
         <p class="m-0 text-center text-lg">
           <span class="block mt-2" v-if="isDestinationStore">You're about to change the inventory receiving location for:</span> <br>
-          <span class="block mt-2" v-if="isSourceStore">You are about to change the inventory location of:</span> <br>
-
+          <div v-if="isSourceStore && location?.status !== 'pending'">
+            <span class="block mt-2">You are about to change the inventory location of:</span> <br>
+          </div>
+          <div v-if="isSourceStore && location?.status === 'pending'">
+            <span class="block mt-2">You are about to set the inventory location for:</span> <br>
+          </div>
           <div class="mb-3">
             <Tag v-if="location?.storeName" severity="info" style="font-size: 1.15rem !important;" class="flex-inline flex-column">
               <span>{{ location.storeName }}</span>
@@ -43,9 +47,16 @@ const updateLocationHandler = () => {
               {{ location.store }}
             </Tag>
           </div>
-
-          <Strong class="inline-block" style="width: 4rem;">FROM:</Strong> <br>
-          <Tag class="my-3" style="text-transform: none !important; font-size: 1.15rem !important;" severity="info">{{ location?.current?.name ?? 'Location Unassigned' }}</Tag> <br>
+          <div v-if="location?.status !== 'pending'">
+            <div>
+              <Strong class="inline-block" style="width: 4rem;">FROM:</Strong> <br>
+            </div>
+            <div>
+              <Tag class="my-3" style="font-size: 1.15rem !important;" severity="info" >
+                {{ location?.current?.name ?? 'Location Unassigned' }}
+              </Tag> <br>
+            </div>
+          </div>
           <Strong class="inline-block" style="width: 4rem;">TO:</Strong> <br>
           <Tag class="mt-3 mb-2" severity="info" style="text-transform: none !important; font-size: 1.15rem !important;">{{ location?.new?.name }}</Tag>
         </p>

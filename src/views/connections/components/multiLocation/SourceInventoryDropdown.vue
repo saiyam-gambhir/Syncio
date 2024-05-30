@@ -31,7 +31,9 @@ onMounted(() => {
 
 /* ----- Methods ----- */
 const updateInventoryHandler = async inventoryId => {
-  if((inventoryId.value === +props.connection.source_default_inventory_location?.external_reference_id) || (inventoryId.value === 0 && !props.connection.source_default_inventory_location)) return;
+  if((inventoryId.value === +props.connection.source_default_inventory_location?.external_reference_id) || (inventoryId.value === 0 && !props.connection.source_default_inventory_location && props.connection.status === 'active')) {
+    return;
+  }
 
   const selectedInventory = sourceLocations.value.find(inventory => inventory.id === inventoryId.value);
 
@@ -45,6 +47,7 @@ const updateInventoryHandler = async inventoryId => {
     new: selectedInventory,
     store: store_domain,
     storeName: store_name,
+    status: props.connection.status
   }
 
   isLocationChangeRequested.value = true;
