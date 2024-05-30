@@ -8,6 +8,7 @@ const loadingStoreType = ref(false);
 const selectedStoreType = ref('');
 
 const {
+  installationComplete,
   isAuthenticated,
   saveShoplineToken,
   storeTypes,
@@ -32,6 +33,8 @@ onMounted(async () => {
 const updateStoreTypeHandler = async (storeType) => {
   loadingStoreType.value = true;
   const response = await updateStoreType.value(storeType);
+  const installationResponse = await installationComplete.value();
+
   if(response?.success) {
     await router.push({ name: routes.SHOPIFY_CONNECT_OR_INVITE_STORE });
     isAuthenticated.value = true;

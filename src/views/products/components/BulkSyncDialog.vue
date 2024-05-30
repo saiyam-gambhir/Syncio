@@ -8,10 +8,17 @@ const {
   bulkSync,
 } = toRefs(useProductsStore());
 
+const {
+  productsSynced,
+} = toRefs(usePlanStore());
+
 /* ----- Methods ----- */
-const closeDialogHandler = () => {
+const closeDialogHandler = async () => {
   bulkSync.value.showDialog = false;
-  fetchProductsHandler();
+  await fetchProductsHandler();
+  if(productsSynced.value === 0) {
+    Intercom('trackEvent', 'first-product-synced');
+  }
 };
 </script>
 
