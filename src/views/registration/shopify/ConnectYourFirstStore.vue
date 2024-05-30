@@ -49,7 +49,6 @@ const options = ref([
 
 const {
   isDestinationStore,
-  isNewStoreConnectionRequested,
   partnerStoreType,
   storeKey,
 } = toRefs(useConnectionsStore());
@@ -70,10 +69,27 @@ const isNextStepEnabled = computed(() => {
 
 /* ----- Methods ----- */
 const goToNextStepHandler = async () => {
-  if(selectedOption.value === 'profile') {
-    await router.push({ name: routes.CREATE_PROFILE })
+  const { value } = selectedOption;
+  if(value === 'profile') {
+    await router.push({ name: routes.CREATE_PROFILE });
+  } else if((value === 'email' && isEmailInvitationSent.value) || (value === 'uniqueKey' && isDestinationStoreConnected.value)) {
+    await router.push({ name: routes.SHOPIFY_INSTALLATION_COMPLETE });
   }
-}
+};
+
+const onConnectPartnerStoreHandler = async(uniqueKey) => {
+  const response = await connectPartnerStoreHandler(uniqueKey);
+  if(response) {
+    isDestinationStoreConnected.value = true;
+  }
+};
+
+const onInvitePartnerStoreHandler = async (emailAddress) => {
+  const response = await invitePartnerStoreHandler(emailAddress);
+  if(response?.success) {
+    isEmailInvitationSent.value = true;
+  }
+};
 </script>
 
 <template>
@@ -101,7 +117,7 @@ const goToNextStepHandler = async () => {
       <template v-if="selectedOption === 'uniqueKey'">
         <h3 class="text-2xl mb-0 font-semi mt-6">Enter Destination store key</h3>
         <p class="text-lg line-height-3 mt-2">You'll be able to sync their products once set up is complete</p>
-        <div class="grid">
+        <div v-if="!isDestinationStoreConnected" class="grid">
           <div class="col-10">
             <InputText
               :class="{ 'mb-3 p-invalid': uniqueKeyErrors.uniqueKey || ownStoreKeyError !== '' }"
@@ -117,12 +133,15 @@ const goToNextStepHandler = async () => {
             <Button
               :disabled="!uniqueKeyMeta.valid || ownStoreKeyError !== ''"
               :loading="isSendingInvitation"
-              @click="connectPartnerStoreHandler(uniqueKey)"
+              @click="onConnectPartnerStoreHandler(uniqueKey)"
               class="mr-0 w-100"
               style="height: 44px;"
               label="Connect">
             </Button>
           </div>
+        </div>
+        <div v-else class="flex align-items-center text-lg mt-5 text-green-600">
+          <i class="pi pi-check-circle pr-3 text-2xl"></i> Connection successful. Manage your connection via the in app Stores page.
         </div>
       </template>
 
@@ -130,7 +149,7 @@ const goToNextStepHandler = async () => {
       <template v-if="selectedOption === 'email'">
         <h3 class="text-2xl mb-0 font-semi mt-6">Invite Destination store via email</h3>
         <p class="text-lg line-height-3 mt-2">This email will include your Unique Store Key <Strong>({{ storeKey }})</Strong> and installation instructions</p>
-        <div class="grid">
+        <div v-if="!isEmailInvitationSent" class="grid">
           <div class="col-10">
             <InputText
               :class="{ 'mb-3 p-invalid': emailErrors.emailAddress }"
@@ -145,12 +164,15 @@ const goToNextStepHandler = async () => {
             <Button
               :disabled="!emailMeta.valid"
               :loading="isSendingInvitation"
-              @click="invitePartnerStoreHandler(emailAddress)"
+              @click="onInvitePartnerStoreHandler(emailAddress)"
               class="mr-0 w-100"
               style="height: 44px;"
               label="Send invite">
             </Button>
           </div>
+        </div>
+        <div v-else class="flex align-items-center text-lg mt-5 text-green-600">
+          <i class="pi pi-check-circle pr-3 text-2xl"></i> Invite sent. You'll be notified when the store accepts your connection invite.
         </div>
       </template>
 
@@ -167,6 +189,4 @@ const goToNextStepHandler = async () => {
 
     </aside>
   </section>
-
-  <ConnectNewStoreDialog v-if="isNewStoreConnectionRequested" :enableBackBtn="false" />
 </template>

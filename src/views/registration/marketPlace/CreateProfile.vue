@@ -134,7 +134,7 @@ watch(profile, (newValue, oldValue) => {
 
     <aside class="auth-wrapper text-900">
       <template v-if="progress === 25">
-        <h3 class="font-semi text-2xl mb-5">First, let's start with the basics</h3>
+        <h3 class="font-semi text-2xl mb-4">First, let's start with the basics</h3>
         <ul class="list-none p-0 m-0">
           <li class="flex align-items-center pb-3 pt-5 flex-wrap">
             <div class="w-12 font-bold">
@@ -170,7 +170,7 @@ watch(profile, (newValue, oldValue) => {
       </template>
 
       <template v-if="progress === 50">
-        <h3 class="font-semi text-2xl mb-5">Now, add some details to help other stores understand your business</h3>
+        <h3 class="font-semi text-2xl mb-4">Now, add some details to help other stores understand your business</h3>
         <ul class="list-none p-0 m-0">
           <li class="flex align-items-center py-3 flex-wrap">
             <div class="w-12 font-bold">

@@ -27,8 +27,9 @@ export function useConnections() {
   const connectPartnerStoreHandler = async (storeIdentifier) => {
     try {
       isSendingInvitation.value = true;
-      await connectPartnerStore.value(storeIdentifier);
+      const response = await connectPartnerStore.value(storeIdentifier);
       isNewStoreConnectionRequested.value = false;
+      return response;
     } catch(error) {
       throw new Error(error);
     } finally {
@@ -39,8 +40,9 @@ export function useConnections() {
   const invitePartnerStoreHandler = async (partnerStoreEmail) => {
     try {
       isSendingInvitation.value = true;
-      await invitePartnerStore.value(partnerStoreEmail);
+      const response = await invitePartnerStore.value(partnerStoreEmail);
       isNewStoreConnectionRequested.value = false;
+      return response;
     } catch(error) {
       throw new Error(error);
     } finally {
