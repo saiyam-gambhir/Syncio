@@ -65,6 +65,7 @@ const updateInventoryHandler = async inventoryId => {
     new: selectedInventory,
     store: store_domain,
     storeName: store_name,
+    status: props.connection.status
   }
 
   isLocationChangeRequested.value = true;

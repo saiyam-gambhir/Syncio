@@ -22,19 +22,19 @@ onMounted(async () => {
 
 /* ----- Methods ----- */
 const fetchProfilesHandler = async () => {
-  if (profiles.value) return;
-  await fetchProfiles.value();
   if (profile.value.brandName) return;
   await fetchProfile.value();
+  if (profiles.value) return;
+  await fetchProfiles.value();
 };
 </script>
 
 <template>
   <section class="marketplace mt-2">
-    <div v-if="loading || loadingProfile">
+    <div v-if="loadingProfile">
       <MarketplaceViewSkeleton />
     </div>
-    <div v-else-if="!profile.updatedAt && !loading && !loadingProfile">
+    <div v-else-if="!profile.updatedAt && !loadingProfile">
       <Banner />
     </div>
     <div v-else>

@@ -32,6 +32,14 @@ $textPrimary: rgba(17, 17, 17, 1);
   font-size: 1rem !important;
 }
 
+.text-highlight {
+  color: #F59E0B;
+}
+
+.surface-highlight {
+  background: #FDEAA7;
+}
+
 .text-small {
   color: var(--text-light) !important;
   margin-left: .1rem !important;
