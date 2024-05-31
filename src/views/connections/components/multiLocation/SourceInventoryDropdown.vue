@@ -26,7 +26,7 @@ onMounted(() => {
 
   //TODO - Need to improve this in the future
   if (props.connection?.status === 'pending') {
-    if (!(+props.connection?.is_multi_location) && !sourceInventoryReferenceId) { // ML is off, SS deactivated location
+    if (!(props.connection?.is_multi_location) && !sourceInventoryReferenceId) { // ML is off, SS deactivated location
       inventoryReferenceId.value = null;
     } else if (destinationInventoryReferenceId && !sourceInventoryReferenceId) { // ML is on, SS deactivated
       inventoryReferenceId.value = null;
@@ -47,18 +47,18 @@ const updateInventoryHandler = async inventoryId => {
   //Prevent user from selecting already selected item menu
   const allLocationsStatus = props.connection?.status === 'active' || (props.connection?.status === 'pending' && +props.connection?.is_multi_location && !props.connection?.destination_default_inventory_location?.external_reference_id);
 
-  if ((inventoryId.value === +props.connection.source_default_inventory_location?.external_reference_id) || (inventoryId.value === 0 && !props.connection.source_default_inventory_location) && allLocationsStatus) return;
+  const defaultSourceLocation = +props.connection.source_default_inventory_location?.external_reference_id === 0 ? null : +props.connection.source_default_inventory_location?.external_reference_id;
+
+  if ((inventoryId.value === defaultSourceLocation) || ((inventoryId.value === 0 && !props.connection.source_default_inventory_location) && allLocationsStatus)) {
+    return;
+  }
 
   const selectedInventory = sourceLocations.value.find(inventory => inventory.id === inventoryId.value);
 
   const { source_default_inventory_location, store_domain, store_name } = props.connection;
   const currentLocation = sourceLocations?.value?.find(
     location => location.id === +source_default_inventory_location?.external_reference_id
-  );
-
-  if (!currentLocation) {
-    currentLocation = props.connection?.status === 'active' ? { id: 0, name: 'All Locations' } : { id: null, name: null };
-  }
+  ) ?? {id: 0, name: 'All Locations'};
 
   location.value = {
     current: currentLocation,
@@ -71,7 +71,7 @@ const updateInventoryHandler = async inventoryId => {
   isLocationChangeRequested.value = true;
 
   const payload = {
-    d_inventory_reference: +props.connection?.destination_default_inventory_location?.external_reference_id,
+    d_inventory_reference: props.connection?.destination_default_inventory_location?.external_reference_id,
     destination_store_id: +props.connection?.id,
     is_default: true,
     name: selectedInventory?.name,
