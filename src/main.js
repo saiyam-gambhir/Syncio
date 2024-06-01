@@ -54,7 +54,6 @@ import VueDatePicker from '@vuepic/vue-datepicker';
 /* ----- Styles ----- */
 import './theme/theme-light.css';
 import '@vuepic/vue-datepicker/dist/main.css';
-import 'primevue/resources/primevue.min.css';
 import 'primeicons/primeicons.css';
 import '/node_modules/primeflex/primeflex.css';
 import './assets/scss/main.scss';

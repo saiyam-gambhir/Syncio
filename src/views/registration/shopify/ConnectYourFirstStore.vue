@@ -105,7 +105,7 @@ const onInvitePartnerStoreHandler = async (emailAddress) => {
           <label class="flex flex-column pr-4 pl-6 text-lg pointer" :for="type">
             {{ btnLabel }}
             <template v-if="description">
-              <span class="mt-2 line-height-3 text-sm">
+              <span class="mt-2 line-height-3" style="font-size: .9rem; color: #212121;">
                 {{ description }}
               </span>
             </template>
@@ -176,7 +176,7 @@ const onInvitePartnerStoreHandler = async (emailAddress) => {
         </div>
       </template>
 
-      <div class="border-top-1 border-400 my-6"></div>
+      <div class="border-top-1 border-300 my-6"></div>
 
       <div class="text-center">
         <div class="flex align-items-center justify-content-end">
