@@ -28,7 +28,6 @@ const isEmailInvitationSent = ref(false);
 const loading = ref(false);
 const selectedOption = ref('');
 const router = useRouter();
-
 const options = ref([
   {
     btnLabel: 'I received a Destination store key',
@@ -73,7 +72,9 @@ const goToNextStepHandler = async () => {
   if(value === 'profile') {
     await router.push({ name: routes.CREATE_PROFILE });
   } else if((value === 'email' && isEmailInvitationSent.value) || (value === 'uniqueKey' && isDestinationStoreConnected.value)) {
+    loading.value = true;
     await router.push({ name: routes.SHOPIFY_INSTALLATION_COMPLETE });
+    loading.value = false;
   }
 };
 
@@ -183,7 +184,13 @@ const onInvitePartnerStoreHandler = async (emailAddress) => {
           <router-link :to="isDestinationStore ? routes.SHOPIFY_SELECT_PLAN : routes.SHOPIFY_INSTALLATION_COMPLETE">
             <a href="javascript:void(0);" class="btn-link mr-5 text-lg">Skip</a>
           </router-link>
-          <Button @click="goToNextStepHandler" :disabled="!isNextStepEnabled" label="Next" class="font-bold justify-content-center"></Button>
+          <Button
+            :disabled="!isNextStepEnabled"
+            :loading="loading"
+            @click="goToNextStepHandler"
+            class="font-bold justify-content-center"
+            label="Next">
+          </Button>
         </div>
       </div>
 

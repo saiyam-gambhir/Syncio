@@ -1,3 +1,4 @@
+/* ----- App ----- */
 export const ACCOUNT_SETTINGS = '/settings/account-settings';
 export const ACTIVITY_CENTER = '/activity-center';
 export const DASHBOARD = '/dashboard';
@@ -41,4 +42,4 @@ export const WOO_VERIFY_STORE_URL = '/registration/woocommerce/verify-store-url'
 
 /* ----- Marketplace onboarding ----- */
 export const CREATE_PROFILE = '/marketplace/create-profile';
-export const PROFILE_COMPLETE = '/marketplace/profile-complete';
+export const PROFILE_CREATED = '/marketplace/profile-created';

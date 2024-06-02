@@ -118,7 +118,7 @@ const createProfileHandler = async () => {
   try {
     loadingCreateProfile.value = true;
     await updateProfile.value();
-    await router.push({ name: routes.PROFILE_COMPLETE });
+    await router.push({ name: routes.PROFILE_CREATED });
   } catch (error) {}
   finally {
     loadingCreateProfile.value = false;
@@ -283,6 +283,21 @@ watch(profile, (newValue, oldValue) => {
               </div>
             </li>
           </ul>
+
+          <div class="border-top-1 border-200 mt-2 mb-4"></div>
+
+          <div class="flex pt-4">
+            <div class="mr-4">
+              <h3 class="text-xl font-semi text-700">Example</h3>
+              <img src="@/assets/images/profile-example.png" alt="Profile example" style="width: 200px;" />
+            </div>
+            <div style="width: 20rem;">
+              <h3 class="text-xl font-semi text-700">Tips</h3>
+              <p class="text-sm">You can use different types of images, such as your company logo, product images, blog post images.</p>
+              <p class="text-sm">Include product images to give partner stores an understanding of what you sell.</p>
+              <p class="text-sm">The order that images appear on your profile will be the same as the order of images above.</p>
+            </div>
+          </div>
         </div>
       </template>
 

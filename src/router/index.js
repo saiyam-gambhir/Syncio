@@ -142,17 +142,16 @@ const router = createRouter({
 
     /* ----- Marketplace onboarding ----- */
     {
-      component: () => import('@/views/registration/marketPlace/ProfileComplete.vue'),
-      meta: { layout: LoggedOut },
-      name: routes.PROFILE_COMPLETE,
-      path: routes.PROFILE_COMPLETE,
-    },
-
-    {
       component: () => import('@/views/registration/marketPlace/CreateProfile.vue'),
       meta: { layout: LoggedOut },
       name: routes.CREATE_PROFILE,
       path: routes.CREATE_PROFILE,
+    },
+    {
+      component: () => import('@/views/registration/marketPlace/ProfileCreated.vue'),
+      meta: { layout: LoggedOut },
+      name: routes.PROFILE_CREATED,
+      path: routes.PROFILE_CREATED,
     },
     /* ----- Marketplace onboarding ----- */
 

@@ -1,6 +1,16 @@
 <script setup>
 import * as routes from '@/routes';
 import router from '@/router';
+
+/* ----- Data ----- */
+const loading = ref(false);
+
+/* ----- Methods ----- */
+const nextStepHandler = async () => {
+  loading.value = true;
+  await router.push({ name: routes.SHOPIFY_INSTALLATION_COMPLETE });
+  loading.value = false;
+};
 </script>
 
 <template>
@@ -14,12 +24,12 @@ import router from '@/router';
       <Divider />
 
       <div class="text-right">
-        <router-link :to="routes.SHOPIFY_INSTALLATION_COMPLETE">
-          <Button
-            class="mt-2 font-bold justify-content-center p-button-lg"
-            label="Finish Installation">
-          </Button>
-        </router-link>
+        <Button
+          :loading="loading"
+          @click="nextStepHandler"
+          class="mt-2 font-bold justify-content-center p-button-lg"
+          label="Finish Installation">
+        </Button>
       </div>
     </aside>
   </section>
