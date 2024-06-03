@@ -125,6 +125,12 @@ const createProfileHandler = async () => {
   }
 };
 
+const skipOnboardingHandler = async () => {
+  loading.value = true;
+  await router.push({ name: routes.SHOPIFY_INSTALLATION_COMPLETE });
+  loading.value = false;
+};
+
 /* ----- Validations ----- */
 watch(profile, (newValue, oldValue) => {
   const { brandName, category, location, numOfProducts, socialMedia, website } = newValue;
@@ -309,9 +315,7 @@ watch(profile, (newValue, oldValue) => {
             <Button v-if="progress > 25" @click="progress -=25" label="Previous step" class="font-bold p-button-secondary"></Button>
           </div>
           <div class="flex align-items-center">
-            <router-link :to="isDestinationStore ? routes.SHOPIFY_SELECT_PLAN : routes.SHOPIFY_INSTALLATION_COMPLETE">
-              <a href="javascript:void(0);" class="btn-link mr-5 text-lg">Skip</a>
-            </router-link>
+            <Button :loading="loading" v-if="progress < 75" @click="skipOnboardingHandler" class="mr-4 text-lg text-blue-500" text>Skip</Button>
             <Button v-if="progress < 75" :loading="loadingProfile" @click="goToNextStepHandler" :disabled="isActionDisabled" label="Next" class="font-bold"></Button>
             <Button v-else :loading="loadingCreateProfile" @click="createProfileHandler" :disabled="isActionDisabled" label="Next" class="font-bold"></Button>
           </div>
