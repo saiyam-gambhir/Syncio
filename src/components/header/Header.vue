@@ -61,6 +61,8 @@ const allowedUniversalStores = ref([
   'qa-shp-live-uni-dest1.myshopify.com',
   'qa-shp-live-uni-source1.myshopify.com',
   'shared-live-uni-1.myshopify.com',
+  'shared-live-uni-2.myshopify.com',
+  'shared-live-uni-3.myshopify.com',
 ]);
 
 /* ----- Mounted ----- */
