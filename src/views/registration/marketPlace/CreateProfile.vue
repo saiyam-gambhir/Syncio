@@ -3,15 +3,6 @@ import * as routes from '@/routes';
 import * as validationMessages from '@/validationMessages';
 import { useRouter } from 'vue-router';
 
-/* ----- Mounted ----- */
-onMounted(async () => {
-  await fetchProfilesHandler();
-});
-
-const fetchProfilesHandler = async () => {
-  await fetchProfile.value();
-};
-
 /* ----- Data ----- */
 const {
   storeId,
