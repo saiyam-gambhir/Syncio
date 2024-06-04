@@ -21,11 +21,11 @@ onMounted(async () => {
 });
 
 /* ----- Methods ----- */
-const fetchProfilesHandler = async () => {
-  if (profiles.value) return;
-  await fetchProfiles.value();
-  if (profile.value.brandName) return;
-  await fetchProfile.value();
+async function fetchProfilesHandler() {
+  const profilesPromise = !profiles.value ? fetchProfiles.value() : Promise.resolve();
+  const profilePromise = !profile.value?.brandName ? fetchProfile.value() : Promise.resolve();
+
+  await Promise.all([profilesPromise, profilePromise]);
 };
 </script>
 
