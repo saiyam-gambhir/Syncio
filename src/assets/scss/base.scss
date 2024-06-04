@@ -978,6 +978,8 @@ svg[data-pc-section="hideicon"] {
 .radio-list {
   li {
     transition: .25s background;
+    padding-top: 2.75rem;
+    padding-bottom: 2.75rem;
   }
 
   li:first-child {
@@ -991,6 +993,13 @@ svg[data-pc-section="hideicon"] {
   }
 
   .selected {
-    background: var(--white);
+    background: aliceblue;
+  }
+
+  label {
+    padding-left: 4.25rem;
+    top: 50%;
+    transform: translateY(-50.5%);
+    z-index: 1;
   }
 }

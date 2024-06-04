@@ -60,7 +60,15 @@ const items = ref([
 const allowedUniversalStores = ref([
   'qa-shp-live-uni-dest1.myshopify.com',
   'qa-shp-live-uni-source1.myshopify.com',
+  'qa-shp-stag-uni-dest1.myshopify.com',
+  'qa-shp-stag-uni-source1.myshopify.com',
   'shared-live-uni-1.myshopify.com',
+  'shared-live-uni-2.myshopify.com',
+  'shared-live-uni-3.myshopify.com',
+  'shared-staging-destination-1.myshopify.com',
+  'shared-staging-source-1.myshopify.com',
+  'shared-staging-uni-1.myshopify.com',
+  'suharsh-test-store.myshopify.com',
 ]);
 
 /* ----- Mounted ----- */
