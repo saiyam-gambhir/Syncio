@@ -44,7 +44,7 @@ const isLoading = computed(() => {
 const fetchActiveTabPayouts = async () => {
   switch (activeTabIndex.value) {
     case 0:
-      arePayableOrdersVisible.value ? await fetchPayableOrders.value() : await fetchPayoutOrdersHandler(selectedPayoutOrdersStore.value);
+      arePayableOrdersVisible.value ? await fetchPayableOrders.value() : await fetchPayoutOrdersHandler(1, selectedPayoutOrdersStore.value);
       break;
 
     case 1:
@@ -124,7 +124,7 @@ const onSelectDateHandler = async ([startDate, endDate]) => {
 
 const searchHandler = async (searchText) => {
   payoutOrdersSearchString.value = searchText;
-  await fetchPayoutOrdersHandler(selectedPayoutOrdersStore.value);
+  await fetchPayoutOrdersHandler(1, selectedPayoutOrdersStore.value);
 };
 </script>
 
