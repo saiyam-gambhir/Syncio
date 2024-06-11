@@ -39,9 +39,7 @@ const enableStoreHandler = async () => {
 
 const selectPlanHandler = async () => {
   await enableStore();
-  router.push({
-    path: routes.SHOPIFY_SELECT_PLAN,
-  });
+  router.push({ path: routes.SHOPIFY_SELECT_PLAN });
 };
 </script>
 

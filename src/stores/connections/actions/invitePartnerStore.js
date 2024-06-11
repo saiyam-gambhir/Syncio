@@ -6,5 +6,6 @@ export const invitePartnerStore = {
     };
 
     const response = await axiosService.postData('stores/invite-to-connect', params);
+    return response;
   }
 };
