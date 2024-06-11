@@ -22,16 +22,34 @@ const props = defineProps({
 /* ----- Mounted ----- */
 onMounted(() => {
   const sourceInventoryReferenceId = props.connection?.source_default_inventory_location?.external_reference_id;
+  const destinationInventoryReferenceId = +props.connection?.destination_default_inventory_location?.external_reference_id;
+
+  //TODO - Need to improve this in the future
   if (props.connection?.status === 'pending') {
-    inventoryReferenceId.value = null;
-  } else {
+    if (!(props.connection?.is_multi_location) && !sourceInventoryReferenceId) { // ML is off, SS deactivated location
+      inventoryReferenceId.value = null;
+    } else if (destinationInventoryReferenceId && !sourceInventoryReferenceId) { // ML is on, SS deactivated
+      inventoryReferenceId.value = null;
+    } else if (!destinationInventoryReferenceId && !sourceInventoryReferenceId) { // ML is on, DS deactivated (SS may or may not have deactivated)
+      // This needs to be looked into in the future. If DS deactivates and SS has all locations, set to null to show SS there's a deactivation
+      // This is due to no difference between deactivated store and all locations in back-end
+      inventoryReferenceId.value = null; 
+    } else {
+      inventoryReferenceId.value = +sourceInventoryReferenceId;
+    }
+  } else { // Status is active
     inventoryReferenceId.value = sourceInventoryReferenceId ? +sourceInventoryReferenceId : 0;
   }
 });
 
 /* ----- Methods ----- */
 const updateInventoryHandler = async inventoryId => {
-  if((inventoryId.value === +props.connection.source_default_inventory_location?.external_reference_id) || (inventoryId.value === 0 && !props.connection.source_default_inventory_location && props.connection.status === 'active')) {
+  //Prevent user from selecting already selected item menu
+  const allLocationsStatus = props.connection?.status === 'active' || (props.connection?.status === 'pending' && +props.connection?.is_multi_location && !props.connection?.destination_default_inventory_location?.external_reference_id);
+
+  const defaultSourceLocation = +props.connection.source_default_inventory_location?.external_reference_id === 0 ? null : +props.connection.source_default_inventory_location?.external_reference_id;
+
+  if ((inventoryId.value === defaultSourceLocation) || ((inventoryId.value === 0 && !props.connection.source_default_inventory_location) && allLocationsStatus)) {
     return;
   }
 
@@ -40,7 +58,7 @@ const updateInventoryHandler = async inventoryId => {
   const { source_default_inventory_location, store_domain, store_name } = props.connection;
   const currentLocation = sourceLocations?.value?.find(
     location => location.id === +source_default_inventory_location?.external_reference_id
-  ) ?? { id: 0, name: 'All Locations' }
+  ) ?? {id: 0, name: 'All Locations'};
 
   location.value = {
     current: currentLocation,
@@ -53,7 +71,7 @@ const updateInventoryHandler = async inventoryId => {
   isLocationChangeRequested.value = true;
 
   const payload = {
-    d_inventory_reference: +props.connection?.destination_default_inventory_location?.external_reference_id,
+    d_inventory_reference: props.connection?.destination_default_inventory_location?.external_reference_id,
     destination_store_id: +props.connection?.id,
     is_default: true,
     name: selectedInventory?.name,
