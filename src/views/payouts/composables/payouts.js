@@ -41,8 +41,8 @@ export function usePayouts() {
     await payouts.fetchPayablePayouts({ targetStoreId });
   };
 
-  const fetchPayoutOrdersHandler = async targetStoreId => {
-    await payouts.fetchPayoutOrders({ targetStoreId: targetStoreId });
+  const fetchPayoutOrdersHandler = async (page, targetStoreId) => {
+    await payouts.fetchPayoutOrders({ page: page, targetStoreId: targetStoreId });
     payouts.selectedPayoutOrdersStore = targetStoreId;
   };
 

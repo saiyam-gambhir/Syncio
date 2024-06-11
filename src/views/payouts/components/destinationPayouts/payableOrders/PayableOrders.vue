@@ -90,7 +90,7 @@ onMounted(async () => {
       <Column header="Actions" style="width: 16.5%" class="text-right">
         <template #body="{ data: { id } }">
           <Button
-            @click="fetchPayoutOrdersHandler(id)"
+            @click="fetchPayoutOrdersHandler(1, id)"
             class="p-button-sm"
             label="View details"
             outlined>

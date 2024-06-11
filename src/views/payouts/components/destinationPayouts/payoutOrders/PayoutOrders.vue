@@ -5,13 +5,15 @@ const {
 } = useFilters();
 
 const {
-  fetchPayoutPreviewHandler
+  fetchPayoutOrdersHandler,
+  fetchPayoutPreviewHandler,
 } = usePayouts();
 
 const {
   isCreatePayoutDetailsRequested,
   payoutOrders,
   selectedPayoutOrders,
+  selectedPayoutOrdersStore,
 } = toRefs(usePayoutsStore());
 
 const {
@@ -38,17 +40,16 @@ const selectedPayoutsDetails = computed(() => {
 });
 
 /* ----- Methods ----- */
-/**
- * Todo: Fix pagination
-*/
-const updateCurrentPageHandler = (page) => {};
-
 const clearSelectionHandler = () => {
   selectedPayoutOrders.value = [];
 };
 
 const isRowSelectedHandler = (data) => {
   return isCheckboxSelected(data, selectedPayoutOrders.value, 'order_id');
+};
+
+const updateCurrentPageHandler = page => {
+  fetchPayoutOrdersHandler(page, selectedPayoutOrdersStore.value);
 };
 </script>
 

@@ -63,6 +63,7 @@ const allowedUniversalStores = ref([
   'shared-live-uni-1.myshopify.com',
   'shared-live-uni-2.myshopify.com',
   'shared-live-uni-3.myshopify.com',
+  'syncio-test-store-21.myshopify.com',
 ]);
 
 /* ----- Mounted ----- */
