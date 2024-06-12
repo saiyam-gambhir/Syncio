@@ -1,3 +1,4 @@
+/* ----- App ----- */
 export const ACCOUNT_SETTINGS = '/settings/account-settings';
 export const ACTIVITY_CENTER = '/activity-center';
 export const DASHBOARD = '/dashboard';
@@ -19,6 +20,7 @@ export const STORES = '/stores';
 
 /* ----- Shopify ----- */
 export const SHOPIFY_CONNECT_OR_INVITE_STORE = '/shopify/connect-or-invite-store';
+export const SHOPIFY_CONNECT_YOUR_FIRST_STORE = '/shopify/connect-your-first-store'
 export const SHOPIFY_INSTALLATION_COMPLETE = '/shopify/installation-complete';
 export const SHOPIFY_SELECT_PLAN = '/shopify/select-plan';
 export const SHOPIFY_SELECT_STORE_TYPE = '/shopify/select-store-type';
@@ -37,3 +39,7 @@ export const WOO_INSTALLATION_COMPLETED = '/woocommerce/installation-completed';
 export const WOO_PERMISSIONS = '/registration/woocommerce/permissions';
 export const WOO_SELECT_STORE_TYPE = '/registration/woocommerce/select-store-type';
 export const WOO_VERIFY_STORE_URL = '/registration/woocommerce/verify-store-url';
+
+/* ----- Marketplace onboarding ----- */
+export const CREATE_PROFILE = '/marketplace/create-profile';
+export const PROFILE_CREATED = '/marketplace/profile-created';

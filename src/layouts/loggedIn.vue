@@ -6,17 +6,17 @@ const {
 } = toRefs(useConnectionsStore());
 
 const slackChannelBannerGroup = ref([
-  // '19grams-specialty-coffee-roasters.myshopify.com',
-  // '2dba1f-4.myshopify.com',
-  // 'gear-as-rx.myshopify.com',
-  // 'hi-desert-daydream.myshopify.com',
-  // 'roaming-travelers.myshopify.com',
-  // 'the-green-box-australia.myshopify.com',
-  // 'wholesaleplug-com-au.myshopify.com',
+  '19grams-specialty-coffee-roasters.myshopify.com',
+  '2dba1f-4.myshopify.com',
+  'gear-as-rx.myshopify.com',
+  'hi-desert-daydream.myshopify.com',
+  'roaming-travelers.myshopify.com',
+  'the-green-box-australia.myshopify.com',
+  'wholesaleplug-com-au.myshopify.com',
 ]);
 
 const inAppChatBannerGroup = ref([
-  // 'buyfsa.myshopify.com',
+  'buyfsa.myshopify.com',
 ]);
 
 /* ----- Mounted ----- */

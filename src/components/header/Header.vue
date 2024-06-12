@@ -46,24 +46,27 @@ const items = ref([
   },
 ]);
 
-// const allowedUniversalStores = ref([
-//   '19grams-specialty-coffee-roasters.myshopify.com',
-//   '2dba1f-4.myshopify.com',
-//   'buyfsa.myshopify.com',
-//   'gear-as-rx.myshopify.com',
-//   'hi-desert-daydream.myshopify.com',
-//   'roaming-travelers.myshopify.com',
-//   'the-green-box-australia.myshopify.com',
-//   'wholesaleplug-com-au.myshopify.com',
-// ]);
-
 const allowedUniversalStores = ref([
+  '19grams-specialty-coffee-roasters.myshopify.com',
+  '2dba1f-4.myshopify.com',
+  'buyfsa.myshopify.com',
+  'gear-as-rx.myshopify.com',
+  'hi-desert-daydream.myshopify.com',
   'qa-shp-live-uni-dest1.myshopify.com',
   'qa-shp-live-uni-source1.myshopify.com',
+  'qa-shp-stag-uni-dest1.myshopify.com',
+  'qa-shp-stag-uni-source1.myshopify.com',
+  'roaming-travelers.myshopify.com',
   'shared-live-uni-1.myshopify.com',
   'shared-live-uni-2.myshopify.com',
   'shared-live-uni-3.myshopify.com',
+  'shared-staging-destination-1.myshopify.com',
+  'shared-staging-source-1.myshopify.com',
+  'shared-staging-uni-1.myshopify.com',
+  'suharsh-test-store.myshopify.com',
   'syncio-test-store-21.myshopify.com',
+  'the-green-box-australia.myshopify.com',
+  'wholesaleplug-com-au.myshopify.com',
 ]);
 
 /* ----- Mounted ----- */

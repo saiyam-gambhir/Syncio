@@ -32,7 +32,7 @@ html {
   font-family: 'Inter Tight', sans-serif;
   font-size: var(--font-size);
   font-weight: $fontNormal;
-  letter-spacing: 0.025rem;
+  letter-spacing: 0.04rem;
   min-width: 1024px;
 
   &:not(.theme-light) {
@@ -639,8 +639,6 @@ input.p-inputtext-lg {
 .p-datatable .p-datatable-tbody>tr.p-highlight {
   background-color: aliceblue !important;
 }
-
-
 /* ----- OVERRIDES ----- */
 
 .theme-light .primary-navigation {
@@ -975,4 +973,33 @@ svg[data-pc-section="hideicon"] {
   background: #e3f2ff;
   border-bottom: solid 1px var(--surface-border);
   color: #0052aa;
+}
+
+.radio-list {
+  li {
+    transition: .25s background;
+    padding-top: 2.75rem;
+    padding-bottom: 2.75rem;
+  }
+
+  li:first-child {
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: var(--border-radius);
+  }
+
+  li:last-child {
+    border-bottom-left-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+  }
+
+  .selected {
+    background: aliceblue;
+  }
+
+  label {
+    padding-left: 4.25rem;
+    top: 50%;
+    transform: translateY(-50.5%);
+    z-index: 1;
+  }
 }

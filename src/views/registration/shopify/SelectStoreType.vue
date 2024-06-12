@@ -15,6 +15,10 @@ const {
   updateStoreType,
 } = toRefs(useAuthStore());
 
+const {
+  isShopify,
+} = toRefs(useConnectionsStore());
+
 const route = useRoute();
 const router = useRouter();
 
@@ -40,7 +44,10 @@ const updateStoreTypeHandler = async (storeType) => {
   const installationResponse = await installationComplete.value();
 
   if(response?.success) {
-    await router.push({ name: routes.SHOPIFY_CONNECT_OR_INVITE_STORE });
+    selectedStoreType.value === 'source' && isShopify.value
+      ? await router.push({ name: routes.SHOPIFY_CONNECT_YOUR_FIRST_STORE })
+      : await router.push({ name: routes.SHOPIFY_CONNECT_OR_INVITE_STORE });
+
     isAuthenticated.value = true;
     loadingStoreType.value = true;
   }

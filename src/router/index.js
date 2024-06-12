@@ -49,6 +49,12 @@ const router = createRouter({
       path: routes.SHOPIFY_CONNECT_OR_INVITE_STORE,
     },
     {
+      component: () => import('@/views/registration/shopify/ConnectYourFirstStore.vue'),
+      meta: { layout: LoggedOut },
+      name: routes.SHOPIFY_CONNECT_YOUR_FIRST_STORE,
+      path: routes.SHOPIFY_CONNECT_YOUR_FIRST_STORE,
+    },
+    {
       component: () => import('@/views/registration/shopify/SelectPlan.vue'),
       meta: { layout: LoggedOut },
       name: routes.SHOPIFY_SELECT_PLAN,
@@ -134,6 +140,22 @@ const router = createRouter({
     },
     /* ----- Woocommerce ----- */
 
+    /* ----- Marketplace onboarding ----- */
+    {
+      component: () => import('@/views/registration/marketPlace/CreateProfile.vue'),
+      meta: { layout: LoggedOut },
+      name: routes.CREATE_PROFILE,
+      path: routes.CREATE_PROFILE,
+    },
+    {
+      component: () => import('@/views/registration/marketPlace/ProfileCreated.vue'),
+      meta: { layout: LoggedOut },
+      name: routes.PROFILE_CREATED,
+      path: routes.PROFILE_CREATED,
+    },
+    /* ----- Marketplace onboarding ----- */
+
+    /* ----- App ----- */
     {
       component: DashboardView,
       meta: { ...meta },
@@ -224,6 +246,7 @@ const router = createRouter({
       name: routes.SETTINGS,
       path: routes.SETTINGS,
     },
+    /* ----- App ----- */
   ],
 });
 
