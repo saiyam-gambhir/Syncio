@@ -75,7 +75,7 @@ const updateInventoryHandler = async inventoryId => {
     optionLabel="name"
     optionValue="id"
     placeholder="Select Location"
-    v-if="isMultilocation && connection.platform === 'shopify'"
+    v-if="isMultilocation && connection.platform !== 'shopline'"
     v-model="inventoryReferenceId">
   </Dropdown>
 
