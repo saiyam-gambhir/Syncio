@@ -104,7 +104,6 @@ watch(newQuantity, () => {
                     Ongoing sync of the <i>Cost Per Item</i> field. If the Source store has enabled this setting then the Cost Per Item field will sync on initial import, regardless of this setting.
                     <br><br>
                     <strong>Important:</strong> For ongoing sync to work, Cost Per Item setting must also be enabled in the connected Source stores Product Settings.
-                    different.
                   </span>
 
                   <span v-if="setting.key === 'sync_variant_title'">
