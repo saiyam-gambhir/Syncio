@@ -80,12 +80,11 @@ watch(newQuantity, () => {
                 </p>
                 <p class="mt-2 mb-0 text-lg">
                   <span v-if="setting.key === 'auto_add_product_variant'">
-                    Ongoing sync of new variants.
+                    Ongoing sync of new values added to existing variants.
                     <br>
-                    When a new variant is added to a synced product on the Source store, Syncio will auto-add the variant
-                    to the corresponding product on the Destination store.
+                    When a new value (e.g. small) is added to an existing variant (e.g. size) on the Source store product, Syncio will auto-add the value to the synced product on the Destination store.
                     <br><br>
-                    <strong>Note:</strong> Syncio does not add/remove.
+                    <strong>Note:</strong> Syncio does not add new variants (e.g. color) for synced products.
                   </span>
 
                   <span v-if="setting.key === 'sync_inventory_policy'">
@@ -94,19 +93,17 @@ watch(newQuantity, () => {
                   </span>
 
                   <span v-if="setting.key === 'auto_remove_product_variant'">
-                    Ongoing sync of removed variants.
+                    Ongoing sync of values removed from existing variants.
                     <br><br>
-                    When a variant is removed from a synced product on the Source store, Syncio will auto-remove the
-                    variant from the corresponding product on the Destination store.
+                    When a value (e.g. small) is removed from an existing variant (e.g. size) on the Source store product, Syncio will auto-remove the value from the synced product on the Destination store.
                     <br><br>
-                    <strong>Note:</strong> Syncio does not add.
+                    <strong>Note:</strong> Syncio does not remove variants (e.g. color) for synced products.
                   </span>
 
                   <span v-if="setting.key === 'd_sync_cost_per_item'">
-                    Ongoing sync of the <i>Cost Per Item</i> field. If the Source store has enabled this setting then the cost price will sync on import, regardless of this setting.
+                    Ongoing sync of the <i>Cost Per Item</i> field. If the Source store has enabled this setting then the Cost Per Item field will sync on initial import, regardless of this setting.
                     <br><br>
-                    <strong>Note:</strong> Requires connected Source stores to turn on Cost Per Item in their Product Settings
-                    different.
+                    <strong>Important:</strong> For ongoing sync to work, Cost Per Item setting must also be enabled in the connected Source stores Product Settings.
                   </span>
 
                   <span v-if="setting.key === 'sync_variant_title'">

@@ -195,9 +195,9 @@ const onChangeHandler = ({ is_active, key }) => {
                 </p>
                 <p class="mt-2 mb-0 text-lg">
                   <span v-if="setting.key === 'sync_cost_per_item'">
-                    Allow connected stores to sync the <i>Cost Per Item</i> field
+                    Allow connected Destination stores to sync the <i>Cost Per Item</i> field on initial import and ongoing sync.
                     <br><br>
-                    <strong>Note: </strong> Requires connected Destination stores to turn on Cost Per Item in their Product Settings
+                    <strong>Note: </strong> Ongoing sync requires connected Destination stores to also turn on Cost Per Item in their Product Settings.
                   </span>
                   <span v-else-if="setting.key === 's_sync_metafields'">
                     Allow Destination stores to sync product and variant metafields.
