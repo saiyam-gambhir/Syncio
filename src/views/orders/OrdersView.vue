@@ -12,6 +12,7 @@ const {
   addons,
   isOrderLimitReached,
   ordersAvailableToPush,
+  ordersPushed,
   shouldShowOrderPushLimitDialog,
 } = toRefs(usePlanStore());
 
@@ -38,6 +39,10 @@ const {
   selectedOrders,
 } = toRefs(useOrdersStore());
 
+const {
+  isShopify,
+} = toRefs(useConnectionsStore());
+
 const options = ref(['Off', 'On']);
 const router = useRouter();
 let isAllChecked = ref(false);
@@ -55,6 +60,11 @@ onMounted(async () => {
   fetchOrders.value();
   await fetchPushSettings();
   setAutoPushStatus();
+
+  // Intercom event - Order module is not paid && Number of orders available to push > 0 && number of order pushed === 0
+  if(!addons.value?.isOrderModulePaid && ordersAvailableToPush.value > 0 && ordersPushed.value === 0 && isShopify.value) {
+    Intercom('trackEvent', 'first-order-received');
+  }
 });
 
 /* ----- Before Route Leave ----- */
