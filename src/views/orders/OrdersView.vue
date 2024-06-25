@@ -26,6 +26,7 @@ const {
 } = useOrders();
 
 const {
+  areOrdersAvailableToPush,
   fetchOrders,
   isAutoPushEnabled,
   isBulkPushActive,
@@ -57,12 +58,12 @@ onMounted(async () => {
     return;
   }
 
-  fetchOrders.value();
+  await fetchOrders.value();
   await fetchPushSettings();
   setAutoPushStatus();
 
   // Intercom event - Order module is not paid && Number of orders available to push > 0 && number of order pushed === 0
-  if(!addons.value?.isOrderModulePaid && ordersAvailableToPush.value > 0 && ordersPushed.value === 0 && isShopify.value) {
+  if(!addons.value?.isOrderModulePaid && areOrdersAvailableToPush.value && ordersPushed.value === 0 && isShopify.value) {
     Intercom('trackEvent', 'first-order-received');
   }
 });

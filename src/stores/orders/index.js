@@ -66,7 +66,11 @@ export const useOrdersStore = defineStore('orders', {
     storeId() {
       const { storeId } = useConnectionsStore();
       return storeId;
-    }
+    },
+
+    areOrdersAvailableToPush(state) {
+      return state?.orders.some(order => order.push_status === 'not_pushed');
+    },
   },
 
   actions: deepmerge.all([
