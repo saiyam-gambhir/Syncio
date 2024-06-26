@@ -16,6 +16,7 @@ const slackChannelBannerGroup = ref([
 ]);
 
 const inAppChatBannerGroup = ref([
+  '7db37a-a9.myshopify.com',
   'buyfsa.myshopify.com',
 ]);
 

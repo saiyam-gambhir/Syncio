@@ -49,6 +49,7 @@ const items = ref([
 const allowedUniversalStores = ref([
   '19grams-specialty-coffee-roasters.myshopify.com',
   '2dba1f-4.myshopify.com',
+  '7db37a-a9.myshopify.com',
   'buyfsa.myshopify.com',
   'gear-as-rx.myshopify.com',
   'hi-desert-daydream.myshopify.com',
