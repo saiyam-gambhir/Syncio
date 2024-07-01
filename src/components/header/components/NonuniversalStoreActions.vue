@@ -45,9 +45,11 @@ const copyStoreNameHandler = async val => {
     <Button
       @click="isEnableUniversalStoreRequested = true"
       class="text-900 font-normal"
-      icon="pi pi-plus-circle"
-      label="Enable Source"
       outlined>
+      <span class="font-semibold flex align-items-center">
+        <i class="pi pi-plus-circle mr-2"></i>
+        Enable Source <span class="font-normal ml-1">(Beta)</span>
+      </span>
     </Button>
 
     <Divider layout="vertical" class="mx-3" />
@@ -70,9 +72,11 @@ const copyStoreNameHandler = async val => {
     <Button
       @click="isEnableUniversalStoreRequested = true"
       class="text-900 font-normal"
-      icon="pi pi-plus-circle"
-      label="Enable Destination"
       outlined>
+        <span class="font-semibold flex align-items-center">
+          <i class="pi pi-plus-circle mr-2"></i>
+          Enable Destination <span class="font-normal ml-1">(Beta)</span>
+        </span>
     </Button>
   </div>
 </template>
