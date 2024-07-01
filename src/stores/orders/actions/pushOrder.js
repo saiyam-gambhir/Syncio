@@ -13,6 +13,8 @@ export const pushOrder = {
         this.order = await order;
         await this.fetchOrders();
       }
+
+      return success;
     } catch(error) {
     } finally {
       this.loadingOrder = false;

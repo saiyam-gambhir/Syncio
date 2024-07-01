@@ -1,5 +1,6 @@
 <script setup>
 import { useRouter } from 'vue-router';
+import * as IntercomActions from '@/intercom';
 import * as routes from '@/routes';
 
 /* ----- Components ----- */
@@ -64,7 +65,7 @@ onMounted(async () => {
 
   // Intercom event - Order module is not paid && Number of orders available to push > 0 && number of order pushed === 0
   if(!addons.value?.isOrderModulePaid && areOrdersAvailableToPush.value && ordersPushed.value === 0 && isShopify.value) {
-    Intercom('trackEvent', 'first-order-received');
+    Intercom('trackEvent', IntercomActions.FIRST_ORDER_RECEIVED_EVENT);
   }
 });
 

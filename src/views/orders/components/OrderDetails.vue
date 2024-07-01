@@ -64,11 +64,11 @@ const fetchOrderSummary = async index => {
 };
 
 const fetchPreviousOrderSummary = () => {
-  fetchOrderSummary(1)
+  fetchOrderSummary(1);
 };
 
 const fetchNextOrderSummary = () => {
-  fetchOrderSummary(-1)
+  fetchOrderSummary(-1);
 };
 
 const onOrderPushHandler = () => {

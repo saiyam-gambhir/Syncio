@@ -1,5 +1,7 @@
 <script setup>
 import { useForm } from 'vee-validate';
+import * as IntercomActions from '@/intercom';
+import * as routes from '@/routes';
 import * as validationMessages from '@/validationMessages';
 import * as yup from 'yup';
 
@@ -11,12 +13,15 @@ const {
 } = useConnections();
 
 const {
+  connections,
   isConnectViaStoreKeyRequested,
   isInviteViaEmailRequested,
   isNewStoreConnectionRequested,
   partnerStoreType,
   universalStores,
 } = toRefs(useConnectionsStore());
+
+const route = useRoute();
 
 /* ----- Validations ----- */
 const { errors: emailErrors, meta: emailMeta, defineField: emailDefinedField } = useForm({
@@ -50,6 +55,20 @@ watch(uniqueKey, (newVal, oldVal) => {
 /* ----- Methods ----- */
 const closeDialogHandler = () => {
   isNewStoreConnectionRequested.value = false;
+};
+
+const onConnectPartnerStoreHandler = async (uniqueKey) => {
+  const response = await connectPartnerStoreHandler(uniqueKey);
+  if(route.name === routes.STORES && response) {
+    switch (connections.value?.length) {
+      case 1:
+        Intercom('trackEvent', IntercomActions.FIRST_STORE_CONNECTION_EVENT);
+        break;
+      default:
+        Intercom('trackEvent', IntercomActions.ADDITIONAL_STORE_CONNECTION_EVENT);
+        break;
+    }
+  }
 };
 </script>
 
@@ -138,7 +157,7 @@ const closeDialogHandler = () => {
         <Button
           :disabled="!uniqueKeyMeta.valid || ownStoreKeyError !== ''"
           :loading="isSendingInvitation"
-          @click="connectPartnerStoreHandler(uniqueKey)"
+          @click="onConnectPartnerStoreHandler(uniqueKey)"
           class="mr-0"
           label="Connect">
         </Button>

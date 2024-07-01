@@ -1,5 +1,6 @@
 <script setup>
 import { useForm } from 'vee-validate';
+import * as IntercomActions from '@/intercom';
 import * as validationMessages from '@/validationMessages';
 import * as yup from 'yup';
 
@@ -14,6 +15,7 @@ const {
 
 const {
   isOrderLimitReached,
+  ordersPushed,
   shouldShowOrderPushLimitDialog,
 } = toRefs(usePlanStore());
 
@@ -58,9 +60,14 @@ const pushOrderHandler = async (targetStoreId) => {
     targetStoreId: targetStoreId,
   };
 
-  await pushOrder.value(payload);
-  emits('onOrderPush', true);
-  loading.value = false;
+  const success = await pushOrder.value(payload);
+  if(success) {
+    emits('onOrderPush', true);
+    loading.value = false;
+    if(ordersPushed.value === 0) {
+      Intercom('trackEvent', IntercomActions.FIRST_ORDER_PUSHED_EVENT);
+    }
+  }
 };
 </script>
 

@@ -1,4 +1,5 @@
 <script setup>
+import * as IntercomActions from '@/intercom';
 import * as validationMessages from '@/validationMessages';
 
 /* ----- Components ----- */
@@ -97,6 +98,16 @@ const deleteFilesFromView = (image, index) => {
   }
 };
 
+const updateProfileHandler = async () => {
+  const isProfileCreated = profile.value?.updatedAt;
+  await updateProfile.value();
+
+  // Trigger for the first time
+  if(!isProfileCreated) {
+    Intercom('trackEvent', IntercomActions.MARKETPLACE_PROFILE_CREATED_EVENT);
+  }
+};
+
 /* ----- Validations ----- */
 watch(profile, (newValue, oldValue) => {
   const { brandName, category, location, numOfProducts, socialMedia, website } = newValue;
@@ -130,7 +141,7 @@ watch(profile, (newValue, oldValue) => {
         :disabled="isActionDisabled"
         :label="profile.updatedAt ? 'Save' : 'Create profile'"
         :loading="loadingProfile"
-        @click="updateProfile"
+        @click="updateProfileHandler"
         class="ml-3">
       </Button>
     </template>
