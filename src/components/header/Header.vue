@@ -148,6 +148,7 @@ const allowedUniversalStores = ref([
   'inviz-tv.myshopify.com',
   'just-perfect-collection.myshopify.com',
   'k7-pro-inc.myshopify.com',
+  'kalker-koisa.myshopify.com',
   'kjanee.myshopify.com',
   'koalababyorganicsau.myshopify.com',
   'koh-pos.myshopify.com',
@@ -208,6 +209,7 @@ const allowedUniversalStores = ref([
   'roseskinco-us.myshopify.com',
   'rvn-official.myshopify.com',
   'saidtheskyofficial.myshopify.com',
+  'saiyamgambhir.myshopify.com',
   'schoolbags-ie.myshopify.com',
   'scripturepicturellc.myshopify.com',
   'seal-custom.myshopify.com',
@@ -268,7 +270,6 @@ const allowedUniversalStores = ref([
   'wholesaleplug-com-au.myshopify.com',
   'www-holyghost-fashion-com-shop.myshopify.com',
   'zebra-vegan-shop.myshopify.com',
-  'saiyamgambhir.myshopify.com',
 ]);
 
 /* ----- Mounted ----- */
