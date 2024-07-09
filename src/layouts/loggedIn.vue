@@ -95,6 +95,7 @@ const randomBannerGroup = ref([
   'gear-for-festivals.myshopify.com',
   'gentlemans-journal-shop.myshopify.com',
   'giorgia-shp-live-dest.myshopify.com',
+  'grainvine.myshopify.com',
   'green-pebble.myshopify.com',
   'groovygirlgifts.myshopify.com',
   'gtfoverland.myshopify.com',
