@@ -224,6 +224,7 @@ const randomBannerGroup = ref([
   'wholesale-moveactive.myshopify.com',
   'www-holyghost-fashion-com-shop.myshopify.com',
   'zebra-vegan-shop.myshopify.com',
+  'e77029-4.myshopify.com',
 ]);
 
 /* ----- Mounted ----- */
