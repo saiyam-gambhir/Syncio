@@ -2,9 +2,9 @@ export const fetchOrders = {
   async fetchOrders(page = 1, isLoadMore = false) {
     !isLoadMore ? this.loadingOrders = true : this.loadingMoreOrders = true;
     this.isBulkPushActive = false;
-    const { searchString, sortBy } = this.filters;
+    const { searchString, sortBy, status } = this.filters;
     const params = {
-      'filters[status]': 'all',
+      status: status,
       page,
       searchStr: searchString,
       sortBy: sortBy,

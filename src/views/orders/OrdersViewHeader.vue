@@ -5,6 +5,7 @@ const {
   filters,
   loadingOrders,
   sortOptions,
+  statusOptions,
 } = toRefs(useOrdersStore());
 
 /* ----- Methods ----- */
@@ -16,7 +17,7 @@ const searchHandler = async (searchText) => {
 
 <template>
   <div class="grid grid-sm">
-    <div class="col-10 pb-0">
+    <div class="col-8 pb-0">
       <div class="p-inputgroup w-100">
         <SearchFilter
           :loading="loadingOrders"
@@ -30,13 +31,34 @@ const searchHandler = async (searchText) => {
       <div class="p-inputgroup w-100">
         <Dropdown
           :loading="loadingOrders"
+          :options="statusOptions"
+          @change="fetchOrders"
+          optionLabel="label"
+          optionValue="value"
+          placeholder="Push Status"
+          showClear
+          style="height: 39px;"
+          v-model="filters.status">
+          <template #option="{ option }">
+            <div class="flex align-items-center justify-content-between">
+              {{ option.label }}
+            </div>
+          </template>
+        </Dropdown>
+      </div>
+    </div>
+    <div class="col-2 pb-0">
+      <div class="p-inputgroup w-100">
+        <Dropdown
+          :loading="loadingOrders"
           :options="sortOptions"
           @change="fetchOrders"
           optionLabel="label"
-          placeholder="Sort by"
           optionValue="sortBy"
+          showClear
+          placeholder="Sort by"
+          style="height: 39px;"
           v-model="filters.sortBy">
-          <template #value>Sort by</template>
           <template #option="{ option }">
             <div class="flex align-items-center justify-content-between">
               {{ option.label }}

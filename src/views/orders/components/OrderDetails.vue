@@ -1,4 +1,5 @@
 <script setup>
+
 /* ----- Data ----- */
 const {
   fetchOrder,
@@ -24,6 +25,11 @@ const {
   isShopify,
   storeName,
 } = useConnectionsStore();
+
+const bannerMessage = ref(null);
+const bannerLink = ref(null);
+const errorMessage = ref(null);
+const errorLink = ref(null);
 
 /* ----- Props ----- */
 const props = defineProps({
@@ -88,6 +94,28 @@ const getPushedDate = (date) => {
   const formattedDate = `${day} ${month} ${year} at ${hours}:${paddedMinutes} ${period}`;
   return formattedDate;
 };
+
+const getErrorMessage = (errorMessages) => {
+  if (errorMessages.length <= 0) {
+    return false;
+  }
+
+  const banner = errorMessages.find(errorMessage => {
+    return errorMessage['key'] === 'pushed_qty_edited' ||  errorMessage['key'] === 'not_pushed_qty_edited';
+  });
+
+  bannerMessage.value = banner?.description ?? null;
+  bannerLink.value = banner?.href ?? null;
+
+  const error = errorMessages.find(errorMessage => {
+    return errorMessage['key'] !== 'pushed_qty_edited' &&  errorMessage['key'] !== 'not_pushed_qty_edited';
+  });
+
+  errorMessage.value = error?.description ?? null;
+  errorLink.value = error?.href ?? null;
+
+  return true;
+};
 </script>
 
 <template>
@@ -121,13 +149,14 @@ const getPushedDate = (date) => {
     <div v-else class="grid mt-4">
 
       <div class="col-12 md:col-12 lg:col-8">
-        <div v-if="order.edited">
+        <div v-if="bannerMessage">
           <Message severity="info" class="col-12 mt-0 mb-5" :closable="false">
             <p class="my-0">
-              This order has been edited. Last edited:
-              <span class="font-semibold">{{ formatDate(order.edited_at).date }} at {{ formatDate(order.edited_at).time }}</span>
+              {{ bannerMessage }}
+              <span v-if="bannerLink">
+                <a :href="bannerLink" class="btn-link"> Read about how to fix.</a>
+              </span>
             </p>
-            <p class="my-0">The line item / quantity edits have been pushed to the source store. Please verify if the source store has received the right items and quantities.</p>
           </Message>
         </div>
 
@@ -189,36 +218,18 @@ const getPushedDate = (date) => {
                 <!----- Push Order ----->
                 <PushOrder :store="store" :order="order" @onOrderPush="onOrderPushHandler" />
 
-                <template v-if="store.push_status === 'failed' && !store.is_mapper_deleted">
-                  <p class="mb-0 mt-2 text-error font-semibold">An error has occurred while pushing your order to one or more source stores. <br> Please click 'Repush Order' to try again.</p>
-                </template>
-
                 <!-- If order is pushed -->
                 <template v-if="store.push_status === 'pushed'">
                   <Tag severity="success" :value="store.push_status" rounded />
                   <p class="mb-0 mt-3 font-semi" v-if="store.pushed_at">On {{ getPushedDate(store.pushed_at) }} (AEST)</p>
                 </template>
 
-                <!-- If store is disconnected -->
-                <template v-if="store.store_disconnected">
-                  <p class="mb-0 mt-2 text-error font-semibold">
-                    This store has been disconnected. <br> You may need to check with the store if <br> they have received and fulfilled the order.
-                  </p>
-                </template>
-
-                <template v-if="store.push_status !== 'blocked'"></template>
-
-                <template v-else>
-                  <div v-if="!store.is_mapper_deleted && !store.store_disconnected">
-                    <Tag severity="danger" :value="store.push_status" />
-                    <p class="mb-0 mt-2 text-error font-semibold" v-if="order.push_status === 'pushed'">Location changed</p>
-                    <p class="mb-0 mt-2 text-error font-semibold" v-else>Blocked by Syncio location mismatching</p>
-                  </div>
-                </template>
-
-                <template v-if="store.is_mapper_deleted && !store.store_disconnected">
-                  <p class="mb-0 mt-2 text-error font-semibold">
-                    Cannot fetch information as some product(s) are unsynced on {{ formatDate(store.mapper_deleted_at).date }} at {{ formatDate(store.mapper_deleted_at).time }}
+                <template v-if="getErrorMessage(store.order_fail_reason)">
+                  <p class="mb-0 mt-2 text-error">
+                    {{ errorMessage }} <br>
+                    <span v-if="errorLink">
+                      <a :href="errorLink" class="btn-link"> Read about how to fix.</a>
+                    </span>
                   </p>
                 </template>
               </div>

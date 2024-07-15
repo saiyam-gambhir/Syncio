@@ -15,7 +15,7 @@ export const useOrdersStore = defineStore('orders', {
       activeTabIndex: 0,
       bulkPushCount: null,
       bulkPushShippingCost: null,
-      filters: { searchStr: '', sortBy: 'DESC' },
+      filters: { searchStr: '', sortBy: 'DESC', status: '' },
       isAutoPushEnabled: 'Off',
       isBulkPushActive: false,
       isBulkPushDialogVisible: false,
@@ -54,6 +54,13 @@ export const useOrdersStore = defineStore('orders', {
           sortBy: 'ASC',
         },
       ],
+      statusOptions: [
+        { label: 'Pushed', value: 'pushed' },
+        { label: 'Not Pushed', value: 'not_pushed' },
+        { label: 'Partially Pushed', value: 'partially_pushed' },
+        { label: 'Failed', value: 'failed' },
+        { label: 'Invalid', value: 'invalid' },
+      ]
     };
   },
 

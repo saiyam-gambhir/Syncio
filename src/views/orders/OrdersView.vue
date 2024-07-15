@@ -170,6 +170,22 @@ const selectAll = () => {
 const allChecked = () => {
   return orders.selectedOrders.length === orders.orders.filter(order => order.push_status !== 'pushed').map(({ order_ref_id }) => order_ref_id).length;
 }
+
+const getErrorMessage = (errorMessages) => {
+  if (errorMessages.length <= 0) {
+    return null;
+  }
+
+  const error = errorMessages.find(errorMessage => {
+    return errorMessage['key'] !== 'pushed_qty_edited' &&  errorMessage['key'] !== 'not_pushed_qty_edited';
+  });
+
+  if (!error) {
+    return errorMessages.find(({ key }) => key === 'pushed_qty_edited' || key === 'not_pushed_qty_edited');
+  }
+
+  return error;
+};
 </script>
 
 <template>
@@ -235,7 +251,7 @@ const allChecked = () => {
       <OrdersViewHeader />
     </template>
 
-    <Column style="width: 3rem; min-width: 42.5px" @row-select-all="selectAll">
+    <Column style="width: 2.5%; min-width: 48px;" @row-select-all="selectAll">
       <template #header>
         <CheckboxWrapper :isChecked="isAllChecked" :disabled="allPushed" @onInput="selectAll" />
       </template>
@@ -244,7 +260,7 @@ const allChecked = () => {
       </template>
     </Column>
 
-    <Column header="Order #" style="width: 12.5%">
+    <Column header="Order #" style="width: 10%">
       <template #body="{ data: { id, name } }">
         <div class="flex align-items-center pointer btn-link-parent py-2" @click.prevent="fetchOrderHandler(id)">
           <a href="javascript:void(0);" class="btn-link">{{ name }}</a>
@@ -252,20 +268,20 @@ const allChecked = () => {
       </template>
     </Column>
 
-    <Column header="Date (AEST)" style="width: 15%">
+    <Column header="Date (AEST)" style="width: 12.5%">
       <template #body="{ data: { created_at } }">
         <Date :date="created_at" />
       </template>
     </Column>
 
-    <Column header="Customer" style="width: 25%">
+    <Column header="Customer" style="width: 15%">
       <template #body="{ data: { customer_name } }">
         {{ customer_name ?? 'Customer name not available' }}
       </template>
     </Column>
 
-    <Column header="Push Status" style="width: 22.5%">
-      <template #body="{ data: { order_fail_reason, order_ref_id, push_status } }">
+    <Column header="Push Status" style="width: 12.5%">
+      <template #body="{ data: { order_ref_id, push_status } }">
         <div class="flex align-items-center">
           <Tag v-if="getOrderPushStatus(order_ref_id, push_status)" severity="warning" rounded>
             <StatusIcon />
@@ -276,26 +292,37 @@ const allChecked = () => {
               <StatusIcon />
               {{ push_status.replace('_', ' ') }}
             </Tag>
-            <i v-if="order_fail_reason" class="pi pi-question-circle ml-3 text-xl pointer" v-tooltip.right="order_fail_reason"></i>
           </template>
           <template v-else>
             <Tag :severity="getOrderStatus(push_status)" rounded>
               <StatusIcon />
               {{ push_status.replace('_', ' ') }}
             </Tag>
-            <i v-if="order_fail_reason" class="pi pi-question-circle ml-3 text-xl pointer" v-tooltip.right="order_fail_reason"></i>
           </template>
         </div>
       </template>
     </Column>
 
-    <Column header="Synced Items" style="width: 10%;" class="text-center">
-      <template #body="{ data: { line_items } }">
-        <Tag severity="info">{{ line_items?.length }}</Tag>
+    <Column header="Details" style="width: 27.5%">
+      <template #body="{ data: { order_fail_reason } }">
+        <div v-if="order_fail_reason.length > 0">
+          <span class="text-error">
+            {{ getErrorMessage(order_fail_reason)['description'] }}
+          </span>
+          <span v-if="getErrorMessage(order_fail_reason)['href'] !== null">
+            <a :href="getErrorMessage(order_fail_reason)['href']" class="btn-link"> Read about how to fix.</a>
+          </span>
+        </div>
       </template>
     </Column>
 
-    <Column header="Actions" style="width: 15%" class="text-right">
+    <Column header="Synced Items" style="width: 7.5%;" class="text-center">
+      <template #body="{ data: { line_items } }">
+        <Tag severity="info">{{ line_items }}</Tag>
+      </template>
+    </Column>
+
+    <Column header="Actions" style="width: 12.5%" class="text-right">
       <template #body="{ data: { id } }">
         <Button
           @click="fetchOrderHandler(id)"

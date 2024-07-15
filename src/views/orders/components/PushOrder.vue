@@ -21,6 +21,14 @@ const {
 
 const loading = ref(false);
 
+const blockedMessages = [
+  'not_pushed_location_mismatch',
+  'not_pushed_unsync',
+  'not_pushed_store_disconnected',
+  'marked_as_fulfilled_cannot_push',
+  'invalid',
+];
+
 /* ----- Validations ----- */
 const { errors, meta, defineField } = useForm({
   validationSchema: yup.object({
@@ -69,11 +77,59 @@ const pushOrderHandler = async (targetStoreId) => {
     }
   }
 };
+
+const isConnected = (messages) => {
+  if (messages.length <= 0) {
+    return true;
+  }
+
+  return !messages.find(message => (message['key'] === 'pushed_store_disconnected' || message['key'] === 'not_pushed_store_disconnected'));
+};
+
+const isSynced = (messages) => {
+  if (messages.length <= 0) {
+    return true;
+  }
+
+  return !messages.find(message => (message['key'] === 'pushed_unsync' || message['key'] === 'not_pushed_unsync'));
+};
+
+const isBlocked = (messages) => {
+  if (messages.length <= 0) {
+    return false;
+  }
+
+  return messages.find(message => blockedMessages.includes(message['key'])) || (props.order.fulfillment_status === 'fulfilled' && props.order.push_status === 'failed');
+};
+
+const isFailed = (messages) => {
+  if (messages.length <= 0) {
+    return true;
+  }
+
+  return messages.find(message => (message['key'] === 'failed'));
+};
+
+
+const storeStatus = computed(() => {
+    const connected = isConnected(props.store.order_fail_reason);
+    const synced = isSynced(props.store.order_fail_reason);
+
+  return props.order.customer !== null && props.order.shipping_address !== null && props.store.push_status !== 'pushed' && connected && synced 
+});
+
+const shippingFeeStatus = computed(() => {
+  const connected = isConnected(props.store.order_fail_reason);
+  const synced = isSynced(props.store.order_fail_reason);
+  const blocked = isBlocked(props.store.order_fail_reason);
+
+  return props.store.push_status !== 'pushed' && props.store.push_status !== 'blocked' && !blocked && props.order.push_status !== 'invalid' && connected && synced;
+});
 </script>
 
 <template>
   <div class="flex align-items-start">
-    <template v-if="store.push_status !== 'pushed' && store.push_status !== 'blocked' && order.push_status !== 'invalid' && !store.is_mapper_deleted && !store.store_disconnected">
+    <template v-if="shippingFeeStatus ">
       <div>
         <span class="p-input-icon-left">
           <i class="pi pi-dollar" />
@@ -90,15 +146,15 @@ const pushOrderHandler = async (targetStoreId) => {
       </div>
     </template>
 
-    <template v-if="store.push_status !== 'blocked'">
+    <template v-if="!isBlocked(store.order_fail_reason)">
       <Button
         :disabled="!meta.valid"
         :loading="loading"
         @click="pushOrderHandler(store.target_store_id, storeName)"
         class="ml-3"
         style="transform: translateY(-1px); height: 38px;"
-        v-if="order.customer !== null && order.shipping_address !== null && store.push_status !== 'pushed' && !store.is_mapper_deleted && !store.store_disconnected">
-        <span v-if="store.push_status === 'failed'">Repush Order</span>
+        v-if="storeStatus">
+        <span v-if=!isFailed>Repush Order</span>
         <span v-else>Push Order</span>
       </Button>
     </template>
