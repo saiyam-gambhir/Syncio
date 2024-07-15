@@ -58,11 +58,11 @@ const sourceAnnouncements = ref([
 
 /* ----- Mounted ----- */
 onMounted(() => {
-  if(isShopline.value) {
+  if (isShopline.value) {
     sourceAnnouncements.value = destinationAnnouncements.value = destinationAnnouncements.value.filter(announcement => announcement.className === 'a-marketplace');
   }
 
-  if(isWoocommerce.value) {
+  if (isWoocommerce.value) {
     destinationAnnouncements.value = destinationAnnouncements.value.filter(announcement => announcement.className !== 'a-multilocation')
   }
 });
@@ -71,13 +71,7 @@ onMounted(() => {
 <template>
   <section class="col-12 md:col-7 lg:col-9">
     <h2 class="pb-2">What's New</h2>
-    <Carousel
-      :numScroll="1"
-      :numVisible="1"
-      :showNavigators="false"
-      :value="isSourceStore ? sourceAnnouncements : destinationAnnouncements"
-      circular
-      class="border-round shadow-2 surface-0 surface-border p-4 pb-3">
+    <Carousel :numScroll="1" :numVisible="1" :showNavigators="false" :value="isSourceStore ? sourceAnnouncements : destinationAnnouncements" circular class="border-round shadow-2 surface-0 surface-border p-4 pb-3">
       <template #item="{ data }">
         <Card class="flex">
           <template #title>{{ data.title }}</template>
@@ -117,13 +111,15 @@ onMounted(() => {
             <AppLink link="https://help.syncio.co/en/articles/6116999-quick-start" label="Quick start guide" />
           </li>
           <li class="py-3 border-bottom-1 surface-border">
-            <AppLink link="https://help.syncio.co/en/articles/5596700-connecting-to-a-store" label="Connecting to a store" />
+            <AppLink link="https://help.syncio.co/en/articles/5596700-connecting-to-a-store"
+              label="Connecting to a store" />
           </li>
           <li class="py-3 border-bottom-1 surface-border">
             <AppLink link="https://help.syncio.co/en/collections/1906212-syncing-products" label="Syncing products" />
           </li>
           <li class="py-3 border-bottom-1 surface-border">
-            <AppLink link="https://help.syncio.co/en/articles/3284137-best-practices-healthy-syncing" label="Best practices and healthy syncing" />
+            <AppLink link="https://help.syncio.co/en/articles/3284137-best-practices-healthy-syncing"
+              label="Best practices and healthy syncing" />
           </li>
           <li class="pt-4 text-center">
             <AppLink link="https://help.syncio.co/en/" label="Visit the Help center for more" />
