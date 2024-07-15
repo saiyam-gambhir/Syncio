@@ -5,7 +5,10 @@ onMounted(() => {});
 
 <template>
   <section class="col-12 mt-2 mb-7">
-    <h2 class="pb-2">Performance</h2>
+    <h2 class="flex align-items-center justify-content-between pb-2">
+      Performance
+      <a href="javascript:void(0);" class="btn-link">Tell us what data you want to see</a>
+    </h2>
     <div class="grid">
       <div class="col-3">
         <CardWrapper title="Connected stores" lightHeading class="h-100">
@@ -20,7 +23,7 @@ onMounted(() => {});
           <template #content>
             <h2 class="font-semi mt-4 mb-0">
               1000
-              <span class="relative ml-2 text-lg" style="top: -7px; color: #1EA97C;">
+              <span class="relative ml-2 text-lg" style="top: -6px; color: #1EA97C;">
                 <IconChartLine fill="#1EA97C" />
                 +1
               </span>
@@ -34,7 +37,7 @@ onMounted(() => {});
           <template #content>
             <h2 class="font-semi mt-4 mb-0">
               20
-              <span class="relative ml-2 text-lg" style="top: -7px; color: #6C757D;">
+              <span class="relative ml-2 text-lg" style="top: -6px; color: #6C757D;">
                 <IconChartLine />
                 0
               </span>
@@ -48,7 +51,7 @@ onMounted(() => {});
           <template #content>
             <h2 class="font-semi mt-4 mb-0">
               50
-              <span class="relative ml-2 text-lg" style="top: -7px; color: #F59E08;">
+              <span class="relative ml-2 text-lg" style="top: -6px; color: #F59E08;">
                 <IconChartLine fill="#F59E08" />
                 -1
               </span>
