@@ -131,6 +131,7 @@ const fetchConnectionSettingsHandler = (connection) => {
           v-if="isSourceStore">
         </Button>
         <SplitButton
+          :outlined="isDestinationStore"
           @click="fetchProductsHandler(connection)"
           class="p-button-sm"
           label="View products"
