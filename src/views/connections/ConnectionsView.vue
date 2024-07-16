@@ -1,5 +1,6 @@
 <script setup>
 /* ----- Components ----- */
+const ConnectionSettingsDialog = defineAsyncComponent(() => import('./components/ConnectionSettingsDialog.vue'));
 const ConnectNewStoreDialog = defineAsyncComponent(() => import('./components/connect/ConnectNewStoreDialog.vue'));
 const DisableMultilocationDialog = defineAsyncComponent(() => import('./components/multiLocation/DisableMultilocationDialog.vue'));
 const DisconnectDialog = defineAsyncComponent(() => import('./components/disconnect/DisconnectDialog.vue'));
@@ -9,12 +10,12 @@ const LocationPendingDialog = defineAsyncComponent(() => import('./components/mu
 
 /* ----- Data ----- */
 const {
-  clickedStore,
   connections,
   fetchConnections,
   fetchDestinationLocations,
   fetchSourceLocations,
   isConnectionDisconnectRequested,
+  isConnectionSettingsDialogRequested,
   isDestinationStore,
   isDisableMultilocationRequested,
   isLocationChanged,
@@ -93,6 +94,9 @@ const toggleMultilocationHandler = async event => {
     <ConnectionsViewSkeleton v-if="loadingConnections" />
     <Connections v-else />
   </article>
+
+  <!-- Connections settings dialog -->
+  <ConnectionSettingsDialog v-if="isConnectionSettingsDialogRequested" />
 
   <!-- Connect new store dialog -->
   <ConnectNewStoreDialog v-if="isNewStoreConnectionRequested" />
