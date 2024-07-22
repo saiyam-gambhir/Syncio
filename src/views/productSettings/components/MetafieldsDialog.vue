@@ -17,16 +17,20 @@ const cancelHandler = () => {
 </script>
 
 <template>
-  <DialogWrapper :isVisible="isMetaFieldsRequested" title="Turn on Metafields: Product and Variant?" width="500px" :closable="false">
+  <DialogWrapper :isVisible="isMetaFieldsRequested" title="Turn on Metafields: Product and Variant?" width="575px" :closable="false">
     <template #body>
-      <p class="text-xl m-0 pb-3 line-height-3">
-        Turning this setting on will only sync new metafield data to the your store and won't overwrite any existing metafields.
-      </p>
-      <p class="text-xl m-0 pb-3 line-height-3">
-        This is an advanced Shopify feature, and is best suited for stores requiring a perfect metafield match between source and destination.
+      <ul class="p-0 pl-3 m-0 mt-1 text-xl">
+        <li>Unique metafields on this store will not be updated/ overwritten.</li>
+        <li class="mt-1">Syncs new metafield definitions and values from the source store. </li>
+        <li class="mt-1">Links matching metafields and update values.</li>
+      </ul>
+      <p class="text-xl m-0 mt-4 pb-3 line-height-3">
+        This is an advanced Shopify feature, and will bulk sync new metafield definitions to your store.
       </p>
       <p class="text-xl m-0 line-height-3">
-        If you are unsure we recommend reading <AppLink label="Metafields help" link="https://help.syncio.co/en/articles/8418976-metafields-sync" class="text-xl" /> before proceeding.
+        If you are unsure we recommend reading <AppLink label="Metafields help" link="https://help.syncio.co/en/articles/8418976-metafields-sync" class="text-xl" />
+        <br>
+        before proceeding.
       </p>
     </template>
 

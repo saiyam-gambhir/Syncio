@@ -15,7 +15,7 @@ const {
           <i class="pi pi-question-circle text-2xl ml-3" style="transform: translateY(1px);" v-tooltip.right="'Syncs once, the first time you connect to a specific store'"></i>
         </li>
         <li class="py-5 border-bottom-1 surface-border" v-for="setting in 2">
-          <div class="flex align-items-center justify-content-between w-full">
+          <div class="flex justify-content-between w-full">
             <div>
               <Skeleton height="18.5px" width="125px" />
               <Skeleton height="18.5px" width="500px" class="mt-2" />
@@ -32,7 +32,7 @@ const {
           <i class="pi pi-question-circle text-2xl ml-3" style="transform: translateY(1px);" v-tooltip.right="'Syncs in real time on an ongoing basis'"></i>
         </li>
         <li class="py-5 border-bottom-1 surface-border" v-for="setting in 6">
-          <div class="flex align-items-center justify-content-between w-full">
+          <div class="flex justify-content-between w-full">
             <div>
               <Skeleton height="18.5px" width="125px" />
               <Skeleton height="18.5px" width="500px" class="mt-2" />
@@ -48,7 +48,7 @@ const {
     <div class="col-5">
       <ul class="list-none p-0 m-0">
         <li class="py-5 border-bottom-1 surface-border">
-          <div class="flex align-items-center justify-content-between w-full">
+          <div class="flex justify-content-between w-full">
             <div>
               <Skeleton height="18.5px" width="125px" />
               <Skeleton height="18.5px" width="500px" class="mt-2" />
@@ -57,7 +57,7 @@ const {
           </div>
         </li>
         <li class="py-5 border-bottom-1 surface-border">
-          <div class="flex align-items-center justify-content-between w-full">
+          <div class="flex justify-content-between w-full">
             <div>
               <Skeleton height="18.5px" width="125px" />
               <Skeleton height="18.5px" width="500px" class="mt-2" />
