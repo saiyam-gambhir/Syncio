@@ -56,12 +56,12 @@ const updateStoreTypeHandler = async (storeType) => {
 
 <template>
   <Loading v-if="loading" />
-  <section v-else class="mx-auto mb-2" style="width: 900px;">
+  <section v-else class="mx-auto mb-2" style="width: 900px; max-width: 100%;">
     <PageDetails title="Select your store type" content="Choose the description that best fits your store" />
 
     <aside class="auth-wrapper text-900" style="padding: 1.5rem !important;">
       <div class="grid">
-        <div v-for="{ btnLabel, description, examples, storeType } in storeTypes" class="col-6 pb-0">
+        <div v-for="{ btnLabel, description, examples, storeType } in storeTypes" class="lg:col-6 md:col-6 pb-0 mb-5 md:mb-0">
           <CardWrapper class="font-semibold" style="padding: 0 !important;">
             <template #content>
               <div class="text-center pb-4">
@@ -71,8 +71,8 @@ const updateStoreTypeHandler = async (storeType) => {
               <div class="px-4">
                 <h2 class="capitalize	text-2xl font-semi mb-2">{{ storeType }} store</h2>
                 <ul class="p-0 list-none font-normal text-lg m-0">
-                  <li v-for="item in description" class="py-3 border-bottom-1 border-300">
-                    <i class="pi pi-check-circle text-green-500 text-lg mr-1" style="transform: translateY(1px);"></i>
+                  <li v-for="item in description" class="py-3 border-bottom-1 border-300 flex">
+                    <i class="pi pi-check-circle text-green-500 text-lg mr-2" style="transform: translateY(1.5px);"></i>
                     {{ item }}
                   </li>
                 </ul>
@@ -89,13 +89,13 @@ const updateStoreTypeHandler = async (storeType) => {
           </CardWrapper>
         </div>
 
-        <div class="col-12 text-center mt-5">
+        <div class="col-12 text-center mt-0 md:mt-5">
           <!-- <h3 class="text-lg font-semibold">Need to be both Source and Destination?</h3>
           <p>Select one store type to complete installation, then you can add the other <br> store type after installation is complete</p> -->
           <p>If you're unsure, <AppLink label="read is my store a Source or Destination store" link="https://help.syncio.co/en/articles/3284157-is-my-store-a-source-or-destination-store" /></p>
         </div>
 
-        <div class="col-12 text-right py-0 mt-3">
+        <div class="col-12 text-center md:text-right py-0 mt-3" id="store-selector-button">
           <Button
             :disabled="selectedStoreType === ''"
             :loading="loadingStoreType"

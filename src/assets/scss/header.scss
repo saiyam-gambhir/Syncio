@@ -46,6 +46,13 @@ header {
   position: absolute;
   top: 2rem;
   z-index: 2;
+
+  @media screen and (max-width: $iPadPortrait) {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 115px !important;
+  }
 }
 
 .auth {
@@ -53,6 +60,11 @@ header {
     position: relative;
     width: 100%;
     z-index: 2;
+
+    @media screen and (max-width: $iPadPortrait) {
+      margin-top: 2rem;
+      padding: .5rem;
+    }
   }
 
   &-wrapper {
@@ -64,6 +76,10 @@ header {
     border-radius: var(--border-radius);
     border: 2px solid var(--white);
     padding: 3rem !important;
+
+    @media screen and (max-width: $iPadPortrait) {
+      padding: 1rem !important;
+    }
   }
 
   .active-btn {

@@ -33,7 +33,7 @@ const registerUserHandler = async () => {
 </script>
 
 <template>
-  <section class="mx-auto" style="width: 700px;">
+  <section class="mx-auto" style="width: 700px; max-width: 100%;">
     <PageDetails title="Register and create your account" content="You'll use these details to login in the future" />
 
     <aside class="auth-wrapper">

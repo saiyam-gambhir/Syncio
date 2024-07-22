@@ -55,7 +55,7 @@ watch(selectedPlan, (newValue, oldValue) => {
       </Message>
 
       <div class="grid mt-4 pb-1">
-        <div class="md:col-4 lg:col-4 relative p-3" v-for="(options, key) in selectedPlan?.available_addons" :key="key">
+        <div class="md:col-4 lg:col-4 relative md:p-3 p-2" v-for="(options, key) in selectedPlan?.available_addons" :key="key">
           <Addon :options="options" :title="key" :addon="activeAddons[key]" />
         </div>
       </div>

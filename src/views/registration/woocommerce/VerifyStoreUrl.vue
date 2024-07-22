@@ -83,11 +83,11 @@ const registerStore = async () => {
 </script>
 
 <template>
-  <section class="mx-auto relative" style="width: 900px;">
-    <router-link :to="routes.WOO_CONTINUE_LATER" class="fixed z-1" style="right: 2.5rem; top: 2.3rem;">
+  <section class="mx-auto relative" style="width: 900px; max-width: 100%;">
+    <router-link :to="routes.WOO_CONTINUE_LATER" class="fixed z-1 hidden md:inline" style="right: 2.5rem; top: 2.3rem;">
       <Button label="Signout, continue later" class="font-bold justify-content-center"></Button>
     </router-link>
-    <ul class="mx-auto list-none p-0 mt-0 mb-6 flex flex-row" style="top: 1.5rem;">
+    <ul class="mx-auto list-none p-0 mt-0 mb-6 flex-row hidden md:flex" style="top: 1.5rem;">
       <Step title="Store Type" subTitle="Source or destination?" :isComplete="true" />
       <Step title="Connect Store" subTitle="Verify your store" :isCurrent="true" />
       <Step title="Permissions" subTitle="Review store access" :isLast="true" />
@@ -100,7 +100,7 @@ const registerStore = async () => {
 
     <aside class="auth-wrapper text-900">
       <div class="grid">
-        <div class="col-9 pb-0">
+        <div class="md:col-9 col-12 pb-0">
           <div class="relative">
             <InputText
               :class="{ 'mb-3 p-invalid' : errors.storeURL }"
@@ -116,7 +116,7 @@ const registerStore = async () => {
           <ValidationMessage :error="errors.storeURL" style="padding-bottom: 0 !important;" />
           <small v-if="!errors.storeURL" class="block mt-2 pl-1 text-700 font-semi text-sm" id="username-help">You'll need to add https:// to the URL</small>
         </div>
-        <div class="col-3 pb-0">
+        <div class="md:col-3 col-12 pb-0 mt-3 md:mt-0">
           <Button
             :disabled="!meta.valid"
             :loading="loading"

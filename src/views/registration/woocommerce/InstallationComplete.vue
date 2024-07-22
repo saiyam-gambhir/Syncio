@@ -35,7 +35,7 @@ onMounted(async () => {
 
 <template>
   <Loading v-if="loading" />
-  <section v-else class="mx-auto" style="width: 500px;">
+  <section v-else class="mx-auto" style="width: 500px; max-width: 100%;">
     <PageDetails :content="isDestinationStore ? `You can now sync up to ${plan?.syncio_plan?.sync_product_limit} products` : 'Start sharing products and inventory with other stores'" title="You're good to go!">
     </PageDetails>
 

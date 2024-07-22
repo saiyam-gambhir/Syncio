@@ -24,7 +24,7 @@ const continueLaterHandler = async () => {
 </script>
 
 <template>
-  <section class="mx-auto" style="width: 700px;">
+  <section class="mx-auto" style="width: 700px; max-width: 100%;">
     <PageDetails title="Save account and sign out?" content="" v-if="!isContinueLaterRequested" />
 
     <aside class="auth-wrapper text-center text-900">

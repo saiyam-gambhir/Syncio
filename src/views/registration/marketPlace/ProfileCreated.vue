@@ -14,7 +14,7 @@ const nextStepHandler = async () => {
 </script>
 
 <template>
-  <section class="mx-auto" style="width: 650px;">
+  <section class="mx-auto" style="width: 650px; max-width: 100%;">
     <aside class="auth-wrapper text-900 text-center">
       <i class="pi pi-check-circle text-7xl pb-4" style="color: #1ea97c;"></i>
       <h3 class="text-900 text-4xl mb-4">Awesome work</h3>

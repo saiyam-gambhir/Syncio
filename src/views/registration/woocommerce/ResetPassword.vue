@@ -61,7 +61,7 @@ const resetPasswordHander = async () => {
 </script>
 
 <template>
-  <section class="mx-auto" style="width: 700px;">
+  <section class="mx-auto" style="width: 700px; max-width: 100%;">
     <PageDetails title="WooCommerce: Reset my password" :content="!isPasswordResetSuccessful ? 'Enter your new password below' : ''" />
 
     <Message v-if="errorMessage" severity="error" :closable="true" class="p-message-lg mb-5" style="text-transform: capitalize; color: #fff !important;">

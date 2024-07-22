@@ -3,12 +3,12 @@ import * as routes from '@/routes';
 </script>
 
 <template>
-  <section class="mx-auto" style="width: 700px;">
+  <section class="mx-auto" style="width: 700px; max-width: 100%;">
     <PageDetails title="Welcome, Let's get started!" content="Free 14 day trial for WooCommerce Destination accounts!" />
 
     <aside class="auth-wrapper text-center">
       <div class="grid">
-        <div class="col-6 pb-0">
+        <div class="md:col-6 col-12 pb-0">
           <router-link :to="routes.WOO_CREATE_ACCOUNT" class="text-900">
             <CardWrapper class="platform text-center">
               <template #content>
@@ -18,7 +18,7 @@ import * as routes from '@/routes';
             </CardWrapper>
           </router-link>
         </div>
-        <div class="col-6 pb-0">
+        <div class="md:col-6 col-12 pb-0 mt-2 sm:mt-0">
           <a href="https://apps.shopify.com/syncio" class="text-900">
             <CardWrapper class="platform text-center">
               <template #content>
@@ -28,16 +28,6 @@ import * as routes from '@/routes';
             </CardWrapper>
           </a>
         </div>
-        <!-- <div class="col-4 py-0">
-          <a href="/" class="text-900">
-            <CardWrapper class="platform text-center">
-              <template #content>
-                <img src="@/assets/images/shopline_logo.png" alt="Shopify logo" style="height: 150px;" class="mt-3" />
-                <h2 class="mt-5 mb-3">Shopline</h2>
-              </template>
-            </CardWrapper>
-          </a>
-        </div> -->
       </div>
     </aside>
 

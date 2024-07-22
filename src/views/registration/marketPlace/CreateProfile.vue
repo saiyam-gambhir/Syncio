@@ -135,8 +135,8 @@ watch(profile, (newValue, oldValue) => {
 </script>
 
 <template>
-  <section class="mx-auto" style="width: 1000px;">
-    <div class="mb-8 w-60 mx-auto">
+  <section class="mx-auto" style="width: 1000px; max-width: 100%;">
+    <div class="mb-6 md:mb-8 w-60 mx-auto">
       <ProgressBar :value="progress" :showValue="false" />
     </div>
 
@@ -250,7 +250,7 @@ watch(profile, (newValue, oldValue) => {
         <div>
           <div class="flex align-items-center justify-content-between py-3">
             <div class="font-medium text-lg">Profile images - ({{ profile?.cocoProfileImages?.length ?? 0 }}/{{ maxImagesAllowed }})</div>
-            <div class="w-25" v-if="profile?.cocoProfileImages?.length < maxImagesAllowed || !profile.cocoProfileImages">
+            <div class="w-50" v-if="profile?.cocoProfileImages?.length < maxImagesAllowed || !profile.cocoProfileImages">
               <input
                 @change="fileUploadHandler"
                 accept="image/jpeg, image/png, image/jpg, image/webp, image/gif, image/ico"
@@ -266,14 +266,14 @@ watch(profile, (newValue, oldValue) => {
             <li class="flex align-items-center flex-wrap pt-1">
               <div class="w-100">
                 <div class="grid grid-sm">
-                  <div class="col-2" v-for="(image, index) in profile.cocoProfileImages" :key="image.image_url">
+                  <div class="col-4 md:col-2" v-for="(image, index) in profile.cocoProfileImages" :key="image.image_url">
                     <div class="image-placeholder relative" :style="{ backgroundImage: `url(${image.image_url})` }" style="background-position: center; background-repeat: no-repeat; background-size: contain;">
                       <span class="absolute delete-image-btn" v-tooltip.top="'Delete'" @click="deleteFilesFromView(image, index)">
                         <i class="pi pi-trash"></i>
                       </span>
                     </div>
                   </div>
-                  <div class="col-2" v-for="image in placeHolderImages" :key="image">
+                  <div class="col-4 md:col-2" v-for="image in placeHolderImages" :key="image">
                     <div class="image-placeholder"></div>
                   </div>
                 </div>
@@ -283,12 +283,12 @@ watch(profile, (newValue, oldValue) => {
 
           <div class="border-top-1 border-200 mt-2 mb-4"></div>
 
-          <div class="flex pt-4">
+          <div class="md:flex pt-4">
             <div class="mr-4">
               <h3 class="text-xl font-semi text-700">Example</h3>
               <img src="@/assets/images/profile-example.png" alt="Profile example" style="width: 200px;" />
             </div>
-            <div style="width: 20rem;">
+            <div style="width: 20rem;" class="mt-4 md:mt-0">
               <h3 class="text-xl font-semi text-700">Tips</h3>
               <p class="text-sm">You can use different types of images, such as your company logo, product images, blog post images.</p>
               <p class="text-sm">Include product images to give partner stores an understanding of what you sell.</p>
@@ -298,10 +298,10 @@ watch(profile, (newValue, oldValue) => {
         </div>
       </template>
 
-      <div class="border-top-1 border-300 my-5"></div>
+      <div class="border-top-1 border-300 md:my-5 my-4"></div>
 
       <div class="text-center">
-        <div class="flex align-items-center justify-content-between">
+        <div class="flex align-items-center md:justify-content-end justify-content-start" :class="{ 'justify-content-center' : progress === 75 }">
           <div>
             <Button v-if="progress > 25" @click="progress -=25" label="Previous step" class="font-bold p-button-secondary"></Button>
           </div>

@@ -18,6 +18,10 @@ $skeletonBackground: #ECECEC;
 $sourceIndicator: #fcb057;
 $textPrimary: rgba(17, 17, 17, 1);
 
+/* ----- BREAKPOINTS ----- */
+$iPadPortrait: 1023px;
+$iPhonePortrait: 767px;
+
 .text-error {
   color: $danger;
 };

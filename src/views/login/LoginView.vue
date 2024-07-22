@@ -90,9 +90,9 @@ const inputPasswordHandler = () => {
 </script>
 
 <template>
-  <section class="mx-auto" style="width: 700px;">
+  <section class="mx-auto" style="width: 700px; max-width: 100%;">
     <div class="text-center">
-      <h1 class="text-5xl line-height-3 my-6 font-bold" v-if="!isContinueInstallation">
+      <h1 class="text-5xl line-height-3 lg:my-6 sm:mx-8 font-bold" v-if="!isContinueInstallation">
         Login to your account
       </h1>
       <template v-else>
@@ -118,7 +118,7 @@ const inputPasswordHandler = () => {
         </Button>
       </div>
 
-      <form v-if="showWooLogin" :class="{ 'mt-6': !isContinueInstallation }" autocomplete="current-password">
+      <form v-if="showWooLogin" :class="{ 'md:mt-6 mt-5': !isContinueInstallation }" autocomplete="current-password">
         <div class="field">
           <InputText
             class="p-inputtext-lg mb-3 w-full"
@@ -158,8 +158,8 @@ const inputPasswordHandler = () => {
           label="Login">
         </Button>
 
-        <div v-if="isDevelopment" class="flex mt-4">
-          <div class="col-6 pl-0">
+        <div v-if="isDevelopment" class="grid mt-4">
+          <div class="col-12 md:col-6">
             <InputText
               autocomplete="email"
               class="w-full"
@@ -170,7 +170,7 @@ const inputPasswordHandler = () => {
               v-model="shopifyStore">
             </InputText>
           </div>
-          <div class="col-6 pr-0">
+          <div class="col-12 md:col-6">
             <Button
               :disabled="!shopifyStore"
               :loading="loginForm.loading"

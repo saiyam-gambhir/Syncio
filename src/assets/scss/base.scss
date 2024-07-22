@@ -33,7 +33,10 @@ html {
   font-size: var(--font-size);
   font-weight: $fontNormal;
   letter-spacing: 0.04rem;
-  min-width: 1024px;
+
+  // @media screen and (min-width: 1024px) {
+  //   min-width: 1024px;
+  // }
 
   &:not(.theme-light) {
     .logo-path {
@@ -42,9 +45,9 @@ html {
   }
 }
 
-#app {
-  min-width: 1280px;
-}
+// #app {
+//   min-width: 1280px;
+// }
 
 .p-component {
   font-family: 'Inter Tight', sans-serif;
@@ -727,10 +730,104 @@ input.p-inputtext-lg {
   background: #f8f9fa !important;
 }
 
+.loading-page {
+  @media screen and (max-width: $iPadPortrait) {
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    z-index: 999;
+  }
+}
+
 .login-screen {
   background: var(--primary-color);
   color: rgb(233, 236, 239);
   position: relative;
+
+  #onboarding-plan-selection {
+    width: 90%;
+  }
+
+  @media screen and (max-width: $iPadPortrait) {
+    flex-direction: column;
+    justify-content: flex-start !important;
+    padding-top: 1.5rem;
+
+    #onboarding-plan-selection {
+      width: 100%;
+    }
+
+    .login-platforms {
+      justify-content: flex-start !important;
+      gap: 10px;
+
+      .p-button.platform-btn {
+        max-width: 50% !important;
+        display: flex;
+        width: 50% !important;
+        margin: 0 !important;
+        font-size: .95rem !important;
+      }
+    }
+
+    h1 {
+      font-size: 1.75rem !important;
+      line-height: 2rem !important;
+    }
+
+    h2, h3 {
+      font-size: 1.5rem !important;
+      line-height: 2rem !important;
+    }
+
+    p {
+      font-size: 1.1rem !important;
+      br {
+        display: none;
+      }
+    }
+
+    br {
+      display: none;
+    }
+
+    .p-button {
+      &.w-25, &.w-75, &.p-button-lg, &.outlined-button-hover {
+        width: auto !important;
+        font-size: 1.15rem !important;
+        padding: .75rem !important;
+        height: 50px !important;
+      }
+
+      &.w-full, &.w-100 {
+        width: 100% !important;
+      }
+    }
+  }
+
+  @media screen and (max-width: $iPhonePortrait) {
+    #store-selector-button {
+      background: #fff;
+      bottom: 0;
+      padding: 1rem 0 !important;
+      position: sticky;
+      border: 0 !important;
+
+      .p-button {
+        width: 100% !important;
+      }
+    }
+  }
+
+  h1 {
+    font-size: 1.5rem !important;
+  }
+
+  h2, h3 {
+    font-size: 1.25rem !important;
+    line-height: 1.75rem !important;
+  }
 }
 
 .p-inputtext:enabled:focus {
@@ -980,6 +1077,12 @@ svg[data-pc-section="hideicon"] {
     transition: .25s background;
     padding-top: 2.75rem;
     padding-bottom: 2.75rem;
+
+    &.profile {
+      @media screen and (max-width: $iPadPortrait) {
+        height: 8.5rem;
+      }
+    }
   }
 
   li:first-child {

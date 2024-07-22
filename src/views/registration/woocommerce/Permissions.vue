@@ -67,10 +67,10 @@ const navigateToWooPlanSelction = () => {
 </script>
 
 <template>
-  <section class="mx-auto" style="width: 700px;">
+  <section class="mx-auto" style="width: 700px; max-width: 100%;">
     <PageDetails v-if="arePermissionsApproved && storeType === 'destination'" title="Syncio installed successfully" content="Select your Syncio plan to activate your free 14 day trial" />
 
-    <aside class="auth-wrapper text-center text-900">
+    <aside class="auth-wrapper text-left md:text-center text-900">
       <div v-if="arePermissionsApproved && storeType === 'destination'">
         <ul class="text-900 pl-0 list-none text-xl font-semi m-0">
           <li class="flex">

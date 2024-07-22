@@ -43,13 +43,13 @@ onMounted(async () => {
 
 <template>
   <Loading v-if="loading" />
-  <section v-else class="mx-auto" style="width: 1000px;">
+  <section v-else class="mx-auto" style="width: 1000px; max-width: 100%;">
     <PageDetails title="Installation Complete!" content="Here are a few guides to help you Sync your first product!" />
 
     <aside class="auth-wrapper text-900 text-center">
 
       <div class="grid mb-4">
-        <div class="col-4">
+        <div class="md:col-4 col-12 mb-2">
           <a href="https://www.notion.so/syncio/Syncing-your-first-product-3b831d7cc38640ffb82393dbdcfaa662" target="_blank" class="block text-900">
             <CardWrapper>
               <template #content>
@@ -63,7 +63,7 @@ onMounted(async () => {
           </a>
         </div>
 
-        <div class="col-4">
+        <div class="md:col-4 col-12 mb-2">
           <a href="https://www.notion.so/syncio/Tips-for-a-healthy-sync-8afc765c9b3f476c93f02422ebc59511" target="_blank" class="block text-900">
             <CardWrapper>
               <template #content>
@@ -77,7 +77,7 @@ onMounted(async () => {
           </a>
         </div>
 
-        <div class="col-4">
+        <div class="md:col-4 col-12">
           <a href="https://www.notion.so/syncio/Use-Cases-8eb098b60bae4aa083e2d04d8c936476" target="_blank" class="block text-900">
             <CardWrapper>
               <template #content>

@@ -27,7 +27,7 @@ const inputEmailHandler = () => {
 </script>
 
 <template>
-  <section class="mx-auto" style="width: 700px;">
+  <section class="mx-auto" style="width: 700px; max-width: 100%;">
     <PageDetails
       content="Enter your Syncio account's email to reset your password. <br /> We'll send you an email with a link and instruction."
       title="Reset my passsword">

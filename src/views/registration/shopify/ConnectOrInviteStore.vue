@@ -43,7 +43,7 @@ const showConnectViaKeyHandler = () => {
 </script>
 
 <template>
-  <section class="mx-auto" style="width: 900px;">
+  <section class="mx-auto" style="width: 900px; max-width: 100%;">
     <PageDetails :title="`Connect to your first ${partnerStoreType}!`" content="" />
 
     <aside class="auth-wrapper text-900 text-center">
@@ -53,7 +53,7 @@ const showConnectViaKeyHandler = () => {
       <p class="text-lg line-height-3 m-0" v-else>Share your unique key with destination stores to allow them to import your products to sell on their store.</p>
       <p class="text-lg line-height-3 mt-1">This unique key can also be found on your dashboard after completing this setup process.</p>
       <div class="grid pt-4 pb-3">
-        <div class="col-6">
+        <div class="md:col-6 col-12">
           <Button
             @click="showInviteViaEmailHandler"
             class="p-button-lg w-100"
@@ -62,7 +62,10 @@ const showConnectViaKeyHandler = () => {
             label="Share your key via e-mail">
           </Button>
         </div>
-        <div class="col-6">
+
+        <div class="my-1 md:hidden">&nbsp;</div>
+
+        <div class="md:col-6 col-12">
           <Button
             @click="showConnectViaKeyHandler"
             class="p-button-lg w-100"
