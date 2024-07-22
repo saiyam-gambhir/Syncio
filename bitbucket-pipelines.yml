@@ -7,7 +7,7 @@ pipelines:
           name: Run build
           script:
             - npm install --force
-            - npm run build NODE_ENV=development --mode staging
+            - npm run deploy-staging
           artifacts:
             - dist/**
           caches:
