@@ -11,6 +11,7 @@ const BulkPushDialog = defineAsyncComponent(() => import('./components/BulkPushD
 /* ----- Data ----- */
 const {
   addons,
+  highlightedAddon,
   isOrderLimitReached,
   ordersAvailableToPush,
   ordersPushed,
@@ -207,7 +208,7 @@ const getErrorMessage = (errorMessages) => {
       <div class="flex justify-content-between" v-else>
         <h4 class="my-0 mr-4 ml-2">
           Automated Push <i class="pi pi-lock ml-2 text-lg"></i>
-          <span class="block font-semi" style="margin-top: .35rem;">Pro feature - <router-link :to="routes.PLAN_AND_BILLINGS" class="btn-link">Upgrade</router-link></span>
+          <span class="block font-semi" style="margin-top: .35rem;">Pro feature - <router-link :to="routes.PLAN_AND_BILLINGS" @click="highlightedAddon = 'order'" class="btn-link">Upgrade</router-link></span>
         </h4>
       </div>
       <router-link :to="routes.ORDER_PUSH_SETTINGS">

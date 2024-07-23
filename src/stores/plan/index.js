@@ -9,6 +9,7 @@ import { generateCharge } from './actions/generateCharge';
 export const usePlanStore = defineStore('plan', {
   state: () => {
     return {
+      highlightedAddon: null,
       isOnboarding: false,
       loadingPayment: false,
       loadingPlans: false,

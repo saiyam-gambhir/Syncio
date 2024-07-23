@@ -4,6 +4,7 @@ import * as routes from '@/routes';
 /* ----- Data ----- */
 const {
   fetchPlans,
+  highlightedAddon,
   loadingPlans,
   plan,
   plans,
@@ -28,6 +29,26 @@ onMounted(async () => {
 
   await fetchPlansHandler();
   setSelectedPlan();
+
+  if(highlightedAddon.value) {
+    document.getElementById('addons-wrapper').scrollIntoView({ behavior: 'smooth' });
+    setTimeout(() => {
+      if(highlightedAddon.value === 'product') {
+        const productProAddon = document.getElementById('product-pro-addon');
+        productProAddon.classList.add('highlight');
+        productProAddon.children[1].click();
+      } else if(highlightedAddon.value === 'order') {
+        const orderProAddon = document.getElementById('order-pro-addon');
+        orderProAddon.classList.add('highlight');
+        orderProAddon.children[1].click();
+      }
+    }, 750)
+
+    setTimeout(() => {
+      document.getElementById('product-pro-addon').classList.remove('highlight');
+      document.getElementById('order-pro-addon').classList.remove('highlight')
+    }, 3750);
+  }
 });
 
 /* ----- Methods ----- */
@@ -52,6 +73,7 @@ const fetchPlansHandler = async () => {
   <article v-else class="mt-2">
     <section class="grid">
       <div class="col-12 md:col-12 lg:col-9">
+        {{ highlightedAddon }}
         <div class="pr-2">
           <Plans />
           <Addons />
@@ -90,5 +112,15 @@ const fetchPlansHandler = async () => {
   font-size: 1.75rem;
   right: 2rem;
   top: 1.7rem;
+}
+
+.highlight {
+  animation: highlight 1s infinite;
+}
+
+@keyframes highlight {
+  50% {
+    border-color: var(--link) !important;
+  }
 }
 </style>

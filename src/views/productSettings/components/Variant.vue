@@ -24,6 +24,7 @@ const {
 
 const {
   addons,
+  highlightedAddon,
 } = toRefs(usePlanStore());
 
 
@@ -62,7 +63,7 @@ watch(newQuantity, () => {
 <template>
   <section v-if="isDestinationStore">
     <p v-if="!addons.isSettingsModulePaid" class="m-0 mb-2 text-lg">
-      Locked settings (<i class="pi pi-lock" style="font-size: 1rem; font-weight: bold;"></i>) are available with Product Settings PRO - <router-link :to="routes.PLAN_AND_BILLINGS" class="btn-link text-lg">Upgrade</router-link>
+      Locked settings (<i class="pi pi-lock" style="font-size: 1rem; font-weight: bold;"></i>) are available with Product Settings PRO - <router-link :to="routes.PLAN_AND_BILLINGS" @click="highlightedAddon = 'product'" class="btn-link text-lg">Upgrade</router-link>
     </p>
     <div class="grid">
       <div class="col-5">
