@@ -36,18 +36,17 @@ onMounted(async () => {
       if(highlightedAddon.value === 'product') {
         const productProAddon = document.getElementById('product-pro-addon');
         productProAddon.classList.add('highlight');
-        productProAddon.children[1].click();
       } else if(highlightedAddon.value === 'order') {
         const orderProAddon = document.getElementById('order-pro-addon');
         orderProAddon.classList.add('highlight');
-        orderProAddon.children[1].click();
       }
-    }, 750)
+    }, 700)
 
     setTimeout(() => {
       document.getElementById('product-pro-addon').classList.remove('highlight');
       document.getElementById('order-pro-addon').classList.remove('highlight')
-    }, 3750);
+      highlightedAddon.value = null;
+    }, 3000);
   }
 });
 
@@ -115,12 +114,14 @@ const fetchPlansHandler = async () => {
 }
 
 .highlight {
-  animation: highlight 1s infinite;
+  animation: highlightTag .75s infinite;
 }
 
-@keyframes highlight {
+@keyframes highlightTag {
   50% {
-    border-color: var(--link) !important;
+    border: 1px solid var(--link);
+    outline: 1px solid var(--link);
+    scale: 1.05;
   }
 }
 </style>
