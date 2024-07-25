@@ -3,6 +3,7 @@ import * as routes from '@/routes';
 
 /* ----- Data ----- */
 const {
+  highlightedAddon,
   shouldShowPayoutsLimitDialog,
 } = toRefs(usePlanStore());
 
@@ -34,7 +35,7 @@ const closeDialogHandler = () => {
     <template #footer>
       <div class="flex align-items-center justify-content-between">
         <Button label="Cancel" class="p-button-secondary mr-0" @click="closeDialogHandler"></Button>
-        <router-link :to="routes.PLAN_AND_BILLINGS">
+        <router-link :to="routes.PLAN_AND_BILLINGS" @click="highlightedAddon = 'payout'">
           <Button label="Upgrade" class="mr-0"></Button>
         </router-link>
       </div>

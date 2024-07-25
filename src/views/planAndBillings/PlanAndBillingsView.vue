@@ -29,28 +29,40 @@ onMounted(async () => {
 
   await fetchPlansHandler();
   setSelectedPlan();
-
-  if(highlightedAddon.value) {
-    document.getElementById('addons-wrapper').scrollIntoView({ behavior: 'smooth' });
-    setTimeout(() => {
-      if(highlightedAddon.value === 'product') {
-        const productProAddon = document.getElementById('product-pro-addon');
-        productProAddon.classList.add('highlight');
-      } else if(highlightedAddon.value === 'order') {
-        const orderProAddon = document.getElementById('order-pro-addon');
-        orderProAddon.classList.add('highlight');
-      }
-    }, 700)
-
-    setTimeout(() => {
-      document.getElementById('product-pro-addon').classList.remove('highlight');
-      document.getElementById('order-pro-addon').classList.remove('highlight')
-      highlightedAddon.value = null;
-    }, 3000);
-  }
+  highLightAddon();
 });
 
 /* ----- Methods ----- */
+const highLightAddon = () => {
+  if (highlightedAddon.value) {
+    const addonsWrapper = document.getElementById('addons-wrapper');
+    addonsWrapper.scrollIntoView({ behavior: 'smooth' });
+    const addonMap = {
+      'product': 'product-pro-addon',
+      'order': 'order-pro-addon',
+      'payout': 'payout-pro-addon'
+    };
+
+    setTimeout(() => {
+      const addonId = addonMap[highlightedAddon.value];
+      if (addonId) {
+        const addonElement = document.getElementById(addonId);
+        addonElement.classList.add('highlight');
+      }
+    }, 700);
+
+    setTimeout(() => {
+      Object.values(addonMap).forEach(id => {
+        const addonElement = document.getElementById(id);
+        if (addonElement) {
+          addonElement.classList.remove('highlight');
+        }
+      });
+      highlightedAddon.value = null;
+    }, 3000);
+  }
+};
+
 const setSelectedPlan = () => {
   // Check if selectedPlan.value doesn't exist
   if (!selectedPlan.value) {
