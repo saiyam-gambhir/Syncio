@@ -1,5 +1,5 @@
-export const fetchDashboardStats = {
-  async fetchDashboardStats() {
+export const fetchStats = {
+  async fetchStats() {
     try {
       this.loading = true;
       const { userId } = useAuthStore();

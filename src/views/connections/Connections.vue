@@ -5,6 +5,7 @@ import * as routes from '@/routes';
 const {
   clickedStore,
   connections,
+  fetchStoreStats,
   isConnectionSettingsDialogRequested,
   isDestinationStore,
   isLocationPendingDialogRequested,
@@ -55,6 +56,7 @@ const getStatus = (connection) => {
 const fetchConnectionSettingsHandler = (connection) => {
   clickedStore.value = connection;
   isConnectionSettingsDialogRequested.value = true;
+  fetchStoreStats.value(connection.type)
 };
 </script>
 

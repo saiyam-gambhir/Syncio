@@ -1,7 +1,7 @@
 import deepmerge from 'deepmerge';
 
 /* ----- Actions ----- */
-import { fetchDashboardStats } from './actions/fetchDashboardStats';
+import { fetchStats } from './actions/fetchStats';
 
 export const useDashboardStore = defineStore('Dashboard', {
   state: () => {
@@ -12,7 +12,7 @@ export const useDashboardStore = defineStore('Dashboard', {
   },
 
   actions: deepmerge.all([
-    fetchDashboardStats,
+    fetchStats,
   ]),
 
   persist: {

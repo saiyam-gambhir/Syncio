@@ -10,6 +10,7 @@ import { fetchCurrentStore } from './actions/fetchCurrentStore';
 import { fetchDestinationLocations } from './actions/fetchDestinationLocations';
 import { fetchMetadata } from './actions/fetchMetadata';
 import { fetchSourceLocations } from './actions/fetchSourceLocations';
+import { fetchStoreStats } from './actions/fetchStoreStats';
 import { invitePartnerStore } from './actions/invitePartnerStore';
 import { toggleMultilocation } from './actions/toggleMultilocation';
 import { uninstallStore } from './actions/uninstallStore';
@@ -54,6 +55,7 @@ export const useConnectionsStore = defineStore('connections', {
       loadingEnableStore: false,
       loadingInventory: false,
       loadingLocationChange: false,
+      loadingStats: false,
       loadingTestStoreConnection: false,
       loadingUninstall: false,
       location: { current: null, new: null, params: null, store: null },
@@ -157,6 +159,7 @@ export const useConnectionsStore = defineStore('connections', {
     fetchDestinationLocations,
     fetchMetadata,
     fetchSourceLocations,
+    fetchStoreStats,
     invitePartnerStore,
     toggleMultilocation,
     uninstallStore,

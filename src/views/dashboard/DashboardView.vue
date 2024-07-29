@@ -21,7 +21,7 @@ const {
 } = toRefs(useConnectionsStore());
 
 const {
-  fetchDashboardStats,
+  fetchStats,
 } = toRefs(useDashboardStore());
 
 const {
@@ -40,7 +40,7 @@ onMounted(() => {
   }
 
   if(isSourceStore.value) {
-    fetchDashboardStats.value();
+    fetchStats.value();
   }
 });
 </script>
