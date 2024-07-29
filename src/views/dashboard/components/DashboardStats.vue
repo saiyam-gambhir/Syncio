@@ -1,6 +1,7 @@
 <script setup>
-/* ----- Mounted ----- */
-onMounted(() => {});
+const {
+  stats
+} = toRefs(useDashboardStore())
 </script>
 
 <template>
@@ -13,7 +14,7 @@ onMounted(() => {});
       <div class="col-3">
         <CardWrapper title="Connected stores" lightHeading class="h-100">
           <template #content>
-            <h2 class="font-semi mt-4 mb-0">100</h2>
+            <h2 class="font-semi mt-4 mb-0">{{ stats?.connected_stores }}</h2>
             <p class="mb-0 text-500 text-sm pt-2">As of today</p>
           </template>
         </CardWrapper>
@@ -22,7 +23,7 @@ onMounted(() => {});
         <CardWrapper title="Synced products" lightHeading class="h-100">
           <template #content>
             <h2 class="font-semi mt-4 mb-0">
-              1000
+              {{ stats?.synced_products }}
               <span class="relative ml-2 text-lg" style="top: -6px; color: #1EA97C;">
                 <IconChartLine fill="#1EA97C" />
                 +1
@@ -36,7 +37,7 @@ onMounted(() => {});
         <CardWrapper title="Orders containing synced products" lightHeading class="h-100">
           <template #content>
             <h2 class="font-semi mt-4 mb-0">
-              20
+              {{ stats?.synced_orders }}
               <span class="relative ml-2 text-lg" style="top: -6px; color: #6C757D;">
                 <IconChartLine />
                 0
@@ -50,7 +51,7 @@ onMounted(() => {});
         <CardWrapper title="Synced products sold" lightHeading class="h-100">
           <template #content>
             <h2 class="font-semi mt-4 mb-0">
-              50
+              {{ stats?.synced_products_sold }}
               <span class="relative ml-2 text-lg" style="top: -6px; color: #F59E08;">
                 <IconChartLine fill="#F59E08" />
                 -1

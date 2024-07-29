@@ -21,6 +21,10 @@ const {
 } = toRefs(useConnectionsStore());
 
 const {
+  fetchDashboardStats,
+} = toRefs(useDashboardStore());
+
+const {
   showUpgrade,
   type,
 } = useUrlSearchParams();
@@ -33,6 +37,10 @@ onMounted(() => {
 
   if (!plan.value && (isShopify.value || isShopline.value) && isDestinationStore.value) {
     router.push({ name: routes.SHOPIFY_SELECT_PLAN });
+  }
+
+  if(isSourceStore.value) {
+    fetchDashboardStats.value();
   }
 });
 </script>
