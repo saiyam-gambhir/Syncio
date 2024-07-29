@@ -73,7 +73,7 @@ watch(newQuantity, () => {
             <i class="pi pi-question-circle text-2xl ml-3" style="transform: translateY(1px);" v-tooltip.right="'Syncs in real time on an ongoing basis'"></i>
           </li>
           <li v-for="setting in destinationVariantSettings" :key="setting.key" class="py-5 border-bottom-1 surface-border">
-            <div class="flex align-items-center justify-content-between w-full">
+            <div class="flex justify-content-between w-full">
               <div class="w-85">
                 <p class="m-0 font-semibold text-lg">
                   <template v-if="setting.key === 'd_sync_cost_per_item'">Cost per item</template>

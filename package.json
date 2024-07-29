@@ -4,6 +4,7 @@
   "scripts": {
     "dev": "vite --host",
     "build": "vite build",
+    "build:staging": "vite build --mode staging",
     "deploy-beta": "vite build --mode beta && aws s3 rm s3://syncio-v2-beta-app.syncio.io --recursive && aws s3 sync ./dist s3://syncio-v2-beta-app.syncio.io",
     "deploy-production": "vite build --mode production && aws s3 rm s3://app-v2.syncio.co --recursive && aws s3 sync ./dist s3://app-v2.syncio.co && aws-cloudfront-invalidate E2XTG3KY1VIR4",
     "deploy-staging": "NODE_ENV=development vite build --mode staging && aws s3 rm s3://staging-app.syncio.io --recursive && aws s3 sync ./dist s3://staging-app.syncio.io && aws-cloudfront-invalidate E1JQLAWU0IBM3T",
