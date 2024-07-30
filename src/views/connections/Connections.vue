@@ -53,10 +53,11 @@ const getStatus = (connection) => {
   return itemStatus;
 };
 
-const fetchConnectionSettingsHandler = (connection) => {
+const fetchConnectionSettingsHandler = async (connection) => {
   clickedStore.value = connection;
   isConnectionSettingsDialogRequested.value = true;
-  fetchStoreStats.value(connection.type)
+  const resposne = await fetchStoreStats.value(connection.id);
+
 };
 </script>
 

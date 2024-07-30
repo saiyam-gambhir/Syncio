@@ -1,12 +1,9 @@
 export const fetchStoreStats = {
-  async fetchStoreStats(storeType) {
+  async fetchStoreStats(storeId) {
     try {
       this.loadingStats = true;
-      const { userId } = useAuthStore();
-      const response = await axiosService.getData(`${userId}/${storeType}/get-dashboard-content`);
-      if(response.success) {
-        this.storeStats = await response.data;
-      }
+      const response = await axiosService.getData(`stores/${storeId}/get-dashboard-content`);
+      return response?.data;
     } catch (err) {}
     finally {
       this.loadingStats = false;
