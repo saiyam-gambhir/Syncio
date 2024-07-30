@@ -8,7 +8,7 @@ const {
   <section class="col-12 mt-2 mb-7">
     <h2 class="flex align-items-center justify-content-between pb-2">
       Performance
-      <a href="javascript:void(0);" class="btn-link">Tell us what data you want to see</a>
+      <a href="https://us18.list-manage.com/survey?u=d3876b95496c25d2e8d7568bb&id=13fad7c875&attribution=false" target="_blank" class="btn-link">Tell us what data you want to see</a>
     </h2>
     <div class="grid">
       <div class="col-3">
@@ -24,10 +24,6 @@ const {
           <template #content>
             <h2 class="font-semi mt-4 mb-0">
               {{ stats?.synced_products }}
-              <span class="relative ml-2 text-lg" style="top: -6px; color: #1EA97C;">
-                <IconChartLine fill="#1EA97C" />
-                +1
-              </span>
             </h2>
             <p class="mb-0 text-500 text-sm pt-2">As of today</p>
           </template>
@@ -38,10 +34,6 @@ const {
           <template #content>
             <h2 class="font-semi mt-4 mb-0">
               {{ stats?.synced_orders }}
-              <span class="relative ml-2 text-lg" style="top: -6px; color: #6C757D;">
-                <IconChartLine />
-                0
-              </span>
             </h2>
             <p class="mb-0 text-500 text-sm pt-2">Last 30 days compared to previous 30 day period</p>
           </template>
@@ -52,10 +44,6 @@ const {
           <template #content>
             <h2 class="font-semi mt-4 mb-0">
               {{ stats?.synced_products_sold }}
-              <span class="relative ml-2 text-lg" style="top: -6px; color: #F59E08;">
-                <IconChartLine fill="#F59E08" />
-                -1
-              </span>
             </h2>
             <p class="mb-0 text-500 text-sm pt-2">Last 30 days compared to previous 30 day period</p>
           </template>
