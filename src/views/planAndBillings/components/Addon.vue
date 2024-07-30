@@ -84,7 +84,7 @@ const changeHandler = (addon) => {
       </div>
 
       <aside class="mt-4">
-        <CardWrapper v-for="option in options" :key="option.id" class="radio-option flex mt-4">
+        <CardWrapper v-for="option in options" :key="option.id" class="radio-option flex mt-4" :id="option.price_per_month > 0 ? `${option.usage_unit}-pro-addon` : `${option.usage_unit}-free-addon`">
           <template #content>
             <RadioButton v-model="selectedOption" :inputId="`${option.module_id}`" :value="option.module_id" class="mr-2" @change="changeHandler(option)" />
             <label :for="option.module_id" class="ml-2 pointer">
@@ -124,7 +124,7 @@ const changeHandler = (addon) => {
 
   + .radio-option {
     border-radius: 0 0 var(--border-radius) var(--border-radius) !important;
-    border-top: none;
+    /* border-top: none; */
     margin-top: 0 !important;
   }
 

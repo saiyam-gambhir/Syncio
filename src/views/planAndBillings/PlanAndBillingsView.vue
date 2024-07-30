@@ -4,6 +4,7 @@ import * as routes from '@/routes';
 /* ----- Data ----- */
 const {
   fetchPlans,
+  highlightedAddon,
   loadingPlans,
   plan,
   plans,
@@ -28,9 +29,40 @@ onMounted(async () => {
 
   await fetchPlansHandler();
   setSelectedPlan();
+  highLightAddon();
 });
 
 /* ----- Methods ----- */
+const highLightAddon = () => {
+  if (highlightedAddon.value) {
+    const addonsWrapper = document.getElementById('addons-wrapper');
+    addonsWrapper.scrollIntoView({ behavior: 'smooth' });
+    const addonMap = {
+      'product': 'product-pro-addon',
+      'order': 'order-pro-addon',
+      'payout': 'payout-pro-addon'
+    };
+
+    setTimeout(() => {
+      const addonId = addonMap[highlightedAddon.value];
+      if (addonId) {
+        const addonElement = document.getElementById(addonId);
+        addonElement.classList.add('highlight');
+      }
+    }, 700);
+
+    setTimeout(() => {
+      Object.values(addonMap).forEach(id => {
+        const addonElement = document.getElementById(id);
+        if (addonElement) {
+          addonElement.classList.remove('highlight');
+        }
+      });
+      highlightedAddon.value = null;
+    }, 3000);
+  }
+};
+
 const setSelectedPlan = () => {
   // Check if selectedPlan.value doesn't exist
   if (!selectedPlan.value) {
@@ -52,6 +84,7 @@ const fetchPlansHandler = async () => {
   <article v-else class="mt-2">
     <section class="grid">
       <div class="col-12 md:col-12 lg:col-9">
+        {{ highlightedAddon }}
         <div class="pr-2">
           <Plans />
           <Addons />
@@ -90,5 +123,17 @@ const fetchPlansHandler = async () => {
   font-size: 1.75rem;
   right: 2rem;
   top: 1.7rem;
+}
+
+.highlight {
+  animation: highlightTag .75s infinite;
+}
+
+@keyframes highlightTag {
+  50% {
+    border: 1px solid var(--link);
+    outline: 1px solid var(--link);
+    scale: 1.05;
+  }
 }
 </style>

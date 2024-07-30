@@ -7,6 +7,7 @@ const MetafieldsDialog = defineAsyncComponent(() => import('./MetafieldsDialog.v
 /* ----- Data ----- */
 const {
   addons,
+  highlightedAddon,
 } = toRefs(usePlanStore());
 
 const {
@@ -70,7 +71,7 @@ const onChangeHandler = ({ is_active, key }) => {
 
 <template>
   <section v-if="isDestinationStore">
-    <p v-if="!addons.isSettingsModulePaid" class="m-0 mb-2 text-lg">Locked settings (<i class="pi pi-lock" style="font-size: 1rem; font-weight: bold;"></i>) are available with Product Settings PRO - <router-link :to="routes.PLAN_AND_BILLINGS" class="btn-link text-lg">Upgrade</router-link> </p>
+    <p v-if="!addons.isSettingsModulePaid" class="m-0 mb-2 text-lg">Locked settings (<i class="pi pi-lock" style="font-size: 1rem; font-weight: bold;"></i>) are available with Product Settings PRO - <router-link :to="routes.PLAN_AND_BILLINGS" @click="highlightedAddon = 'product'" class="btn-link text-lg">Upgrade</router-link> </p>
     <div class="grid">
       <div class="col-5">
         <ul class="list-none p-0 m-0">
@@ -79,7 +80,7 @@ const onChangeHandler = ({ is_active, key }) => {
             <i class="pi pi-question-circle text-2xl ml-3" style="transform: translateY(1px);" v-tooltip.right="'Syncs once, the first time you connect to a specific store'"></i>
           </li>
           <li v-for="setting in initialSyncSettings" :key="setting.key" class="py-5 border-bottom-1 surface-border">
-            <div class="flex align-items-center justify-content-between w-full">
+            <div class="flex justify-content-between w-full">
               <div class="w-85">
                 <p class="m-0 font-semibold text-lg">
                   {{ setting.key === 'sync_product_metafield' ? 'SEO Metafields' : setting.label }}
@@ -111,7 +112,7 @@ const onChangeHandler = ({ is_active, key }) => {
             <i class="pi pi-question-circle text-2xl ml-3" style="transform: translateY(1px);" v-tooltip.right="'Syncs in real time on an ongoing basis'"></i>
           </li>
           <li v-for="setting in ongoingSyncSettings" :key="setting.key" class="py-5 border-bottom-1 surface-border">
-            <div class="flex align-items-center justify-content-between w-full">
+            <div class="flex justify-content-between w-full">
               <div class="w-85">
                 <p class="m-0 font-semibold text-lg">
                   {{ setting.key === 'sync_product_images' ? 'Images (Beta)' : setting.label }}
@@ -127,7 +128,7 @@ const onChangeHandler = ({ is_active, key }) => {
                     Sync product and variant images. For more information please see this <AppLink label="article" link="https://help.syncio.co/en/articles/9202762-product-settings-images-and-videos" class="text-lg" />.
                     <ul class="p-0 pl-3 m-0 mt-3">
                       <li>Videos are not supported. If the source store product has videos do not use this feature.</li>
-                      <li>For a reliable image sync please ensure image file size is 200Kb or under.</li>
+                      <li class="mt-1">For a reliable image sync please ensure image file size is 200Kb or under.</li>
                     </ul>
                   </span>
                   <span v-else-if="setting.key === 'sync_product_tags'">
@@ -152,15 +153,19 @@ const onChangeHandler = ({ is_active, key }) => {
                     <p>What will be synced:</p>
                     <ul class="p-0 pl-3 m-0 mt-3">
                       <li>Synced products will be set to <strong class="font-semibold">Draft</strong>, if the source store sets their product to Draft.</li>
-                      <li>Synced products will be set to <strong class="font-semibold">Active</strong>, if the source store sets their product to Active.</li>
+                      <li class="mt-1">Synced products will be set to <strong class="font-semibold">Active</strong>, if the source store sets their product to Active.</li>
                     </ul>
                     <p class="mb-0">Useful option to prevent draft products from being sold.</p>
                   </span>
                   <span v-else-if="setting.key === 'd_sync_metafields'">
                     Ongoing sync of product and variant metafields from connected Source stores.
                     <br><br>
-                    ⚠️ Turning on will mirror supported metafields to the Destination store and remove any that don't exist in the original source product/variant.
-                    <br><br>
+                     <ul class="p-0 pl-3 m-0 mt-1">
+                      <li>Unique metafields on this store will not be updated/ overwritten.</li>
+                      <li class="mt-1">Syncs new metafield definitions and values from the source store. </li>
+                      <li class="mt-1">Links matching metafields and update values.</li>
+                     </ul>
+                    <br>
                     For a list of supported Metafields and more, <AppLink label="read Metafields Syncing Guide" link="https://help.syncio.co/en/articles/8418976-metafields-syncing-guide" class="text-lg" />
                     <br><br>
                     <strong>Note:</strong> Requires connected Source stores to turn on Metafields in their Product Settings
@@ -188,7 +193,7 @@ const onChangeHandler = ({ is_active, key }) => {
       <div class="col-5">
         <ul class="list-none p-0 m-0">
           <li v-for="setting in sourceProductSettings" :key="setting.key" class="py-5 border-bottom-1 surface-border">
-            <div class="flex align-items-center justify-content-between w-full">
+            <div class="flex justify-content-between w-full">
               <div class="w-85">
                 <p class="m-0 font-semibold text-lg">
                   {{ setting.label }}
