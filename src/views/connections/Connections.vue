@@ -56,7 +56,8 @@ const getStatus = (connection) => {
 const fetchConnectionSettingsHandler = async (connection) => {
   clickedStore.value = connection;
   isConnectionSettingsDialogRequested.value = true;
-  const resposne = await fetchStoreStats.value(connection.id);
+  const { type, user_id } = connection;
+  const resposne = await fetchStoreStats.value(type, user_id);
 
 };
 </script>
@@ -128,12 +129,13 @@ const fetchConnectionSettingsHandler = async (connection) => {
       <template #body="{ data: connection }">
         <Button
           @click="fetchConnectionSettingsHandler(connection)"
-          class="p-button-sm mr-2"
+          class="p-button-sm mr-3"
           label="Settings"
           outlined
           v-if="isSourceStore">
         </Button>
         <SplitButton
+          :class="isDestinationStore ? 'btn-destination' : 'btn-source'"
           :outlined="isDestinationStore"
           @click="fetchProductsHandler(connection)"
           class="p-button-sm"
@@ -151,5 +153,11 @@ const fetchConnectionSettingsHandler = async (connection) => {
   .p-button.p-component.p-button-icon-only.p-splitbutton-menubutton {
     border-top-left-radius: 0 !important;
     border-bottom-left-radius: 0 !important;
+  }
+
+  .btn-source {
+    .p-splitbutton-menubutton {
+      border-left-color: var(--white);
+    }
   }
 </style>

@@ -35,7 +35,7 @@ const {
             <h2 class="font-semi mt-4 mb-0">
               {{ stats?.synced_orders }}
             </h2>
-            <p class="mb-0 text-500 text-sm pt-2">Last 30 days compared to previous 30 day period</p>
+            <p class="mb-0 text-500 text-sm pt-2">Last 30 days</p>
           </template>
         </CardWrapper>
       </div>
@@ -45,7 +45,7 @@ const {
             <h2 class="font-semi mt-4 mb-0">
               {{ stats?.synced_products_sold }}
             </h2>
-            <p class="mb-0 text-500 text-sm pt-2">Last 30 days compared to previous 30 day period</p>
+            <p class="mb-0 text-500 text-sm pt-2">Last 30 days</p>
           </template>
         </CardWrapper>
       </div>
