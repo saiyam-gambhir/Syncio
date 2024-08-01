@@ -20,8 +20,9 @@ export const STORES = '/stores';
 
 /* ----- Shopify ----- */
 export const SHOPIFY_CONNECT_OR_INVITE_STORE = '/shopify/connect-or-invite-store';
-export const SHOPIFY_CONNECT_YOUR_FIRST_STORE = '/shopify/connect-your-first-store'
+export const SHOPIFY_CONNECT_YOUR_FIRST_STORE = '/shopify/connect-your-first-store';
 export const SHOPIFY_INSTALLATION_COMPLETE = '/shopify/installation-complete';
+export const SHOPIFY_PLAN_APPROVAL = '/shopify/plan-approval';
 export const SHOPIFY_SELECT_PLAN = '/shopify/select-plan';
 export const SHOPIFY_SELECT_STORE_TYPE = '/shopify/select-store-type';
 

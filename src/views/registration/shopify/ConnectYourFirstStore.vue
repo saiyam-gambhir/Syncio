@@ -99,7 +99,7 @@ const onInvitePartnerStoreHandler = async (emailAddress) => {
 
 const skipOnboardingHandler = async () => {
   loading.value = true;
-  await router.push({ name: routes.SHOPIFY_INSTALLATION_COMPLETE });
+  await router.push({ name: routes.SHOPIFY_PLAN_APPROVAL });
   loading.value = false;
 };
 </script>
