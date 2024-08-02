@@ -3,10 +3,14 @@ import * as routes from '@/routes';
 import router from '@/router';
 
 /* ----- Data ----- */
-const route = useRoute();
+const {
+  fetchPlans,
+  generateUsageCharge,
+} = toRefs(usePlanStore());
 
 /* ----- OnMounted ----- */
-onMounted(async () => {
+onMounted(() => {
+  fetchPlans.value();
 });
 </script>
 
@@ -85,7 +89,7 @@ onMounted(async () => {
         <div class="grid-column">
           <h3 class="my-0 line-height-3">Approve your subscription to complete installation</h3>
           <p style="color: #757575;">We recommend you don't set a spending limit in the next step, as it may cause issues with your billing and restricted access to the Syncio app.</p>
-          <Button class="w-100 mt-2 mb-4" label="Go To Shopify Approval"></Button>
+          <Button class="w-100 mt-2 mb-4" label="Go To Shopify Approval" @click="generateUsageCharge"></Button>
         </div>
       </div>
     </aside>
