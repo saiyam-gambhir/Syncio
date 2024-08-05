@@ -24,7 +24,7 @@ const {
           <CardWrapper title="Synced products" lightHeading class="h-100">
             <template #content>
               <h2 class="font-semi mt-4 mb-0">
-                1000
+                {{ clickedStore?.synced_products }}
               </h2>
               <p class="mb-0 text-500 text-sm pt-2">As of today</p>
             </template>
@@ -34,7 +34,7 @@ const {
           <CardWrapper title="Orders containing synced products" lightHeading class="h-100">
             <template #content>
               <h2 class="font-semi mt-4 mb-0">
-                20
+                {{ clickedStore?.synced_orders }}
               </h2>
               <p class="mb-0 text-500 text-sm pt-2">Last 30 days</p>
             </template>
@@ -44,7 +44,7 @@ const {
           <CardWrapper title="Synced products sold" lightHeading class="h-100">
             <template #content>
               <h2 class="font-semi mt-4 mb-0">
-                50
+                {{ clickedStore?.synced_products_sold }}
               </h2>
               <p class="mb-0 text-500 text-sm pt-2">Last 30 days</p>
             </template>

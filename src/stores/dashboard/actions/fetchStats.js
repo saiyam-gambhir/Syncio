@@ -4,8 +4,7 @@ export const fetchStats = {
       this.loading = true;
       const { userId } = useAuthStore();
       const { storeType } = useConnectionsStore();
-      const response = await axiosService.getData(`${userId}/${storeType}/get-dashboard-content`);
-      debugger
+      const response = await axiosService.getData(`user/${userId}/${storeType}/get-dashboard-content`);
       if(response.success) {
         this.stats = await response.data;
       }

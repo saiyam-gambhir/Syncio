@@ -58,7 +58,7 @@ const fetchConnectionSettingsHandler = async (connection) => {
   isConnectionSettingsDialogRequested.value = true;
   const { type, user_id } = connection;
   const resposne = await fetchStoreStats.value(type, user_id);
-
+  clickedStore.value = { ...clickedStore.value, ...resposne };
 };
 </script>
 
