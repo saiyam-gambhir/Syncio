@@ -39,8 +39,8 @@ const isSettingsPath = computed(() => {
         <Logo tabindex="0" class="pt-2" />
       </div>
 
-      <!-- Destination Store Navigation -->
       <div class="nav-wrapper select-none">
+        <!-- Destination Store Navigation -->
         <ul v-if="isDestinationStore" class="primary-navigation destination list-none p-4 px-3 pb-2 m-0">
           <li>
             <NavLink :href="routes.DASHBOARD" iconClass="pi-th-large" linkText="Dashboard" />
@@ -99,6 +99,9 @@ const isSettingsPath = computed(() => {
 
       <!-- Addons Usage Indicator -->
       <AddonsUsageIndicator v-if="isDestinationStore" />
+
+      <!-- Plan Usage Indicator -->
+      <PlanUsageIndicator v-if="isSourceStore" />
 
       <!-- Addons not available dialog -->
       <DialogWrapper :isVisible="isUpgradeDialogRequested" title="This is an add-on feature" width="600px" @closeDialog="closeDialogHandler">
