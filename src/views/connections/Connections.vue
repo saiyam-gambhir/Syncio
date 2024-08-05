@@ -53,13 +53,13 @@ const getStatus = (connection) => {
   return itemStatus;
 };
 
-const fetchConnectionSettingsHandler = async (connection) => {
-  clickedStore.value = connection;
-  isConnectionSettingsDialogRequested.value = true;
-  const { type, user_id } = connection;
-  const resposne = await fetchStoreStats.value(type, user_id);
-  clickedStore.value = { ...clickedStore.value, ...resposne };
-};
+// const fetchConnectionSettingsHandler = async (connection) => {
+//   clickedStore.value = connection;
+//   isConnectionSettingsDialogRequested.value = true;
+//   const { type, user_id } = connection;
+//   const resposne = await fetchStoreStats.value(type, user_id);
+//   clickedStore.value = { ...clickedStore.value, ...resposne };
+// };
 </script>
 
 <template>
@@ -119,7 +119,7 @@ const fetchConnectionSettingsHandler = async (connection) => {
       </template>
     </Column>
 
-    <Column header="Inventory Location" style="width: 20%" v-if="isSourceStore">
+    <Column header="Inventory Location" style="width: 25%" v-if="isSourceStore">
       <template #body="{ data: connection }">
         <SourceInventoryDropdown :connection="connection" />
       </template>
@@ -127,16 +127,15 @@ const fetchConnectionSettingsHandler = async (connection) => {
 
     <Column header="Actions" style="width: 20%" class="text-right">
       <template #body="{ data: connection }">
-        <Button
+        <!-- <Button
           @click="fetchConnectionSettingsHandler(connection)"
           class="p-button-sm mr-3"
           label="Settings"
           outlined
           v-if="isSourceStore">
-        </Button>
+        </Button> -->
         <SplitButton
-          :class="isDestinationStore ? 'btn-destination' : 'btn-source'"
-          :outlined="isDestinationStore"
+          outlined
           @click="fetchProductsHandler(connection)"
           class="p-button-sm"
           label="View products"
@@ -155,9 +154,9 @@ const fetchConnectionSettingsHandler = async (connection) => {
     border-bottom-left-radius: 0 !important;
   }
 
-  .btn-source {
+  /* .btn-source {
     .p-splitbutton-menubutton {
       border-left-color: var(--white);
     }
-  }
+  } */
 </style>
