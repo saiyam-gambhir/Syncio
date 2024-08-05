@@ -28,6 +28,7 @@ const {
 const activityCenter = useActivityCenterStore();
 const auth = useAuthStore();
 const connections = useConnectionsStore();
+const dashboard = useDashboardStore();
 const marketPlace = useMarketPlaceStore();
 const menu = ref();
 const orders = useOrdersStore();
@@ -296,6 +297,7 @@ const logout = () => {
   activityCenter.$reset();
   auth.$reset();
   connections.$reset();
+  dashboard.$reset();
   marketPlace.$reset();
   orders.$reset();
   payouts.$reset();

@@ -17,7 +17,12 @@ const {
   isDestinationStore,
   isShopify,
   isShopline,
+  isSourceStore,
 } = toRefs(useConnectionsStore());
+
+const {
+  fetchStats,
+} = toRefs(useDashboardStore());
 
 const {
   showUpgrade,
@@ -30,19 +35,22 @@ onMounted(() => {
     showUpgradeDialogHandler(type);
   }
 
-  if(!plan.value && (isShopify.value || isShopline.value) && isDestinationStore.value) {
+  if (!plan.value && (isShopify.value || isShopline.value) && isDestinationStore.value) {
     router.push({ name: routes.SHOPIFY_SELECT_PLAN });
+  }
+
+  if(isSourceStore.value) {
+    fetchStats.value();
   }
 });
 </script>
 
 <template>
-  <PageHeader
-    content="Get the most out of Syncio so you can focus on growing your business"
-    title="Welcome">
+  <PageHeader content="Get the most out of Syncio so you can focus on growing your business" title="Welcome">
   </PageHeader>
 
   <article class="grid mt-2">
+    <DashboardStats v-if="isSourceStore" />
     <DashboardLeft />
     <DashboardRight />
   </article>
