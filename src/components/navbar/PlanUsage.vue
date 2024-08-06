@@ -31,7 +31,7 @@ const percentageLimitUsed = computed(() => {
 const getNextBillableDaysRemaining = computed(() => {
   const nextBillableDate = '2024-09-01 00:00:00'.split(' ')[0];
   const targetDate = DateTime.fromISO(nextBillableDate);
-  const now = DateTime.now();
+  const now = DateTime.now().minus({ days: 1 });
   return targetDate.diff(now, 'days').days;
 });
 </script>
@@ -40,7 +40,7 @@ const getNextBillableDaysRemaining = computed(() => {
   <aside class="mb-2">
     <p class="text-sm m-0">Monthly usage plan</p>
     <h3 class="m-0 mt-1">{{ title }}</h3>
-    <div class="flex aling-items-center justify-content-between mt-3" v-if="limitUsed <= 1000">
+    <div class="flex align-items-center justify-content-between mt-3" v-if="limitUsed <= 1000">
       <h4 class="m-0">Synced products sold</h4>
       <div class="text-sm">{{ limitUsed }}/{{ limitAvailable }}</div>
     </div>
