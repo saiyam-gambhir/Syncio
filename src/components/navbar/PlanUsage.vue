@@ -29,7 +29,7 @@ const percentageLimitUsed = computed(() => {
 });
 
 const getNextBillableDaysRemaining = computed(() => {
-  const nextBillableDate = '2024-09-01T00:00:00.000000Z';
+  const nextBillableDate = '2024-09-01 00:00:00'.split(' ')[0];
   const targetDate = DateTime.fromISO(nextBillableDate);
   const now = DateTime.now();
   return targetDate.diff(now, 'days').days;
@@ -40,13 +40,16 @@ const getNextBillableDaysRemaining = computed(() => {
   <aside class="mb-2">
     <p class="text-sm m-0">Monthly usage plan</p>
     <h3 class="m-0 mt-1">{{ title }}</h3>
-    <div class="flex aling-items-center justify-content-between mt-3">
+    <div class="flex aling-items-center justify-content-between mt-3" v-if="limitUsed <= 1000">
       <h4 class="m-0">Synced products sold</h4>
-      <div class="text-sm" v-if="limitUsed <= 1000">{{ limitUsed }}/{{ limitAvailable }}</div>
-      <div class="text-sm" v-else>{{ limitUsed }}</div>
+      <div class="text-sm">{{ limitUsed }}/{{ limitAvailable }}</div>
     </div>
-    <div class="progress-bar relative my-2 w-full">
+    <div class="progress-bar relative my-2 w-full" v-if="limitUsed <= 1000">
       <div class="progress-bar-used absolute h-full" :style="{ 'width': percentageLimitUsed }" style="transition: width .25s;"></div>
+    </div>
+    <div v-else class="font-semibold mt-3 mb-3">
+      <div class="mb-2">Synced products sold</div>
+      {{ limitUsed }} / <span class="font-normal">unlimited</span>
     </div>
     <div class="text-sm mt-2">
       {{ `${Math.floor(getNextBillableDaysRemaining)} days remaining` }}
