@@ -236,6 +236,7 @@ export const useMarketPlaceStore = defineStore('marketPlace', {
       isMessageDialogVisible: false,
       isMessageSentDialogVisible: false,
       isPreviewProfileDialogVisible: false,
+      isProfileCreatedDialogVisible: false,
       loading: false,
       loadingProfile: false,
       maxImagesAllowed: 6,

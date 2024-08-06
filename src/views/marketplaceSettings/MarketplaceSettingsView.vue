@@ -1,8 +1,9 @@
 <script setup>
-import * as IntercomActions from '@/intercom';
+//import * as IntercomActions from '@/intercom';
 import * as validationMessages from '@/validationMessages';
 
 /* ----- Components ----- */
+const ProfileCreatedDialog = defineAsyncComponent(() => import('./components/ProfileCreatedDialog.vue'));
 const ProfilePreviewDialog = defineAsyncComponent(() => import('./components/ProfilePreviewDialog.vue'));
 
 /* ----- Data ----- */
@@ -16,6 +17,7 @@ const {
   countries,
   fetchProfile,
   isPreviewProfileDialogVisible,
+  isProfileCreatedDialogVisible,
   loadingProfile,
   maxImagesAllowed,
   profile,
@@ -102,9 +104,10 @@ const updateProfileHandler = async () => {
   const isProfileCreated = profile.value?.updatedAt;
   await updateProfile.value();
 
-  // Trigger for the first time
+  // Trigger for the first time or show dialog to redirect to marketplace page
   if(!isProfileCreated) {
-    Intercom('trackEvent', IntercomActions.MARKETPLACE_PROFILE_CREATED_EVENT);
+    isProfileCreatedDialogVisible.value = true;
+    //Intercom('trackEvent', IntercomActions.MARKETPLACE_PROFILE_CREATED_EVENT);
   }
 };
 
@@ -341,7 +344,11 @@ watch(profile, (newValue, oldValue) => {
     </article>
   </form>
 
+  <!-- Preview profile dialog -->
   <ProfilePreviewDialog v-if="isPreviewProfileDialogVisible" />
+
+  <!-- Profile created dialog -->
+  <ProfileCreatedDialog v-if="isProfileCreatedDialogVisible" />
 </template>
 
 <style scoped>
