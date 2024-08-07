@@ -39,7 +39,7 @@ onMounted(() => {
     router.push({ name: routes.SHOPIFY_SELECT_PLAN });
   }
 
-  if(isSourceStore.value) {
+  if (isSourceStore.value) {
     fetchStats.value();
   }
 });

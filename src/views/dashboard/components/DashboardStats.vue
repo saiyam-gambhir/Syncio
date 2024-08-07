@@ -2,13 +2,17 @@
 const {
   stats
 } = toRefs(useDashboardStore())
+
+const {
+  isShopify,
+} = toRefs(useConnectionsStore());
 </script>
 
 <template>
   <section class="col-12 mt-2 mb-7">
     <h2 class="flex align-items-center justify-content-between pb-2">
       Performance
-      <a href="https://us18.list-manage.com/survey?u=d3876b95496c25d2e8d7568bb&id=13fad7c875&attribution=false" target="_blank" class="btn-link">Tell us what data you want to see</a>
+      <AppLink v-if="isShopify" label="Tell us what data you want to see" link="https://us18.list-manage.com/survey?u=d3876b95496c25d2e8d7568bb&id=13fad7c875&attribution=false" />
     </h2>
     <div class="grid">
       <div class="col-3">
@@ -29,7 +33,7 @@ const {
           </template>
         </CardWrapper>
       </div>
-      <div class="col-3">
+      <div class="col-3" v-if="isShopify">
         <CardWrapper title="Orders containing synced products" lightHeading class="h-100">
           <template #content>
             <h2 class="font-semi mt-4 mb-0">
@@ -39,7 +43,7 @@ const {
           </template>
         </CardWrapper>
       </div>
-      <div class="col-3">
+      <div class="col-3" v-if="isShopify">
         <CardWrapper title="Synced products sold" lightHeading class="h-100">
           <template #content>
             <h2 class="font-semi mt-4 mb-0">
