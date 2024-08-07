@@ -6,6 +6,10 @@ const {
   formatDate
 } = useFilters();
 
+const {
+  plan,
+} = toRefs(usePlanStore())
+
 /* ----- Props ----- */
 const props = defineProps({
   title: {
@@ -29,7 +33,7 @@ const percentageLimitUsed = computed(() => {
 });
 
 const getNextBillableDaysRemaining = computed(() => {
-  const nextBillableDate = '2024-09-01 00:00:00'.split(' ')[0];
+  const nextBillableDate = plan.value?.next_billable_date.split(' ')[0];
   const targetDate = DateTime.fromISO(nextBillableDate);
   const now = DateTime.now().minus({ days: 1 });
   return targetDate.diff(now, 'days').days;

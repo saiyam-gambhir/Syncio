@@ -9,8 +9,8 @@ const {
 } = toRefs(usePlanStore());
 
 /* ----- OnMounted ----- */
-onMounted(() => {
-  fetchPlans.value();
+onMounted(async () => {
+  await fetchPlans.value();
 });
 </script>
 

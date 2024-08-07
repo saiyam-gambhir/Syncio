@@ -6,7 +6,7 @@ export const generateUsageCharge = {
       const params = {
         is_onboarding: this.plan ? false : true,
         option_ids: [],
-        plan_id: this.currentPlanId,
+        plan_id: this.plans && this.plans[0].id
       };
 
       this.loadingPayment = true;
