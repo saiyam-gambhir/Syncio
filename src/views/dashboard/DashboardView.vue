@@ -39,7 +39,7 @@ onMounted(() => {
     router.push({ name: routes.SHOPIFY_SELECT_PLAN });
   }
 
-  if (isSourceStore.value && isShopify.value) {
+  if (isSourceStore.value) {
     fetchStats.value();
   }
 });
@@ -50,7 +50,7 @@ onMounted(() => {
   </PageHeader>
 
   <article class="grid mt-2">
-    <DashboardStats v-if="isSourceStore && isShopify" />
+    <DashboardStats v-if="isSourceStore" />
     <DashboardLeft />
     <DashboardRight />
   </article>
