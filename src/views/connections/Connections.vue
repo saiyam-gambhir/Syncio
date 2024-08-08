@@ -5,6 +5,8 @@ import * as routes from '@/routes';
 const {
   clickedStore,
   connections,
+  fetchStoreStats,
+  isConnectionSettingsDialogRequested,
   isDestinationStore,
   isLocationPendingDialogRequested,
   isMultilocation,
@@ -50,6 +52,14 @@ const getStatus = (connection) => {
 
   return itemStatus;
 };
+
+// const fetchConnectionSettingsHandler = async (connection) => {
+//   clickedStore.value = connection;
+//   isConnectionSettingsDialogRequested.value = true;
+//   const { type, user_id } = connection;
+//   const resposne = await fetchStoreStats.value(type, user_id);
+//   clickedStore.value = { ...clickedStore.value, ...resposne };
+// };
 </script>
 
 <template>
@@ -117,16 +127,36 @@ const getStatus = (connection) => {
 
     <Column header="Actions" style="width: 20%" class="text-right">
       <template #body="{ data: connection }">
+        <!-- <Button
+          @click="fetchConnectionSettingsHandler(connection)"
+          class="p-button-sm mr-3"
+          label="Settings"
+          outlined
+          v-if="isSourceStore">
+        </Button> -->
         <SplitButton
+          outlined
           @click="fetchProductsHandler(connection)"
           class="p-button-sm"
           label="View products"
           :model="[
             { label: 'Disconnect', command: () => showDisconnectStoreDialog(connection) },
-          ]"
-          outlined>
+          ]">
         </SplitButton>
       </template>
     </Column>
   </DataTable>
 </template>
+
+<style>
+  .p-button.p-component.p-button-icon-only.p-splitbutton-menubutton {
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+  }
+
+  /* .btn-source {
+    .p-splitbutton-menubutton {
+      border-left-color: var(--white);
+    }
+  } */
+</style>
