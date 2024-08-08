@@ -1,9 +1,14 @@
 <script setup>
 /* ----- Data ----- */
 const {
-  stats
+  stats,
 } = toRefs(useDashboardStore())
 
+const {
+  plan,
+} = toRefs(usePlanStore())
+
+/* ----- Computed ----- */
 const getPlanDetails = computed(() => {
   const syncedProductsSold = +stats.value?.synced_products_sold || 0;
 
@@ -22,7 +27,7 @@ const getPlanDetails = computed(() => {
 </script>
 
 <template>
-  <div class="mt-auto p-3" style="background: #f8f9fa;">
+  <div class="mt-auto p-3" style="background: #f8f9fa;" v-if="plan">
     <div class="border-round shadow-2 surface-0 p-3">
       <PlanUsage :title="getPlanDetails.title" :limitUsed="+stats?.synced_products_sold || 0" :limitAvailable="getPlanDetails.availableLimit"></PlanUsage>
     </div>
