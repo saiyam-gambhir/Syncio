@@ -4,15 +4,11 @@
   "scripts": {
     "dev": "vite --host",
     "build": "vite build",
-    "build:staging": "vite build --mode staging",
     "deploy-beta": "vite build --mode beta && aws s3 rm s3://syncio-v2-beta-app.syncio.io --recursive && aws s3 sync ./dist s3://syncio-v2-beta-app.syncio.io",
     "deploy-production": "vite build --mode production && aws s3 rm s3://app-v2.syncio.co --recursive && aws s3 sync ./dist s3://app-v2.syncio.co && aws-cloudfront-invalidate E2XTG3KY1VIR4",
     "deploy-staging": "NODE_ENV=development vite build --mode staging && aws s3 rm s3://staging-app.syncio.io --recursive && aws s3 sync ./dist s3://staging-app.syncio.io && aws-cloudfront-invalidate E1JQLAWU0IBM3T",
     "preview": "vite preview --port 4173",
-    "test:unit": "vitest --environment jsdom",
-    "test:e2e": "start-server-and-test preview http://localhost:4173/ 'cypress open --e2e'",
-    "test:e2e:ci": "start-server-and-test preview http://localhost:4173/ 'cypress run --e2e'",
-    "format": "prettier --write \"./src/**/*.{js}\""
+    "test:unit": "vitest --environment jsdom"
   },
   "dependencies": {
     "@vuepic/vue-datepicker": "^4.2.3",
