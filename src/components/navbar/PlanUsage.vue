@@ -3,12 +3,11 @@ import { DateTime } from 'luxon';
 
 /* ----- Data ----- */
 const {
-  formatDate
-} = useFilters();
-
-const {
   plan,
 } = toRefs(usePlanStore())
+
+const isFreeTrial = ref(false)
+const freeTrialDaysRemaining = ref(0);
 
 /* ----- Props ----- */
 const props = defineProps({
@@ -26,38 +25,56 @@ const props = defineProps({
   }
 });
 
+/* ----- Mounted ----- */
+onMounted(()=> {
+  getNextBillableDaysRemaining();
+});
+
 /* ----- Computed ----- */
 const percentageLimitUsed = computed(() => {
   let progress = ((props.limitUsed * 100) / props.limitAvailable);
   return progress > 100 ? '100%' : `${progress}%`;
 });
 
-const getNextBillableDaysRemaining = computed(() => {
+/* ----- Methods ----- */
+const getNextBillableDaysRemaining = () => {
   const nextBillableDate = plan.value?.next_billable_date.split(' ')[0];
   const targetDate = DateTime.fromISO(nextBillableDate);
   const now = DateTime.now().minus({ days: 1 });
-  return targetDate.diff(now, 'days').days;
-});
+  const daysRemaining = parseInt(targetDate.diff(now, 'days').days);
+  if(daysRemaining > 30) {
+    isFreeTrial.value = true;
+    freeTrialDaysRemaining.value = daysRemaining - 30;
+  }
+};
 </script>
 
 <template>
   <aside class="mb-2">
     <p class="text-sm m-0">Monthly usage plan</p>
-    <h3 class="m-0 mt-1">{{ title }}</h3>
-    <div class="flex align-items-center justify-content-between mt-3" v-if="limitUsed <= 1000">
-      <h4 class="m-0">Synced products sold</h4>
-      <div class="text-sm">{{ limitUsed }}/{{ limitAvailable }}</div>
-    </div>
-    <div class="progress-bar relative my-2 w-full" v-if="limitUsed <= 1000">
-      <div class="progress-bar-used absolute h-full" :style="{ 'width': percentageLimitUsed }" style="transition: width .25s;"></div>
-    </div>
-    <div v-else class="font-semibold mt-3 mb-3">
-      <div class="mb-2">Synced products sold</div>
-      {{ limitUsed }} / <span class="font-normal">unlimited</span>
-    </div>
-    <div class="text-sm mt-2">
-      {{ `${Math.floor(getNextBillableDaysRemaining)} days remaining` }}
-    </div>
+
+    <template v-if="isFreeTrial">
+      <h3 class="m-0 mt-1">Free Trial</h3>
+      <h4 class="m-0 mt-3 font-semi line-height-3">Your usage plan will start after the free trial period ends</h4>
+      <div class="text-sm mt-2">
+        {{ `${freeTrialDaysRemaining} ${freeTrialDaysRemaining > 1 ? 'days' : 'day'} remaining` }}
+      </div>
+    </template>
+
+    <template v-else>
+      <h3 class="m-0 mt-1">{{ title }}</h3>
+      <div class="flex align-items-center justify-content-between mt-3" v-if="limitUsed <= 1000">
+        <h4 class="m-0">Synced products sold</h4>
+        <div class="text-sm">{{ limitUsed }}/{{ limitAvailable }}</div>
+      </div>
+      <div class="progress-bar relative my-2 w-full" v-if="limitUsed <= 1000">
+        <div class="progress-bar-used absolute h-full" :style="{ 'width': percentageLimitUsed }" style="transition: width .25s;"></div>
+      </div>
+      <div v-else class="font-semibold mt-3 mb-3">
+        <div class="mb-2">Synced products sold</div>
+        {{ limitUsed }} / <span class="font-normal">unlimited</span>
+      </div>
+    </template>
     <Divider />
     <p class="text-sm mt-0 line-height-3">You plan tier will automatically adjust with your usage.</p>
     <AppLink label="Learn about Source store pricing" link="https://help.syncio.co/en/articles/9643458-source-store-pricing" class="text-sm line-height-2" />
