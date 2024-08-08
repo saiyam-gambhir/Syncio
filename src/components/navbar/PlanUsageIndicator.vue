@@ -1,16 +1,12 @@
 <script setup>
 /* ----- Data ----- */
 const {
-  stats,
-} = toRefs(useDashboardStore())
-
-const {
   plan,
 } = toRefs(usePlanStore())
 
 /* ----- Computed ----- */
 const getPlanDetails = computed(() => {
-  const syncedProductsSold = +stats.value?.synced_products_sold || 0;
+  const syncedProductsSold = +plan.value?.synced_products_sold || 0;
 
   if (syncedProductsSold > 1000) {
     return { title: 'Enterprise', availableLimit: 10000 };
@@ -29,7 +25,7 @@ const getPlanDetails = computed(() => {
 <template>
   <div class="mt-auto p-3" style="background: #f8f9fa;" v-if="plan?.active_addons.length === 0">
     <div class="border-round shadow-2 surface-0 p-3">
-      <PlanUsage :title="getPlanDetails.title" :limitUsed="+stats?.synced_products_sold || 0" :limitAvailable="getPlanDetails.availableLimit"></PlanUsage>
+      <PlanUsage :title="getPlanDetails.title" :limitUsed="+plan?.synced_products_sold || 0" :limitAvailable="getPlanDetails.availableLimit"></PlanUsage>
     </div>
   </div>
 </template>
