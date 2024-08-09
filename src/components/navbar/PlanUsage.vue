@@ -25,11 +25,6 @@ const props = defineProps({
   }
 });
 
-/* ----- Mounted ----- */
-// onMounted(()=> {
-//   getNextBillableDaysRemaining();
-// });
-
 /* ----- Computed ----- */
 const percentageLimitUsed = computed(() => {
   let progress = ((props.limitUsed * 100) / props.limitAvailable);
@@ -42,12 +37,7 @@ const getNextBillableDaysRemaining = computed(() => {
   const targetDate = DateTime.fromISO(nextBillableDate);
   const now = DateTime.now().minus({ days: 1 });
   const daysRemaining = parseInt(targetDate.diff(now, 'days').days);
-  if(daysRemaining > 30) {
-    isFreeTrial.value = true;
-    freeTrialDaysRemaining.value = daysRemaining - 30;
-  }
-
-  return freeTrialDaysRemaining.value;
+  return daysRemaining - 30;
 });
 </script>
 
@@ -55,7 +45,7 @@ const getNextBillableDaysRemaining = computed(() => {
   <aside class="mb-2">
     <p class="text-sm m-0">Monthly usage plan</p>
 
-    <template v-if="isFreeTrial">
+    <template v-if="getNextBillableDaysRemaining > 0">
       <h3 class="m-0 mt-1">Free Trial</h3>
       <h4 class="m-0 mt-3 font-semi line-height-3">Your usage plan will start after the free trial period ends</h4>
       <div class="text-sm mt-2">
