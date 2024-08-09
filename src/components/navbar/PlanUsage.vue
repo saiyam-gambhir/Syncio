@@ -37,7 +37,7 @@ const getNextBillableDaysRemaining = computed(() => {
   const targetDate = DateTime.fromISO(nextBillableDate);
   const now = DateTime.now().minus({ days: 1 });
   const daysRemaining = parseInt(targetDate.diff(now, 'days').days);
-  return daysRemaining - 30;
+  return daysRemaining;
 });
 </script>
 
@@ -45,11 +45,11 @@ const getNextBillableDaysRemaining = computed(() => {
   <aside class="mb-2">
     <p class="text-sm m-0">Monthly usage plan</p>
 
-    <template v-if="getNextBillableDaysRemaining > 0">
+    <template v-if="getNextBillableDaysRemaining - 30 > 0">
       <h3 class="m-0 mt-1">Free Trial</h3>
       <h4 class="m-0 mt-3 font-semi line-height-3">Your usage plan will start after the free trial period ends</h4>
       <div class="text-sm mt-2">
-        {{ `${getNextBillableDaysRemaining} ${getNextBillableDaysRemaining > 1 ? 'days' : 'day'} remaining` }}
+        {{ `${getNextBillableDaysRemaining - 30} ${(getNextBillableDaysRemaining - 30) > 1 ? 'days' : 'day'} remaining` }}
       </div>
     </template>
 
@@ -65,6 +65,9 @@ const getNextBillableDaysRemaining = computed(() => {
       <div v-else class="font-semibold mt-3 mb-3">
         <div class="mb-2">Synced products sold</div>
         {{ limitUsed }} / <span class="font-normal">unlimited</span>
+      </div>
+      <div class="text-sm mt-2">
+        {{ `${getNextBillableDaysRemaining} ${getNextBillableDaysRemaining > 1 ? 'days' : 'day'} remaining` }}
       </div>
     </template>
     <Divider />
