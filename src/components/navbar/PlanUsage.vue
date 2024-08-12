@@ -4,10 +4,7 @@ import { DateTime } from 'luxon';
 /* ----- Data ----- */
 const {
   plan,
-} = toRefs(usePlanStore())
-
-const isFreeTrial = ref(false)
-const freeTrialDaysRemaining = ref(0);
+} = toRefs(usePlanStore());
 
 /* ----- Props ----- */
 const props = defineProps({
@@ -31,7 +28,6 @@ const percentageLimitUsed = computed(() => {
   return progress > 100 ? '100%' : `${progress}%`;
 });
 
-/* ----- Methods ----- */
 const getNextBillableDaysRemaining = computed(() => {
   const nextBillableDate = plan.value?.next_billable_date.split(' ')[0];
   const targetDate = DateTime.fromISO(nextBillableDate);
