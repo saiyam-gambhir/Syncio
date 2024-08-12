@@ -74,7 +74,7 @@ const goToNextStepHandler = async () => {
     await router.push({ name: routes.CREATE_PROFILE });
   } else if((value === 'email' && isEmailInvitationSent.value) || (value === 'uniqueKey' && isDestinationStoreConnected.value)) {
     loading.value = true;
-    await router.push({ name: routes.SHOPIFY_INSTALLATION_COMPLETE });
+    await router.push({ name: routes.SHOPIFY_PLAN_APPROVAL });
     loading.value = false;
   }
 };
@@ -99,7 +99,7 @@ const onInvitePartnerStoreHandler = async (emailAddress) => {
 
 const skipOnboardingHandler = async () => {
   loading.value = true;
-  await router.push({ name: routes.SHOPIFY_INSTALLATION_COMPLETE });
+  await router.push({ name: routes.SHOPIFY_PLAN_APPROVAL });
   loading.value = false;
 };
 </script>

@@ -33,7 +33,7 @@ const {
           </template>
         </CardWrapper>
       </div>
-      <div class="col-3" v-if="isShopify">
+      <div class="col-3">
         <CardWrapper title="Orders containing synced products" lightHeading class="h-100">
           <template #content>
             <h2 class="font-semi mt-4 mb-0">
@@ -43,7 +43,7 @@ const {
           </template>
         </CardWrapper>
       </div>
-      <div class="col-3" v-if="isShopify">
+      <div class="col-3">
         <CardWrapper title="Synced products sold" lightHeading class="h-100">
           <template #content>
             <h2 class="font-semi mt-4 mb-0">
