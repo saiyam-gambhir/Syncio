@@ -5,6 +5,10 @@ import * as routes from '@/routes';
 const router = useRouter();
 
 const {
+  plan,
+} = toRefs(usePlanStore())
+
+const {
   currentStore,
   isSourceStore,
   requiresSourceStorePlanApproval,
@@ -237,7 +241,7 @@ const randomBannerGroup = ref([
 onMounted(() => {
   bootIntercom();
 
-  if(isSourceStore.value && requiresSourceStorePlanApproval.value) {
+  if(isSourceStore.value && requiresSourceStorePlanApproval.value && !plan.value) {
     router.push({ name: routes.SHOPIFY_PLAN_APPROVAL });
     return;
   }
