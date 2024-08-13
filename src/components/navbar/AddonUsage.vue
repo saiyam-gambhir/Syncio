@@ -1,4 +1,4 @@
-<script setup>
+n<script setup>
 /* ----- Props ----- */
 const props = defineProps({
   title: {
@@ -43,7 +43,7 @@ const percentageLimitUsed = computed(() => {
 
 <style scoped>
 .progress-bar {
-  background: #FFD7D8;
+  background: #E0E0E0;
   border-radius: var(--border-radius);
   height: .85rem;
   overflow-x: hidden;

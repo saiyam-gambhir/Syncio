@@ -61,6 +61,12 @@ const router = createRouter({
       path: routes.SHOPIFY_SELECT_PLAN,
     },
     {
+      component: () => import('@/views/registration/shopify/PlanApproval.vue'),
+      meta: { layout: LoggedOut, requireAuth: true },
+      name: routes.SHOPIFY_PLAN_APPROVAL,
+      path: routes.SHOPIFY_PLAN_APPROVAL,
+    },
+    {
       component: () => import('@/views/registration/shopify/InstallationComplete.vue'),
       meta: { layout: LoggedOut, requireAuth: true },
       name: routes.SHOPIFY_INSTALLATION_COMPLETE,

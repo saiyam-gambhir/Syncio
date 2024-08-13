@@ -805,6 +805,50 @@ input.p-inputtext-lg {
         width: 100% !important;
       }
     }
+
+    #plan-approval {
+      h3 {
+        font-size: 1rem !important;
+      }
+
+      .pl-3 {
+        padding-left: 0 !important;
+      }
+
+      .my-6 {
+        margin: 3rem 0 1.25rem 0 !important;
+      }
+
+      p {
+        font-size: .9rem !important;
+      }
+
+      .features {
+        margin-top: 0 !important;
+
+        > div {
+          padding: 1rem 0;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          + div {
+            border-top: solid 1px var(--border-color);
+          }
+        }
+
+        display: block !important;
+
+        p {
+          margin: 0 !important;
+          font-size: 1rem !important;
+        }
+
+        h5 {
+          font-size: 1rem !important;
+        }
+      }
+    }
   }
 
   @media screen and (max-width: $iPhonePortrait) {
@@ -819,15 +863,58 @@ input.p-inputtext-lg {
         width: 100% !important;
       }
     }
-  }
 
-  h1 {
-    font-size: 1.5rem !important;
-  }
+    h1 {
+      font-size: 1.5rem !important;
+    }
 
-  h2, h3 {
-    font-size: 1.25rem !important;
-    line-height: 1.75rem !important;
+    h2, h3 {
+      font-size: 1.25rem !important;
+      line-height: 1.75rem !important;
+    }
+
+    #plan-approval {
+      .synced-products-sold-text {
+        display: none !important;
+      }
+
+      .plan-details {
+        display: block !important;
+
+        .plans-header {
+          display: flex !important;
+          border-top: 0 !important;
+        }
+
+        p {
+          margin: 0 !important;
+        }
+
+        h3, p {
+          min-width: 75px !important;
+          margin: 0 !important;
+        }
+
+        p:last-of-type {
+          text-align: right;
+        }
+
+        .text-left {
+          margin-left: 1.25rem !important;
+        }
+
+        > div {
+          padding: 1rem 0;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          + div {
+            border-top: solid 1px var(--border-color);
+          }
+        }
+      }
+    }
   }
 }
 

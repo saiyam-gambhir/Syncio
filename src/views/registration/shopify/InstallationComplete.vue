@@ -8,6 +8,8 @@ const loadingToDashboard = ref(false);
 
 const {
   isDestinationStore,
+  isShopify,
+  isSourceStore,
 } = toRefs(useConnectionsStore());
 
 const {
@@ -32,6 +34,16 @@ onMounted(async () => {
       } else {
         await router.push({ name: routes.SHOPIFY_SELECT_PLAN });
       }
+    }
+    loading.value = false;
+    isOnboarding.value = false;
+  }
+
+  if(isSourceStore.value && isShopify.value) {
+    loading.value = true;
+    const params = route.query;
+    if (JSON.stringify(params) !== '{}') {
+      const response = await activateCharge.value(params);
     }
     loading.value = false;
     isOnboarding.value = false;

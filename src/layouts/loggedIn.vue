@@ -1,7 +1,13 @@
 <script setup>
+import * as routes from '@/routes';
+
 /* ----- Data ----- */
+const router = useRouter();
+
 const {
   currentStore,
+  isSourceStore,
+  requiresSourceStorePlanApproval,
   storeName,
 } = toRefs(useConnectionsStore());
 
@@ -230,6 +236,11 @@ const randomBannerGroup = ref([
 /* ----- Mounted ----- */
 onMounted(() => {
   bootIntercom();
+
+  if(isSourceStore.value && requiresSourceStorePlanApproval.value) {
+    router.push({ name: routes.SHOPIFY_PLAN_APPROVAL });
+    return;
+  }
 });
 
 /* ----- Methods ----- */

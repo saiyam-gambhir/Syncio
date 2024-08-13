@@ -5,6 +5,7 @@ import { activateCharge } from './actions/activateCharge';
 import { fetchCurrentPlan } from './actions/fetchCurrentPlan';
 import { fetchPlans } from './actions/fetchPlans';
 import { generateCharge } from './actions/generateCharge';
+import { generateUsageCharge } from './actions/generateUsageCharge';
 
 export const usePlanStore = defineStore('plan', {
   state: () => {
@@ -142,6 +143,7 @@ export const usePlanStore = defineStore('plan', {
     fetchCurrentPlan,
     fetchPlans,
     generateCharge,
+    generateUsageCharge,
   ]),
 
   persist: {
