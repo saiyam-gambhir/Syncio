@@ -15,7 +15,7 @@ const closeDialogHandler = () => {
 </script>
 
 <template>
-  <DialogWrapper :isVisible="isWooPlanDialogRequested" title="Manage your plan" width="750px" @closeDialog="closeDialogHandler">
+  <DialogWrapper :isVisible="isWooPlanDialogRequested" title="Manage your plan" width="750px" @closeDialog="closeDialogHandler" withoutTitle :showFooter="false">
     <template #body>
       <stripe-pricing-table
         pricing-table-id="prctbl_1PW6xMBBLFBpkQNsjrMkzFYb"
