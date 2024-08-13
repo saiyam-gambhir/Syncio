@@ -1,3 +1,4 @@
+import { DateTime } from 'luxon';
 import deepmerge from 'deepmerge';
 
 /* ----- Actions ----- */
@@ -68,6 +69,7 @@ export const useConnectionsStore = defineStore('connections', {
       sourceLocations: null,
       universalStores: [],
       wooApiKeyStoreId: null,
+      sourceStorePricingReleaseDate: '2024-08-13T00:00:00.000000Z',
     };
   },
 
@@ -147,6 +149,12 @@ export const useConnectionsStore = defineStore('connections', {
     isUniversalStore({ universalStores }) {
       return universalStores.length === 2 && ((universalStores[0].type === 'destination' && universalStores[1].type === 'source') || (universalStores[0].type === 'source' && universalStores[1].type === 'destination'));
     },
+
+    requiresSourceStorePlanApproval({ currentStore }) {
+      return DateTime.fromISO(currentStore?.created_at) > DateTime.fromISO(this.sourceStorePricingReleaseDate);
+    },
+
+
   },
 
   actions: deepmerge.all([
