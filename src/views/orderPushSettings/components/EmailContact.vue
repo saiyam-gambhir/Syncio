@@ -50,7 +50,7 @@ const updatePushSettingsHandler = async () => {
 <template>
   <p class="line-height-3 mb-5 mt-1 px-3 text-lg">
     Select which email to be pushed with an order.<br>
-    The selected e-mail will receive any relevant notification e-mails from the source store, including when an order is fulfilled.
+    The selected email will receive an additional notification when the source store fulfills your pushed order.
   </p>
   <CardWrapper v-if="pushOrderEmailSettings">
     <template #content>
