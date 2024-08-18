@@ -1,9 +1,6 @@
 <script setup>
 import * as routes from '@/routes';
 
-/*----- Components ----- */
-const WooPlanSelectionDialog = defineAsyncComponent(() => import('@/components/shared/WooPlanSelectionDialog.vue'));
-
 /* ----- Data ----- */
 const {
   registerWooStore,
@@ -71,10 +68,10 @@ const navigateToWooPlanSelction = () => {
 
 <template>
   <section class="mx-auto" style="width: 700px; max-width: 100%;">
-    <PageDetails v-if="!arePermissionsApproved && storeType === 'destination'" title="Syncio installed successfully" content="Select your Syncio plan to activate your free 14 day trial" />
+    <PageDetails v-if="arePermissionsApproved && storeType === 'destination'" title="Syncio installed successfully" content="Select your Syncio plan to activate your free 14 day trial" />
 
     <aside class="auth-wrapper text-left md:text-center text-900">
-      <div v-if="!arePermissionsApproved && storeType === 'destination'">
+      <div v-if="arePermissionsApproved && storeType === 'destination'">
         <ul class="text-900 pl-0 list-none text-xl font-semi m-0">
           <li class="flex">
             <i class="pi pi-check-circle text-2xl text-green-700 font-bold mr-3" style="transform: translateY(-.5px);"></i>
