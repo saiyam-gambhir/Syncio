@@ -144,6 +144,12 @@ const router = createRouter({
       name: routes.WOO_CONTINUE_LATER,
       path: routes.WOO_CONTINUE_LATER,
     },
+    {
+      component: () => import('@/views/registration/woocommerce/WooPlanSelection.vue'),
+      meta: { layout: LoggedOut, requireAuth: true },
+      name: routes.WOO_PLAN_SELECTION,
+      path: routes.WOO_PLAN_SELECTION,
+    },
     /* ----- Woocommerce ----- */
 
     /* ----- Marketplace onboarding ----- */

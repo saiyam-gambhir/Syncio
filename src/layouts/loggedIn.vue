@@ -10,7 +10,9 @@ const {
 
 const {
   currentStore,
+  isDestinationStore,
   isSourceStore,
+  isWoocommerce,
   requiresSourceStorePlanApproval,
   storeName,
 } = toRefs(useConnectionsStore());
@@ -241,8 +243,15 @@ const randomBannerGroup = ref([
 onMounted(() => {
   bootIntercom();
 
+  // Check if source store plan approval is pending?
   if(isSourceStore.value && requiresSourceStorePlanApproval.value && !plan.value) {
     router.push({ name: routes.SHOPIFY_PLAN_APPROVAL });
+    return;
+  }
+
+  // Check if woo destination plan selection is pending?
+  if(isWoocommerce.value && isDestinationStore.value && !plan.value) {
+    router.push({ name: routes.WOO_PLAN_SELECTION });
     return;
   }
 });

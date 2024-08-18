@@ -12,7 +12,6 @@ export const usePlanStore = defineStore('plan', {
     return {
       highlightedAddon: null,
       isOnboarding: false,
-      isWooPlanDialogRequested: false,
       loadingPayment: false,
       loadingPlans: false,
       plan: null,

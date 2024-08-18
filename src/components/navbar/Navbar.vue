@@ -2,9 +2,6 @@
 import { useRoute } from 'vue-router';
 import * as routes from '@/routes';
 
-/*----- Components ----- */
-const WooPlanSelectionDialog = defineAsyncComponent(() => import('../shared/WooPlanSelectionDialog.vue'));
-
 /* ----- Data ----- */
 const {
   isUpgradeDialogRequested,
@@ -24,10 +21,6 @@ const {
   isShopify,
   isSourceStore,
 } = toRefs(useConnectionsStore());
-
-const {
-  isWooPlanDialogRequested,
-} = toRefs(usePlanStore());
 
 const route = useRoute();
 
@@ -150,9 +143,6 @@ const isSettingsPath = computed(() => {
           </div>
         </template>
       </DialogWrapper>
-
-      <!-- Woo plan dialog -->
-      <WooPlanSelectionDialog v-if="isWooPlanDialogRequested" />
     </div>
   </div>
 </template>

@@ -12,7 +12,6 @@ const {
   productsSynced,
   productsSyncedLimit,
   wooPlanSelectionLink,
-  isWooPlanDialogRequested,
 } = toRefs(usePlanStore());
 
 const {
@@ -32,8 +31,7 @@ const {
         <router-link v-if="isShopify || isShopline" :to="routes.PLAN_AND_BILLINGS">
           <Button label="Manage" class="mt-4 font-bold justify-content-center w-full"></Button>
         </router-link>
-        <!-- <a v-if="isWoocommerce" :href="wooPlanSelectionLink" class="p-button mt-4 font-bold justify-content-center w-full">Manage</a> -->
-        <Button v-if="isWoocommerce" label="Manage Plan" class="w-100" @click="isWooPlanDialogRequested = true"></Button>
+        <a v-if="isWoocommerce" href="https://billing.stripe.com/p/login/test_8wM01M04Y5y9blK4gg" class="p-button mt-4 font-bold justify-content-center w-full">Manage</a>
       </template>
     </CardWrapper>
   </div>

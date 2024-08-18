@@ -116,6 +116,16 @@ router.beforeEach(async (to, from, next) => {
   const isAuthenticated = auth.isAuthenticated;
   const ID_TOKEN_KEY = sessionStorage.getItem('ID_TOKEN_KEY');
 
+  // Fetch current plan after 10 sec when woo installation is complete and user visits dashboard
+  if(from.fullPath === routes.WOO_INSTALLATION_COMPLETED) {
+    const userId = sessionStorage.getItem('USER_ID');
+    const plan = usePlanStore();
+
+    setTimeout(() => {
+      plan.fetchCurrentPlan(userId);
+    }, 10000);
+  }
+
   if (to.meta.requireAuth) {
     if (!isAuthenticated && !ID_TOKEN_KEY) {
       return next({ name: routes.LOGIN });
