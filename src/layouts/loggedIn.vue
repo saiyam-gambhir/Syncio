@@ -250,7 +250,7 @@ onMounted(() => {
   }
 
   // Check if woo destination plan selection is pending?
-  if(isWoocommerce.value && isDestinationStore.value && !plan.value) {
+  if(isWoocommerce.value && isDestinationStore.value && !plan.value && router?.currentRoute?.value?.fullPath !== routes.WOO_INSTALLATION_COMPLETED) {
     router.push({ name: routes.WOO_PLAN_SELECTION });
     return;
   }
