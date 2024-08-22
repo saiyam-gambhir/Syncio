@@ -121,9 +121,14 @@ router.beforeEach(async (to, from, next) => {
     const userId = sessionStorage.getItem('USER_ID');
     const plan = usePlanStore();
 
-    setTimeout(() => {
-      plan.fetchCurrentPlan(userId);
-    }, 10000);
+    let fetchCount = 0;
+    const fetchInterval = setInterval(async () => {
+      await plan.fetchCurrentPlan(userId);
+      fetchCount++;
+      if (fetchCount === 3) {
+        clearInterval(fetchInterval);
+      }
+    }, 5000);
   }
 
   if (to.meta.requireAuth) {
