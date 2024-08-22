@@ -273,6 +273,8 @@ const allowedUniversalStores = ref([
   'www-holyghost-fashion-com-shop.myshopify.com',
   'zebra-vegan-shop.myshopify.com',
   'e77029-4.myshopify.com',
+  'test-nainesh-stag-unvsl-destination-1.myshopify.com',
+  'test-nainesh-stag-unvsl-destination-3.myshopify.com',
 ]);
 
 /* ----- Mounted ----- */
