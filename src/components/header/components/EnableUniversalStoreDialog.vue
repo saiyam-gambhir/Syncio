@@ -72,7 +72,8 @@ const enableSourceStorePlanHandler = async () => {
         </div>
         <div v-else>
           <UniversalStoreStepThree />
-          <h2 class="text-900 font-semi mt-4">Select your plan to complete set up*</h2>
+          <h2 class="text-900 font-semi mt-4" v-if="isSourceStore">Select your plan to complete set up*</h2>
+          <h2 class="text-900 font-semi mt-4" v-if="isDestinationStore">Approve your plan usage to complete set up*</h2>
           <ul class="text-900 pl-0 list-none m-0 text-left mx-6 text-lg line-height-3">
             <li class="flex mt-4">
               <i class="pi pi-check-circle text-2xl text-green-500 mr-3" style="transform: translateY(1.5px);"></i>
@@ -91,13 +92,18 @@ const enableSourceStorePlanHandler = async () => {
             </li>
             <div class="px-3 py-4 surface-highlight mt-4">
               <p class="m-0 mb-1">This will be additional to your current {{ storeType }} store plan</p>
-              <p class="text-sm m-0" v-if="isSourceStore">
-                You'll move to a new billing cycle starting today and any usage from your previous cycle will be billed separately.
-              </p>
-              <p class="text-sm m-0" v-if="isDestinationStore">
-                You'll move to a new billing cycle starting today and any charges from your previous cycle will be prorated and billed separately.
-              </p>
-              <AppLink label="Learn about Destination store pricing" link="" class="mt-2" />
+              <template v-if="isSourceStore">
+                <p class="text-sm m-0" >
+                  You'll move to a new billing cycle starting today and any usage from your previous cycle will be billed separately.
+                </p>
+                <AppLink label="Learn about Destination store pricing" link="" class="mt-2" />
+              </template>
+              <template v-if="isDestinationStore">
+                <p class="text-sm m-0">
+                  You'll move to a new billing cycle starting today and any charges from your previous cycle will be prorated and billed separately.
+                </p>
+                <AppLink label="Learn about Source store pricing" link="" class="mt-2" />
+              </template>
             </div>
           </ul>
         </div>
