@@ -1,12 +1,13 @@
 <script setup>
-import * as routes from '@/routes';
-import router from '@/router';
-
 /* ----- Data ----- */
 const {
   fetchPlans,
   generateUsageCharge,
 } = toRefs(usePlanStore());
+
+const {
+  isUniversalStore,
+} = toRefs(useConnectionsStore());
 
 /* ----- OnMounted ----- */
 onMounted(async () => {
@@ -98,7 +99,11 @@ onMounted(async () => {
       <div class="md:col-4 col-12">
         <div class="grid-column">
           <h3 class="my-0 line-height-3">Approve your subscription to complete installation</h3>
-          <p style="color: #757575;">Go to Shopify to approve your subscription</p>
+          <template v-if="isUniversalStore">
+            <p>This will be additional to your current Destination store plan.</p>
+            <p>You'll move to a new billing cycle starting today and any charges from your previous cycle will be prorated and billed separately.</p>
+          </template>
+          <p>Go to Shopify to approve your subscription</p>
           <Button class="w-100 mt-2 mb-4" label="Go To Shopify Approval" @click="generateUsageCharge"></Button>
         </div>
       </div>

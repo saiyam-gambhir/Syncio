@@ -11,14 +11,14 @@ export const fetchCurrentStore = {
       this.universalStores = await response.stores;
       if(urlParams.has('store_id')) {
         this.currentStore = this.universalStores.find(store => +store.id === +urlParams.get('store_id'));
-      } else if(!this.currentStore) {
+      } else if(!this.currentStore && !this.universalStores[0].default && !this.universalStores[1].default) {
         this.currentStore = await this.universalStores[0];
       } else {
         this.currentStore = this.universalStores.find(store => store.default);
       }
     } else if (response?.success) {
       this.universalStores = [];
-      this.currentStore = await response.stores[0];
+      this.currentStore = await response.stores?.[0] || null;
     }
 
     if(this.currentStore) {

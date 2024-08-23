@@ -28,23 +28,28 @@ const enableStore = async () => {
   currentStore.value = universalStores.value.find(store => !store.default);
 };
 
-const enableStoreHandler = async () => {
-  await enableStore();
-  router.push({
-    path: routes.DASHBOARD,
-    query: { storeEnabled: storeType.value },
-  });
-  await fetchConnections.value(true);
-};
+// const enableStoreHandler = async () => {
+//   await enableStore();
+//   router.push({
+//     path: routes.DASHBOARD,
+//     query: { storeEnabled: storeType.value },
+//   });
+//   await fetchConnections.value(true);
+// };
 
 const selectPlanHandler = async () => {
   await enableStore();
   router.push({ path: routes.SHOPIFY_SELECT_PLAN });
 };
+
+const enableSourceStorePlanHandler = async () => {
+  await enableStore();
+  router.push({ path: routes.SHOPIFY_PLAN_APPROVAL });
+};
 </script>
 
 <template>
-  <DialogWrapper :isVisible="isEnableUniversalStoreRequested" width="550px" @closeDialog="closeDialogHandler" withoutTitle>
+  <DialogWrapper :isVisible="isEnableUniversalStoreRequested" width="575px" style="max-width: 100%;" @closeDialog="closeDialogHandler" withoutTitle>
     <template #body>
       <div class="text-center">
         <div class="px-8 mx-8" v-if="progress < 101">
@@ -67,46 +72,34 @@ const selectPlanHandler = async () => {
         </div>
         <div v-else>
           <UniversalStoreStepThree />
-          <template v-if="isSourceStore">
-            <h2 class="text-900 font-semi mt-4">Select your plan to complete set up</h2>
-            <ul class="text-900 pl-0 list-none m-0 text-left mx-6 text-lg line-height-3">
-              <li class="flex mt-4">
-                <i class="pi pi-check-circle text-2xl text-green-500 mr-3" style="transform: translateY(1.5px);"></i>
-                True two way collaboration without the extra effort
-              </li>
-              <li class="flex mt-4">
-                <i class="pi pi-check-circle text-2xl text-green-500 mr-3" style="transform: translateY(1.5px);"></i>
-                The same reliable real time sync and oversell protections
-              </li>
-              <li class="flex mt-4">
-                <i class="pi pi-check-circle text-2xl text-green-500 mr-3" style="transform: translateY(1.5px);"></i>
-                <div>
-                  Free 14 day trial <br>
-                  <span class="text-small">If it doesn't meet your needs, simply remove the {{ partnerStoreType }} type from your account settings.</span>
-                </div>
-              </li>
-            </ul>
-          </template>
-          <template v-else>
-            <h2 class="text-900 font-semi mt-4">Your Source store is ready</h2>
-            <ul class="text-900 pl-0 list-none m-0 text-left mx-6 text-lg line-height-3">
-              <li class="flex mt-4">
-                <i class="pi pi-check-circle text-2xl text-green-500 mr-3" style="transform: translateY(1.5px);"></i>
-                True two way collaboration without the extra effort
-              </li>
-              <li class="flex mt-4">
-                <i class="pi pi-check-circle text-2xl text-green-500 mr-3" style="transform: translateY(1.5px);"></i>
-                The same reliable real time sync and oversell protections
-              </li>
-              <li class="flex mt-4">
-                <i class="pi pi-check-circle text-2xl text-green-500 mr-3" style="transform: translateY(1.5px);"></i>
-                <div>
-                  Enabling your Source store is free! <br>
-                  <span class="text-small">If it doesn't meet your needs, simply remove the {{ partnerStoreType }} type from your account settings.</span>
-                </div>
-              </li>
-            </ul>
-          </template>
+          <h2 class="text-900 font-semi mt-4">Select your plan to complete set up*</h2>
+          <ul class="text-900 pl-0 list-none m-0 text-left mx-6 text-lg line-height-3">
+            <li class="flex mt-4">
+              <i class="pi pi-check-circle text-2xl text-green-500 mr-3" style="transform: translateY(1.5px);"></i>
+              True two way collaboration without the extra effort
+            </li>
+            <li class="flex mt-4">
+              <i class="pi pi-check-circle text-2xl text-green-500 mr-3" style="transform: translateY(1.5px);"></i>
+              The same reliable real time sync and oversell protections
+            </li>
+            <li class="flex mt-4">
+              <i class="pi pi-check-circle text-2xl text-green-500 mr-3" style="transform: translateY(1.5px);"></i>
+              <div>
+                Free 14 day trial <br>
+                <span class="text-small">If it doesn't meet your needs, simply remove the {{ partnerStoreType }} type from your account settings.</span>
+              </div>
+            </li>
+            <div class="px-3 py-4 surface-highlight mt-4">
+              <p class="m-0 mb-1">This will be additional to your current {{ storeType }} store plan</p>
+              <p class="text-sm m-0" v-if="isSourceStore">
+                You'll move to a new billing cycle starting today and any usage from your previous cycle will be billed separately.
+              </p>
+              <p class="text-sm m-0" v-if="isDestinationStore">
+                You'll move to a new billing cycle starting today and any charges from your previous cycle will be prorated and billed separately.
+              </p>
+              <AppLink label="Learn about Destination store pricing" link="" class="mt-2" />
+            </div>
+          </ul>
         </div>
       </div>
     </template>
@@ -127,8 +120,8 @@ const selectPlanHandler = async () => {
 
         <Button
           :loading="loadingEnableStore"
-          @click="enableStoreHandler"
-          label="Done"
+          @click="enableSourceStorePlanHandler"
+          label="Approve plan usage"
           v-if="isDestinationStore && progress > 100">
         </Button>
 

@@ -13,6 +13,7 @@ const {
 } = toRefs(usePlanStore());
 
 const {
+  fetchCurrentStore,
   isSourceStore,
   isWoocommerce,
 } = toRefs(useConnectionsStore());
@@ -43,6 +44,7 @@ const setSelectedPlan = () => {
 };
 
 const fetchPlansHandler = async () => {
+  await fetchCurrentStore.value();
   await fetchPlans.value();
 };
 </script>
