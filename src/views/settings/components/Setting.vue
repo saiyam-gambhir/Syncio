@@ -50,7 +50,7 @@ const {
         <router-link :to="href" v-if="!isWoo">
           <Button label="Manage" outlined></Button>
         </router-link>
-        <a v-if="isWoo" :href="wooPlanSelectionLink" class="p-button p-button-outlined font-semibold">Manage</a>
+        <a v-if="isWoo" href="https://billing.stripe.com/p/login/test_8wM01M04Y5y9blK4gg" class="p-button p-button-outlined font-semibold">Manage</a>
       </div>
     </div>
   </div>

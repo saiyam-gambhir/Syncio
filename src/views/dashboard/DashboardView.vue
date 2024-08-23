@@ -18,7 +18,6 @@ const {
   isShopify,
   isShopline,
   isSourceStore,
-  requiresSourceStorePlanApproval,
 } = toRefs(useConnectionsStore());
 
 const {
