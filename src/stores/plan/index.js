@@ -153,7 +153,7 @@ export const usePlanStore = defineStore('plan', {
         key: 'plan',
         storage: sessionStorage,
         paths: [
-          'plans',
+          //'plans',
         ],
       },
     ],

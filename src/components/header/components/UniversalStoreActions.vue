@@ -22,6 +22,7 @@ const {
 } = toRefs(useAuthStore());
 
 const {
+  fetchPlans,
   fetchCurrentPlan,
 } = toRefs(usePlanStore());
 
@@ -60,6 +61,7 @@ const universalStoreSwitchHandler = async (_storeType) => {
   currentStore.value = JSON.parse(JSON.stringify(storeToLoad));
   router.replace({ name: routes.DASHBOARD });
 
+  await fetchPlans.value();
   await fetchCurrentPlan.value(userId.value);
 
   setTimeout(() => {
