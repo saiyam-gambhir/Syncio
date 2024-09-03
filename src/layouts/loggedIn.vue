@@ -259,7 +259,7 @@ onMounted(() => {
 
 /* ----- Methods ----- */
 const setIntercomConfigs = (store, createdAt) => {
-  const { id, email, store_domain, type } = store;
+  const { id, email, platform, store_domain, type } = store;
 
   window.intercomSettings = {
     app_id: import.meta.env.VITE_INTERCOM_APP_ID,
@@ -267,6 +267,7 @@ const setIntercomConfigs = (store, createdAt) => {
     custom_launcher_selector: '.intercom-custom-launcher',
     email: email,
     name: store_domain,
+    platform: platform,
     type: type,
     user_id: id,
   };
