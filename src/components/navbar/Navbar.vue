@@ -100,7 +100,7 @@ const isSettingsPath = computed(() => {
       <!-- Addons Usage Indicator -->
       <AddonsUsageIndicator v-if="isDestinationStore" />
 
-      <!-- Plan Usage Indicator -->
+      <!-- Source Plan Usage Indicator -->
       <PlanUsageIndicator v-if="isSourceStore" />
 
       <!-- Addons not available dialog -->

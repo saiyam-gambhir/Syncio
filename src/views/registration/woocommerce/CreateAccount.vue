@@ -3,8 +3,10 @@ import { useForm } from 'vee-validate';
 import * as routes from '@/routes';
 import * as validationMessages from '@/validationMessages';
 import * as yup from 'yup';
+import { useRoute } from 'vue-router';
 
 /* ----- Data ----- */
+const route = useRoute();
 const {
   registerUser,
   registrationForm,
@@ -28,6 +30,10 @@ const [passwordConfirmation] = defineField('passwordConfirmation');
 /* ----- Methods ----- */
 const registerUserHandler = async () => {
   const payload = { name, emailAddress, password, passwordConfirmation };
+  
+  if (! Object.keys(route.query).length == 0) {
+    payload.query = route.query;
+  }
   await registerUser.value(payload);
 };
 </script>

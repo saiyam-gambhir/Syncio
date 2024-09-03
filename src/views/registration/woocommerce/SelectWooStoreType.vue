@@ -1,10 +1,13 @@
 <script setup>
 import * as routes from '@/routes';
 import router from '@/router';
+import { useRoute } from 'vue-router';
 
 /* ----- Data ----- */
+const route = useRoute();
 const {
   storeTypes,
+  user,
 } = toRefs(useAuthStore());
 
 const selectedStoreType = ref('');
@@ -12,8 +15,37 @@ const selectedStoreType = ref('');
 /* ----- Methods ----- */
 const setWooStoreType = (storeType) => {
   window.sessionStorage.setItem('woo-store-type', storeType);
-  router.push({ name: routes.WOO_VERIFY_STORE_URL });
+
+  if (route.query?.keyPermissions === 'read_write') {
+    setUpStore(storeType);
+  } else {
+    router.push({ name: routes.WOO_VERIFY_STORE_URL});
+  }
 };
+
+const setUpStore = async (storeType) => {
+  const storeURL = route.query.domain;
+  let withoutHttps = storeURL.replace(/^http(s)*:\/\//, '');
+  withoutHttps = withoutHttps.replace(/\/$/, "");
+  const storeData = {
+      userId: user.value.id,
+      email: user.value.email,
+      appVersion: 'v3',
+      storeDomain: withoutHttps,
+      type: storeType
+  };
+  const params = {
+    store_data: storeData,
+    consumer_key: route.query.consumerKey,
+    consumer_secret: route.query.consumerSecret,
+  };
+
+  const response = await axiosService.postData('wc/create-store', params);
+
+  if (response.success) {
+    window.location.href = storeURL + '/wp-admin/admin.php?page=syncio';
+  }
+}
 </script>
 
 <template>

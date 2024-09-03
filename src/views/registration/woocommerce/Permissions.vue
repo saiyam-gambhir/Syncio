@@ -62,7 +62,7 @@ const registerStore = async () => {
 };
 
 const navigateToWooPlanSelction = () => {
-  window.location.href = wooPlanSelectionLink.value;
+  router.push({ name: routes.WOO_PLAN_SELECTION });
 };
 </script>
 
@@ -87,7 +87,11 @@ const navigateToWooPlanSelction = () => {
           </li>
         </ul>
 
-        <Button @click="navigateToWooPlanSelction" label="Pick a plan and activate my free trial" class="w-100 p-button-lg mt-6"></Button>
+        <Button
+          @click="navigateToWooPlanSelction"
+          label="Pick a plan and activate my free trial"
+          class="w-100 p-button-lg mt-6">
+        </Button>
       </div>
       <div v-else-if="!arePermissionsApproved">
         <h2 class="m-0">You've denied Syncio access to connect to your store</h2>
