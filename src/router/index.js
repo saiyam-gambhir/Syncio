@@ -258,6 +258,12 @@ const router = createRouter({
       name: routes.SETTINGS,
       path: routes.SETTINGS,
     },
+    {
+      component: () => import('@/views/login/WooPluginLoginView.vue'),
+      meta: { layout: LoggedOut },
+      name: routes.WOOPLUGINLOGIN,
+      path: routes.WOOPLUGINLOGIN,
+    },
     /* ----- App ----- */
   ],
 });

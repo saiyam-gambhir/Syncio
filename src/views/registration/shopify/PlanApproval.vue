@@ -20,101 +20,87 @@ onMounted(async () => {
     <PageDetails title="Confirm plan details" content="" />
 
     <aside class="grid grid-sm text-900" id="plan-approval">
-      <div class="md:col-8 col-12 auth-grid-column">
+      <div class="md:col-9 col-12 auth-grid-column">
         <div class="grid-column">
-          <h3 class="my-0">Pay as you grow usage plan</h3>
+          <h3 class="my-0">Every month starts free</h3>
           <p class="text-lg mt-2 line-height-3">
-            Our tiered pricing model ensures you get the best value based on your usage. Includes a <strong class="font-semi">14 day free trial</strong> so your usage won’t be counted for the first 14 days.
+            You'll only ever pay when you sell more than 10 products in the monthly billing period. <br> If you have less than 10 sales in the monthly billing period then it remains free.
           </p>
-          <AppLink label="Learn about Source store pricing" link="https://help.syncio.co/en/articles/9643458-source-store-pricing" class="mt-3" />
-          <h3 class="mt-5 mb-0">Plan tiers</h3>
-          <p class="text-lg mt-2 line-height-3">Plan tiers and charges are automatically determined at the end of each calendar month and charged on the next Shopify billing date.</p>
+          <h3 class="mt-5 mb-0">Usage tiers</h3>
+          <p class="text-lg mt-2 line-height-3">At the end of the month we'll determine the tier based on the synced products sold during the billing cycle.</p>
 
-          <div class="flex justify-content-between mt-6 plan-details">
-            <div style="flex-basis: 25%;" class="synced-products-sold-text">
-              <h3>&nbsp;</h3>
-              <p>&nbsp;</p>
-              <p class="text-sm mt-0 mb-3 pl-3" style="transform: translateY(-4px);">Synced products sold*</p>
-            </div>
-            <div class="plans-header hidden">
-              <h3>Plan</h3>
-              <p class="mt-2 text-lg font-semi text-left">Price</p>
-              <div class="flex flex-column align-items-end mt-2 text-sm font-semi">
-                <div>Synced products</div>
-                <div>sold*</div>
-              </div>
-            </div>
-            <div style="flex-basis: 18.75%;">
-              <h3 class="mb-0">Free</h3>
-              <p class="mt-2 text-lg font-semi">$0 <span class="text-sm font-normal text-600">/month</span></p>
-              <p class="text-sm mt-0 mb-3">0-10</p>
-            </div>
-            <div style="flex-basis: 18.75%;">
-              <h3 class="mb-0">Starter</h3>
-              <p class="mt-2 text-lg font-semi">$19 <span class="text-sm font-normal text-600">/month</span></p>
-              <p class="text-sm mt-0 mb-3">11-100</p>
-            </div>
-            <div style="flex-basis: 18.75%;">
-              <h3 class="mb-0">Pro</h3>
-              <p class="mt-2 text-lg font-semi">$49 <span class="text-sm font-normal text-600">/month</span></p>
-              <p class="text-sm mt-0 mb-3">101-1,000</p>
-            </div>
-            <div style="flex-basis: 18.75%;">
-              <h3 class="mb-0">Enterprise</h3>
-              <p class="mt-2 text-lg font-semi">$99 <span class="text-sm font-normal text-600">/month</span></p>
-              <p class="text-sm mt-0 mb-3">1000+</p>
-            </div>
-          </div>
+          <ul class="flex source-plans list-none p-0 m-0 mt-6">
+            <SourcePlan planName="" price="" blank class="first" />
+            <SourcePlan planName="Free" price="$0" limit="0-10" highlight />
+            <SourcePlan planName="Starter" price="$19" limit="11-100" />
+            <SourcePlan planName="Pro" price="$49" limit="101-1000" />
+            <SourcePlan planName="Enterprise" price="$99" limit="1001+" />
+          </ul>
 
-          <p style="color: #757575" class="text-sm mt-1">*Synced Products Sold: The number of products synced to connected Destination stores that are sold by that store(s)</p>
-          <h4 class="my-6">All tiers include the following</h4>
-          <div class="flex justify-content-between mt-5 features">
-            <div>
-              <h5 class="my-0">Store connections</h5>
-              <p class="text-sm my-5">Unlimited</p>
-            </div>
-            <div>
-              <h5 class="my-0">Synced products</h5>
-              <p class="text-sm my-5">Unlimited</p>
-            </div>
-            <div>
-              <h5 class="my-0">Product settings</h5>
-              <p class="text-sm my-5">
-                <i class="pi pi-check text-lg text-green-500"></i>
-              </p>
-            </div>
-            <div>
-              <h5 class="my-0">Payouts</h5>
-              <p class="text-sm my-5">Unlimited</p>
-            </div>
-            <div>
-              <h5 class="my-0">Marketplace</h5>
-              <p class="text-sm my-5">
-                <i class="pi pi-check text-lg text-green-500"></i>
-              </p>
-            </div>
-          </div>
+          <p style="color: #757575" class="text-sm mt-3">*Synced Products Sold: The number of products synced to connected Destination stores that are sold by that store</p>
+
+          <h3 class="mt-6">All tiers include the following</h3>
+          <ul class="m-0 p-0 list-none mb-4 text-sm">
+            <li>
+              <i class="pi pi-check-circle text-green-600 mr-1" style="transform: translateY(1px);"></i>
+              Unlimited store connections
+            </li>
+            <li class="mt-2">
+              <i class="pi pi-check-circle text-green-600 mr-1" style="transform: translateY(1px);"></i>
+              Unlimited synced products
+            </li>
+            <li class="mt-2">
+              <i class="pi pi-check-circle text-green-600 mr-1" style="transform: translateY(1px);"></i>
+              Unlimited customer support
+            </li>
+            <li class="mt-2">
+              <i class="pi pi-check-circle text-green-600 mr-1" style="transform: translateY(1px);"></i>
+              Product settings
+            </li>
+            <li class="mt-2">
+              <i class="pi pi-check-circle text-green-600 mr-1" style="transform: translateY(1px);"></i>
+              Access to Marketplace to find quality partners
+            </li>
+          </ul>
         </div>
       </div>
-      <div class="md:col-4 col-12">
+      <div class="md:col-3 col-12">
         <div class="grid-column">
           <h3 class="my-0 line-height-3">Approve your subscription to complete installation</h3>
+          <p>Shopify requires you to pre-authorise the highest tier.</p>
+
           <template v-if="isUniversalStore">
             <p>This will be additional to your current Destination store plan.</p>
             <p>You'll move to a new billing cycle starting today and any charges from your previous cycle will be prorated and billed separately.</p>
           </template>
-          <p>Go to Shopify to approve your subscription</p>
-          <Button class="w-100 mt-2 mb-4" label="Go To Shopify Approval" @click="generateUsageCharge"></Button>
+
+          <strong>Rest assured, you'll only be billed for what you use each monthly billing period.</strong>
+
+          <Button class="w-100 mt-5 mb-0" label="Go To Shopify Approval" @click="generateUsageCharge"></Button>
         </div>
       </div>
     </aside>
   </section>
 </template>
 
-<style lang="scss">
+<style scoped lang="scss">
 .grid-column {
   background: var(--white);
   padding: 1.5rem !important;
   border-radius: var(--border-radius);
+}
+
+.source-plans li {
+  flex-basis: 20%;
+}
+
+@media screen and (max-width: 850px) {
+  .first {
+    display: none;
+  }
+
+  .source-plans {
+    display: block !important;
+  }
 }
 </style>

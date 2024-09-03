@@ -27,10 +27,10 @@ const props = defineProps({
   }
 });
 
-/* ----- Data ----- */
-const {
-  wooPlanSelectionLink,
-} = toRefs(usePlanStore());
+/* ----- Computed ----- */
+const stripeLoginUrl = computed(() => {
+  return import.meta.env.VITE_NODE_ENV === 'development' ? 'https://billing.stripe.com/p/login/test_8wM01M04Y5y9blK4gg' : 'https://billing.stripe.com/p/login/00gg0xgf5eaecyk7ss';
+});
 </script>
 
 <template>
@@ -50,7 +50,7 @@ const {
         <router-link :to="href" v-if="!isWoo">
           <Button label="Manage" outlined></Button>
         </router-link>
-        <a v-if="isWoo" href="https://billing.stripe.com/p/login/test_8wM01M04Y5y9blK4gg" class="p-button p-button-outlined font-semibold">Manage</a>
+        <a v-if="isWoo" :href="stripeLoginUrl" class="p-button p-button-outlined font-semibold">Manage</a>
       </div>
     </div>
   </div>

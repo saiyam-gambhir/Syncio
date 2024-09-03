@@ -3,6 +3,9 @@
 const {
   user,
 } = toRefs(useAuthStore());
+
+const stripePricingTableID = import.meta.env.VITE_STRIPE_PRICING_TABLE_ID;
+const stripePublishableKey = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY;
 </script>
 
 <template>
@@ -12,8 +15,8 @@ const {
     <aside class="auth-wrapper text-left md:text-center text-900">
       <stripe-pricing-table
         class="w-100"
-        pricing-table-id="prctbl_1PW6xMBBLFBpkQNsjrMkzFYb"
-        publishable-key="pk_test_51H8O8IBBLFBpkQNsek0cYFsf5TWBKznGAKXRRiaEUTvbwLKRLO7KJ8ZyO4ag0s04sHBj1T9j6Q9emAR6UD8SdNzR002vLwlIYi"
+        :pricing-table-id="stripePricingTableID"
+        :publishable-key="stripePublishableKey"
         :customer-email="`${user?.email}`">
       </stripe-pricing-table>
     </aside>

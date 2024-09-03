@@ -4,7 +4,7 @@ import router from '@/router';
 export const registerUser = {
   async registerUser(payload) {
     try {
-      const { emailAddress, name, passwordConfirmation, password } = payload;
+      const { emailAddress, name, passwordConfirmation, password, query } = payload;
       this.registrationForm.loading = true;
 
       const params = {
@@ -26,7 +26,7 @@ export const registerUser = {
         this.isAuthenticated = true;
         sessionStorage.setItem('USER_ID', this.user?.id);
         axiosService.https.defaults.headers.common['Authorization'] = `Bearer ${sessionStorage.getItem('ID_TOKEN_KEY')}`;
-        router.push({ name: routes.WOO_SELECT_STORE_TYPE });
+        router.push({ name: routes.WOO_SELECT_STORE_TYPE, query: query});
       }
     } catch (error) {
       this.registrationForm.loading = false;

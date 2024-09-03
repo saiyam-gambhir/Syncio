@@ -17,6 +17,7 @@ export const PRODUCTS              = '/products';
 export const ROOT                  = '/';
 export const SETTINGS              = '/settings';
 export const STORES                = '/stores';
+export const WOOPLUGINLOGIN        = '/woo-login';
 
 /* ----- Shopify ----- */
 export const SHOPIFY_CONNECT_OR_INVITE_STORE  = '/shopify/connect-or-invite-store';

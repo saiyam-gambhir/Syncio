@@ -15,6 +15,7 @@ import { saveShoplineToken } from './actions/saveShoplineToken';
 import { shopifyLogin } from './actions/shopifyLogin';
 import { shoplineLogin } from './actions/shoplineLogin';
 import { updateStoreType } from './actions/updateStoreType';
+import { wooPluginLogin } from './actions/wooPluginLogin';
 
 export const useAuthStore = defineStore('auth', {
   state: () => {
@@ -106,5 +107,6 @@ export const useAuthStore = defineStore('auth', {
     shopifyLogin,
     shoplineLogin,
     updateStoreType,
+    wooPluginLogin,
   ]),
 });

@@ -46,7 +46,7 @@ onMounted(() => {
 /* ----- Computed ----- */
 const isDevelopment = computed(() => {
   return import.meta.env.VITE_NODE_ENV === 'development';
-})
+});
 
 /* ----- Methods ----- */
 const loginHandler = () => {
