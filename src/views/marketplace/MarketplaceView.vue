@@ -30,22 +30,19 @@ async function fetchProfilesHandler() {
 </script>
 
 <template>
-  <section class="marketplace mt-2">
+  <section class="marketplace">
     <div v-if="loadingProfile">
       <MarketplaceViewSkeleton />
     </div>
-    <div v-else-if="!profile.updatedAt && !loadingProfile">
-      <Banner />
-    </div>
     <div v-else>
-      <div class="grid">
+      <!-- <div class="grid">
         <div class="col col-6">
           <UserProfile :profile="profile" />
         </div>
         <div class="col col-6">
           <Survey />
         </div>
-      </div>
+      </div> -->
 
       <div class="sticky-section">
         <Search />
@@ -65,9 +62,9 @@ async function fetchProfilesHandler() {
 .sticky-section {
   background: var(--white);
   margin: 0 -2rem;
-  padding: 1.5rem 2rem .5rem 2rem;
+  padding: 1.25rem 2rem;
   position: sticky;
-  top: 0;
+  top: 0rem;
   z-index: 10;
 }
 </style>
