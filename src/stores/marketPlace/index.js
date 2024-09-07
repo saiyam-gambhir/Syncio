@@ -233,6 +233,7 @@ export const useMarketPlaceStore = defineStore('marketPlace', {
       ],
       currentPage: '',
       isConnectDialogVisible: false,
+      isCreateProfileDialogVisible: false,
       isMessageDialogVisible: false,
       isMessageSentDialogVisible: false,
       isPreviewProfileDialogVisible: false,

@@ -1,5 +1,6 @@
 <script setup>
 /* ----- Components ----- */
+const CreateProfileDialog = defineAsyncComponent(() => import('./components/CreateProfileDialog.vue'));
 const MessageDialog = defineAsyncComponent(() => import('./components/MessageDialog.vue'));
 const MessageSentDialog = defineAsyncComponent(() => import('./components/MessageSentDialog.vue'));
 
@@ -7,12 +8,13 @@ const MessageSentDialog = defineAsyncComponent(() => import('./components/Messag
 const {
   fetchProfile,
   fetchProfiles,
+  isCreateProfileDialogVisible,
   isMessageDialogVisible,
   isMessageSentDialogVisible,
-  profile,
-  profiles,
   loading,
   loadingProfile,
+  profile,
+  profiles,
 } = toRefs(useMarketPlaceStore());
 
 /* ----- Mounted ----- */
@@ -43,7 +45,6 @@ async function fetchProfilesHandler() {
           <Survey />
         </div>
       </div> -->
-
       <div class="sticky-section">
         <Search />
         <Filters />
@@ -54,6 +55,7 @@ async function fetchProfilesHandler() {
   </section>
 
   <!----- Dialogs ----->
+  <CreateProfileDialog v-if="isCreateProfileDialogVisible" />
   <MessageDialog v-if="isMessageDialogVisible" />
   <MessageSentDialog v-if="isMessageSentDialogVisible" />
 </template>
