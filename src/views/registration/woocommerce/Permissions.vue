@@ -11,10 +11,6 @@ const {
   currentStore,
 } = toRefs(useConnectionsStore());
 
-const {
-  wooPlanSelectionLink,
-} = toRefs(usePlanStore());
-
 const arePermissionsApproved = ref(false);
 const storeType = ref('');
 const storeUrl = ref('');

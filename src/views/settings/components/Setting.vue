@@ -1,4 +1,11 @@
 <script setup>
+import * as routes from '@/routes';
+
+/* ----- Data ----- */
+const {
+  plan,
+} = toRefs(usePlanStore());
+
 /* ----- Props ----- */
 const props = defineProps({
   description: {
@@ -50,7 +57,10 @@ const stripeLoginUrl = computed(() => {
         <router-link :to="href" v-if="!isWoo">
           <Button label="Manage" outlined></Button>
         </router-link>
-        <a v-if="isWoo" :href="stripeLoginUrl" class="p-button p-button-outlined font-semibold">Manage</a>
+        <a v-if="isWoo && plan" :href="stripeLoginUrl" class="p-button p-button-outlined font-semibold">Manage</a>
+        <router-link v-else-if="isWoo && !plan" :to="routes.WOO_PLAN_SELECTION">
+          <Button label="Select plan" outlined class="mt-4 font-bold justify-content-center"></Button>
+        </router-link>
       </div>
     </div>
   </div>

@@ -132,10 +132,6 @@ export const usePlanStore = defineStore('plan', {
     currentPlanId({ selectedPlan }) {
       return selectedPlan?.id;
     },
-
-    wooPlanSelectionLink() {
-      return `${import.meta.env.VITE_WOO_BILLING_URL}/?jwt=${window.sessionStorage.getItem('ID_TOKEN_KEY')}`;
-    },
   },
 
   actions: deepmerge.all([

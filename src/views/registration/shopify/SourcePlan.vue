@@ -25,7 +25,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <li class="plan-section relative" :class="{ 'highlight': highlight }">
+  <li class="plan-section relative" :class="{ 'highlight-plan': highlight }">
     <span v-if="highlight" class="highlighted-text px-2 py-1 absolute">Start each month here</span>
     <div class="plan-section-container p-x-3 pt-3 pb-3">
       <h3 class="plan-name mb-2">{{ planName }}</h3>
@@ -78,7 +78,7 @@ const props = defineProps({
   min-height: 22px;
 }
 
-.highlight {
+.highlight-plan {
   background: #F3F6FC;
   border-top-right-radius: 4px;
   border-color:#183462;
@@ -178,6 +178,5 @@ const props = defineProps({
   .benefits {
     text-align: right;
   }
-
 }
 </style>
