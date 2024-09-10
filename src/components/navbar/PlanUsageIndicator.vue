@@ -6,15 +6,15 @@ const {
 
 /* ----- Computed ----- */
 const getPlanDetails = computed(() => {
-  const syncedProductsSold = +plan.value?.synced_products_sold || 0;
+  const sy = +plan.value?.synced_orders || 0;
 
-  if (syncedProductsSold > 1000) {
+  if (sy > 1000) {
     return { title: 'Enterprise', availableLimit: 10000 };
   }
-  if (syncedProductsSold > 100) {
+  if (sy > 100) {
     return { title: 'Pro', availableLimit: 1000 };
   }
-  if (syncedProductsSold > 10) {
+  if (sy > 10) {
     return { title: 'Starter', availableLimit: 100 };
   }
 
