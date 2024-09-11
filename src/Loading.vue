@@ -10,8 +10,8 @@
   background: #0e3b4d;
 
   svg {
-    animation: logo 0.75s infinite alternate;
-    width: 40rem !important;
+    animation: logo .4s infinite alternate;
+    width: 32rem !important;
 
     @media screen and (max-width: 1023px) {
       width: 20rem !important;

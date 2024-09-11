@@ -5,6 +5,7 @@ import * as validationMessages from '@/validationMessages';
 /* ----- Components ----- */
 const ProfileCreatedDialog = defineAsyncComponent(() => import('./components/ProfileCreatedDialog.vue'));
 const ProfilePreviewDialog = defineAsyncComponent(() => import('./components/ProfilePreviewDialog.vue'));
+const ReturnToMarketplaceDialogVisible = defineAsyncComponent(() => import('./components/ReturnToMarketplaceDialog.vue'));
 
 /* ----- Data ----- */
 const {
@@ -18,9 +19,11 @@ const {
   fetchProfile,
   isPreviewProfileDialogVisible,
   isProfileCreatedDialogVisible,
+  isReturnToMarketplaceDialogVisible,
   loadingProfile,
   maxImagesAllowed,
   profile,
+  selectedProfile,
   updateProfile,
 } = toRefs(useMarketPlaceStore());
 
@@ -106,6 +109,10 @@ const updateProfileHandler = async () => {
 
   // Trigger for the first time or show dialog to redirect to marketplace page
   if(!isProfileCreated) {
+    if(selectedProfile.value) {
+      isReturnToMarketplaceDialogVisible.value = true;
+      return;
+    }
     isProfileCreatedDialogVisible.value = true;
     //Intercom('trackEvent', IntercomActions.MARKETPLACE_PROFILE_CREATED_EVENT);
   }
@@ -344,11 +351,11 @@ watch(profile, (newValue, oldValue) => {
     </article>
   </form>
 
-  <!-- Preview profile dialog -->
+  <!-- Dialog -->
   <ProfilePreviewDialog v-if="isPreviewProfileDialogVisible" />
-
-  <!-- Profile created dialog -->
   <ProfileCreatedDialog v-if="isProfileCreatedDialogVisible" />
+  <ReturnToMarketplaceDialogVisible v-if="isReturnToMarketplaceDialogVisible" />
+
 </template>
 
 <style scoped>

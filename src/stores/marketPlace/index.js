@@ -238,6 +238,7 @@ export const useMarketPlaceStore = defineStore('marketPlace', {
       isMessageSentDialogVisible: false,
       isPreviewProfileDialogVisible: false,
       isProfileCreatedDialogVisible: false,
+      isReturnToMarketplaceDialogVisible: false,
       loading: false,
       loadingProfile: false,
       maxImagesAllowed: 6,
@@ -298,6 +299,7 @@ export const useMarketPlaceStore = defineStore('marketPlace', {
         paths: [
           'queries',
           'searchString',
+          'selectedProfile',
         ],
       },
     ],

@@ -1,4 +1,6 @@
 <script setup>
+import { useUrlSearchParams } from '@vueuse/core';
+
 /* ----- Components ----- */
 const CreateProfileDialog = defineAsyncComponent(() => import('./components/CreateProfileDialog.vue'));
 const MessageDialog = defineAsyncComponent(() => import('./components/MessageDialog.vue'));
@@ -17,9 +19,15 @@ const {
   profiles,
 } = toRefs(useMarketPlaceStore());
 
+const params = useUrlSearchParams();
+
 /* ----- Mounted ----- */
 onMounted(async () => {
   await fetchProfilesHandler();
+
+  if(Boolean(params['show-invite-dialog']) && profile.value?.updatedAt) {
+    isMessageDialogVisible.value = true;
+  }
 });
 
 /* ----- Methods ----- */
