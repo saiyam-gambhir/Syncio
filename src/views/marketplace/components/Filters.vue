@@ -25,11 +25,13 @@ const updateCurrentPageHandler = page => {
     <div class="grid filters mt-0">
       <div class="col-3">
         <Dropdown
-          :autoOptionFocus="false"
           :loading="loading"
           :options="countries"
+          optionLabel="name"
           @change="fetchProfiles"
           class="w-full"
+          filter
+          filterIcon="pi pi-search"
           placeholder="Location"
           showClear
           v-model="queries['filters[country_name]']">
