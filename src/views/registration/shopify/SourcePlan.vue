@@ -32,8 +32,8 @@ const props = defineProps({
       <p class="price m-0">{{ price }} <span style="color: #757575;" v-if="!blank">/month</span></p>
     </div>
     <div class="plan-section-container p-x-3" style="border-top: solid 1px #ddd;">
-      <p class="limit hidden-details">Synced products sold*</p>
-      <p class="limit headings" v-if="blank">Synced products sold*</p>
+      <p class="limit hidden-details">Orders with synced products*</p>
+      <p class="limit headings" v-if="blank">Orders with synced products*</p>
       <p class="limit">{{ limit }}</p>
     </div>
     <div class="plan-section-container p-x-3 pb-3 pt-3" style="border-top: solid 1px #ddd;">
