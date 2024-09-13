@@ -21,7 +21,7 @@ export const fetchProfiles = {
       'filters[product_count]': this.queries['filters[product_count]'],
       'filters[store_type]': storeType,
       'limiter': 16,
-      'page': page,
+      'page': typeof(page) === 'object' ? 1 : page,
     };
 
     const { profiles, success } = await axiosService.getData(`stores/coco-profiles`, params);

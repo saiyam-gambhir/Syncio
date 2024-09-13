@@ -123,7 +123,7 @@ watch(profile, (newValue, oldValue) => {
   const { brandName, category, location, numOfProducts, socialMedia, website } = newValue;
   brandNameError.value = brandName?.length > 0 ? null : validationMessages.REQUIRED;
   categoryError.value = category?.length > 0 ? null : validationMessages.REQUIRED;
-  locationError.value = location?.length > 0 ? null : validationMessages.REQUIRED;
+  locationError.value = (location?.length || location?.name.length) > 0 ? null : validationMessages.REQUIRED;
   numOfProductsError.value = numOfProducts && numOfProducts > -1 > 0 ? null : validationMessages.REQUIRED;
   socialMediaError.value = !urlRegex.test(socialMedia) && socialMedia?.length > 0 ? validationMessages.URL_VERIFICATION : null;
   websiteError.value = urlRegex.test(website) ? null : validationMessages.URL_VERIFICATION;
@@ -226,8 +226,10 @@ watch(profile, (newValue, oldValue) => {
                       :class="{ 'mb-3 p-invalid': locationError }"
                       :options="countries"
                       class="w-66"
-                      editable
+                      filter
+                      filterIcon="pi pi-search"
                       inputId="location"
+                      optionLabel="name"
                       placeholder="Select Country"
                       selectOnFocus
                       showClear

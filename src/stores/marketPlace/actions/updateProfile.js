@@ -16,7 +16,7 @@ export const updateProfile = {
 
     const country = {
       city: '-',
-      country: location
+      country: location?.name
     };
 
     const params = {
@@ -55,7 +55,7 @@ export const updateProfile = {
         brandName: brand_name,
         category,
         cocoProfileImages: coco_profile_images,
-        location: location?.country,
+        location: { name: location?.country },
         numOfProducts: num_of_products,
         shippingPolicyUrl: shipping_policy_url,
         socialMedia: coco_social_media && coco_social_media[0] && coco_social_media[0].url,
