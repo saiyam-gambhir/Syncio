@@ -150,6 +150,13 @@ const getStatus = (connection) => {
       </template>
     </Column>
   </DataTable>
+
+  <div v-if="connections?.length < 5" class="text-center py-6 mt-6">
+    <p class="text-3xl">🚀</p>
+    <p class="text-xl font-semi text-light mb-0">Supercharge your growth</p>
+    <p v-if="isDestinationStore" class="text-lg line-height-3 mt-2 mb-0 text-light">Find quality products and partners on <router-link :to="routes.MARKETPLACE" class="text-lg btn-link">Marketplace</router-link></p>
+    <p v-else-if="isSourceStore" class="text-lg line-height-3 mt-2 mb-0 ">Find quality retail partners to sell your products on <br> <router-link id="marketplace-stores-link" :to="routes.MARKETPLACE" class="text-lg btn-link">Marketplace</router-link></p>
+  </div>
 </template>
 
 <style>

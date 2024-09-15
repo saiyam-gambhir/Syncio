@@ -1,4 +1,6 @@
 <script setup>
+import * as routes from '@/routes';
+
 /* ----- Components ----- */
 const ProductSyncLimitDialog = defineAsyncComponent(() => import('./components/ProductSyncLimitDialog.vue'));
 
@@ -15,6 +17,7 @@ const {
 } = toRefs(useAuthStore());
 
 const {
+  connections,
   isDestinationStore,
   isSourceStore,
   partnerStoreType,
@@ -168,19 +171,26 @@ const isSelected = (row) => {
     showGridlines
     :rowClass="isSelected">
 
-    <template #empty>
+    <template #empty v-if="connections?.length === 0">
+      <div class="px-4 py-8 text-center">
+        <h2 class="m-0 text-xl">You need to connect to a store to access their products</h2>
+        <p class="text-xl line-height-3">
+          Invite your partners to connect via <br> <router-link :to="routes.STORES" class="btn-link text-xl">Stores</router-link> > Connect new store
+        </p>
+        <p class="text-xl line-height-3">Or</p>
+        <p v-if="isDestinationStore" class="text-xl line-height-3">Find quality products and partners on <router-link id="marketplace-orders-link" :to="routes.MARKETPLACE" class="text-xl btn-link">Marketplace</router-link></p>
+        <p v-else-if="isSourceStore" class="text-xl line-height-3 mb-0">Find quality retail partners to sell your products on <router-link id="marketplace-orders-link" :to="routes.MARKETPLACE" class="text-xl btn-link">Marketplace</router-link></p>
+      </div>
+    </template>
+
+    <template #empty v-else>
       <div class="px-4 py-8 text-center" v-if="!loading">
         <h2 class="m-0 line-height-3" v-if="selectedStoreId">No products found</h2>
         <h2 v-else class="line-height-3 font-semi">
-          Select a {{ partnerStoreType }} from the dropdown menu at the <br> top right to browse available products.
-          <span v-if="isSourceStore" class="block mt-4">
-            Import and sync of products is managed by Destination stores. <br>
-            Log in to your Destination store or contact the Destination <br>
-            store owner to import and sync products.
-          </span>
+          To view <span v-if="isDestinationStore">and sync</span> products, select a {{ partnerStoreType }} from the <br> dropdown at the top right
         </h2>
+        <p v-if="isSourceStore" class="block mt-4 mb-0 text-xl line-height-3">Import and sync of products is managed by the <br> Destination store</p>
       </div>
-
     </template>
 
     <template #header>
