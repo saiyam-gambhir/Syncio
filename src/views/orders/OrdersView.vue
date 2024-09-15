@@ -44,6 +44,7 @@ const {
 
 const {
   isShopify,
+  isDestinationStore,
 } = toRefs(useConnectionsStore());
 
 const options = ref(['Off', 'On']);
@@ -244,7 +245,16 @@ const getErrorMessage = (errorMessages) => {
   <DataTable v-else :value="orders.orders" responsiveLayout="scroll" showGridlines class="mt-2" :rowClass="isSelected">
     <template #empty>
       <div class="px-4 py-8 text-center">
-        <h2 class="m-0">No orders found</h2>
+        <h2 class="m-0 text-xl">Expecting an order to show up here?</h2>
+        <p class="text-xl line-height-3 mt-5 mb-0">Make sure your order meets the requirements</p>
+        <p class="text-xl line-height-3 mt-2">
+          <AppLink label="Read about Order requirements" link="https://help.syncio.co/en/articles/3285542-order-add-on-conditions-and-limitations" class="text-xl" />
+        </p>
+        <p v-if="isDestinationStore" class="text-xl line-height-3 mb-0 mt-6 pt-2">
+          🚀 <br>
+          <span class="font-semi block mt-2 pt-1">Want to get more sales? </span>
+        </p>
+        <p class="text-xl line-height-3 mt-2 mb-0 pt-1">Find quality products and partners on <router-link id="marketplace-orders-link" :to="routes.MARKETPLACE" class="text-xl btn-link">Marketplace</router-link></p>
       </div>
     </template>
 
