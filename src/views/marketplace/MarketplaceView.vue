@@ -63,7 +63,7 @@ async function fetchProfilesHandler() {
 .sticky-section {
   background: var(--white);
   margin: 0 -2rem;
-  padding: 1.25rem 2rem;
+  padding: 1.25rem 2rem 0 2rem;
   position: sticky;
   top: 0rem;
   z-index: 10;
