@@ -14,6 +14,8 @@ export const fetchProfiles = {
       }
     }
 
+    const sortByFilter = this.queries['sortBy'] === 'date_new_to_old' ? 'date_new_to_old' : 'date_old_to_new';
+
     const params = {
       'filters[category]': this.queries['filters[category]'],
       'filters[country_name]': this.queries['filters[country_name]']?.name,
@@ -22,6 +24,7 @@ export const fetchProfiles = {
       'filters[store_type]': storeType,
       'limiter': 16,
       'page': typeof(page) === 'object' ? 1 : page,
+      [sortByFilter]: true,
     };
 
     const { profiles, success } = await axiosService.getData(`stores/coco-profiles`, params);

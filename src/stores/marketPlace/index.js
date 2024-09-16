@@ -262,12 +262,25 @@ export const useMarketPlaceStore = defineStore('marketPlace', {
         'filters[category]': null,
         'filters[country_name]': null,
         'filters[product_count]': null,
-        limiter: 16,
-        search_str: null,
+        'limiter': 16,
+        'search_str': null,
+        'sortBy': 'date_new_to_old',
       },
       searchQuery: null,
       searchString: null,
       selectedProfile: null,
+      sortOptions: [
+        {
+          icon: 'pi pi-sort-numeric-up-alt',
+          label: 'Date: Newest first',
+          sortBy: 'date_new_to_old',
+        },
+        {
+          icon: 'pi pi-sort-numeric-up',
+          label: 'Date: Oldest first',
+          sortBy: 'date_old_to_new',
+        },
+      ],
     };
   },
 

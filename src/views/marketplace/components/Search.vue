@@ -4,8 +4,10 @@ import { useDebounceFn } from '@vueuse/core';
 /* ----- Data ----- */
 const {
   fetchProfiles,
+  loading,
   queries,
   searchString,
+  sortOptions,
 } = toRefs(useMarketPlaceStore());
 
 /* ----- Methods -----*/
@@ -31,6 +33,7 @@ watch(searchString, async (newValue, oldValue) => {
           <div class="p-input-icon-left w-100">
             <i class="pi pi-search" />
             <InputText
+              :loading="loading"
               class="p-inputtext-lg w-full"
               placeholder="Search for categories or brands"
               v-model="searchString">
@@ -38,7 +41,26 @@ watch(searchString, async (newValue, oldValue) => {
           </div>
         </div>
       </div>
-      <div class="col-3">Sorting</div>
+      <div class="col-3">
+        <Dropdown
+          :loading="loading"
+          :options="sortOptions"
+          @change="fetchProfiles"
+          optionLabel="label"
+          optionValue="sortBy"
+          showClear
+          placeholder="Sort by"
+          style="height: 44px;"
+          class="w-full mt-2"
+          v-model="queries.sortBy">
+          <template #option="{ option }">
+            <div class="flex align-items-center justify-content-between">
+              {{ option.label }}
+              <i :class="option.icon" class="ml-2"></i>
+            </div>
+          </template>
+        </Dropdown>
+      </div>
     </div>
   </section>
 </template>

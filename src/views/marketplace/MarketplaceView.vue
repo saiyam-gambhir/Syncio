@@ -45,19 +45,10 @@ async function fetchProfilesHandler() {
       <MarketplaceViewSkeleton />
     </div>
     <div v-else>
-      <!-- <div class="grid">
-        <div class="col col-6">
-          <UserProfile :profile="profile" />
-        </div>
-        <div class="col col-6">
-          <Survey />
-        </div>
-      </div> -->
       <div class="sticky-section">
         <Search />
         <Filters />
       </div>
-
       <Profiles />
     </div>
   </section>
