@@ -24,11 +24,11 @@ const deleteStoreHandler = async () => {
   await DELETE_STORE.value();
   isStoreDeactivated.value = true;
   loading.value = false;
+  await fetchCurrentStore.value();
 };
 
 const loadCurrentStoreHandler = async () => {
   loading.value = true;
-  await fetchCurrentStore.value();
   setTimeout(() => {
     isStoreDeactivated.value = isDeactivateStoreDialogVisible.value = loading.value = false;
   }, 1000);
