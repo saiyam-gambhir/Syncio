@@ -275,6 +275,7 @@ const allowedUniversalStores = ref([
   'e77029-4.myshopify.com',
   'test-nainesh-stag-unvsl-destination-1.myshopify.com',
   'test-nainesh-stag-unvsl-destination-3.myshopify.com',
+  'b6e176-3f.myshopify.com',
 ]);
 
 /* ----- Mounted ----- */
