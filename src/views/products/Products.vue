@@ -173,7 +173,8 @@ const isSelected = (row) => {
 
     <template #empty v-if="connections?.length === 0">
       <div class="px-4 py-8 text-center">
-        <h2 class="m-0 text-xl">You need to connect to a store to access their products</h2>
+        <h2 v-if="isDestinationStore" class="m-0 text-xl">You need to connect to a store to access their products</h2>
+        <h2 v-else-if="isSourceStore" class="m-0 text-xl">You need to connect to a store to allow them to access your products</h2>
         <p class="text-xl line-height-3">
           Invite your partners to connect via <br> <router-link :to="routes.STORES" class="btn-link text-xl">Stores</router-link> > Connect new store
         </p>
