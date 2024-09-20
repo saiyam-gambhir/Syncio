@@ -4,6 +4,7 @@ import * as routes from '@/routes';
 
 /* ----- Data ----- */
 const {
+  fetchCurrentPlan,
   fetchPlans,
   isOnboarding,
   loadingPlans,
@@ -11,6 +12,10 @@ const {
   plans,
   selectedPlan,
 } = toRefs(usePlanStore());
+
+const {
+  userId,
+} = toRefs(useAuthStore());
 
 const {
   fetchCurrentStore,
@@ -30,6 +35,7 @@ onMounted(async () => {
   }
 
   await fetchPlansHandler();
+  // await fetchCurrentPlan.value(userId.value);
   setSelectedPlan();
   isOnboarding.value = true;
 });
@@ -37,10 +43,12 @@ onMounted(async () => {
 /* ----- Methods ----- */
 const setSelectedPlan = () => {
   // Check if selectedPlan.value doesn't exist
-  if (!selectedPlan.value) {
-    // Assign the value based on whether plan.value exists
-    selectedPlan.value = plan.value ? JSON.parse(JSON.stringify(plan.value.syncio_plan)) : JSON.parse(JSON.stringify(plans.value[0]));
-  }
+  // if (!selectedPlan.value) {
+  //   Assign the value based on whether plan.value exists and also check for universal store plan
+  //   selectedPlan.value = (plan.value) ? JSON.parse(JSON.stringify(plan.value.syncio_plan)) : JSON.parse(JSON.stringify(plans.value[0]));
+  // }
+
+  selectedPlan.value = JSON.parse(JSON.stringify(plans.value[0]));
 };
 
 const fetchPlansHandler = async () => {
@@ -67,7 +75,7 @@ const fetchPlansHandler = async () => {
           </div>
 
           <div class="col-12 md:col-12 lg:col-3">
-            <Summary />
+            <Summary isRouteShopifySelectPlan />
           </div>
         </section>
       </article>

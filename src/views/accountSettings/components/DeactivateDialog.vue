@@ -20,11 +20,15 @@ const closeDialogHandler = () => {
 };
 
 const deleteStoreHandler = async () => {
-  loading.value = true;
-  await DELETE_STORE.value();
-  isStoreDeactivated.value = true;
-  loading.value = false;
-  await fetchCurrentStore.value();
+  try {
+    loading.value = true;
+    await DELETE_STORE.value();
+    isStoreDeactivated.value = true;
+    loading.value = false;
+    await fetchCurrentStore.value();
+  } catch(error) {
+    loading.value = false;
+  }
 };
 
 const loadCurrentStoreHandler = async () => {

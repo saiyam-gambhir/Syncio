@@ -185,7 +185,7 @@ export const useConnectionsStore = defineStore('connections', {
         storage: sessionStorage,
         paths: [
           'connectionFilterItems',
-          'currentStore',
+          //'currentStore',
           'filters',
           'selectedConnection',
         ],

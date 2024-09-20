@@ -38,12 +38,16 @@ const enableStore = async () => {
 // };
 
 const selectPlanHandler = async () => {
+  loadingEnableStore.value = true;
   await enableStore();
+  loadingEnableStore.value = false;
   router.push({ path: routes.SHOPIFY_SELECT_PLAN });
 };
 
 const enableSourceStorePlanHandler = async () => {
+  loadingEnableStore.value = true;
   await enableStore();
+  loadingEnableStore.value = false;
   router.push({ path: routes.SHOPIFY_PLAN_APPROVAL });
 };
 </script>
@@ -132,6 +136,7 @@ const enableSourceStorePlanHandler = async () => {
         </Button>
 
         <Button
+          :loading="loadingEnableStore"
           @click="selectPlanHandler"
           class="mr-0"
           label="Select plan"

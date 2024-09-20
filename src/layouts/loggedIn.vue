@@ -20,7 +20,7 @@ onMounted(() => {
   bootIntercom();
 
   // Check if source store plan approval is pending for Shopify?
-  if(isShopify.value && isSourceStore.value && requiresSourceStorePlanApproval.value && !plan.value) {
+  if(isShopify.value && isSourceStore.value && requiresSourceStorePlanApproval.value && !plan.value && plan.value?.active_addons.length === 0) {
     router.push({ name: routes.SHOPIFY_PLAN_APPROVAL });
     return;
   }

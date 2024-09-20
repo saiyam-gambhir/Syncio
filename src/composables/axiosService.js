@@ -134,9 +134,9 @@ class AxiosService {
     );
   };
 
-  async deleteData(url, data = null) {
+  async deleteData(url) {
     this.https.defaults.headers.common['Authorization'] = `Bearer ${sessionStorage.getItem('ID_TOKEN_KEY')}`;
-    const response = await this.https.delete(url, data);
+    const response = await this.https.delete(url);
     return response.data;
   };
 

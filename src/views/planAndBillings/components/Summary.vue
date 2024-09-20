@@ -5,6 +5,13 @@ import * as routes from '@/routes';
 /* ----- Components ----- */
 const AddonsDowngradeDialog = defineAsyncComponent(() => import('./AddonsDowngradeDialog.vue'));
 
+const props = defineProps({
+  isRouteShopifySelectPlan: {
+    type: Boolean,
+    default: false,
+  }
+})
+
 /* ----- Data ----- */
 const {
   formatCurrency,
@@ -145,7 +152,7 @@ const generateChargeHandler = async () => {
         <h2 class="mb-0 tabular-nums">{{ formatCurrency(totalCartValue) }} <span class="text-base lowercase">/ month</span></h2>
       </div>
 
-      <Button label="Next" :disabled="!allowToProceed" @click="generateChargeHandler" :loading="loadingPayment" class="p-button-lg w-full mt-5"></Button>
+      <Button label="Next" :disabled="!allowToProceed && !isRouteShopifySelectPlan" @click="generateChargeHandler" :loading="loadingPayment" class="p-button-lg w-full mt-5"></Button>
     </template>
   </CardWrapper>
 
