@@ -7,6 +7,7 @@ const loading = ref(false);
 const loadingToDashboard = ref(false);
 
 const {
+  fetchCurrentStore,
   isDestinationStore,
   isShopify,
   isSourceStore,
@@ -51,12 +52,19 @@ onMounted(async () => {
 });
 
 /* ----- Methods ----- */
+const gotToDashboardHander = async () => {
+  loadingToDashboard.value = true;
+  await fetchCurrentStore.value();
+  await router.push({ name: routes.DASHBOARD });
+  loadingToDashboard.value = false;
+}
 </script>
 
 <template>
   <Loading v-if="loading" />
   <section v-else class="mx-auto" style="width: 1000px; max-width: 100%;">
-    <PageDetails title="Installation Complete!" content="Here are a few guides to help you Sync your first product!" />
+    <PageDetails v-if="route.query?.remove_store_id" title="Deactivation Complete!" content="" />
+    <PageDetails v-else title="Installation Complete!" content="Here are a few guides to help you Sync your first product!" />
 
     <aside class="auth-wrapper text-900 text-center">
 
@@ -106,15 +114,14 @@ onMounted(async () => {
 
       <Divider />
 
-      <router-link :to="routes.DASHBOARD" @click="loadingToDashboard = true;">
-        <Button
-          :loading="loadingToDashboard"
-          class="mt-4 font-bold justify-content-center p-button-lg w-50"
-          icon="pi pi-arrow-right"
-          iconPos="right"
-          label="Continue to dashboard">
-        </Button>
-      </router-link>
+      <Button
+        @click="gotToDashboardHander"
+        :loading="loadingToDashboard"
+        class="mt-4 font-bold justify-content-center p-button-lg w-50"
+        icon="pi pi-arrow-right"
+        iconPos="right"
+        label="Continue to dashboard">
+      </Button>
     </aside>
   </section>
 </template>

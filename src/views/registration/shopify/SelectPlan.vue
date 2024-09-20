@@ -35,7 +35,7 @@ onMounted(async () => {
   }
 
   await fetchPlansHandler();
-  // await fetchCurrentPlan.value(userId.value);
+  await fetchCurrentPlan.value(userId.value);
   setSelectedPlan();
   isOnboarding.value = true;
 });

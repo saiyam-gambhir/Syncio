@@ -25,17 +25,7 @@ const {
   showToast,
 } = useToasts();
 
-const activityCenter = useActivityCenterStore();
-const auth = useAuthStore();
-const connections = useConnectionsStore();
-const dashboard = useDashboardStore();
-const marketPlace = useMarketPlaceStore();
 const menu = ref();
-const orders = useOrdersStore();
-const payouts = usePayoutsStore();
-const plan = usePlanStore();
-const products = useProductsStore();
-const productSettings = useProductSettingsStore();
 const router = useRouter();
 const items = ref([
   {
@@ -65,20 +55,9 @@ const toggleMenu = (event) => {
   menu.value.toggle(event);
 };
 
-const logout = () => {
-  activityCenter.$reset();
-  auth.$reset();
-  connections.$reset();
-  dashboard.$reset();
-  marketPlace.$reset();
-  orders.$reset();
-  payouts.$reset();
-  plan.$reset();
-  products.$reset();
-  productSettings.$reset();
-  sessionStorage.removeItem('ID_TOKEN_KEY');
-  sessionStorage.removeItem('USER_ID');
-  router.push({ name: routes.LOGIN });
+const logout = async () => {
+  sessionStorage.clear();
+  await router.push({ name: routes.LOGIN });
 };
 
 const copyStoreNameHandler = async val => {

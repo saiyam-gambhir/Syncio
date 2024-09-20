@@ -8,8 +8,8 @@ export const activateCharge = {
       charge_id: charge_id,
       option_ids: addons,
       plan_id: plan_id,
-      user_id: usedId,
       remove_store_id: remove_store_id,
+      user_id: usedId,
     };
 
     const user = await fetchUser(usedId);

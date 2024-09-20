@@ -48,7 +48,6 @@ const selectPlanHandler = (plan) => {
 
       <div class="grid mt-4 pb-1">
         <div class="col-12 md:col-3 lg:col-3 relative md:p-3 p-2" v-for="_plan in plans" :key="plan?.id">
-
           <Plan :plan="_plan" class="plan-block pointer" @click="selectPlanHandler(_plan)" :class="{ 'current-plan': (plan?.syncio_plan.price_per_month === _plan.price_per_month), 'selected-plan': currentPlanId === _plan.id }" />
           <i v-if="(plan?.syncio_plan.price_per_month === _plan.price_per_month) || (currentPlanId === _plan.id)" class="pi pi-check-circle absolute"></i>
         </div>

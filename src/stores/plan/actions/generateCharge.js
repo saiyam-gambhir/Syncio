@@ -24,7 +24,7 @@ export const generateCharge = {
         return;
       }
 
-      if(isDestinationStore && charge) {
+      if(charge) {
         window.location.href = charge.confirmation_url;
       }
     } catch(error) {
