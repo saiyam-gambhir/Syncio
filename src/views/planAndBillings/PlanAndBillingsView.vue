@@ -74,6 +74,11 @@ const setSelectedPlan = () => {
 const fetchPlansHandler = async () => {
   await fetchPlans.value();
 };
+
+onBeforeRouteLeave((to, from, next) => {
+  selectedPlan.value = plan.value ? JSON.parse(JSON.stringify(plan.value.syncio_plan)) : JSON.parse(JSON.stringify(plans.value[0]));
+  next();
+});
 </script>
 
 <template>
@@ -107,6 +112,7 @@ const fetchPlansHandler = async () => {
 
 .current-plan.surface-card {
   background: #e3f2ff !important;
+  pointer-events: none;
 }
 
 .selected-plan {

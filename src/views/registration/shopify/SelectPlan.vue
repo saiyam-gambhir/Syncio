@@ -42,12 +42,6 @@ onMounted(async () => {
 
 /* ----- Methods ----- */
 const setSelectedPlan = () => {
-  // Check if selectedPlan.value doesn't exist
-  // if (!selectedPlan.value) {
-  //   Assign the value based on whether plan.value exists and also check for universal store plan
-  //   selectedPlan.value = (plan.value) ? JSON.parse(JSON.stringify(plan.value.syncio_plan)) : JSON.parse(JSON.stringify(plans.value[0]));
-  // }
-
   selectedPlan.value = JSON.parse(JSON.stringify(plans.value[0]));
 };
 
@@ -93,6 +87,7 @@ const fetchPlansHandler = async () => {
 
 .current-plan.surface-card {
   background: #e3f2ff !important;
+  pointer-events: none;
 }
 
 .selected-plan {

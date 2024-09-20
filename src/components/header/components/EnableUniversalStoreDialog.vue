@@ -5,12 +5,10 @@ import * as routes from '@/routes';
 const {
   currentStore,
   ENABLE_STORE,
-  fetchConnections,
   isDestinationStore,
   isEnableUniversalStoreRequested,
   isSourceStore,
   loadingEnableStore,
-  partnerStoreType,
   storeType,
   universalStores,
 } = toRefs(useConnectionsStore());
@@ -27,15 +25,6 @@ const enableStore = async () => {
   await ENABLE_STORE.value();
   currentStore.value = universalStores.value.find(store => !store.default);
 };
-
-// const enableStoreHandler = async () => {
-//   await enableStore();
-//   router.push({
-//     path: routes.DASHBOARD,
-//     query: { storeEnabled: storeType.value },
-//   });
-//   await fetchConnections.value(true);
-// };
 
 const selectPlanHandler = async () => {
   loadingEnableStore.value = true;
@@ -87,13 +76,6 @@ const enableSourceStorePlanHandler = async () => {
               <i class="pi pi-check-circle text-2xl text-green-500 mr-3" style="transform: translateY(1.5px);"></i>
               The same reliable real time sync and oversell protections
             </li>
-            <!-- <li class="flex mt-4">
-              <i class="pi pi-check-circle text-2xl text-green-500 mr-3" style="transform: translateY(1.5px);"></i>
-              <div>
-                Free 14 day trial <br>
-                <span class="text-small">If it doesn't meet your needs, simply remove the {{ partnerStoreType }} type from your account settings.</span>
-              </div>
-            </li> -->
             <div class="px-3 py-4 surface-highlight mt-4">
               <p class="m-0 mb-1">This will be additional to your current {{ storeType }} store plan</p>
               <template v-if="isSourceStore">
