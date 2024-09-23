@@ -212,7 +212,7 @@ const getErrorMessage = (errorMessages) => {
                 </div>
               </h2>
 
-              <div class="text-right">
+              <div class="text-right w-50">
 
                 <!----- Push Order ----->
                 <PushOrder :store="store" :order="order" @onOrderPush="onOrderPushHandler" />

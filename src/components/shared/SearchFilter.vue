@@ -1,7 +1,4 @@
 <script setup>
-/* ----- Data ----- */
-const searchText = ref(props.modelValue);
-
 /* ----- Props ----- */
 const props = defineProps({
   disabled: {
@@ -24,6 +21,9 @@ const props = defineProps({
     required: false,
   },
 });
+
+/* ----- Data ----- */
+const searchText = ref(props.modelValue);
 
 /* ----- Emits ----- */
 const emits = defineEmits(['update:modelValue']);

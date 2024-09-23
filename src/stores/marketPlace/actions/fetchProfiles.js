@@ -14,14 +14,20 @@ export const fetchProfiles = {
       }
     }
 
-    this.searchQuery = `${new URLSearchParams(this.queries).toString()}`;
+    const sortByFilter = this.queries['sortBy'] === 'date_new_to_old' ? 'filters[date_new_to_old]' : 'filters[date_old_to_new]';
+
     const params = {
+      'filters[category]': this.queries['filters[category]'],
+      'filters[country_name]': this.queries['filters[country_name]']?.name,
       'filters[excluded_store_ids]': this.storeId,
+      'filters[product_count]': this.queries['filters[product_count]'],
       'filters[store_type]': storeType,
-      page,
+      'limiter': 16,
+      'page': typeof(page) === 'object' ? 1 : page,
+      [sortByFilter]: true,
     };
 
-    const { profiles, success } = await axiosService.getData(`stores/coco-profiles?${this.searchQuery ? this.searchQuery : ''}`, params);
+    const { profiles, success } = await axiosService.getData(`stores/coco-profiles`, params);
 
     if (success) {
       const { current_page, data, next_page_url, prev_page_url, total } = profiles;

@@ -1,7 +1,9 @@
 <script setup>
 /* ----- Data ----- */
 const {
+  isCreateProfileDialogVisible,
   isMessageDialogVisible,
+  profile,
   selectedProfile,
 } = toRefs(useMarketPlaceStore());
 
@@ -11,7 +13,7 @@ const {
 
 /* ----- Props ----- */
 const props = defineProps({
-  profile: {
+  storeProfile: {
     type: Object,
     required: true,
   },
@@ -19,10 +21,10 @@ const props = defineProps({
 
 /* ----- Computed ----- */
 const profileData = computed(() => {
-  const instagramHandle = props.profile?.coco_social_media[0]?.url;
-  const imagesCount = props.profile?.coco_profile_images?.length;
-  const shippingPolicyUrl = props.profile?.shipping_policy_url;
-  const typicalMarginPercentage = props.profile?.typical_margin_precentage;
+  const instagramHandle = props.storeProfile?.coco_social_media[0]?.url;
+  const imagesCount = props.storeProfile?.coco_profile_images?.length;
+  const shippingPolicyUrl = props.storeProfile?.shipping_policy_url;
+  const typicalMarginPercentage = props.storeProfile?.typical_margin_precentage;
 
   return {
     imagesCount,
@@ -33,9 +35,15 @@ const profileData = computed(() => {
 });
 
 /* ----- Methods ----- */
-const showMessageDialogHandler = profile => {
+const showMessageDialogHandler = storeProfile => {
+  selectedProfile.value = { ...storeProfile };
+
+  if(!profile.value.updatedAt) {
+    isCreateProfileDialogVisible.value = true;
+    return;
+  }
+
   isMessageDialogVisible.value = true;
-  selectedProfile.value = { ...profile };
 };
 </script>
 
@@ -50,7 +58,7 @@ const showMessageDialogHandler = profile => {
         :numVisible="1"
         :showIndicators="profileData.imagesCount > 1"
         :showNavigators="profileData.imagesCount > 1"
-        :value="profile.coco_profile_images" circular v-else>
+        :value="storeProfile.coco_profile_images" circular v-else>
         <template #previousicon>
           <IconPrevious />
         </template>
@@ -66,7 +74,7 @@ const showMessageDialogHandler = profile => {
       <div class="profile__details p-3 pb-3">
         <h3 class="mb-0 flex justify-content-between">
           <span class="pr-2">
-            <AppLink :label="profile.brand_name" :link="profile.website" />
+            <AppLink :label="storeProfile.brand_name" :link="storeProfile.website" />
           </span>
           <a v-if="profileData.instagramHandle" :href="profileData.instagramHandle" target="_blank">
             <IconInstagram />
@@ -74,24 +82,24 @@ const showMessageDialogHandler = profile => {
         </h3>
         <p class="m-0 mt-2">
           <span class="text-sm mr-1">Ships from</span>
-          <strong class="font-semibold primary-color">{{ profile.location?.country }}</strong>
+          <strong class="font-semibold primary-color">{{ storeProfile.location?.country }}</strong>
           <a v-if="profileData.shippingPolicyUrl" :href="profileData.shippingPolicyUrl" target="_blank" class="btn-link"> (Policy)</a>
-          <span v-else-if="!profile.shippingPolicyUrl && isDestinationStore" class="text-sm"> (Request policy)</span>
+          <span v-else-if="!storeProfile.shippingPolicyUrl && isDestinationStore" class="text-sm"> (Request policy)</span>
         </p>
         <p class="mb-0 m-0 mt-2">
           <span class="text-sm mr-1">Published products</span>
-          <strong class="font-semibold primary-color">{{ profile.num_of_products }}</strong>
+          <strong class="font-semibold primary-color">{{ storeProfile.num_of_products }}</strong>
         </p>
         <p class="mb-0 m-0 mt-2" v-if="isDestinationStore">
           <span class="text-sm mr-1" >Typical margin</span>
           <strong v-if="profileData.typicalMarginPercentage" class="font-semibold primary-color">{{ `${profileData.typicalMarginPercentage}%` }}</strong>
-          <span v-else-if="!profile.typicalMarginPercentage && isDestinationStore" class="font-semibold primary-color">Request pricing</span>
+          <span v-else-if="!storeProfile.typicalMarginPercentage && isDestinationStore" class="font-semibold primary-color">Request pricing</span>
         </p>
         <Divider />
 
         <div class="flex">
           <Button
-            @click="showMessageDialogHandler(profile)"
+            @click="showMessageDialogHandler(storeProfile)"
             class="p-button-success p-button-sm"
             label="Invite to connect"
             style="bottom: auto;">

@@ -32,7 +32,7 @@ const props = defineProps({
     :to="href"
     class="flex align-items-center justify-content-between cursor-pointer px-3 border-round text-700 hover:surface-200 no-underline relative"
     v-tooltip.top="(isLocationPending && isDestinationStore) ? 'Missing store location' : ''"
-    style="padding-top: .85rem; padding-bottom: .85rem;">
+    style="padding-top: .75rem; padding-bottom: .75rem;">
     <div>
       <i class="pi mr-3" :class="iconClass"></i>
       <span>{{ linkText }}</span>

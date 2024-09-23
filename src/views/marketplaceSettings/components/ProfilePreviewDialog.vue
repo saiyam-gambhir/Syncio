@@ -67,7 +67,7 @@ const closeDialogHandler = () => {
                 </h3>
                 <p class="m-0 mt-2" v-if="profile.location">
                   <span class="text-sm mr-1">Ships from</span>
-                  <strong class="font-semibold primary-color">{{ profile.location }}</strong>
+                  <strong class="font-semibold primary-color">{{ profile.location?.name }}</strong>
                   <a v-if="profile.shippingPolicyUrl" :href="profile.shippingPolicyUrl" class="btn-link"> (Policy)</a>
                   <span v-else-if="!profile.shippingPolicyUrl && isSourceStore" class="text-sm"> (Request policy)</span>
                 </p>

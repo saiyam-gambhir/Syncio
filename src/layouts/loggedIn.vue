@@ -186,7 +186,6 @@ const randomBannerGroup = ref([
   'roseskinco-us.myshopify.com',
   'rvn-official.myshopify.com',
   'saidtheskyofficial.myshopify.com',
-  'saiyamgambhir.myshopify.com',
   'schoolbags-ie.myshopify.com',
   'scripturepicturellc.myshopify.com',
   'seal-custom.myshopify.com',

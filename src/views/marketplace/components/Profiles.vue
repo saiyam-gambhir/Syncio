@@ -15,7 +15,7 @@ const {
       <div class="grid" v-else-if="profiles?.length > 0">
         <Profile
           :key="profile.id"
-          :profile="profile"
+          :storeProfile="profile"
           v-for="profile in profiles">
         </Profile>
       </div>
