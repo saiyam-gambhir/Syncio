@@ -85,7 +85,7 @@ const updateCurrentPageHandler = page => {
           <Button class="mr-3 p-button-sm" label="Settings" outlined></Button>
         </router-link>
         <a href="https://us18.list-manage.com/survey?u=d3876b95496c25d2e8d7568bb&amp;id=38b4962d37" target="_blank" style="text-decoration: none;">
-          <Button size="small" label="Take the survey" outlined></Button>
+          <Button size="small" label="Give feedback" outlined></Button>
         </a>
       </div>
     </div>
