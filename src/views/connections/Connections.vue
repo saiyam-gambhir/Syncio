@@ -66,7 +66,11 @@ const getStatus = (connection) => {
   <DataTable :value="connections" responsiveLayout="scroll" showGridlines>
     <template #empty>
       <div class="px-4 py-8 text-center">
-        <h2 class="m-0">No stores found</h2>
+        <h2 class="m-0 text-xl">You don't have any store connections yet</h2>
+        <p class="text-xl line-height-3">Invite your partners to connect via the <br> <span class="font-semi">Connect new store</span> button</p>
+        <p class="text-xl line-height-3">Or</p>
+        <p v-if="isDestinationStore" class="text-xl line-height-3 mb-0">Find quality products and partners on <router-link :to="routes.MARKETPLACE" class="text-xl btn-link">Marketplace</router-link></p>
+        <p v-else-if="isSourceStore" class="text-xl line-height-3 mb-0">Find quality retail partners to sell your products on <br> <router-link id="marketplace-stores-link" :to="routes.MARKETPLACE" class="text-xl btn-link">Marketplace</router-link></p>
       </div>
     </template>
 
@@ -146,6 +150,13 @@ const getStatus = (connection) => {
       </template>
     </Column>
   </DataTable>
+
+  <div v-if="connections?.length < 5 && connections?.length > 0" class="text-center py-6 mt-6">
+    <p class="text-3xl">🚀</p>
+    <p class="text-xl font-semi text-light mb-0">Supercharge your growth</p>
+    <p v-if="isDestinationStore" class="text-lg line-height-3 mt-2 mb-0 text-light">Find quality products and partners on <router-link :to="routes.MARKETPLACE" class="text-lg btn-link">Marketplace</router-link></p>
+    <p v-else-if="isSourceStore" class="text-lg line-height-3 mt-2 mb-0 ">Find quality retail partners to sell your products on <br> <router-link id="marketplace-stores-link" :to="routes.MARKETPLACE" class="text-lg btn-link">Marketplace</router-link></p>
+  </div>
 </template>
 
 <style>

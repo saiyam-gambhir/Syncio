@@ -1,5 +1,8 @@
 <script setup>
+import { useUrlSearchParams } from '@vueuse/core';
+
 /* ----- Components ----- */
+const CreateProfileDialog = defineAsyncComponent(() => import('./components/CreateProfileDialog.vue'));
 const MessageDialog = defineAsyncComponent(() => import('./components/MessageDialog.vue'));
 const MessageSentDialog = defineAsyncComponent(() => import('./components/MessageSentDialog.vue'));
 
@@ -7,17 +10,24 @@ const MessageSentDialog = defineAsyncComponent(() => import('./components/Messag
 const {
   fetchProfile,
   fetchProfiles,
+  isCreateProfileDialogVisible,
   isMessageDialogVisible,
   isMessageSentDialogVisible,
-  profile,
-  profiles,
   loading,
   loadingProfile,
+  profile,
+  profiles,
 } = toRefs(useMarketPlaceStore());
+
+const params = useUrlSearchParams();
 
 /* ----- Mounted ----- */
 onMounted(async () => {
   await fetchProfilesHandler();
+
+  if(Boolean(params['show-invite-dialog']) && profile.value?.updatedAt) {
+    isMessageDialogVisible.value = true;
+  }
 });
 
 /* ----- Methods ----- */
@@ -30,33 +40,21 @@ async function fetchProfilesHandler() {
 </script>
 
 <template>
-  <section class="marketplace mt-2">
+  <section class="marketplace">
     <div v-if="loadingProfile">
       <MarketplaceViewSkeleton />
     </div>
-    <div v-else-if="!profile.updatedAt && !loadingProfile">
-      <Banner />
-    </div>
     <div v-else>
-      <div class="grid">
-        <div class="col col-6">
-          <UserProfile :profile="profile" />
-        </div>
-        <div class="col col-6">
-          <Survey />
-        </div>
-      </div>
-
       <div class="sticky-section">
         <Search />
         <Filters />
       </div>
-
       <Profiles />
     </div>
   </section>
 
   <!----- Dialogs ----->
+  <CreateProfileDialog v-if="isCreateProfileDialogVisible" />
   <MessageDialog v-if="isMessageDialogVisible" />
   <MessageSentDialog v-if="isMessageSentDialogVisible" />
 </template>
@@ -65,9 +63,9 @@ async function fetchProfilesHandler() {
 .sticky-section {
   background: var(--white);
   margin: 0 -2rem;
-  padding: 1.5rem 2rem .5rem 2rem;
+  padding: 1.25rem 2rem 0 2rem;
   position: sticky;
-  top: 0;
+  top: 0rem;
   z-index: 10;
 }
 </style>

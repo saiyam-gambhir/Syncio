@@ -20,6 +20,11 @@ const props = defineProps({
     type: Boolean,
     default: true
   },
+
+  noWrap: {
+    type: Boolean,
+    default: false,
+  }
 });
 
 /* ----- Data ----- */
@@ -70,7 +75,7 @@ const setEntries = () => {
 
 <template>
   <div class="pagination flex align-items-center justify-content-between" v-if="pagination && pagination.total_count > 0">
-    <h4 class="m-0" v-if="pagination && showInfo">
+    <h4 class="m-0 font-semibold" v-if="pagination && showInfo" :style="{ 'white-space': noWrap ? 'nowrap' : 'normal', 'padding-right': noWrap ? '1.2rem' : '0'}">
       <Dropdown
         :disabled="disablePerPage"
         :options="perPageOptions"

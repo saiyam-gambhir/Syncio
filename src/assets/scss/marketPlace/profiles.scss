@@ -1,4 +1,9 @@
+.surface-section:has(> .marketplace) {
+  padding-top: 0 !important;
+}
+
 .marketplace {
+
   .profiles {
     .profile {
       border-radius: var(--border-radius);
