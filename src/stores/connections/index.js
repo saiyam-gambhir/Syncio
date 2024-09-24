@@ -153,6 +153,18 @@ export const useConnectionsStore = defineStore('connections', {
     requiresSourceStorePlanApproval({ currentStore }) {
       return DateTime.fromISO(currentStore?.created_at) > DateTime.fromISO(this.sourceStorePricingReleaseDate);
     },
+
+    /**
+     * 1. If `isSourceStore` is true:
+     *    - Return true if `isUniversalStore` is also true, OR
+     *    - If the store is `isShopify` and `requiresSourceStorePlanApproval` is true.
+     *
+     * 2. If `isSourceStore` is not true, return true if:
+     *    - The store is a `isShopify` store and is a `isDestinationStore`.
+    */
+    showUniversalStoreControls() {
+      return (this.isSourceStore) && (this.isUniversalStore || (this.isShopify && this.requiresSourceStorePlanApproval)) || (this.isShopify && this.isDestinationStore);
+    },
   },
 
   actions: deepmerge.all([

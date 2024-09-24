@@ -13,6 +13,7 @@ const {
   isShopify,
   isSourceStore,
   requiresSourceStorePlanApproval,
+  showUniversalStoreControls,
 } = toRefs(useConnectionsStore());
 
 /* ----- Mounted ----- */
@@ -62,15 +63,14 @@ const bootIntercom = () => {
   <main class="main">
     <Toast position="top-right" successIcon="pi pi-check-circle" />
 
-    <!-- <Alert>
+    <Alert v-if="showUniversalStoreControls">
       <div class="flex align-items-center justify-content-center">
-        <IconSlack class="mr-4" />
         <p class="my-0 text-lg line-height-3">
-          Let us know how you're finding Universal Store! <br>
-          Head to the Syncio Customer Community in <a href='https://syncio.slack.com/' target="_blank" class='btn-link dark font-semibold text-lg'>Slack</a> to share your feedback.
+          You can now be both a Source and Destination Store (Universal Store)! 🚀 <br>
+          See more details about <a href="https://help.syncio.co/en/articles/9774644-universal-store" target="_blank" class='btn-link dark font-semibold text-lg'>Universal Store beta here</a>, and send any questions or feedback using the <a href='javascript:void(0);' class='intercom-custom-launcher btn-link dark text-lg'>chat button</a>
         </p>
       </div>
-    </Alert> -->
+    </Alert>
 
     <div class="min-h-screen flex relative lg:static">
       <Navbar />

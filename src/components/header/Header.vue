@@ -13,6 +13,7 @@ const {
   isShopify,
   isUniversalStore,
   shopifyPermissions,
+  showUniversalStoreControls,
   storeName,
   storeType,
 } = toRefs(useConnectionsStore());
@@ -79,7 +80,7 @@ const copyStoreNameHandler = async val => {
     </div>
 
     <div class="header-right flex align-items-center">
-      <div v-if="isShopify" class="flex">
+      <div v-if="showUniversalStoreControls" class="flex">
         <UniversalStoreActions v-if="isUniversalStore" />
         <NonuniversalStoreActions v-else />
       </div>
