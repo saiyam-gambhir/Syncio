@@ -1,18 +1,19 @@
 export const DELETE_STORE = {
   async DELETE_STORE() {
-    const { userId } = useAuthStore();
+    try {
+      const { userId } = useAuthStore();
+      const { fetchCurrentPlan } = usePlanStore();
 
-    const {
-      fetchCurrentPlan,
-    } = usePlanStore();
+      // Delete store profile by ID
+      const response = await axiosService.deleteData(`user/${userId}/stores/${this.storeId}/profile`);
 
-    const response = await axiosService.deleteData(`user/${userId}/stores/${this.storeId}/profile`);
+      // Fetch current plan after store deactivation
+      await fetchCurrentPlan(userId);
 
-    /* Fetch current plan after deactivation */
-    await fetchCurrentPlan(userId);
-
-    if(response.charge) {
-      window.location.href = response.charge.confirmation_url;
-    }
+      // Redirect to confirmation page if charge exists
+      if (response.charge?.confirmation_url) {
+        window.location.href = response.charge.confirmation_url;
+      }
+    } catch (error) {}
   },
 };
