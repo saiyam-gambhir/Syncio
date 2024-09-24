@@ -1,7 +1,7 @@
 <script setup></script>
 
 <template>
-  <section class="marketplace mt-2">
+  <section class="marketplace pt-4">
     <div class="grid">
       <ProfileSkeleton />
     </div>

@@ -24,10 +24,10 @@ onMounted(async () => {
         <div class="grid-column">
           <h3 class="my-0">Every month starts free</h3>
           <p class="text-lg mt-2 line-height-3">
-            You'll only ever pay when you sell more than 10 products in the monthly billing period. <br> If you have less than 10 sales in the monthly billing period then it remains free.
+            You'll only ever pay when you sell more than 10 orders with synced products in the monthly billing period. <br> If you have less than 10 orders with synced products in the monthly billing period then it remains free.
           </p>
-          <h3 class="mt-5 mb-0">Usage tiers</h3>
-          <p class="text-lg mt-2 line-height-3">At the end of the month we'll determine the tier based on the synced products sold during the billing cycle.</p>
+          <h3 class="mt-5 mb-0">Performance-based tiers</h3>
+          <p class="text-lg mt-2 line-height-3">At the end of the month we'll determine the tier based on the number of orders with synced products during the billing cycle.</p>
 
           <ul class="flex source-plans list-none p-0 m-0 mt-6">
             <SourcePlan planName="" price="" blank class="first" />
@@ -37,7 +37,7 @@ onMounted(async () => {
             <SourcePlan planName="Enterprise" price="$99" limit="1001+" />
           </ul>
 
-          <p style="color: #757575" class="text-sm mt-3">*Synced Products Sold: The number of products synced to connected Destination stores that are sold by that store</p>
+          <p style="color: #757575" class="text-sm mt-3">*Order with synced products: An order placed on a Destination Store containing at least one product synced from your store</p>
 
           <h3 class="mt-6">All tiers include the following</h3>
           <ul class="m-0 p-0 list-none mb-4 text-sm">

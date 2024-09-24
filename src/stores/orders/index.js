@@ -15,7 +15,7 @@ export const useOrdersStore = defineStore('orders', {
       activeTabIndex: 0,
       bulkPushCount: null,
       bulkPushShippingCost: null,
-      filters: { searchStr: '', sortBy: 'DESC', status: '' },
+      filters: { searchStr: '', sortBy: 'DESC', status: null },
       isAutoPushEnabled: 'Off',
       isBulkPushActive: false,
       isBulkPushDialogVisible: false,

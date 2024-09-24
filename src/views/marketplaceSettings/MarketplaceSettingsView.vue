@@ -1,12 +1,19 @@
 <script setup>
 //import * as IntercomActions from '@/intercom';
+import * as routes from '@/routes';
 import * as validationMessages from '@/validationMessages';
 
 /* ----- Components ----- */
 const ProfileCreatedDialog = defineAsyncComponent(() => import('./components/ProfileCreatedDialog.vue'));
 const ProfilePreviewDialog = defineAsyncComponent(() => import('./components/ProfilePreviewDialog.vue'));
+const ReturnToMarketplaceDialogVisible = defineAsyncComponent(() => import('./components/ReturnToMarketplaceDialog.vue'));
 
 /* ----- Data ----- */
+const clonedProfile = ref({});
+const forceLeavingPage = ref(false);
+const router = useRouter();
+const routeTo = ref(null);
+
 const {
   isSourceStore,
   storeId,
@@ -18,11 +25,17 @@ const {
   fetchProfile,
   isPreviewProfileDialogVisible,
   isProfileCreatedDialogVisible,
+  isReturnToMarketplaceDialogVisible,
   loadingProfile,
   maxImagesAllowed,
   profile,
+  selectedProfile,
   updateProfile,
 } = toRefs(useMarketPlaceStore());
+
+const {
+  showLeavingPageDialog,
+} = toRefs(useAuthStore());
 
 const deletedImages = ref([]);
 const fileSelectedForUpload = ref([]);
@@ -40,6 +53,7 @@ const websiteError = ref(null);
 /* ----- Mounted ----- */
 onMounted(async () => {
   await fetchProfile.value();
+  clonedProfile.value = structuredClone(toRaw(profile.value));
 });
 
 /* ----- Computed ----- */
@@ -103,11 +117,24 @@ const deleteFilesFromView = (image, index) => {
 const updateProfileHandler = async () => {
   const isProfileCreated = profile.value?.updatedAt;
   await updateProfile.value();
+  clonedProfile.value = structuredClone(toRaw(profile.value));
 
   // Trigger for the first time or show dialog to redirect to marketplace page
   if(!isProfileCreated) {
+    if(selectedProfile.value) {
+      isReturnToMarketplaceDialogVisible.value = true;
+      return;
+    }
     isProfileCreatedDialogVisible.value = true;
     //Intercom('trackEvent', IntercomActions.MARKETPLACE_PROFILE_CREATED_EVENT);
+  }
+};
+
+const leaveCurrentPageHandler = () => {
+  if (routeTo.value) {
+    forceLeavingPage.value = true;
+    router.push(routeTo.value);
+    showLeavingPageDialog.value = false;
   }
 };
 
@@ -116,11 +143,22 @@ watch(profile, (newValue, oldValue) => {
   const { brandName, category, location, numOfProducts, socialMedia, website } = newValue;
   brandNameError.value = brandName?.length > 0 ? null : validationMessages.REQUIRED;
   categoryError.value = category?.length > 0 ? null : validationMessages.REQUIRED;
-  locationError.value = location?.length > 0 ? null : validationMessages.REQUIRED;
+  locationError.value = (location?.length || location?.name.length) > 0 ? null : validationMessages.REQUIRED;
   numOfProductsError.value = numOfProducts && numOfProducts > -1 > 0 ? null : validationMessages.REQUIRED;
   socialMediaError.value = !urlRegex.test(socialMedia) && socialMedia?.length > 0 ? validationMessages.URL_VERIFICATION : null;
   websiteError.value = urlRegex.test(website) ? null : validationMessages.URL_VERIFICATION;
 }, { deep: true });
+
+/* ----- Before Route Leave ----- */
+onBeforeRouteLeave((to, from, next) => {
+  if(JSON.stringify(clonedProfile.value) !== JSON.stringify(profile.value) && !forceLeavingPage.value && to.fullPath !== routes.LOGIN) {
+    showLeavingPageDialog.value = true;
+    routeTo.value = to;
+    next(false);
+  } else {
+    next();
+  }
+});
 </script>
 
 <template>
@@ -219,8 +257,10 @@ watch(profile, (newValue, oldValue) => {
                       :class="{ 'mb-3 p-invalid': locationError }"
                       :options="countries"
                       class="w-66"
-                      editable
+                      filter
+                      filterIcon="pi pi-search"
                       inputId="location"
+                      optionLabel="name"
                       placeholder="Select Country"
                       selectOnFocus
                       showClear
@@ -344,11 +384,12 @@ watch(profile, (newValue, oldValue) => {
     </article>
   </form>
 
-  <!-- Preview profile dialog -->
-  <ProfilePreviewDialog v-if="isPreviewProfileDialogVisible" />
-
-  <!-- Profile created dialog -->
+  <!-- Dialog -->
+  <LeavingPageDialog :isDialogVisible="showLeavingPageDialog" @leaveCurrentPage="leaveCurrentPageHandler" />
   <ProfileCreatedDialog v-if="isProfileCreatedDialogVisible" />
+  <ProfilePreviewDialog v-if="isPreviewProfileDialogVisible" />
+  <ReturnToMarketplaceDialogVisible v-if="isReturnToMarketplaceDialogVisible" />
+
 </template>
 
 <style scoped>

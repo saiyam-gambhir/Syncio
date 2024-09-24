@@ -11,7 +11,6 @@ const {
   plan,
   productsSynced,
   productsSyncedLimit,
-  wooPlanSelectionLink,
 } = toRefs(usePlanStore());
 
 const {
@@ -35,7 +34,10 @@ const stripeLoginUrl = computed(() => {
         <router-link v-if="isShopify || isShopline" :to="routes.PLAN_AND_BILLINGS">
           <Button label="Manage" class="mt-4 font-bold justify-content-center w-full"></Button>
         </router-link>
-        <a v-if="isWoocommerce" :href="stripeLoginUrl" class="p-button mt-4 font-bold justify-content-center w-full">Manage</a>
+        <a v-if="isWoocommerce && plan" :href="stripeLoginUrl" class="p-button mt-4 font-bold justify-content-center w-full">Manage</a>
+        <router-link v-else-if="isWoocommerce && !plan" :to="routes.WOO_PLAN_SELECTION">
+          <Button label="Select plan" class="mt-4 font-bold justify-content-center w-full"></Button>
+        </router-link>
       </template>
     </CardWrapper>
   </div>

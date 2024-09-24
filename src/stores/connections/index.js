@@ -153,8 +153,6 @@ export const useConnectionsStore = defineStore('connections', {
     requiresSourceStorePlanApproval({ currentStore }) {
       return DateTime.fromISO(currentStore?.created_at) > DateTime.fromISO(this.sourceStorePricingReleaseDate);
     },
-
-
   },
 
   actions: deepmerge.all([
@@ -185,7 +183,7 @@ export const useConnectionsStore = defineStore('connections', {
         storage: sessionStorage,
         paths: [
           'connectionFilterItems',
-          //'currentStore',
+          // 'currentStore',
           'filters',
           'selectedConnection',
         ],

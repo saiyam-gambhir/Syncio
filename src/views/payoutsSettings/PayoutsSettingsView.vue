@@ -29,7 +29,7 @@ const {
 } = toRefs(useConnectionsStore());
 
 const {
-  showLeavingPageDialog
+  showLeavingPageDialog,
 } = toRefs(useAuthStore());
 
 const {
