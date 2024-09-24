@@ -1,5 +1,5 @@
-export const ENABLE_STORE = {
-  async ENABLE_STORE() {
+export const enableStore = {
+  async enableStore() {
     try {
       this.loadingEnableStore = true;
       const { userId } = useAuthStore();

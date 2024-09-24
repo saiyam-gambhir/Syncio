@@ -29,7 +29,7 @@ const {
   storeKey,
   storeName,
   storeType,
-  UPDATE_DEFAULT_STORE,
+  updateDefaultStore,
 } = toRefs(useConnectionsStore());
 
 const {
@@ -140,7 +140,7 @@ const deleteStoreHandler = () => {
                     <span v-if="isDefaultStore" class="font-normal text-light mr-2">Default for login</span>
                     <Button
                       :loading="loadingDefaultStoreUpdate"
-                      @click="UPDATE_DEFAULT_STORE"
+                      @click="updateDefaultStore"
                       class="mr-2"
                       label="Make Default"
                       outlined

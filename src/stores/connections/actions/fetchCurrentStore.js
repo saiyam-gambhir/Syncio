@@ -1,5 +1,3 @@
-import router from '@/router';
-
 export const fetchCurrentStore = {
   async fetchCurrentStore() {
     const queryString = window.location.search;

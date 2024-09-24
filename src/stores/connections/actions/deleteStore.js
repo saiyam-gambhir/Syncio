@@ -1,5 +1,5 @@
-export const DELETE_STORE = {
-  async DELETE_STORE() {
+export const deleteStore = {
+  async deleteStore() {
     try {
       const { userId } = useAuthStore();
       const { fetchCurrentPlan } = usePlanStore();

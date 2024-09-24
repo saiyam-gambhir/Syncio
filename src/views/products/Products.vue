@@ -29,7 +29,7 @@ const {
   selectedProducts,
   selectedStore,
   selectedStoreId,
-  SYNC_PRODUCT,
+  syncProduct,
   syncedProducts,
   unsyncedProducts,
 } = toRefs(useProductsStore());
@@ -76,7 +76,7 @@ const syncProductHandler = async (product) => {
   }
 
   clickedProduct.value = product;
-  const response = await SYNC_PRODUCT.value(product.external_product_id);
+  const response = await syncProduct.value(product.external_product_id);
   if(response?.success) {
     product.mapper_id = await response.mapper.id;
     if(productsSynced.value === 0) {

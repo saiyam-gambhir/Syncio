@@ -4,7 +4,7 @@ import * as routes from '@/routes';
 /* ----- Data ----- */
 const {
   currentStore,
-  ENABLE_STORE,
+  enableStore,
   isDestinationStore,
   isEnableUniversalStoreRequested,
   isSourceStore,
@@ -21,21 +21,21 @@ const closeDialogHandler = () => {
   isEnableUniversalStoreRequested.value = false;
 };
 
-const enableStore = async () => {
-  await ENABLE_STORE.value();
+const enableStoreHandler = async () => {
+  await enableStore.value();
   currentStore.value = universalStores.value.find(store => !store.default);
 };
 
 const selectPlanHandler = async () => {
   loadingEnableStore.value = true;
-  await enableStore();
+  await enableStoreHandler();
   loadingEnableStore.value = false;
   router.push({ path: routes.SHOPIFY_SELECT_PLAN });
 };
 
 const enableSourceStorePlanHandler = async () => {
   loadingEnableStore.value = true;
-  await enableStore();
+  await enableStoreHandler();
   loadingEnableStore.value = false;
   router.push({ path: routes.SHOPIFY_PLAN_APPROVAL });
 };
