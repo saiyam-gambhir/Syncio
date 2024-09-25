@@ -163,7 +163,9 @@ export const useConnectionsStore = defineStore('connections', {
      *    - The store is a `isShopify` store and is a `isDestinationStore`.
     */
     showUniversalStoreControls() {
-      return (this.isSourceStore) && (this.isUniversalStore || (this.isShopify && this.requiresSourceStorePlanApproval)) || (this.isShopify && this.isDestinationStore);
+      const sourceStoreChecks = ((this.isSourceStore) && (this.isUniversalStore || (this.isShopify && this.requiresSourceStorePlanApproval)));
+      const destinationStoreChecks = (this.isShopify && this.isDestinationStore);
+      return sourceStoreChecks || destinationStoreChecks;
     },
   },
 

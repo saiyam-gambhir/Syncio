@@ -4,6 +4,8 @@ import * as routes from '@/routes';
 /* ----- Data ----- */
 const router = useRouter();
 
+const isBannerVisible = ref(true);
+
 const {
   plan,
 } = toRefs(usePlanStore())
@@ -31,6 +33,13 @@ onMounted(() => {
   //   router.push({ name: routes.WOO_PLAN_SELECTION });
   //   return;
   // }
+
+  if(localStorage.getItem('showUniversalStoreBanner') === 'false' ) return;
+  localStorage.setItem('showUniversalStoreBanner', 'true');
+});
+
+const shouldShowUniversalStoreControls = computed(() => {
+  return showUniversalStoreControls.value && localStorage?.showUniversalStoreBanner === 'true' && isBannerVisible.value;
 });
 
 /* ----- Methods ----- */
@@ -57,18 +66,24 @@ const bootIntercom = () => {
     setIntercomConfigs(currentStore.value, createdAt);
   }
 };
+
+const hideBannerHandler = () => {
+  localStorage.setItem('showUniversalStoreBanner', 'false');
+  isBannerVisible.value = false;
+};
 </script>
 
 <template>
   <main class="main">
     <Toast position="top-right" successIcon="pi pi-check-circle" />
 
-    <Alert v-if="showUniversalStoreControls">
-      <div class="flex align-items-center justify-content-center">
+    <Alert v-if="shouldShowUniversalStoreControls">
+      <div class="flex align-items-center justify-content-center relative">
         <p class="my-0 text-lg line-height-3">
           You can now be both a Source and Destination Store (Universal Store)! 🚀 <br>
           See more details about <a href="https://help.syncio.co/en/articles/9774644-universal-store" target="_blank" class='btn-link dark font-semibold text-lg'>Universal Store beta here</a>, and send any questions or feedback using the <a href='javascript:void(0);' class='intercom-custom-launcher btn-link dark text-lg'>chat button</a>
         </p>
+        <Button @click="hideBannerHandler" icon="pi pi-times" rounded text aria-label="Cancel" class="absolute" style="right: .6rem;" />
       </div>
     </Alert>
 
