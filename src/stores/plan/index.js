@@ -87,7 +87,7 @@ export const usePlanStore = defineStore('plan', {
         }
       });
 
-      if(!plan && this.plans?.length > 0) {
+      if((!plan && this.plans?.length > 0)) { // TODO: Explain why?
         const avaialbleAddons = this.plans[0]?.available_addons;
         const addons = {
           order: avaialbleAddons.order && avaialbleAddons.order[0],

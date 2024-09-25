@@ -11,6 +11,7 @@ const {
   plan,
   plans,
   selectedPlan,
+  selectedAddonIds,
 } = toRefs(usePlanStore());
 
 const {
@@ -20,6 +21,7 @@ const {
 const {
   fetchCurrentStore,
   isSourceStore,
+  isUniversalStore,
   isWoocommerce,
 } = toRefs(useConnectionsStore());
 
@@ -43,6 +45,16 @@ onMounted(async () => {
 /* ----- Methods ----- */
 const setSelectedPlan = () => {
   selectedPlan.value = JSON.parse(JSON.stringify(plans.value[0]));
+
+  if(isUniversalStore.value) {
+    const avaialbleAddons = plans?.value[0].available_addons;
+    const activeAddons = {
+      order: avaialbleAddons.order && avaialbleAddons.order[0],
+      product: avaialbleAddons.product && avaialbleAddons.product[0],
+      payout: avaialbleAddons.payout && avaialbleAddons.payout[0],
+    };
+    selectedPlan.value.addonsSummary = { ...activeAddons };
+  }
 };
 
 const fetchPlansHandler = async () => {

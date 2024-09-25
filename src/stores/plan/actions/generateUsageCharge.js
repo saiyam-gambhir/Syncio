@@ -9,7 +9,7 @@ export const generateUsageCharge = {
 
       if(isUniversalStore) {
         universalStoreParams.is_onboarding = this.plan ? false : true;
-        universalStoreParams.option_ids = optionsIds;
+        universalStoreParams.option_ids = optionsIds || [];
         universalStoreParams.plan_id = this.plans.find(_plan => _plan.name.toLowerCase() === this.plan.name.toLowerCase())?.id;
       } else {
         params.is_onboarding = this.plan ? false : true;

@@ -118,7 +118,7 @@ const generateChargeHandler = async () => {
 
       <h4 class="uppercase mt-0">Base Plan</h4>
 
-      <div v-if="plan?.syncio_plan" class="flex justify-content-between uppercase font-semibold" :class="{ 'strike-through': plan?.syncio_plan?.price_per_month !== selectedPlan?.price_per_month }">
+      <div v-if="plan?.syncio_plan && plan?.store_type !== 'source'" class="flex justify-content-between uppercase font-semibold" :class="{ 'strike-through': plan?.syncio_plan?.price_per_month !== selectedPlan?.price_per_month }">
         <span>{{ plan.syncio_plan.name }} <span v-if="!plan.syncio_plan.is_active" class="legacy">(legacy)</span></span>
         <span class="tabular-nums">{{ formatCurrency(plan.syncio_plan?.price_per_month) }}</span>
       </div>
