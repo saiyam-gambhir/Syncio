@@ -8,10 +8,8 @@ const {
   fetchPlans,
   isOnboarding,
   loadingPlans,
-  plan,
   plans,
   selectedPlan,
-  selectedAddonIds,
 } = toRefs(usePlanStore());
 
 const {

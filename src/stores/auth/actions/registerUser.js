@@ -8,10 +8,10 @@ export const registerUser = {
       this.registrationForm.loading = true;
 
       const params = {
-        email: emailAddress.value || 'Saiyam',
+        email: emailAddress.value,
         name: name.value,
-        password_confirmation: passwordConfirmation.value || 'Saiyam12',
-        password: password.value || 'Saiyam12',
+        password_confirmation: passwordConfirmation.value,
+        password: password.value,
       };
 
       const response = await axiosService.postData('user/register', params, true);

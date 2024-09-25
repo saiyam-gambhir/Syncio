@@ -49,15 +49,7 @@ class AxiosService {
 
       async error => {
         const { status, data } = error.response || {};
-        const activityCenter = useActivityCenterStore();
         const auth = useAuthStore();
-        const connections = useConnectionsStore();
-        const marketPlace = useMarketPlaceStore();
-        const orders = useOrdersStore();
-        const payouts = usePayoutsStore();
-        const plan = usePlanStore();
-        const products = useProductsStore();
-        const productSettings = useProductSettingsStore();
 
         switch (status) {
           case 401: {
