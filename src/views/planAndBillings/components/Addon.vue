@@ -33,7 +33,7 @@ const props = defineProps({
 onMounted(() => {
   selectedOption.value = props.addon?.module_id;
   selectedAddonIds.value = { ...selectedAddonIds.value, [props.title]: selectedOption.value };
-})
+});
 
 /* ----- Watcher ----- */
 watch(selectedPlan, () => {
