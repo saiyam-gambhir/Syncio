@@ -4,16 +4,22 @@ import * as routes from '@/routes';
 
 /* ----- Data ----- */
 const {
+  fetchCurrentPlan,
   fetchPlans,
   isOnboarding,
   loadingPlans,
-  plan,
   plans,
   selectedPlan,
 } = toRefs(usePlanStore());
 
 const {
+  userId,
+} = toRefs(useAuthStore());
+
+const {
+  fetchCurrentStore,
   isSourceStore,
+  isUniversalStore,
   isWoocommerce,
 } = toRefs(useConnectionsStore());
 
@@ -29,20 +35,28 @@ onMounted(async () => {
   }
 
   await fetchPlansHandler();
+  await fetchCurrentPlan.value(userId.value);
   setSelectedPlan();
   isOnboarding.value = true;
 });
 
 /* ----- Methods ----- */
 const setSelectedPlan = () => {
-  // Check if selectedPlan.value doesn't exist
-  if (!selectedPlan.value) {
-    // Assign the value based on whether plan.value exists
-    selectedPlan.value = plan.value ? JSON.parse(JSON.stringify(plan.value.syncio_plan)) : JSON.parse(JSON.stringify(plans.value[0]));
+  selectedPlan.value = JSON.parse(JSON.stringify(plans.value[0]));
+
+  if(isUniversalStore.value) {
+    const avaialbleAddons = plans?.value[0].available_addons;
+    const activeAddons = {
+      order: avaialbleAddons.order && avaialbleAddons.order[0],
+      product: avaialbleAddons.product && avaialbleAddons.product[0],
+      payout: avaialbleAddons.payout && avaialbleAddons.payout[0],
+    };
+    selectedPlan.value.addonsSummary = { ...activeAddons };
   }
 };
 
 const fetchPlansHandler = async () => {
+  await fetchCurrentStore.value();
   await fetchPlans.value();
 };
 </script>
@@ -65,7 +79,7 @@ const fetchPlansHandler = async () => {
           </div>
 
           <div class="col-12 md:col-12 lg:col-3">
-            <Summary />
+            <Summary isRouteShopifySelectPlan />
           </div>
         </section>
       </article>
@@ -83,6 +97,7 @@ const fetchPlansHandler = async () => {
 
 .current-plan.surface-card {
   background: #e3f2ff !important;
+  pointer-events: none;
 }
 
 .selected-plan {

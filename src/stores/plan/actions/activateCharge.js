@@ -1,13 +1,14 @@
 export const activateCharge = {
   async activateCharge(payload) {
 
-    const { addons, charge_id, plan_id } = payload;
+    const { addons, charge_id, plan_id, remove_store_id } = payload;
     const { fetchUser } = useAuthStore();
     const usedId = sessionStorage.getItem('USER_ID');
     const params = {
       charge_id: charge_id,
       option_ids: addons,
       plan_id: plan_id,
+      remove_store_id: remove_store_id,
       user_id: usedId,
     };
 

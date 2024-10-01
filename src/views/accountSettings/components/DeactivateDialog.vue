@@ -1,16 +1,12 @@
 <script setup>
-import * as routes from '@/routes';
-
 /* ----- Data ----- */
 const {
-  DELETE_STORE,
+  deleteStore,
   fetchCurrentStore,
   isDeactivateStoreDialogVisible,
   isStoreDeactivated,
   storeType,
 } = toRefs(useConnectionsStore());
-
-const router = useRouter();
 
 const loading = ref(false);
 
@@ -20,15 +16,19 @@ const closeDialogHandler = () => {
 };
 
 const deleteStoreHandler = async () => {
-  loading.value = true;
-  await DELETE_STORE.value();
-  isStoreDeactivated.value = true;
-  loading.value = false;
+  try {
+    loading.value = true;
+    await deleteStore.value();
+    isStoreDeactivated.value = true;
+    loading.value = false;
+    await fetchCurrentStore.value();
+  } catch(error) {
+    loading.value = false;
+  }
 };
 
 const loadCurrentStoreHandler = async () => {
   loading.value = true;
-  await fetchCurrentStore.value();
   setTimeout(() => {
     isStoreDeactivated.value = isDeactivateStoreDialogVisible.value = loading.value = false;
   }, 1000);

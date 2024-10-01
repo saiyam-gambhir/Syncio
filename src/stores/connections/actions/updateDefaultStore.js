@@ -1,5 +1,5 @@
-export const UPDATE_DEFAULT_STORE = {
-  async UPDATE_DEFAULT_STORE() {
+export const updateDefaultStore = {
+  async updateDefaultStore() {
     try {
       this.loadingDefaultStoreUpdate = true;
       const { userId } = useAuthStore();

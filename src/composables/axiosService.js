@@ -49,15 +49,7 @@ class AxiosService {
 
       async error => {
         const { status, data } = error.response || {};
-        const activityCenter = useActivityCenterStore();
         const auth = useAuthStore();
-        const connections = useConnectionsStore();
-        const marketPlace = useMarketPlaceStore();
-        const orders = useOrdersStore();
-        const payouts = usePayoutsStore();
-        const plan = usePlanStore();
-        const products = useProductsStore();
-        const productSettings = useProductSettingsStore();
 
         switch (status) {
           case 401: {
@@ -101,17 +93,7 @@ class AxiosService {
           }
 
           case 403:
-            activityCenter.$reset();
-            auth.$reset();
-            connections.$reset();
-            marketPlace.$reset();
-            orders.$reset();
-            payouts.$reset();
-            plan.$reset();
-            products.$reset();
-            productSettings.$reset();
-            sessionStorage.removeItem('ID_TOKEN_KEY');
-            sessionStorage.removeItem('USER_ID');
+            sessionStorage.clear()
             await router.push({ name: routes.LOGIN });
             toast('Your session has expired. Please login again to continue.', { ...toastOptions, multiple: false, type: 'error' });
             return Promise.reject(error);

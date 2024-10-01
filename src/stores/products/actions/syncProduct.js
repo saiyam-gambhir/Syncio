@@ -1,5 +1,5 @@
-export const SYNC_PRODUCT = {
-  async SYNC_PRODUCT(sourceProductId) {
+export const syncProduct = {
+  async syncProduct(sourceProductId) {
     const params = {
       connection_id: this.selectedStore.connection_id,
       source_product_id: sourceProductId,

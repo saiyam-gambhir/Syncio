@@ -3,9 +3,9 @@ import deepmerge from 'deepmerge';
 
 /* ----- Actions ----- */
 import { connectPartnerStore } from './actions/connectPartnerStore';
-import { DELETE_STORE } from './actions/deleteStore';
+import { deleteStore } from './actions/deleteStore';
 import { deleteConnection } from './actions/deleteConnection';
-import { ENABLE_STORE } from './actions/enableStore';
+import { enableStore } from './actions/enableStore';
 import { fetchConnections } from './actions/fetchConnections';
 import { fetchCurrentStore } from './actions/fetchCurrentStore';
 import { fetchDestinationLocations } from './actions/fetchDestinationLocations';
@@ -15,7 +15,7 @@ import { fetchStoreStats } from './actions/fetchStoreStats';
 import { invitePartnerStore } from './actions/invitePartnerStore';
 import { toggleMultilocation } from './actions/toggleMultilocation';
 import { uninstallStore } from './actions/uninstallStore';
-import { UPDATE_DEFAULT_STORE } from './actions/updateDefaultStore';
+import { updateDefaultStore } from './actions/updateDefaultStore';
 import { updateAPIKey } from './actions/updateAPIKey';
 import { updateEmail } from './actions/updateEmail';
 import { updateLocation } from './actions/updateLocation';
@@ -153,13 +153,27 @@ export const useConnectionsStore = defineStore('connections', {
     requiresSourceStorePlanApproval({ currentStore }) {
       return DateTime.fromISO(currentStore?.created_at) > DateTime.fromISO(this.sourceStorePricingReleaseDate);
     },
+
+    /**
+     * 1. If `isSourceStore` is true:
+     *    - Return true if `isUniversalStore` is also true, OR
+     *    - If the store is `isShopify` and `requiresSourceStorePlanApproval` is true.
+     *
+     * 2. If `isSourceStore` is not true, return true if:
+     *    - The store is a `isShopify` store and is a `isDestinationStore`.
+    */
+    showUniversalStoreControls() {
+      const sourceStoreChecks = ((this.isSourceStore) && (this.isUniversalStore || (this.isShopify && this.requiresSourceStorePlanApproval)));
+      const destinationStoreChecks = (this.isShopify && this.isDestinationStore);
+      return sourceStoreChecks || destinationStoreChecks;
+    },
   },
 
   actions: deepmerge.all([
     connectPartnerStore,
-    DELETE_STORE,
+    deleteStore,
     deleteConnection,
-    ENABLE_STORE,
+    enableStore,
     fetchConnections,
     fetchCurrentStore,
     fetchDestinationLocations,
@@ -169,7 +183,7 @@ export const useConnectionsStore = defineStore('connections', {
     invitePartnerStore,
     toggleMultilocation,
     uninstallStore,
-    UPDATE_DEFAULT_STORE,
+    updateDefaultStore,
     updateAPIKey,
     updateEmail,
     updateLocation,

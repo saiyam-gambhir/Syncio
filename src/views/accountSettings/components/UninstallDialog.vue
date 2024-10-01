@@ -9,16 +9,6 @@ const {
 
 const text = ref('');
 const uninstall = 'uninstall';
-
-const activityCenter = useActivityCenterStore();
-const auth = useAuthStore();
-const connections = useConnectionsStore();
-const marketPlace = useMarketPlaceStore();
-const orders = useOrdersStore();
-const payouts = usePayoutsStore();
-const plan = usePlanStore();
-const products = useProductsStore();
-const productSettings = useProductSettingsStore();
 const router = useRouter();
 
 /* ----- Methods ----- */
@@ -31,19 +21,9 @@ const handleUninstall = async () => {
   logout();
 };
 
-const logout = () => {
-  activityCenter.$reset();
-  auth.$reset();
-  connections.$reset();
-  marketPlace.$reset();
-  orders.$reset();
-  payouts.$reset();
-  plan.$reset();
-  products.$reset();
-  productSettings.$reset();
-  sessionStorage.removeItem('ID_TOKEN_KEY');
-  sessionStorage.removeItem('USER_ID');
-  router.push({ name: routes.LOGIN });
+const logout = async () => {
+  sessionStorage.clear();
+  await router.push({ name: routes.LOGIN });
 };
 </script>
 

@@ -19,7 +19,7 @@ const route = useRoute();
 /* ----- Mounted ----- */
 onMounted(() => {
   if(selectedPlan.value && !selectedPlan.value.addonsSummary) {
-    selectedPlan.value.addonsSummary = structuredClone(activeAddons?.value);
+    selectedPlan.value.addonsSummary = structuredClone(toRaw(activeAddons?.value));
   }
 });
 
@@ -28,8 +28,8 @@ watch(selectedPlan, (newValue, oldValue) => {
     const avaialbleAddons = plans?.value[0].available_addons;
     const _activeAddons = {
       order: avaialbleAddons.order && avaialbleAddons.order[0],
-      payout: avaialbleAddons.payout && avaialbleAddons.payout[0],
       product: avaialbleAddons.product && avaialbleAddons.product[0],
+      payout: avaialbleAddons.payout && avaialbleAddons.payout[0],
     };
 
     selectedPlan.value.addonsSummary = { ..._activeAddons };
