@@ -136,7 +136,7 @@ watch(newQuantity, () => {
 
   <section v-if="isSourceStore">
     <p class="text-lg">
-      Switch on any product attributes that you would like to sync across all connected source stores.
+      Switch on any product attributes that you would like to sync across all connected destination stores.
     </p>
     <div class="grid">
       <div class="col-5">
