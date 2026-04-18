@@ -35,6 +35,7 @@ try {
 
 const nextConfig = {
   reactStrictMode: true,
+  outputFileTracingRoot: require('path').join(__dirname, '..'),
   
   // Environment variables
   env: {

@@ -1362,14 +1362,16 @@ export default function MetricsPage() {
                 />
                 <ChartTooltip 
                   content={<ChartTooltipContent hideLabel />}
-                  formatter={(value: number | undefined, name: string | undefined) => {
+                  formatter={(value, name) => {
                     if (value === undefined || value === null) return null
-                    const hours = value as number
+                    const hours = Number(value)
+                    if (Number.isNaN(hours)) return null
                     if (hours <= 0) return null
                     const h = Math.floor(hours)
                     const m = Math.round((hours - h) * 60)
                     const formatted = h > 0 ? `${h}h${m > 0 ? `${m}m` : ''}` : `${m}m`
-                    const isMovies = name === 'watchTimeMoviesHours'
+                    const metricName = typeof name === 'string' ? name : ''
+                    const isMovies = metricName === 'watchTimeMoviesHours'
                     return [
                       <span key="value" className="flex items-center gap-1">
                         {isMovies ? <Film className="w-3 h-3" /> : <Tv className="w-3 h-3" />}
